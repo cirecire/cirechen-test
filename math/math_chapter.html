@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Chapter</title>
+<style>
+:root {
+  --bg: #f0f4f8;
+  --card: #fff;
+  --text: #1e293b;
+  --text-secondary: #475569;
+  --border: #cbd5e1;
+  --blue: #2563eb;
+  --blue-banner: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  --shadow: rgba(0,0,0,.08);
+  --purple: #7c3aed;
+  --teal: #0f766e;
+  --green: #059669;
+}
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border: #334155;
+  --shadow: rgba(0,0,0,.3);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --text: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border: #334155;
+    --shadow: rgba(0,0,0,.3);
+  }
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:0 0 56px;}
+.banner{background:var(--blue-banner);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:14px;}
+.banner .home{color:#fff;text-decoration:none;font-size:13px;background:rgba(255,255,255,.15);padding:6px 12px;border-radius:8px;}
+.banner h1{flex:1;font-size:19px;}
+.banner .cov{display:inline-block;margin-top:4px;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;background:rgba(255,255,255,.18);}
+.container{max-width:800px;margin:0 auto;padding:0 24px;}
+.stepbar{display:flex;gap:6px;align-items:center;margin-top:18px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:0 2px 8px var(--shadow);overflow-x:auto;}
+.sb{display:flex;align-items:center;gap:8px;cursor:pointer;flex-shrink:0;}
+.sb-num{width:26px;height:26px;border-radius:50%;background:#e2e8f0;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;transition:.15s;}
+.sb-label{font-size:13px;font-weight:600;color:var(--text-secondary);}
+.sb.active .sb-num{background:var(--blue);color:#fff;}
+.sb.active .sb-label{color:var(--blue);}
+.sb.done .sb-num{background:var(--green);color:#fff;}
+.sb.done .sb-label{color:var(--green);}
+.panel{display:none;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;margin-top:16px;box-shadow:0 2px 8px var(--shadow);}
+.panel.active{display:block;}
+.elicit{background:#eff6ff;border-left:4px solid var(--blue);border-radius:8px;padding:14px 16px;font-weight:600;}
+.video-card{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text);background:#fff;transition:transform .12s,box-shadow .12s;}
+.video-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px var(--shadow);}
+.video-card .play{width:38px;height:38px;border-radius:8px;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.video-card .vt{font-size:14px;font-weight:700;flex:1;}
+.video-card .vm{font-size:12px;color:var(--text-secondary);}
+.note{margin-top:12px;padding:10px 14px;background:#f0fdf4;border-left:4px solid var(--green);border-radius:8px;font-size:14px;}
+.note .nl{font-weight:700;color:var(--teal);margin-bottom:4px;}
+.project{margin-top:14px;background:#faf5ff;border-left:4px solid var(--purple);border-radius:8px;padding:12px 14px;font-size:13.5px;}
+.project .pl{font-weight:700;color:var(--purple);margin-bottom:4px;}
+.q{display:none;border:1px solid var(--border);border-radius:10px;padding:15px;margin-top:13px;background:#fff;}
+.q.active{display:block;}
+.q .qtxt{font-weight:600;margin-bottom:10px;}
+.q .qopt{display:block;margin:6px 0;padding:8px 12px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:14px;}
+.q .qopt:hover{background:#f8fafc;}
+.q .qopt.selected{background:#eff6ff;border-color:var(--blue);}
+.q input[type="text"]{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;margin-top:6px;}
+.fb{margin-top:10px;padding:8px 12px;border-radius:8px;font-size:13px;font-weight:600;display:none;}
+.fb.ok{background:#ecfdf5;border:1px solid #6ee7b7;color:#065f46;display:block;}
+.fb.no{background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;display:block;}
+.sol{margin-top:10px;padding:10px 12px;background:#f0fdfa;border-left:4px solid var(--teal);border-radius:8px;font-size:13.5px;display:none;}
+.next-btn{background:var(--blue);color:#fff;border:none;padding:11px 22px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;}
+.next-btn:hover{background:#1d4ed8;}
+.next-btn:disabled{background:#94a3b8;cursor:not-allowed;}
+.done-screen{display:none;text-align:center;padding:40px 24px;}
+.done-screen.active{display:block;}
+.done-screen .big{font-size:64px;margin-bottom:16px;}
+.done-screen h2{font-size:24px;margin-bottom:12px;}
+.done-screen p{color:var(--text-secondary);margin-bottom:24px;}
+.go-next{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;padding:12px 24px;border-radius:10px;font-weight:700;transition:transform .12s;}
+.go-next:hover{transform:translateY(-2px);}
+</style>
+</head>
+<body>
+<div class="banner">
+  <a class="home" id="home" href="#">← Back</a>
+  <div>
+    <span id="crumb" style="font-size:12px;opacity:.7"></span>
+    <h1 id="title">Chapter</h1>
+    <span id="cov" class="cov"></span>
+  </div>
+</div>
+<div class="container">
+  <div class="stepbar" id="stepbar"></div>
+  <div class="panel" id="p1"></div>
+  <div class="panel" id="p2"></div>
+  <div class="panel" id="p3"></div>
+  <div class="panel" id="p4"></div>
+  <div class="panel" id="p5"></div>
+  <div class="done-screen" id="done">
+    <div class="big">🎉</div>
+    <h2>Chapter complete!</h2>
+    <p id="doneText"></p>
+    <a class="go-next" id="goNext" href="#">Go to next chapter ▶</a>
+  </div>
+</div>
+<script src="math_data.js"></script>
+<script>
+var params = new URLSearchParams(location.search);
+var CH_ID = params.get("ch") || "ch01";
+var GRADE = params.get("grade") || "8";
+var CH = null, CH_LIST = [], idx = -1;
+
+for (var i = 0; i < MATH_DATA.length; i++) {
+  if (MATH_DATA[i].id === CH_ID) {
+    CH = MATH_DATA[i];
+    if (!GRADE) GRADE = CH.g || "8";
+    break;
+  }
+}
+
+if (CH) {
+  CH_LIST = MATH_DATA.filter(function(c) { return (c.g || "8") === GRADE; });
+  for (var j = 0; j < CH_LIST.length; j++) {
+    if (CH_LIST[j].id === CH_ID) { idx = j; break; }
+  }
+}
+
+if (!CH) {
+  document.getElementById("title").textContent = "Chapter not found";
+} else {
+  render();
+}
+
+var TOTAL = 5, cur = 1;
+
+function render() {
+  document.getElementById("home").href = "index.html";
+  document.getElementById("crumb").textContent = "G" + GRADE + " · " + (CH.loc || "") + " · Chapter " + (CH.gx || idx + 1);
+  document.getElementById("title").textContent = "G" + GRADE + "·" + pad(CH.gx || idx + 1) + "  " + cleanName(CH.title);
+  var covTxt = { g: "🟢 Khan video + exercise", b: "🔵 Khan video only — practice added", p: "🟣 custom only" }[CH.coverage || "p"];
+  document.getElementById("cov").textContent = covTxt;
+
+  var labels = ["Think", "Watch", "Notes", "Practice", "Quiz"];
+  var sb = "";
+  for (var i = 1; i <= TOTAL; i++) {
+    var done = localStorage.getItem("math_" + GRADE + "_" + CH_ID + "_step" + i);
+    sb += "<div class=\"sb" + (i === 1 ? " active" : "") + (done ? " done" : "") + "\" data-step=\"" + i + "\" onclick=\"showStep(" + i + ")\">";
+    sb += "<div class=\"sb-num\">" + i + "</div>";
+    sb += "<div class=\"sb-label\">" + labels[i - 1] + "</div>";
+    sb += "</div>";
+  }
+  document.getElementById("stepbar").innerHTML = sb;
+  showStep(1);
+}
+
+function pad(n) { return n < 10 ? "0" + n : "" + n; }
+
+function cleanName(s) {
+  return s.replace(/^Ch\d+\s*/, "").replace(/^G\d+·\d+\s*/, "");
+}
+
+function showStep(step) {
+  cur = step;
+  for (var i = 1; i <= TOTAL; i++) {
+    document.getElementById("p" + i).classList.toggle("active", i === step);
+    document.querySelector(".sb[data-step=\"" + i + "\"]").classList.toggle("active", i === step);
+  }
+  renderPanel(step);
+}
+
+function renderPanel(step) {
+  var p = document.getElementById("p" + step);
+  if (step === 1) {
+    p.innerHTML = "<div class=\"elicit\">" + (CH.think || "What do you already know about this topic?") + "</div>";
+  } else if (step === 2) {
+    var html = "";
+    if (CH.videos && CH.videos.length > 0) {
+      CH.videos.forEach(function(v) {
+        html += "<a class=\"video-card\" href=\"" + v.url + "\" target=\"_blank\">";
+        html += "<div class=\"play\">▶</div>";
+        html += "<div><div class=\"vt\">" + v.title + "</div>";
+        if (v.duration) html += "<div class=\"vm\">" + v.duration + "</div>";
+        html += "</div></a>";
+      });
+    } else {
+      html = "<p>No videos available for this chapter yet.</p>";
+    }
+    p.innerHTML = html;
+  } else if (step === 3) {
+    var html = "";
+    if (CH.notes && CH.notes.length > 0) {
+      CH.notes.forEach(function(n) {
+        html += "<div class=\"note\"><div class=\"nl\">📌 Key Point</div>" + n + "</div>";
+      });
+    }
+    if (CH.project) {
+      html += "<div class=\"project\"><div class=\"pl\">🔬 Project</div>" + CH.project + "</div>";
+    }
+    if (!html) html = "<p>Notes coming soon.</p>";
+    p.innerHTML = html;
+  } else if (step === 4) {
+    renderQs(p, CH.practice || [], "practice");
+  } else if (step === 5) {
+    renderQs(p, CH.quiz || [], "quiz");
+  }
+}
+
+function renderQs(container, questions, type) {
+  if (!questions || questions.length === 0) {
+    container.innerHTML = "<p>No questions available yet.</p>";
+    return;
+  }
+  var html = "";
+  questions.forEach(function(q, i) {
+    html += "<div class=\"q" + (i === 0 ? " active" : "") + "\" id=\"q" + i + "\">";
+    html += "<div class=\"qtxt\">Q" + (i + 1) + ". " + q.q + "</div>";
+    if (q.type === "fill") {
+      html += "<input type=\"text\" id=\"a" + i + "\" placeholder=\"Your answer...\">";
+    } else {
+      q.opts.forEach(function(opt, j) {
+        html += "<div class=\"qopt\" onclick=\"selectOpt(" + i + "," + j + ", '" + type + "')\">" + opt + "</div>";
+      });
+    }
+    html += "<div class=\"fb\" id=\"fb" + i + "\"></div>";
+    if (q.sol) {
+      html += "<div class=\"sol\" id=\"sol" + i + "\">💡 " + q.sol + "</div>";
+    }
+    html += "</div>";
+  });
+  html += "<button class=\"next-btn\" id=\"checkBtn\" onclick=\"checkAnswers('" + type + "')\" style=\"margin-top:16px;\">Check Answers</button>";
+  container.innerHTML = html;
+}
+
+function selectOpt(qi, oi, type) {
+  var opts = document.querySelectorAll("#q" + qi + " .qopt");
+  opts.forEach(function(o, k) {
+    o.classList.toggle("selected", k === oi);
+  });
+}
+
+function checkAnswers(type) {
+  var questions = type === "practice" ? (CH.practice || []) : (CH.quiz || []);
+  var allDone = true, correct = 0;
+  questions.forEach(function(q, i) {
+    var fb = document.getElementById("fb" + i);
+    var sol = document.getElementById("sol" + i);
+    var userAns = "";
+    if (q.type === "fill") {
+      userAns = document.getElementById("a" + i).value.trim().toLowerCase();
+    } else {
+      var sel = document.querySelector("#q" + i + " .qopt.selected");
+      if (!sel) { allDone = false; return; }
+      userAns = sel.textContent.trim();
+    }
+    var isCorrect = false;
+    if (q.type === "fill") {
+      var ans = (q.ans || "").toLowerCase();
+      isCorrect = (userAns === ans) || (userAns.length >= 2 && (userAns.indexOf(ans) >= 0 || ans.indexOf(userAns) >= 0));
+    } else {
+      isCorrect = userAns === q.ans;
+    }
+    if (isCorrect) {
+      fb.textContent = "✅ Correct!";
+      fb.className = "fb ok";
+      correct++;
+    } else {
+      fb.textContent = "❌ Incorrect. Try again!";
+      fb.className = "fb no";
+      if (sol) sol.style.display = "block";
+    }
+    fb.style.display = "block";
+  });
+  if (allDone && correct === questions.length) {
+    localStorage.setItem("math_" + GRADE + "_" + CH_ID + "_step" + (type === "practice" ? 4 : 5), "done");
+    document.querySelector(".sb[data-step=\"" + (type === "practice" ? 4 : 5) + "\"]").classList.add("done");
+  }
+}
+
+function nextStep() {
+  if (cur < TOTAL) {
+    localStorage.setItem("math_" + GRADE + "_" + CH_ID + "_step" + cur, "done");
+    document.querySelector(".sb[data-step=\"" + cur + "\"]").classList.add("done");
+    showStep(cur + 1);
+  } else {
+    finish();
+  }
+}
+
+function finish() {
+  document.getElementById("p5").classList.remove("active");
+  document.getElementById("done").classList.add("active");
+  document.getElementById("doneText").textContent = "You completed G" + GRADE + "·" + pad(CH.gx || idx + 1) + " " + cleanName(CH.title);
+  var next = idx < CH_LIST.length - 1 ? CH_LIST[idx + 1] : null;
+  if (next) {
+    document.getElementById("goNext").textContent = "Next: G" + GRADE + "·" + pad(next.gx || idx + 2) + " " + cleanName(next.title) + " ▶";
+    document.getElementById("goNext").href = "math_chapter.html?ch=" + next.id + "&grade=" + GRADE;
+  } else {
+    document.getElementById("goNext").textContent = "Back to course map ▶";
+    document.getElementById("goNext").href = "index.html";
+  }
+}
+</script>
+</body>
+</html>
