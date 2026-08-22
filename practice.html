@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Practice</title>
+<style>
+/* Dark theme (default when no preference) */
+:root, [data-theme="dark"] {
+  --bg-primary: #0a0a1a;
+  --bg-secondary: #12122a;
+  --bg-card: #1a1a3e;
+  --text-primary: #e8e8ff;
+  --text-secondary: #a0a0c0;
+  --accent-blue: #4fc3f7;
+  --accent-green: #66bb6a;
+  --accent-orange: #ffa726;
+  --accent-red: #ef5350;
+  --border: #2a2a5a;
+  --shadow: rgba(0,0,0,0.3);
+  --toggle-icon: "🌙";
+}
+
+/* Light theme */
+[data-theme="light"] {
+  --bg-primary: #f5f5f7;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --text-primary: #1a1a2e;
+  --text-secondary: #5a5a6e;
+  --accent-blue: #0066cc;
+  --accent-green: #2e7d32;
+  --accent-orange: #ed6c02;
+  --accent-red: #d32f2f;
+  --border: #e0e0e5;
+  --shadow: rgba(0,0,0,0.1);
+  --toggle-icon: "☀️";
+}
+
+/* System preference fallback (only used when no manual choice) */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --bg-primary: #f5f5f7;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a6e;
+    --accent-blue: #0066cc;
+    --accent-green: #2e7d32;
+    --accent-orange: #ed6c02;
+    --accent-red: #d32f2f;
+    --border: #e0e0e5;
+    --shadow: rgba(0,0,0,0.1);
+    --toggle-icon: "☀️";
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg-primary: #0a0a1a;
+    --bg-secondary: #12122a;
+    --bg-card: #1a1a3e;
+    --text-primary: #e8e8ff;
+    --text-secondary: #a0a0c0;
+    --accent-blue: #4fc3f7;
+    --accent-green: #66bb6a;
+    --accent-orange: #ffa726;
+    --accent-red: #ef5350;
+    --border: #2a2a5a;
+    --shadow: rgba(0,0,0,0.3);
+    --toggle-icon: "🌙";
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  padding: 20px;
+}
+.container { max-width: 900px; margin: 0 auto; }
+h1 { text-align: center; margin-bottom: 8px; color: var(--accent-blue); }
+.back-link { text-align: center; margin-bottom: 24px; }
+.back-link a { color: var(--text-secondary); text-decoration: none; }
+.back-link a:hover { color: var(--accent-blue); }
+
+.practice-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px var(--shadow);
+}
+.practice-bar .ch-title { font-weight: 600; color: var(--accent-blue); font-size: 16px; }
+.practice-bar .ch-en { color: var(--text-secondary); font-size: 14px; }
+.practice-bar .spacer { flex: 1; }
+.practice-bar .progress { color: var(--text-secondary); font-size: 14px; }
+.practice-bar select {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.theme-btn {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.2s;
+}
+.theme-btn:hover { background: var(--bg-primary); }
+
+.chapter-section { background: var(--bg-card); border-radius: 12px; padding: 24px; margin-bottom: 24px; border: 1px solid var(--border); }
+.header { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.header h2 { color: var(--accent-blue); margin-bottom: 4px; }
+.sub { color: var(--text-secondary); font-size: 14px; }
+.subtopic { margin-bottom: 20px; }
+.st-name {
+  font-weight: 600;
+  color: var(--accent-green);
+  cursor: pointer;
+  padding: 12px 16px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.st-name:hover { background: var(--bg-primary); }
+.st-name::before { content: "▶"; font-size: 10px; transition: transform 0.2s; }
+.st-name.open::before { transform: rotate(90deg); }
+.st-en { color: var(--text-secondary); font-weight: 400; margin-left: 8px; }
+.subtopic-content { display: none; }
+.subtopic-content.open { display: block; }
+
+.question {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+}
+.q-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.q-num {
+  background: var(--accent-blue);
+  color: white;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 14px;
+}
+.diff { font-size: 12px; padding: 4px 10px; border-radius: 12px; font-weight: 500; }
+.diff-easy { background: var(--accent-green); color: white; }
+.diff-med { background: var(--accent-orange); color: white; }
+.diff-hard { background: var(--accent-red); color: white; }
+.q-body { color: var(--text-primary); margin-bottom: 16px; }
+
+.elicit-box { margin-top: 16px; }
+.elicit-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--bg-primary);
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--accent-green);
+  font-weight: 500;
+  font-size: 14px;
+}
+.elicit-header:hover { background: var(--border); }
+.elicit-header::before { content: "▶"; font-size: 10px; transition: transform 0.2s; }
+.elicit-header.open::before { transform: rotate(90deg); }
+.elicit-content { display: none; padding: 12px 0 0 0; }
+.elicit-content.open { display: block; }
+
+.btn-step {
+  background: transparent;
+  border: 1px solid var(--accent-green);
+  color: var(--accent-green);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+.btn-step:hover { background: rgba(102, 187, 106, 0.1); }
+.btn-step.done { background: var(--accent-green); color: white; border-color: var(--accent-green); }
+.answer-box {
+  background: rgba(102, 187, 106, 0.1);
+  border-left: 3px solid var(--accent-green);
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  border-radius: 0 8px 8px 0;
+  display: none;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Math Practice</h1>
+<div class="back-link"><a href="index.html">← Video Index</a></div>
+
+<div class="practice-bar">
+  <span class="ch-title" id="bar-title">Loading...</span>
+  <span class="ch-en" id="bar-en"></span>
+  <span class="spacer"></span>
+  <span class="progress" id="bar-progress"></span>
+  <select id="chapter-select"><option value="">Select Chapter...</option></select>
+  <button class="theme-btn" id="theme-btn" title="Toggle light/dark mode">☀️</button>
+</div>
+
+<div id="content"><p style="color:var(--accent-blue)">Loading...</p></div>
+</div>
+
+<script>
+window.PRACTICE = {"Ch01_勾股定理": {"title": "Ch01 勾股定理", "titleEn": "The Pythagorean Theorem", "subtopics": [{"name": "1.1 基本计算", "en": "Basic Computation", "problems": [{"en": "In a right triangle, the legs are 3 and 4. Find the hypotenuse c.", "diff": "easy", "elicit": [{"q": "Which side is the hypotenuse 斜边?", "a": "The side opposite the right angle, the longest side."}, {"q": "Write the Pythagorean theorem formula.", "a": "a² + b² = c²"}, {"q": "Substitute a = 3, b = 4. What do you get?", "a": "3² + 4² = 9 + 16 = 25"}, {"q": "Take the square root to find c.", "a": "c = √25 = 5"}]}, {"en": "A right triangle has hypotenuse 13 and one leg 5. Find the other leg.", "diff": "easy", "elicit": [{"q": "What do we know? Identify the hypotenuse 斜边 and leg 直角边.", "a": "c = 13 (hypotenuse), a = 5 (leg), b = ?"}, {"q": "Rearrange the formula to solve for b.", "a": "b² = c² - a²"}, {"q": "Substitute and calculate.", "a": "b² = 169 - 25 = 144"}, {"q": "Find b.", "a": "b = √144 = 12"}]}, {"en": "An isosceles right triangle 等腰直角三角形 has legs of length 1. Find the hypotenuse.", "diff": "med", "elicit": [{"q": "What does 'isosceles right triangle' mean?", "a": "Two legs are equal, angles are 45°-45°-90°."}, {"q": "Apply the Pythagorean theorem with a = b = 1.", "a": "1² + 1² = c² → 2 = c²"}, {"q": "What is c?", "a": "c = √2"}]}, {"en": "A rectangle has length 8 and width 6. Find the length of its diagonal.", "diff": "easy", "elicit": [{"q": "How does a rectangle's diagonal relate to the Pythagorean theorem?", "a": "The diagonal forms a right triangle with length and width."}, {"q": "Identify a and b.", "a": "a = 8, b = 6"}, {"q": "Calculate c².", "a": "8² + 6² = 64 + 36 = 100"}, {"q": "Find the diagonal.", "a": "c = √100 = 10"}]}]}, {"name": "1.2 勾股数", "en": "Pythagorean Triples", "problems": [{"en": "Which of these is a Pythagorean triple: (3,4,5), (2,3,4), (5,5,5)?", "diff": "easy", "elicit": [{"q": "What is a Pythagorean triple 勾股数?", "a": "Three positive integers that satisfy a² + b² = c²."}, {"q": "Test (3,4,5): does 3² + 4² = 5²?", "a": "9 + 16 = 25 ✓ Yes"}, {"q": "Test (2,3,4): does 4 + 9 = 16?", "a": "13 ≠ 16 ✗ No"}]}, {"en": "Generate another Pythagorean triple by multiplying (3,4,5) by 2.", "diff": "easy", "elicit": [{"q": "What happens when you multiply a Pythagorean triple by a constant?", "a": "You get another Pythagorean triple."}, {"q": "Multiply each number by 2.", "a": "(3×2, 4×2, 5×2) = (6, 8, 10)"}, {"q": "Verify: does 6² + 8² = 10²?", "a": "36 + 64 = 100 ✓"}]}, {"en": "Is (5,12,13) a Pythagorean triple? Verify.", "diff": "easy", "elicit": [{"q": "What should you check?", "a": "Does 5² + 12² = 13²?"}, {"q": "Calculate 5² + 12².", "a": "25 + 144 = 169"}, {"q": "Calculate 13².", "a": "169 ✓ Yes, it is a Pythagorean triple."}]}]}, {"name": "1.3 逆定理", "en": "Converse of Pythagorean Theorem", "problems": [{"en": "A triangle has sides 6, 8, 10. Is it a right triangle?", "diff": "med", "elicit": [{"q": "What does the converse 逆定理 tell us?", "a": "If a² + b² = c², then it's a right triangle."}, {"q": "Identify the longest side as potential hypotenuse.", "a": "c = 10, check if 6² + 8² = 10²"}, {"q": "Calculate and conclude.", "a": "36 + 64 = 100 = 10² ✓ Yes, right triangle"}]}, {"en": "A triangle has sides 5, 7, 9. Is it a right triangle?", "diff": "med", "elicit": [{"q": "What should you check?", "a": "Does 5² + 7² = 9²?"}, {"q": "Calculate 5² + 7².", "a": "25 + 49 = 74"}, {"q": "Calculate 9².", "a": "81"}, {"q": "Conclusion?", "a": "74 ≠ 81 ✗ Not a right triangle."}]}, {"en": "A triangle has sides 9, 12, 15. Verify if it's a right triangle.", "diff": "med", "elicit": [{"q": "First, identify the longest side.", "a": "c = 15"}, {"q": "Check if 9² + 12² = 15².", "a": "81 + 144 = 225 = 15² ✓ Yes"}]}]}, {"name": "1.4 距离公式", "en": "Distance Formula", "problems": [{"en": "Find the distance between points A(1, 2) and B(4, 6).", "diff": "med", "elicit": [{"q": "How does the distance formula 距离公式 relate to Pythagorean theorem?", "a": "d = √[(x₂-x₁)² + (y₂-y₁)²] is derived from it."}, {"q": "Calculate the horizontal and vertical differences.", "a": "Δx = 4-1 = 3, Δy = 6-2 = 4"}, {"q": "Apply the formula.", "a": "d = √(3² + 4²) = √25 = 5"}]}, {"en": "Find the distance between P(0, 0) and Q(3, 4).", "diff": "easy", "elicit": [{"q": "What is the distance formula?", "a": "d = √[(x₂-x₁)² + (y₂-y₁)²]"}, {"q": "Calculate Δx and Δy.", "a": "Δx = 3-0 = 3, Δy = 4-0 = 4"}, {"q": "Calculate the distance.", "a": "d = √(9 + 16) = √25 = 5"}]}, {"en": "Find the distance between M(-2, 3) and N(2, 6).", "diff": "med", "elicit": [{"q": "Calculate Δx and Δy carefully with negatives.", "a": "Δx = 2-(-2) = 4, Δy = 6-3 = 3"}, {"q": "Apply the formula.", "a": "d = √(16 + 9) = √25 = 5"}]}]}]}, "Ch02_实数": {"title": "Ch02 实数", "titleEn": "Real Numbers", "subtopics": [{"name": "2.1 平方根", "en": "Square Roots", "problems": [{"en": "Find √144.", "diff": "easy", "elicit": [{"q": "What does square root 平方根 mean?", "a": "A number that when multiplied by itself gives the original."}, {"q": "What number squared equals 144?", "a": "12 × 12 = 144, so √144 = 12"}]}, {"en": "Simplify √(50).", "diff": "med", "elicit": [{"q": "Look for perfect square factors of 50.", "a": "50 = 25 × 2 = 5² × 2"}, {"q": "Apply √(ab) = √a × √b.", "a": "√50 = √(25×2) = 5√2"}]}, {"en": "Calculate √169 - √25.", "diff": "easy", "elicit": [{"q": "Find √169.", "a": "13"}, {"q": "Find √25.", "a": "5"}, {"q": "Subtract.", "a": "13 - 5 = 8"}]}, {"en": "Simplify √72.", "diff": "med", "elicit": [{"q": "Find the largest perfect square factor of 72.", "a": "72 = 36 × 2 = 6² × 2"}, {"q": "Simplify.", "a": "√72 = 6√2"}]}]}, {"name": "2.2 立方根", "en": "Cube Roots", "problems": [{"en": "Find ³√27.", "diff": "easy", "elicit": [{"q": "What does cube root 立方根 mean?", "a": "A number that when cubed gives the original."}, {"q": "What number cubed equals 27?", "a": "3³ = 27, so ³√27 = 3"}]}, {"en": "Find ³√64.", "diff": "easy", "elicit": [{"q": "What number cubed equals 64?", "a": "4³ = 64, so ³√64 = 4"}]}, {"en": "Solve x³ = 125.", "diff": "easy", "elicit": [{"q": "What operation undoes cubing?", "a": "Cube root"}, {"q": "Take the cube root of both sides.", "a": "x = ³√125 = 5"}]}]}, {"name": "2.3 实数分类", "en": "Classifying Real Numbers", "problems": [{"en": "Classify √2: rational 有理数 or irrational 无理数?", "diff": "med", "elicit": [{"q": "What is a rational number?", "a": "Can be expressed as a fraction p/q where p,q are integers."}, {"q": "Can √2 be written as a simple fraction?", "a": "No. √2 ≈ 1.414... is non-repeating and non-terminating."}, {"q": "Conclusion?", "a": "√2 is irrational 无理数."}]}, {"en": "Classify 0.75: rational or irrational?", "diff": "easy", "elicit": [{"q": "Can 0.75 be written as a fraction?", "a": "Yes, 0.75 = 3/4"}, {"q": "Conclusion?", "a": "Rational 有理数."}]}, {"en": "Classify π: rational or irrational?", "diff": "easy", "elicit": [{"q": "What do you know about π?", "a": "π ≈ 3.14159... is non-repeating and non-terminating."}, {"q": "Conclusion?", "a": "Irrational 无理数."}]}, {"en": "Is √16 rational or irrational? Explain.", "diff": "easy", "elicit": [{"q": "Calculate √16.", "a": "4"}, {"q": "Can 4 be written as a fraction?", "a": "Yes, 4 = 4/1"}, {"q": "Conclusion?", "a": "Rational 有理数."}]}]}]}, "Ch03_位置与坐标": {"title": "Ch03 位置与坐标", "titleEn": "Position and Coordinates", "subtopics": [{"name": "3.1 象限", "en": "Quadrants", "problems": [{"en": "In which quadrant 象限 is the point (-3, 4)?", "diff": "easy", "elicit": [{"q": "What determines the quadrant?", "a": "The signs of x and y coordinates."}, {"q": "For (-3, 4), what are the signs?", "a": "x is negative, y is positive"}, {"q": "Which quadrant has (-, +)?", "a": "Quadrant II (第二象限)"}]}, {"en": "In which quadrant is (5, -2)?", "diff": "easy", "elicit": [{"q": "What are the signs of x and y?", "a": "x is positive, y is negative"}, {"q": "Which quadrant has (+, -)?", "a": "Quadrant IV (第四象限)"}]}, {"en": "In which quadrant is (-1, -3)?", "diff": "easy", "elicit": [{"q": "What are the signs?", "a": "Both x and y are negative"}, {"q": "Which quadrant has (-, -)?", "a": "Quadrant III (第三象限)"}]}, {"en": "A point has x > 0 and y > 0. Which quadrant?", "diff": "easy", "elicit": [{"q": "What does x > 0 mean?", "a": "x is positive"}, {"q": "What does y > 0 mean?", "a": "y is positive"}, {"q": "Which quadrant has (+, +)?", "a": "Quadrant I (第一象限)"}]}]}, {"name": "3.2 中点公式", "en": "Midpoint Formula", "problems": [{"en": "Find the midpoint of segment from A(2, 4) to B(6, 8).", "diff": "easy", "elicit": [{"q": "What is the midpoint formula 中点公式?", "a": "M = ((x₁+x₂)/2, (y₁+y₂)/2)"}, {"q": "Calculate the x-coordinate of midpoint.", "a": "(2+6)/2 = 4"}, {"q": "Calculate the y-coordinate.", "a": "(4+8)/2 = 6"}, {"q": "Final answer?", "a": "Midpoint is (4, 6)"}]}, {"en": "Find the midpoint of P(0, 0) and Q(4, 6).", "diff": "easy", "elicit": [{"q": "Apply the midpoint formula.", "a": "M = ((0+4)/2, (0+6)/2) = (2, 3)"}]}, {"en": "Find the midpoint of M(-2, 3) and N(4, -1).", "diff": "med", "elicit": [{"q": "Calculate carefully with negative numbers.", "a": "x = (-2+4)/2 = 1, y = (3+(-1))/2 = 1"}, {"q": "Final answer?", "a": "Midpoint is (1, 1)"}]}]}]}, "Ch04_一次函数": {"title": "Ch04 一次函数", "titleEn": "Linear Functions", "subtopics": [{"name": "4.1 斜率", "en": "Slope", "problems": [{"en": "Find the slope 斜率 of the line through (1, 2) and (3, 8).", "diff": "easy", "elicit": [{"q": "What is the slope formula?", "a": "m = (y₂-y₁)/(x₂-x₁) = rise/run"}, {"q": "Calculate the rise (change in y).", "a": "8 - 2 = 6"}, {"q": "Calculate the run (change in x).", "a": "3 - 1 = 2"}, {"q": "Find the slope.", "a": "m = 6/2 = 3"}]}, {"en": "Find the slope through (0, 0) and (4, 2).", "diff": "easy", "elicit": [{"q": "Calculate rise and run.", "a": "Rise = 2-0 = 2, Run = 4-0 = 4"}, {"q": "Calculate slope.", "a": "m = 2/4 = 1/2"}]}, {"en": "Find the slope through (2, 5) and (2, 9).", "diff": "med", "elicit": [{"q": "Calculate the change in x.", "a": "2 - 2 = 0"}, {"q": "What happens when dividing by zero?", "a": "Undefined! This is a vertical line."}]}]}, {"name": "4.2 直线方程", "en": "Equation of a Line", "problems": [{"en": "Find the equation of line with slope 2 passing through (1, 5).", "diff": "med", "elicit": [{"q": "What is point-slope form 点斜式?", "a": "y - y₁ = m(x - x₁)"}, {"q": "Substitute the known values.", "a": "y - 5 = 2(x - 1)"}, {"q": "Convert to slope-intercept form y = mx + b.", "a": "y = 2x - 2 + 5 = 2x + 3"}]}, {"en": "Find the equation of line with slope -1 through (0, 3).", "diff": "easy", "elicit": [{"q": "What is the y-intercept?", "a": "b = 3 (from point (0,3))"}, {"q": "Write y = mx + b.", "a": "y = -x + 3"}]}, {"en": "Find the equation of line through (1, 2) and (3, 6).", "diff": "med", "elicit": [{"q": "First find the slope.", "a": "m = (6-2)/(3-1) = 4/2 = 2"}, {"q": "Use point-slope form with either point.", "a": "y - 2 = 2(x - 1) → y = 2x"}]}]}]}, "Ch05_数据的分析": {"title": "Ch05 数据的分析", "titleEn": "Data Analysis", "subtopics": [{"name": "5.1 平均数与中位数", "en": "Mean and Median", "problems": [{"en": "Find the mean 平均数 and median 中位数 of: 3, 7, 8, 5, 2.", "diff": "easy", "elicit": [{"q": "How do you find the mean?", "a": "Sum all values and divide by count."}, {"q": "Calculate the mean.", "a": "(3+7+8+5+2)/5 = 25/5 = 5"}, {"q": "How do you find the median?", "a": "Arrange in order and find the middle value."}, {"q": "Find the median.", "a": "Ordered: 2, 3, 5, 7, 8. Middle value is 5."}]}, {"en": "Find the mean and median of: 10, 20, 30, 40.", "diff": "easy", "elicit": [{"q": "Calculate the mean.", "a": "(10+20+30+40)/4 = 100/4 = 25"}, {"q": "Find the median (even number of values).", "a": "Middle two are 20 and 30. Median = (20+30)/2 = 25"}]}, {"en": "Find the mean of: 5, 5, 5, 10, 10.", "diff": "easy", "elicit": [{"q": "Calculate the sum.", "a": "5+5+5+10+10 = 35"}, {"q": "Divide by count.", "a": "35/5 = 7"}]}]}]}, "Ch06_平行线的证明": {"title": "Ch06 平行线的证明", "titleEn": "Proving Parallel Lines", "subtopics": [{"name": "6.1 平行线判定", "en": "Conditions for Parallel Lines", "problems": [{"en": "If two lines are cut by a transversal 截线 and corresponding angles 同位角 are equal, are the lines parallel?", "diff": "med", "elicit": [{"q": "What is the corresponding angles postulate?", "a": "If corresponding angles are equal, the lines are parallel."}, {"q": "Given: corresponding angles equal. Conclusion?", "a": "Yes, the two lines are parallel 平行."}]}, {"en": "If alternate interior angles 内错角 are equal, are the lines parallel?", "diff": "med", "elicit": [{"q": "What is the alternate interior angles theorem?", "a": "If alternate interior angles are equal, the lines are parallel."}, {"q": "Conclusion?", "a": "Yes, parallel."}]}, {"en": "Two lines are cut by a transversal. If same-side interior angles are supplementary, are the lines parallel?", "diff": "med", "elicit": [{"q": "What is the same-side interior angles theorem?", "a": "If same-side interior angles are supplementary, the lines are parallel."}, {"q": "Conclusion?", "a": "Yes, parallel."}]}]}]}, "Ch07_概率初步": {"title": "Ch07 概率初步", "titleEn": "Basic Probability", "subtopics": [{"name": "7.1 简单概率", "en": "Simple Probability", "problems": [{"en": "A fair die 骰子 is rolled. What is P(rolling a 4)?", "diff": "easy", "elicit": [{"q": "What is probability 概率?", "a": "P(event) = (favorable outcomes) / (total outcomes)"}, {"q": "How many favorable outcomes for rolling 4?", "a": "1 (only the number 4)"}, {"q": "Total possible outcomes?", "a": "6 (numbers 1-6)"}, {"q": "Calculate P(4).", "a": "P(4) = 1/6"}]}, {"en": "A fair coin is flipped. What is P(heads)?", "diff": "easy", "elicit": [{"q": "How many favorable outcomes?", "a": "1 (heads)"}, {"q": "Total outcomes?", "a": "2 (heads or tails)"}, {"q": "Calculate P(heads).", "a": "P(heads) = 1/2"}]}, {"en": "A bag has 3 red and 2 blue marbles. What is P(red)?", "diff": "easy", "elicit": [{"q": "How many red marbles?", "a": "3"}, {"q": "Total marbles?", "a": "3 + 2 = 5"}, {"q": "Calculate P(red).", "a": "P(red) = 3/5"}]}]}]}, "Ch08_三角形的证明": {"title": "Ch08 三角形的证明", "titleEn": "Triangle Proofs", "subtopics": [{"name": "8.1 全等判定", "en": "Congruence Criteria", "problems": [{"en": "Two triangles have AB=DE, BC=EF, AC=DF. Are they congruent 全等? Which criterion?", "diff": "med", "elicit": [{"q": "What does SSS mean?", "a": "Side-Side-Side: three sides equal."}, {"q": "What information is given?", "a": "All three sides of one triangle equal the corresponding sides of the other."}, {"q": "Conclusion?", "a": "Yes, congruent by SSS."}]}, {"en": "Two triangles have AB=DE, angle A = angle D, AC=DF. Are they congruent? Which criterion?", "diff": "med", "elicit": [{"q": "What does SAS mean?", "a": "Side-Angle-Side: two sides and the included angle equal."}, {"q": "Is the angle between the two sides?", "a": "Yes, angle A is between AB and AC."}, {"q": "Conclusion?", "a": "Yes, congruent by SAS."}]}, {"en": "Two triangles have angle A = angle D, angle B = angle E, AB=DE. Are they congruent? Which criterion?", "diff": "med", "elicit": [{"q": "What does ASA mean?", "a": "Angle-Side-Angle: two angles and the included side equal."}, {"q": "Is the side between the two angles?", "a": "Yes, AB is between angles A and B."}, {"q": "Conclusion?", "a": "Yes, congruent by ASA."}]}]}]}, "Ch09_四边形": {"title": "Ch09 四边形", "titleEn": "Quadrilaterals", "subtopics": [{"name": "9.1 平行四边形性质", "en": "Parallelogram Properties", "problems": [{"en": "In parallelogram 平行四边形 ABCD, angle A = 60°. Find angle B.", "diff": "easy", "elicit": [{"q": "What is a key property of parallelograms about consecutive angles?", "a": "Consecutive angles are supplementary (add to 180°)."}, {"q": "Set up the equation.", "a": "∠A + ∠B = 180°"}, {"q": "Solve for angle B.", "a": "60° + ∠B = 180°, so ∠B = 120°"}]}, {"en": "In parallelogram ABCD, AB = 5 and BC = 3. Find CD and AD.", "diff": "easy", "elicit": [{"q": "What is a property of parallelograms about opposite sides?", "a": "Opposite sides are equal."}, {"q": "Find CD.", "a": "CD = AB = 5"}, {"q": "Find AD.", "a": "AD = BC = 3"}]}, {"en": "In parallelogram ABCD, angle A = 70°. Find angle C.", "diff": "easy", "elicit": [{"q": "What is a property about opposite angles?", "a": "Opposite angles are equal."}, {"q": "Find angle C.", "a": "∠C = ∠A = 70°"}]}]}]}, "Ch10_图形与变换": {"title": "Ch10 图形与变换", "titleEn": "Transformations", "subtopics": [{"name": "10.1 反射", "en": "Reflection", "problems": [{"en": "Point P(3, 4) is reflected over the x-axis. Find P'.", "diff": "easy", "elicit": [{"q": "What happens to coordinates when reflecting over x-axis?", "a": "(x, y) → (x, -y). The x stays same, y changes sign."}, {"q": "Apply to P(3, 4).", "a": "P' = (3, -4)"}]}, {"en": "Point Q(2, -5) is reflected over the y-axis. Find Q'.", "diff": "easy", "elicit": [{"q": "What happens when reflecting over y-axis?", "a": "(x, y) → (-x, y). The y stays same, x changes sign."}, {"q": "Apply to Q(2, -5).", "a": "Q' = (-2, -5)"}]}, {"en": "Point R(-1, 3) is reflected over the origin. Find R'.", "diff": "med", "elicit": [{"q": "What happens when reflecting over origin?", "a": "(x, y) → (-x, -y). Both coordinates change sign."}, {"q": "Apply to R(-1, 3).", "a": "R' = (1, -3)"}]}]}]}, "Ch11_因式分解": {"title": "Ch11 因式分解", "titleEn": "Factoring", "subtopics": [{"name": "11.1 提公因式", "en": "GCF Factoring", "problems": [{"en": "Factor: 6x² + 9x.", "diff": "easy", "elicit": [{"q": "What is the GCF 最大公因式 of 6x² and 9x?", "a": "3x"}, {"q": "Factor out the GCF.", "a": "6x² + 9x = 3x(2x + 3)"}]}, {"en": "Factor: 8a³ + 12a².", "diff": "easy", "elicit": [{"q": "Find the GCF of 8a³ and 12a².", "a": "4a²"}, {"q": "Factor.", "a": "4a²(2a + 3)"}]}, {"en": "Factor: 15xy + 10x.", "diff": "easy", "elicit": [{"q": "Find the GCF.", "a": "5x"}, {"q": "Factor.", "a": "5x(3y + 2)"}]}]}, {"name": "11.2 平方差", "en": "Difference of Squares", "problems": [{"en": "Factor: x² - 16.", "diff": "easy", "elicit": [{"q": "What pattern do you see?", "a": "Difference of squares: a² - b²"}, {"q": "Identify a and b.", "a": "a = x, b = 4 (since 16 = 4²)"}, {"q": "Apply formula a² - b² = (a+b)(a-b).", "a": "x² - 16 = (x+4)(x-4)"}]}, {"en": "Factor: 25y² - 9.", "diff": "easy", "elicit": [{"q": "Identify a and b.", "a": "a = 5y, b = 3"}, {"q": "Factor.", "a": "(5y+3)(5y-3)"}]}, {"en": "Factor: a² - 1.", "diff": "easy", "elicit": [{"q": "Identify a and b.", "a": "a = a, b = 1"}, {"q": "Factor.", "a": "(a+1)(a-1)"}]}]}]}, "Ch12_分式与分式方程": {"title": "Ch12 分式与分式方程", "titleEn": "Rational Expressions and Equations", "subtopics": [{"name": "12.1 分式化简", "en": "Simplifying Rational Expressions", "problems": [{"en": "Simplify: (x² - 4)/(x - 2).", "diff": "med", "elicit": [{"q": "Can you factor the numerator 分子?", "a": "x² - 4 = (x+2)(x-2) using difference of squares."}, {"q": "Rewrite the expression.", "a": "(x+2)(x-2)/(x-2)"}, {"q": "What cancels? What is the condition?", "a": "(x-2) cancels, leaving x+2, where x ≠ 2."}]}, {"en": "Simplify: (x² - 9)/(x + 3).", "diff": "med", "elicit": [{"q": "Factor the numerator.", "a": "x² - 9 = (x+3)(x-3)"}, {"q": "Simplify.", "a": "x - 3, where x ≠ -3"}]}, {"en": "Simplify: (2x + 6)/(x + 3).", "diff": "easy", "elicit": [{"q": "Factor the numerator.", "a": "2x + 6 = 2(x + 3)"}, {"q": "Simplify.", "a": "2, where x ≠ -3"}]}]}]}, "Ch13_反比例函数": {"title": "Ch13 反比例函数", "titleEn": "Inverse Proportion Functions", "subtopics": [{"name": "13.1 反比例函数图像", "en": "Graphs of Inverse Proportion", "problems": [{"en": "For y = 6/x, what happens to y as x increases from 1 to 6?", "diff": "med", "elicit": [{"q": "Calculate y when x = 1.", "a": "y = 6/1 = 6"}, {"q": "Calculate y when x = 6.", "a": "y = 6/6 = 1"}, {"q": "Describe the trend.", "a": "As x increases, y decreases from 6 to 1."}]}, {"en": "For y = 12/x, find y when x = 3.", "diff": "easy", "elicit": [{"q": "Substitute x = 3.", "a": "y = 12/3 = 4"}]}, {"en": "For y = k/x, if x = 2 gives y = 5, find k.", "diff": "med", "elicit": [{"q": "Substitute the known values.", "a": "5 = k/2"}, {"q": "Solve for k.", "a": "k = 10"}]}]}]}};
+</script>
+<script>
+var CHAPTERS = Object.keys(window.PRACTICE);
+var DEFAULT_CH = CHAPTERS[0];
+
+// Theme toggle
+function initTheme(){
+  var saved = localStorage.getItem("mathTheme");
+  if(saved){
+    document.documentElement.setAttribute("data-theme", saved);
+    document.getElementById("theme-btn").textContent = saved === "light" ? "🌙" : "☀️";
+  }
+}
+function toggleTheme(){
+  var current = document.documentElement.getAttribute("data-theme");
+  var next = current === "light" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", next);
+  localStorage.setItem("mathTheme", next);
+  document.getElementById("theme-btn").textContent = next === "light" ? "🌙" : "☀️";
+}
+document.getElementById("theme-btn").onclick = toggleTheme;
+initTheme();
+
+function getCh(){
+  var p = new URLSearchParams(location.search).get("ch");
+  if(!p) return DEFAULT_CH;
+  p = decodeURIComponent(p);
+  return CHAPTERS.indexOf(p) >= 0 ? p : DEFAULT_CH;
+}
+
+function escapeHtml(t){
+  return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+function revealStep(pid, idx){
+  var ans = document.getElementById("ans-" + pid + "-" + idx);
+  var btn = document.getElementById("btn-" + pid + "-" + idx);
+  if(ans) ans.style.display = "block";
+  if(btn){
+    btn.classList.add("done");
+    btn.textContent = "Step " + (idx+1) + " Done";
+  }
+  var nextBtn = document.getElementById("btn-" + pid + "-" + (idx+1));
+  if(nextBtn) nextBtn.style.display = "block";
+}
+
+function toggleSubtopic(id){
+  var header = document.getElementById("st-header-" + id);
+  var content = document.getElementById("st-content-" + id);
+  if(header && content){
+    header.classList.toggle("open");
+    content.classList.toggle("open");
+  }
+}
+
+function toggleElicit(pid){
+  var header = document.getElementById("elicit-header-" + pid);
+  var content = document.getElementById("elicit-content-" + pid);
+  if(header && content){
+    header.classList.toggle("open");
+    content.classList.toggle("open");
+  }
+}
+
+function countProblems(ch){
+  var count = 0;
+  (ch.subtopics || []).forEach(function(st){
+    count += (st.problems || []).length;
+  });
+  return count;
+}
+
+function renderChapters(){
+  var chKey = getCh();
+  var C = window.PRACTICE[chKey];
+  if(!C){
+    document.getElementById("content").innerHTML = "<p>Chapter not found</p>";
+    return;
+  }
+  document.getElementById("bar-title").textContent = C.title;
+  document.getElementById("bar-en").textContent = C.titleEn;
+  document.getElementById("bar-progress").textContent = countProblems(C) + " problems";
+  
+  var select = document.getElementById("chapter-select");
+  select.innerHTML = '<option value="">Select Chapter...</option>';
+  CHAPTERS.forEach(function(key){
+    var ch = window.PRACTICE[key];
+    var option = document.createElement("option");
+    option.value = key;
+    option.textContent = ch.title;
+    if(key === chKey) option.selected = true;
+    select.appendChild(option);
+  });
+  select.onchange = function(){
+    if(this.value) window.location.href = "practice.html?ch=" + encodeURIComponent(this.value);
+  };
+  
+  var html = '<div class="chapter-section">';
+  html += '<div class="header"><h2>' + escapeHtml(C.title) + '</h2>';
+  html += '<div class="sub">' + escapeHtml(C.titleEn) + '</div></div>';
+  
+  (C.subtopics || []).forEach(function(st, si){
+    var stId = "st" + si;
+    html += '<div class="subtopic">';
+    html += '<div class="st-name" id="st-header-' + stId + '" onclick="toggleSubtopic(\'' + stId + '\')">' + escapeHtml(st.name);
+    if(st.en) html += ' <span class="st-en">' + escapeHtml(st.en) + '</span>';
+    html += '</div>';
+    html += '<div class="subtopic-content open" id="st-content-' + stId + '">';
+    
+    (st.problems || []).forEach(function(p, pi){
+      var pid = stId + "p" + pi;
+      var diff = p.diff || "easy";
+      var diffLabel = diff === "easy" ? "Basic" : diff === "med" ? "Medium" : "Hard";
+      var diffClass = "diff-" + diff;
+      
+      html += '<div class="question">';
+      html += '<div class="q-top"><span class="q-num">' + (pi+1) + '</span><span class="diff ' + diffClass + '">' + diffLabel + '</span></div>';
+      html += '<div class="q-body">' + escapeHtml(p.en) + '</div>';
+      
+      var elicit = p.elicit || [];
+      if(elicit.length > 0){
+        html += '<div class="elicit-box">';
+        html += '<div class="elicit-header" id="elicit-header-' + pid + '" onclick="toggleElicit(\'' + pid + '\')">';
+        html += 'Show Guidance (' + elicit.length + ' steps)';
+        html += '</div>';
+        html += '<div class="elicit-content" id="elicit-content-' + pid + '">';
+        elicit.forEach(function(e, ei){
+          var initialDisplay = ei === 0 ? "block" : "none";
+          html += '<button class="btn-step" id="btn-' + pid + '-' + ei + '" style="display:' + initialDisplay + '" onclick="revealStep(\'' + pid + '\',' + ei + ')">Step ' + (ei+1) + '</button>';
+          html += '<div class="answer-box" id="ans-' + pid + '-' + ei + '">';
+          html += '<div style="color:var(--accent-green);font-weight:600;margin-bottom:8px">' + escapeHtml(e.q) + '</div>';
+          if(e.a) html += '<div style="color:#c8e6c9;padding-left:4px">=> ' + escapeHtml(e.a) + '</div>';
+          html += '</div>';
+        });
+        html += '</div></div>';
+      }
+      html += '</div>';
+    });
+    html += '</div></div>';
+  });
+  html += '</div>';
+  document.getElementById("content").innerHTML = html;
+}
+
+renderChapters();
+</script>
+</body>
+</html>
