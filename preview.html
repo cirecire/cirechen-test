@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knowledge Map — 深圳8年级物理 · Khan Academy</title>
+<style>
+  :root {
+    --bg: #f0f4f8;
+    --card: #fff;
+    --text: #1e293b;
+    --text-secondary: #64748b;
+    --border: #e2e8f0;
+    --shadow: rgba(0,0,0,0.07);
+    --teal: #0f766e;
+    --teal-light: #ccfbf1;
+    --orange: #c2410c;
+    --orange-light: #ffedd5;
+    --green: #15803d;
+    --green-light: #dcfce7;
+    --purple: #7c3aed;
+    --purple-light: #ede9fe;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 32px 20px 60px;
+  }
+
+  /* Header */
+  .header {
+    max-width: 900px;
+    margin: 0 auto 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .header-left h1 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .header-left p {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .book-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--teal-light);
+    color: var(--teal);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  /* Intro text */
+  .intro {
+    max-width: 900px;
+    margin: 0 auto 24px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    border: 1px solid var(--border);
+  }
+  .intro strong { color: var(--text); }
+
+  /* Book tabs */
+  .book-tabs {
+    max-width: 900px;
+    margin: 0 auto 16px;
+    display: flex;
+    gap: 6px;
+  }
+  .book-tab {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background: var(--card);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    transition: all 0.15s;
+  }
+  .book-tab.active {
+    background: var(--text);
+    color: #fff;
+    border-color: var(--text);
+  }
+  .book-tab:hover:not(.active) { background: #f1f5f9; }
+
+  /* Chapter sections */
+  .ch-section {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--card);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px var(--shadow);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .ch-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .ch-num-badge {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .ch-num-badge.volume2 { background: var(--orange); }
+  .ch-title-wrap { flex: 1; }
+  .ch-title { font-size: 15px; font-weight: 700; color: var(--text); }
+  .ch-subtitle { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+
+  /* Resource chips */
+  .ch-chips {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .chip.ka {
+    background: var(--purple-light);
+    color: var(--purple);
+    border: 1px solid #ddd6fe;
+  }
+  .chip.ka:hover { background: #ddd6fe; }
+  .chip.ours {
+    background: var(--teal-light);
+    color: var(--teal);
+    border: 1px solid #99f6e4;
+  }
+  .chip.ours:hover { background: #99f6e4; }
+  .chip.gap {
+    background: var(--orange-light);
+    color: var(--orange);
+    border: 1px solid #fed7aa;
+  }
+  .chip-icon { font-size: 11px; }
+
+  /* Knowledge rows */
+  .knowledge-list { padding: 12px 20px 16px; }
+
+  .kp-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .kp-row:last-child { border-bottom: none; }
+
+  .kp-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+  .kp-dot.ours { background: var(--teal); }
+  .kp-dot.ka { background: var(--purple); }
+  .kp-dot.gap { background: var(--orange); }
+
+  .kp-text {
+    flex: 1;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+    padding-top: 1px;
+  }
+  .kp-sub {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 3px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .kp-sub span { display: flex; align-items: center; gap: 3px; }
+
+  /* Legend */
+  .legend {
+    max-width: 900px;
+    margin: 24px auto 0;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .legend-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+
+  @media (max-width: 700px) {
+    .ch-chips { flex-wrap: wrap; }
+    .kp-sub { flex-direction: column; gap: 2px; }
+    .header { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <h1>📚 深圳8年级物理 · 知识对照图</h1>
+    <p>人教版教材知识点 → Khan Academy 视频+练习 → 我们的练习</p>
+  </div>
+  <div class="book-badge">📖 人教版物理 · 八年级上册+下册</div>
+</div>
+
+<!-- Intro -->
+<div class="intro">
+  <strong>使用说明：</strong>左侧知识点对照<strong>Khan Academy</strong>视频和练习（🔵 需联网），右侧显示<strong>我们自己的102题练习库</strong>（⭐ 离线可用、苏格拉底引导）。<br>
+  <strong>橙色标签</strong>（Gap）= 可汗学院缺，专门靠我们自己的题补上这部分知识点的练习。
+</div>
+
+<!-- Book tabs -->
+<div class="book-tabs">
+  <button class="book-tab active" onclick="showBook('vol1')">📘 八年级上册（声光热力基础）</button>
+  <button class="book-tab" onclick="showBook('vol2')">📙 八年级下册（力学核心）</button>
+</div>
+
+<!-- Volume 1: 8年级上册 -->
+<div id="vol1">
+
+  <!-- Ch1 机械运动 -->
+  <div class="ch-section">
+    <div class="ch-header">
+      <div class="ch-num-badge">1</div>
+      <div class="ch-title-wrap">
+        <div class="ch-title">机械运动</div>
+        <div class="ch-sub">参照物 · 速度公式 · s-t/v-t图像 · 单位换算</div>
+      </div>
+      <div class="ch-chips">
+        <a href="https://www.khanacademy.org/science/ap-physics-1/ap-one-dimensional-motion" target="_blank" class="chip ka"><span class="chip-icon">🔵</span>KA 视频+练习</a>
+        <a href="https://cirecire.github.io/cirechen/physics/practice.html?ch=Ch01_%E6%9C%BA%E6%A2%B0%E8%BF%90%E5%8A%A8" class="chip ours"><span class="chip-icon">⭐</span>我们练习 21题</a>
+      </div>
+    </div>
+    <div class="knowledge-list">
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">长度和时间的测量<br><div class="kp-sub"><span>📏 刻度尺读数估读</span><span>⚠️ 误差 vs 错误</span><span>📐 特殊测量法（累积法/化曲为直）</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">运动的描述<br><div class="kp-sub"><span>🔵 Reference Frames (KA)</span><span>⚠️ 参照物选择决定运动状态</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">速度公式 v = s/t<br><div class="kp-sub"><span>🔵 Average Speed & Velocity (KA)</span><span>⚠️ km/h ↔ m/s 单位换算</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">s-t 图像 & v-t 图像分析<br><div class="kp-sub"><span>🔵 Kinematic Graphs (KA)</span><span>⚠️ 斜率=速度，面积=位移</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">平均速度（陷阱：不是速度的平均值）<br><div class="kp-sub"><span>⭐ 我们有：追及问题、火车过隧道、高铁站台通过时间</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- Ch2 声现象 -->
+  <div class="ch-section">
+    <div class="ch-header">
+      <div class="ch-num-badge">2</div>
+      <div class="ch-title-wrap">
+        <div class="ch-title">声现象</div>
+        <div class="ch-sub">声音产生 · 传播条件 · 音调/响度/音色 · 噪声控制</div>
+      </div>
+      <div class="ch-chips">
+        <a href="https://www.khanacademy.org/science/ap-physics-1/ap-one-dimensional-motion/x6b3f1e02d3de0ec8:sound" target="_blank" class="chip ka"><span class="chip-icon">🔵</span>KA Sound</a>
+        <a href="https://cirecire.github.io/cirechen/physics/practice.html?ch=Ch02_%E5%A3%B0%E7%8E%B0%E8%B1%A1" class="chip ours"><span class="chip-icon">⭐</span>我们练习 7题</a>
+      </div>
+    </div>
+    <div class="knowledge-list">
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">声音的产生与传播<br><div class="kp-sub"><span>🔵 Sound is a Wave (KA)</span><span>⚠️ 介质是必要条件</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">音调、响度、音色（三要素区分）<br><div class="kp-sub"><span>🔵 Pitch & Loudness (KA)</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">声速计算、回声计算<br><div class="kp-sub"><span>⭐ 我们有：回声测距、声音反射计算题</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">噪声的危害和控制<br><div class="kp-sub"><span>⭐ 概念辨析题</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- Ch3 物态变化 -->
+  <div class="ch-section">
+    <div class="ch-header">
+      <div class="ch-num-badge">3</div>
+      <div class="ch-title-wrap">
+        <div class="ch-title">物态变化</div>
+        <div class="ch-sub">六种物态变化 · 吸放热判断 · 晶体/非晶体 · 沸点熔点</div>
+      </div>
+      <div class="ch-chips">
+        <a href="https://www.khanacademy.org/science/chemistry/states-of-matter-and-intermolecular-forces" target="_blank" class="chip ka"><span class="chip-icon">🔵</span>KA Chemistry</a>
+        <a href="https://cirecire.github.io/cirechen/physics/practice.html?ch=Ch03_%E7%89%A9%E6%80%81%E5%8F%98%E5%8C%96" class="chip ours"><span class="chip-icon">⭐</span>我们练习 9题</a>
+      </div>
+    </div>
+    <div class="knowledge-list">
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">温度与温度计<br><div class="kp-sub"><span>🔵 Temperature & Heat (KA)</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">熔化与凝固（晶体有固定熔点）<br><div class="kp-sub"><span>🔵 Phase Changes (KA)</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">六种物态变化及吸放热判断<br><div class="kp-sub"><span>⭐ 熔化凝固图线题 · 沸点/熔点应用</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">升华与凝华（不放中间态）<br><div class="kp-sub"><span>⭐ 判断题、现象解释题</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- Ch4 光现象 -->
+  <div class="ch-section">
+    <div class="ch-header">
+      <div class="ch-num-badge">4</div>
+      <div class="ch-title-wrap">
+        <div class="ch-title">光现象</div>
+        <div class="ch-sub">直线传播 · 反射定律 · 平面镜成像 · 折射规律 · 色散</div>
+      </div>
+      <div class="ch-chips">
+        <a href="https://www.khanacademy.org/science/ap-physics-2/x6b3f1e02d3de0ec8:light" target="_blank" class="chip ka"><span class="chip-icon">🔵</span>KA Light</a>
+        <a href="https://cirecire.github.io/cirechen/physics/practice.html?ch=Ch04_%E5%85%89%E7%8E%B0%E8%B1%A1" class="chip ours"><span class="chip-icon">⭐</span>我们练习 6题</a>
+      </div>
+    </div>
+    <div class="knowledge-list">
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">光的直线传播与小孔成像<br><div class="kp-sub"><span>🔵 Light & Electromagnetic Waves (KA)</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">光的反射定律（入射角=反射角）<br><div class="kp-sub"><span>🔵 Law of Reflection (KA)</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">平面镜成像特点与作图<br><div class="kp-sub"><span>⭐ 成像规律、像距=物距、对称作图</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">光的折射规律<br><div class="kp-sub"><span>🔵 Refraction (KA Snell's Law)</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">光的色散 & 看不见的光（红外/紫外）<br><div class="kp-sub"><span>⭐ 彩虹成因、波长与频率关系</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- Ch5 透镜 -->
+  <div class="ch-section">
+    <div class="ch-header">
+      <div class="ch-num-badge">5</div>
+      <div class="ch-title-wrap">
+        <div class="ch-title">透镜及其应用</div>
+        <div class="ch-sub">凸/凹透镜 · 凸透镜成像规律 · 照相机/投影仪/放大镜</div>
+      </div>
+      <div class="ch-chips">
+        <a href="https://www.khanacademy.org/science/ap-physics-2/x6b3f1e02d3de0ec8:geometric-optics" target="_blank" class="chip ka"><span class="chip-icon">🔵</span>KA Optics</a>
+        <a href="https://cirecire.github.io/cirechen/physics/practice.html?ch=Ch05_%E9%80%8F%E9%95%9C" class="chip ours"><span class="chip-icon">⭐</span>我们练习 5题</a>
+      </div>
+    </div>
+    <div class="knowledge-list">
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">凸透镜与凹透镜<br><div class="kp-sub"><span>🔵 Lenses (KA)</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">凸透镜成像规律（u>2f / f<u<2f / u<f）<br><div class="kp-sub"><span>🔵 Thin Lens Equation (KA)</span><span>⚠️ 物距-像距-焦距关系是难点</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">照相机、投影仪、放大镜的原理<br><div class="kp-sub"><span>⭐ 判断成像情况、像的放大/缩小/倒立</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">眼睛与眼镜（近视/远视矫正）<br><div class="kp-sub"><span>⭐ 透镜类型选择题</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- Ch6 质量与密度 -->
+  <div class="ch-section">
+    <div class="ch-header">
+      <div class="ch-num-badge">6</div>
+      <div class="ch-title-wrap">
+        <div class="ch-title">质量与密度</div>
+        <div class="ch-sub">天平使用 · 密度公式 ρ=m/V · 测量密度 · 空心问题</div>
+      </div>
+      <div class="ch-chips">
+        <a href="https://www.khanacademy.org/science/chemistry/physical-and-chemical-change" target="_blank" class="chip ka"><span class="chip-icon">🔵</span>KA Chemistry</a>
+        <a href="https://cirecire.github.io/cirechen/physics/practice.html?ch=Ch06_%E8%B4%A8%E9%87%8F%E5%AF%86%E5%BA%A6" class="chip ours"><span class="chip-icon">⭐</span>我们练习 5题</a>
+      </div>
+    </div>
+    <div class="knowledge-list">
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">质量概念与天平使用<br><div class="kp-sub"><span>⭐ 读数方法、误差分析</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">密度公式 ρ = m/V 及应用<br><div class="kp-sub"><span>🔵 Density (KA)</span><span>⚠️ 单位换算（g/cm³ ↔ kg/m³）</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">测量物质密度（排水法、等体积法）<br><div class="kp-sub"><span>⭐ 实验题思路</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">空心问题与混合物密度<br><div class="kp-sub"><span>⭐ 难题 · 判断空心体积、混合比例</span></div></div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Volume 2: 8年级下册 -->
+<div id="vol2" style="display:none">
+
+  <!-- Ch7 力 -->
+  <div class="ch-section">
+    <div class="ch-header">
+      <div class="ch-num-badge volume2">7</div>
+      <div class="ch-title-wrap">
+        <div class="ch-title">力</div>
+        <div class="ch-sub">力的概念 · 三要素 · 示意图 · 重力 G=mg · 弹力 · 相互作用力</div>
+      </div>
+      <div class="ch-chips">
+        <a href="https://www.khanacademy.org/science/ap-physics-1/ap-forces-newtons-laws" target="_blank" class="chip ka"><span class="chip-icon">🔵</span>KA Forces</a>
+        <a href="https://cirecire.github.io/cirechen/physics/practice.html?ch=Ch07_%E5%8A%9B" class="chip ours"><span class="chip-icon">⭐</span>我们练习 14题</a>
+      </div>
+    </div>
+    <div class="knowledge-list">
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">力的概念与相互作用（施力物体=受力物体）<br><div class="kp-sub"><span>🔵 Newton's Third Law (KA)</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">力的示意图（箭头表示方向，起点=作用点）<br><div class="kp-sub"><span>🔵 Free Body Diagrams (KA)</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">重力 G = mg（g = 9.8 N/kg）<br><div class="kp-sub"><span>⭐ 我们有：求重力、比较质量不同时的重力比</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">弹力与弹簧测力计<br><div class="kp-sub"><span>⭐ 弹簧伸长量与拉力成正比</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">二力平衡（等大、反向、共线、同体）<br><div class="kp-sub"><span>⭐ 判断题 · 画平衡力</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- Ch8 运动和力 -->
+  <div class="ch-section">
+    <div class="ch-header">
+      <div class="ch-num-badge volume2">8</div>
+      <div class="ch-title-wrap">
+        <div class="ch-title">运动和力</div>
+        <div class="ch-sub">牛顿第一定律（惯性） · 二力平衡 · 摩擦力</div>
+      </div>
+      <div class="ch-chips">
+        <a href="https://www.khanacademy.org/science/ap-physics-1/ap-forces-newtons-laws/newtons-first-law-ap" target="_blank" class="chip ka"><span class="chip-icon">🔵</span>KA Newton's Laws</a>
+        <a href="https://cirecire.github.io/cirechen/physics/practice.html?ch=Ch08_%E5%8E%8B%E5%BC%BA" class="chip ours"><span class="chip-icon">⭐</span>我们练习 8题</a>
+      </div>
+    </div>
+    <div class="knowledge-list">
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">牛顿第一定律（惯性定律）<br><div class="kp-sub"><span>🔵 Newton's First Law (KA)</span><span>⚠️ 一切物体保持匀速/静止</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">二力平衡的条件与应用<br><div class="kp-sub"><span>🔵 Balanced Forces (KA)</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">摩擦力（静摩擦/滑动摩擦/滚动摩擦）<br><div class="kp-sub"><span>🔵 Friction (KA)</span><span>⚠️ 影响滑动摩擦力的因素</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">摩擦力方向判断（与运动方向相反）<br><div class="kp-sub"><span>⭐ 受力分析题</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- Ch9 压强 -->
+  <div class="ch-section">
+    <div class="ch-header">
+      <div class="ch-num-badge volume2">9</div>
+      <div class="ch-title-wrap">
+        <div class="ch-title">压强</div>
+        <div class="ch-sub">固体压强 p=F/S · 液体压强 p=ρgh · 大气压强 · 流体流速</div>
+      </div>
+      <div class="ch-chips">
+        <a href="https://www.khanacademy.org/science/ap-physics-1/ap-forces-newtons-laws/pressure" target="_blank" class="chip ka"><span class="chip-icon">🔵</span>KA Pressure</a>
+        <a href="https://cirecire.github.io/cirechen/physics/practice.html?ch=Ch08_%E5%8E%8B%E5%BC%BA" class="chip ours"><span class="chip-icon">⭐</span>我们练习 8题</a>
+      </div>
+    </div>
+    <div class="knowledge-list">
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">固体压强 p = F/S（增大/减小压强方法）<br><div class="kp-sub"><span>🔵 Pressure (KA)</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">液体压强 p = ρgh（只跟ρ和h有关）<br><div class="kp-sub"><span>🔵 Fluid Pressure (KA)</span><span>⚠️ 深度h是自由液面到该点的竖直距离</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">大气压强（马德堡半球/托里拆利实验）<br><div class="kp-sub"><span>⭐ 判断大气压存在现象</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">流体流速与压强的关系（伯努利原理）<br><div class="kp-sub"><span>⭐ 机翼升力、喷雾器等应用题</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- Ch10 浮力 -->
+  <div class="ch-section">
+    <div class="ch-header">
+      <div class="ch-num-badge volume2">10</div>
+      <div class="ch-title-wrap">
+        <div class="ch-title">浮力</div>
+        <div class="ch-sub">阿基米德原理 F浮=G排 · 浮沉条件 · 浮力计算</div>
+      </div>
+      <div class="ch-chips">
+        <a href="https://www.khanacademy.org/science/ap-physics-1/ap-forces-newtons-laws/buoyancy" target="_blank" class="chip ka"><span class="chip-icon">🔵</span>KA Buoyancy</a>
+        <a href="https://cirecire.github.io/cirechen/physics/practice.html?ch=Ch09_%E6%B5%AE%E5%8A%9B" class="chip ours"><span class="chip-icon">⭐</span>我们练习 6题</a>
+      </div>
+    </div>
+    <div class="knowledge-list">
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">阿基米德原理 F浮 = ρ液·g·V排<br><div class="kp-sub"><span>🔵 Buoyancy & Archimedes' Principle (KA)</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">物体的浮沉条件（上浮/下沉/悬浮/漂浮）<br><div class="kp-sub"><span>⭐ 判断浮沉、比较ρ物与ρ液</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">浮力的几种求法（称重法、平衡法、阿基米德原理）<br><div class="kp-sub"><span>⭐ 综合计算题</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">浮力应用（轮船、潜水艇、气球）<br><div class="kp-sub"><span>⭐ 原理分析题</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- Ch11 功和机械能 -->
+  <div class="ch-section">
+    <div class="ch-header">
+      <div class="ch-num-badge volume2">11</div>
+      <div class="ch-title-wrap">
+        <div class="ch-title">功和机械能</div>
+        <div class="ch-sub">做功条件 · 功 W=Fs · 功率 P=W/t · 动能 · 势能 · 机械能转化</div>
+      </div>
+      <div class="ch-chips">
+        <a href="https://www.khanacademy.org/science/ap-physics-1/ap-work-and-energy" target="_blank" class="chip ka"><span class="chip-icon">🔵</span>KA Work & Energy</a>
+        <a href="https://cirecire.github.io/cirechen/physics/practice.html?ch=Ch10_%E5%8A%9F%E5%92%8C%E6%9C%BA%E6%A2%B0%E8%83%BD" class="chip ours"><span class="chip-icon">⭐</span>我们练习 12题</a>
+      </div>
+    </div>
+    <div class="knowledge-list">
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">做功的两个条件（有力+在力的方向移动距离）<br><div class="kp-sub"><span>🔵 Work (KA)</span><span>⚠️ 不做功的三种情况</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">功的计算 W = Fs（单位：焦耳 J）<br><div class="kp-sub"><span>🔵 Work-Energy Theorem (KA)</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">功率 P = W/t（表示做功快慢）<br><div class="kp-sub"><span>🔵 Power (KA)</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">动能（与速度平方成正比）与重力势能（与高度成正比）<br><div class="kp-sub"><span>⭐ 判断动能/势能大小变化</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">机械能守恒（动能+势能守恒，无摩擦时）<br><div class="kp-sub"><span>⭐ 能量转化分析题</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- Ch12 简单机械 -->
+  <div class="ch-section">
+    <div class="ch-header">
+      <div class="ch-num-badge volume2">12</div>
+      <div class="ch-title-wrap">
+        <div class="ch-title">简单机械</div>
+        <div class="ch-sub">杠杆 · 滑轮 · 滑轮组 · 机械效率</div>
+      </div>
+      <div class="ch-chips">
+        <a href="https://www.khanacademy.org/science/ap-physics-1/ap rotational-motion-equilibrium" target="_blank" class="chip ka"><span class="chip-icon">🔵</span>KA Rotation</a>
+        <a href="https://cirecire.github.io/cirechen/physics/practice.html?ch=Ch11_%E7%AE%80%E5%8D%95%E6%9C%BA%E6%A2%B0" class="chip ours"><span class="chip-icon">⭐</span>我们练习 9题</a>
+      </div>
+    </div>
+    <div class="knowledge-list">
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">杠杆的分类（省力/费力/等臂）<br><div class="kp-sub"><span>🔵 Torque & Rotational Equilibrium (KA)</span><span>⚠️ 动力×动力臂=阻力×阻力臂</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ka"></div><div class="kp-text">定滑轮（不省力，改变方向）与动滑轮（省一半力）<br><div class="kp-sub"><span>🔵 Pulleys (KA)</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">滑轮组的组装与拉力计算<br><div class="kp-sub"><span>⭐ 数绳子段数、绕线方式</span></div></div></div>
+      <div class="kp-row"><div class="kp-dot ours"></div><div class="kp-text">机械效率 η = W有/W总<br><div class="kp-sub"><span>⭐ 求有用功、总功、额外功</span></div></div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Legend -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div>⭐ 我们有对应练习（苏格拉底引导）</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div>🔵 Khan Academy 有视频+练习</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div>🟠 两边都有或综合应用</div>
+</div>
+
+<script>
+  function showBook(vol) {
+    document.getElementById('vol1').style.display = vol === 'vol1' ? '' : 'none';
+    document.getElementById('vol2').style.display = vol === 'vol2' ? '' : 'none';
+    document.querySelectorAll('.book-tab').forEach((btn, i) => {
+      btn.classList.toggle('active', (i === 0 && vol === 'vol1') || (i === 1 && vol === 'vol2'));
+    });
+  }
+</script>
+
+</body>
+</html>
