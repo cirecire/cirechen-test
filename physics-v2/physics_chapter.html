@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physics Chapter — Khan Academy Gr.8</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+/* Light mode (default) */
+:root {
+  --bg: #f0f4f8;
+  --card: #fff;
+  --text: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border: #cbd5e1;
+  --blue: #2563eb;
+  --blue-dark: #1e3a5f;
+  --blue-banner: linear-gradient(135deg, #0c2d5c 0%, #1e5f9e 50%, #2563eb 100%);
+  --shadow: rgba(0,0,0,.08);
+  --shadow-hover: rgba(0,0,0,.12);
+  --purple: #7c3aed;
+  --teal: #0f766e;
+  --green: #059669;
+  --orange: #c2410c;
+  --orange-light: #fff7ed;
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --border: #334155;
+  --blue-dark: #93c5fd;
+  --shadow: rgba(0,0,0,.3);
+  --shadow-hover: rgba(0,0,0,.4);
+}
+
+/* System preference (fallback) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --text: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border: #334155;
+    --blue-dark: #93c5fd;
+    --shadow: rgba(0,0,0,.3);
+    --shadow-hover: rgba(0,0,0,.4);
+  }
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 0 0 56px;
+  transition: background .3s, color .3s;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .2s;
+  box-shadow: 0 2px 8px var(--shadow);
+  z-index: 1000;
+}
+.theme-toggle:hover {
+  background: var(--card);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--shadow);
+}
+.theme-toggle .icon { font-size: 16px; }
+
+/* Banner */
+.banner {
+  background: var(--blue-banner);
+  color: #fff;
+  padding: 20px 24px;
+  position: relative;
+}
+.banner .crumb { font-size: 12px; opacity: .85; }
+.banner h1 { font-size: 19px; font-weight: 700; margin-top: 3px; }
+.banner .meta { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+.banner .meta span { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: rgba(255,255,255,.18); }
+.banner .home-btn {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.3);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all .15s;
+}
+.banner .home-btn:hover { background: rgba(255,255,255,.25); }
+
+/* Container */
+.container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+/* Step bar */
+.stepbar {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 8px var(--shadow);
+  overflow-x: auto;
+}
+.sb { display: flex; align-items: center; gap: 7px; cursor: pointer; flex-shrink: 0; }
+.sb-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  transition: .15s;
+}
+.sb-lab { font-size: 12.5px; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+.sb.active .sb-num { background: var(--blue); color: #fff; }
+.sb.active .sb-lab { color: var(--blue-dark); }
+.sb.done .sb-num { background: var(--green); color: #fff; }
+.sb.done .sb-lab { color: var(--text-secondary); }
+.sb-arrow { color: var(--border); font-size: 16px; font-weight: 700; }
+
+/* Panel */
+.panel {
+  display: none;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+  margin-top: 16px;
+  box-shadow: 0 2px 8px var(--shadow);
+  transition: background .3s;
+}
+.panel.show { display: block; }
+.panel h2 { font-size: 17px; color: var(--blue-dark); margin-bottom: 10px; }
+
+/* Think (step 1) */
+.elicit {
+  background: #eff6ff;
+  border-left: 4px solid var(--blue);
+  border-radius: 8px;
+  padding: 16px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.7;
+}
+.note { font-size: 12.5px; color: var(--text-muted); margin-top: 10px; font-style: italic; }
+
+/* Watch (step 2) */
+.video-list { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+.video-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text);
+  background: var(--card);
+  transition: transform .12s, box-shadow .12s;
+}
+.video-card:hover { transform: translateY(-1px); box-shadow: 0 4px 14px var(--shadow-hover); }
+.video-card .play {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--purple);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+.video-card .vt { font-size: 14px; font-weight: 600; }
+.video-card .vm { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.video-card .yt-badge {
+  font-size: 10px;
+  font-weight: 700;
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+  padding: 1px 6px;
+  border-radius: 999px;
+  margin-left: 6px;
+}
+
+/* Notes (step 3) */
+.notes { margin: 10px 0 0 18px; }
+.notes li { margin-bottom: 9px; font-size: 14.5px; line-height: 1.7; }
+.gloss { color: var(--blue); font-weight: 600; }
+
+/* Practice / Quiz (step 4 & 5) */
+.q {
+  display: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 13px;
+  background: var(--card);
+  transition: background .3s;
+}
+.q.show { display: block; }
+.qn { font-weight: 600; font-size: 14.5px; margin-bottom: 9px; }
+.qopts { display: flex; flex-direction: column; gap: 7px; }
+.qopt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background .15s;
+}
+.qopt:hover { background: rgba(255,255,255,.05); }
+.qopt input { accent-color: var(--blue); width: 16px; height: 16px; }
+.fill {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--card);
+  color: var(--text);
+}
+.fb { margin-top: 10px; padding: 10px 12px; border-radius: 8px; font-size: 13.5px; display: none; }
+.fb.ok { background: #ecfdf5; border: 1px solid #6ee7b7; color: #065f46; display: block; }
+.fb.no { background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; display: block; }
+.sol {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: #f0fdfa;
+  border-left: 4px solid var(--teal);
+  border-radius: 8px;
+  font-size: 13.5px;
+  display: none;
+}
+
+/* Nav */
+.nav { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; gap: 10px; }
+.next-btn {
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  padding: 11px 22px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.next-btn:hover { background: #1d4ed8; }
+.next-btn:disabled { background: #94a3b8; cursor: not-allowed; }
+.back-btn {
+  background: var(--card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  padding: 11px 18px;
+  border-radius: 9px;
+  font-size: 13.5px;
+  cursor: pointer;
+}
+
+/* Done screen */
+.done-screen {
+  display: none;
+  text-align: center;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 30px;
+  margin-top: 16px;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+.done-screen.show { display: block; }
+.done-screen .big { font-size: 40px; }
+.done-screen h2 { color: var(--green); margin: 8px 0; }
+.go-next {
+  display: inline-block;
+  margin-top: 14px;
+  background: var(--green);
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 9px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Coverage badge colors */
+.cov-g { background: #ecfdf5; color: var(--green); border: 1px solid #6ee7b7; padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+.cov-b { background: #eff6ff; color: var(--blue); border: 1px solid #bfdbfe; padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+.cov-p { background: #f5f3ff; color: var(--purple); border: 1px solid #c4b5fd; padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+
+/* Dark mode adjustments */
+[data-theme="dark"] .elicit { background: rgba(37,99,235,.15); }
+[data-theme="dark"] .cov-g { background: rgba(5,150,105,.2); border-color: rgba(52,211,153,.3); }
+[data-theme="dark"] .cov-b { background: rgba(37,99,235,.2); border-color: rgba(59,130,246,.3); }
+[data-theme="dark"] .cov-p { background: rgba(124,58,237,.2); border-color: rgba(167,139,250,.3); }
+[data-theme="dark"] .fb.ok { background: rgba(5,150,105,.15); border-color: rgba(52,211,153,.3); }
+[data-theme="dark"] .fb.no { background: rgba(185,28,28,.15); border-color: rgba(252,165,165,.3); }
+[data-theme="dark"] .sol { background: rgba(15,118,110,.15); }
+[data-theme="dark"] .video-card .yt-badge { background: rgba(185,28,28,.2); border-color: rgba(252,165,165,.3); }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+  <span class="icon" id="themeIcon">🌙</span>
+  <span id="themeText">夜间模式</span>
+</button>
+
+<div class="banner">
+  <a class="home-btn" href="physics_index.html">← 课程主页</a>
+  <div class="crumb" id="crumb"></div>
+  <h1 id="title"></h1>
+  <div class="meta">
+    <span id="cov"></span>
+    <span id="grade"></span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="stepbar" id="stepbar"></div>
+  <div class="panel" id="p1"></div>
+  <div class="panel" id="p2"></div>
+  <div class="panel" id="p3"></div>
+  <div class="panel" id="p4"></div>
+  <div class="panel" id="p5"></div>
+  <div class="done-screen" id="done">
+    <div class="big">🎉</div>
+    <h2>Chapter complete!</h2>
+    <p id="doneText">You finished Think → Watch → Notes → Practice → Quiz.</p>
+    <a class="go-next" id="goNext" href="#">Go to next chapter ▶</a>
+  </div>
+</div>
+
+<script src="physics_data.js"></script>
+<script>
+// Theme management - shared across all pages
+function getSystemTheme() {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function getStoredTheme() {
+  return localStorage.getItem('qclaw-theme');
+}
+
+function setTheme(theme) {
+  if (theme === 'system') {
+    localStorage.removeItem('qclaw-theme');
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    localStorage.setItem('qclaw-theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+  updateThemeButton();
+}
+
+function getCurrentTheme() {
+  const stored = getStoredTheme();
+  if (stored) return stored;
+  return getSystemTheme();
+}
+
+function toggleTheme() {
+  const current = getCurrentTheme();
+  const next = current === 'dark' ? 'light' : 'dark';
+  setTheme(next);
+}
+
+function updateThemeButton() {
+  const icon = document.getElementById('themeIcon');
+  const text = document.getElementById('themeText');
+  const current = getCurrentTheme();
+
+  if (current === 'dark') {
+    icon.textContent = '☀️';
+    text.textContent = '日间模式';
+  } else {
+    icon.textContent = '🌙';
+    text.textContent = '夜间模式';
+  }
+}
+
+// Initialize on page load
+(function() {
+  const stored = getStoredTheme();
+  if (stored) {
+    document.documentElement.setAttribute('data-theme', stored);
+  }
+  updateThemeButton();
+
+  // Listen for system theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+    if (!getStoredTheme()) {
+      updateThemeButton();
+    }
+  });
+})();
+
+// Chapter rendering logic
+var params = new URLSearchParams(location.search);
+var id = params.get('ch');
+var CH = null, idx = -1;
+for(var i=0; i<PHY_DATA.length; i++){
+  if(PHY_DATA[i].id === id){ CH = PHY_DATA[i]; idx = i; break; }
+}
+if(!CH){
+  document.querySelector('.banner h1').textContent = 'Chapter not found';
+} else {
+  render();
+}
+
+var TOTAL = 5, cur = 1;
+
+function render(){
+  document.getElementById('crumb').textContent = 'Physics · ' + CH.unit;
+  document.getElementById('title').textContent = CH.title;
+  document.getElementById('grade').textContent = CH.grade;
+  var covMap = {g:'🟢 Khan video + exercise', b:'🔵 Khan video — practice added', p:'🟣 custom only'};
+  document.getElementById('cov').innerHTML = '<span class="cov-'+CH.coverage+'">'+covMap[CH.coverage]+'</span>';
+
+  // Step bar
+  var labels = ['Think','Watch','Notes','Practice','Quiz'];
+  var sb = '';
+  for(var s=1; s<=5; s++){
+    sb += '<div class="sb" data-step="'+s+'" onclick="goStep('+s+')">'+
+          '<div class="sb-num">'+s+'</div>'+
+          '<div class="sb-lab">'+labels[s-1]+'</div></div>'+
+          (s<5 ? '<span class="sb-arrow">→</span>' : '');
+  }
+  document.getElementById('stepbar').innerHTML = sb;
+
+  // p1: Think
+  document.getElementById('p1').innerHTML =
+    '<h2>Step 1 · Think</h2>'+
+    '<div class="elicit">'+CH.think+'</div>'+
+    '<p class="note">No answer yet — just think about it. When you\'re ready, click Next.</p>'+
+    '<div class="nav"><span></span><button class="next-btn" onclick="next()">Next → Watch</button></div>';
+
+  // p2: Watch
+  var v = '<h2>Step 2 · Watch</h2><p class="note">Tap a video to watch it on YouTube — works on any device, anywhere.</p><div class="video-list">';
+  CH.videos.forEach(function(x){
+    v += '<a class="video-card" href="'+x.url+'" target="_blank" rel="noopener">'+
+         '<div class="play">▶</div>'+
+         '<div><div class="vt">'+x.t+' <span class="yt-badge">YouTube</span></div>'+
+         '<div class="vm">'+(x.m||'')+'</div></div></a>';
+  });
+  v += '</div>'+
+       '<div class="nav"><button class="back-btn" onclick="goStep(1)">← Back</button><button class="next-btn" onclick="next()">Next → Notes</button></div>';
+  document.getElementById('p2').innerHTML = v;
+
+  // p3: Notes
+  var n = '<h2>Step 3 · Notes</h2><p class="note">Key points in English. Hard terms glossed in Chinese once.</p><ul class="notes">';
+  CH.notes.forEach(function(x){ n += '<li>'+x+'</li>'; });
+  n += '</ul><div class="nav"><button class="back-btn" onclick="goStep(2)">← Back</button><button class="next-btn" onclick="next()">Next → Practice</button></div>';
+  document.getElementById('p3').innerHTML = n;
+
+  // p4: Practice
+  document.getElementById('p4').innerHTML =
+    '<h2>Step 4 · Practice</h2><p class="note">Check your answer after each question.</p>'+
+    renderQs(CH.practice,false)+
+    '<div class="nav"><button class="back-btn" onclick="goStep(3)">← Back</button><button class="next-btn" onclick="next()">Next → Quiz</button></div>';
+
+  // p5: Quiz
+  document.getElementById('p5').innerHTML =
+    '<h2>Step 5 · Quiz</h2><p class="note">Answer all questions. Click Finish to complete the chapter.</p>'+
+    renderQs(CH.quiz,true)+
+    '<div class="nav"><button class="back-btn" onclick="goStep(4)">← Back</button><button class="next-btn" id="finishBtn" onclick="finish()" disabled>Finish chapter ✓</button></div>';
+
+  // Done: next chapter link
+  var nextCH = PHY_DATA[idx+1];
+  if(nextCH){
+    document.getElementById('goNext').href = '?ch='+nextCH.id;
+    document.getElementById('goNext').textContent = 'Next: '+nextCH.title+' ▶';
+  } else {
+    document.getElementById('goNext').href = 'physics_index.html';
+    document.getElementById('goNext').textContent = '← Back to all chapters';
+  }
+
+  showStep(1);
+  wireChecks();
+}
+
+function renderQs(list, isQuiz){
+  var h = '', tag = isQuiz ? 'qz' : 'pr';
+  list.forEach(function(q, qi){
+    var inner = '<div class="qn">'+(qi+1)+'. '+q.q+'</div>';
+    if(q.type === 'fill'){
+      inner += '<input class="fill" type="text" placeholder="type your answer" '+
+               'data-ans="'+q.ans.toLowerCase()+'" data-id="'+tag+qi+'">';
+    } else {
+      inner += '<div class="qopts">';
+      q.opts.forEach(function(o){
+        inner += '<label class="qopt"><input type="radio" name="'+tag+qi+'" value="'+o.v.toLowerCase()+'" '+
+                 'data-ans="'+o.v.toLowerCase()+'" data-id="'+tag+qi+'"> '+o.t+'</label>';
+      });
+      inner += '</div>';
+    }
+    inner += '<div class="fb" id="fb-'+tag+qi+'"></div>';
+    if(q.sol) inner += '<div class="sol" id="sol-'+tag+qi+'">'+q.sol+'</div>';
+    h += '<div class="q show" id="q-'+tag+qi+'">'+inner+'</div>';
+  });
+  return h;
+}
+
+function wireChecks(){
+  document.querySelectorAll('input[data-ans]').forEach(function(inp){
+    inp.addEventListener('change', checkAnswer);
+    inp.addEventListener('keydown', function(e){
+      if(e.keyCode===13) checkAnswer.call(inp);
+    });
+  });
+}
+
+function checkAnswer(){
+  var id = this.getAttribute('data-id');
+  var ans = this.value.trim().toLowerCase();
+  var correct = this.getAttribute('data-ans');
+  var fb = document.getElementById('fb-'+id);
+  var sol = document.getElementById('sol-'+id);
+  if(!fb) return;
+  if(ans === correct){
+    fb.className = 'fb ok';
+    fb.textContent = '✓ Correct!';
+    if(sol) sol.style.display = 'block';
+  } else {
+    fb.className = 'fb no';
+    fb.textContent = '✗ Not quite — try again or check the solution below.';
+    if(sol) sol.style.display = 'block';
+  }
+  checkFinish();
+}
+
+function checkFinish(){
+  var finishBtn = document.getElementById('finishBtn');
+  if(!finishBtn) return;
+  var qzQuestions = document.querySelectorAll('#p5 .q');
+  var answered = 0;
+  qzQuestions.forEach(function(q){
+    var inputs = q.querySelectorAll('input:checked');
+    var fill = q.querySelector('input.fill');
+    if(inputs.length > 0 || (fill && fill.value.trim() !== '')) answered++;
+  });
+  finishBtn.disabled = (answered < qzQuestions.length);
+}
+
+function showStep(n){
+  cur = n;
+  for(var i=1;i<=5;i++){
+    document.getElementById('p'+i).classList.toggle('show', i===n);
+  }
+  document.querySelectorAll('.sb').forEach(function(sb){
+    var s = parseInt(sb.getAttribute('data-step'));
+    sb.classList.toggle('active', s===n);
+    sb.classList.toggle('done', s<n);
+  });
+  if(n < 5){
+    document.getElementById('done').classList.remove('show');
+  }
+}
+
+function goStep(n){ showStep(n); }
+
+function next(){
+  if(cur < 5) showStep(cur+1);
+}
+
+function finish(){
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('show'); });
+  document.getElementById('done').classList.add('show');
+}
+</script>
+</body>
+</html>
