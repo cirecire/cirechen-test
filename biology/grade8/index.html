@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深圳八年级生物 · Khan Academy</title>
+<style>:root, [data-theme="dark"] {
+  --bg-primary:#0a0a1a; --bg-secondary:#12122a; --bg-card:#1a1a3e;
+  --text-primary:#e8e8ff; --text-secondary:#a0a0c0;
+  --accent-blue:#4fc3f7; --accent-green:#66bb6a;
+  --accent-purple:#b794f6; --border:#2a2a5a; --shadow:rgba(0,0,0,0.3);
+}
+[data-theme="light"] {
+  --bg-primary:#f5f5f7; --bg-secondary:#ffffff; --bg-card:#ffffff;
+  --text-primary:#1a1a2e; --text-secondary:#5a5a6e;
+  --accent-blue:#0066cc; --accent-green:#2e7d32;
+  --accent-purple:#7c3aed; --border:#e0e0e5; --shadow:rgba(0,0,0,0.1);
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:var(--bg-primary); color:var(--text-primary); line-height:1.6; padding:20px; }
+.container { max-width:1000px; margin:0 auto; }
+.header { display:flex; align-items:center; gap:16px; margin-bottom:8px; }
+.header h1 { flex:1; text-align:center; color:var(--accent-blue); margin-bottom:0; font-size:20px; }
+.nav-link { color:var(--text-secondary); text-decoration:none; font-size:14px; }
+.nav-link:hover { color:var(--accent-blue); }
+.theme-btn { background:var(--bg-secondary); border:1px solid var(--border); border-radius:8px; padding:8px 12px; font-size:16px; cursor:pointer; line-height:1; }
+.theme-btn:hover { background:var(--bg-primary); }
+.subtitle { text-align:center; color:var(--text-secondary); margin-bottom:24px; }
+.chapter-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
+.chapter-card { background:var(--bg-card); border-radius:12px; padding:20px; border:1px solid var(--border); box-shadow:0 2px 8px var(--shadow); display:flex; flex-direction:column; position:relative; }
+.ch-no { position:absolute; top:-11px; left:18px; background:#0d9488; color:#ffffff; font-size:12px; font-weight:800; padding:3px 12px; box-shadow:0 2px 6px rgba(13,148,136,.25); border-radius:999px; letter-spacing:.5px; }
+.chapter-card h2 { color:var(--text-primary); margin:8px 0 4px; font-size:16px; line-height:1.35; }
+.chapter-card .en { color:var(--text-secondary); font-size:12.5px; margin-bottom:14px; }
+.cov { display:inline-block; align-self:flex-start; font-size:11px; font-weight:700; padding:2px 9px; border-radius:999px; margin-bottom:14px; }
+.cov.g { background:rgba(102,187,106,.18); color:var(--accent-green); }
+.cov.b { background:rgba(160,160,192,.18); color:var(--text-secondary); }
+.cov.p { background:rgba(183,148,246,.18); color:var(--accent-purple); }
+.btn-practice { display:block; width:100%; text-align:center; background:var(--accent-green); color:var(--bg-primary); padding:10px; border-radius:8px; text-decoration:none; font-weight:600; margin-top:auto; }
+.btn-practice:hover { opacity:.9; }
+.foot { text-align:center; color:var(--text-secondary); font-size:12px; margin-top:28px; }</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <a class="nav-link" href="../../grade8/index.html">← 选学科</a>
+    <a class="nav-link" href="../../grade7/index.html">← G7 · 七年级</a>
+    <h1>深圳八年级生物 · Khan Academy</h1>
+    <button class="theme-btn" onclick="toggleTheme()">🌓</button>
+  </div>
+  <div class="subtitle">8 lessons · 八上 + 八下 · 人教版2024 · English videos + practice（按 G8·01 → G8·08 顺序学）</div>
+  <div class="chapter-grid">
+    <div class="chapter-card">
+      <div class="ch-no">G8 · 01</div>
+      <h2>生命活动的调节 · Nerves, senses & hormones</h2>
+      <div class="en">八上 U4 · Ch6</div>
+      <span class="cov g">🟢 Khan video + exercise</span>
+      <a class="btn-practice" href="../bio_chapter.html?ch=u4c6&amp;grade=8">Open lesson ▶</a>
+    </div>
+    <div class="chapter-card">
+      <div class="ch-no">G8 · 02</div>
+      <h2>健康地生活 · Immunity, first aid & lifestyle</h2>
+      <div class="en">八上 U4 · Ch7</div>
+      <span class="cov g">🟢 Khan video + exercise</span>
+      <a class="btn-practice" href="../bio_chapter.html?ch=u4c7&amp;grade=8">Open lesson ▶</a>
+    </div>
+    <div class="chapter-card">
+      <div class="ch-no">G8 · 03</div>
+      <h2>生态系统 · Food webs, energy & biosphere</h2>
+      <div class="en">八上 U5 · Ch1</div>
+      <span class="cov g">🟢 Khan video + exercise</span>
+      <a class="btn-practice" href="../bio_chapter.html?ch=u5c1&amp;grade=8">Open lesson ▶</a>
+    </div>
+    <div class="chapter-card">
+      <div class="ch-no">G8 · 04</div>
+      <h2>生态安全 · Human impact & protection</h2>
+      <div class="en">八上 U5 · Ch2</div>
+      <span class="cov b">🔵 Khan video only — practice added</span>
+      <a class="btn-practice" href="../bio_chapter.html?ch=u5c2&amp;grade=8">Open lesson ▶</a>
+    </div>
+    <div class="chapter-card">
+      <div class="ch-no">G8 · 05</div>
+      <h2>生物的生殖 · Asexual & sexual</h2>
+      <div class="en">八下 U6 · Ch1</div>
+      <span class="cov g">🟢 Khan video + exercise</span>
+      <a class="btn-practice" href="../bio_chapter.html?ch=u6c1&amp;grade=8">Open lesson ▶</a>
+    </div>
+    <div class="chapter-card">
+      <div class="ch-no">G8 · 06</div>
+      <h2>遗传与变异 · Genes, chromosomes & Punnett (中考重点)</h2>
+      <div class="en">八下 U6 · Ch2</div>
+      <span class="cov g">🟢 Khan video + exercise</span>
+      <a class="btn-practice" href="../bio_chapter.html?ch=u6c2&amp;grade=8">Open lesson ▶</a>
+    </div>
+    <div class="chapter-card">
+      <div class="ch-no">G8 · 07</div>
+      <h2>生物的进化 · Origins & natural selection</h2>
+      <div class="en">八下 U6 · Ch3</div>
+      <span class="cov g">🟢 Khan video + exercise</span>
+      <a class="btn-practice" href="../bio_chapter.html?ch=u6c3&amp;grade=8">Open lesson ▶</a>
+    </div>
+    <div class="chapter-card">
+      <div class="ch-no">G8 · 08</div>
+      <h2>生物多样性及其保护 · Conservation</h2>
+      <div class="en">八下 U6 · Ch4</div>
+      <span class="cov b">🔵 Khan video only — practice added</span>
+      <a class="btn-practice" href="../bio_chapter.html?ch=u6c4&amp;grade=8">Open lesson ▶</a>
+    </div>
+  </div>
+  <div class="foot">Draft · every lesson follows Think → Watch → Notes → Practice → Quiz · 学完一章点“Go to next chapter”自动跳下一章</div>
+</div>
+<script>
+function toggleTheme(){ const r=document.documentElement; const cur=r.getAttribute('data-theme'); r.setAttribute('data-theme', cur==='light'?'dark':'light'); }
+</script>
+</body>
+</html>
