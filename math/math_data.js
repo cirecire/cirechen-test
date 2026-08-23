@@ -1,6 +1,9 @@
 // Math Data — Grade 8 (PEP / Shenzhen) · Khan Academy aligned
-// Video: Khan Academy — YouTube embed (English original sound)
-// Practice & Quiz: English questions matching KA exercise topics
+// Source: Khan Academy khan-exercises (MIT licensed)
+//   pythagorean_theorem_1.html → basic Pythagorean theorem (find hypotenuse / find leg)
+//   pythagorean_theorem_2.html → special right triangles (45-45-90 / 30-60-90)
+// Video: Khan Academy "The Pythagorean Theorem" (AA6RfgP-AHU, YouTube embed)
+// Practice & Quiz: Real KA exercise types, exact wording from khan-exercises repo
 
 var MATH_DATA = [
   {
@@ -18,19 +21,61 @@ var MATH_DATA = [
       "Common Pythagorean triples: (3,4,5), (5,12,13), (8,15,17).",
       "Converse: if a² + b² = c², the triangle is a right triangle."
     ],
+    // KA exercise types from pythagorean_theorem_1.html (basic) + pythagorean_theorem_2.html (special)
     practice: [
-      { q: "In a right triangle, the legs are 6 and 8. Find the hypotenuse.", type: "fill", ans: "10", sol: "6² + 8² = 36 + 64 = 100 → √100 = 10" },
-      { q: "A right triangle has hypotenuse 13 and one leg 5. Find the other leg.", type: "fill", ans: "12", sol: "13² − 5² = 169 − 25 = 144 → √144 = 12" },
-      { q: "Is a triangle with sides 7, 24, 25 a right triangle?", type: "choice", opts: ["Yes", "No"], ans: "Yes", sol: "7² + 24² = 49 + 576 = 625 = 25² ✓" },
-      { q: "Find the hypotenuse of a right triangle with legs 9 and 12.", type: "fill", ans: "15", sol: "9² + 12² = 81 + 144 = 225 → √225 = 15" },
-      { q: "Two sides of a right triangle are 8 and 15, and 15 is a leg. Find the hypotenuse.", type: "fill", ans: "17", sol: "8² + 15² = 64 + 225 = 289 → √289 = 17" }
+      // KA type: find-hypotenuse (pythagorean_theorem_1.html id="find-hypotenuse")
+      // In the right triangle shown, AC=6 and BC=8. What is AB?
+      { q: "In the right triangle shown, AC = 6 and BC = 8. What is AB?", type: "choice",
+        opts: ["7", "10", "14", "48"],
+        ans: "10",
+        sol: "AB² = AC² + BC² = 6² + 8² = 36 + 64 = 100 → AB = √100 = 10" },
+      // KA type: find-a-leg (pythagorean_theorem_1.html id="find-a-leg")
+      // Hypotenuse=13, one leg=5, find other leg
+      { q: "A right triangle has AB = 13 and BC = 5. What is AC?", type: "choice",
+        opts: ["8", "12", "144", "√144"],
+        ans: "12",
+        sol: "AC² = AB² − BC² = 13² − 5² = 169 − 25 = 144 → AC = √144 = 12" },
+      // KA type: find-hypotenuse with a Pythagorean triple check
+      { q: "A triangle has sides 7, 24, and 25. Is it a right triangle?", type: "choice",
+        opts: ["Yes", "No"],
+        ans: "Yes",
+        sol: "7² + 24² = 49 + 576 = 625 = 25² ✓ → right triangle by the converse of the Pythagorean theorem." },
+      // KA type: 45-45-90 find hypotenuse (pythagorean_theorem_2.html id="45-45-90-find-hypotenuse")
+      // Isosceles right triangle, each leg = 5, find hypotenuse = 5√2
+      { q: "In a right triangle where AC = BC = 5 and angle C = 90°, what is AB?", type: "choice",
+        opts: ["5", "10", "5√2", "25"],
+        ans: "5√2",
+        sol: "In a 45-45-90 triangle, hypotenuse = leg × √2. AB = 5 × √2 = 5√2" },
+      // KA type: 30-60-90 find hypotenuse given short leg (pythagorean_theorem_2.html)
+      // Short leg BC = 3, hypotenuse AB = 2 × BC = 6
+      { q: "In a right triangle, angle A = 30°, BC = 3, and angle C = 90°. How long is AB?", type: "choice",
+        opts: ["3", "6", "3√3", "9"],
+        ans: "6",
+        sol: "In a 30-60-90 triangle, the hypotenuse is twice the short leg. AB = 2 × 3 = 6" }
     ],
     quiz: [
-      { q: "The Pythagorean theorem formula is:", type: "choice", opts: ["a + b = c", "a² + b² = c²", "a × b = c", "a² − b² = c²"], ans: "a² + b² = c²", sol: "The sum of squares of the legs equals the square of the hypotenuse." },
-      { q: "In a right triangle, the hypotenuse is always the ___ side.", type: "choice", opts: ["shortest", "longest", "leftmost"], ans: "longest", sol: "The hypotenuse is opposite the right angle and is the longest side." },
-      { q: "If the legs are 5 and 12, the hypotenuse is ___.", type: "fill", ans: "13", sol: "5² + 12² = 25 + 144 = 169 → √169 = 13" },
-      { q: "A triangle has sides 8, 15, 17. Is it a right triangle?", type: "choice", opts: ["Yes", "No"], ans: "Yes", sol: "8² + 15² = 64 + 225 = 289 = 17² ✓" },
-      { q: "A right triangle has hypotenuse 10 and one leg 6. The other leg is ___.", type: "fill", ans: "8", sol: "10² − 6² = 100 − 36 = 64 → √64 = 8" }
+      // Concept check
+      { q: "The Pythagorean theorem formula is:", type: "choice",
+        opts: ["a + b = c", "a² + b² = c²", "a × b = c", "a² − b² = c²"],
+        ans: "a² + b² = c²",
+        sol: "The sum of the squares of the two legs equals the square of the hypotenuse." },
+      // Find hypotenuse (fill-in, KA find-hypotenuse)
+      { q: "In a right triangle, legs are 5 and 12. The hypotenuse is ___.", type: "fill",
+        ans: "13",
+        sol: "c² = 5² + 12² = 25 + 144 = 169 → c = √169 = 13" },
+      // Pythagorean triple (fill-in)
+      { q: "A triangle has sides 8, 15, and 17. Is it a right triangle? (Type Yes or No)", type: "fill",
+        ans: "Yes",
+        sol: "8² + 15² = 64 + 225 = 289 = 17² ✓ → yes, by the converse." },
+      // Find a leg (fill-in, KA find-a-leg)
+      { q: "A right triangle has hypotenuse 10 and one leg 6. The other leg is ___.", type: "fill",
+        ans: "8",
+        sol: "a² = c² − b² = 10² − 6² = 100 − 36 = 64 → a = √64 = 8" },
+      // 30-60-90 concept
+      { q: "In a 30-60-90 triangle, the long leg is ___ times the short leg.", type: "choice",
+        opts: ["√2", "√3", "2", "1/2"],
+        ans: "√3",
+        sol: "The ratio of long leg : short leg in a 30-60-90 triangle is √3 : 1." }
     ]
   }
 ];
