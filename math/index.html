@@ -1,288 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>深圳八年级数学 · Khan Academy</title>
+<title>Grade 8 Math · Khan Academy (TEST)</title>
 <style>
-:root, [data-theme="dark"] {
-  --bg-primary: #0a0a1a;
-  --bg-secondary: #12122a;
-  --bg-card: #1a1a3e;
-  --text-primary: #e8e8ff;
-  --text-secondary: #a0a0c0;
-  --accent-blue: #4fc3f7;
-  --accent-green: #66bb6a;
-  --accent-orange: #ffa726;
-  --border: #2a2a5a;
-  --shadow: rgba(0,0,0,0.3);
-}
-[data-theme="light"] {
-  --bg-primary: #f5f5f7;
-  --bg-secondary: #ffffff;
-  --bg-card: #ffffff;
-  --text-primary: #1a1a2e;
-  --text-secondary: #5a5a6e;
-  --accent-blue: #0066cc;
-  --accent-green: #2e7d32;
-  --accent-orange: #ed6c02;
-  --border: #e0e0e5;
-  --shadow: rgba(0,0,0,0.1);
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme]) {
-    --bg-primary: #f5f5f7;
-    --bg-secondary: #ffffff;
-    --bg-card: #ffffff;
-    --text-primary: #1a1a2e;
-    --text-secondary: #5a5a6e;
-    --accent-blue: #0066cc;
-    --accent-green: #2e7d32;
-    --accent-orange: #ed6c02;
-    --border: #e0e0e5;
-    --shadow: rgba(0,0,0,0.1);
-  }
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.6;
-  padding: 20px;
-}
-.container { max-width: 1000px; margin: 0 auto; }
-.header { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
-.header h1 { flex: 1; text-align: center; color: var(--accent-blue); margin-bottom: 0; }
-.nav-link { color: var(--text-secondary); text-decoration: none; font-size: 14px; }
-.nav-link:hover { color: var(--accent-blue); }
-.theme-btn {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--text-primary);
-}
-.subtitle {
-  text-align: center;
-  color: var(--text-secondary);
-  font-size: 14px;
-  margin-bottom: 24px;
-}
-.chapter-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
-  margin-top: 24px;
-}
-.chapter-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
-  position: relative;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.chapter-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--shadow);
-}
-.ch-no {
-  position: absolute;
-  top: -11px;
-  left: 18px;
-  background: #1e40af;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 800;
-  padding: 3px 12px;
-  border-radius: 999px;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 6px rgba(30,64,175,.25);
-}
-.chapter-card h2 {
-  color: var(--text-primary);
-  margin: 8px 0 4px;
-  font-size: 16px;
-  line-height: 1.35;
-}
-.chapter-card .en {
-  color: var(--text-secondary);
-  font-size: 14px;
-  margin-bottom: 12px;
-}
-.cov {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 999px;
-  margin-right: 6px;
-}
-.cov.g { background: rgba(102,187,106,0.15); color: var(--accent-green); }
-.cov.b { background: rgba(79,195,247,0.15); color: var(--accent-blue); }
-.cov.p { background: rgba(255,167,38,0.15); color: var(--accent-orange); }
-.btn-practice {
-  display: inline-block;
-  margin-top: 12px;
-  background: var(--accent-blue);
-  color: #fff;
-  text-decoration: none;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  transition: background 0.2s;
-}
-.btn-practice:hover {
-  background: #0052a3;
-}
-.footer {
-  margin-top: 40px;
-  text-align: center;
-  color: var(--text-secondary);
-  font-size: 13px;
-}
-.footer a {
-  color: var(--accent-blue);
-  text-decoration: none;
-}
-.footer a:hover {
-  text-decoration: underline;
-}
+:root{--bg:#0a0f1e;--card:#141d33;--text:#e8eef8;--text2:#9fb0c8;--blue:#3b82f6;--border:#23304d}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:20px}
+.wrap{max-width:860px;margin:0 auto}
+.banner{background:linear-gradient(135deg,#1e3a8a,#1e40af);color:#fff;padding:16px 22px;border-radius:12px;display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.banner h1{font-size:18px;flex:1}
+.banner .tag{font-size:11px;font-weight:700;background:rgba(255,255,255,.18);padding:3px 10px;border-radius:999px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-decoration:none;color:var(--text);transition:transform .12s,box-shadow .12s}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(59,130,246,.25)}
+.card .no{display:inline-block;font-size:12px;font-weight:800;color:#fff;background:#0d9488;padding:3px 10px;border-radius:999px;margin-bottom:8px}
+.card h2{font-size:15px;margin-bottom:4px}
+.card .en{font-size:12px;color:var(--text2)}
+.card .cov{display:inline-block;margin-top:8px;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:rgba(16,185,129,.15);color:#6ee7b7}
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <a class="nav-link" href="../index.html">← 总入口</a>
-    <h1>深圳八年级数学 · Khan Academy</h1>
-    <button class="theme-btn" onclick="toggleTheme()">🌓</button>
+<div class="wrap">
+  <div class="banner">
+    <h1>八年级数学 · Khan Academy (TEST)</h1>
+    <span class="tag">测试版</span>
   </div>
-  <div class="subtitle">13 lessons · 八上 + 八下 · 人教版2024 · English videos + practice（按 G8·01 → G8·13 顺序学）</div>
-  <div class="chapter-grid">
-    <div class="chapter-card">
-      <div class="ch-no">G8 · 01</div>
-      <h2>勾股定理 · Pythagorean Theorem</h2>
-      <div class="en">八上 Ch1</div>
-      <span class="cov b">🔵 Khan video only — practice added</span>
-      <a class="btn-practice" href="math_chapter.html?ch=ch01&grade=8">Open lesson ▶</a>
-    </div>
-    <div class="chapter-card">
-      <div class="ch-no">G8 · 02</div>
-      <h2>实数 · Real Numbers</h2>
-      <div class="en">八上 Ch2</div>
-      <span class="cov b">🔵 Khan video only — practice added</span>
-      <a class="btn-practice" href="math_chapter.html?ch=ch02&grade=8">Open lesson ▶</a>
-    </div>
-    <div class="chapter-card">
-      <div class="ch-no">G8 · 03</div>
-      <h2>位置与坐标 · Position & Coordinates</h2>
-      <div class="en">八上 Ch3</div>
-      <span class="cov b">🔵 Khan video only — practice added</span>
-      <a class="btn-practice" href="math_chapter.html?ch=ch03&grade=8">Open lesson ▶</a>
-    </div>
-    <div class="chapter-card">
-      <div class="ch-no">G8 · 04</div>
-      <h2>一次函数 · Linear Functions</h2>
-      <div class="en">八上 Ch4</div>
-      <span class="cov g">🟢 Khan video + exercise</span>
-      <a class="btn-practice" href="math_chapter.html?ch=ch04&grade=8">Open lesson ▶</a>
-    </div>
-    <div class="chapter-card">
-      <div class="ch-no">G8 · 05</div>
-      <h2>数据的分析 · Data Analysis</h2>
-      <div class="en">八上 Ch5</div>
-      <span class="cov b">🔵 Khan video only — practice added</span>
-      <a class="btn-practice" href="math_chapter.html?ch=ch05&grade=8">Open lesson ▶</a>
-    </div>
-    <div class="chapter-card">
-      <div class="ch-no">G8 · 06</div>
-      <h2>平行线的证明 · Proofs of Parallel Lines</h2>
-      <div class="en">八下 Ch1</div>
-      <span class="cov p">🟣 custom only</span>
-      <a class="btn-practice" href="math_chapter.html?ch=ch06&grade=8">Open lesson ▶</a>
-    </div>
-    <div class="chapter-card">
-      <div class="ch-no">G8 · 07</div>
-      <h2>概率初步 · Introduction to Probability</h2>
-      <div class="en">八下 Ch2</div>
-      <span class="cov b">🔵 Khan video only — practice added</span>
-      <a class="btn-practice" href="math_chapter.html?ch=ch07&grade=8">Open lesson ▶</a>
-    </div>
-    <div class="chapter-card">
-      <div class="ch-no">G8 · 08</div>
-      <h2>三角形的证明 · Triangle Proofs</h2>
-      <div class="en">八下 Ch3</div>
-      <span class="cov p">🟣 custom only</span>
-      <a class="btn-practice" href="math_chapter.html?ch=ch08&grade=8">Open lesson ▶</a>
-    </div>
-    <div class="chapter-card">
-      <div class="ch-no">G8 · 09</div>
-      <h2>四边形 · Quadrilaterals</h2>
-      <div class="en">八下 Ch4</div>
-      <span class="cov b">🔵 Khan video only — practice added</span>
-      <a class="btn-practice" href="math_chapter.html?ch=ch09&grade=8">Open lesson ▶</a>
-    </div>
-    <div class="chapter-card">
-      <div class="ch-no">G8 · 10</div>
-      <h2>图形与变换 · Transformations</h2>
-      <div class="en">八下 Ch5</div>
-      <span class="cov b">🔵 Khan video only — practice added</span>
-      <a class="btn-practice" href="math_chapter.html?ch=ch10&grade=8">Open lesson ▶</a>
-    </div>
-    <div class="chapter-card">
-      <div class="ch-no">G8 · 11</div>
-      <h2>因式分解 · Factoring</h2>
-      <div class="en">八下 Ch6</div>
-      <span class="cov b">🔵 Khan video only — practice added</span>
-      <a class="btn-practice" href="math_chapter.html?ch=ch11&grade=8">Open lesson ▶</a>
-    </div>
-    <div class="chapter-card">
-      <div class="ch-no">G8 · 12</div>
-      <h2>分式与分式方程 · Rational Expressions</h2>
-      <div class="en">八下 Ch7</div>
-      <span class="cov b">🔵 Khan video only — practice added</span>
-      <a class="btn-practice" href="math_chapter.html?ch=ch12&grade=8">Open lesson ▶</a>
-    </div>
-    <div class="chapter-card">
-      <div class="ch-no">G8 · 13</div>
-      <h2>反比例函数 · Inverse Proportion</h2>
-      <div class="en">八下 Ch8</div>
-      <span class="cov b">🔵 Khan video only — practice added</span>
-      <a class="btn-practice" href="math_chapter.html?ch=ch13&grade=8">Open lesson ▶</a>
-    </div>
+  <div class="grid">
+    <a class="card" href="math_chapter.html?ch=ch01&grade=8">
+      <span class="no">G8 · 01</span>
+      <h2>勾股定理</h2>
+      <div class="en">Pythagorean Theorem</div>
+      <span class="cov">🟢 KA video + practice + quiz</span>
+    </a>
   </div>
-  <div class="footer">
-    课程内容基于 <a href="https://www.khanacademy.org" target="_blank">Khan Academy</a> 本地化改编 · 适配深圳公立校教学大纲<br>
-    Draft · test only · every lesson follows Think → Watch → Notes → Practice → Quiz
-  </div>
+  <p style="margin-top:20px;color:var(--text2);font-size:13px">这是 KA 原生嵌入测试页。打开后请确认视频/练习/测验三个框是否能正常加载。若打不开会显示备用链接。</p>
 </div>
-<script>
-function toggleTheme() {
-  const html = document.documentElement;
-  const current = html.getAttribute('data-theme');
-  if (current === 'dark') {
-    html.removeAttribute('data-theme');
-    localStorage.setItem('theme', 'light');
-  } else {
-    html.setAttribute('data-theme', 'dark');
-    localStorage.setItem('theme', 'dark');
-  }
-}
-(function() {
-  const saved = localStorage.getItem('theme');
-  if (saved === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  } else if (saved === 'light') {
-    document.documentElement.removeAttribute('data-theme');
-  }
-})();
-</script>
 </body>
 </html>
