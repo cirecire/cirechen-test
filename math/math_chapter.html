@@ -32,31 +32,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .panel.active{display:block}
 .panel h2{font-size:17px;margin-bottom:12px;color:var(--blue)}
 .elicit{background:#eff6ff;border-left:4px solid var(--blue);border-radius:8px;padding:14px 16px;font-weight:600;color:#1e3a8a}
-.video-card{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text);background:var(--card2);transition:transform .12s,box-shadow .12s;margin-top:10px}
-.video-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(59,130,246,.2)}
-.video-card .play{width:38px;height:38px;border-radius:8px;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
-.video-card .vt{font-weight:700;font-size:14px}
-.video-card .vm{font-size:12px;color:var(--text2)}
+.video-wrap{margin-top:10px;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:#000}
+.bili{width:100%;height:480px;border:0;display:block}
+.video-meta{font-size:13px;color:var(--text2);padding:10px 14px;background:var(--card2)}
+.video-meta .vlink{color:var(--blue);font-weight:700;text-decoration:none;margin-left:6px}
 .notes-list{list-style:none}
 .notes-list li{background:#f0fdf4;border-left:4px solid var(--green);border-radius:8px;padding:11px 14px;margin-top:9px;color:#064e3b;font-size:14px}
-.ka-frame{width:100%;height:620px;border:1px solid var(--border);border-radius:10px;background:#fff;margin-top:10px}
-.ka-fallback{margin-top:10px;font-size:13px;color:var(--text2);background:var(--card2);padding:10px 14px;border-radius:8px}
-.ka-fallback a{color:var(--blue);font-weight:700}
-.project{margin-top:14px;background:#faf5ff;border-left:4px solid var(--purple);border-radius:8px;padding:12px 14px;font-size:13.5px;color:#581c87}
 .q{display:none;border:1px solid var(--border);border-radius:10px;padding:15px;margin-top:13px;background:var(--card2)}
 .q.active{display:block}
 .qtext{font-weight:600;margin-bottom:10px}
 .qopt{display:block;width:100%;text-align:left;padding:10px 14px;margin-top:7px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--text);cursor:pointer;font-size:14px}
 .qopt:hover{background:#f8fafc}
-.qopt.correct{background:#ecfdf5;border-color:#6ee7b7}
-.qopt.wrong{background:#fef2f2;border-color:#fca5a5}
+.qopt.correct{background:#ecfdf5;border-color:#6ee7b7;color:#065f46}
+.qopt.wrong{background:#fef2f2;border-color:#fca5a5;color:#991b1b}
+.qopt:disabled{cursor:default;opacity:.85}
 .fill-input{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;margin-top:8px;background:var(--card);color:var(--text)}
 .fb{margin-top:10px;padding:9px 12px;border-radius:8px;font-size:13.5px;display:none}
 .fb.ok{background:#ecfdf5;border:1px solid #6ee7b7;color:#065f46;display:block}
 .fb.no{background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;display:block}
 .sol{margin-top:8px;padding:9px 12px;background:#f0fdfa;border-left:4px solid var(--teal);border-radius:8px;font-size:13.5px;display:none;color:#134e4a}
-.next-btn{background:var(--blue);color:#fff;border:none;padding:11px 22px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;margin-top:16px}
+.next-btn{background:var(--blue);color:#fff;border:none;padding:11px 22px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;margin-top:18px}
 .next-btn:hover{background:#2563eb}
+.next-btn.sm{padding:8px 16px;margin-top:8px}
+.next-btn.big{display:block;width:100%;font-size:15px;padding:14px}
 .next-btn:disabled{opacity:.45;cursor:not-allowed}
 .done-screen{display:none;text-align:center;padding:50px 20px}
 .done-screen.show{display:block}
@@ -92,6 +90,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 var params = new URLSearchParams(location.search);
 var CH_ID = params.get("ch") || "ch01";
 var GRADE = params.get("grade") || "8";
+var TOTAL = 5, cur = 1;
 var CH = null, CH_LIST = [], idx = -1;
 for (var i = 0; i < MATH_DATA.length; i++) {
   if (MATH_DATA[i].id === CH_ID) { CH = MATH_DATA[i]; if (!GRADE) GRADE = CH.g || "8"; break; }
@@ -100,14 +99,16 @@ if (CH) {
   CH_LIST = MATH_DATA.filter(function(c){ return (c.g || "8") === GRADE; });
   for (var j = 0; j < CH_LIST.length; j++) { if (CH_LIST[j].id === CH_ID) { idx = j; break; } }
 }
-var TOTAL = 5, cur = 1;
-
 if (!CH) { document.getElementById("title").textContent = "Chapter not found"; }
 else { render(); }
+
+function pad(n){ return (n<10?"0":"") + n; }
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
 function render() {
   document.getElementById("home").href = "index.html";
   document.getElementById("title").textContent = "G" + GRADE + "·" + pad(CH.gx || (idx+1)) + "  " + CH.title;
-  var covTxt = {g:"🟢 KA video + practice + quiz", b:"🔵 KA video only — practice added", p:"🟣 custom only"}[CH.coverage] || "";
+  var covTxt = {g:"🟢 KA video + practice + quiz", b:"🔵 KA video only", p:"🟣 custom only"}[CH.coverage] || "";
   document.getElementById("cov").textContent = covTxt;
   var labels = ["Think","Watch","Notes","Practice","Quiz"];
   var sb = "";
@@ -116,16 +117,14 @@ function render() {
     if (i < TOTAL) sb += '<span class="arrow">›</span>';
   }
   document.getElementById("stepbar").innerHTML = sb;
-  renderPanel(1); renderPanel(2); renderPanel(3); renderPanel(4); renderPanel(5);
+  for (var s = 1; s <= TOTAL; s++) renderPanel(s);
   showStep(1);
 }
-function pad(n){ return (n<10?"0":"") + n; }
 function showStep(step) {
   cur = step;
   for (var i = 1; i <= TOTAL; i++) {
     var p = document.getElementById("p" + i);
     if (p) p.classList.toggle("active", i === step);
-    var sbEl = document.querySelector('.sb[data-step="x"]');
   }
   var sbs = document.querySelectorAll(".sb");
   for (var k = 0; k < sbs.length; k++) {
@@ -134,39 +133,90 @@ function showStep(step) {
   }
   window.scrollTo({top:0, behavior:"smooth"});
 }
+function nextBtn(label) {
+  var txt = label || "Next ›";
+  return '<button class="next-btn big" onclick="nextStep()">' + txt + '</button>';
+}
 function renderPanel(step) {
   var p = document.getElementById("p" + step);
   if (!p || !CH) return;
   if (step === 1) {
-    p.innerHTML = '<h2>Step 1 · Think</h2><div class="elicit">' + esc(CH.think || "") + '</div>' +
-      (CH.project ? '<div class="project">🛠️ 综合实践：' + esc(CH.project) + '</div>' : '');
+    p.innerHTML = '<h2>Step 1 · Think</h2><div class="elicit">' + esc(CH.think || "") + '</div>' + nextBtn();
   } else if (step === 2) {
     var v = '<h2>Step 2 · Watch</h2>';
     (CH.videos || []).forEach(function(vid){
-      v += '<a class="video-card" href="' + vid.url + '" target="_blank"><span class="play">▶</span><span><span class="vt">' + esc(vid.t) + '</span><br><span class="vm">' + esc(vid.m || "Khan Academy video") + '</span></span></a>';
+      v += '<div class="video-wrap"><iframe class="bili" src="https://player.bilibili.com/player.html?bvid=' + esc(vid.bvid) + '&page=1&high_quality=1&danmaku=0" allowfullscreen="true"></iframe>' +
+           '<div class="video-meta">' + esc(vid.t || "Khan Academy video") + ' · ' + esc(vid.m || "English") +
+           ' <a class="vlink" href="https://www.bilibili.com/video/' + esc(vid.bvid) + '" target="_blank">Open on Bilibili ↗</a></div></div>';
     });
-    p.innerHTML = v;
+    p.innerHTML = v + nextBtn();
   } else if (step === 3) {
     var n = '<h2>Step 3 · Notes</h2><ul class="notes-list">';
     (CH.notes || []).forEach(function(nt){ n += '<li>' + esc(nt) + '</li>'; });
     n += '</ul>';
-    p.innerHTML = n;
+    p.innerHTML = n + nextBtn();
   } else if (step === 4) {
-    p.innerHTML = renderKA("Step 4 · Practice", CH.practice, "practice");
+    p.innerHTML = '<h2>Step 4 · Practice</h2><div id="practiceBox"></div>' + nextBtn("Finish practice, next ›");
+    renderQs("practiceBox", CH.practice || [], "p");
   } else if (step === 5) {
-    p.innerHTML = renderKA("Step 5 · Quiz", CH.quiz, "quiz");
+    p.innerHTML = '<h2>Step 5 · Quiz</h2><div id="quizBox"></div>' + nextBtn("Submit & see result ›");
+    renderQs("quizBox", CH.quiz || [], "q");
   }
 }
-function renderKA(title, item, kind) {
-  if (!item) return '<h2>' + title + '</h2><p style="color:var(--text2)">No KA link for this step.</p>';
-  if (item.ka) {
-    return '<h2>' + title + '</h2>' +
-      '<iframe class="ka-frame" src="' + item.ka + '" loading="lazy"></iframe>' +
-      '<div class="ka-fallback">若练习框打不开（可能被网络限制），请点此在新标签打开：<a href="' + item.ka + '" target="_blank">' + esc(item.title || "Khan Academy " + kind) + '</a></div>' +
-      '<button class="next-btn" onclick="nextStep()">完成，下一步 ›</button>';
+function renderQs(boxId, questions, kind) {
+  var c = document.getElementById(boxId);
+  if (!c) return;
+  if (!questions.length) { c.innerHTML = '<p style="color:var(--text2)">No questions for this step yet.</p>'; return; }
+  var html = "";
+  questions.forEach(function(item, i){
+    html += '<div class="q" id="' + kind + 'q' + i + '">';
+    html += '<div class="qtext">' + (i+1) + '. ' + esc(item.q) + '</div>';
+    if (item.type === "choice") {
+      item.opts.forEach(function(opt, k){
+        html += '<button class="qopt" id="' + kind + 'opt' + i + '_' + k + '">' + esc(opt) + '</button>';
+      });
+    } else {
+      html += '<input class="fill-input" id="' + kind + 'fill' + i + '" placeholder="Type your answer">';
+      html += '<button class="next-btn sm" onclick="checkFill(\'' + kind + '\',' + i + ')">Check</button>';
+    }
+    html += '<div class="fb" id="' + kind + 'fb' + i + '"></div>';
+    html += '<div class="sol" id="' + kind + 'sol' + i + '">' + esc(item.sol || "") + '</div>';
+    html += '</div>';
+  });
+  c.innerHTML = html;
+  questions.forEach(function(item, i){
+    if (item.type === "choice") {
+      item.opts.forEach(function(opt, k){
+        var btn = document.getElementById(kind + "opt" + i + "_" + k);
+        btn.addEventListener("click", function(){ pickChoice(kind, i, opt, item.ans, item.sol); });
+      });
+    }
+  });
+}
+function pickChoice(kind, i, picked, correct, sol) {
+  var fb = document.getElementById(kind + "fb" + i);
+  var solEl = document.getElementById(kind + "sol" + i);
+  var opts = document.getElementById(kind + "q" + i).querySelectorAll(".qopt");
+  for (var k = 0; k < opts.length; k++) {
+    opts[k].disabled = true;
+    var val = opts[k].textContent;
+    if (val === correct) opts[k].classList.add("correct");
+    if (val === picked && picked !== correct) opts[k].classList.add("wrong");
   }
-  // self-made fallback
-  return '<h2>' + title + '</h2><div id="qs"></div><button class="next-btn" onclick="nextStep()">完成，下一步 ›</button>';
+  if (picked === correct) { fb.className = "fb ok"; fb.textContent = "✓ Correct!"; }
+  else { fb.className = "fb no"; fb.textContent = "✗ Not quite. See the solution below."; }
+  solEl.style.display = "block";
+}
+function checkFill(kind, i) {
+  var item = (kind === "p" ? CH.practice : CH.quiz)[i];
+  var input = document.getElementById(kind + "fill" + i);
+  var fb = document.getElementById(kind + "fb" + i);
+  var solEl = document.getElementById(kind + "sol" + i);
+  var user = input.value.trim().toLowerCase().replace(/\s+/g," ");
+  var ans = String(item.ans).trim().toLowerCase().replace(/\s+/g," ");
+  if (user === ans) { fb.className = "fb ok"; fb.textContent = "✓ Correct!"; }
+  else { fb.className = "fb no"; fb.textContent = "✗ Not quite. See the solution below."; }
+  solEl.style.display = "block";
 }
 function nextStep() {
   if (cur < TOTAL) { showStep(cur + 1); }
@@ -176,13 +226,12 @@ function finish() {
   for (var i = 1; i <= TOTAL; i++) document.getElementById("p" + i).style.display = "none";
   document.getElementById("stepbar").style.display = "none";
   document.getElementById("done").classList.add("show");
-  document.getElementById("doneText").textContent = "你已完成 G" + GRADE + "·" + pad(CH.gx || (idx+1)) + " " + CH.title;
+  document.getElementById("doneText").textContent = "You finished G" + GRADE + "·" + pad(CH.gx || (idx+1)) + " " + CH.title;
   var nx = CH_LIST[idx + 1];
   var goNext = document.getElementById("goNext");
   if (nx) { goNext.href = "math_chapter.html?ch=" + nx.id + "&grade=" + GRADE; goNext.textContent = "Go to next chapter ▶"; }
   else { goNext.href = "index.html"; goNext.textContent = "← Back to chapter list"; }
 }
-function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 </script>
 </body>
 </html>
