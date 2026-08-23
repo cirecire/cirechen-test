@@ -1,31 +1,36 @@
-// Math Grade 8 (PEP 2024) — KA-native test build
-// coverage: g = KA video + practice + quiz | b = KA video only | p = custom only
+// Math Data — Grade 8 (PEP / Shenzhen) · Khan Academy aligned
+// Video: Khan Academy English mirror on Bilibili (self-contained, no jump)
+// Practice & Quiz: English questions matching KA exercise topics
 
 var MATH_DATA = [
   {
-    id: "ch01",
-    g: "8",
-    gx: 1,
-    loc: "八上 Ch1 · 勾股定理",
-    title: "勾股定理 (Pythagorean Theorem)",
+    id: "ch01", g: "8", gx: 1, loc: "Unit: Geometry",
+    title: "Pythagorean Theorem",
     coverage: "g",
-    think: "A right triangle has legs 3 cm and 4 cm. How long is the longest side? Try to guess before watching.",
+    think: "Look at a right triangle whose two short sides are 3 and 4. Before any formula — can you guess the longest side? How would you check your guess?",
     videos: [
-      { t: "Intro to the Pythagorean theorem", url: "https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-pythagorean-theorem/v/pythagorean-theorem", m: "4:01" }
+      { bvid: "BV15K411Z7xH", t: "Intro to the Pythagorean theorem", m: "English · Khan Academy", duration: "1:16" }
     ],
     notes: [
-      "For a right triangle: a² + b² = c² (c = hypotenuse 斜边, the longest side).",
-      "You can find any missing side if you know the other two.",
-      "Common triples 勾股数: (3,4,5), (5,12,13), (8,15,17).",
-      "The theorem also gives the distance between two points on a coordinate plane."
+      "In a right triangle, a² + b² = c², where c is the hypotenuse (the longest side, opposite the right angle).",
+      "The hypotenuse is always opposite the 90° angle — identify it first.",
+      "Find ANY missing side from the other two: c = √(a² + b²), or a = √(c² − b²).",
+      "Common Pythagorean triples: (3,4,5), (5,12,13), (8,15,17).",
+      "Converse: if a² + b² = c², the triangle is a right triangle."
     ],
-    practice: {
-      ka: "https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-pythagorean-theorem/e/use-pythagorean-theorem-to-find-right-triangle-side-lengths",
-      title: "Use Pythagorean theorem to find right triangle side lengths"
-    },
-    quiz: {
-      ka: "https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-pythagorean-theorem/quiz-hs-geo-pythagorean-theorem",
-      title: "Pythagorean theorem — Unit Quiz"
-    }
+    practice: [
+      { q: "In a right triangle, the legs are 6 and 8. Find the hypotenuse.", type: "fill", ans: "10", sol: "6² + 8² = 36 + 64 = 100 → √100 = 10" },
+      { q: "A right triangle has hypotenuse 13 and one leg 5. Find the other leg.", type: "fill", ans: "12", sol: "13² − 5² = 169 − 25 = 144 → √144 = 12" },
+      { q: "Is a triangle with sides 7, 24, 25 a right triangle?", type: "choice", opts: ["Yes", "No"], ans: "Yes", sol: "7² + 24² = 49 + 576 = 625 = 25² ✓" },
+      { q: "Find the hypotenuse of a right triangle with legs 9 and 12.", type: "fill", ans: "15", sol: "9² + 12² = 81 + 144 = 225 → √225 = 15" },
+      { q: "Two sides of a right triangle are 8 and 15, and 15 is a leg. Find the hypotenuse.", type: "fill", ans: "17", sol: "8² + 15² = 64 + 225 = 289 → √289 = 17" }
+    ],
+    quiz: [
+      { q: "The Pythagorean theorem formula is:", type: "choice", opts: ["a + b = c", "a² + b² = c²", "a × b = c", "a² − b² = c²"], ans: "a² + b² = c²", sol: "The sum of squares of the legs equals the square of the hypotenuse." },
+      { q: "In a right triangle, the hypotenuse is always the ___ side.", type: "choice", opts: ["shortest", "longest", "leftmost"], ans: "longest", sol: "The hypotenuse is opposite the right angle and is the longest side." },
+      { q: "If the legs are 5 and 12, the hypotenuse is ___.", type: "fill", ans: "13", sol: "5² + 12² = 25 + 144 = 169 → √169 = 13" },
+      { q: "A triangle has sides 8, 15, 17. Is it a right triangle?", type: "choice", opts: ["Yes", "No"], ans: "Yes", sol: "8² + 15² = 64 + 225 = 289 = 17² ✓" },
+      { q: "A right triangle has hypotenuse 10 and one leg 6. The other leg is ___.", type: "fill", ans: "8", sol: "10² − 6² = 100 − 36 = 64 → √64 = 8" }
+    ]
   }
 ];
