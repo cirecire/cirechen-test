@@ -5,20 +5,47 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Math · Khan Academy (13 Chapters)</title>
 <style>
-:root { --bg:#0a0a1a; --card:#1a1a3e; --text:#e8e8ff; --muted:#a0a0c0; --accent:#4fc3f7; --green:#66bb6a; }
-* { box-sizing:border-box; margin:0; padding:0; }
-body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); padding:20px; }
-header { text-align:center; margin-bottom:30px; }
-h1 { font-size:28px; margin-bottom:8px; }
-.subtitle { color:var(--muted); font-size:14px; }
-.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; max-width:1200px; margin:0 auto; }
-.card { background:var(--card); border-radius:12px; padding:16px; cursor:pointer; transition:transform .2s,box-shadow .2s; border:1px solid #2a2a5a; }
-.card:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.4); }
-.ch-num { width:36px; height:36px; border-radius:50%; background:var(--accent); color:#000; display:flex; align-items:center; justify-content:center; font-weight:bold; margin-bottom:12px; }
-.card h3 { font-size:16px; margin-bottom:8px; line-height:1.3; }
-.meta { font-size:12px; color:var(--muted); display:flex; gap:12px; margin-top:12px; }
-.badge { background:#2a2a5a; padding:2px 8px; border-radius:4px; }
-.coverage-g { color:var(--green); }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { 
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+  background: #1a1a2e; 
+  color: #fff; 
+  padding: 20px; 
+}
+header { text-align: center; margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #a0a0c0; font-size: 14px; }
+.grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+  gap: 16px; 
+  max-width: 1200px; 
+  margin: 0 auto; 
+}
+.card { 
+  background: #16213e; 
+  border-radius: 12px; 
+  padding: 20px; 
+  cursor: pointer;
+  border: 1px solid #0f3460;
+}
+.card:hover { background: #1a2a4a; }
+.ch-num { 
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%; 
+  background: #e94560; 
+  color: #fff; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  font-weight: bold; 
+  margin-bottom: 12px; 
+}
+.card h3 { font-size: 16px; margin-bottom: 8px; }
+.vid-title { font-size: 12px; color: #a0a0c0; margin: 8px 0; }
+.meta { font-size: 12px; display: flex; gap: 10px; margin-top: 12px; }
+.badge { background: #0f3460; padding: 4px 10px; border-radius: 4px; }
 </style>
 </head>
 <body>
@@ -30,131 +57,118 @@ h1 { font-size:28px; margin-bottom:8px; }
 <div class="card" onclick="location.href='math_chapter.html?ch=ch01&grade=8'">
 <div class="ch-num">01</div>
 <h3>Pythagorean Theorem</h3>
-<p style="font-size:13px;color:var(--muted);margin-top:6px;">Pythagorean Theorem Proof Using Similarity</p>
+<p class="vid-title">Pythagorean Theorem Proof Using Similarity</p>
 <div class="meta">
-<span class="badge coverage-g">🟢 KA Full</span>
-<span class="badge">Practice: 5</span>
-<span class="badge">Quiz: 5</span>
+<span class="badge">🟢 KA Full</span>
+<span class="badge">P:5 Q:5</span>
 </div>
 </div>
 <div class="card" onclick="location.href='math_chapter.html?ch=ch02&grade=8'">
 <div class="ch-num">02</div>
 <h3>Angles</h3>
-<p style="font-size:13px;color:var(--muted);margin-top:6px;">Angle Basics</p>
+<p class="vid-title">Angle Basics</p>
 <div class="meta">
-<span class="badge coverage-g">🟢 KA Full</span>
-<span class="badge">Practice: 5</span>
-<span class="badge">Quiz: 5</span>
+<span class="badge">🟢 KA Full</span>
+<span class="badge">P:5 Q:5</span>
 </div>
 </div>
 <div class="card" onclick="location.href='math_chapter.html?ch=ch03&grade=8'">
 <div class="ch-num">03</div>
 <h3>Triangle Angle Sum</h3>
-<p style="font-size:13px;color:var(--muted);margin-top:6px;">Proof - Sum of Measures of Angles in a Triangle are 180</p>
+<p class="vid-title">Proof - Sum of Measures of Angles in a Triangle are 180</p>
 <div class="meta">
-<span class="badge coverage-g">🟢 KA Full</span>
-<span class="badge">Practice: 5</span>
-<span class="badge">Quiz: 5</span>
+<span class="badge">🟢 KA Full</span>
+<span class="badge">P:5 Q:5</span>
 </div>
 </div>
 <div class="card" onclick="location.href='math_chapter.html?ch=ch04&grade=8'">
 <div class="ch-num">04</div>
 <h3>Congruent Triangles</h3>
-<p style="font-size:13px;color:var(--muted);margin-top:6px;">Congruent Triangles and SSS</p>
+<p class="vid-title">Congruent Triangles and SSS</p>
 <div class="meta">
-<span class="badge coverage-g">🟢 KA Full</span>
-<span class="badge">Practice: 5</span>
-<span class="badge">Quiz: 5</span>
+<span class="badge">🟢 KA Full</span>
+<span class="badge">P:5 Q:5</span>
 </div>
 </div>
 <div class="card" onclick="location.href='math_chapter.html?ch=ch05&grade=8'">
 <div class="ch-num">05</div>
 <h3>Similar Triangles</h3>
-<p style="font-size:13px;color:var(--muted);margin-top:6px;">Similar Triangle Basics</p>
+<p class="vid-title">Similar Triangle Basics</p>
 <div class="meta">
-<span class="badge coverage-g">🟢 KA Full</span>
-<span class="badge">Practice: 5</span>
-<span class="badge">Quiz: 5</span>
+<span class="badge">🟢 KA Full</span>
+<span class="badge">P:5 Q:5</span>
 </div>
 </div>
 <div class="card" onclick="location.href='math_chapter.html?ch=ch06&grade=8'">
 <div class="ch-num">06</div>
 <h3>Linear Equations in Two Variables</h3>
-<p style="font-size:13px;color:var(--muted);margin-top:6px;">Algebra: graphing lines 1</p>
+<p class="vid-title">Algebra: graphing lines 1</p>
 <div class="meta">
-<span class="badge coverage-g">🟢 KA Full</span>
-<span class="badge">Practice: 5</span>
-<span class="badge">Quiz: 5</span>
+<span class="badge">🟢 KA Full</span>
+<span class="badge">P:5 Q:5</span>
 </div>
 </div>
 <div class="card" onclick="location.href='math_chapter.html?ch=ch07&grade=8'">
 <div class="ch-num">07</div>
 <h3>Solving Linear Equations</h3>
-<p style="font-size:13px;color:var(--muted);margin-top:6px;">Simple Equations</p>
+<p class="vid-title">Simple Equations</p>
 <div class="meta">
-<span class="badge coverage-g">🟢 KA Full</span>
-<span class="badge">Practice: 5</span>
-<span class="badge">Quiz: 5</span>
+<span class="badge">🟢 KA Full</span>
+<span class="badge">P:5 Q:5</span>
 </div>
 </div>
 <div class="card" onclick="location.href='math_chapter.html?ch=ch08&grade=8'">
 <div class="ch-num">08</div>
 <h3>Volume of 3D Shapes</h3>
-<p style="font-size:13px;color:var(--muted);margin-top:6px;">Solid Geometry Volume</p>
+<p class="vid-title">Solid Geometry Volume</p>
 <div class="meta">
-<span class="badge coverage-g">🟢 KA Full</span>
-<span class="badge">Practice: 5</span>
-<span class="badge">Quiz: 5</span>
+<span class="badge">🟢 KA Full</span>
+<span class="badge">P:5 Q:5</span>
 </div>
 </div>
 <div class="card" onclick="location.href='math_chapter.html?ch=ch09&grade=8'">
 <div class="ch-num">09</div>
 <h3>Scientific Notation</h3>
-<p style="font-size:13px;color:var(--muted);margin-top:6px;">Scientific Notation (old)</p>
+<p class="vid-title">Scientific Notation (old)</p>
 <div class="meta">
-<span class="badge coverage-g">🟢 KA Full</span>
-<span class="badge">Practice: 5</span>
-<span class="badge">Quiz: 5</span>
+<span class="badge">🟢 KA Full</span>
+<span class="badge">P:5 Q:5</span>
 </div>
 </div>
 <div class="card" onclick="location.href='math_chapter.html?ch=ch10&grade=8'">
 <div class="ch-num">10</div>
 <h3>Ratios, Proportions & Percent</h3>
-<p style="font-size:13px;color:var(--muted);margin-top:6px;">30-60-90 Triangle Side Ratios Proof</p>
+<p class="vid-title">30-60-90 Triangle Side Ratios Proof</p>
 <div class="meta">
-<span class="badge coverage-g">🟢 KA Full</span>
-<span class="badge">Practice: 5</span>
-<span class="badge">Quiz: 5</span>
+<span class="badge">🟢 KA Full</span>
+<span class="badge">P:5 Q:5</span>
 </div>
 </div>
 <div class="card" onclick="location.href='math_chapter.html?ch=ch11&grade=8'">
 <div class="ch-num">11</div>
 <h3>Probability</h3>
-<p style="font-size:13px;color:var(--muted);margin-top:6px;">Basic Probability</p>
+<p class="vid-title">Basic Probability</p>
 <div class="meta">
-<span class="badge coverage-g">🟢 KA Full</span>
-<span class="badge">Practice: 5</span>
-<span class="badge">Quiz: 5</span>
+<span class="badge">🟢 KA Full</span>
+<span class="badge">P:5 Q:5</span>
 </div>
 </div>
 <div class="card" onclick="location.href='math_chapter.html?ch=ch12&grade=8'">
 <div class="ch-num">12</div>
 <h3>Integer Exponents & Order of Operations</h3>
-<p style="font-size:13px;color:var(--muted);margin-top:6px;">Calculating i Raised to Arbitrary Exponents</p>
+<p class="vid-title">Calculating i Raised to Arbitrary Exponents</p>
 <div class="meta">
-<span class="badge coverage-g">🟢 KA Full</span>
-<span class="badge">Practice: 5</span>
-<span class="badge">Quiz: 5</span>
+<span class="badge">🟢 KA Full</span>
+<span class="badge">P:5 Q:5</span>
 </div>
 </div>
 <div class="card" onclick="location.href='math_chapter.html?ch=ch13&grade=8'">
 <div class="ch-num">13</div>
 <h3>Polygons & Quadrilaterals</h3>
-<p style="font-size:13px;color:var(--muted);margin-top:6px;">Sum of Interior Angles of a Polygon</p>
+<p class="vid-title">Sum of Interior Angles of a Polygon</p>
 <div class="meta">
-<span class="badge coverage-g">🟢 KA Full</span>
-<span class="badge">Practice: 5</span>
-<span class="badge">Quiz: 5</span>
+<span class="badge">🟢 KA Full</span>
+<span class="badge">P:5 Q:5</span>
 </div>
 </div>
 </div>
