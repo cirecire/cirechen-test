@@ -100,10 +100,10 @@ if (CH) {
   CH_LIST = MATH_DATA.filter(function(c){ return (c.g || "8") === GRADE; });
   for (var j = 0; j < CH_LIST.length; j++) { if (CH_LIST[j].id === CH_ID) { idx = j; break; } }
 }
+var TOTAL = 5, cur = 1;
+
 if (!CH) { document.getElementById("title").textContent = "Chapter not found"; }
 else { render(); }
-
-var TOTAL = 5, cur = 1;
 function render() {
   document.getElementById("home").href = "index.html";
   document.getElementById("title").textContent = "G" + GRADE + "·" + pad(CH.gx || (idx+1)) + "  " + CH.title;
