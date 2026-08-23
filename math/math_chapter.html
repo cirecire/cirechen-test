@@ -38,6 +38,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .video-meta .vlink{color:var(--blue);font-weight:700;text-decoration:none;margin-left:6px}
 .notes-list{list-style:none}
 .notes-list li{background:#f0fdf4;border-left:4px solid var(--green);border-radius:8px;padding:11px 14px;margin-top:9px;color:#064e3b;font-size:14px}
+.dia-wrap{margin:10px 0;text-align:center}
+.dia-wrap svg{display:inline-block;max-width:100%}
 .q{display:block;border:1px solid var(--border);border-radius:10px;padding:15px;margin-top:13px;background:var(--card2)}
 .qtext{font-weight:600;margin-bottom:10px}
 .qopt{display:block;width:100%;text-align:left;padding:10px 14px;margin-top:7px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--text);cursor:pointer;font-size:14px}
@@ -104,6 +106,110 @@ else { render(); }
 function pad(n){ return (n<10?"0":"") + n; }
 function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 
+// ────────────────────────────────────────────────────────
+// graphie → SVG renderer
+// Mimics Khan Academy's graphie betterTriangle() function:
+//   vertices: C=(0,0), B=(width,0), A=(0,height)
+//   right angle at C
+// ────────────────────────────────────────────────────────
+function renderGraphie(dia) {
+  // dia = { type:'triangle', w, h, A, B, C, a, b, c }
+  // KA scale: scale = 5 / sqrt(w²+h²), then px = unit * scale * 50
+  // We use a fixed canvas with max triangle display size ~260px
+  var w = dia.w, h = dia.h;
+  var hyp = Math.sqrt(w*w + h*h);
+  var scale = 260 / hyp; // max display length in px
+  var W = Math.round(w * scale);
+  var H = Math.round(h * scale);
+
+  // viewBox with padding for labels (left=60, bottom=40, top=50, right=50)
+  var PAD_L = 60, PAD_B = 45, PAD_T = 55, PAD_R = 55;
+  var vx = PAD_L, vy = PAD_T;
+  var vw = W + PAD_R, vh = H + PAD_B;
+
+  // SVG pixel positions
+  var Ax = vx,       Ay = vy + H;   // A = (0, h) in KA coords → top-left in SVG
+  var Bx = vx + W,   By = vy + H;   // B = (w, h) → top-right
+  var Cx = vx,       Cy = vy;       // C = (0, 0) → bottom-left (right angle)
+
+  function lblX(x, y, side) {
+    if (side === 'left') return Math.round(x - 14);
+    if (side === 'below') return Math.round(x);
+    if (side === 'above right') return Math.round(x + 10);
+    if (side === 'above left') return Math.round(x - 14);
+    return Math.round(x);
+  }
+  function lblY(x, y, side) {
+    if (side === 'left') return Math.round(y);
+    if (side === 'below') return Math.round(y + 18);
+    if (side === 'above right') return Math.round(y - 8);
+    if (side === 'above left') return Math.round(y - 8);
+    return Math.round(y);
+  }
+
+  var lines = '';
+  // Triangle path: A → B → C → close
+  lines += '<polygon points="'
+    + Ax + ',' + Ay + ' '
+    + Bx + ',' + By + ' '
+    + Cx + ',' + Cy
+    + '" fill="none" stroke="#e2e8f0" stroke-width="1.8"/>';
+
+  // Vertex labels (A, B, C)
+  var vertexFontSize = 13;
+  lines += '<text x="' + (Ax - 9) + '" y="' + (Ay - 8) + '" text-anchor="end" font-family="sans-serif" font-size="' + vertexFontSize + '" fill="#93c5fd" font-weight="700">' + esc(dia.A || '') + '</text>';
+  lines += '<text x="' + (Bx + 9) + '" y="' + (By - 8) + '" text-anchor="start" font-family="sans-serif" font-size="' + vertexFontSize + '" fill="#93c5fd" font-weight="700">' + esc(dia.B || '') + '</text>';
+  lines += '<text x="' + (Cx - 9) + '" y="' + (Cy + 16) + '" text-anchor="end" font-family="sans-serif" font-size="' + vertexFontSize + '" fill="#93c5fd" font-weight="700">' + esc(dia.C || '') + '</text>';
+
+  // Side length labels
+  var sideFontSize = 12;
+  var boldSide = true;
+  // Label b: midpoint of AC (left vertical edge, KA b = AC = height)
+  var bmx = lblX((Ax+Cx)/2, (Ay+Cy)/2, 'left');
+  var bmy = lblY((Ax+Cx)/2, (Ay+Cy)/2, 'left');
+  lines += '<text x="' + bmx + '" y="' + bmy + '" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="' + sideFontSize + '" fill="#fbbf24" font-weight="700">' + esc(dia.b || '') + '</text>';
+
+  // Label a: midpoint of BC (bottom horizontal edge, KA a = BC = width)
+  var amx = lblX((Bx+Cx)/2, (By+Cy)/2, 'below');
+  var amy = lblY((Bx+Cx)/2, (By+Cy)/2, 'below');
+  lines += '<text x="' + amx + '" y="' + amy + '" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="' + sideFontSize + '" fill="#fbbf24" font-weight="700">' + esc(dia.a || '') + '</text>';
+
+  // Label c: midpoint of AB (hypotenuse, top-right diagonal)
+  var cmx = (Ax+Bx)/2;
+  var cmy = (Ay+By)/2;
+  // offset perpendicular to hypotenuse (upward = negative normal)
+  var nx = -h/hyp, ny = w/hyp; // unit normal pointing "up" from hypotenuse
+  var coff = 16;
+  lines += '<text x="' + Math.round(cmx + nx*coff) + '" y="' + Math.round(cmy + ny*coff) + '" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="' + sideFontSize + '" fill="#fbbf24" font-weight="700">' + esc(dia.c || '') + '</text>';
+
+  // Right angle marker at C
+  var sq = 10;
+  lines += '<path d="M ' + (Cx) + ',' + (Cy + sq) + ' L ' + (Cx) + ',' + (Cy) + ' L ' + (Cx + sq) + ',' + (Cy) + '" fill="none" stroke="#94a3b8" stroke-width="1.2"/>';
+
+  // 30° / 60° arc markers if provided (for special right triangles)
+  if (dia.angle30) {
+    // arc near the 30° vertex (which one depends on angle30: 'A' or 'B')
+    if (dia.angle30 === 'A' || dia.angle30 === true) {
+      var arcR = 18, ax0 = Ax + sq*1.5, ay0 = Ay - sq*1.5;
+      var ax1 = Ax - sq*1.5, ay1 = Ay - sq*1.5;
+      var axc = Ax, ayc = Ay - sq*2.5;
+      lines += '<path d="M ' + ax0 + ',' + ay0 + ' Q ' + axc + ',' + ayc + ' ' + ax1 + ',' + ay1 + '" fill="none" stroke="#86efac" stroke-width="1.2"/>';
+      lines += '<text x="' + (axc - 4) + '" y="' + (ayc - 4) + '" font-family="sans-serif" font-size="10" fill="#86efac">30°</text>';
+    }
+    if (dia.angle30 === 'B' || dia.angle30 === true) {
+      var arcR = 18, bx0 = Bx - sq*1.5, by0 = By - sq*1.5;
+      var bx1 = Bx - sq*1.5, by1 = By + sq*1.5;
+      var bxc = Bx - sq*2.5, byc = By;
+      lines += '<path d="M ' + bx0 + ',' + by0 + ' Q ' + bxc + ',' + byc + ' ' + bx1 + ',' + by1 + '" fill="none" stroke="#86efac" stroke-width="1.2"/>';
+      lines += '<text x="' + (bxc + 3) + '" y="' + (byc + 14) + '" font-family="sans-serif" font-size="10" fill="#86efac">60°</text>';
+    }
+  }
+
+  var svg = '<svg viewBox="0 0 ' + vw + ' ' + vh + '" width="' + vw + '" height="' + vh + '" xmlns="http://www.w3.org/2000/svg">' + lines + '</svg>';
+  return '<div class="dia-wrap">' + svg + '</div>';
+}
+
+// ────────────────────────────────────────────────────────
 function render() {
   document.getElementById("home").href = "index.html";
   document.getElementById("title").textContent = "G" + GRADE + "·" + pad(CH.gx || (idx+1)) + "  " + CH.title;
@@ -120,7 +226,6 @@ function render() {
   showStep(1);
 }
 function showStep(step) {
-  // Stop the video when leaving the Watch step so it doesn't keep playing in the background
   if (cur === 2 && step !== 2) {
     var f = document.querySelector("#p2 iframe.bili");
     if (f) f.src = "about:blank";
@@ -135,7 +240,6 @@ function showStep(step) {
     sbs[k].classList.toggle("active", k === (step-1));
     sbs[k].classList.toggle("done", k < (step-1));
   }
-  // Rebuild the Watch step fresh each time it is opened (clean, restarts the video)
   if (step === 2) renderPanel(2);
   window.scrollTo({top:0, behavior:"smooth"});
 }
@@ -177,6 +281,8 @@ function renderQs(boxId, questions, kind) {
   questions.forEach(function(item, i){
     html += '<div class="q" id="' + kind + 'q' + i + '">';
     html += '<div class="qtext">' + (i+1) + '. ' + esc(item.q) + '</div>';
+    // Render graphie diagram if present
+    if (item.dia) html += renderGraphie(item.dia);
     if (item.type === "choice") {
       item.opts.forEach(function(opt, k){
         html += '<button class="qopt" id="' + kind + 'opt' + i + '_' + k + '">' + esc(opt) + '</button>';
