@@ -120,6 +120,11 @@ function render() {
   showStep(1);
 }
 function showStep(step) {
+  // Stop the video when leaving the Watch step so it doesn't keep playing in the background
+  if (cur === 2 && step !== 2) {
+    var f = document.querySelector("#p2 iframe.bili");
+    if (f) f.src = "about:blank";
+  }
   cur = step;
   for (var i = 1; i <= TOTAL; i++) {
     var p = document.getElementById("p" + i);
@@ -130,6 +135,8 @@ function showStep(step) {
     sbs[k].classList.toggle("active", k === (step-1));
     sbs[k].classList.toggle("done", k < (step-1));
   }
+  // Rebuild the Watch step fresh each time it is opened (clean, restarts the video)
+  if (step === 2) renderPanel(2);
   window.scrollTo({top:0, behavior:"smooth"});
 }
 function nextBtn(label) {
@@ -222,6 +229,8 @@ function nextStep() {
   else { finish(); }
 }
 function finish() {
+  var f = document.querySelector("#p2 iframe.bili");
+  if (f) f.src = "about:blank";
   for (var i = 1; i <= TOTAL; i++) document.getElementById("p" + i).style.display = "none";
   document.getElementById("stepbar").style.display = "none";
   document.getElementById("done").classList.add("show");
