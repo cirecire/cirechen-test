@@ -114,6 +114,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 var params = new URLSearchParams(location.search);
 var CH_ID = params.get("ch") || "ch01";
 var GRADE = params.get("grade") || "8";
+var TOTAL = 5, cur = 1;
 var CH = null, CH_LIST = [], idx = -1;
 
 for (var i = 0; i < MATH_DATA.length; i++) {
@@ -136,8 +137,6 @@ if (!CH) {
 } else {
   render();
 }
-
-var TOTAL = 5, cur = 1;
 
 function render() {
   document.getElementById("home").href = "index.html";
