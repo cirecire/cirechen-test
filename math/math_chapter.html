@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Math · Khan Academy</title>
+<!-- KaTeX for LaTeX math rendering (used by KA itself, MIT licensed) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <style>
 :root{
   --bg:#0a0f1e; --card:#141d33; --card2:#1a2540;
@@ -38,31 +41,50 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .video-meta .vlink{color:var(--blue);font-weight:700;text-decoration:none;margin-left:6px}
 .notes-list{list-style:none}
 .notes-list li{background:#f0fdf4;border-left:4px solid var(--green);border-radius:8px;padding:11px 14px;margin-top:9px;color:#064e3b;font-size:14px}
-.dia-wrap{margin:10px 0;text-align:center}
+
+/* ── KA-style math text (rendered by KaTeX) ── */
+.math-inline{display:inline}
+
+/* ── Diagram wrappers ── */
+.dia-wrap{margin:10px 0;text-align:center;padding:12px;background:#fff;border-radius:8px;display:inline-block}
 .dia-wrap svg{display:inline-block;max-width:100%}
-.q{display:block;border:1px solid var(--border);border-radius:10px;padding:15px;margin-top:13px;background:var(--card2)}
-.qtext{font-weight:600;margin-bottom:10px}
-.qopt{display:block;width:100%;text-align:left;padding:10px 14px;margin-top:7px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--text);cursor:pointer;font-size:14px}
-.qopt:hover{background:#f8fafc}
-.qopt.correct{background:#ecfdf5;border-color:#6ee7b7;color:#065f46}
-.qopt.wrong{background:#fef2f2;border-color:#fca5a5;color:#991b1b}
-.qopt:disabled{cursor:default;opacity:.85}
-.fill-input{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;margin-top:8px;background:var(--card);color:var(--text)}
+
+/* ── Question cards ── */
+.q{display:block;border:1px solid var(--border);border-radius:10px;padding:16px;margin-top:13px;background:var(--card2)}
+.qnum{font-size:12px;color:var(--text3);margin-bottom:6px}
+.qtext{font-weight:600;margin-bottom:10px;font-size:15px}
+
+/* ── Answer area ── */
+.ans-area{margin-top:10px}
+.show-ans-btn{background:var(--purple);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
+.show-ans-btn:hover{background:#9333ea}
+.ans-display{display:none;margin-top:8px;padding:10px 14px;background:#f0fdf4;border:1px solid #6ee7b7;border-radius:8px;font-size:14px;color:#065f46}
+
+/* ── Feedback / hints ── */
 .fb{margin-top:10px;padding:9px 12px;border-radius:8px;font-size:13.5px;display:none}
 .fb.ok{background:#ecfdf5;border:1px solid #6ee7b7;color:#065f46;display:block}
 .fb.no{background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;display:block}
-.sol{margin-top:8px;padding:9px 12px;background:#f0fdfa;border-left:4px solid var(--teal);border-radius:8px;font-size:13.5px;display:none;color:#134e4a}
+.sol{margin-top:8px;padding:10px 14px;background:#f0fdfa;border-left:4px solid var(--teal);border-radius:8px;font-size:13.5px;display:none;color:#134e4a}
+.sol-header{font-weight:700;color:#0f766e;margin-bottom:6px}
+
+/* ── Buttons ── */
 .next-btn{background:var(--blue);color:#fff;border:none;padding:11px 22px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;margin-top:18px}
 .next-btn:hover{background:#2563eb}
 .next-btn.sm{padding:8px 16px;margin-top:8px}
 .next-btn.big{display:block;width:100%;font-size:15px;padding:14px}
 .next-btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* ── Done screen ── */
 .done-screen{display:none;text-align:center;padding:50px 20px}
 .done-screen.show{display:block}
 .done-screen .big{font-size:54px}
 .done-screen h2{margin:12px 0;color:var(--green)}
 .go-next{display:inline-block;margin-top:16px;background:var(--green);color:#fff;text-decoration:none;padding:12px 26px;border-radius:9px;font-weight:700}
 .go-next:hover{background:#059669}
+
+/* ── Instruction strip ── */
+.paper-note{background:#fffbea;border:1px solid #f59e0b;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:13px;color:#92400e;text-align:center}
+.paper-note strong{color:#d97706}
 </style>
 </head>
 <body>
@@ -72,6 +94,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
   <span class="cov" id="cov"></span>
 </div>
 <div class="wrap">
+  <div class="paper-note" id="paperNote" style="display:none">
+    ✏️ <strong>Solve on paper first</strong>, then check your answer below.
+  </div>
   <div class="stepbar" id="stepbar"></div>
   <div class="panel" id="p1"></div>
   <div class="panel" id="p2"></div>
@@ -88,6 +113,454 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 
 <script src="math_data.js"></script>
 <script>
+// ═══════════════════════════════════════════════════════════════
+// GRAPHIE → SVG ENGINE
+// Translates KA's graphie drawing calls into SVG.
+// Supports: init, line, path, arc, label, circle, Triangle,
+//           grid/axes, and all style options.
+// ═══════════════════════════════════════════════════════════════
+
+var _g = null; // current graphie context
+
+function Graphie(svgEl) {
+  this.svg = svgEl;
+  this.scale = 40;
+  this.range = [[-10, 10], [-10, 10]];
+  this.styles = {};
+  this.init = function(range, opts) {
+    if (!range) return;
+    this.range = range;
+    this.scale = (opts && opts.scale) || 40;
+  };
+  // Convert KA graphie coords (x,y) → SVG pixel coords
+  this.toSVG = function(x, y) {
+    var rx = this.range[0], ry = this.range[1];
+    var w = this.svg.width.baseVal.value;
+    var h = this.svg.height.baseVal.value;
+    var px = ((x - rx[0]) / (rx[1] - rx[0])) * w;
+    var py = h - ((y - ry[0]) / (ry[1] - ry[0])) * h; // flip Y
+    return [px, py];
+  };
+  this._el = function(tag, attrs) {
+    var el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for (var k in attrs) el.setAttribute(k, attrs[k]);
+    // apply current styles
+    for (var s in this.styles) el.style[s] = this.styles[s];
+    this.svg.appendChild(el);
+    return el;
+  };
+  this.line = function(p1, p2, opts) {
+    var a = this.toSVG(p1[0], p1[1]);
+    var b = this.toSVG(p2[0], p2[1]);
+    var attrs = { x1: a[0], y1: a[1], x2: b[0], y2: b[1] };
+    if (opts && opts.end) {
+      attrs.markerEnd = 'url(#arrowhead)';
+    }
+    return this._el('line', attrs);
+  };
+  this.path = function(points, opts) {
+    var self = this;
+    var d = points.map(function(p) {
+      var pt = self.toSVG(p[0], p[1]);
+      return (p === points[0] ? 'M' : 'L') + pt[0] + ',' + pt[1];
+    }).join(' ');
+    if (opts && opts.close) d += ' Z';
+    return this._el('path', { d: d, fill: opts && opts.close ? 'none' : 'none' });
+  };
+  this.arc = function(center, radius, startDeg, endDeg, opts) {
+    var c = this.toSVG(center[0], center[1]);
+    // scale radius to SVG pixels
+    var rx0 = this.toSVG(center[0] - center[0], center[1] - center[1]);
+    var rx1 = this.toSVG(center[0] + radius, center[1] - center[1]);
+    var r = Math.abs(rx1[0] - rx0[0]);
+    var s = (startDeg * Math.PI / 180);
+    var e = (endDeg * Math.PI / 180);
+    var large = (endDeg - startDeg) > 180 ? 1 : 0;
+    var x = c[0] + r * Math.cos(s);
+    var y = c[1] + r * Math.sin(s);
+    var ex = c[0] + r * Math.cos(e);
+    var ey = c[1] + r * Math.sin(e);
+    var d = 'M ' + x + ',' + y + ' A ' + r + ',' + r + ' 0 ' + large + ' 1 ' + ex + ',' + ey;
+    return this._el('path', { d: d, fill: 'none' });
+  };
+  this.circle = function(center, r) {
+    var c = this.toSVG(center[0], center[1]);
+    var rx0 = this.toSVG(center[0] - center[0], center[1] - center[1]);
+    var rx1 = this.toSVG(center[0] + r, center[1] - center[1]);
+    var pr = Math.abs(rx1[0] - rx0[0]);
+    return this._el('circle', { cx: c[0], cy: c[1], r: pr });
+  };
+  this.label = function(pos, text, side, opts) {
+    var c = this.toSVG(pos[0], pos[1]);
+    var tx = c[0], ty = c[1];
+    var anchor = 'middle';
+    if (side === 'left') { tx -= 6; anchor = 'end'; }
+    if (side === 'right') { tx += 6; anchor = 'start'; }
+    if (side === 'above') ty -= 6;
+    if (side === 'below') ty += 16;
+    if (side === 'above left') { tx -= 8; ty -= 6; anchor = 'end'; }
+    if (side === 'above right') { tx += 8; ty -= 6; anchor = 'start'; }
+    if (side === 'below left') { tx -= 8; ty += 18; anchor = 'end'; }
+    if (side === 'below right') { tx += 8; ty += 18; anchor = 'start'; }
+    var el = this._el('text', {
+      x: tx, y: ty, 'text-anchor': anchor, 'dominant-baseline': 'middle'
+    });
+    // render LaTeX via KaTeX
+    try {
+      if (text.startsWith('$') && text.endsWith('$')) {
+        katex.render(text.slice(1,-1), el, { throwOnError: false, displayMode: false });
+      } else {
+        el.textContent = text;
+      }
+    } catch(e) { el.textContent = text; }
+    return el;
+  };
+  this.style = function(attrs, fn) {
+    var old = this.styles;
+    for (var k in attrs) this.styles[k] = attrs[k];
+    if (fn) {
+      fn.call(this);
+      this.styles = old;
+    }
+  };
+  // Draw a coordinate plane with axes
+  this.drawAxes = function(opts) {
+    opts = opts || {};
+    var rx = this.range[0], ry = this.range[1];
+    var pad = 5;
+    // x-axis
+    this.line([rx[0], 0], [rx[1], 0]);
+    // y-axis
+    this.line([0, ry[0]], [0, ry[1]]);
+    // grid lines
+    var step = opts.step || 1;
+    for (var x = Math.ceil(rx[0]/step)*step; x <= rx[1]; x += step) {
+      if (Math.abs(x) < 0.001) continue;
+      this.line([x, ry[0]], [x, ry[1]]);
+    }
+    for (var y = Math.ceil(ry[0]/step)*step; y <= ry[1]; y += step) {
+      if (Math.abs(y) < 0.001) continue;
+      this.line([rx[0], y], [rx[1], y]);
+    }
+  };
+  // Draw a right triangle (same as betterTriangle in KA)
+  this.triangle = function(w, h, A, B, C, alabel, blabel, clabel) {
+    // KA coords: C=(0,0), B=(w,0), A=(0,h)
+    var Ax=0, Ay=h, Bx=w, By=0, Cx=0, Cy=0;
+    this.path([[Cx,Cy],[Bx,By],[Ax,Ay],[Cx,Cy]], {close:true});
+    // right angle marker at C
+    var sq = 0.3;
+    this.path([[Cx,Cy+sq],[Cx+sq,Cy+sq],[Cx+sq,Cy]]);
+    // vertex labels
+    this.label([Cx-0.3, Cy+0.3], C, 'below left');
+    this.label([Bx+0.3, By+0.3], B, 'below right');
+    this.label([Ax-0.3, Ay-0.3], A, 'above left');
+    // side labels
+    this.label([Cx, Cy+h/2], blabel, 'left');
+    this.label([Cx+w/2, Cy+0.3], alabel, 'below');
+    // hypotenuse midpoint, perpendicular offset
+    var hyp = Math.sqrt(w*w+h*h);
+    var nx = -h/hyp, ny = w/hyp;
+    this.label([(Cx+Bx)/2+nx*0.5, (Cy+By)/2+ny*0.5], clabel, 'above right');
+  };
+  // Draw an angle arc between three points
+  this.angleArc = function(p1, vertex, p2, r, labelText) {
+    // angle at vertex between p1 and p2
+    var vx = vertex[0], vy = vertex[1];
+    var a1 = Math.atan2(p1[1]-vy, p1[0]-vx);
+    var a2 = Math.atan2(p2[1]-vy, p2[0]-vx);
+    var arcR = r || 0.5;
+    // make sure we draw the smaller arc
+    var da = a2 - a1;
+    if (da > Math.PI) da -= 2*Math.PI;
+    if (da < -Math.PI) da += 2*Math.PI;
+    var s = a1 * 180 / Math.PI;
+    var e = (a1 + da) * 180 / Math.PI;
+    this.arc([vx, vy], arcR, s, e);
+    if (labelText) {
+      var mx = vx + (arcR + 0.4) * Math.cos(a1 + da/2);
+      var my = vy + (arcR + 0.4) * Math.sin(a1 + da/2);
+      this.label([mx, my], labelText);
+    }
+  };
+}
+
+// Render a graphie from a config object
+function renderGraphie(cfg) {
+  // cfg = { range, code } where code is array of draw commands
+  // OR simplified format: { type:'triangle', w,h,A,B,C,a,b,c }
+  var range = cfg.range || [[-2, 12], [-2, 10]];
+  var padL = 20, padB = 20, padT = 20, padR = 20;
+  var W = 500, H = 320;
+  // Calculate scale to fit range into available space
+  var scaleX = (W - padL - padR) / (range[0][1] - range[0][0]);
+  var scaleY = (H - padT - padB) / (range[1][1] - range[1][0]);
+  var scale = Math.min(scaleX, scaleY);
+
+  var g = new Graphie({
+    width: { baseVal: { value: W } },
+    height: { baseVal: { value: H } },
+    appendChild: function(el) {
+      svg.innerHTML += el.outerHTML || '';
+    }
+  });
+  g.range = range;
+  g.scale = scale;
+
+  var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+  svg.style.background = '#f8fafc';
+  svg.style.borderRadius = '6px';
+
+  // Arrowhead marker
+  svg.innerHTML += '<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/></marker></defs>';
+
+  g.svg = svg;
+
+  if (cfg.type === 'triangle') {
+    // simplified right-triangle drawing
+    var w = cfg.w, h = cfg.h;
+    var hyp = Math.sqrt(w*w+h*h);
+    var SCALE = 260 / hyp;
+    var Wpx = Math.round(w * SCALE), Hpx = Math.round(h * SCALE);
+    var PL = 65, PT = 55, PR = 55, PB = 45;
+    var vW = PL + Wpx + PR, vH = PT + Hpx + PB;
+    svg.setAttribute('viewBox', '0 0 ' + vW + ' ' + vH);
+    svg.setAttribute('width', vW);
+    svg.setAttribute('height', vH);
+    var Ax=PL, Ay=PT+Hpx, Bx=PL+Wpx, By=PT+Hpx, Cx=PL, Cy=PT;
+    var lines = '';
+    lines += '<polygon points="'+Ax+','+Ay+' '+Bx+','+By+' '+Cx+','+Cy+'" fill="none" stroke="#334155" stroke-width="2"/>';
+    // right angle marker
+    var sq=10;
+    lines += '<path d="M '+(Cx)+','+(Cy+sq)+' L '+(Cx)+','+(Cy)+' L '+(Cx+sq)+','+(Cy)+'" fill="none" stroke="#94a3b8" stroke-width="1.5"/>';
+    // vertex labels
+    lines += '<text x="'+(Ax-10)+'" y="'+(Ay-8)+'" text-anchor="end" font-family="sans-serif" font-size="14" fill="#60a5fa" font-weight="700">'+esc(cfg.A||'')+'</text>';
+    lines += '<text x="'+(Bx+10)+'" y="'+(By-8)+'" text-anchor="start" font-family="sans-serif" font-size="14" fill="#60a5fa" font-weight="700">'+esc(cfg.B||'')+'</text>';
+    lines += '<text x="'+(Cx-10)+'" y="'+(Cy+18)+'" text-anchor="end" font-family="sans-serif" font-size="14" fill="#60a5fa" font-weight="700">'+esc(cfg.C||'')+'</text>';
+    // side labels (yellow)
+    var fs=13, lbf='#d97706', bold='font-weight="700"';
+    lines += '<text x="'+(Ax-8)+'" y="'+((Ay+Cy)/2)+'" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="'+fs+'" fill="'+lbf+'" '+bold+'>'+esc(cfg.b||'')+'</text>';
+    lines += '<text x="'+((Bx+Cx)/2)+'" y="'+((By+Cy)/2+18)+'" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="'+fs+'" fill="'+lbf+'" '+bold+'>'+esc(cfg.a||'')+'</text>';
+    // hypotenuse label (perpendicular offset)
+    var nx=-h/hyp, ny=w/hyp, coff=18;
+    lines += '<text x="'+Math.round((Ax+Bx)/2+nx*coff)+'" y="'+Math.round((Ay+By)/2+ny*coff)+'" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="'+fs+'" fill="'+lbf+'" '+bold+'>'+esc(cfg.c||'')+'</text>';
+    svg.innerHTML += lines;
+    return '<div class="dia-wrap"><div style="display:inline-block;background:#f8fafc;border-radius:6px;padding:8px">'+svg.outerHTML+'</div></div>';
+  }
+
+  if (cfg.type === 'coord_plane') {
+    // Coordinate grid: range [[xmin,xmax],[ymin,ymax]], step
+    var rx = cfg.range[0], ry = cfg.range[1];
+    var step = cfg.step || 1;
+    var PL = 45, PR = 15, PT = 15, PB = 35;
+    var usableW = W - PL - PR, usableH = H - PT - PB;
+    var sx = usableW / (rx[1]-rx[0]), sy = usableH / (ry[1]-ry[0]);
+    // origin position
+    var ox = PL - rx[0]*sx, oy = PT + ry[1]*sy;
+    var lines = '';
+    // grid
+    for (var gx = Math.ceil(rx[0]/step)*step; gx <= rx[1]; gx += step) {
+      var px = ox + gx*sx;
+      lines += '<line x1="'+px+'" y1="'+PT+'" x2="'+px+'" y2="'+(H-PB)+'" stroke="#e2e8f0" stroke-width="0.5"/>';
+      if (Math.abs(gx) > 0.001) {
+        lines += '<text x="'+px+'" y="'+(H-PB+14)+'" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">'+gx+'</text>';
+      }
+    }
+    for (var gy = Math.ceil(ry[0]/step)*step; gy <= ry[1]; gy += step) {
+      var py = oy - gy*sy;
+      lines += '<line x1="'+PL+'" y1="'+py+'" x2="'+(W-PR)+'" y2="'+py+'" stroke="#e2e8f0" stroke-width="0.5"/>';
+      if (Math.abs(gy) > 0.001) {
+        lines += '<text x="'+(PL-5)+'" y="'+(py+4)+'" text-anchor="end" font-family="sans-serif" font-size="11" fill="#64748b">'+gy+'</text>';
+      }
+    }
+    // axes
+    lines += '<line x1="'+PL+'" y1="'+oy+'" x2="'+(W-PR)+'" y2="'+oy+'" stroke="#94a3b8" stroke-width="1.5"/>';
+    lines += '<line x1="'+ox+'" y1="'+PT+'" x2="'+ox+'" y2="'+(H-PB)+'" stroke="#94a3b8" stroke-width="1.5"/>';
+    // arrows
+    lines += '<polygon points="'+(W-PR)+','+oy+','+(W-PR-8)+','+(oy-4)+','+(W-PR-8)+','+(oy+4)+'" fill="#94a3b8"/>';
+    lines += '<polygon points="'+ox+','+PT+','+(ox-4)+','+(PT+8)+','+(ox+4)+','+(PT+8)+'" fill="#94a3b8"/>';
+    // axis labels
+    lines += '<text x="'+(W-PR/2)+'" y="'+(oy+16)+'" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#64748b">x</text>';
+    lines += '<text x="'+(ox+10)+'" y="'+(PT+14)+'" text-anchor="start" font-family="sans-serif" font-size="12" fill="#64748b">y</text>';
+    // plot lines if provided
+    if (cfg.line) {
+      var ln = cfg.line;
+      var pts = [];
+      for (var px2 = rx[0]; px2 <= rx[1]; px2 += 0.05) {
+        var py2 = ln.m * px2 + ln.b;
+        if (py2 >= ry[0] && py2 <= ry[1]) {
+          pts.push([ox+px2*sx, oy-py2*sy]);
+        }
+      }
+      if (pts.length > 1) {
+        var d = 'M'+pts[0][0].toFixed(1)+','+pts[0][1].toFixed(1);
+        for (var pi=1;pi<pts.length;pi++) d+=' L'+pts[pi][0].toFixed(1)+','+pts[pi][1].toFixed(1);
+        lines += '<path d="'+d+'" fill="none" stroke="#3b82f6" stroke-width="2.5"/>';
+      }
+    }
+    svg.innerHTML += lines;
+    return '<div class="dia-wrap">'+svg.outerHTML+'</div>';
+  }
+
+  if (cfg.type === 'triangle30_60_90') {
+    // 30-60-90 right triangle
+    // KA coords: C=right-angle=(0,0), B=(short,0), A=(0,long)
+    // SVG: y-flipped, so A=top-left, B=bottom-right, C=bottom-left
+    var short = cfg.short || 3;
+    var long = cfg.long || +(short * Math.sqrt(3)).toFixed(3);
+    var hyp = cfg.hyp || +(short * 2).toFixed(3);
+    var SCALE = 220 / (short * 2.5);
+    var Wpx = Math.round(short * SCALE);
+    var Hpx = Math.round(long * SCALE);
+    var PL=75, PT=60, PR=60, PB=50;
+    var vW=PL+Wpx+PR, vH=PT+Hpx+PB;
+    var Cx=PL, Cy=PT+Hpx;   // right angle at C (bottom-left)
+    var Bx=PL+Wpx, By=PT+Hpx; // short leg BC (horizontal, along bottom)
+    var Ax=PL, Ay=PT;         // long leg AC (vertical, along left side)
+    var hypLen = Math.sqrt(short*short + long*long);
+    // perpendicular offset for hypotenuse label
+    var nx = -long/hypLen, ny = short/hypLen;
+    var hypMX=(Ax+Bx)/2 + nx*20, hypMY=(Ay+By)/2 + ny*20;
+    var svg3 = '<svg viewBox="0 0 '+vW+' '+vH+'" width="'+vW+'" height="'+vH+'" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc;border-radius:6px">';
+    svg3 += '<polygon points="'+Ax+','+Ay+' '+Bx+','+By+' '+Cx+','+Cy+' '+Ax+','+Ay+'" fill="none" stroke="#334155" stroke-width="2"/>';
+    // right angle marker
+    var sq=10;
+    svg3 += '<path d="M'+(Cx)+','+(Cy-sq)+' L'+(Cx)+','+(Cy)+' L'+(Cx+sq)+','+(Cy)+'" fill="none" stroke="#94a3b8" stroke-width="1.5"/>';
+    // vertex labels (blue)
+    svg3 += '<text x="'+(Ax-10)+'" y="'+(Ay-6)+'" text-anchor="end" font-family="sans-serif" font-size="14" fill="#60a5fa" font-weight="700">A</text>';
+    svg3 += '<text x="'+(Bx+10)+'" y="'+(By+4)+'" text-anchor="start" font-family="sans-serif" font-size="14" fill="#60a5fa" font-weight="700">B</text>';
+    svg3 += '<text x="'+(Cx-10)+'" y="'+(Cy+18)+'" text-anchor="end" font-family="sans-serif" font-size="14" fill="#60a5fa" font-weight="700">C</text>';
+    // side labels (amber)
+    svg3 += '<text x="'+(Ax-12)+'" y="'+((Ay+Cy)/2)+'" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#d97706" font-weight="700">'+esc(''+long)+'</text>'; // long leg AC label
+    svg3 += '<text x="'+(Cx+Wpx/2)+'" y="'+(Cy+18)+'" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#d97706" font-weight="700">'+esc(''+short)+'</text>'; // short leg BC label
+    svg3 += '<text x="'+Math.round(hypMX)+'" y="'+Math.round(hypMY)+'" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#d97706" font-weight="700">'+esc(''+hyp)+'</text>'; // hyp AB label
+    // 30° arc at C
+    svg3 += '<path d="M'+(Cx+sq*1.2)+','+Cy+' Q'+(Cx+sq*0.5)+','+(Cy-sq*2.5)+' '+(Cx)+','+(Cy-sq*1.2)+'" fill="none" stroke="#3b82f6" stroke-width="1.5"/>';
+    svg3 += '<text x="'+(Cx-12)+'" y="'+(Cy-14)+'" font-family="sans-serif" font-size="12" fill="#3b82f6" font-weight="700">30°</text>';
+    // 60° arc at A
+    svg3 += '<path d="M'+(Ax)+','+(Ay+sq*1.2)+' Q'+(Ax+sq*2.5)+','+(Ay+sq*0.5)+' '+(Ax+sq*1.2)+','+(Ay)+'" fill="none" stroke="#3b82f6" stroke-width="1.5"/>';
+    svg3 += '<text x="'+(Ax-14)+'" y="'+(Ay-6)+'" font-family="sans-serif" font-size="12" fill="#3b82f6" font-weight="700">60°</text>';
+    svg3 += '</svg>';
+    return '<div class="dia-wrap"><div style="display:inline-block;background:#f8fafc;border-radius:6px;padding:8px">'+svg3+'</div></div>';
+  }
+
+  if (cfg.type === 'angle') {
+    // Acute/right/obtuse angle drawing
+    var deg = cfg.degree;
+    var cx = 150, cy = 120;
+    var r = cfg.radius || 80;
+    // endpoints
+    var a1 = -90 * Math.PI/180;
+    var a2 = (-90 + deg) * Math.PI/180;
+    var x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+    var x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
+    var arcR = 20;
+    var ax1 = cx + arcR * Math.cos(a1), ay1 = cy + arcR * Math.sin(a1);
+    var ax2 = cx + arcR * Math.cos(a2), ay2 = cy + arcR * Math.sin(a2);
+    var da = deg * Math.PI/180;
+    var axm = cx + (arcR+12) * Math.cos(a1+da/2), aym = cy + (arcR+12) * Math.sin(a1+da/2);
+    var svg2 = '<svg viewBox="0 0 300 200" width="300" height="200" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc;border-radius:6px">';
+    svg2 += '<line x1="'+cx+'" y1="'+cy+'" x2="'+x1+'" y2="'+y1+'" stroke="#334155" stroke-width="2"/>';
+    svg2 += '<line x1="'+cx+'" y1="'+cy+'" x2="'+x2+'" y2="'+y2+'" stroke="#334155" stroke-width="2"/>';
+    var large = deg > 180 ? 1 : 0;
+    svg2 += '<path d="M '+ax1+','+ay1+' A '+arcR+','+arcR+' 0 '+large+' 1 '+ax2+','+ay2+'" fill="none" stroke="#3b82f6" stroke-width="1.5"/>';
+    svg2 += '<text x="'+axm+'" y="'+(aym-6)+'" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#3b82f6" font-weight="700">'+deg+'°</text>';
+    svg2 += '<text x="'+(cx+10)+'" y="'+(cy+18)+'" font-family="sans-serif" font-size="12" fill="#64748b">vertex</text>';
+    svg2 += '</svg>';
+    return '<div class="dia-wrap">'+svg2+'</div>';
+  }
+
+  if (cfg.type === 'tri_angles') {
+    // Triangle with angle values (triangle_angles_1 style)
+    var tri = cfg.data; // {angles:[a,b,c], sides:[sa,sb,sc]}
+    var vW=400, vH=280, PL=50, PT=30, PR=20, PB=30;
+    var usableW=vW-PL-PR, usableH=vH-PT-PB;
+    var s = Math.min(usableW/12, usableH/10);
+    var cx=PL+usableW/2, cy=PT+usableH/2+20;
+    var A=tri.angles[0], B=tri.angles[1], C=tri.angles[2];
+    var a=tri.sides[0], b=tri.sides[1], c=tri.sides[2];
+    // Place triangle with C at left, B at right-bottom, A at top
+    var pA=[cx, cy-3*s], pB=[cx+3.5*s, cy+2*s], pC=[cx-3.5*s, cy+2*s];
+    var triStr = pA[0]+','+pA[1]+' '+pB[0]+','+pB[1]+' '+pC[0]+','+pC[1]+' '+pA[0]+','+pA[1];
+    var svg3 = '<svg viewBox="0 0 '+vW+' '+vH+'" width="'+vW+'" height="'+vH+'" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc;border-radius:6px">';
+    svg3 += '<polygon points="'+triStr+'" fill="none" stroke="#334155" stroke-width="2"/>';
+    // Angle arcs
+    function drawAngleArc(svg, cx2, cy2, p1, p2, r, label) {
+      var a1=Math.atan2(p1[1]-cy2,p1[0]-cx2), a2=Math.atan2(p2[1]-cy2,p2[0]-cx2);
+      var da=a2-a1; if(da>Math.PI)da-=2*Math.PI; if(da<-Math.PI)da+=2*Math.PI;
+      var sx=cx2+r*Math.cos(a1),sy=cy2+r*Math.sin(a1);
+      var ex=cx2+r*Math.cos(a2),ey=cy2+r*Math.sin(a2);
+      var mx2=cx2+(r+15)*Math.cos(a1+da/2), my2=cy2+(r+15)*Math.sin(a1+da/2);
+      var large=Math.abs(da)>Math.PI?1:0;
+      svg+='<path d="M '+sx.toFixed(1)+','+sy.toFixed(1)+' A '+r+','+r+' 0 '+large+' 1 '+ex.toFixed(1)+','+ey.toFixed(1)+'" fill="none" stroke="#3b82f6" stroke-width="1.2"/>';
+      svg+='<text x="'+mx2.toFixed(1)+'" y="'+(my2.toFixed(1)-4)+'" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#3b82f6" font-weight="700">'+label+'</text>';
+      return svg;
+    }
+    var svgStr = '';
+    svgStr = drawAngleArc(svgStr, pA[0], pA[1], pB, pC, 18, (A?A+'°':'X'));
+    svgStr = drawAngleArc(svgStr, pB[0], pB[1], pA, pC, 18, (B?B+'°':'X'));
+    svgStr = drawAngleArc(svgStr, pC[0], pC[1], pA, pB, 18, (C?C+'°':'X'));
+    // Side labels
+    svgStr += '<text x="'+((pA[0]+pC[0])/2-12)+'" y="'+((pA[1]+pC[1])/2)+'" font-family="sans-serif" font-size="12" fill="#d97706" font-weight="700">'+esc(a)+'</text>';
+    svgStr += '<text x="'+((pA[0]+pB[0])/2+8)+'" y="'+((pA[1]+pB[1])/2-6)+'" font-family="sans-serif" font-size="12" fill="#d97706" font-weight="700">'+esc(b)+'</text>';
+    svgStr += '<text x="'+((pB[0]+pC[0])/2)+'" y="'+((pB[1]+pC[1])/2+16)+'" font-family="sans-serif" font-size="12" fill="#d97706" font-weight="700">'+esc(c)+'</text>';
+    svg3 += svgStr;
+    svg3 += '</svg>';
+    return '<div class="dia-wrap">'+svg3+'</div>';
+  }
+
+  // Generic: execute cfg.code array of draw commands
+  if (cfg.code && Array.isArray(cfg.code)) {
+    try {
+      eval(cfg.code.join('\n'));
+    } catch(e) {
+      svg.innerHTML += '<text x="10" y="20" font-family="sans-serif" font-size="12" fill="#ef4444">Graph error</text>';
+    }
+  }
+
+  return '<div class="dia-wrap">'+svg.outerHTML+'</div>';
+}
+
+// KaTeX rendering helper for math text in questions/notes
+function renderMath(el) {
+  if (!window.katex) return;
+  // find $...$ spans and render them
+  var nodes = el.childNodes;
+  for (var i = 0; i < nodes.length; i++) {
+    var node = nodes[i];
+    if (node.nodeType === 3) { // text node
+      var text = node.textContent;
+      var m = text.match(/\$[^\$]+\$/g);
+      if (m) {
+        var frag = document.createDocumentFragment();
+        var last = 0;
+        m.forEach(function(match) {
+          var idx = text.indexOf(match, last);
+          if (idx > last) frag.appendChild(document.createTextNode(text.slice(last, idx)));
+          var mathEl = document.createElement('span');
+          mathEl.className = 'math-inline';
+          try {
+            katex.render(match.slice(1,-1), mathEl, { throwOnError: false, displayMode: false });
+          } catch(e) { mathEl.textContent = match; }
+          frag.appendChild(mathEl);
+          last = idx + match.length;
+        });
+        if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+        el.replaceChild(frag, node);
+        i--;
+      }
+    }
+  }
+}
+
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ═══════════════════════════════════════════════════════════════
+// PAGE LOGIC
+// ═══════════════════════════════════════════════════════════════
 var params = new URLSearchParams(location.search);
 var CH_ID = params.get("ch") || "ch01";
 var GRADE = params.get("grade") || "8";
@@ -104,112 +577,7 @@ if (!CH) { document.getElementById("title").textContent = "Chapter not found"; }
 else { render(); }
 
 function pad(n){ return (n<10?"0":"") + n; }
-function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 
-// ────────────────────────────────────────────────────────
-// graphie → SVG renderer
-// Mimics Khan Academy's graphie betterTriangle() function:
-//   vertices: C=(0,0), B=(width,0), A=(0,height)
-//   right angle at C
-// ────────────────────────────────────────────────────────
-function renderGraphie(dia) {
-  // dia = { type:'triangle', w, h, A, B, C, a, b, c }
-  // KA scale: scale = 5 / sqrt(w²+h²), then px = unit * scale * 50
-  // We use a fixed canvas with max triangle display size ~260px
-  var w = dia.w, h = dia.h;
-  var hyp = Math.sqrt(w*w + h*h);
-  var scale = 260 / hyp; // max display length in px
-  var W = Math.round(w * scale);
-  var H = Math.round(h * scale);
-
-  // viewBox with padding for labels (left=60, bottom=40, top=50, right=50)
-  var PAD_L = 60, PAD_B = 45, PAD_T = 55, PAD_R = 55;
-  var vx = PAD_L, vy = PAD_T;
-  var vw = W + PAD_R, vh = H + PAD_B;
-
-  // SVG pixel positions
-  var Ax = vx,       Ay = vy + H;   // A = (0, h) in KA coords → top-left in SVG
-  var Bx = vx + W,   By = vy + H;   // B = (w, h) → top-right
-  var Cx = vx,       Cy = vy;       // C = (0, 0) → bottom-left (right angle)
-
-  function lblX(x, y, side) {
-    if (side === 'left') return Math.round(x - 14);
-    if (side === 'below') return Math.round(x);
-    if (side === 'above right') return Math.round(x + 10);
-    if (side === 'above left') return Math.round(x - 14);
-    return Math.round(x);
-  }
-  function lblY(x, y, side) {
-    if (side === 'left') return Math.round(y);
-    if (side === 'below') return Math.round(y + 18);
-    if (side === 'above right') return Math.round(y - 8);
-    if (side === 'above left') return Math.round(y - 8);
-    return Math.round(y);
-  }
-
-  var lines = '';
-  // Triangle path: A → B → C → close
-  lines += '<polygon points="'
-    + Ax + ',' + Ay + ' '
-    + Bx + ',' + By + ' '
-    + Cx + ',' + Cy
-    + '" fill="none" stroke="#e2e8f0" stroke-width="1.8"/>';
-
-  // Vertex labels (A, B, C)
-  var vertexFontSize = 13;
-  lines += '<text x="' + (Ax - 9) + '" y="' + (Ay - 8) + '" text-anchor="end" font-family="sans-serif" font-size="' + vertexFontSize + '" fill="#93c5fd" font-weight="700">' + esc(dia.A || '') + '</text>';
-  lines += '<text x="' + (Bx + 9) + '" y="' + (By - 8) + '" text-anchor="start" font-family="sans-serif" font-size="' + vertexFontSize + '" fill="#93c5fd" font-weight="700">' + esc(dia.B || '') + '</text>';
-  lines += '<text x="' + (Cx - 9) + '" y="' + (Cy + 16) + '" text-anchor="end" font-family="sans-serif" font-size="' + vertexFontSize + '" fill="#93c5fd" font-weight="700">' + esc(dia.C || '') + '</text>';
-
-  // Side length labels
-  var sideFontSize = 12;
-  var boldSide = true;
-  // Label b: midpoint of AC (left vertical edge, KA b = AC = height)
-  var bmx = lblX((Ax+Cx)/2, (Ay+Cy)/2, 'left');
-  var bmy = lblY((Ax+Cx)/2, (Ay+Cy)/2, 'left');
-  lines += '<text x="' + bmx + '" y="' + bmy + '" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="' + sideFontSize + '" fill="#fbbf24" font-weight="700">' + esc(dia.b || '') + '</text>';
-
-  // Label a: midpoint of BC (bottom horizontal edge, KA a = BC = width)
-  var amx = lblX((Bx+Cx)/2, (By+Cy)/2, 'below');
-  var amy = lblY((Bx+Cx)/2, (By+Cy)/2, 'below');
-  lines += '<text x="' + amx + '" y="' + amy + '" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="' + sideFontSize + '" fill="#fbbf24" font-weight="700">' + esc(dia.a || '') + '</text>';
-
-  // Label c: midpoint of AB (hypotenuse, top-right diagonal)
-  var cmx = (Ax+Bx)/2;
-  var cmy = (Ay+By)/2;
-  // offset perpendicular to hypotenuse (upward = negative normal)
-  var nx = -h/hyp, ny = w/hyp; // unit normal pointing "up" from hypotenuse
-  var coff = 16;
-  lines += '<text x="' + Math.round(cmx + nx*coff) + '" y="' + Math.round(cmy + ny*coff) + '" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="' + sideFontSize + '" fill="#fbbf24" font-weight="700">' + esc(dia.c || '') + '</text>';
-
-  // Right angle marker at C
-  var sq = 10;
-  lines += '<path d="M ' + (Cx) + ',' + (Cy + sq) + ' L ' + (Cx) + ',' + (Cy) + ' L ' + (Cx + sq) + ',' + (Cy) + '" fill="none" stroke="#94a3b8" stroke-width="1.2"/>';
-
-  // 30° / 60° arc markers if provided (for special right triangles)
-  if (dia.angle30) {
-    // arc near the 30° vertex (which one depends on angle30: 'A' or 'B')
-    if (dia.angle30 === 'A' || dia.angle30 === true) {
-      var arcR = 18, ax0 = Ax + sq*1.5, ay0 = Ay - sq*1.5;
-      var ax1 = Ax - sq*1.5, ay1 = Ay - sq*1.5;
-      var axc = Ax, ayc = Ay - sq*2.5;
-      lines += '<path d="M ' + ax0 + ',' + ay0 + ' Q ' + axc + ',' + ayc + ' ' + ax1 + ',' + ay1 + '" fill="none" stroke="#86efac" stroke-width="1.2"/>';
-      lines += '<text x="' + (axc - 4) + '" y="' + (ayc - 4) + '" font-family="sans-serif" font-size="10" fill="#86efac">30°</text>';
-    }
-    if (dia.angle30 === 'B' || dia.angle30 === true) {
-      var arcR = 18, bx0 = Bx - sq*1.5, by0 = By - sq*1.5;
-      var bx1 = Bx - sq*1.5, by1 = By + sq*1.5;
-      var bxc = Bx - sq*2.5, byc = By;
-      lines += '<path d="M ' + bx0 + ',' + by0 + ' Q ' + bxc + ',' + byc + ' ' + bx1 + ',' + by1 + '" fill="none" stroke="#86efac" stroke-width="1.2"/>';
-      lines += '<text x="' + (bxc + 3) + '" y="' + (byc + 14) + '" font-family="sans-serif" font-size="10" fill="#86efac">60°</text>';
-    }
-  }
-
-  var svg = '<svg viewBox="0 0 ' + vw + ' ' + vh + '" width="' + vw + '" height="' + vh + '" xmlns="http://www.w3.org/2000/svg">' + lines + '</svg>';
-  return '<div class="dia-wrap">' + svg + '</div>';
-}
-
-// ────────────────────────────────────────────────────────
 function render() {
   document.getElementById("home").href = "index.html";
   document.getElementById("title").textContent = "G" + GRADE + "·" + pad(CH.gx || (idx+1)) + "  " + CH.title;
@@ -266,6 +634,7 @@ function renderPanel(step) {
     n += '</ul>';
     p.innerHTML = n + nextBtn();
   } else if (step === 4) {
+    document.getElementById("paperNote").style.display = 'block';
     p.innerHTML = '<h2>Step 4 · Practice</h2><div id="practiceBox"></div>' + nextBtn("Finish practice, next ›");
     renderQs("practiceBox", CH.practice || [], "p");
   } else if (step === 5) {
@@ -273,6 +642,7 @@ function renderPanel(step) {
     renderQs("quizBox", CH.quiz || [], "q");
   }
 }
+
 function renderQs(boxId, questions, kind) {
   var c = document.getElementById(boxId);
   if (!c) return;
@@ -280,56 +650,42 @@ function renderQs(boxId, questions, kind) {
   var html = "";
   questions.forEach(function(item, i){
     html += '<div class="q" id="' + kind + 'q' + i + '">';
-    html += '<div class="qtext">' + (i+1) + '. ' + esc(item.q) + '</div>';
-    // Render graphie diagram if present
-    if (item.dia) html += renderGraphie(item.dia);
-    if (item.type === "choice") {
-      item.opts.forEach(function(opt, k){
-        html += '<button class="qopt" id="' + kind + 'opt' + i + '_' + k + '">' + esc(opt) + '</button>';
-      });
-    } else {
-      html += '<input class="fill-input" id="' + kind + 'fill' + i + '" placeholder="Type your answer">';
-      html += '<button class="next-btn sm" onclick="checkFill(\'' + kind + '\',' + i + ')">Check</button>';
+    html += '<div class="qnum">Question ' + (i+1) + '</div>';
+    html += '<div class="qtext">' + esc(item.q) + '</div>';
+    // Render diagram if present
+    if (item.dia) html += (typeof item.dia === 'string') ? item.dia : renderGraphie(item.dia);
+    // Answer area (show answer button → answer reveal)
+    html += '<div class="ans-area">';
+    html += '<button class="show-ans-btn" id="' + kind + 'sh' + i + '" onclick="showAns(\'' + kind + '\',' + i + ')">Show answer &amp; solution</button>';
+    html += '<div class="ans-display" id="' + kind + 'ad' + i + '">';
+    html += '<strong>Answer:</strong> ' + esc(item.ans) + '';
+    html += '</div>';
+    html += '</div>';
+    // Solution / explanation
+    if (item.sol) {
+      html += '<div class="sol" id="' + kind + 'sol' + i + '">';
+      html += '<div class="sol-header">📝 Solution</div>' + esc(item.sol) + '</div>';
     }
-    html += '<div class="fb" id="' + kind + 'fb' + i + '"></div>';
-    html += '<div class="sol" id="' + kind + 'sol' + i + '">' + esc(item.sol || "") + '</div>';
     html += '</div>';
   });
   c.innerHTML = html;
-  questions.forEach(function(item, i){
-    if (item.type === "choice") {
-      item.opts.forEach(function(opt, k){
-        var btn = document.getElementById(kind + "opt" + i + "_" + k);
-        btn.addEventListener("click", function(){ pickChoice(kind, i, opt, item.ans, item.sol); });
-      });
-    }
-  });
+  // Render KaTeX math after DOM insertion
+  setTimeout(function(){
+    document.querySelectorAll('#' + boxId + ' .qtext, #' + boxId + ' .ans-display').forEach(renderMath);
+  }, 100);
 }
-function pickChoice(kind, i, picked, correct, sol) {
-  var fb = document.getElementById(kind + "fb" + i);
-  var solEl = document.getElementById(kind + "sol" + i);
-  var opts = document.getElementById(kind + "q" + i).querySelectorAll(".qopt");
-  for (var k = 0; k < opts.length; k++) {
-    opts[k].disabled = true;
-    var val = opts[k].textContent;
-    if (val === correct) opts[k].classList.add("correct");
-    if (val === picked && picked !== correct) opts[k].classList.add("wrong");
-  }
-  if (picked === correct) { fb.className = "fb ok"; fb.textContent = "✓ Correct!"; }
-  else { fb.className = "fb no"; fb.textContent = "✗ Not quite. See the solution below."; }
-  solEl.style.display = "block";
+
+function showAns(kind, i) {
+  var btn = document.getElementById(kind + 'sh' + i);
+  var ansEl = document.getElementById(kind + 'ad' + i);
+  var solEl = document.getElementById(kind + 'sol' + i);
+  ansEl.style.display = 'block';
+  solEl.style.display = 'block';
+  btn.style.display = 'none';
+  // render math in answer
+  renderMath(ansEl);
 }
-function checkFill(kind, i) {
-  var item = (kind === "p" ? CH.practice : CH.quiz)[i];
-  var input = document.getElementById(kind + "fill" + i);
-  var fb = document.getElementById(kind + "fb" + i);
-  var solEl = document.getElementById(kind + "sol" + i);
-  var user = input.value.trim().toLowerCase().replace(/\s+/g," ");
-  var ans = String(item.ans).trim().toLowerCase().replace(/\s+/g," ");
-  if (user === ans) { fb.className = "fb ok"; fb.textContent = "✓ Correct!"; }
-  else { fb.className = "fb no"; fb.textContent = "✗ Not quite. See the solution below."; }
-  solEl.style.display = "block";
-}
+
 function nextStep() {
   if (cur < TOTAL) { showStep(cur + 1); }
   else { finish(); }
@@ -337,8 +693,8 @@ function nextStep() {
 function finish() {
   var f = document.querySelector("#p2 iframe.bili");
   if (f) f.src = "about:blank";
-  for (var i = 1; i <= TOTAL; i++) document.getElementById("p" + i).style.display = "none";
-  document.getElementById("stepbar").style.display = "none";
+  for (var i = 1; i <= TOTAL; i++) document.getElementById("p" + i).style.display = 'none';
+  document.getElementById("stepbar").style.display = 'none';
   document.getElementById("done").classList.add("show");
   document.getElementById("doneText").textContent = "You finished G" + GRADE + "·" + pad(CH.gx || (idx+1)) + " " + CH.title;
   var nx = CH_LIST[idx + 1];
