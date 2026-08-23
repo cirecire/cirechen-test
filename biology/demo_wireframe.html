@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学习流程演示 — 数学第一章</title>
+<style>
+:root {
+  --bg: #f0f4ff;
+  --card: #ffffff;
+  --blue: #2563eb;
+  --green: #059669;
+  --purple: #7c3aed;
+  --text: #1e293b;
+  --border: #e2e8f0;
+}
+body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; line-height: 1.6; }
+.container { max-width: 680px; margin: 0 auto; }
+
+/* Banner */
+.banner { background: linear-gradient(135deg, #1e3a5f, #0f4c75); color: white; border-radius: 16px; padding: 20px 24px; margin-bottom: 16px; }
+.banner .top { font-size: 13px; opacity: 0.8; margin-bottom: 6px; }
+.banner h1 { margin: 0 0 4px; font-size: 22px; }
+.banner .sub { font-size: 14px; opacity: 0.9; }
+.cov { display: inline-block; margin-top: 8px; background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 20px; font-size: 12px; }
+
+/* Step bar */
+.stepbar { display: flex; gap: 6px; margin-bottom: 16px; background: white; border-radius: 12px; padding: 12px; border: 1px solid var(--border); }
+.step { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #94a3b8; flex: 1; justify-content: center; }
+.step .num { width: 24px; height: 24px; border-radius: 50%; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+.step.active .num { background: var(--blue); color: white; }
+.step.active { color: var(--blue); font-weight: 600; }
+.step.done .num { background: var(--green); color: white; }
+
+/* Panel */
+.panel { background: white; border-radius: 16px; padding: 24px; border: 1px solid var(--border); margin-bottom: 16px; }
+.panel h2 { font-size: 18px; margin: 0 0 12px; color: var(--blue); border-bottom: 2px solid #e0e7ff; padding-bottom: 8px; }
+
+/* Think */
+.elicit { background: #eff6ff; border-left: 4px solid var(--blue); border-radius: 8px; padding: 14px 16px; font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+.hint { font-size: 13px; color: #64748b; background: #f8fafc; border-radius: 8px; padding: 10px 14px; }
+
+/* Watch */
+.video-wrap { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; background: #000; margin-bottom: 12px; }
+.video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+.video-note { font-size: 13px; color: #64748b; margin-top: 8px; }
+
+/* Notes */
+.notes-list { list-style: none; padding: 0; }
+.notes-list li { padding: 10px 14px; border-radius: 8px; margin-bottom: 8px; background: #f8fafc; border-left: 3px solid var(--blue); }
+.notes-list li strong { color: var(--blue); }
+
+/* Practice — KA embedded */
+.ka-embed { border: 2px solid #7c3aed; border-radius: 12px; overflow: hidden; }
+.ka-embed-header { background: #7c3aed; color: white; padding: 10px 16px; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.ka-embed-header .badge { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 6px; font-size: 11px; }
+.ka-embed iframe { width: 100%; height: 480px; border: none; display: block; }
+.ka-note { font-size: 12px; color: #64748b; margin-top: 8px; background: #faf5ff; border-radius: 8px; padding: 8px 12px; }
+
+/* Quiz — KA embedded */
+.quiz-embed { border: 2px solid #059669; border-radius: 12px; overflow: hidden; }
+.quiz-embed-header { background: #059669; color: white; padding: 10px 16px; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.quiz-embed-header .badge { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 6px; font-size: 11px; }
+.quiz-embed iframe { width: 100%; height: 480px; border: none; display: block; }
+
+/* Next button */
+.next-row { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; }
+.btn { padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; border: none; }
+.btn-back { background: #f1f5f9; color: #64748b; }
+.btn-next { background: var(--blue); color: white; }
+
+/* Progress dots */
+.progress { display: flex; gap: 4px; justify-content: center; margin: 12px 0; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: #e2e8f0; }
+.dot.done { background: var(--green); }
+.dot.active { background: var(--blue); width: 20px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Banner -->
+  <div class="banner">
+    <div class="top">← 勾股定理 · Pythagorean Theorem · Ch01</div>
+    <h1>G8 · 01 &nbsp;勾股定理</h1>
+    <div class="sub">深圳八年级数学 · 人教版2024 · Khan Academy 原生内容</div>
+    <span class="cov">🟢 Khan 视频 + 练习 + 测验</span>
+  </div>
+
+  <!-- Step bar -->
+  <div class="stepbar">
+    <div class="step active"><div class="num">1</div>Think</div>
+    <div class="step"><div class="num">2</div>Watch</div>
+    <div class="step"><div class="num">3</div>Notes</div>
+    <div class="step"><div class="num">4</div>Practice</div>
+    <div class="step"><div class="num">5</div>Quiz</div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress">
+    <div class="dot done"></div>
+    <div class="dot done"></div>
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+  <!-- ====================== STEP 1: Think ====================== -->
+  <div class="panel" id="panel-think">
+    <h2>Step 1 · Think（先自己想一想）</h2>
+    <div class="elicit">
+      🧠 A right triangle has legs 3 cm and 4 cm.<br>
+      What is the length of the longest side?<br>
+      How do you know?
+    </div>
+    <div class="hint">
+      💡 Think: Is there a pattern? What happens if the legs get longer?
+    </div>
+    <div class="next-row">
+      <button class="btn btn-back" onclick="show('watch')">← Back</button>
+      <button class="btn btn-next" onclick="show('watch')">Watch the video →</button>
+    </div>
+  </div>
+
+  <!-- ====================== STEP 2: Watch ====================== -->
+  <div class="panel" id="panel-watch" style="display:none">
+    <h2>Step 2 · Watch（看视频学概念）</h2>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/SFkvIKBfiwE" allowfullscreen></iframe>
+    </div>
+    <div class="video-note">
+      📺 Khan Academy 原生视频 — 边看边记笔记<br>
+      <span style="color:#64748b">Intro to the Pythagorean theorem · Sal Khan · 4:01</span>
+    </div>
+    <div class="next-row">
+      <button class="btn btn-back" onclick="show('think')">← Think</button>
+      <button class="btn btn-next" onclick="show('notes')">See Notes →</button>
+    </div>
+  </div>
+
+  <!-- ====================== STEP 3: Notes ====================== -->
+  <div class="panel" id="panel-notes" style="display:none">
+    <h2>Step 3 · Notes（核心要点）</h2>
+    <ul class="notes-list">
+      <li><strong>a² + b² = c²</strong> — c is the longest side (hypotenuse), opposite the right angle.</li>
+      <li>The hypotenuse is always the <strong>longest side</strong>.</li>
+      <li>Common triples: <strong>(3,4,5)</strong>, (5,12,13), (8,15,17).</li>
+      <li>Use it to find any missing side — or check if a triangle is right-angled.</li>
+    </ul>
+    <div class="next-row">
+      <button class="btn btn-back" onclick="show('watch')">← Watch</button>
+      <button class="btn btn-next" onclick="show('practice')">Go to Practice →</button>
+    </div>
+  </div>
+
+  <!-- ====================== STEP 4: Practice (KA embedded) ====================== -->
+  <div class="panel" id="panel-practice" style="display:none">
+    <h2>Step 4 · Practice（可汗学院练习）</h2>
+
+    <!-- This is the KEY new part: embedded KA exercise -->
+    <div class="ka-embed">
+      <div class="ka-embed-header">
+        🎯 Khan Academy 练习
+        <span class="badge">Interactive · 做完自动判分</span>
+      </div>
+      <iframe src="https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-pythagorean-theorem/e/use-pythagorean-theorem-to-find-right-triangle-side-lengths"
+              title="Khan Academy Practice"></iframe>
+    </div>
+
+    <div class="ka-note">
+      💡 做完练习后，点击"下一步"继续。
+    </div>
+
+    <div class="next-row">
+      <button class="btn btn-back" onclick="show('notes')">← Notes</button>
+      <button class="btn btn-next" onclick="show('quiz')">Go to Quiz →</button>
+    </div>
+  </div>
+
+  <!-- ====================== STEP 5: Quiz (KA embedded) ====================== -->
+  <div class="panel" id="panel-quiz" style="display:none">
+    <h2>Step 5 · Quiz（单元测验）</h2>
+
+    <!-- KEY new part: embedded KA quiz -->
+    <div class="quiz-embed">
+      <div class="quiz-embed-header">
+        📝 Khan Academy 单元测验
+        <span class="badge">Mastery Points</span>
+      </div>
+      <iframe src="https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-pythagorean-theorem/quiz-hs-geo-pythagorean-theorem"
+              title="Khan Academy Quiz"></iframe>
+    </div>
+
+    <div class="next-row">
+      <button class="btn btn-back" onclick="show('practice')">← Practice</button>
+      <button class="btn btn-next" onclick="alert('🎉 第一章完成！即将进入下一章...')">✓ 完成本章 →</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function show(step) {
+  ['think','watch','notes','practice','quiz'].forEach(s => {
+    document.getElementById('panel-' + s).style.display = s === step ? 'block' : 'none';
+  });
+  // Update step bar
+  const steps = ['think','watch','notes','practice','quiz'];
+  const map = {think:0, watch:1, notes:2, practice:3, quiz:4};
+  const activeIdx = map[step];
+  document.querySelectorAll('.step').forEach((el, i) => {
+    el.className = 'step';
+    if (i < activeIdx) el.classList.add('done');
+    if (i === activeIdx) el.classList.add('active');
+  });
+  document.querySelectorAll('.dot').forEach((el, i) => {
+    el.className = 'dot';
+    if (i < activeIdx) el.classList.add('done');
+    if (i === activeIdx) el.classList.add('active');
+  });
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>
