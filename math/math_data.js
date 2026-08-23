@@ -1,5 +1,5 @@
 // Math Data — Grade 8 (PEP / Shenzhen) · Khan Academy aligned
-// Video: Khan Academy English mirror on Bilibili (self-contained, no jump)
+// Video: Khan Academy — YouTube embed (English original sound)
 // Practice & Quiz: English questions matching KA exercise topics
 
 var MATH_DATA = [
@@ -9,7 +9,7 @@ var MATH_DATA = [
     coverage: "g",
     think: "Look at a right triangle whose two short sides are 3 and 4. Before any formula — can you guess the longest side? How would you check your guess?",
     videos: [
-      { bvid: "BV15K411Z7xH", t: "Intro to the Pythagorean theorem", m: "English · Khan Academy", duration: "1:16" }
+      { yt: "SFkvIKBfiwE", t: "Intro to the Pythagorean theorem", m: "English · Khan Academy", duration: "1:16" }
     ],
     notes: [
       "In a right triangle, a² + b² = c², where c is the hypotenuse (the longest side, opposite the right angle).",
