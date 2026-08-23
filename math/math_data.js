@@ -9,7 +9,7 @@ var MATH_DATA = [
     coverage: "g",
     think: "Look at a right triangle whose two short sides are 3 and 4. Before any formula — can you guess the longest side? How would you check your guess?",
     videos: [
-      { yt: "SFkvIKBfiwE", t: "Intro to the Pythagorean theorem", m: "English · Khan Academy", duration: "1:16" }
+      { yt: "AA6RfgP-AHU", t: "The Pythagorean Theorem", m: "English · Khan Academy", duration: "10:45" }
     ],
     notes: [
       "In a right triangle, a² + b² = c², where c is the hypotenuse (the longest side, opposite the right angle).",
