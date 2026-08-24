@@ -3,178 +3,159 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Math · Khan Academy (13 Chapters)</title>
+<title>Math · Khan Academy — Beijing Normal University Edition</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { 
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-  background: #f5f5f7; 
-  color: #1a1a2e; 
-  padding: 20px; 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f0f4f8;
+  color: #1a1a2e;
+  padding: 24px 16px 60px;
 }
-header { text-align: center; margin-bottom: 30px; }
-h1 { font-size: 28px; margin-bottom: 8px; }
-.subtitle { color: #666; font-size: 14px; }
-.grid { 
-  display: grid; 
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-  gap: 16px; 
-  max-width: 1200px; 
-  margin: 0 auto; 
+header { text-align: center; margin-bottom: 28px; }
+h1 { font-size: 26px; font-weight: 900; color: #1e3a5f; margin-bottom: 6px; }
+.subtitle { font-size: 13px; color: #64748b; line-height: 1.6; }
+.grade-tabs { display: flex; justify-content: center; gap: 8px; margin: 18px 0; }
+.grade-tab {
+  padding: 6px 18px; border-radius: 999px; font-size: 13px; font-weight: 600;
+  border: 2px solid #cbd5e1; background: #fff; color: #475569; cursor: pointer;
 }
-.card { 
-  background: #fff; 
-  border-radius: 12px; 
-  padding: 20px; 
+.grade-tab.active { background: #1e3a5f; color: #fff; border-color: #1e3a5f; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
   cursor: pointer;
-  border: 2px solid #ddd;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: 2px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
-.card:hover { 
-  border-color: #0066cc; 
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+.card:hover {
+  border-color: #1e3a5f;
+  box-shadow: 0 4px 18px rgba(30,58,95,0.15);
 }
-.ch-num { 
-  width: 40px; 
-  height: 40px; 
-  border-radius: 50%; 
-  background: #0066cc; 
-  color: #fff; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  font-weight: bold; 
-  margin-bottom: 12px; 
+.ch-num {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: #1e3a5f; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 14px;
+  margin-bottom: 12px;
 }
-.card h3 { font-size: 16px; margin-bottom: 8px; }
-.vid-title { font-size: 12px; color: #666; margin: 8px 0; }
-.meta { font-size: 12px; display: flex; gap: 10px; margin-top: 12px; }
-.badge { background: #e8f4ff; color: #0066cc; padding: 4px 10px; border-radius: 4px; font-weight: 500; }
+.card h3 { font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
+.card .lang { font-size: 11px; color: #94a3b8; margin-bottom: 8px; }
+.vid-title { font-size: 12px; color: #475569; margin: 8px 0; line-height: 1.4; }
+.badge { display: inline-block; font-size: 11px; padding: 3px 9px; border-radius: 4px; font-weight: 600; margin-top: 10px; }
+.badge.ka { background: #dbeafe; color: #1d4ed8; }
+.badge.p { background: #dcfce7; color: #15803d; }
+.badge.q { background: #fef3c7; color: #b45309; }
+footer { text-align: center; margin-top: 40px; font-size: 12px; color: #94a3b8; }
 </style>
 </head>
 <body>
 <header>
-<h1>Math · Khan Academy</h1>
-<p class="subtitle">Shenzhen Grade 8 · 13 Chapters · English Videos + Practice</p>
+  <h1>Math · Khan Academy</h1>
+  <p class="subtitle">北师大版 · 深圳公立8年级 · English Videos + Practice<br>Beijing Normal University Edition · Shenzhen Grade 8</p>
 </header>
+
 <div class="grid">
-<div class="card" onclick="location.href='math_chapter.html?ch=ch01&grade=8'">
-<div class="ch-num">01</div>
-<h3>Pythagorean Theorem</h3>
-<p class="vid-title">Pythagorean Theorem Proof Using Similarity</p>
-<div class="meta">
-<span class="badge">KA Full</span>
-<span class="badge">P:5 Q:5</span>
+  <!-- Ch01 -->
+  <div class="card" onclick="location.href='math_chapter.html?ch=ch01&grade=8'">
+    <div class="ch-num">01</div>
+    <h3>Pythagorean Theorem</h3>
+    <div class="lang">📖 第1章 · 勾股定理</div>
+    <p class="vid-title">Pythagorean Theorem Proof Using Similarity · ~10 min</p>
+    <span class="badge ka">🟢 KA Full</span>
+    <span class="badge p">P:5</span>
+    <span class="badge q">Q:3</span>
+  </div>
+
+  <!-- Ch02 -->
+  <div class="card" onclick="location.href='math_chapter.html?ch=ch02&grade=8'">
+    <div class="ch-num">02</div>
+    <h3>Real Numbers</h3>
+    <div class="lang">📖 第2章 · 实数</div>
+    <p class="vid-title">Introduction to Square Roots · ~5 min</p>
+    <span class="badge ka">🟢 KA Full</span>
+    <span class="badge p">P:5</span>
+    <span class="badge q">Q:3</span>
+  </div>
+
+  <!-- Ch03 -->
+  <div class="card" onclick="location.href='math_chapter.html?ch=ch03&grade=8'">
+    <div class="ch-num">03</div>
+    <h3>Position & Coordinate Plane</h3>
+    <div class="lang">📖 第3章 · 位置与坐标</div>
+    <p class="vid-title">Introduction to the Coordinate Plane · ~7 min</p>
+    <span class="badge ka">🟢 KA Full</span>
+    <span class="badge p">P:5</span>
+    <span class="badge q">Q:3</span>
+  </div>
+
+  <!-- Ch04 -->
+  <div class="card" onclick="location.href='math_chapter.html?ch=ch04&grade=8'">
+    <div class="ch-num">04</div>
+    <h3>Linear Functions</h3>
+    <div class="lang">📖 第4章 · 一次函数</div>
+    <p class="vid-title">Graphing a Linear Function · ~6 min</p>
+    <span class="badge ka">🟢 KA Full</span>
+    <span class="badge p">P:5</span>
+    <span class="badge q">Q:3</span>
+  </div>
+
+  <!-- Ch05 -->
+  <div class="card" onclick="location.href='math_chapter.html?ch=ch05&grade=8'">
+    <div class="ch-num">05</div>
+    <h3>Systems of Linear Equations</h3>
+    <div class="lang">📖 第5章 · 二元一次方程组</div>
+    <p class="vid-title">Systems of Equations with Substitution · ~5 min</p>
+    <span class="badge ka">🟢 KA Full</span>
+    <span class="badge p">P:5</span>
+    <span class="badge q">Q:3</span>
+  </div>
+
+  <!-- Ch06 -->
+  <div class="card" onclick="location.href='math_chapter.html?ch=ch06&grade=8'">
+    <div class="ch-num">06</div>
+    <h3>Data Analysis</h3>
+    <div class="lang">📖 第6章 · 数据的分析</div>
+    <p class="vid-title">Statistics intro: Mean, Median & Mode · ~9 min</p>
+    <span class="badge ka">🟢 KA Full</span>
+    <span class="badge p">P:5</span>
+    <span class="badge q">Q:3</span>
+  </div>
+
+  <!-- Ch07 -->
+  <div class="card" onclick="location.href='math_chapter.html?ch=ch07&grade=8'">
+    <div class="ch-num">07</div>
+    <h3>Triangle Proofs</h3>
+    <div class="lang">📖 第7章 · 三角形的证明</div>
+    <p class="vid-title">Triangle Congruence Postulates (SSS/SAS/ASA/AAS) · ~10 min</p>
+    <span class="badge ka">🟢 KA Full</span>
+    <span class="badge p">P:5</span>
+    <span class="badge q">Q:3</span>
+  </div>
+
+  <!-- Ch08 -->
+  <div class="card" onclick="location.href='math_chapter.html?ch=ch08&grade=8'">
+    <div class="ch-num">08</div>
+    <h3>Parallelograms</h3>
+    <div class="lang">📖 八下第6章 · 平行四边形</div>
+    <p class="vid-title">Quadrilateral Properties · ~6 min</p>
+    <span class="badge ka">🟢 KA Full</span>
+    <span class="badge p">P:5</span>
+    <span class="badge q">Q:3</span>
+  </div>
 </div>
-</div>
-<div class="card" onclick="location.href='math_chapter.html?ch=ch02&grade=8'">
-<div class="ch-num">02</div>
-<h3>Angles</h3>
-<p class="vid-title">Angle Basics</p>
-<div class="meta">
-<span class="badge">KA Full</span>
-<span class="badge">P:5 Q:5</span>
-</div>
-</div>
-<div class="card" onclick="location.href='math_chapter.html?ch=ch03&grade=8'">
-<div class="ch-num">03</div>
-<h3>Triangle Angle Sum</h3>
-<p class="vid-title">Proof - Sum of Measures of Angles in a Triangle are 180</p>
-<div class="meta">
-<span class="badge">KA Full</span>
-<span class="badge">P:5 Q:5</span>
-</div>
-</div>
-<div class="card" onclick="location.href='math_chapter.html?ch=ch04&grade=8'">
-<div class="ch-num">04</div>
-<h3>Congruent Triangles</h3>
-<p class="vid-title">Congruent Triangles and SSS</p>
-<div class="meta">
-<span class="badge">KA Full</span>
-<span class="badge">P:5 Q:5</span>
-</div>
-</div>
-<div class="card" onclick="location.href='math_chapter.html?ch=ch05&grade=8'">
-<div class="ch-num">05</div>
-<h3>Similar Triangles</h3>
-<p class="vid-title">Similar Triangle Basics</p>
-<div class="meta">
-<span class="badge">KA Full</span>
-<span class="badge">P:5 Q:5</span>
-</div>
-</div>
-<div class="card" onclick="location.href='math_chapter.html?ch=ch06&grade=8'">
-<div class="ch-num">06</div>
-<h3>Linear Equations in Two Variables</h3>
-<p class="vid-title">Algebra: graphing lines 1</p>
-<div class="meta">
-<span class="badge">KA Full</span>
-<span class="badge">P:5 Q:5</span>
-</div>
-</div>
-<div class="card" onclick="location.href='math_chapter.html?ch=ch07&grade=8'">
-<div class="ch-num">07</div>
-<h3>Solving Linear Equations</h3>
-<p class="vid-title">Simple Equations</p>
-<div class="meta">
-<span class="badge">KA Full</span>
-<span class="badge">P:5 Q:5</span>
-</div>
-</div>
-<div class="card" onclick="location.href='math_chapter.html?ch=ch08&grade=8'">
-<div class="ch-num">08</div>
-<h3>Volume of 3D Shapes</h3>
-<p class="vid-title">Solid Geometry Volume</p>
-<div class="meta">
-<span class="badge">KA Full</span>
-<span class="badge">P:5 Q:5</span>
-</div>
-</div>
-<div class="card" onclick="location.href='math_chapter.html?ch=ch09&grade=8'">
-<div class="ch-num">09</div>
-<h3>Scientific Notation</h3>
-<p class="vid-title">Scientific Notation (old)</p>
-<div class="meta">
-<span class="badge">KA Full</span>
-<span class="badge">P:5 Q:5</span>
-</div>
-</div>
-<div class="card" onclick="location.href='math_chapter.html?ch=ch10&grade=8'">
-<div class="ch-num">10</div>
-<h3>Ratios, Proportions & Percent</h3>
-<p class="vid-title">30-60-90 Triangle Side Ratios Proof</p>
-<div class="meta">
-<span class="badge">KA Full</span>
-<span class="badge">P:5 Q:5</span>
-</div>
-</div>
-<div class="card" onclick="location.href='math_chapter.html?ch=ch11&grade=8'">
-<div class="ch-num">11</div>
-<h3>Probability</h3>
-<p class="vid-title">Basic Probability</p>
-<div class="meta">
-<span class="badge">KA Full</span>
-<span class="badge">P:5 Q:5</span>
-</div>
-</div>
-<div class="card" onclick="location.href='math_chapter.html?ch=ch12&grade=8'">
-<div class="ch-num">12</div>
-<h3>Integer Exponents & Order of Operations</h3>
-<p class="vid-title">Calculating i Raised to Arbitrary Exponents</p>
-<div class="meta">
-<span class="badge">KA Full</span>
-<span class="badge">P:5 Q:5</span>
-</div>
-</div>
-<div class="card" onclick="location.href='math_chapter.html?ch=ch13&grade=8'">
-<div class="ch-num">13</div>
-<h3>Polygons & Quadrilaterals</h3>
-<p class="vid-title">Sum of Interior Angles of a Polygon</p>
-<div class="meta">
-<span class="badge">KA Full</span>
-<span class="badge">P:5 Q:5</span>
-</div>
-</div>
-</div>
+
+<footer>
+  北师大版教材 × 可汗学院英文视频 · 深圳公立8年级数学 · 2026
+</footer>
 </body>
 </html>
