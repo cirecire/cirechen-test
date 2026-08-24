@@ -25,8 +25,7 @@ var MATH_DATA = [
       {
         q: "In $\\triangle ABC$, $\\angle C = 90°$, $AC = 8$ and $BC = 15$. Find $AB$.",
         ans: "$17$",
-        sol: "$AB^2 = 8^2 + 15^2 = 64 + 225 = 289$, so $AB = \\sqrt{289} = 17$.",
-        dia: { type: "triangle", w: 15, h: 8, A: "A", B: "B", C: "C", a: "15", b: "8", c: "?" }
+        sol: "$AB^2 = 8^2 + 15^2 = 64 + 225 = 289$, so $AB = \\sqrt{289} = 17$."
       },
       {
         q: "$\\triangle PQR$ has $PQ = 24$, $PR = 7$, and $QR = 25$. Is it a right triangle?",
@@ -36,8 +35,7 @@ var MATH_DATA = [
       {
         q: "In a 45°–45°–90° triangle, each leg is $6$ cm. What is the hypotenuse?",
         ans: "$6\\sqrt{2}$ cm",
-        sol: "In a 45-45-90 triangle, hypotenuse $= \\text{leg} \\times \\sqrt{2}$. Here: $6 \\times \\sqrt{2} = 6\\sqrt{2}$ cm.",
-        dia: { type: "triangle", w: 6, h: 6, A: "A", B: "B", C: "C", a: "6", b: "6", c: "?" }
+        sol: "In a 45-45-90 triangle, hypotenuse $= \\text{leg} \\times \\sqrt{2}$. Here: $6 \\times \\sqrt{2} = 6\\sqrt{2}$ cm."
       },
       {
         q: "The two legs of a right triangle are $5$ and $12$. Find the hypotenuse.",
@@ -95,47 +93,48 @@ var MATH_DATA = [
     ],
     practice: [
       {
-        q: "Simplify: $\\sqrt{49}$.",
-        ans: "$7$",
-        sol: "$49 = 7^2$, so $\\sqrt{49} = 7$."
+        q: "Simplify: $\\sqrt{72}$.",
+        ans: "$6\\sqrt{2}$",
+        sol: "$\\sqrt{72} = \\sqrt{36 \\times 2} = \\sqrt{36} \\times \\sqrt{2} = 6\\sqrt{2}$."
       },
       {
-        q: "Simplify: $\\sqrt{18}$.",
-        ans: "$3\\sqrt{2}$",
-        sol: "$\\sqrt{18} = \\sqrt{9 \\times 2} = \\sqrt{9} \\times \\sqrt{2} = 3\\sqrt{2}$."
-      },
-      {
-        q: "Is $\\sqrt{50}$ rational or irrational?",
-        ans: "Irrational",
-        sol: "$50 = 2 \\times 25$, so $\\sqrt{50} = 5\\sqrt{2}$, and $\\sqrt{2}$ is irrational."
-      },
-      {
-        q: "Simplify: $\\sqrt[3]{-27}$.",
+        q: "Evaluate: $\\sqrt[3]{-27}$.",
         ans: "$-3$",
-        sol: "Since $(-3)^3 = -27$, the cube root is $-3$."
+        sol: "Since $(-3)^3 = -27$, we have $\\sqrt[3]{-27} = -3$."
       },
       {
-        q: "Arrange in order: $\\sqrt{3}$, $1.7$, $\\frac{5}{3}$.",
-        ans: "$1.7 < \\frac{5}{3} < \\sqrt{3}$",
-        sol: "$\\sqrt{3} \\approx 1.732$, $\\frac{5}{3} \\approx 1.667$. So $1.7 < 1.667$? Wait — $1.7 > 1.667$. Correct order: $\\frac{5}{3} < 1.7 < \\sqrt{3}$."
+        q: "Is $\\sqrt{16}$ rational or irrational?",
+        ans: "Rational",
+        sol: "$\\sqrt{16} = 4 = \\frac{4}{1}$, which is a ratio of two integers."
+      },
+      {
+        q: "Between which two consecutive integers does $\\sqrt{50}$ lie?",
+        ans: "$7$ and $8$",
+        sol: "$7^2 = 49$ and $8^2 = 64$. Since $49 < 50 < 64$, we have $7 < \\sqrt{50} < 8$."
+      },
+      {
+        q: "Simplify: $\\sqrt{12} \\times \\sqrt{3}$.",
+        ans: "$6$",
+        sol: "$\\sqrt{12} \\times \\sqrt{3} = \\sqrt{12 \\times 3} = \\sqrt{36} = 6$."
       }
     ],
     quiz: [
       {
         q: "Which of the following is irrational?",
-        options: ["$\\sqrt{16}$", "$\\frac{3}{7}$", "$0.\\overline{3}$", "$\\sqrt{7}$"],
-        ans: "$\\sqrt{7}$",
-        sol: "$\\sqrt{16}=4$ (rational), $\\frac{3}{7}$ (rational), $0.\\overline{3}=\\frac{1}{3}$ (rational). $\\sqrt{7}$ is not a perfect square, so it is irrational."
+        options: ["$\\sqrt{4}$", "$\\sqrt{9}$", "$\\sqrt{2}$", "$\\frac{3}{4}$"],
+        ans: "$\\sqrt{2}$",
+        sol: "$\\sqrt{2} \\approx 1.414...$ cannot be written as a fraction of integers."
       },
       {
-        q: "Simplify: $\\sqrt{72}$.",
-        ans: "$6\\sqrt{2}$",
-        sol: "$\\sqrt{72}=\\sqrt{36 \\times 2}=\\sqrt{36}\\sqrt{2}=6\\sqrt{2}$."
+        q: "Simplify $\\sqrt{50}$ completely.",
+        ans: "$5\\sqrt{2}$",
+        sol: "$\\sqrt{50} = \\sqrt{25 \\times 2} = 5\\sqrt{2}$."
       },
       {
-        q: "State the relationship between $\\mathbb{Z}$ (integers), $\\mathbb{Q}$ (rationals), and $\\mathbb{R}$ (reals).",
-        ans: "$\\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R}$",
-        sol: "All integers can be written as fractions (e.g. $3 = \\frac{3}{1}$), so $\\mathbb{Z} \\subset \\mathbb{Q}$. All rationals are real numbers, so $\\mathbb{Q} \\subset \\mathbb{R}$."
+        q: "Classify the number $0.333...$ (repeating).",
+        options: ["Integer", "Rational", "Irrational", "Natural"],
+        ans: "Rational",
+        sol: "Repeating decimals are rational. $0.\\overline{3} = \\frac{1}{3}$."
       }
     ]
   },
@@ -150,61 +149,61 @@ var MATH_DATA = [
     gx: 3,
     title: "Position & Coordinate Plane",
     coverage: "g",
-    think: "A chess piece is at $(3, 6)$. A knight moves in an 'L': 2 squares in one direction, then 1 square perpendicular. Where can a knight go from $(3, 6)$?",
+    think: "If you walk 3 blocks east and 4 blocks north, how far are you from your starting point? Can you draw this on a grid?",
     videos: [
-      { yt: "VsHX5tC83pM", t: "Introduction to the Coordinate Plane", m: "English · Khan Academy", duration: "~7 min" }
+      { yt: "Q7NEzE6R5yg", t: "Introduction to the Coordinate Plane", m: "English · Khan Academy", duration: "~7 min" }
     ],
     notes: [
-      "Coordinate plane（平面直角坐标系）: $x$-axis (horizontal) and $y$-axis (vertical), intersect at origin $O(0,0)$.",
-      "Four quadrants（象限）: QI $(+,+)$, QII $(-,+)$, QIII $(-,-)$, QIV $(+,-)$.",
-      "Ordered pair $(x, y)$: $x$ = horizontal position, $y$ = vertical position.",
-      "Reflection symmetry（轴对称）: reflect $(x,y)$ across $x$-axis → $(x,-y)$; across $y$-axis → $(-x,y)$.",
-      "Distance formula（两点距离公式）: $d = \\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$ — derived from Pythagorean theorem!",
-      "Midpoint（中点公式）: $M = \\left(\\frac{x_1+x_2}{2}, \\frac{y_1+y_2}{2}\\right)$."
+      "Coordinate plane（平面直角坐标系）: x-axis (horizontal) and y-axis (vertical), intersecting at origin $O(0,0)$.",
+      "Quadrants（象限）: Q1 (+,+), Q2 (-,+), Q3 (-,-), Q4 (+,-).",
+      "Distance formula（距离公式）: $d = \\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$ — derived from Pythagorean theorem.",
+      "Midpoint formula（中点公式）: $M = \\left(\\frac{x_1+x_2}{2}, \\frac{y_1+y_2}{2}\\right)$.",
+      "Reflection over x-axis: $(x,y) \\rightarrow (x,-y)$; over y-axis: $(x,y) \\rightarrow (-x,y)$."
     ],
     practice: [
       {
-        q: "Plot and label the points $A(2, 3)$, $B(-1, 4)$, $C(3, -2)$, $D(-2, -3)$ on a coordinate plane. Which quadrant is each in?",
-        ans: "A: QI, B: QII, C: QIV, D: QIII",
-        sol: "Check the signs of $x$ and $y$: QI $(+,+)$, QII $(-,+)$, QIII $(-,-)$, QIV $(+,-)$."
-      },
-      {
-        q: "Find the distance between $A(1, 2)$ and $B(4, 6)$.",
+        q: "Plot the points $A(3, 2)$ and $B(-1, 5)$. Find the distance between them.",
         ans: "$5$",
-        sol: "$d = \\sqrt{(4-1)^2 + (6-2)^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$."
+        sol: "$d = \\sqrt{(3-(-1))^2 + (2-5)^2} = \\sqrt{16 + 9} = \\sqrt{25} = 5$."
       },
       {
-        q: "Point $P(-3, 5)$ is reflected across the $x$-axis. What are the coordinates of the image?",
-        ans: "$(-3, -5)$",
-        sol: "Reflecting across the $x$-axis changes the sign of $y$: $(x,y) \\to (x,-y)$."
+        q: "Find the midpoint of the segment joining $P(2, 6)$ and $Q(8, -2)$.",
+        ans: "$(5, 2)$",
+        sol: "$M = \\left(\\frac{2+8}{2}, \\frac{6+(-2)}{2}\\right) = (5, 2)$."
       },
       {
-        q: "Find the midpoint of $A(2, 7)$ and $B(6, 3)$.",
-        ans: "$(4, 5)$",
-        sol: "$M_x = \\frac{2+6}{2} = 4$, $M_y = \\frac{7+3}{2} = 5$. So $M(4, 5)$."
+        q: "What is the reflection of point $(4, -3)$ across the x-axis?",
+        ans: "$(4, 3)$",
+        sol: "Reflection over x-axis changes the sign of the y-coordinate: $(4, -3) \\rightarrow (4, 3)$."
       },
       {
-        q: "If $P(2k, k-1)$ lies on the $y$-axis, what is $k$?",
-        ans: "$k = 0$",
-        sol: "On the $y$-axis means $x=0$, so $2k=0 \\Rightarrow k=0$."
+        q: "In which quadrant is the point $(-5, 2)$ located?",
+        ans: "Quadrant II",
+        sol: "Negative x, positive y → Quadrant II (upper left)."
+      },
+      {
+        q: "Find the perimeter of the triangle with vertices $A(0,0)$, $B(3,0)$, and $C(0,4)$.",
+        ans: "$12$",
+        sol: "$AB = 3$, $AC = 4$, $BC = \\sqrt{3^2+4^2} = 5$. Perimeter = $3+4+5 = 12$."
       }
     ],
     quiz: [
       {
-        q: "A rectangle has vertices $A(1,1)$, $B(5,1)$, $C(5,4)$, $D(1,4)$. What is its area?",
-        ans: "$12$ square units",
-        sol: "Width $= |5-1| = 4$, height $= |4-1| = 3$. Area $= 4 \\times 3 = 12$."
+        q: "The distance from $(0,0)$ to $(6,8)$ is:",
+        options: ["$6$", "$8$", "$10$", "$14$"],
+        ans: "$10$",
+        sol: "$d = \\sqrt{6^2 + 8^2} = \\sqrt{36+64} = \\sqrt{100} = 10$."
       },
       {
-        q: "Which transformation maps $(x,y)$ to $(-x, y)$?",
-        options: ["Reflection over $x$-axis", "Reflection over $y$-axis", "Rotation 90°", "Translation"],
-        ans: "Reflection over $y$-axis",
-        sol: "Reflecting over the $y$-axis flips the sign of the $x$-coordinate: $(x,y) \\to (-x,y)$."
+        q: "Find the midpoint of $(-4, 6)$ and $(2, -2)$.",
+        ans: "$(-1, 2)$",
+        sol: "$\\left(\\frac{-4+2}{2}, \\frac{6+(-2)}{2}\\right) = (-1, 2)$."
       },
       {
-        q: "Find the perimeter of triangle with vertices $A(0,0)$, $B(6,0)$, $C(3,4)$.",
-        ans: "$6 + 5 + \\sqrt{61} \\approx 18.81$",
-        sol: "$AB=6$, $BC=\\sqrt{(6-3)^2+(0-4)^2}=\\sqrt{9+16}=\\sqrt{25}=5$, $AC=\\sqrt{(3-0)^2+(4-0)^2}=\\sqrt{25}=5$. Wait — $AC=5$, not $\\sqrt{61}$. $P = 6+5+5 = 16$."
+        q: "Which point is in Quadrant III?",
+        options: ["$(2, 3)$", "$(-2, 3)$", "$(-2, -3)$", "$(2, -3)$"],
+        ans: "$(-2, -3)$",
+        sol: "Q3 has both coordinates negative."
       }
     ]
   },
@@ -219,61 +218,63 @@ var MATH_DATA = [
     gx: 4,
     title: "Linear Functions",
     coverage: "g",
-    think: "A taxi charges $\\$3$ to start the ride plus $\\$2$ per kilometre. Write a function for the cost $C$ in terms of distance $x$ km. What type of function is this?",
+    think: "A taxi charges $\\$3$ base fare plus $\\$2$ per km. Write an equation for the total cost $y$ in terms of distance $x$. Is this a function?",
     videos: [
-      { yt: "J59E7Jc1xl4", t: "Graphing a Linear Function", m: "English · Khan Academy", duration: "~6 min" }
+      { yt: "M0E1Pb3bHjw", t: "What is a Function?", m: "English · Khan Academy", duration: "~8 min" }
     ],
     notes: [
-      "Linear function（一次函数）: $y = mx + b$, where $m$ = slope（斜率）, $b$ = $y$-intercept（$y$截距）.",
-      "Slope（斜率） $m = \\frac{\\Delta y}{\\Delta x} = \\frac{y_2-y_1}{x_2-x_1}$. Positive $m$: rising; negative $m$: falling; $m=0$: horizontal.",
-      "Forms of a line: slope-intercept $y=mx+b$, point-slope $y-y_1=m(x-x_1)$, standard form $Ax+By=C$.",
-      "Intercepts: $x$-intercept: set $y=0$, solve for $x$. $y$-intercept: set $x=0$, get $y=b$.",
-      "Two lines are parallel（平行） if $m_1 = m_2$. Perpendicular（垂直） if $m_1 \\times m_2 = -1$.",
-      "A function（函数） passes the vertical line test — no vertical line cuts the graph more than once."
+      "Function（函数）: each input $x$ has exactly one output $y$. Notation: $f(x)$.",
+      "Linear function（一次函数）: $y = mx + b$ or $f(x) = mx + b$.",
+      "Slope（斜率）$m = \\frac{\\Delta y}{\\Delta x} = \\frac{y_2-y_1}{x_2-x_1}$ — rate of change.",
+      "y-intercept（y轴截距）$b$: where line crosses y-axis; x-intercept: where $y=0$.",
+      "Slope-intercept form（斜截式）: $y = mx + b$ — easiest for graphing.",
+      "Parallel lines have equal slopes; perpendicular lines have slopes that are negative reciprocals ($m_1 \\cdot m_2 = -1$)."
     ],
     practice: [
       {
-        q: "Find the slope of the line through $A(1, 3)$ and $B(4, 9)$.",
+        q: "Find the slope of the line through $(2, 5)$ and $(6, 13)$.",
         ans: "$2$",
-        sol: "$m = \\frac{9-3}{4-1} = \\frac{6}{3} = 2$."
+        sol: "$m = \\frac{13-5}{6-2} = \\frac{8}{4} = 2$."
       },
       {
-        q: "Write the equation of the line with slope $3$ and $y$-intercept $-2$.",
-        ans: "$y = 3x - 2$",
-        sol: "Use slope-intercept form: $y = mx + b = 3x + (-2)$."
+        q: "Write the equation of the line with slope $-3$ passing through $(0, 4)$.",
+        ans: "$y = -3x + 4$",
+        sol: "Using $y = mx + b$: $m = -3$, $b = 4$ (y-intercept)."
       },
       {
-        q: "Are the lines $y = 2x + 1$ and $y = 2x - 5$ parallel?",
-        ans: "Yes",
-        sol: "Both have $m=2$, so they are parallel (same slope, different $y$-intercept)."
+        q: "Find the x-intercept of $y = 2x - 6$.",
+        ans: "$3$",
+        sol: "Set $y=0$: $0 = 2x - 6$, so $x = 3$."
       },
       {
-        q: "Find the $x$-intercept of $y = 3x - 12$.",
-        ans: "$(4, 0)$",
-        sol: "Set $y=0$: $0 = 3x - 12 \\Rightarrow x = 4$."
+        q: "Are the lines $y = 2x + 1$ and $y = 2x - 5$ parallel, perpendicular, or neither?",
+        ans: "Parallel",
+        sol: "Both have slope $m = 2$, so they are parallel."
       },
       {
-        q: "The cost $C$ of a taxi ride is $C = 2x + 3$, where $x$ is kilometres. If you travel $10$ km, how much do you pay?",
-        ans: "$\\$23$",
-        sol: "$C = 2(10) + 3 = 20 + 3 = 23$."
+        q: "Find the slope of a line perpendicular to $y = \\frac{1}{3}x + 2$.",
+        ans: "$-3$",
+        sol: "Negative reciprocal of $\\frac{1}{3}$ is $-3$."
       }
     ],
     quiz: [
       {
-        q: "Find the equation of the line through $(2, 5)$ and $(4, 9)$.",
-        ans: "$y = 2x + 1$",
-        sol: "$m = \\frac{9-5}{4-2} = 2$. Using point-slope: $y-5 = 2(x-2) \\Rightarrow y = 2x+1$."
+        q: "If $f(x) = 3x - 7$, what is $f(4)$?",
+        options: ["$5$", "$12$", "$19$", "$-5$"],
+        ans: "$5$",
+        sol: "$f(4) = 3(4) - 7 = 12 - 7 = 5$."
       },
       {
-        q: "Which line is perpendicular to $y = -\\frac{1}{2}x + 3$?",
-        options: ["$y = 2x - 1$", "$y = -\\frac{1}{2}x + 7$", "$y = \\frac{1}{2}x + 4$", "$y = -2x + 5$"],
-        ans: "$y = 2x - 1$",
-        sol: "Perpendicular slope: $m_1 \\times m_2 = -1$. Here $m_1 = -\\frac{1}{2}$, so $m_2 = 2$."
+        q: "The line $y = -2x + 5$ has slope and y-intercept:",
+        options: ["$m=2, b=5$", "$m=-2, b=5$", "$m=5, b=-2$", "$m=-5, b=2$"],
+        ans: "$m=-2, b=5$",
+        sol: "In $y = mx + b$, $m = -2$ and $b = 5$."
       },
       {
-        q: "Is $y = x^2 + 1$ a linear function?",
-        ans: "No",
-        sol: "A linear function must be of the form $y = mx + b$. $y=x^2+1$ is quadratic (degree 2), not linear."
+        q: "Which line is perpendicular to $y = 4x + 1$?",
+        options: ["$y = 4x - 3$", "$y = -4x + 2$", "$y = -\\frac{1}{4}x + 5$", "$y = \\frac{1}{4}x$"],
+        ans: "$y = -\\frac{1}{4}x + 5$",
+        sol: "Perpendicular slopes are negative reciprocals: $-\\frac{1}{4}$."
       }
     ]
   },
@@ -288,61 +289,62 @@ var MATH_DATA = [
     gx: 5,
     title: "Systems of Linear Equations",
     coverage: "g",
-    think: "Two numbers add to $10$. One number is twice the other. Can you find both numbers? Show your reasoning.",
+    think: "You buy 3 apples and 2 bananas for $\\$11$. Your friend buys 2 apples and 3 bananas for $\\$9$. Can you find the price of each fruit?",
     videos: [
-      { yt: "syoQh3U5MQ0", t: "Systems of Equations with Substitution", m: "English · Khan Academy", duration: "~5 min" }
+      { yt: "OcNt-ikp4xA", t: "Systems of Equations: Trolls, Tolls", m: "English · Khan Academy", duration: "~10 min" }
     ],
     notes: [
-      "System of linear equations（二元一次方程组）: two or more linear equations in the same variables.",
-      "Substitution method（代入法）: isolate one variable, substitute into the other equation.",
-      "Elimination method（消元法）: add or subtract equations to cancel one variable.",
-      "Three possible outcomes: one solution (intersecting lines), infinitely many (same line), or no solution (parallel lines).",
-      "Graphical method（图象法）: the intersection point is the solution.",
-      "Word problems: define variables clearly, write equations, then solve."
+      "System of equations（方程组）: two or more equations with the same variables.",
+      "Solution: values that satisfy ALL equations simultaneously.",
+      "Substitution method（代入法）: solve one equation for one variable, substitute into the other.",
+      "Elimination method（加减/消元法）: add/subtract equations to eliminate one variable.",
+      "Graphing method（图像法）: find intersection point of two lines.",
+      "Types of solutions: one unique solution (intersecting lines), no solution (parallel lines), infinitely many (same line)."
     ],
     practice: [
       {
-        q: "Solve by substitution: $\\begin{cases} y = 2x + 1 \\\\ x + y = 7 \\end{cases}$",
-        ans: "$(2, 5)$",
-        sol: "Substitute $y$: $x + (2x+1) = 7 \\Rightarrow 3x = 6 \\Rightarrow x = 2$. Then $y = 2(2)+1 = 5$."
+        q: "Solve: $x + y = 7$ and $x - y = 3$.",
+        ans: "$x = 5, y = 2$",
+        sol: "Add equations: $2x = 10$, so $x = 5$. Substitute: $5 + y = 7$, so $y = 2$."
       },
       {
-        q: "Solve by elimination: $\\begin{cases} 2x + y = 5 \\\\ x - y = 1 \\end{cases}$",
-        ans: "$(2, 1)$",
-        sol: "Add equations: $3x = 6 \\Rightarrow x = 2$. Substitute: $2 - y = 1 \\Rightarrow y = 1$."
+        q: "Solve by substitution: $y = 2x + 1$ and $3x + 2y = 12$.",
+        ans: "$x = 2, y = 5$",
+        sol: "Substitute: $3x + 2(2x+1) = 12$, so $7x + 2 = 12$, $x = 2$, then $y = 5$."
       },
       {
-        q: "The sum of two numbers is $12$, and their difference is $4$. Find the numbers.",
-        ans: "$8$ and $4$",
-        sol: "Let $x+y=12$, $x-y=4$. Adding: $2x=16 \\Rightarrow x=8$, so $y=4$."
-      },
-      {
-        q: "Solve: $\\begin{cases} 3x + 2y = 12 \\\\ x + 2y = 4 \\end{cases}$",
-        ans: "$(4, 0)$",
-        sol: "Subtract eqn2 from eqn1: $2x = 8 \\Rightarrow x=4$. Then $4+2y=4 \\Rightarrow y=0$."
-      },
-      {
-        q: "How many solutions does this system have? $\\begin{cases} y = 2x + 3 \\\\ 4x - 2y = -6 \\end{cases}$",
+        q: "How many solutions? $2x + y = 4$ and $4x + 2y = 8$.",
         ans: "Infinitely many",
-        sol: "Rewrite $4x-2y=-6$ as $-2y = -4x-6 \\Rightarrow y = 2x+3$. Same equation, so infinitely many solutions."
+        sol: "Second equation is $2 \\times$ first. Same line → infinitely many solutions."
+      },
+      {
+        q: "A rectangle has perimeter 30. The length is 3 more than the width. Find dimensions.",
+        ans: "Width $= 6$, Length $= 9$",
+        sol: "$2L + 2W = 30$ and $L = W + 3$. Solve: $W = 6, L = 9$."
+      },
+      {
+        q: "Solve: $3x + 2y = 12$ and $5x - 2y = 4$.",
+        ans: "$x = 2, y = 3$",
+        sol: "Add to eliminate $y$: $8x = 16$, so $x = 2$. Then $3(2) + 2y = 12$, so $y = 3$."
       }
     ],
     quiz: [
       {
-        q: "Solve: $\\begin{cases} x + 2y = 7 \\\\ 3x - y = 7 \\end{cases}$",
-        ans: "$(3, 2)$",
-        sol: "From first: $x = 7-2y$. Substitute: $3(7-2y)-y=7 \\Rightarrow 21-6y-y=7 \\Rightarrow 14=7y \\Rightarrow y=2$. Then $x=7-4=3$."
+        q: "The system $y = 2x + 1$ and $y = 2x - 3$ has:",
+        options: ["One solution", "No solution", "Infinitely many", "Two solutions"],
+        ans: "No solution",
+        sol: "Same slope ($2$), different intercepts → parallel lines, never intersect."
       },
       {
-        q: "A school buys $3$ basketballs and $5$ volleyballs for $\\$310$. Each basketball costs twice as much as a volleyball. Find the price of each.",
-        ans: "Basketball: $\\$60$, Volleyball: $\\$30$",
-        sol: "Let $v=$ volleyball price, $b=2v$. $3(2v)+5v=310 \\Rightarrow 11v=310 \\Rightarrow v=30$, $b=60$."
+        q: "Solve: $2x + 3y = 12$ and $x = 4$. Find $y$.",
+        ans: "$\\frac{4}{3}$",
+        sol: "Substitute $x = 4$: $2(4) + 3y = 12$, so $3y = 4$, $y = \\frac{4}{3}$."
       },
       {
-        q: "Which graph shows 'no solution'?",
-        options: ["Two lines intersecting at one point", "Two identical lines", "Two parallel lines", "A single diagonal line"],
-        ans: "Two parallel lines",
-        sol: "Parallel lines never intersect, so the system has no solution."
+        q: "A system has solution $(3, -1)$. Which equations could it be?",
+        options: ["$x+y=2$ and $x-y=4$", "$x+y=2$ and $2x+y=5$", "$x-y=4$ and $2x+y=5$", "Both first and third"],
+        ans: "Both first and third",
+        sol: "Check: $3 + (-1) = 2$ ✓, $3 - (-1) = 4$ ✓, $2(3) + (-1) = 5$ ✓."
       }
     ]
   },
@@ -357,203 +359,137 @@ var MATH_DATA = [
     gx: 6,
     title: "Data Analysis",
     coverage: "g",
-    think: "Five students scored: $70, 75, 80, 85, 90$. What is the 'average' score? Does the mean or the median better describe a typical score here?",
+    think: "Five students scored: 72, 85, 85, 90, 98. Which number best represents 'typical' performance? Why might you choose a different one?",
     videos: [
-      { yt: "XeSuDFmu60w", t: "Statistics intro: Mean, Median & Mode", m: "English · Khan Academy", duration: "~9 min" }
+      { yt: "k3aKKasOmIw", t: "Statistics Intro: Mean, Median, & Mode", m: "English · Khan Academy", duration: "~9 min" }
     ],
     notes: [
-      "Mean（平均数）: $\\bar{x} = \\frac{\\sum x_i}{n}$ — sum divided by count.",
-      "Median（中位数）: the middle value when data is sorted. If even count, average of two middle values.",
-      "Mode（众数）: the most frequent value. A dataset may have no mode or multiple modes.",
-      "Range（极差）: $\\text{max} - \\text{min}$.",
-      "Variance（方差） $\\sigma^2$: measures spread. $\\sigma^2 = \\frac{\\sum (x_i - \\bar{x})^2}{n}$.",
-      "Standard deviation（标准差） $\\sigma = \\sqrt{\\text{variance}}$ — in the same units as the data.",
-      "MAD = Mean Absolute Deviation: average of $|x_i - \\bar{x}|$."
+      "Mean（平均数）: $\\bar{x} = \\frac{\\sum x_i}{n}$ — affected by outliers.",
+      "Median（中位数）: middle value when ordered — robust to outliers.",
+      "Mode（众数）: most frequent value — useful for categorical data.",
+      "Range（极差）: max − min — simple spread measure.",
+      "MAD (Mean Absolute Deviation): average distance from mean.",
+      "Standard deviation（标准差）: $s = \\sqrt{\\frac{\\sum(x_i - \\bar{x})^2}{n-1}}$ — spread measure.",
+      "Box plot（箱线图）: shows Q1, median, Q3, IQR, outliers."
     ],
     practice: [
       {
-        q: "Find the mean, median, and mode of: $3, 7, 7, 2, 5, 9, 7, 2$.",
-        ans: "Mean $= 5.25$, Median $= 6$, Mode $= 7$",
-        sol: "Sum $= 42$, count $= 8$, so mean $= 42/8 = 5.25$. Sorted: $2,2,3,5,7,7,7,9$. Median $= (5+7)/2 = 6$. Mode $= 7$ (appears 3 times)."
+        q: "Find the mean, median, and mode of: $5, 7, 8, 8, 10, 12$.",
+        ans: "Mean $= 8.33$, Median $= 8$, Mode $= 8$",
+        sol: "Mean = $\\frac{50}{6} \\approx 8.33$. Ordered: middle is $8$. Mode is $8$ (appears twice)."
       },
       {
-        q: "The data set is: $4, 8, 6, 5, 3, 2, 8, 9, 5$. Find the range.",
-        ans: "$7$",
-        sol: "Range $= \\text{max} - \\text{min} = 9 - 2 = 7$."
+        q: "Data: $2, 5, 7, 10, 15$. Find the range and IQR.",
+        ans: "Range $= 13$, IQR $= 5$",
+        sol: "Range = $15 - 2 = 13$. Q1 = $5$, Q3 = $10$, IQR = $10 - 5 = 5$."
       },
       {
-        q: "Calculate the variance of: $2, 4, 4, 4, 5, 5, 7, 9$.",
-        ans: "$4$",
-        sol: "Mean $\\bar{x}=5$. Deviations: $-3,-1,-1,-1,0,0,2,4$. Squares: $9,1,1,1,0,0,4,16$. Sum$=32$. Variance$=32/8=4$."
+        q: "Which is more affected by an outlier: mean or median?",
+        ans: "Mean",
+        sol: "Mean uses all values; median only depends on middle position."
       },
       {
-        q: "Two classes have exam means of $72$ and $78$. Class A has $20$ students, Class B has $30$. What is the overall mean?",
-        ans: "$75.6$",
-        sol: "Total score $= 72 \\times 20 + 78 \\times 30 = 1440 + 2340 = 3780$. Total students $= 50$. Overall mean $= 3780/50 = 75.6$."
+        q: "Find the standard deviation of: $3, 5, 7$.",
+        ans: "$2$",
+        sol: "Mean = $5$. Deviations: $-2, 0, 2$. Squared: $4, 0, 4$. Variance = $\\frac{8}{2} = 4$. SD = $\\sqrt{4} = 2$."
       },
       {
-        q: "The heights (cm) of 5 students: $155, 160, 162, 158, 165$. Find the standard deviation.",
-        ans: "$\\approx 3.43$ cm",
-        sol: "Mean $= 160$. Deviations: $-5,0,2,-2,5$. Squares: $25,0,4,4,25$. Sum$=58$. Variance$=58/5=11.6$. $\\sigma=\\sqrt{11.6} \\approx 3.43$."
+        q: "In a box plot, what does the box represent?",
+        ans: "The middle 50% of data (IQR)",
+        sol: "Box spans Q1 to Q3, containing the middle 50% of observations."
       }
     ],
     quiz: [
       {
-        q: "Which measure of central tendency is most affected by outliers（异常值）?",
+        q: "Data: $12, 15, 18, 20, 100$. Which measure of center is least affected by the outlier 100?",
         options: ["Mean", "Median", "Mode", "Range"],
-        ans: "Mean",
-        sol: "Mean uses all values, so extreme outliers pull it in their direction. Median and mode are more resistant."
+        ans: "Median",
+        sol: "Median = $18$ (middle value). Mean would be pulled up by 100."
       },
       {
-        q: "A dataset has mean $80$ and standard deviation $5$. What percent of data falls within one standard deviation of the mean?",
-        ans: "Approximately $68\\%$",
-        sol: "By the empirical rule, about $68\\%$ of data in a normal distribution falls within $\\bar{x} \\pm \\sigma = [75, 85]$."
+        q: "If all values in a dataset increase by 5, what happens to the standard deviation?",
+        options: ["Increases by 5", "Stays the same", "Decreases by 5", "Becomes 0"],
+        ans: "Stays the same",
+        sol: "Adding a constant shifts all data but doesn't change spread."
       },
       {
-        q: "A company pays salaries (in ¥1000): $30, 35, 40, 40, 40, 200$. Which average best represents typical salary?",
-        ans: "Median ($40{,}000$)",
-        sol: "The outlier $200{,}000$ skews the mean upward. Median $= (40+40)/2 = 40$ (in ¥1000 units), better representing typical salary."
+        q: "In a symmetric distribution, mean and median are:",
+        options: ["Always equal", "Always different", "Sometimes equal", "Cannot determine"],
+        ans: "Always equal",
+        sol: "Symmetry ensures mean = median = mode."
       }
     ]
   },
 
   /* ══════════════════════════════════════════════════════════════
-     Ch07  三角形的证明  Triangle Proofs
-     教材：北师大版·八年级数学（上册） 第7章
+     Ch07  几何证明基础  Foundations of Geometric Proof
+     【重组整合】北师大8上第7章 + 8下第1章核心内容
+     命题与证明、平行线、三角形内角和、全等判定
   ══════════════════════════════════════════════════════════════ */
   {
     id: "ch07",
     g: "8",
     gx: 7,
-    title: "Triangle Proofs",
+    title: "Foundations of Geometric Proof",
     coverage: "g",
-    think: "Two triangles share the same three side lengths. Does that guarantee they are exactly the same shape and size? Why might a student think 'no'?",
+    think: "How can you be absolutely sure that the angles in every triangle add to 180°? Is measuring one triangle enough?",
     videos: [
-      { yt: "F4JFDW6s5yQ", t: "Triangle Congruence Postulates", m: "English · Khan Academy", duration: "~10 min" }
+      { yt: "I-1d_48VXF8", t: "Angles, Parallel Lines, & Transversals", m: "English · Khan Academy", duration: "~7 min" }
     ],
     notes: [
-      "Congruent triangles（全等三角形）: same size AND same shape. All corresponding sides and angles are equal.",
-      "SSS（边边边）: three pairs of corresponding sides equal → congruent.",
-      "SAS（边角边）: two sides and the INCLUDED angle equal → congruent.",
-      "ASA（角边角）: two angles and the INCLUDED side equal → congruent.",
-      "AAS（角角边）: two angles and a non-included side equal → congruent.",
-      "SSA（边边角）: NOT sufficient — can give two different triangles (the 'ambiguous case').",
-      "CPCTC: Corresponding Parts of Congruent Triangles are Congruent — use after proving SSS/SAS/ASA/AAS.",
-      "HL theorem（直角三角形全等判定）: hypotenuse + one leg equal → congruent right triangles."
+      "Proposition（命题）: a statement that is either true or false.",
+      "Theorem（定理）: a proposition that has been proven true.",
+      "Proof（证明）: logical argument from axioms/definitions to conclusion.",
+      "Parallel lines & transversal（平行线与截线）: corresponding angles equal, alternate interior angles equal, consecutive interior angles supplementary.",
+      "Triangle Angle Sum Theorem（三角形内角和定理）: $\\angle A + \\angle B + \\angle C = 180°$ — proven using parallel lines.",
+      "Congruent triangles（全等三角形）: SSS, SAS, ASA, AAS, HL (Hypotenuse-Leg for right triangles).",
+      "CPCTC: Corresponding Parts of Congruent Triangles are Congruent.",
+      "Isosceles triangle（等腰三角形）: base angles equal; converse also true."
     ],
     practice: [
       {
-        q: "Which criterion proves these triangles congruent? $\\triangle ABC$ and $\\triangle DEF$: $AB=DE$, $BC=EF$, $AC=DF$.",
-        ans: "SSS",
-        sol: "All three corresponding sides are equal → SSS."
+        q: "Two parallel lines are cut by a transversal. If one angle is $70°$, find its corresponding angle.",
+        ans: "$70°$",
+        sol: "Corresponding angles are equal when lines are parallel."
       },
       {
-        q: "In the diagram, $AB = AD$ and $AC$ bisects $\\angle BAD$. Prove $\\triangle ABC \\cong \\triangle ADC$.",
-        ans: "By SAS: $AB=AD$ (given), $AC$ common, $\\angle BAC = \\angle DAC$ (bisector).",
-        sol: "Since $AC$ bisects $\\angle BAD$, $\\angle BAC = \\angle DAC$. We have $AB = AD$ (given), $AC$ common, so by SAS, $\\triangle ABC \\cong \\triangle ADC$."
+        q: "In $\\triangle ABC$, $\\angle A = 50°$ and $\\angle B = 60°$. Find $\\angle C$.",
+        ans: "$70°$",
+        sol: "$\\angle C = 180° - 50° - 60° = 70°$."
       },
       {
-        q: "Given: $AB \\parallel CD$, $AB = CD$. Prove: $\\triangle AOB \\cong \\triangle DCO$ (where $O$ is the intersection).",
-        ans: "By ASA: $\\angle A = \\angle D$ (alternate interior), $\\angle AOB = \\angle DOC$ (vertical angles), $AB=CD$ (given).",
-        sol: "$\\angle A = \\angle D$ (alternate interior angles), $\\angle AOB = \\angle DOC$ (vertical angles), and $AB=CD$ (given). So by ASA, triangles are congruent."
-      },
-      {
-        q: "Can you use SSA to prove two triangles are congruent? Why or why not?",
-        ans: "No — SSA is not a valid congruence criterion",
-        sol: "SSA can produce two different triangles with the same two sides and a non-included angle (the 'ambiguous case' of the law of sines)."
-      },
-      {
-        q: "Prove the diagonals of a parallelogram bisect each other using triangle congruence.",
-        ans: "Show $\\triangle AOB \\cong \\triangle COD$ by ASA",
-        sol: "In parallelogram $ABCD$, $AB \\parallel CD$ gives $\\angle ABO = \\angle CDO$ (alternate interior). Also $AB = CD$ (opposite sides). $\\angle AOB = \\angle COD$ (vertical). By ASA: $\\triangle AOB \\cong \\triangle COD$, so $AO = CO$ and $BO = DO$."
-      }
-    ],
-    quiz: [
-      {
-        q: "In $\\triangle ABC$ and $\\triangle DEF$: $AB = DE$, $\\angle B = \\angle E$, $BC = EF$. Which criterion applies?",
+        q: "Which congruence criterion applies? Two sides and the included angle are equal.",
         ans: "SAS",
-        sol: "Two sides ($AB, BC$) and the INCLUDED angle ($\\angle B$) are equal. The angle must be between the two sides → SAS."
+        sol: "Side-Angle-Side: two sides and the included angle determine a unique triangle."
       },
       {
-        q: "If two right triangles have hypotenuse $10$ and one leg $6$, are they congruent?",
-        ans: "Yes, by HL theorem",
-        sol: "HL theorem (special case of SSS for right triangles): if hypotenuse and one leg are equal, the triangles are congruent."
+        q: "In isosceles $\\triangle XYZ$ with $XY = XZ$, if $\\angle Y = 40°$, find $\\angle Z$ and $\\angle X$.",
+        ans: "$\\angle Z = 40°$, $\\angle X = 100°$",
+        sol: "Base angles equal: $\\angle Z = 40°$. Then $\\angle X = 180° - 40° - 40° = 100°$."
       },
       {
-        q: "Fill in the blank: After proving $\\triangle ABC \\cong \\triangle DEF$ by SAS, we conclude $\\angle C = \\angle F$ by _______.",
-        ans: "CPCTC",
-        sol: "CPCTC = Corresponding Parts of Congruent Triangles are Congruent. This theorem lets us claim any corresponding parts are equal once the whole triangles are proven congruent."
-      }
-    ]
-  },
-
-  /* ══════════════════════════════════════════════════════════════
-     Ch08  平行四边形  Parallelograms
-     教材：北师大版·八年级数学（下册） 第6章
-  ══════════════════════════════════════════════════════════════ */
-  {
-    id: "ch08",
-    g: "8",
-    gx: 8,
-    title: "Parallelograms",
-    coverage: "g",
-    think: "A quadrilateral has one pair of opposite sides both parallel and equal in length. Is it enough to conclude it is a parallelogram? What property would you use to convince a classmate?",
-    videos: [
-      { yt: "XjrgKBrDD7w", t: "Quadrilateral Properties", m: "English · Khan Academy", duration: "~6 min" }
-    ],
-    notes: [
-      "Parallelogram（平行四边形）: both pairs of opposite sides are parallel.",
-      "Properties: opposite sides are equal ($AB = CD$, $BC = AD$); opposite angles are equal ($\\angle A = \\angle C$, $\\angle B = \\angle D$); diagonals bisect each other.",
-      "Rectangle（矩形）: a parallelogram with four right angles. Diagonals are equal.",
-      "Rhombus（菱形）: a parallelogram with four equal sides. Diagonals are perpendicular bisectors.",
-      "Square（正方形）: a rectangle + rhombus. All sides equal, all angles $90°$.",
-      "Trapezoid/Trapezium（梯形）: at least one pair of parallel sides.",
-      "Tests for parallelogram: (1) both pairs of opposite sides parallel; (2) both pairs of opposite sides equal; (3) diagonals bisect each other.",
-      "Area formulas: Parallelogram $A = bh$; Rectangle $A = ab$; Triangle $A = \\frac{1}{2}bh$."
-    ],
-    practice: [
-      {
-        q: "In parallelogram $ABCD$, $AB = 5$ cm and $BC = 7$ cm. Find the perimeter.",
-        ans: "$24$ cm",
-        sol: "Opposite sides equal: $AB=CD=5$, $BC=AD=7$. Perimeter $= 2(5+7) = 24$ cm."
-      },
-      {
-        q: "Prove: In a parallelogram, opposite angles are equal.",
-        ans: "Use triangle congruence (SAS): $\\triangle ABC \\cong \\triangle CDA$, so $\\angle B = \\angle D$.",
-        sol: "Diagonal $AC$ divides the parallelogram into $\\triangle ABC$ and $\\triangle CDA$. $AB = CD$ (opp. sides), $BC = AD$ (opp. sides), $AC$ common. By SSS, triangles are congruent, so $\\angle B = \\angle D$ and $\\angle A = \\angle C$."
-      },
-      {
-        q: "A rhombus has diagonals of lengths $8$ cm and $6$ cm. Find its area.",
-        ans: "$24$ cm$^2$",
-        sol: "Area of rhombus $= \\frac{1}{2} \\times d_1 \\times d_2 = \\frac{1}{2} \\times 8 \\times 6 = 24$ cm$^2$."
-      },
-      {
-        q: "Is a rectangle also a parallelogram? Explain.",
-        ans: "Yes — a rectangle has all the properties of a parallelogram",
-        sol: "A parallelogram needs both pairs of opposite sides parallel. A rectangle has four right angles, which forces opposite sides to be parallel. So every rectangle is a parallelogram (but not every parallelogram is a rectangle)."
-      },
-      {
-        q: "The diagonals of a quadrilateral bisect each other at $O$. If $AO = 3$ cm and $OC = 3$ cm, is this enough to prove it is a parallelogram?",
-        ans: "Yes — the diagonals bisect each other",
-        sol: "A quadrilateral whose diagonals bisect each other is a parallelogram (one of the three tests for a parallelogram)."
+        q: "Prove: If two angles of a triangle are equal, then the sides opposite them are equal.",
+        ans: "Isosceles Triangle Theorem (Converse)",
+        sol: "This is the converse of the base angles theorem. Can be proven by drawing an angle bisector and using AAS congruence."
       }
     ],
     quiz: [
       {
-        q: "Which of the following is NOT a property of all parallelograms?",
-        options: ["Opposite sides are parallel", "Opposite angles are equal", "All four angles are $90°$", "Diagonals bisect each other"],
-        ans: "All four angles are $90°$",
-        sol: "Only rectangles (a special type of parallelogram) have four $90°$ angles. General parallelograms do not."
+        q: "Which of the following is NOT a valid triangle congruence criterion?",
+        options: ["SSS", "SAS", "AAA", "HL"],
+        ans: "AAA",
+        sol: "AAA proves similarity, not congruence (triangles can have same angles but different sizes)."
       },
       {
-        q: "A quadrilateral has sides $AB=CD$ and $BC=AD$ (two pairs of opposite equal sides). Is it necessarily a parallelogram?",
-        ans: "Yes — this is one of the three parallelogram tests",
-        sol: "If both pairs of opposite sides are equal, the quadrilateral is a parallelogram. This is a standard test."
+        q: "In the diagram, $l \\parallel m$ and $\\angle 1 = 110°$. Find $\\angle 2$ (alternate interior angle).",
+        ans: "$110°$",
+        sol: "Alternate interior angles are equal when lines are parallel."
       },
       {
-        q: "Find the area of a parallelogram with base $10$ cm and height $6$ cm.",
-        ans: "$60$ cm$^2$",
-        sol: "Area $= base \\times height = 10 \\times 6 = 60$ cm$^2$."
+        q: "$\\triangle ABC \\cong \\triangle DEF$ by SAS. If $AB = 5$ and $BC = 7$, which side in $\\triangle DEF$ equals $7$?",
+        options: ["$DE$", "$EF$", "$DF$", "Cannot determine"],
+        ans: "$EF$",
+        sol: "Corresponding to $BC$ is $EF$. CPCTC: corresponding parts of congruent triangles are congruent."
       }
     ]
   }
