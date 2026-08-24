@@ -11,59 +11,71 @@ var MATH_DATA = [
     coverage: "g",
     think: "A right triangle has legs $9$ cm and $12$ cm. Guess the hypotenuse without using a calculator. How did you estimate it?",
     videos: [
-      { yt: "LrS5_l-gk94", t: "Pythagorean Theorem Proof Using Similarity", m: "English · Khan Academy", duration: "~10 min" }
+      { yt: "LrS5_l-gk94", t: "Pythagorean Theorem Proof Using Similarity", m: "English · Khan Academy", duration: "~10 min",
+        local: "videos/Ch01_\u52a8\u80a1\u5b9a\u7406/09_Pythagorean theorem proof using similarity.mp4",
+        ka: "https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-pythagorean-proofs/v/pythagorean-theorem-proof-using-similarity" }
     ],
     notes: [
-      "In a right triangle (直角三角形): $a^2 + b^2 = c^2$, where $c$ is the hypotenuse（斜边，直角对边）.",
+      "In a right triangle (\u76f4\u89d2\u4e09\u89d2\u5f62): $a^2 + b^2 = c^2$, where $c$ is the hypotenuse\uff08\u659c\u8fb9\uff0c\u76f4\u89d2\u5bf9\u8fb9\uff09.",
       "Find any side: $c = \\sqrt{a^2+b^2}$ or $a = \\sqrt{c^2-b^2}$.",
-      "Pythagorean triples（勾股数）: $(3,4,5)$, $(5,12,13)$, $(8,15,17)$, $(7,24,25)$.",
-      "Converse（逆定理）: if $a^2 + b^2 = c^2$, the triangle is a right triangle.",
-      "45°–45°–90°: legs equal, hypotenuse $= \\text{leg} \\times \\sqrt{2}$.",
-      "30°–60°–90°: short leg $= x$, long leg $= x\\sqrt{3}$, hypotenuse $= 2x$."
+      "Pythagorean triples\uff08\u52a0\u80a1\u6570\uff09: $(3,4,5)$, $(5,12,13)$, $(8,15,17)$, $(7,24,25)$.",
+      "Converse\uff08\u9006\u5b9a\u7406\uff09: if $a^2 + b^2 = c^2$, the triangle is a right triangle.",
+      "45\u00b0\u201345\u00b0\u201390\u00b0: legs equal, hypotenuse $= \\text{leg} \\times \\sqrt{2}$.",
+      "30\u00b0\u201360\u00b0\u201390\u00b0: short leg $= x$, long leg $= x\\sqrt{3}$, hypotenuse $= 2x$."
     ],
     practice: [
       {
-        q: "In $\\triangle ABC$, $\\angle C = 90°$, $AC = 8$ and $BC = 15$. Find $AB$.",
-        ans: "$17$",
-        sol: "$AB^2 = 8^2 + 15^2 = 64 + 225 = 289$, so $AB = \\sqrt{289} = 17$."
+        q: "In a right triangle, one leg is $5$ and the hypotenuse is $6$. Find the other leg (round to 2 decimal places if needed).",
+        ans: "$\\sqrt{11}$",
+        sol: "$x^2 = 6^2 - 5^2 = 36 - 25 = 11$, so $x = \\sqrt{11} \\approx 3.32$."
       },
       {
-        q: "$\\triangle PQR$ has $PQ = 24$, $PR = 7$, and $QR = 25$. Is it a right triangle?",
-        ans: "Yes",
-        sol: "$7^2 + 24^2 = 49 + 576 = 625 = 25^2$. By the converse of the Pythagorean theorem, it is a right triangle."
+        q: "In a right triangle, one leg is $8$ and the other leg is $4$. Find the hypotenuse.",
+        ans: "$4\\sqrt{5}$",
+        sol: "$c = \\sqrt{8^2 + 4^2} = \\sqrt{64 + 16} = \\sqrt{80} = 4\\sqrt{5} \\approx 8.94$."
       },
       {
-        q: "In a 45°–45°–90° triangle, each leg is $6$ cm. What is the hypotenuse?",
-        ans: "$6\\sqrt{2}$ cm",
-        sol: "In a 45-45-90 triangle, hypotenuse $= \\text{leg} \\times \\sqrt{2}$. Here: $6 \\times \\sqrt{2} = 6\\sqrt{2}$ cm."
+        q: "In a right triangle, one leg is $4$ and the hypotenuse is $5$. Find the other leg.",
+        ans: "$3$",
+        sol: "$x^2 = 5^2 - 4^2 = 25 - 16 = 9$, so $x = 3$."
       },
       {
-        q: "The two legs of a right triangle are $5$ and $12$. Find the hypotenuse.",
+        q: "The two legs of a right triangle are $3$ and $4$. Find the hypotenuse.",
+        ans: "$5$",
+        sol: "$c = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$. (Classic 3-4-5 triple.)"
+      },
+      {
+        q: "In a right triangle, one leg is $x$ and the other leg is $2$. The hypotenuse is $4$. Find $x$.",
+        ans: "$2\\sqrt{3}$",
+        sol: "$x^2 = 4^2 - 2^2 = 16 - 4 = 12$, so $x = \\sqrt{12} = 2\\sqrt{3} \\approx 3.46$."
+      },
+      {
+        q: "The legs of a right triangle are $5$ and $12$. Find the hypotenuse.",
         ans: "$13$",
-        sol: "$c = \\sqrt{5^2 + 12^2} = \\sqrt{25 + 144} = \\sqrt{169} = 13$."
+        sol: "$c = \\sqrt{5^2 + 12^2} = \\sqrt{25 + 144} = \\sqrt{169} = 13$. (Pythagorean triple 5-12-13.)"
       },
       {
-        q: "In a 30°–60°–90° triangle, the short leg is $4$ cm. Find the long leg and the hypotenuse.",
-        ans: "Long leg $= 4\\sqrt{3}$ cm, hypotenuse $= 8$ cm",
-        sol: "Short leg $= x = 4$. Long leg $= x\\sqrt{3} = 4\\sqrt{3}$. Hypotenuse $= 2x = 8$."
+        q: "In a right triangle, one leg is $9$ and the hypotenuse is $15$. Find the other leg.",
+        ans: "$12$",
+        sol: "$x^2 = 15^2 - 9^2 = 225 - 81 = 144$, so $x = 12$. (9-12-15 is a multiple of 3-4-5.)"
       }
     ],
     quiz: [
       {
-        q: "Find the distance between points $A(3, 4)$ and $B(0, 0)$.",
+        q: "Find the distance between points $A(3, 4)$ and $B(0, 0)$. This is a Pythagorean theorem application.",
         ans: "$5$",
         sol: "Distance $= \\sqrt{(3-0)^2 + (4-0)^2} = \\sqrt{9+16} = \\sqrt{25} = 5$."
       },
       {
         q: "A ladder leans against a wall. The foot of the ladder is $3$ m from the wall, and the top reaches $4$ m high. How long is the ladder?",
         ans: "$5$ m",
-        sol: "$c = \\sqrt{3^2 + 4^2} = \\sqrt{9+16} = \\sqrt{25} = 5$ m."
+        sol: "$c = \\sqrt{3^2 + 4^2} = \\sqrt{9+16} = \\sqrt{25} = 5$ m. (Classic 3-4-5 right triangle.)"
       },
       {
         q: "Which of the following is a Pythagorean triple?",
         options: ["$6, 8, 10$", "$4, 5, 6$", "$2, 3, 4$", "$7, 8, 15$"],
         ans: "$6, 8, 10$",
-        sol: "$6^2+8^2 = 36+64 = 100 = 10^2$. Also note $(6,8,10)$ is a multiple of $(3,4,5)$."
+        sol: "$6^2+8^2 = 36+64 = 100 = 10^2$. Also $(6,8,10)$ is a multiple of the classic $(3,4,5)$ triple. $(4,5,6)$ fails because $4^2+5^2 \\neq 6^2$."
       }
     ]
   },
@@ -80,7 +92,9 @@ var MATH_DATA = [
     coverage: "g",
     think: "$\\sqrt{2} \\approx 1.41421356...$ — can you write it as a fraction of two integers? What does this tell us about $\\sqrt{2}$?",
     videos: [
-      { yt: "SH_6A-K5bjY", t: "Introduction to Square Roots", m: "English · Khan Academy", duration: "~5 min" }
+      { yt: "SH_6A-K5bjY", t: "Introduction to Square Roots", m: "English · Khan Academy", duration: "~5 min",
+        local: "videos/Ch02_实数/07_Introduction to square roots.mp4",
+        ka: "https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:rational-exponents-radicals/x2f8bb11595b61c86:radicals/v/introduction-to-square-roots" }
     ],
     notes: [
       "Square root（平方根）: $\\sqrt{a}$ is the number whose square is $a$. Default = principal (non-negative) root.",
@@ -151,7 +165,9 @@ var MATH_DATA = [
     coverage: "g",
     think: "If you walk 3 blocks east and 4 blocks north, how far are you from your starting point? Can you draw this on a grid?",
     videos: [
-      { yt: "Q7NEzE6R5yg", t: "Introduction to the Coordinate Plane", m: "English · Khan Academy", duration: "~7 min" }
+      { yt: "Q7NEzE6R5yg", t: "Introduction to the Coordinate Plane", m: "English · Khan Academy", duration: "~7 min",
+        local: "videos/Ch03_位置与坐标/01_Introduction to the coordinate plane.mp4",
+        ka: "https://www.khanacademy.org/math/in-in-grade-9-ncert/xfd53e0255cd302f8:coordinate-geometry/xfd53e0255cd302f8:cartesian-system/v/introduction-to-the-coordinate-plane" }
     ],
     notes: [
       "Coordinate plane（平面直角坐标系）: x-axis (horizontal) and y-axis (vertical), intersecting at origin $O(0,0)$.",
@@ -220,7 +236,9 @@ var MATH_DATA = [
     coverage: "g",
     think: "A taxi charges $\\$3$ base fare plus $\\$2$ per km. Write an equation for the total cost $y$ in terms of distance $x$. Is this a function?",
     videos: [
-      { yt: "M0E1Pb3bHjw", t: "What is a Function?", m: "English · Khan Academy", duration: "~8 min" }
+      { yt: "M0E1Pb3bHjw", t: "What is a Function?", m: "English · Khan Academy", duration: "~8 min",
+        local: "videos/Ch04_一次函数/01_What is a function-.mp4",
+        ka: "https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:functions/introduction-to-functions/v/what-is-a-function" }
     ],
     notes: [
       "Function（函数）: each input $x$ has exactly one output $y$. Notation: $f(x)$.",
@@ -291,7 +309,9 @@ var MATH_DATA = [
     coverage: "g",
     think: "You buy 3 apples and 2 bananas for $\\$11$. Your friend buys 2 apples and 3 bananas for $\\$9$. Can you find the price of each fruit?",
     videos: [
-      { yt: "OcNt-ikp4xA", t: "Systems of Equations: Trolls, Tolls", m: "English · Khan Academy", duration: "~10 min" }
+      { yt: "OcNt-ikp4xA", t: "Solving Linear Systems by Graphing (Intro)", m: "English · Khan Academy", duration: "~8 min",
+        local: "videos/Ch05_二元一次方程组/01_Solving linear systems by graphing (intro).mp4",
+        ka: "https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:systems-of-equations/x2f8bb11595b61c86:systems-of-equations-intro/v/solving-linear-systems-by-graphing" }
     ],
     notes: [
       "System of equations（方程组）: two or more equations with the same variables.",
@@ -361,7 +381,9 @@ var MATH_DATA = [
     coverage: "g",
     think: "Five students scored: 72, 85, 85, 90, 98. Which number best represents 'typical' performance? Why might you choose a different one?",
     videos: [
-      { yt: "k3aKKasOmIw", t: "Statistics Intro: Mean, Median, & Mode", m: "English · Khan Academy", duration: "~9 min" }
+      { yt: "k3aKKasOmIw", t: "Statistics Intro: Mean, Median, & Mode", m: "English · Khan Academy", duration: "~9 min",
+        local: "videos/Ch06_数据的分析/01_Finding mean, median, and mode.mp4",
+        ka: "https://www.khanacademy.org/math/statistics-probability/xa9c5124c69e541e2:introduction-to-statistics/xa9c5124c69e541e2:statistics-intro/v/statistics-intro-mean-median-and-mode" }
     ],
     notes: [
       "Mean（平均数）: $\\bar{x} = \\frac{\\sum x_i}{n}$ — affected by outliers.",
@@ -434,7 +456,9 @@ var MATH_DATA = [
     coverage: "g",
     think: "How can you be absolutely sure that the angles in every triangle add to 180°? Is measuring one triangle enough?",
     videos: [
-      { yt: "I-1d_48VXF8", t: "Angles, Parallel Lines, & Transversals", m: "English · Khan Academy", duration: "~7 min" }
+      { yt: "gRKZaojKeP0", t: "Angles Formed by Parallel Lines and Transversals", m: "English · Khan Academy", duration: "~7 min",
+        local: "videos/Ch07_平行线的证明/01_Angles formed by parallel lines and transversals.mp4",
+        ka: "https://www.khanacademy.org/math/geometry-home/geometry-angles/old-angles/v/angles-formed-by-parallel-lines-and-transversals" }
     ],
     notes: [
       "Proposition（命题）: a statement that is either true or false.",
