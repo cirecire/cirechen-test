@@ -11,7 +11,7 @@ var MATH_DATA = [
     think: "A right triangle has legs $a$ and $b$, and hypotenuse $c$. What relationship connects them? Try a 3-4-5 triangle: does $3^2 + 4^2 = 5^2$?",
     videos: [
       { yt: "LrS5_l-gk94", t: "Pythagorean Theorem Proof Using Similarity", m: "English \\u00b7 Khan Academy", duration: "~10 min",
-        local: "../videos/Ch01_\\u52a8\\u80a1\\u5b9a\\u7406/09_Pythagorean theorem proof using similarity.mp4",
+        local: "../videos/Ch01_勾股定理/09_Pythagorean theorem proof using similarity.mp4",
         ka: "https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-pythagorean-proofs/v/pythagorean-theorem-proof-using-similarity" }
     ],
     notes: [
