@@ -619,7 +619,8 @@ function renderPanel(step) {
   var p = document.getElementById("p" + step);
   if (!p || !CH) return;
   if (step === 1) {
-    p.innerHTML = '<h2>Step 1 · Think</h2><div class="elicit">' + esc(CH.think || "") + '</div>' + nextBtn();
+    p.innerHTML = '<h2>Step 1 · Think</h2><div class="elicit" id="thinkBox"></div>' + nextBtn();
+    var tb = document.getElementById("thinkBox"); tb.textContent = CH.think || ""; renderMath(tb);
   } else if (step === 2) {
     var v = '<h2>Step 2 · Watch</h2>';
     (CH.videos || []).forEach(function(vid){
@@ -629,10 +630,12 @@ function renderPanel(step) {
     });
     p.innerHTML = v + nextBtn();
   } else if (step === 3) {
-    var n = '<h2>Step 3 · Notes</h2><ul class="notes-list">';
-    (CH.notes || []).forEach(function(nt){ n += '<li>' + esc(nt) + '</li>'; });
-    n += '</ul>';
+    var n = '<h2>Step 3 · Notes</h2><ul class="notes-list" id="notesList"></ul>';
     p.innerHTML = n + nextBtn();
+    var nl = document.getElementById("notesList");
+    (CH.notes || []).forEach(function(nt){
+      var li = document.createElement("li"); li.textContent = nt; renderMath(li); nl.appendChild(li);
+    });
   } else if (step === 4) {
     document.getElementById("paperNote").style.display = 'block';
     p.innerHTML = '<h2>Step 4 · Practice</h2><div id="practiceBox"></div>' + nextBtn("Finish practice, next ›");
