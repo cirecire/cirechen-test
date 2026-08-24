@@ -10,65 +10,65 @@ var MATH_DATA = [
     coverage: "g",
     think: "A right triangle has legs $a$ and $b$, and hypotenuse $c$. What relationship connects them? Try a 3-4-5 triangle: does $3^2 + 4^2 = 5^2$?",
     videos: [
-      { yt: "LrS5_l-gk94", t: "Pythagorean Theorem Proof Using Similarity", m: "English \u00b7 Khan Academy", duration: "~10 min",
-        local: "videos/Ch01_\u52a8\u80a1\u5b9a\u7406/09_Pythagorean theorem proof using similarity.mp4",
+      { yt: "LrS5_l-gk94", t: "Pythagorean Theorem Proof Using Similarity", m: "English \\u00b7 Khan Academy", duration: "~10 min",
+        local: "videos/Ch01_\\u52a8\\u80a1\\u5b9a\\u7406/09_Pythagorean theorem proof using similarity.mp4",
         ka: "https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-pythagorean-proofs/v/pythagorean-theorem-proof-using-similarity" }
     ],
     notes: [
-      "In a right triangle (\u76f4\u89d2\u4e09\u89d2\u5f62): $a^2 + b^2 = c^2$, where $c$ is the hypotenuse (\u659c\u8fb9, opposite the right angle).",
-      "Find hypotenuse: $c = \sqrt{a^2+b^2}$. Find a leg: $a = \sqrt{c^2-b^2}$.",
-      "Pythagorean triples (\u52a0\u80a1\u6570): $(3,4,5)$, $(5,12,13)$, $(8,15,17)$, $(7,24,25)$.",
-      "Distance formula (\u8ddd\u79bb\u516c\u5f0f): $d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$."
+      "In a right triangle (\\u76f4\\u89d2\\u4e09\\u89d2\\u5f62): $a^2 + b^2 = c^2$, where $c$ is the hypotenuse (\\u659c\\u8fb9, opposite the right angle).",
+      "Find hypotenuse: $c = \\sqrt{a^2+b^2}$. Find a leg: $a = \\sqrt{c^2-b^2}$.",
+      "Pythagorean triples (\\u52a0\\u80a1\\u6570): $(3,4,5)$, $(5,12,13)$, $(8,15,17)$, $(7,24,25)$.",
+      "Distance formula (\\u8ddd\\u79bb\\u516c\\u5f0f): $d = \\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$."
     ],
     practice: [
       {
         q: "Find $x$ in the right triangle shown.",
         dia: { type: "triangle", w: 5, h: 3, A: "A", B: "B", C: "C", a: "5", b: "x", c: "6" },
-        options: ["$x = \sqrt{11}$", "$x = \sqrt{61}$", "$x = 11$", "$x = 30$"],
+        options: ["$x = \\sqrt{11}$", "$x = \\sqrt{61}$", "$x = 11$", "$x = 30$"],
         ansIdx: 0,
-        sol: "The hypotenuse is $6$, one leg is $5$. By the Pythagorean theorem: $x^2 = 6^2 - 5^2 = 36 - 25 = 11$, so $x = \sqrt{11}$."
+        sol: "The hypotenuse is $6$, one leg is $5$. By the Pythagorean theorem: $x^2 = 6^2 - 5^2 = 36 - 25 = 11$, so $x = \\sqrt{11}$."
       },
       {
         q: "Find $x$ (the hypotenuse) in the right triangle shown.",
         dia: { type: "triangle", w: 8, h: 4, A: "A", B: "B", C: "C", a: "8", b: "4", c: "x" },
-        options: ["$x = \sqrt{80}$", "$x = \sqrt{48}$", "$x = \sqrt{32}$", "$x = \sqrt{12}$"],
+        options: ["$x = \\sqrt{80}$", "$x = \\sqrt{48}$", "$x = \\sqrt{32}$", "$x = \\sqrt{12}$"],
         ansIdx: 0,
-        sol: "Both legs are known: $8$ and $4$. $x^2 = 8^2 + 4^2 = 64 + 16 = 80$, so $x = \sqrt{80}$."
+        sol: "Both legs are known: $8$ and $4$. $x^2 = 8^2 + 4^2 = 64 + 16 = 80$, so $x = \\sqrt{80}$."
       },
       {
         q: "Find $x$ in the right triangle shown.",
         dia: { type: "triangle", w: 4, h: 3, A: "A", B: "B", C: "C", a: "4", b: "x", c: "5" },
-        options: ["$x = 2$", "$x = 3$", "$x = \sqrt{20}$", "$x = \sqrt{36}$"],
+        options: ["$x = 2$", "$x = 3$", "$x = \\sqrt{20}$", "$x = \\sqrt{36}$"],
         ansIdx: 1,
-        sol: "The hypotenuse is $5$, one leg is $4$. $x^2 = 5^2 - 4^2 = 25 - 16 = 9$, so $x = \sqrt{9} = 3$."
+        sol: "The hypotenuse is $5$, one leg is $4$. $x^2 = 5^2 - 4^2 = 25 - 16 = 9$, so $x = \\sqrt{9} = 3$."
       },
       {
         q: "Find $x$ (the hypotenuse) in the right triangle shown.",
         dia: { type: "triangle", w: 3, h: 4, A: "A", B: "B", C: "C", a: "3", b: "4", c: "x" },
-        options: ["$x = 5$", "$x = \sqrt{7}$", "$x = 7$", "$x = 25$"],
+        options: ["$x = 5$", "$x = \\sqrt{7}$", "$x = 7$", "$x = 25$"],
         ansIdx: 0,
-        sol: "Classic 3-4-5 right triangle: $x^2 = 3^2 + 4^2 = 9 + 16 = 25$, so $x = \sqrt{25} = 5$."
+        sol: "Classic 3-4-5 right triangle: $x^2 = 3^2 + 4^2 = 9 + 16 = 25$, so $x = \\sqrt{25} = 5$."
       },
       {
         q: "Find $x$ in the right triangle shown.",
         dia: { type: "triangle", w: 2, h: 3, A: "A", B: "B", C: "C", a: "2", b: "x", c: "4" },
-        options: ["$x = 8$", "$x = \sqrt{8}$", "$x = \sqrt{6}$", "$x = \sqrt{12}$"],
+        options: ["$x = 8$", "$x = \\sqrt{8}$", "$x = \\sqrt{6}$", "$x = \\sqrt{12}$"],
         ansIdx: 3,
-        sol: "The hypotenuse is $4$, one leg is $2$. $x^2 = 4^2 - 2^2 = 16 - 4 = 12$, so $x = \sqrt{12}$."
+        sol: "The hypotenuse is $4$, one leg is $2$. $x^2 = 4^2 - 2^2 = 16 - 4 = 12$, so $x = \\sqrt{12}$."
       },
       {
         q: "Find $x$ (the hypotenuse) in the right triangle shown.",
         dia: { type: "triangle", w: 5, h: 4, A: "A", B: "B", C: "C", a: "5", b: "4", c: "x" },
-        options: ["$x = \sqrt{20}$", "$x = \sqrt{41}$", "$x = 3$", "$x = 9$"],
+        options: ["$x = \\sqrt{20}$", "$x = \\sqrt{41}$", "$x = 3$", "$x = 9$"],
         ansIdx: 1,
-        sol: "Both legs are known: $5$ and $4$. $x^2 = 5^2 + 4^2 = 25 + 16 = 41$, so $x = \sqrt{41}$."
+        sol: "Both legs are known: $5$ and $4$. $x^2 = 5^2 + 4^2 = 25 + 16 = 41$, so $x = \\sqrt{41}$."
       },
       {
         q: "Find $x$ in the right triangle shown.",
         dia: { type: "triangle", w: 9, h: 12, A: "A", B: "B", C: "C", a: "9", b: "x", c: "15" },
-        options: ["$x = \sqrt{135}$", "$x = 12$", "$x = 24$", "$x = \sqrt{24}$"],
+        options: ["$x = \\sqrt{135}$", "$x = 12$", "$x = 24$", "$x = \\sqrt{24}$"],
         ansIdx: 1,
-        sol: "The hypotenuse is $15$, one leg is $9$. $x^2 = 15^2 - 9^2 = 225 - 81 = 144$, so $x = \sqrt{144} = 12$. (9-12-15 is a multiple of 3-4-5.)"
+        sol: "The hypotenuse is $15$, one leg is $9$. $x^2 = 15^2 - 9^2 = 225 - 81 = 144$, so $x = \\sqrt{144} = 12$. (9-12-15 is a multiple of 3-4-5.)"
       }
     ],
     quiz: [
@@ -82,9 +82,9 @@ var MATH_DATA = [
       {
         q: "Two points are 3 units apart horizontally and 4 units apart vertically. What is the distance between them?",
         dia: { type: "triangle", w: 3, h: 4, A: "A", B: "B", C: "C", a: "3", b: "4", c: "x" },
-        options: ["$5$", "$\sqrt{7}$", "$7$", "$25$"],
+        options: ["$5$", "$\\sqrt{7}$", "$7$", "$25$"],
         ansIdx: 0,
-        sol: "Form a right triangle: $d^2 = 3^2 + 4^2 = 9 + 16 = 25$, so $d = \sqrt{25} = 5$."
+        sol: "Form a right triangle: $d^2 = 3^2 + 4^2 = 9 + 16 = 25$, so $d = \\sqrt{25} = 5$."
       },
       {
         q: "Which set of side lengths can form a right triangle?",
@@ -105,65 +105,65 @@ var MATH_DATA = [
     gx: 2,
     title: "Real Numbers",
     coverage: "g",
-    think: "$\\sqrt{2} \\approx 1.41421356...$ — can you write it as a fraction of two integers? What does this tell us about $\\sqrt{2}$?",
+    think: "$\\\sqrt{2} \\\approx 1.41421356...$ — can you write it as a fraction of two integers? What does this tell us about $\\\sqrt{2}$?",
     videos: [
       { yt: "SH_6A-K5bjY", t: "Introduction to Square Roots", m: "English · Khan Academy", duration: "~5 min",
         local: "videos/Ch02_实数/07_Introduction to square roots.mp4",
         ka: "https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:rational-exponents-radicals/x2f8bb11595b61c86:radicals/v/introduction-to-square-roots" }
     ],
     notes: [
-      "Square root（平方根）: $\\sqrt{a}$ is the number whose square is $a$. Default = principal (non-negative) root.",
-      "$\\sqrt{a^2} = |a|$; $(-3)^2 = 9$, so $\\sqrt{9} = 3$ (not $-3$).",
-      "Cube root（立方根）: $\\sqrt[3]{a}$ — can be negative, since $(-2)^3 = -8$, so $\\sqrt[3]{-8} = -2$.",
-      "Rational number（有理数）: can be written as $\\frac{p}{q}$ where $p, q$ are integers, $q \\neq 0$. Decimals are terminating or repeating.",
-      "Irrational number（无理数）: non-terminating, non-repeating decimals. Examples: $\\sqrt{2}$, $\\pi$, $e$.",
+      "Square root（平方根）: $\\\sqrt{a}$ is the number whose square is $a$. Default = principal (non-negative) root.",
+      "$\\\sqrt{a^2} = |a|$; $(-3)^2 = 9$, so $\\\sqrt{9} = 3$ (not $-3$).",
+      "Cube root（立方根）: $\\\sqrt[3]{a}$ — can be negative, since $(-2)^3 = -8$, so $\\\sqrt[3]{-8} = -2$.",
+      "Rational number（有理数）: can be written as $\\\frac{p}{q}$ where $p, q$ are integers, $q \\\neq 0$. Decimals are terminating or repeating.",
+      "Irrational number（无理数）: non-terminating, non-repeating decimals. Examples: $\\\sqrt{2}$, $\\\pi$, $e$.",
       "Real numbers（实数） = rational + irrational. Every point on the number line is a real number.",
-      "Laws: $\\sqrt{ab} = \\sqrt{a}\\sqrt{b}$, $\\sqrt{\\frac{a}{b}} = \\frac{\\sqrt{a}}{\\sqrt{b}}$."
+      "Laws: $\\\sqrt{ab} = \\\sqrt{a}\\\sqrt{b}$, $\\\sqrt{\\\frac{a}{b}} = \\\frac{\\\sqrt{a}}{\\\sqrt{b}}$."
     ],
     practice: [
       {
-        q: "Simplify: $\\sqrt{72}$.",
-        ans: "$6\\sqrt{2}$",
-        sol: "$\\sqrt{72} = \\sqrt{36 \\times 2} = \\sqrt{36} \\times \\sqrt{2} = 6\\sqrt{2}$."
+        q: "Simplify: $\\\sqrt{72}$.",
+        ans: "$6\\\sqrt{2}$",
+        sol: "$\\\sqrt{72} = \\\sqrt{36 \\\times 2} = \\\sqrt{36} \\\times \\\sqrt{2} = 6\\\sqrt{2}$."
       },
       {
-        q: "Evaluate: $\\sqrt[3]{-27}$.",
+        q: "Evaluate: $\\\sqrt[3]{-27}$.",
         ans: "$-3$",
-        sol: "Since $(-3)^3 = -27$, we have $\\sqrt[3]{-27} = -3$."
+        sol: "Since $(-3)^3 = -27$, we have $\\\sqrt[3]{-27} = -3$."
       },
       {
-        q: "Is $\\sqrt{16}$ rational or irrational?",
+        q: "Is $\\\sqrt{16}$ rational or irrational?",
         ans: "Rational",
-        sol: "$\\sqrt{16} = 4 = \\frac{4}{1}$, which is a ratio of two integers."
+        sol: "$\\\sqrt{16} = 4 = \\\frac{4}{1}$, which is a ratio of two integers."
       },
       {
-        q: "Between which two consecutive integers does $\\sqrt{50}$ lie?",
+        q: "Between which two consecutive integers does $\\\sqrt{50}$ lie?",
         ans: "$7$ and $8$",
-        sol: "$7^2 = 49$ and $8^2 = 64$. Since $49 < 50 < 64$, we have $7 < \\sqrt{50} < 8$."
+        sol: "$7^2 = 49$ and $8^2 = 64$. Since $49 < 50 < 64$, we have $7 < \\\sqrt{50} < 8$."
       },
       {
-        q: "Simplify: $\\sqrt{12} \\times \\sqrt{3}$.",
+        q: "Simplify: $\\\sqrt{12} \\\times \\\sqrt{3}$.",
         ans: "$6$",
-        sol: "$\\sqrt{12} \\times \\sqrt{3} = \\sqrt{12 \\times 3} = \\sqrt{36} = 6$."
+        sol: "$\\\sqrt{12} \\\times \\\sqrt{3} = \\\sqrt{12 \\\times 3} = \\\sqrt{36} = 6$."
       }
     ],
     quiz: [
       {
         q: "Which of the following is irrational?",
-        options: ["$\\sqrt{4}$", "$\\sqrt{9}$", "$\\sqrt{2}$", "$\\frac{3}{4}$"],
-        ans: "$\\sqrt{2}$",
-        sol: "$\\sqrt{2} \\approx 1.414...$ cannot be written as a fraction of integers."
+        options: ["$\\\sqrt{4}$", "$\\\sqrt{9}$", "$\\\sqrt{2}$", "$\\\frac{3}{4}$"],
+        ans: "$\\\sqrt{2}$",
+        sol: "$\\\sqrt{2} \\\approx 1.414...$ cannot be written as a fraction of integers."
       },
       {
-        q: "Simplify $\\sqrt{50}$ completely.",
-        ans: "$5\\sqrt{2}$",
-        sol: "$\\sqrt{50} = \\sqrt{25 \\times 2} = 5\\sqrt{2}$."
+        q: "Simplify $\\\sqrt{50}$ completely.",
+        ans: "$5\\\sqrt{2}$",
+        sol: "$\\\sqrt{50} = \\\sqrt{25 \\\times 2} = 5\\\sqrt{2}$."
       },
       {
         q: "Classify the number $0.333...$ (repeating).",
         options: ["Integer", "Rational", "Irrational", "Natural"],
         ans: "Rational",
-        sol: "Repeating decimals are rational. $0.\\overline{3} = \\frac{1}{3}$."
+        sol: "Repeating decimals are rational. $0.\\\overline{3} = \\\frac{1}{3}$."
       }
     ]
   },
@@ -187,25 +187,25 @@ var MATH_DATA = [
     notes: [
       "Coordinate plane（平面直角坐标系）: x-axis (horizontal) and y-axis (vertical), intersecting at origin $O(0,0)$.",
       "Quadrants（象限）: Q1 (+,+), Q2 (-,+), Q3 (-,-), Q4 (+,-).",
-      "Distance formula（距离公式）: $d = \\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$ — derived from Pythagorean theorem.",
-      "Midpoint formula（中点公式）: $M = \\left(\\frac{x_1+x_2}{2}, \\frac{y_1+y_2}{2}\\right)$.",
-      "Reflection over x-axis: $(x,y) \\rightarrow (x,-y)$; over y-axis: $(x,y) \\rightarrow (-x,y)$."
+      "Distance formula（距离公式）: $d = \\\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$ — derived from Pythagorean theorem.",
+      "Midpoint formula（中点公式）: $M = \\\left(\\\frac{x_1+x_2}{2}, \\\frac{y_1+y_2}{2}\\\right)$.",
+      "Reflection over x-axis: $(x,y) \\\rightarrow (x,-y)$; over y-axis: $(x,y) \\\rightarrow (-x,y)$."
     ],
     practice: [
       {
         q: "Plot the points $A(3, 2)$ and $B(-1, 5)$. Find the distance between them.",
         ans: "$5$",
-        sol: "$d = \\sqrt{(3-(-1))^2 + (2-5)^2} = \\sqrt{16 + 9} = \\sqrt{25} = 5$."
+        sol: "$d = \\\sqrt{(3-(-1))^2 + (2-5)^2} = \\\sqrt{16 + 9} = \\\sqrt{25} = 5$."
       },
       {
         q: "Find the midpoint of the segment joining $P(2, 6)$ and $Q(8, -2)$.",
         ans: "$(5, 2)$",
-        sol: "$M = \\left(\\frac{2+8}{2}, \\frac{6+(-2)}{2}\\right) = (5, 2)$."
+        sol: "$M = \\\left(\\\frac{2+8}{2}, \\\frac{6+(-2)}{2}\\\right) = (5, 2)$."
       },
       {
         q: "What is the reflection of point $(4, -3)$ across the x-axis?",
         ans: "$(4, 3)$",
-        sol: "Reflection over x-axis changes the sign of the y-coordinate: $(4, -3) \\rightarrow (4, 3)$."
+        sol: "Reflection over x-axis changes the sign of the y-coordinate: $(4, -3) \\\rightarrow (4, 3)$."
       },
       {
         q: "In which quadrant is the point $(-5, 2)$ located?",
@@ -215,7 +215,7 @@ var MATH_DATA = [
       {
         q: "Find the perimeter of the triangle with vertices $A(0,0)$, $B(3,0)$, and $C(0,4)$.",
         ans: "$12$",
-        sol: "$AB = 3$, $AC = 4$, $BC = \\sqrt{3^2+4^2} = 5$. Perimeter = $3+4+5 = 12$."
+        sol: "$AB = 3$, $AC = 4$, $BC = \\\sqrt{3^2+4^2} = 5$. Perimeter = $3+4+5 = 12$."
       }
     ],
     quiz: [
@@ -223,12 +223,12 @@ var MATH_DATA = [
         q: "The distance from $(0,0)$ to $(6,8)$ is:",
         options: ["$6$", "$8$", "$10$", "$14$"],
         ans: "$10$",
-        sol: "$d = \\sqrt{6^2 + 8^2} = \\sqrt{36+64} = \\sqrt{100} = 10$."
+        sol: "$d = \\\sqrt{6^2 + 8^2} = \\\sqrt{36+64} = \\\sqrt{100} = 10$."
       },
       {
         q: "Find the midpoint of $(-4, 6)$ and $(2, -2)$.",
         ans: "$(-1, 2)$",
-        sol: "$\\left(\\frac{-4+2}{2}, \\frac{6+(-2)}{2}\\right) = (-1, 2)$."
+        sol: "$\\\left(\\\frac{-4+2}{2}, \\\frac{6+(-2)}{2}\\\right) = (-1, 2)$."
       },
       {
         q: "Which point is in Quadrant III?",
@@ -258,16 +258,16 @@ var MATH_DATA = [
     notes: [
       "Function（函数）: each input $x$ has exactly one output $y$. Notation: $f(x)$.",
       "Linear function（一次函数）: $y = mx + b$ or $f(x) = mx + b$.",
-      "Slope（斜率）$m = \\frac{\\Delta y}{\\Delta x} = \\frac{y_2-y_1}{x_2-x_1}$ — rate of change.",
+      "Slope（斜率）$m = \\\frac{\\\Delta y}{\\\Delta x} = \\\frac{y_2-y_1}{x_2-x_1}$ — rate of change.",
       "y-intercept（y轴截距）$b$: where line crosses y-axis; x-intercept: where $y=0$.",
       "Slope-intercept form（斜截式）: $y = mx + b$ — easiest for graphing.",
-      "Parallel lines have equal slopes; perpendicular lines have slopes that are negative reciprocals ($m_1 \\cdot m_2 = -1$)."
+      "Parallel lines have equal slopes; perpendicular lines have slopes that are negative reciprocals ($m_1 \\\cdot m_2 = -1$)."
     ],
     practice: [
       {
         q: "Find the slope of the line through $(2, 5)$ and $(6, 13)$.",
         ans: "$2$",
-        sol: "$m = \\frac{13-5}{6-2} = \\frac{8}{4} = 2$."
+        sol: "$m = \\\frac{13-5}{6-2} = \\\frac{8}{4} = 2$."
       },
       {
         q: "Write the equation of the line with slope $-3$ passing through $(0, 4)$.",
@@ -285,9 +285,9 @@ var MATH_DATA = [
         sol: "Both have slope $m = 2$, so they are parallel."
       },
       {
-        q: "Find the slope of a line perpendicular to $y = \\frac{1}{3}x + 2$.",
+        q: "Find the slope of a line perpendicular to $y = \\\frac{1}{3}x + 2$.",
         ans: "$-3$",
-        sol: "Negative reciprocal of $\\frac{1}{3}$ is $-3$."
+        sol: "Negative reciprocal of $\\\frac{1}{3}$ is $-3$."
       }
     ],
     quiz: [
@@ -305,9 +305,9 @@ var MATH_DATA = [
       },
       {
         q: "Which line is perpendicular to $y = 4x + 1$?",
-        options: ["$y = 4x - 3$", "$y = -4x + 2$", "$y = -\\frac{1}{4}x + 5$", "$y = \\frac{1}{4}x$"],
-        ans: "$y = -\\frac{1}{4}x + 5$",
-        sol: "Perpendicular slopes are negative reciprocals: $-\\frac{1}{4}$."
+        options: ["$y = 4x - 3$", "$y = -4x + 2$", "$y = -\\\frac{1}{4}x + 5$", "$y = \\\frac{1}{4}x$"],
+        ans: "$y = -\\\frac{1}{4}x + 5$",
+        sol: "Perpendicular slopes are negative reciprocals: $-\\\frac{1}{4}$."
       }
     ]
   },
@@ -350,7 +350,7 @@ var MATH_DATA = [
       {
         q: "How many solutions? $2x + y = 4$ and $4x + 2y = 8$.",
         ans: "Infinitely many",
-        sol: "Second equation is $2 \\times$ first. Same line → infinitely many solutions."
+        sol: "Second equation is $2 \\\times$ first. Same line → infinitely many solutions."
       },
       {
         q: "A rectangle has perimeter 30. The length is 3 more than the width. Find dimensions.",
@@ -372,8 +372,8 @@ var MATH_DATA = [
       },
       {
         q: "Solve: $2x + 3y = 12$ and $x = 4$. Find $y$.",
-        ans: "$\\frac{4}{3}$",
-        sol: "Substitute $x = 4$: $2(4) + 3y = 12$, so $3y = 4$, $y = \\frac{4}{3}$."
+        ans: "$\\\frac{4}{3}$",
+        sol: "Substitute $x = 4$: $2(4) + 3y = 12$, so $3y = 4$, $y = \\\frac{4}{3}$."
       },
       {
         q: "A system has solution $(3, -1)$. Which equations could it be?",
@@ -401,19 +401,19 @@ var MATH_DATA = [
         ka: "https://www.khanacademy.org/math/statistics-probability/xa9c5124c69e541e2:introduction-to-statistics/xa9c5124c69e541e2:statistics-intro/v/statistics-intro-mean-median-and-mode" }
     ],
     notes: [
-      "Mean（平均数）: $\\bar{x} = \\frac{\\sum x_i}{n}$ — affected by outliers.",
+      "Mean（平均数）: $\\\bar{x} = \\\frac{\\\sum x_i}{n}$ — affected by outliers.",
       "Median（中位数）: middle value when ordered — robust to outliers.",
       "Mode（众数）: most frequent value — useful for categorical data.",
       "Range（极差）: max − min — simple spread measure.",
       "MAD (Mean Absolute Deviation): average distance from mean.",
-      "Standard deviation（标准差）: $s = \\sqrt{\\frac{\\sum(x_i - \\bar{x})^2}{n-1}}$ — spread measure.",
+      "Standard deviation（标准差）: $s = \\\sqrt{\\\frac{\\\sum(x_i - \\\bar{x})^2}{n-1}}$ — spread measure.",
       "Box plot（箱线图）: shows Q1, median, Q3, IQR, outliers."
     ],
     practice: [
       {
         q: "Find the mean, median, and mode of: $5, 7, 8, 8, 10, 12$.",
         ans: "Mean $= 8.33$, Median $= 8$, Mode $= 8$",
-        sol: "Mean = $\\frac{50}{6} \\approx 8.33$. Ordered: middle is $8$. Mode is $8$ (appears twice)."
+        sol: "Mean = $\\\frac{50}{6} \\\approx 8.33$. Ordered: middle is $8$. Mode is $8$ (appears twice)."
       },
       {
         q: "Data: $2, 5, 7, 10, 15$. Find the range and IQR.",
@@ -428,7 +428,7 @@ var MATH_DATA = [
       {
         q: "Find the standard deviation of: $3, 5, 7$.",
         ans: "$2$",
-        sol: "Mean = $5$. Deviations: $-2, 0, 2$. Squared: $4, 0, 4$. Variance = $\\frac{8}{2} = 4$. SD = $\\sqrt{4} = 2$."
+        sol: "Mean = $5$. Deviations: $-2, 0, 2$. Squared: $4, 0, 4$. Variance = $\\\frac{8}{2} = 4$. SD = $\\\sqrt{4} = 2$."
       },
       {
         q: "In a box plot, what does the box represent?",
@@ -480,7 +480,7 @@ var MATH_DATA = [
       "Theorem（定理）: a proposition that has been proven true.",
       "Proof（证明）: logical argument from axioms/definitions to conclusion.",
       "Parallel lines & transversal（平行线与截线）: corresponding angles equal, alternate interior angles equal, consecutive interior angles supplementary.",
-      "Triangle Angle Sum Theorem（三角形内角和定理）: $\\angle A + \\angle B + \\angle C = 180°$ — proven using parallel lines.",
+      "Triangle Angle Sum Theorem（三角形内角和定理）: $\\\angle A + \\\angle B + \\\angle C = 180°$ — proven using parallel lines.",
       "Congruent triangles（全等三角形）: SSS, SAS, ASA, AAS, HL (Hypotenuse-Leg for right triangles).",
       "CPCTC: Corresponding Parts of Congruent Triangles are Congruent.",
       "Isosceles triangle（等腰三角形）: base angles equal; converse also true."
@@ -492,9 +492,9 @@ var MATH_DATA = [
         sol: "Corresponding angles are equal when lines are parallel."
       },
       {
-        q: "In $\\triangle ABC$, $\\angle A = 50°$ and $\\angle B = 60°$. Find $\\angle C$.",
+        q: "In $\\\triangle ABC$, $\\\angle A = 50°$ and $\\\angle B = 60°$. Find $\\\angle C$.",
         ans: "$70°$",
-        sol: "$\\angle C = 180° - 50° - 60° = 70°$."
+        sol: "$\\\angle C = 180° - 50° - 60° = 70°$."
       },
       {
         q: "Which congruence criterion applies? Two sides and the included angle are equal.",
@@ -502,9 +502,9 @@ var MATH_DATA = [
         sol: "Side-Angle-Side: two sides and the included angle determine a unique triangle."
       },
       {
-        q: "In isosceles $\\triangle XYZ$ with $XY = XZ$, if $\\angle Y = 40°$, find $\\angle Z$ and $\\angle X$.",
-        ans: "$\\angle Z = 40°$, $\\angle X = 100°$",
-        sol: "Base angles equal: $\\angle Z = 40°$. Then $\\angle X = 180° - 40° - 40° = 100°$."
+        q: "In isosceles $\\\triangle XYZ$ with $XY = XZ$, if $\\\angle Y = 40°$, find $\\\angle Z$ and $\\\angle X$.",
+        ans: "$\\\angle Z = 40°$, $\\\angle X = 100°$",
+        sol: "Base angles equal: $\\\angle Z = 40°$. Then $\\\angle X = 180° - 40° - 40° = 100°$."
       },
       {
         q: "Prove: If two angles of a triangle are equal, then the sides opposite them are equal.",
@@ -520,12 +520,12 @@ var MATH_DATA = [
         sol: "AAA proves similarity, not congruence (triangles can have same angles but different sizes)."
       },
       {
-        q: "In the diagram, $l \\parallel m$ and $\\angle 1 = 110°$. Find $\\angle 2$ (alternate interior angle).",
+        q: "In the diagram, $l \\\parallel m$ and $\\\angle 1 = 110°$. Find $\\\angle 2$ (alternate interior angle).",
         ans: "$110°$",
         sol: "Alternate interior angles are equal when lines are parallel."
       },
       {
-        q: "$\\triangle ABC \\cong \\triangle DEF$ by SAS. If $AB = 5$ and $BC = 7$, which side in $\\triangle DEF$ equals $7$?",
+        q: "$\\\triangle ABC \\\cong \\\triangle DEF$ by SAS. If $AB = 5$ and $BC = 7$, which side in $\\\triangle DEF$ equals $7$?",
         options: ["$DE$", "$EF$", "$DF$", "Cannot determine"],
         ans: "$EF$",
         sol: "Corresponding to $BC$ is $EF$. CPCTC: corresponding parts of congruent triangles are congruent."
