@@ -25,49 +25,58 @@ var MATH_DATA = [
     ],
     practice: [
       {
-        q: "In a right triangle, one leg is $5$ and the hypotenuse is $6$. Find the other leg (round to 2 decimal places if needed).",
-        ans: "$\\sqrt{11}$",
-        sol: "$x^2 = 6^2 - 5^2 = 36 - 25 = 11$, so $x = \\sqrt{11} \\approx 3.32$."
-      },
-      {
-        q: "In a right triangle, one leg is $8$ and the other leg is $4$. Find the hypotenuse.",
-        ans: "$4\\sqrt{5}$",
-        sol: "$c = \\sqrt{8^2 + 4^2} = \\sqrt{64 + 16} = \\sqrt{80} = 4\\sqrt{5} \\approx 8.94$."
-      },
-      {
-        q: "In a right triangle, one leg is $4$ and the hypotenuse is $5$. Find the other leg.",
-        ans: "$3$",
-        sol: "$x^2 = 5^2 - 4^2 = 25 - 16 = 9$, so $x = 3$."
-      },
-      {
-        q: "The two legs of a right triangle are $3$ and $4$. Find the hypotenuse.",
-        ans: "$5$",
-        sol: "$c = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$. (Classic 3-4-5 triple.)"
-      },
-      {
-        q: "In a right triangle, one leg is $x$ and the other leg is $2$. The hypotenuse is $4$. Find $x$.",
-        ans: "$2\\sqrt{3}$",
-        sol: "$x^2 = 4^2 - 2^2 = 16 - 4 = 12$, so $x = \\sqrt{12} = 2\\sqrt{3} \\approx 3.46$."
-      },
-      {
-        q: "The legs of a right triangle are $5$ and $12$. Find the hypotenuse.",
+        q: "In the right triangle shown, one leg is $AC = 5$ and the other leg is $BC = 12$. What is $AB$?",
+        dia: { type: "triangle", w: 5, h: 12, A: "A", B: "B", C: "C", a: "12", b: "5", c: "?" },
         ans: "$13$",
-        sol: "$c = \\sqrt{5^2 + 12^2} = \\sqrt{25 + 144} = \\sqrt{169} = 13$. (Pythagorean triple 5-12-13.)"
+        sol: "$AB = \\sqrt{AC^2 + BC^2} = \\sqrt{5^2 + 12^2} = \\sqrt{25 + 144} = \\sqrt{169} = 13$."
       },
       {
-        q: "In a right triangle, one leg is $9$ and the hypotenuse is $15$. Find the other leg.",
+        q: "In the right triangle shown, $AC = 4$ and $AB = 5$. What is $BC$?",
+        dia: { type: "triangle", w: 3, h: 4, A: "A", B: "B", C: "C", a: "4", b: "?", c: "5" },
+        ans: "$3$",
+        sol: "$BC = \\sqrt{AB^2 - AC^2} = \\sqrt{5^2 - 4^2} = \\sqrt{25 - 16} = \\sqrt{9} = 3$."
+      },
+      {
+        q: "In the right triangle shown, one leg is $BC = 7$ and the other leg is $AC = 24$. What is $AB$?",
+        dia: { type: "triangle", w: 7, h: 24, A: "A", B: "B", C: "C", a: "24", b: "7", c: "?" },
+        ans: "$25$",
+        sol: "$AB = \\sqrt{BC^2 + AC^2} = \\sqrt{7^2 + 24^2} = \\sqrt{49 + 576} = \\sqrt{625} = 25$. (7-24-25 is a Pythagorean triple.)"
+      },
+      {
+        q: "In the right triangle shown, $BC = 6$ and $AB = 10$. What is $AC$?",
+        dia: { type: "triangle", w: 6, h: 8, A: "A", B: "B", C: "C", a: "?", b: "6", c: "10" },
+        ans: "$8$",
+        sol: "$AC = \\sqrt{AB^2 - BC^2} = \\sqrt{10^2 - 6^2} = \\sqrt{100 - 36} = \\sqrt{64} = 8$. (6-8-10 is a multiple of 3-4-5.)"
+      },
+      {
+        q: "In the right triangle shown, one leg is $AC = 8$ and the other leg is $BC = 15$. What is $AB$?",
+        dia: { type: "triangle", w: 8, h: 15, A: "A", B: "B", C: "C", a: "15", b: "8", c: "?" },
+        ans: "$17$",
+        sol: "$AB = \\sqrt{AC^2 + BC^2} = \\sqrt{8^2 + 15^2} = \\sqrt{64 + 225} = \\sqrt{289} = 17$. (8-15-17 is a Pythagorean triple.)"
+      },
+      {
+        q: "In the right triangle shown, $AC = 9$ and $AB = 15$. What is $BC$?",
+        dia: { type: "triangle", w: 9, h: 12, A: "A", B: "B", C: "C", a: "9", b: "?", c: "15" },
         ans: "$12$",
-        sol: "$x^2 = 15^2 - 9^2 = 225 - 81 = 144$, so $x = 12$. (9-12-15 is a multiple of 3-4-5.)"
+        sol: "$BC = \\sqrt{AB^2 - AC^2} = \\sqrt{15^2 - 9^2} = \\sqrt{225 - 81} = \\sqrt{144} = 12$. (9-12-15 is a multiple of 3-4-5.)"
+      },
+      {
+        q: "In the right triangle shown, one leg is $BC = 5$ and the other leg is $AC = 12$. What is $AB$?",
+        dia: { type: "triangle", w: 5, h: 12, A: "A", B: "B", C: "C", a: "12", b: "5", c: "?" },
+        ans: "$13$",
+        sol: "$AB = \\sqrt{BC^2 + AC^2} = \\sqrt{5^2 + 12^2} = \\sqrt{25 + 144} = \\sqrt{169} = 13$."
       }
     ],
     quiz: [
       {
-        q: "Find the distance between points $A(3, 4)$ and $B(0, 0)$. This is a Pythagorean theorem application.",
+        q: "In the right triangle shown, $AC = 3$ and $BC = 4$. What is $AB$?",
+        dia: { type: "triangle", w: 3, h: 4, A: "A", B: "B", C: "C", a: "4", b: "3", c: "?" },
         ans: "$5$",
-        sol: "Distance $= \\sqrt{(3-0)^2 + (4-0)^2} = \\sqrt{9+16} = \\sqrt{25} = 5$."
+        sol: "$AB = \\sqrt{AC^2 + BC^2} = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$. (Classic 3-4-5 triple.)"
       },
       {
         q: "A ladder leans against a wall. The foot of the ladder is $3$ m from the wall, and the top reaches $4$ m high. How long is the ladder?",
+        dia: { type: "triangle", w: 3, h: 4, A: "A", B: "B", C: "C", a: "4 m", b: "3 m", c: "?" },
         ans: "$5$ m",
         sol: "$c = \\sqrt{3^2 + 4^2} = \\sqrt{9+16} = \\sqrt{25} = 5$ m. (Classic 3-4-5 right triangle.)"
       },
