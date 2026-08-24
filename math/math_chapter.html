@@ -53,6 +53,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .q{display:block;border:1px solid var(--border);border-radius:10px;padding:16px;margin-top:13px;background:var(--card2)}
 .qnum{font-size:12px;color:var(--text3);margin-bottom:6px}
 .qtext{font-weight:600;margin-bottom:10px;font-size:15px}
+.options{margin:10px 0;display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;cursor:default;background:var(--card)}
+.opt-l{width:24px;height:24px;border-radius:50%;background:#e2e8f0;color:#475569;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.opt-t{font-size:14px}
+.opt-correct{border-color:var(--green);background:#f0fdf4}
+.opt-correct .opt-l{background:var(--green);color:#fff}
 
 /* ── Answer area ── */
 .ans-area{margin-top:10px}
@@ -688,11 +694,20 @@ function renderQs(boxId, questions, kind) {
   if (!questions.length) { c.innerHTML = '<p style="color:var(--text2)">No questions for this step yet.</p>'; return; }
   var html = "";
   questions.forEach(function(item, i){
-    html += '<div class="q" id="' + kind + 'q' + i + '">';
+    html += '<div class="q" id="' + kind + 'q' + i + '"' + (item.ansIdx !== undefined ? ' data-ansidx="' + item.ansIdx + '"' : (item.ans ? ' data-ans="' + esc(item.ans) + '"' : '')) + '>';
     html += '<div class="qnum">Question ' + (i+1) + '</div>';
     html += '<div class="qtext">' + esc(item.q) + '</div>';
     // Render diagram if present
     if (item.dia) html += (typeof item.dia === 'string') ? item.dia : renderGraphie(item.dia);
+    // Render options if multiple choice
+    if (item.options && item.options.length) {
+      html += '<div class="options" id="' + kind + 'opt' + i + '">';
+      var letters = ['A','B','C','D','E','F'];
+      item.options.forEach(function(opt, oi){
+        html += '<div class="opt" data-opt="' + oi + '"><span class="opt-l">' + letters[oi] + '</span><span class="opt-t">' + esc(opt) + '</span></div>';
+      });
+      html += '</div>';
+    }
     // Answer area (show answer button → answer reveal)
     html += '<div class="ans-area">';
     html += '<button class="show-ans-btn" id="' + kind + 'sh' + i + '" onclick="showAns(\'' + kind + '\',' + i + ')">Show answer &amp; solution</button>';
@@ -710,7 +725,7 @@ function renderQs(boxId, questions, kind) {
   c.innerHTML = html;
   // Render KaTeX math after DOM insertion
   setTimeout(function(){
-    document.querySelectorAll('#' + boxId + ' .qtext, #' + boxId + ' .ans-display').forEach(renderMath);
+    document.querySelectorAll('#' + boxId + ' .qtext, #' + boxId + ' .ans-display, #' + boxId + ' .opt-t').forEach(renderMath);
   }, 100);
 }
 
@@ -721,6 +736,14 @@ function showAns(kind, i) {
   ansEl.style.display = 'block';
   solEl.style.display = 'block';
   btn.style.display = 'none';
+  // highlight correct option if multiple choice
+  var qEl = document.getElementById(kind + 'q' + i);
+  var ansIdx = qEl ? qEl.getAttribute('data-ansidx') : null;
+  var optWrap = document.getElementById(kind + 'opt' + i);
+  if (optWrap && ansIdx !== null) {
+    var correctOpt = optWrap.querySelector('.opt[data-opt="' + ansIdx + '"]');
+    if (correctOpt) correctOpt.classList.add('opt-correct');
+  }
   // render math in answer and solution
   renderMath(ansEl);
   var solBody = solEl.querySelector('.sol-body');
