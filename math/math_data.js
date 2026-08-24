@@ -15,10 +15,11 @@ var MATH_DATA = [
     "Pythagorean triples (加股数): $(3,4,5)$, $(5,12,13)$, $(8,15,17)$, $(7,24,25)$.",
     "Distance formula (距离公式): $d = sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$.",
       ],
-          practice: [
+              practice: [
           {
             q: "Find $x$ in the right triangle shown.",
             options: ["$x = \\sqrt{11}$","$x = \\sqrt{61}$","$x = 11$","$x = 30$"],
+            dia: {"type":"triangle","w":5,"h":3.3,"A":"?","B":"6","C":"?","a":"5","b":"x","c":"?"},
             hint: "Identify the hypotenuse (longest side, c=6). One leg is a=5.\nFor a leg: b² = c² − a² = 36 − 25 = 11. So x = √11.",
             ansIdx: 0,
             sol: "The hypotenuse is $6$, one leg is $5$. By the Pythagorean theorem: $x^2 = 6^2 - 5^2 = 36 - 25 = 11$, so $x = \\sqrt{11}$.",
@@ -26,6 +27,7 @@ var MATH_DATA = [
           {
             q: "Find $x$ (the hypotenuse) in the right triangle shown.",
             options: ["$x = \\sqrt{80}$","$x = \\sqrt{48}$","$x = \\sqrt{32}$","$x = \\sqrt{12}$"],
+            dia: {"type":"triangle","w":8,"h":4,"A":"?","B":"?","C":"?","a":"8","b":"4","c":"x"},
             hint: "Both sides at the right angle are legs (8 and 4).\nFor hypotenuse: x² = 8² + 4² = 64 + 16 = 80. So x = √80.",
             ansIdx: 0,
             sol: "Both legs are known: $8$ and $4$. $x^2 = 8^2 + 4^2 = 64 + 16 = 80$, so $x = \\sqrt{80}$.",
@@ -33,6 +35,7 @@ var MATH_DATA = [
           {
             q: "Find $x$ in the right triangle shown.",
             options: ["$x = 2$","$x = 3$","$x = \\sqrt{20}$","$x = \\sqrt{36}$"],
+            dia: {"type":"triangle","w":4,"h":3,"A":"?","B":"5","C":"?","a":"x","b":"4","c":"?"},
             hint: "Hypotenuse c=5. Unknown side is a leg: x² = 5² − 4² = 25 − 16 = 9. x = 3.",
             ansIdx: 1,
             sol: "The hypotenuse is $5$, one leg is $4$. $x^2 = 5^2 - 4^2 = 25 - 16 = 9$, so $x = \\sqrt{9} = 3$.",
@@ -40,6 +43,7 @@ var MATH_DATA = [
           {
             q: "Find $x$ (the hypotenuse) in the right triangle shown.",
             options: ["$x = 5$","$x = \\sqrt{7}$","$x = 7$","$x = 25$"],
+            dia: {"type":"triangle","w":3,"h":4,"A":"?","B":"?","C":"?","a":"3","b":"4","c":"5"},
             hint: "This is the famous 3-4-5 triangle! x² = 3² + 4² = 9+16=25. x = √25 = 5.",
             ansIdx: 0,
             sol: "Classic 3-4-5 right triangle: $x^2 = 3^2 + 4^2 = 9 + 16 = 25$, so $x = \\sqrt{25} = 5$.",
@@ -47,6 +51,7 @@ var MATH_DATA = [
           {
             q: "Find $x$ in the right triangle shown.",
             options: ["$x = 8$","$x = \\sqrt{8}$","$x = \\sqrt{6}$","$x = \\sqrt{12}$"],
+            dia: {"type":"triangle","w":2,"h":3.5,"A":"?","B":"4","C":"?","a":"x","b":"2","c":"?"},
             hint: "Hypotenuse c=4, known leg a=2. b² = c² − a² = 16 − 4 = 12. x = √12.",
             ansIdx: 3,
             sol: "The hypotenuse is $4$, one leg is $2$. $x^2 = 4^2 - 2^2 = 16 - 4 = 12$, so $x = \\sqrt{12}$.",
@@ -54,6 +59,7 @@ var MATH_DATA = [
           {
             q: "Find $x$ (the hypotenuse) in the right triangle shown.",
             options: ["$x = \\sqrt{20}$","$x = \\sqrt{41}$","$x = 3$","$x = 9$"],
+            dia: {"type":"triangle","w":5,"h":4,"A":"?","B":"?","C":"?","a":"5","b":"4","c":"x"},
             hint: "Right angle is at the intersection of legs 5 and 4. x² = 5² + 4² = 25+16=41. x = √41.",
             ansIdx: 1,
             sol: "Both legs are known: $5$ and $4$. $x^2 = 5^2 + 4^2 = 25 + 16 = 41$, so $x = \\sqrt{41}$.",
@@ -61,12 +67,13 @@ var MATH_DATA = [
           {
             q: "Find $x$ in the right triangle shown.",
             options: ["$x = \\sqrt{135}$","$x = 12$","$x = 24$","$x = \\sqrt{24}$"],
+            dia: {"type":"triangle","w":9,"h":4.8,"A":"?","B":"15","C":"?","a":"x","b":"9","c":"?"},
             hint: "Hypotenuse c=15, leg a=9. x² = 15² − 9² = 225 − 81 = 144. x = 12. (9-12-15 = 3×3-4-5.)",
             ansIdx: 1,
             sol: "The hypotenuse is $15$, one leg is $9$. $x^2 = 15^2 - 9^2 = 225 - 81 = 144$, so $x = \\sqrt{144} = 12$. (9-12-15 is a multiple of 3-4-5.)",
           }
     ],
-          quiz: [
+              quiz: [
           {
             q: "A 15-foot ladder leans against a wall. Its base is 9 feet from the wall. How high up the wall does the ladder reach?",
             options: ["$12$ ft","$6$ ft","$10$ ft","$24$ ft"],
