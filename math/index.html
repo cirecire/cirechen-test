@@ -1,161 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Math · Khan Academy — Beijing Normal University Edition</title>
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: #f0f4f8;
-  color: #1a1a2e;
-  padding: 24px 16px 60px;
-}
-header { text-align: center; margin-bottom: 28px; }
-h1 { font-size: 26px; font-weight: 900; color: #1e3a5f; margin-bottom: 6px; }
-.subtitle { font-size: 13px; color: #64748b; line-height: 1.6; }
-.grade-tabs { display: flex; justify-content: center; gap: 8px; margin: 18px 0; }
-.grade-tab {
-  padding: 6px 18px; border-radius: 999px; font-size: 13px; font-weight: 600;
-  border: 2px solid #cbd5e1; background: #fff; color: #475569; cursor: pointer;
-}
-.grade-tab.active { background: #1e3a5f; color: #fff; border-color: #1e3a5f; }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 14px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-.card {
-  background: #fff;
-  border-radius: 14px;
-  padding: 20px;
-  cursor: pointer;
-  border: 2px solid #e2e8f0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-.card:hover {
-  border-color: #1e3a5f;
-  box-shadow: 0 4px 18px rgba(30,58,95,0.15);
-}
-.ch-num {
-  width: 38px; height: 38px; border-radius: 50%;
-  background: #1e3a5f; color: #fff;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 900; font-size: 14px;
-  margin-bottom: 12px;
-}
-.card h3 { font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
-.card .lang { font-size: 11px; color: #94a3b8; margin-bottom: 8px; }
-.vid-title { font-size: 12px; color: #475569; margin: 8px 0; line-height: 1.4; }
-.badge { display: inline-block; font-size: 11px; padding: 3px 9px; border-radius: 4px; font-weight: 600; margin-top: 10px; }
-.badge.ka { background: #dbeafe; color: #1d4ed8; }
-.badge.p { background: #dcfce7; color: #15803d; }
-.badge.q { background: #fef3c7; color: #b45309; }
-footer { text-align: center; margin-top: 40px; font-size: 12px; color: #94a3b8; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>8th Grade Math — Khan Academy Style</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ka-green: #14bf96;
+      --ka-dark: #21242c;
+      --ka-blue: #1865f2;
+      --ka-bg: #f7f8fa;
+      --ka-card: #ffffff;
+      --ka-border: #e3e5e8;
+      --ka-text: #21242c;
+      --ka-muted: #5f6368;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--ka-bg);
+      color: var(--ka-text);
+    }
+    header {
+      background: var(--ka-green);
+      color: white;
+      padding: 28px 20px 20px;
+      text-align: center;
+    }
+    header h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: 0.3px; }
+    header p { margin: 0; opacity: 0.95; font-size: 16px; }
+    .subtitle { font-size: 13px; opacity: 0.9; margin-top: 8px; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--ka-card);
+      border: 1px solid var(--ka-border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform .08s ease, box-shadow .15s ease;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .ch-num {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--ka-green); color: white;
+      display: grid; place-items: center; font-weight: 800; font-size: 16px;
+      flex-shrink: 0;
+    }
+    .ch-meta { flex: 1; }
+    .ch-title { font-weight: 700; font-size: 16px; margin: 0 0 4px; }
+    .ch-cn { font-size: 13px; color: var(--ka-muted); margin: 0 0 6px; }
+    .ch-videos { font-size: 12px; color: var(--ka-muted); margin: 0; }
+    .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: #eafaf6; color: #0a7b5d; margin-top: 8px; }
+    .badge.ka { background: #e8f0fe; color: #1557b0; }
+    footer { text-align: center; padding: 40px 16px; color: var(--ka-muted); font-size: 13px; }
+    .footer-note { max-width: 700px; margin: 0 auto; line-height: 1.6; }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-<header>
-  <h1>Math · Khan Academy</h1>
-  <p class="subtitle">北师大版 · 深圳公立8年级 · English Videos + Practice<br>Beijing Normal University Edition · Shenzhen Grade 8</p>
-</header>
+  <header>
+    <h1>8th Grade Math</h1>
+    <p>Khan Academy style · 北师大版（北京师范大学版）</p>
+    <p class="subtitle">7 chapters · 5 practice + 3 quiz per chapter</p>
+  </header>
 
-<div class="grid">
-  <!-- Ch01 -->
-  <div class="card" onclick="location.href='math_chapter.html?ch=ch01&grade=8'">
-    <div class="ch-num">01</div>
-    <h3>Pythagorean Theorem</h3>
-    <div class="lang">📖 第1章 · 勾股定理</div>
-    <p class="vid-title">Pythagorean Theorem Proof Using Similarity · ~10 min</p>
-    <span class="badge ka">🟢 KA Full</span>
-    <span class="badge p">P:5</span>
-    <span class="badge q">Q:3</span>
+  <div class="container">
+    <div class="grid">
+      <a class="card" href="math_chapter.html?ch=ch01&grade=8">
+        <div class="ch-num">01</div>
+        <div class="ch-meta">
+          <p class="ch-title">Pythagorean Theorem</p>
+          <p class="ch-cn">勾股定理</p>
+          <p class="ch-videos">1 video · 5 practice · 3 quiz</p>
+          <span class="badge ka">KA Full</span>
+        </div>
+      </a>
+
+      <a class="card" href="math_chapter.html?ch=ch02&grade=8">
+        <div class="ch-num">02</div>
+        <div class="ch-meta">
+          <p class="ch-title">Real Numbers</p>
+          <p class="ch-cn">实数</p>
+          <p class="ch-videos">1 video · 5 practice · 3 quiz</p>
+          <span class="badge ka">KA Full</span>
+        </div>
+      </a>
+
+      <a class="card" href="math_chapter.html?ch=ch03&grade=8">
+        <div class="ch-num">03</div>
+        <div class="ch-meta">
+          <p class="ch-title">Position & Coordinate Plane</p>
+          <p class="ch-cn">位置与坐标</p>
+          <p class="ch-videos">1 video · 5 practice · 3 quiz</p>
+          <span class="badge ka">KA Full</span>
+        </div>
+      </a>
+
+      <a class="card" href="math_chapter.html?ch=ch04&grade=8">
+        <div class="ch-num">04</div>
+        <div class="ch-meta">
+          <p class="ch-title">Linear Functions</p>
+          <p class="ch-cn">一次函数</p>
+          <p class="ch-videos">1 video · 5 practice · 3 quiz</p>
+          <span class="badge ka">KA Full</span>
+        </div>
+      </a>
+
+      <a class="card" href="math_chapter.html?ch=ch05&grade=8">
+        <div class="ch-num">05</div>
+        <div class="ch-meta">
+          <p class="ch-title">Systems of Linear Equations</p>
+          <p class="ch-cn">二元一次方程组</p>
+          <p class="ch-videos">1 video · 5 practice · 3 quiz</p>
+          <span class="badge ka">KA Full</span>
+        </div>
+      </a>
+
+      <a class="card" href="math_chapter.html?ch=ch06&grade=8">
+        <div class="ch-num">06</div>
+        <div class="ch-meta">
+          <p class="ch-title">Data Analysis</p>
+          <p class="ch-cn">数据的分析</p>
+          <p class="ch-videos">1 video · 5 practice · 3 quiz</p>
+          <span class="badge ka">KA Full</span>
+        </div>
+      </a>
+
+      <a class="card" href="math_chapter.html?ch=ch07&grade=8">
+        <div class="ch-num">07</div>
+        <div class="ch-meta">
+          <p class="ch-title">Foundations of Geometric Proof</p>
+          <p class="ch-cn">几何证明基础</p>
+          <p class="ch-videos">1 video · 5 practice · 3 quiz</p>
+          <span class="badge">Reorganized</span>
+        </div>
+      </a>
+    </div>
+
+    <footer>
+      <p class="footer-note">
+        <strong>课程说明：</strong>以北师大版8年级教材为索引，Ch07重组整合了8上第7章（证明）与8下第1章（三角形证明）核心内容，使几何证明工具链完整。<br>
+        All content in English with key terms annotated in Chinese.
+      </p>
+    </footer>
   </div>
-
-  <!-- Ch02 -->
-  <div class="card" onclick="location.href='math_chapter.html?ch=ch02&grade=8'">
-    <div class="ch-num">02</div>
-    <h3>Real Numbers</h3>
-    <div class="lang">📖 第2章 · 实数</div>
-    <p class="vid-title">Introduction to Square Roots · ~5 min</p>
-    <span class="badge ka">🟢 KA Full</span>
-    <span class="badge p">P:5</span>
-    <span class="badge q">Q:3</span>
-  </div>
-
-  <!-- Ch03 -->
-  <div class="card" onclick="location.href='math_chapter.html?ch=ch03&grade=8'">
-    <div class="ch-num">03</div>
-    <h3>Position & Coordinate Plane</h3>
-    <div class="lang">📖 第3章 · 位置与坐标</div>
-    <p class="vid-title">Introduction to the Coordinate Plane · ~7 min</p>
-    <span class="badge ka">🟢 KA Full</span>
-    <span class="badge p">P:5</span>
-    <span class="badge q">Q:3</span>
-  </div>
-
-  <!-- Ch04 -->
-  <div class="card" onclick="location.href='math_chapter.html?ch=ch04&grade=8'">
-    <div class="ch-num">04</div>
-    <h3>Linear Functions</h3>
-    <div class="lang">📖 第4章 · 一次函数</div>
-    <p class="vid-title">Graphing a Linear Function · ~6 min</p>
-    <span class="badge ka">🟢 KA Full</span>
-    <span class="badge p">P:5</span>
-    <span class="badge q">Q:3</span>
-  </div>
-
-  <!-- Ch05 -->
-  <div class="card" onclick="location.href='math_chapter.html?ch=ch05&grade=8'">
-    <div class="ch-num">05</div>
-    <h3>Systems of Linear Equations</h3>
-    <div class="lang">📖 第5章 · 二元一次方程组</div>
-    <p class="vid-title">Systems of Equations with Substitution · ~5 min</p>
-    <span class="badge ka">🟢 KA Full</span>
-    <span class="badge p">P:5</span>
-    <span class="badge q">Q:3</span>
-  </div>
-
-  <!-- Ch06 -->
-  <div class="card" onclick="location.href='math_chapter.html?ch=ch06&grade=8'">
-    <div class="ch-num">06</div>
-    <h3>Data Analysis</h3>
-    <div class="lang">📖 第6章 · 数据的分析</div>
-    <p class="vid-title">Statistics intro: Mean, Median & Mode · ~9 min</p>
-    <span class="badge ka">🟢 KA Full</span>
-    <span class="badge p">P:5</span>
-    <span class="badge q">Q:3</span>
-  </div>
-
-  <!-- Ch07 -->
-  <div class="card" onclick="location.href='math_chapter.html?ch=ch07&grade=8'">
-    <div class="ch-num">07</div>
-    <h3>Triangle Proofs</h3>
-    <div class="lang">📖 第7章 · 三角形的证明</div>
-    <p class="vid-title">Triangle Congruence Postulates (SSS/SAS/ASA/AAS) · ~10 min</p>
-    <span class="badge ka">🟢 KA Full</span>
-    <span class="badge p">P:5</span>
-    <span class="badge q">Q:3</span>
-  </div>
-
-  <!-- Ch08 -->
-  <div class="card" onclick="location.href='math_chapter.html?ch=ch08&grade=8'">
-    <div class="ch-num">08</div>
-    <h3>Parallelograms</h3>
-    <div class="lang">📖 八下第6章 · 平行四边形</div>
-    <p class="vid-title">Quadrilateral Properties · ~6 min</p>
-    <span class="badge ka">🟢 KA Full</span>
-    <span class="badge p">P:5</span>
-    <span class="badge q">Q:3</span>
-  </div>
-</div>
-
-<footer>
-  北师大版教材 × 可汗学院英文视频 · 深圳公立8年级数学 · 2026
-</footer>
 </body>
 </html>
