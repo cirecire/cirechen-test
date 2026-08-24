@@ -616,6 +616,11 @@ function showStep(step) {
   if (cur === 2 && step !== 2) {
     var f = document.querySelector("#p2 iframe.bili");
     if (f) f.src = "about:blank";
+    var vids = document.querySelectorAll("#p2 video");
+    for (var vi = 0; vi < vids.length; vi++) {
+      vids[vi].pause();
+      vids[vi].currentTime = 0;
+    }
   }
   cur = step;
   for (var i = 1; i <= TOTAL; i++) {
@@ -779,6 +784,8 @@ function nextStep() {
 function finish() {
   var f = document.querySelector("#p2 iframe.bili");
   if (f) f.src = "about:blank";
+  var vids = document.querySelectorAll("#p2 video");
+  for (var vi = 0; vi < vids.length; vi++) { vids[vi].pause(); vids[vi].currentTime = 0; }
   for (var i = 1; i <= TOTAL; i++) document.getElementById("p" + i).style.display = 'none';
   document.getElementById("stepbar").style.display = 'none';
   document.getElementById("done").classList.add("show");
