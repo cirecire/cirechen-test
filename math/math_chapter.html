@@ -693,7 +693,7 @@ function renderQs(boxId, questions, kind) {
     // Solution / explanation
     if (item.sol) {
       html += '<div class="sol" id="' + kind + 'sol' + i + '">';
-      html += '<div class="sol-header">📝 Solution</div>' + esc(item.sol) + '</div>';
+      html += '<div class="sol-header">📝 Solution</div><div class="sol-body">' + esc(item.sol) + '</div></div>';
     }
     html += '</div>';
   });
@@ -711,8 +711,9 @@ function showAns(kind, i) {
   ansEl.style.display = 'block';
   solEl.style.display = 'block';
   btn.style.display = 'none';
-  // render math in answer
+  // render math in answer and solution
   renderMath(ansEl);
+  renderMath(solEl);
 }
 
 function nextStep() {
