@@ -713,7 +713,8 @@ function showAns(kind, i) {
   btn.style.display = 'none';
   // render math in answer and solution
   renderMath(ansEl);
-  renderMath(solEl);
+  var solBody = solEl.querySelector('.sol-body');
+  if (solBody) renderMath(solBody);
 }
 
 function nextStep() {
