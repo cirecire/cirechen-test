@@ -624,9 +624,21 @@ function renderPanel(step) {
   } else if (step === 2) {
     var v = '<h2>Step 2 · Watch</h2>';
     (CH.videos || []).forEach(function(vid){
-      v += '<div class="video-wrap"><iframe class="bili" src="https://www.youtube-nocookie.com/embed/' + esc(vid.yt) + '?rel=0" allowfullscreen="true"></iframe>' +
-           '<div class="video-meta">' + esc(vid.t || "Khan Academy video") + ' · ' + esc(vid.m || "English") +
-           ' <a class="vlink" href="https://www.youtube.com/watch?v=' + esc(vid.yt) + '" target="_blank">Open on YouTube ↗</a></div></div>';
+      var ytId = esc(vid.yt || '');
+      var ytThumb = 'https://img.youtube.com/vi/' + ytId + '/maxresdefault.jpg';
+      var ytPageUrl = 'https://www.youtube.com/watch?v=' + ytId;
+      var khanPageUrl = 'https://www.khanacademy.org/math/geometry/hs-geo-congruence';
+      v += '<div class="video-wrap">' +
+           '<a href="' + ytPageUrl + '" target="_blank" class="video-thumb-link" style="display:block;position:relative;">' +
+           '<img src="' + ytThumb + '" alt="Video thumbnail" style="width:100%;max-width:640px;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.15);" onerror="this.src=\'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg\';">' +
+           '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.75);border-radius:50%;width:64px;height:64px;display:flex;align-items:center;justify-content:center;pointer-events:none;">' +
+           '<svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></a>' +
+           '<div class="video-meta">' +
+           '<strong>' + esc(vid.t || 'Khan Academy video') + '</strong><br>' +
+           '<span style="color:#666;">' + esc(vid.m || 'English') + ' · ' + esc(vid.duration || '~10 min') + '</span><br>' +
+           '<a href="' + ytPageUrl + '" target="_blank" class="vlink">▶ Watch on YouTube ↗</a> &nbsp;|&nbsp; ' +
+           '<a href="' + khanPageUrl + '" target="_blank" class="vlink">Open on Khan Academy ↗</a>' +
+           '</div></div>';
     });
     p.innerHTML = v + nextBtn();
   } else if (step === 3) {
