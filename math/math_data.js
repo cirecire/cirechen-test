@@ -2,8 +2,7 @@ var MATH_DATA = [
   /* ══════════════════════════════════════════════════════════════
      Ch01  勾股定理  Pythagorean Theorem
      教材：北师大版·八年级数学（上册） 第1章
-  ══════════════════════════════════════════════════════════════ */
-  {
+  ══════════════════════════════════════════════════════════════ */  {
     id: "ch01",
     g: "8",
     gx: 1,
@@ -11,7 +10,7 @@ var MATH_DATA = [
     coverage: "g",
     think: "A right triangle has legs $a$ and $b$, and hypotenuse $c$. What relationship connects them? Try a 3-4-5 triangle: does $3^2 + 4^2 = 5^2$?",
     videos: [
-      { yt: "LrS5_l-gk94", t: "Pythagorean Theorem Proof Using Similarity", m: "English · Khan Academy", duration: "~10 min",
+      { yt: "LrS5_l-gk94", t: "Pythagorean Theorem Proof Using Similarity", m: "English \u00b7 Khan Academy", duration: "~10 min",
         local: "videos/Ch01_\u52a8\u80a1\u5b9a\u7406/09_Pythagorean theorem proof using similarity.mp4",
         ka: "https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-pythagorean-proofs/v/pythagorean-theorem-proof-using-similarity" }
     ],
@@ -19,72 +18,79 @@ var MATH_DATA = [
       "In a right triangle (\u76f4\u89d2\u4e09\u89d2\u5f62): $a^2 + b^2 = c^2$, where $c$ is the hypotenuse (\u659c\u8fb9, opposite the right angle).",
       "Find hypotenuse: $c = \sqrt{a^2+b^2}$. Find a leg: $a = \sqrt{c^2-b^2}$.",
       "Pythagorean triples (\u52a0\u80a1\u6570): $(3,4,5)$, $(5,12,13)$, $(8,15,17)$, $(7,24,25)$.",
-      "45\u00b0\u201345\u00b0\u201390\u00b0: legs equal, hypotenuse $= \text{leg} \times \sqrt{2}$.",
-      "30\u00b0\u201360\u00b0\u201390\u00b0: short leg $= x$, long leg $= x\sqrt{3}$, hypotenuse $= 2x$.",
       "Distance formula (\u8ddd\u79bb\u516c\u5f0f): $d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$."
     ],
     practice: [
       {
-        q: "In the right triangle shown, $AC = 5$ and $BC = 12$. What is $AB$?",
-        dia: { type: "triangle", w: 12, h: 5, A: "A", B: "B", C: "C", a: "12", b: "5", c: "?" },
-        ans: "$13$",
-        sol: "We want to find $c$; let $a = 12$ and $b = 5$. \\$c^2 = a^2 + b^2 = 12^2 + 5^2 = 144 + 25 = 169\\$c = \sqrt{169} = 13$."
+        q: "Find $x$ in the right triangle shown.",
+        dia: { type: "triangle", w: 5, h: 3, A: "A", B: "B", C: "C", a: "5", b: "x", c: "6" },
+        options: ["$x = \sqrt{11}$", "$x = \sqrt{61}$", "$x = 11$", "$x = 30$"],
+        ansIdx: 0,
+        sol: "The hypotenuse is $6$, one leg is $5$. By the Pythagorean theorem: $x^2 = 6^2 - 5^2 = 36 - 25 = 11$, so $x = \sqrt{11}$."
       },
       {
-        q: "In the right triangle shown, $AC = 8$ and $BC = 15$. What is $AB$?",
-        dia: { type: "triangle", w: 15, h: 8, A: "A", B: "B", C: "C", a: "15", b: "8", c: "?" },
-        ans: "$17$",
-        sol: "We want to find $c$; let $a = 15$ and $b = 8$. \\$c^2 = a^2 + b^2 = 15^2 + 8^2 = 225 + 64 = 289\\$c = \sqrt{289} = 17$. (8-15-17 is a Pythagorean triple.)"
+        q: "Find $x$ (the hypotenuse) in the right triangle shown.",
+        dia: { type: "triangle", w: 8, h: 4, A: "A", B: "B", C: "C", a: "8", b: "4", c: "x" },
+        options: ["$x = \sqrt{80}$", "$x = \sqrt{48}$", "$x = \sqrt{32}$", "$x = \sqrt{12}$"],
+        ansIdx: 0,
+        sol: "Both legs are known: $8$ and $4$. $x^2 = 8^2 + 4^2 = 64 + 16 = 80$, so $x = \sqrt{80}$."
       },
       {
-        q: "In the right triangle shown, $AC = 4$ and $AB = 5$. What is $BC$?",
-        dia: { type: "triangle", w: 3, h: 4, A: "A", B: "B", C: "C", a: "?", b: "4", c: "5" },
-        ans: "$3$",
-        sol: "We want to find $a$; let $b = 4$ and $c = 5$. \\$a^2 = c^2 - b^2 = 5^2 - 4^2 = 25 - 16 = 9\\$a = \sqrt{9} = 3$."
+        q: "Find $x$ in the right triangle shown.",
+        dia: { type: "triangle", w: 4, h: 3, A: "A", B: "B", C: "C", a: "4", b: "x", c: "5" },
+        options: ["$x = 2$", "$x = 3$", "$x = \sqrt{20}$", "$x = \sqrt{36}$"],
+        ansIdx: 1,
+        sol: "The hypotenuse is $5$, one leg is $4$. $x^2 = 5^2 - 4^2 = 25 - 16 = 9$, so $x = \sqrt{9} = 3$."
       },
       {
-        q: "In the right triangle shown, $AC = 9$ and $AB = 15$. What is $BC$?",
-        dia: { type: "triangle", w: 9, h: 12, A: "A", B: "B", C: "C", a: "?", b: "9", c: "15" },
-        ans: "$12$",
-        sol: "We want to find $a$; let $b = 9$ and $c = 15$. \\$a^2 = c^2 - b^2 = 15^2 - 9^2 = 225 - 81 = 144\\$a = \sqrt{144} = 12$. (9-12-15 is a multiple of 3-4-5.)"
+        q: "Find $x$ (the hypotenuse) in the right triangle shown.",
+        dia: { type: "triangle", w: 3, h: 4, A: "A", B: "B", C: "C", a: "3", b: "4", c: "x" },
+        options: ["$x = 5$", "$x = \sqrt{7}$", "$x = 7$", "$x = 25$"],
+        ansIdx: 0,
+        sol: "Classic 3-4-5 right triangle: $x^2 = 3^2 + 4^2 = 9 + 16 = 25$, so $x = \sqrt{25} = 5$."
       },
       {
-        q: "In the right triangle shown, $AC = BC = 5$. What is $AB$?",
-        dia: { type: "triangle", w: 5, h: 5, A: "A", B: "B", C: "C", a: "5", b: "5", c: "x" },
-        ans: "$5\sqrt{2}$",
-        sol: "This is a 45\u00b0-45\u00b0-90\u00b0 triangle. Both legs equal 5. \\$x^2 = 5^2 + 5^2 = 25 + 25 = 50\\$x = \sqrt{50} = 5\sqrt{2}$."
+        q: "Find $x$ in the right triangle shown.",
+        dia: { type: "triangle", w: 2, h: 3, A: "A", B: "B", C: "C", a: "2", b: "x", c: "4" },
+        options: ["$x = 8$", "$x = \sqrt{8}$", "$x = \sqrt{6}$", "$x = \sqrt{12}$"],
+        ansIdx: 3,
+        sol: "The hypotenuse is $4$, one leg is $2$. $x^2 = 4^2 - 2^2 = 16 - 4 = 12$, so $x = \sqrt{12}$."
       },
       {
-        q: "In the right triangle shown, $\angle B = 60^\circ$ and $BC = 3$. How long is $AB$?",
-        dia: { type: "triangle30_60_90", short: 3, long: 5.196, hyp: 6 },
-        ans: "$6$",
-        sol: "This is a 30\u00b0-60\u00b0-90\u00b0 triangle. The hypotenuse is twice the short leg. \\$AB = 2 \times BC = 2 \times 3 = 6$."
+        q: "Find $x$ (the hypotenuse) in the right triangle shown.",
+        dia: { type: "triangle", w: 5, h: 4, A: "A", B: "B", C: "C", a: "5", b: "4", c: "x" },
+        options: ["$x = \sqrt{20}$", "$x = \sqrt{41}$", "$x = 3$", "$x = 9$"],
+        ansIdx: 1,
+        sol: "Both legs are known: $5$ and $4$. $x^2 = 5^2 + 4^2 = 25 + 16 = 41$, so $x = \sqrt{41}$."
       },
       {
-        q: "Find the distance between the points $(3, 4)$ and $(0, 0)$.",
-        dia: { type: "coord_plane", range: [[-2, 5], [-2, 6]], step: 1, points: [{x:3, y:4, label:"(3,4)", fill:"#3b82f6", lx:8, ly:-8}, {x:0, y:0, label:"(0,0)", fill:"#22c55e", lx:-8, ly:8}] },
-        ans: "$5$",
-        sol: "Change in $x = 3 - 0 = 3$, change in $y = 4 - 0 = 4$. \\$d = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5$."
+        q: "Find $x$ in the right triangle shown.",
+        dia: { type: "triangle", w: 9, h: 12, A: "A", B: "B", C: "C", a: "9", b: "x", c: "15" },
+        options: ["$x = \sqrt{135}$", "$x = 12$", "$x = 24$", "$x = \sqrt{24}$"],
+        ansIdx: 1,
+        sol: "The hypotenuse is $15$, one leg is $9$. $x^2 = 15^2 - 9^2 = 225 - 81 = 144$, so $x = \sqrt{144} = 12$. (9-12-15 is a multiple of 3-4-5.)"
       }
     ],
     quiz: [
       {
-        q: "In the right triangle shown, $AC = 3$ and $BC = 4$. What is $AB$?",
-        dia: { type: "triangle", w: 4, h: 3, A: "A", B: "B", C: "C", a: "4", b: "3", c: "?" },
-        ans: "$5$",
-        sol: "We want to find $c$; let $a = 4$ and $b = 3$. \\$c^2 = a^2 + b^2 = 4^2 + 3^2 = 16 + 9 = 25\\$c = \sqrt{25} = 5$. (Classic 3-4-5 triple.)"
+        q: "A 15-foot ladder leans against a wall. Its base is 9 feet from the wall. How high up the wall does the ladder reach?",
+        dia: { type: "triangle", w: 9, h: 12, A: "A", B: "B", C: "C", a: "9", b: "x", c: "15" },
+        options: ["$12$ ft", "$6$ ft", "$10$ ft", "$24$ ft"],
+        ansIdx: 0,
+        sol: "The ladder is the hypotenuse ($15$), the ground distance is one leg ($9$). $x^2 = 15^2 - 9^2 = 225 - 81 = 144$, so $x = 12$ ft. (9-12-15 is a 3-4-5 multiple.)"
       },
       {
-        q: "A ladder leans against a wall. The foot of the ladder is $3$ m from the wall, and the top reaches $4$ m high. How long is the ladder?",
-        dia: { type: "triangle", w: 3, h: 4, A: "A", B: "B", C: "C", a: "3 m", b: "4 m", c: "?" },
-        ans: "$5$ m",
-        sol: "The wall and ground form a right angle. Ladder = hypotenuse. \\$c = \sqrt{3^2 + 4^2} = \sqrt{9+16} = \sqrt{25} = 5$ m. (3-4-5 right triangle.)"
+        q: "Two points are 3 units apart horizontally and 4 units apart vertically. What is the distance between them?",
+        dia: { type: "triangle", w: 3, h: 4, A: "A", B: "B", C: "C", a: "3", b: "4", c: "x" },
+        options: ["$5$", "$\sqrt{7}$", "$7$", "$25$"],
+        ansIdx: 0,
+        sol: "Form a right triangle: $d^2 = 3^2 + 4^2 = 9 + 16 = 25$, so $d = \sqrt{25} = 5$."
       },
       {
-        q: "Which of the following is a Pythagorean triple?",
-        options: ["$6, 8, 10$", "$4, 5, 6$", "$2, 3, 4$", "$7, 8, 15$"],
-        ans: "$6, 8, 10$",
-        sol: "$6^2+8^2 = 36+64 = 100 = 10^2$. Also $(6,8,10)$ is a multiple of the classic $(3,4,5)$ triple. $(4,5,6)$ fails because $4^2+5^2 = 41 \neq 36$."
+        q: "Which set of side lengths can form a right triangle?",
+        options: ["$3, 4, 5$", "$2, 3, 4$", "$5, 6, 7$", "$1, 2, 3$"],
+        ansIdx: 0,
+        sol: "Check $3^2 + 4^2 = 9 + 16 = 25 = 5^2$. The others fail the Pythagorean theorem, so only $(3,4,5)$ works."
       }
     ]
   },
