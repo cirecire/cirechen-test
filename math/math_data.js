@@ -15,70 +15,80 @@ var MATH_DATA = [
     "Pythagorean triples (加股数): $(3,4,5)$, $(5,12,13)$, $(8,15,17)$, $(7,24,25)$.",
     "Distance formula (距离公式): $d = sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$.",
       ],
-      practice: [
-        {
-          q: "Find $x$ in the right triangle shown.",
-          options: ["$x = \\sqrt{11}$","$x = \\sqrt{61}$","$x = 11$","$x = 30$"],
-          ansIdx: 0,
-          sol: "The hypotenuse is $6$, one leg is $5$. By the Pythagorean theorem: $x^2 = 6^2 - 5^2 = 36 - 25 = 11$, so $x = \\sqrt{11}$.",
-        },
-        {
-          q: "Find $x$ (the hypotenuse) in the right triangle shown.",
-          options: ["$x = \\sqrt{80}$","$x = \\sqrt{48}$","$x = \\sqrt{32}$","$x = \\sqrt{12}$"],
-          ansIdx: 0,
-          sol: "Both legs are known: $8$ and $4$. $x^2 = 8^2 + 4^2 = 64 + 16 = 80$, so $x = \\sqrt{80}$.",
-        },
-        {
-          q: "Find $x$ in the right triangle shown.",
-          options: ["$x = 2$","$x = 3$","$x = \\sqrt{20}$","$x = \\sqrt{36}$"],
-          ansIdx: 1,
-          sol: "The hypotenuse is $5$, one leg is $4$. $x^2 = 5^2 - 4^2 = 25 - 16 = 9$, so $x = \\sqrt{9} = 3$.",
-        },
-        {
-          q: "Find $x$ (the hypotenuse) in the right triangle shown.",
-          options: ["$x = 5$","$x = \\sqrt{7}$","$x = 7$","$x = 25$"],
-          ansIdx: 0,
-          sol: "Classic 3-4-5 right triangle: $x^2 = 3^2 + 4^2 = 9 + 16 = 25$, so $x = \\sqrt{25} = 5$.",
-        },
-        {
-          q: "Find $x$ in the right triangle shown.",
-          options: ["$x = 8$","$x = \\sqrt{8}$","$x = \\sqrt{6}$","$x = \\sqrt{12}$"],
-          ansIdx: 3,
-          sol: "The hypotenuse is $4$, one leg is $2$. $x^2 = 4^2 - 2^2 = 16 - 4 = 12$, so $x = \\sqrt{12}$.",
-        },
-        {
-          q: "Find $x$ (the hypotenuse) in the right triangle shown.",
-          options: ["$x = \\sqrt{20}$","$x = \\sqrt{41}$","$x = 3$","$x = 9$"],
-          ansIdx: 1,
-          sol: "Both legs are known: $5$ and $4$. $x^2 = 5^2 + 4^2 = 25 + 16 = 41$, so $x = \\sqrt{41}$.",
-        },
-        {
-          q: "Find $x$ in the right triangle shown.",
-          options: ["$x = \\sqrt{135}$","$x = 12$","$x = 24$","$x = \\sqrt{24}$"],
-          ansIdx: 1,
-          sol: "The hypotenuse is $15$, one leg is $9$. $x^2 = 15^2 - 9^2 = 225 - 81 = 144$, so $x = \\sqrt{144} = 12$. (9-12-15 is a multiple of 3-4-5.)",
-        }
-      ],
-      quiz: [
-        {
-          q: "A 15-foot ladder leans against a wall. Its base is 9 feet from the wall. How high up the wall does the ladder reach?",
-          options: ["$12$ ft","$6$ ft","$10$ ft","$24$ ft"],
-          ansIdx: 0,
-          sol: "The ladder is the hypotenuse ($15$), the ground distance is one leg ($9$). $x^2 = 15^2 - 9^2 = 225 - 81 = 144$, so $x = 12$ ft. (9-12-15 is a 3-4-5 multiple.)",
-        },
-        {
-          q: "Two points are 3 units apart horizontally and 4 units apart vertically. What is the distance between them?",
-          options: ["$5$","$\\sqrt{7}$","$7$","$25$"],
-          ansIdx: 0,
-          sol: "Form a right triangle: $d^2 = 3^2 + 4^2 = 9 + 16 = 25$, so $d = \\sqrt{25} = 5$.",
-        },
-        {
-          q: "Which set of side lengths can form a right triangle?",
-          options: ["$3, 4, 5$","$2, 3, 4$","$5, 6, 7$","$1, 2, 3$"],
-          ansIdx: 0,
-          sol: "Check $3^2 + 4^2 = 9 + 16 = 25 = 5^2$. The others fail the Pythagorean theorem, so only $(3,4,5)$ works.",
-        }
-      ]
+          practice: [
+          {
+            q: "Find $x$ in the right triangle shown.",
+            options: ["$x = \\sqrt{11}$","$x = \\sqrt{61}$","$x = 11$","$x = 30$"],
+            hint: "Identify the hypotenuse (longest side, c=6). One leg is a=5.\nFor a leg: b² = c² − a² = 36 − 25 = 11. So x = √11.",
+            ansIdx: 0,
+            sol: "The hypotenuse is $6$, one leg is $5$. By the Pythagorean theorem: $x^2 = 6^2 - 5^2 = 36 - 25 = 11$, so $x = \\sqrt{11}$.",
+          },
+          {
+            q: "Find $x$ (the hypotenuse) in the right triangle shown.",
+            options: ["$x = \\sqrt{80}$","$x = \\sqrt{48}$","$x = \\sqrt{32}$","$x = \\sqrt{12}$"],
+            hint: "Both sides at the right angle are legs (8 and 4).\nFor hypotenuse: x² = 8² + 4² = 64 + 16 = 80. So x = √80.",
+            ansIdx: 0,
+            sol: "Both legs are known: $8$ and $4$. $x^2 = 8^2 + 4^2 = 64 + 16 = 80$, so $x = \\sqrt{80}$.",
+          },
+          {
+            q: "Find $x$ in the right triangle shown.",
+            options: ["$x = 2$","$x = 3$","$x = \\sqrt{20}$","$x = \\sqrt{36}$"],
+            hint: "Hypotenuse c=5. Unknown side is a leg: x² = 5² − 4² = 25 − 16 = 9. x = 3.",
+            ansIdx: 1,
+            sol: "The hypotenuse is $5$, one leg is $4$. $x^2 = 5^2 - 4^2 = 25 - 16 = 9$, so $x = \\sqrt{9} = 3$.",
+          },
+          {
+            q: "Find $x$ (the hypotenuse) in the right triangle shown.",
+            options: ["$x = 5$","$x = \\sqrt{7}$","$x = 7$","$x = 25$"],
+            hint: "This is the famous 3-4-5 triangle! x² = 3² + 4² = 9+16=25. x = √25 = 5.",
+            ansIdx: 0,
+            sol: "Classic 3-4-5 right triangle: $x^2 = 3^2 + 4^2 = 9 + 16 = 25$, so $x = \\sqrt{25} = 5$.",
+          },
+          {
+            q: "Find $x$ in the right triangle shown.",
+            options: ["$x = 8$","$x = \\sqrt{8}$","$x = \\sqrt{6}$","$x = \\sqrt{12}$"],
+            hint: "Hypotenuse c=4, known leg a=2. b² = c² − a² = 16 − 4 = 12. x = √12.",
+            ansIdx: 3,
+            sol: "The hypotenuse is $4$, one leg is $2$. $x^2 = 4^2 - 2^2 = 16 - 4 = 12$, so $x = \\sqrt{12}$.",
+          },
+          {
+            q: "Find $x$ (the hypotenuse) in the right triangle shown.",
+            options: ["$x = \\sqrt{20}$","$x = \\sqrt{41}$","$x = 3$","$x = 9$"],
+            hint: "Right angle is at the intersection of legs 5 and 4. x² = 5² + 4² = 25+16=41. x = √41.",
+            ansIdx: 1,
+            sol: "Both legs are known: $5$ and $4$. $x^2 = 5^2 + 4^2 = 25 + 16 = 41$, so $x = \\sqrt{41}$.",
+          },
+          {
+            q: "Find $x$ in the right triangle shown.",
+            options: ["$x = \\sqrt{135}$","$x = 12$","$x = 24$","$x = \\sqrt{24}$"],
+            hint: "Hypotenuse c=15, leg a=9. x² = 15² − 9² = 225 − 81 = 144. x = 12. (9-12-15 = 3×3-4-5.)",
+            ansIdx: 1,
+            sol: "The hypotenuse is $15$, one leg is $9$. $x^2 = 15^2 - 9^2 = 225 - 81 = 144$, so $x = \\sqrt{144} = 12$. (9-12-15 is a multiple of 3-4-5.)",
+          }
+    ],
+          quiz: [
+          {
+            q: "A 15-foot ladder leans against a wall. Its base is 9 feet from the wall. How high up the wall does the ladder reach?",
+            options: ["$12$ ft","$6$ ft","$10$ ft","$24$ ft"],
+            hint: "Draw a right triangle. Ladder=15 (hypotenuse), base=9 (leg).\nHeight² = 15² − 9² = 225 − 81 = 144. Height = 12 ft.",
+            ansIdx: 0,
+            sol: "The ladder is the hypotenuse ($15$), the ground distance is one leg ($9$). $x^2 = 15^2 - 9^2 = 225 - 81 = 144$, so $x = 12$ ft. (9-12-15 is a 3-4-5 multiple.)",
+          },
+          {
+            q: "Two points are 3 units apart horizontally and 4 units apart vertically. What is the distance between them?",
+            options: ["$5$","$\\sqrt{7}$","$7$","$25$"],
+            hint: "Use the distance formula: d = √(Δx² + Δy²) = √(3² + 4²) = √(9+16) = √25 = 5.",
+            ansIdx: 0,
+            sol: "Form a right triangle: $d^2 = 3^2 + 4^2 = 9 + 16 = 25$, so $d = \\sqrt{25} = 5$.",
+          },
+          {
+            q: "Which set of side lengths can form a right triangle?",
+            options: ["$3, 4, 5$","$2, 3, 4$","$5, 6, 7$","$1, 2, 3$"],
+            hint: "Check a² + b² = c² (largest = hypotenuse).\n(a) 4²+5²=41≠13²\n(b) 5²+12²=169=13² ✓ 5-12-13!\n(c) 6²+7²=85≠10²\n(d) 8²+8²=128≠11²\nAnswer: B.",
+            ansIdx: 0,
+            sol: "Check $3^2 + 4^2 = 9 + 16 = 25 = 5^2$. The others fail the Pythagorean theorem, so only $(3,4,5)$ works.",
+          }
+    ]
   },
 
   { // ch02
