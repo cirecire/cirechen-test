@@ -420,6 +420,22 @@ function renderGraphie(cfg) {
         lines += '<path d="'+d+'" fill="none" stroke="#3b82f6" stroke-width="2.5"/>';
       }
     }
+    // plot a SECOND line if provided (systems of equations)
+    if (cfg.line2) {
+      var ln2 = cfg.line2;
+      var pts2 = [];
+      for (var px3 = rx[0]; px3 <= rx[1]; px3 += 0.05) {
+        var py3 = ln2.m * px3 + ln2.b;
+        if (py3 >= ry[0] && py3 <= ry[1]) {
+          pts2.push([ox+px3*sx, oy-py3*sy]);
+        }
+      }
+      if (pts2.length > 1) {
+        var d2 = 'M'+pts2[0][0].toFixed(1)+','+pts2[0][1].toFixed(1);
+        for (var pj=1;pj<pts2.length;pj++) d2+=' L'+pts2[pj][0].toFixed(1)+','+pts2[pj][1].toFixed(1);
+        lines += '<path d="'+d2+'" fill="none" stroke="#ef4444" stroke-width="2.5"/>';
+      }
+    }
     svg.innerHTML += lines;
     return '<div class="dia-wrap">'+svg.outerHTML+'</div>';
   }
@@ -529,6 +545,53 @@ function renderGraphie(cfg) {
     svg3 += svgStr;
     svg3 += '</svg>';
     return '<div class="dia-wrap">'+svg3+'</div>';
+  }
+
+  if (cfg.type === 'dot_plot') {
+    var data = cfg.data || [];
+    var xmin = cfg.range ? cfg.range[0][0] : Math.floor(Math.min.apply(null,data))-1;
+    var xmax = cfg.range ? cfg.range[0][1] : Math.ceil(Math.max.apply(null,data))+1;
+    var W=500, H=200, PL=40, PR=20, PT=20, PB=40;
+    var sx=(W-PL-PR)/(xmax-xmin);
+    var ox=PL-xmin*sx, oy=H-PB;
+    var dl='';
+    dl += '<line x1="'+PL+'" y1="'+oy+'" x2="'+(W-PR)+'" y2="'+oy+'" stroke="#94a3b8" stroke-width="1.5"/>';
+    for (var t=Math.ceil(xmin); t<=xmax; t++){
+      var px=ox+t*sx;
+      dl += '<line x1="'+px+'" y1="'+(oy-4)+'" x2="'+px+'" y2="'+(oy+4)+'" stroke="#94a3b8" stroke-width="1"/>';
+      dl += '<text x="'+px+'" y="'+(oy+18)+'" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">'+t+'</text>';
+    }
+    var counts={};
+    data.forEach(function(v){
+      var px=ox+v*sx;
+      var stack=(counts[v]||0);
+      var py=oy-12-stack*16;
+      dl += '<circle cx="'+px+'" cy="'+py+'" r="5" fill="#3b82f6"/>';
+      counts[v]=stack+1;
+    });
+    var svgDP='<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc;border-radius:6px">'+dl+'</svg>';
+    return '<div class="dia-wrap">'+svgDP+'</div>';
+  }
+
+  if (cfg.type === 'box_plot') {
+    var vals = cfg.values || [0,1,2,3,4];
+    var bxmin=Math.floor(Math.min.apply(null,vals))-1, bxmax=Math.ceil(Math.max.apply(null,vals))+1;
+    var BW=500,BH=200,BPL=40,BPR=20,BPT=60,BPB=40;
+    var box=Math.floor(bxmin), box2=Math.ceil(bxmax);
+    var barr=(BW-BPL-BPR)/(box2-box);
+    var box_ox=BPL-box*barr, boy=BPT+40;
+    var bl='';
+    bl+='<line x1="'+(box_ox+vals[0]*barr)+'" y1="'+boy+'" x2="'+(box_ox+vals[4]*barr)+'" y2="'+boy+'" stroke="#334155" stroke-width="1.5"/>';
+    var bxq1=box_ox+vals[1]*barr, bxmed=box_ox+vals[2]*barr, bxq3=box_ox+vals[3]*barr;
+    bl+='<rect x="'+bxq1+'" y="'+(boy-20)+'" width="'+(bxq3-bxq1)+'" height="40" fill="#bfdbfe" stroke="#334155" stroke-width="1.5"/>';
+    bl+='<line x1="'+bxmed+'" y1="'+(boy-20)+'" x2="'+bxmed+'" y2="'+(boy+20)+'" stroke="#334155" stroke-width="2"/>';
+    bl+='<line x1="'+(box_ox+vals[0]*barr)+'" y1="'+(boy-10)+'" x2="'+(box_ox+vals[0]*barr)+'" y2="'+(boy+10)+'" stroke="#334155" stroke-width="1.5"/>';
+    bl+='<line x1="'+(box_ox+vals[4]*barr)+'" y1="'+(boy-10)+'" x2="'+(box_ox+vals[4]*barr)+'" y2="'+(boy+10)+'" stroke="#334155" stroke-width="1.5"/>';
+    [['min',vals[0]],['Q1',vals[1]],['med',vals[2]],['Q3',vals[3]],['max',vals[4]]].forEach(function(p){
+      bl+='<text x="'+(box_ox+p[1]*barr)+'" y="'+(boy+38)+'" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">'+p[0]+'</text>';
+    });
+    var svgBP='<svg viewBox="0 0 '+BW+' '+BH+'" width="'+BW+'" height="'+BH+'" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc;border-radius:6px">'+bl+'</svg>';
+    return '<div class="dia-wrap">'+svgBP+'</div>';
   }
 
   // Generic: execute cfg.code array of draw commands
