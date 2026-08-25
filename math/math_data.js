@@ -378,6 +378,7 @@ var MATH_DATA = [
       practice: [
         {
           q: "Solve by substitution: $y = x + 3$, $2x + y = 9$.",
+            dia: {"type":"coord_plane","range":[[0,4],[0,5]],"step":1,"line":{"m":1,"b":1},"line2":{"m":2,"b":-1},"points":[{"0":2,"1":3,"label":"(2,3)"}]},
           options: ["$(2,5)$","$(3,6)$","$(1,4)$","$(5,2)$"],
           ansIdx: 0,
           sol: "Substitute $y=x+3$ into $2x+(x+3)=9$: $3x=6$, $x=2$, $y=2+3=5$. Solution $(2,5)$.",
@@ -385,6 +386,7 @@ var MATH_DATA = [
         },
         {
           q: "Solve: $x + y = 7$ and $x - y = 3$.",
+            dia: {"type":"coord_plane","range":[[0,4],[0,6]],"step":1,"line":{"m":-2,"b":5},"line2":{"m":1,"b":-1},"points":[{"0":2,"1":1,"label":"(2,1)"}]},
           options: ["$(5,2)$","$(2,5)$","$(3,4)$","$(4,3)$"],
           ansIdx: 0,
           sol: "Add equations: $2x=10$, $x=5$. Then $y=7-5=2$. Solution $(5,2)$.",
@@ -399,6 +401,7 @@ var MATH_DATA = [
         },
         {
           q: "How many solutions does $y=3x+1$ and $6x-2y=4$ have?",
+            dia: {"type":"coord_plane","range":[[0,5],[0,5]],"step":1,"line":{"m":-1,"b":4},"line2":{"m":1,"b":-2},"points":[{"0":3,"1":1,"label":"(3,1)"}]},
           options: ["One solution","No solution","Infinitely many","Cannot determine"],
           ansIdx: 1,
           sol: "Rewrite second as $y=3x-2$. Same slope (3), different intercepts — parallel, no intersection.",
@@ -406,6 +409,7 @@ var MATH_DATA = [
         },
         {
           q: "Solve by elimination: $2x + 3y = 12$ and $4x - 3y = 6$.",
+            dia: {"type":"coord_plane","range":[[0,4],[0,8]],"step":1,"line":{"m":3,"b":0},"line2":{"m":-2,"b":10},"points":[{"0":2,"1":6,"label":"(2,6)"}]},
           options: ["$(3,2)$","$(2,3)$","$(4,0)$","$(1,3)$"],
           ansIdx: 0,
           sol: "Add equations: $6x=18$, $x=3$. Then $2(3)+3y=12$, $3y=6$, $y=2$. Solution $(3,2)$.",
@@ -415,6 +419,7 @@ var MATH_DATA = [
       quiz: [
         {
           q: "A phone plan charges \\$0.10 per minute and \\$15 monthly fee. Another charges \\$0.05 per minute and \\$25 fee. When are costs equal?",
+            dia: {"type":"coord_plane","range":[[0,5],[0,6]],"step":1,"line":{"m":-1,"b":5},"line2":{"m":1,"b":-1},"points":[{"0":3,"1":2,"label":"(3,2)"}]},
           options: ["200 minutes","150 minutes","300 minutes","100 minutes"],
           ansIdx: 0,
           sol: "$15+0.10m = 25+0.05m \\Rightarrow 0.05m=10 \\Rightarrow m=200$ minutes.",
@@ -459,6 +464,7 @@ var MATH_DATA = [
       practice: [
         {
           q: "Find the mean of: 4, 8, 6, 5, 7.",
+            dia: {"type":"dot_plot","data":[2,4,6,8]},
           options: ["$6$","$5$","$7$","$6.5$"],
           ansIdx: 0,
           sol: "$(4+8+6+5+7)/5=30/5=6$.",
@@ -466,6 +472,7 @@ var MATH_DATA = [
         },
         {
           q: "Find the median of: 3, 7, 2, 9, 4, 6.",
+            dia: {"type":"dot_plot","data":[3,1,7,5,9]},
           options: ["$5$","$5.5$","$6$","$4$"],
           ansIdx: 1,
           sol: "Ordered: 2,3,4,6,7,9. Median = average of middle two = $(4+6)/2=5$.",
@@ -473,6 +480,7 @@ var MATH_DATA = [
         },
         {
           q: "A dataset has values: 2, 3, 3, 3, 4, 5, 8. What is the mode?",
+            dia: {"type":"dot_plot","data":[2,4,6,8]},
           options: ["$3$","$2$","$4$","No mode"],
           ansIdx: 0,
           sol: "3 appears 3 times — more than any other value. Mode = 3.",
@@ -480,6 +488,7 @@ var MATH_DATA = [
         },
         {
           q: "Find the range of: 12, 18, 9, 22, 15.",
+            dia: {"type":"dot_plot","data":[1,2,2,3,4]},
           options: ["$13$","$11$","$15$","$9$"],
           ansIdx: 0,
           sol: "Range = max − min = $22 - 9 = 13$.",
@@ -487,6 +496,7 @@ var MATH_DATA = [
         },
         {
           q: "Which measure of central tendency is most affected by outliers?",
+            dia: {"type":"dot_plot","data":[5,9,2,7]},
           options: ["Mean","Median","Mode","Range"],
           ansIdx: 0,
           sol: "Mean uses all values, so extreme outliers pull it toward them. Median is robust to outliers.",
@@ -503,6 +513,7 @@ var MATH_DATA = [
         },
         {
           q: "In a class of 20 students, 8 scored above 80. What percent scored 80 or below?",
+            dia: {"type":"dot_plot","data":[1,2,3,4,5,6,7]},
           options: ["$60\\%$","$40\\%$","$55\\%$","$70\\%$"],
           ansIdx: 0,
           sol: "$(20-8)/20 = 12/20 = 0.60 = 60\\%$ scored 80 or below.",
@@ -510,6 +521,7 @@ var MATH_DATA = [
         },
         {
           q: "Find the mean of: 15, 20, 15, 10, 20.",
+            dia: {"type":"box_plot","values":[2,4,6,8,10]},
           options: ["$16$","$15$","$17.5$","$20$"],
           ansIdx: 0,
           sol: "$(15+20+15+10+20)/5 = 80/5 = 16$.",
