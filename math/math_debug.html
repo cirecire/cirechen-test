@@ -26,6 +26,9 @@
   --border: #334155;
   --shadow: rgba(0,0,0,.3);
 }
+[data-theme="light"] {
+  --bg:#f0f4f8;--card:#fff;--text:#1e293b;--text-secondary:#475569;--border:#cbd5e1;--shadow:rgba(0,0,0,.08);
+}
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; padding:0 0 56px; }
 .banner { background:var(--blue-banner); color:#fff; padding:18px 24px; display:flex; align-items:center; gap:14px; }
@@ -54,6 +57,8 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
 .sol { margin-top:10px; padding:10px 12px; background:#f0fdfa; border-left:4px solid var(--teal); border-radius:8px; font-size:13.5px; display:none; }
 .next-btn { background:var(--blue); color:#fff; border:none; padding:11px 22px; border-radius:9px; font-size:14px; font-weight:700; cursor:pointer; margin-top:16px; }
 .debug { background:#fef3c7; border:2px solid #f59e0b; padding:10px; margin:10px 0; font-family:monospace; font-size:12px; }
+.theme-btn{background:rgba(255,255,255,.16);border:none;border-radius:8px;padding:7px 10px;cursor:pointer;color:#fff;display:flex;align-items:center;transition:background .15s;flex-shrink:0}
+.theme-btn:hover{background:rgba(255,255,255,.28)}
 </style>
 </head>
 <body>
@@ -63,7 +68,11 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
     <span id="crumb" style="font-size:12px;opacity:.7"></span>
     <h1 id="title">Loading...</h1>
     <span id="cov" class="cov"></span>
-  </div>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle day/night mode" title="Toggle day/night">
+    <svg id="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</div>
 </div>
 <div class="container">
   <div id="debug" class="debug">Debug info loading...</div>
@@ -76,6 +85,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
 </div>
 <script src="math_data.js"></script>
 <script>
+var _dark=true;function applyTheme(dark){_dark=dark;document.documentElement.dataset.theme=dark?'':'light';var sun=document.getElementById('icon-sun'),moon=document.getElementById('icon-moon');if(sun)sun.style.display=dark?'none':'block';if(moon)moon.style.display=dark?'block':'none';localStorage.setItem('mathTheme',dark?'dark':'light');}function toggleTheme(){applyTheme(!_dark);}document.addEventListener('DOMContentLoaded',function(){var saved=localStorage.getItem('mathTheme');applyTheme(saved!=='light');var btn=document.getElementById('themeBtn');if(btn)btn.addEventListener('click',toggleTheme);});
 var debug = document.getElementById("debug");
 function log(msg) {
   debug.innerHTML += "<br>" + msg;
