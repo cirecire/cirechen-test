@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root {
+    :root, [data-theme="dark"] {
       --ka-green: #14bf96;
       --ka-dark: #21242c;
       --ka-blue: #1865f2;
@@ -16,16 +16,22 @@
       --ka-border: #e3e5e8;
       --ka-text: #21242c;
       --ka-muted: #5f6368;
+      --bg:#f7f8fa; --card:#fff; --text:#21242c; --text2:#5f6368;
+      --blue:#1865f2; --green:#14bf96; --border:#e3e5e8;
+    }
+    [data-theme="light"] {
+      --bg:#f0f4ff; --card:#fff; --text:#1e293b; --text2:#64748b;
+      --blue:#2563eb; --green:#14bf96; --border:#c7d2fe;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: var(--ka-bg);
-      color: var(--ka-text);
+      background: var(--bg);
+      color: var(--text);
     }
     header {
-      background: var(--ka-green);
+      background: var(--green);
       color: white;
       padding: 28px 20px 20px;
       text-align: center;
@@ -40,8 +46,8 @@
       gap: 16px;
     }
     .card {
-      background: var(--ka-card);
-      border: 1px solid var(--ka-border);
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 12px;
       padding: 16px;
       display: flex;
@@ -69,13 +75,19 @@
     @media (max-width: 640px) {
       .grid { grid-template-columns: 1fr; }
     }
-  </style>
+  .theme-btn{background:rgba(255,255,255,.16);border:none;border-radius:8px;padding:7px 10px;cursor:pointer;color:#fff;display:flex;align-items:center;transition:background .15s;flex-shrink:0}
+.theme-btn:hover{background:rgba(255,255,255,.28)}
+</style>
 </head>
 <body>
   <header>
     <h1>8th Grade Math</h1>
     <p>Khan Academy style · 北师大版（北京师范大学版）</p>
     <p class="subtitle">7 chapters · 5 practice + 3 quiz per chapter</p>
+  <button class="theme-btn" id="themeBtn" aria-label="Toggle day/night mode" title="Toggle day/night">
+    <svg id="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
   </header>
 
   <div class="container">
@@ -158,5 +170,6 @@
       </p>
     </footer>
   </div>
+<script>var _dark=true;function applyTheme(dark){_dark=dark;document.documentElement.dataset.theme=dark?'':'light';var sun=document.getElementById('icon-sun'),moon=document.getElementById('icon-moon');if(sun)sun.style.display=dark?'none':'block';if(moon)moon.style.display=dark?'block':'none';localStorage.setItem('mathTheme',dark?'dark':'light');}function toggleTheme(){applyTheme(!_dark);}document.addEventListener('DOMContentLoaded',function(){var saved=localStorage.getItem('mathTheme');applyTheme(saved!=='light');var btn=document.getElementById('themeBtn');if(btn)btn.addEventListener('click',toggleTheme);});</script>
 </body>
 </html>
