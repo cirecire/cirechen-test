@@ -16,30 +16,196 @@
       --ka-border: #e3e5e8;
       --ka-text: #21242c;
       --ka-muted: #5f6368;
-      --bg:#f7f8fa; --card:#fff; --text:#21242c; --text2:#5f6368;
-      --blue:#1865f2; --green:#14bf96; --border:#e3e5e8;
+      --bg:#0a0f1e; --card:#151a2e; --text:#e8eaf0; --text2:#9aa0b0;
+      --blue:#1865f2; --green:#14bf96; --border:#2a3050;
+      --sel-bg:#1a2038; --sel-border:#14bf96;
     }
     [data-theme="light"] {
-      --bg:#f0f4ff; --card:#fff; --text:#1e293b; --text2:#64748b;
+      --bg:#f0f4ff; --card:#ffffff; --text:#1e293b; --text2:#64748b;
       --blue:#2563eb; --green:#14bf96; --border:#c7d2fe;
+      --sel-bg:#ffffff; --sel-border:#2563eb;
     }
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
-      font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      font-family: 'Lato', system-ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
+      min-height: 100vh;
+      transition: background .3s, color .3s;
     }
+
+    /* ─── Header ─── */
     header {
-      background: var(--green);
+      background: var(--ka-green);
       color: white;
       padding: 28px 20px 20px;
       text-align: center;
+      position: relative;
     }
-    header h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: 0.3px; }
-    header p { margin: 0; opacity: 0.95; font-size: 16px; }
-    .subtitle { font-size: 13px; opacity: 0.9; margin-top: 8px; }
-    .container { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
+    header h1 { font-size: 28px; letter-spacing: 0.3px; }
+    header p { opacity: 0.95; font-size: 16px; margin-top: 4px; }
+    .theme-btn{
+      background:rgba(255,255,255,.16);border:none;border-radius:8px;
+      padding:7px 10px;cursor:pointer;color:#fff;
+      display:flex;align-items:center;position:absolute;right:16px;top:24px;
+    }
+    .theme-btn:hover{background:rgba(255,255,255,.28)}
+
+    /* ─── Selector Section ─── */
+    #selector-section {
+      max-width: 700px;
+      margin: 40px auto 0;
+      padding: 0 16px;
+      text-align: center;
+    }
+    #selector-section h2 {
+      font-size: 20px;
+      color: var(--text2);
+      font-weight: 400;
+      margin-bottom: 24px;
+    }
+    .step-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--green);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .step-block {
+      margin-bottom: 28px;
+      opacity: .4;
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+    .step-block.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .step-title {
+      font-size: 15px;
+      color: var(--text2);
+      margin-bottom: 14px;
+    }
+
+    .pill-group {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .pill {
+      padding: 10px 24px;
+      border-radius: 999px;
+      border: 2px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color .15s, background .15s, transform .08s;
+      font-family: inherit;
+    }
+    .pill:hover {
+      border-color: var(--green);
+      transform: translateY(-1px);
+    }
+    .pill.selected {
+      border-color: var(--green);
+      background: var(--green);
+      color: #fff;
+    }
+    .pill.disabled {
+      opacity: .35;
+      cursor: not-allowed;
+    }
+
+    /* Arrow between steps */
+    .step-arrow {
+      text-align: center;
+      margin: 4px 0 20px;
+      font-size: 20px;
+      color: var(--text2);
+      opacity: .4;
+    }
+
+    /* Selected path display */
+    #path-display {
+      display: none;
+      text-align: center;
+      margin: 20px 16px 0;
+      padding: 14px 20px;
+      background: var(--card);
+      border: 2px solid var(--green);
+      border-radius: 12px;
+      font-size: 15px;
+      color: var(--green);
+      font-weight: 600;
+    }
+    #path-display.show { display: block; }
+
+    /* Coming soon card */
+    #coming-soon {
+      display: none;
+      max-width: 500px;
+      margin: 30px auto;
+      padding: 0 16px;
+      text-align: center;
+    }
+    #coming-soon.show {
+      display: block;
+    }
+    #coming-soon .cs-card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 24px;
+    }
+    #coming-soon .cs-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    #coming-soon h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    #coming-soon p {
+      color: var(--text2);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    #coming-soon .cs-tag {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 4px 14px;
+      border-radius: 999px;
+      background: var(--sel-bg);
+      border: 1px solid var(--sel-border);
+      font-size: 13px;
+      color: var(--green);
+    }
+
+    /* ─── Chapters Grid ─── */
+    #chapters-section {
+      display: none;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 16px 60px;
+    }
+    #chapters-section.show { display: block; }
+    .chapters-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .chapters-header h2 {
+      font-size: 22px;
+      color: var(--text);
+    }
+    .chapters-header p {
+      font-size: 14px;
+      color: var(--text2);
+      margin-top: 4px;
+    }
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -57,119 +223,388 @@
       color: inherit;
       transition: transform .08s ease, box-shadow .15s ease;
     }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.15); }
     .ch-num {
       width: 44px; height: 44px; border-radius: 10px;
       background: var(--ka-green); color: white;
-      display: grid; place-items: center; font-weight: 800; font-size: 16px;
-      flex-shrink: 0;
+      display: grid; place-items: center; font-weight: 800; font-size: 16px; flex-shrink: 0;
     }
     .ch-meta { flex: 1; }
     .ch-title { font-weight: 700; font-size: 16px; margin: 0 0 4px; }
-    .ch-cn { font-size: 13px; color: var(--ka-muted); margin: 0 0 6px; }
-    .ch-videos { font-size: 12px; color: var(--ka-muted); margin: 0; }
-    .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: #eafaf6; color: #0a7b5d; margin-top: 8px; }
-    .badge.ka { background: #e8f0fe; color: #1557b0; }
-    footer { text-align: center; padding: 40px 16px; color: var(--ka-muted); font-size: 13px; }
+    .ch-cn { font-size: 13px; color: var(--text2); margin: 0 0 6px; }
+    .ch-videos { font-size: 12px; color: var(--text2); margin: 0; }
+    .badge {
+      display: inline-block; font-size: 11px; padding: 2px 8px;
+      border-radius: 999px; background: var(--sel-bg);
+      border: 1px solid var(--sel-border); color: var(--green); margin-top: 8px;
+    }
+
+    footer {
+      text-align: center; padding: 40px 16px;
+      color: var(--text2); font-size: 13px;
+      border-top: 1px solid var(--border);
+    }
     .footer-note { max-width: 700px; margin: 0 auto; line-height: 1.6; }
+
     @media (max-width: 640px) {
       .grid { grid-template-columns: 1fr; }
+      .pill { padding: 8px 18px; font-size: 14px; }
     }
-  .theme-btn{background:rgba(255,255,255,.16);border:none;border-radius:8px;padding:7px 10px;cursor:pointer;color:#fff;display:flex;align-items:center;transition:background .15s;flex-shrink:0}
-.theme-btn:hover{background:rgba(255,255,255,.28)}
-</style>
+  </style>
 </head>
 <body>
   <header>
-    <h1>8th Grade Math</h1>
-    <p>Khan Academy style · 北师大版（北京师范大学版）</p>
-    <p class="subtitle">7 chapters · 5 practice + 3 quiz per chapter</p>
-  <button class="theme-btn" id="themeBtn" aria-label="Toggle day/night mode" title="Toggle day/night">
-    <svg id="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-    <svg id="icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-  </button>
+    <h1>Self-Study Math</h1>
+    <p>可汗学院风格 · 北师大版教材索引</p>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle day/night mode">
+      <svg id="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      <svg id="icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
   </header>
 
-  <div class="container">
+  <!-- ── Three-level selector ── -->
+  <div id="selector-section">
+    <h2>选择你的学习路径</h2>
+
+    <!-- Step 1: City -->
+    <div class="step-block active" id="step1">
+      <div class="step-label">Step 1 of 3</div>
+      <div class="step-title">你所在的城市是？</div>
+      <div class="pill-group">
+        <button class="pill" data-city="深圳">🇨🇳 深圳</button>
+        <button class="pill" data-city="香港">🇭🇰 香港</button>
+        <button class="pill" data-city="其他">🌏 其他地区</button>
+      </div>
+    </div>
+    <div class="step-arrow" id="arrow1">↓</div>
+
+    <!-- Step 2: Grade -->
+    <div class="step-block" id="step2">
+      <div class="step-label">Step 2 of 3</div>
+      <div class="step-title">你现在几年级？</div>
+      <div class="pill-group">
+        <button class="pill" data-grade="7">7年级</button>
+        <button class="pill" data-grade="8">8年级 ← 现在</button>
+        <button class="pill" data-grade="9">9年级</button>
+      </div>
+    </div>
+    <div class="step-arrow" id="arrow2" style="display:none">↓</div>
+
+    <!-- Step 3: Subject -->
+    <div class="step-block" id="step3">
+      <div class="step-label">Step 3 of 3</div>
+      <div class="step-title">选择学科</div>
+      <div class="pill-group">
+        <button class="pill" data-subject="math">📐 数学</button>
+        <button class="pill disabled" data-subject="physics">🔬 物理 <span style="font-size:12px;opacity:.7">(即将上线)</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Selected path display -->
+  <div id="path-display"></div>
+
+  <!-- Coming soon for unready combos -->
+  <div id="coming-soon">
+    <div class="cs-card">
+      <div class="cs-icon">🚧</div>
+      <h3 id="cs-title">该组合暂未上线</h3>
+      <p id="cs-desc"></p>
+      <div class="cs-tag" id="cs-tag"></div>
+    </div>
+  </div>
+
+  <!-- Chapters grid (only shown for valid combos) -->
+  <div id="chapters-section">
+    <div class="chapters-header">
+      <h2 id="section-title">8年级 · 数学 · 上册</h2>
+      <p id="section-subtitle">北师大版 · 可汗学院题型 · 全13章</p>
+    </div>
     <div class="grid">
-      <a class="card" href="math_chapter.html?ch=ch01&grade=8">
+
+      <a class="card" href="math_chapter.html?ch=ch01&grade=8&term=1">
         <div class="ch-num">01</div>
         <div class="ch-meta">
           <p class="ch-title">Pythagorean Theorem</p>
           <p class="ch-cn">勾股定理</p>
-          <p class="ch-videos">1 video · 5 practice · 3 quiz</p>
-          <span class="badge ka">KA Full</span>
+          <p class="ch-videos">13 videos · 8+ practice · 3 quiz</p>
+          <span class="badge">上册</span>
         </div>
       </a>
 
-      <a class="card" href="math_chapter.html?ch=ch02&grade=8">
+      <a class="card" href="math_chapter.html?ch=ch02&grade=8&term=1">
         <div class="ch-num">02</div>
         <div class="ch-meta">
           <p class="ch-title">Real Numbers</p>
           <p class="ch-cn">实数</p>
-          <p class="ch-videos">1 video · 5 practice · 3 quiz</p>
-          <span class="badge ka">KA Full</span>
+          <p class="ch-videos">33 videos · 8+ practice · 3 quiz</p>
+          <span class="badge">上册</span>
         </div>
       </a>
 
-      <a class="card" href="math_chapter.html?ch=ch03&grade=8">
+      <a class="card" href="math_chapter.html?ch=ch03&grade=8&term=1">
         <div class="ch-num">03</div>
         <div class="ch-meta">
           <p class="ch-title">Position & Coordinate Plane</p>
           <p class="ch-cn">位置与坐标</p>
-          <p class="ch-videos">1 video · 5 practice · 3 quiz</p>
-          <span class="badge ka">KA Full</span>
+          <p class="ch-videos">8 videos · 8+ practice · 3 quiz</p>
+          <span class="badge">上册</span>
         </div>
       </a>
 
-      <a class="card" href="math_chapter.html?ch=ch04&grade=8">
+      <a class="card" href="math_chapter.html?ch=ch04&grade=8&term=1">
         <div class="ch-num">04</div>
         <div class="ch-meta">
           <p class="ch-title">Linear Functions</p>
           <p class="ch-cn">一次函数</p>
-          <p class="ch-videos">1 video · 5 practice · 3 quiz</p>
-          <span class="badge ka">KA Full</span>
+          <p class="ch-videos">35 videos · 8+ practice · 3 quiz</p>
+          <span class="badge">上册</span>
         </div>
       </a>
 
-      <a class="card" href="math_chapter.html?ch=ch05&grade=8">
+      <a class="card" href="math_chapter.html?ch=ch05&grade=8&term=1">
         <div class="ch-num">05</div>
         <div class="ch-meta">
           <p class="ch-title">Systems of Linear Equations</p>
           <p class="ch-cn">二元一次方程组</p>
-          <p class="ch-videos">1 video · 5 practice · 3 quiz</p>
-          <span class="badge ka">KA Full</span>
+          <p class="ch-videos">20 videos · 8+ practice · 3 quiz</p>
+          <span class="badge">上册</span>
         </div>
       </a>
 
-      <a class="card" href="math_chapter.html?ch=ch06&grade=8">
+      <a class="card" href="math_chapter.html?ch=ch06&grade=8&term=1">
         <div class="ch-num">06</div>
         <div class="ch-meta">
           <p class="ch-title">Data Analysis</p>
           <p class="ch-cn">数据的分析</p>
-          <p class="ch-videos">1 video · 5 practice · 3 quiz</p>
-          <span class="badge ka">KA Full</span>
+          <p class="ch-videos">19 videos · 8+ practice · 3 quiz</p>
+          <span class="badge">上册</span>
         </div>
       </a>
 
-      <a class="card" href="math_chapter.html?ch=ch07&grade=8">
+      <a class="card" href="math_chapter.html?ch=ch07&grade=8&term=1">
         <div class="ch-num">07</div>
         <div class="ch-meta">
           <p class="ch-title">Foundations of Geometric Proof</p>
           <p class="ch-cn">几何证明基础</p>
-          <p class="ch-videos">1 video · 5 practice · 3 quiz</p>
-          <span class="badge">Reorganized</span>
+          <p class="ch-videos">11 videos · 8+ practice · 3 quiz</p>
+          <span class="badge">上册</span>
         </div>
       </a>
-    </div>
 
-    <footer>
-      <p class="footer-note">
-        <strong>课程说明：</strong>以北师大版8年级教材为索引，Ch07重组整合了8上第7章（证明）与8下第1章（三角形证明）核心内容，使几何证明工具链完整。<br>
-        All content in English with key terms annotated in Chinese.
-      </p>
-    </footer>
+      <a class="card" href="math_chapter.html?ch=ch08&grade=8&term=2">
+        <div class="ch-num">08</div>
+        <div class="ch-meta">
+          <p class="ch-title">Triangle Proofs</p>
+          <p class="ch-cn">三角形的证明</p>
+          <p class="ch-videos">41 videos · 8+ practice · 3 quiz</p>
+          <span class="badge">下册</span>
+        </div>
+      </a>
+
+      <a class="card" href="math_chapter.html?ch=ch09&grade=8&term=2">
+        <div class="ch-num">09</div>
+        <div class="ch-meta">
+          <p class="ch-title">Linear Inequalities</p>
+          <p class="ch-cn">一元一次不等式</p>
+          <p class="ch-videos">34 videos · 8+ practice · 3 quiz</p>
+          <span class="badge">下册</span>
+        </div>
+      </a>
+
+      <a class="card" href="math_chapter.html?ch=ch10&grade=8&term=2">
+        <div class="ch-num">10</div>
+        <div class="ch-meta">
+          <p class="ch-title">Translations & Rotations</p>
+          <p class="ch-cn">平移与旋转</p>
+          <p class="ch-videos">21 videos · 8+ practice · 3 quiz</p>
+          <span class="badge">下册</span>
+        </div>
+      </a>
+
+      <a class="card" href="math_chapter.html?ch=ch11&grade=8&term=2">
+        <div class="ch-num">11</div>
+        <div class="ch-meta">
+          <p class="ch-title">Factoring Polynomials</p>
+          <p class="ch-cn">因式分解</p>
+          <p class="ch-videos">43 videos · 8+ practice · 3 quiz</p>
+          <span class="badge">下册</span>
+        </div>
+      </a>
+
+      <a class="card" href="math_chapter.html?ch=ch12&grade=8&term=2">
+        <div class="ch-num">12</div>
+        <div class="ch-meta">
+          <p class="ch-title">Rational Expressions</p>
+          <p class="ch-cn">分式</p>
+          <p class="ch-videos">18 videos · 8+ practice · 3 quiz</p>
+          <span class="badge">下册</span>
+        </div>
+      </a>
+
+      <a class="card" href="math_chapter.html?ch=ch13&grade=8&term=2">
+        <div class="ch-num">13</div>
+        <div class="ch-meta">
+          <p class="ch-title">Parallelograms</p>
+          <p class="ch-cn">平行四边形</p>
+          <p class="ch-videos">15 videos · 8+ practice · 3 quiz</p>
+          <span class="badge">下册</span>
+        </div>
+      </a>
+
+    </div>
   </div>
-<script>var _dark=true;function applyTheme(dark){_dark=dark;document.documentElement.dataset.theme=dark?'':'light';var sun=document.getElementById('icon-sun'),moon=document.getElementById('icon-moon');if(sun)sun.style.display=dark?'none':'block';if(moon)moon.style.display=dark?'block':'none';localStorage.setItem('mathTheme',dark?'dark':'light');}function toggleTheme(){applyTheme(!_dark);}document.addEventListener('DOMContentLoaded',function(){var saved=localStorage.getItem('mathTheme');applyTheme(saved!=='light');var btn=document.getElementById('themeBtn');if(btn)btn.addEventListener('click',toggleTheme);});</script>
+
+  <footer>
+    <p class="footer-note">
+      <strong>课程说明：</strong>以北师大版8年级教材为索引，所有练习和Quiz来自 Khan Academy 真实题库。<br>
+      All content in English with key terms annotated in Chinese.<br>
+      视频课 × 练习 × Quiz，三位一体，完整闭环。
+    </p>
+  </footer>
+
+<script>
+  // ── Theme ──
+  var _dark = true;
+  function applyTheme(dark) {
+    _dark = dark;
+    document.documentElement.dataset.theme = dark ? '' : 'light';
+    var sun = document.getElementById('icon-sun');
+    var moon = document.getElementById('icon-moon');
+    if (sun) sun.style.display = dark ? 'none' : 'block';
+    if (moon) moon.style.display = dark ? 'block' : 'none';
+    localStorage.setItem('mathTheme', dark ? 'dark' : 'light');
+  }
+  function toggleTheme() { applyTheme(!_dark); }
+  document.addEventListener('DOMContentLoaded', function() {
+    var saved = localStorage.getItem('mathTheme');
+    applyTheme(saved !== 'light');
+    var btn = document.getElementById('themeBtn');
+    if (btn) btn.addEventListener('click', toggleTheme);
+  });
+
+  // ── Three-level selector ──
+  var selectedCity = null;
+  var selectedGrade = null;
+  var selectedSubject = null;
+
+  function activateStep(n) {
+    for (var i = 1; i <= 3; i++) {
+      var s = document.getElementById('step' + i);
+      if (s) {
+        s.classList.toggle('active', i === n);
+        s.style.opacity = i < n ? '1' : (i === n ? '1' : '.4');
+        s.style.pointerEvents = i === n ? 'auto' : 'none';
+      }
+    }
+    document.getElementById('arrow1').style.display = n >= 2 ? 'block' : 'none';
+    document.getElementById('arrow2').style.display = n >= 3 ? 'block' : 'none';
+  }
+
+  // City pills
+  document.querySelectorAll('[data-city]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('[data-city]').forEach(function(b) { b.classList.remove('selected'); });
+      btn.classList.add('selected');
+      selectedCity = btn.dataset.city;
+      activateStep(2);
+    });
+  });
+
+  // Grade pills
+  document.querySelectorAll('[data-grade]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('[data-grade]').forEach(function(b) { b.classList.remove('selected'); });
+      btn.classList.add('selected');
+      selectedGrade = btn.dataset.grade;
+      activateStep(3);
+    });
+  });
+
+  // Subject pills
+  document.querySelectorAll('[data-subject]').forEach(function(btn) {
+    if (btn.classList.contains('disabled')) return;
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('[data-subject]').forEach(function(b) { b.classList.remove('selected'); });
+      btn.classList.add('selected');
+      selectedSubject = btn.dataset.subject;
+      commitPath();
+    });
+  });
+
+  function commitPath() {
+    var cityLabel = { '深圳': '🇨🇳 深圳', '香港': '🇭🇰 香港', '其他': '🌏 其他地区' };
+    var gradeLabel = { '7': '7年级', '8': '8年级', '9': '9年级' };
+    var subLabel = { 'math': '📐 数学', 'physics': '🔬 物理' };
+
+    var label = cityLabel[selectedCity] + ' · ' + gradeLabel[selectedGrade] + ' · ' + subLabel[selectedSubject];
+    var pd = document.getElementById('path-display');
+    pd.textContent = '▶ ' + label;
+    pd.classList.add('show');
+
+    // Save to localStorage
+    localStorage.setItem('mathPath', JSON.stringify({ city: selectedCity, grade: selectedGrade, subject: selectedSubject }));
+
+    // Valid combo: 深圳/香港 + 8年级 + math
+    var valid = (selectedCity === '深圳' || selectedCity === '香港') && selectedGrade === '8' && selectedSubject === 'math';
+
+    if (valid) {
+      document.getElementById('chapters-section').classList.add('show');
+      document.getElementById('coming-soon').classList.remove('show');
+      document.getElementById('selector-section').style.display = 'none';
+    } else {
+      document.getElementById('chapters-section').classList.remove('show');
+      document.getElementById('coming-soon').classList.add('show');
+      document.getElementById('cs-title').textContent = '该组合暂未上线';
+      var desc = '';
+      if (selectedGrade !== '8') {
+        desc = gradeLabel[selectedGrade] + '的数学课程正在开发中，8年级已完整上线。';
+      } else if (selectedSubject !== 'math') {
+        desc = subLabel[selectedSubject] + '正在开发中，数学已完整上线。';
+      } else {
+        desc = '该地区的课程版本正在本地化中。';
+      }
+      document.getElementById('cs-desc').textContent = desc;
+      document.getElementById('cs-tag').textContent = selectedGrade + '年级 · ' + subLabel[selectedSubject];
+    }
+  }
+
+  // Restore saved path
+  document.addEventListener('DOMContentLoaded', function() {
+    var saved = localStorage.getItem('mathPath');
+    if (saved) {
+      try {
+        var p = JSON.parse(saved);
+        if (p.city && p.grade && p.subject) {
+          selectedCity = p.city;
+          selectedGrade = p.grade;
+          selectedSubject = p.subject;
+          // Auto-trigger: show path, hide selector
+          var pd = document.getElementById('path-display');
+          var cityLabel = { '深圳': '🇨🇳 深圳', '香港': '🇭🇰 香港', '其他': '🌏 其他地区' };
+          var gradeLabel = { '7': '7年级', '8': '8年级', '9': '9年级' };
+          var subLabel = { 'math': '📐 数学', 'physics': '🔬 物理' };
+          pd.textContent = '▶ ' + cityLabel[p.city] + ' · ' + gradeLabel[p.grade] + ' · ' + subLabel[p.subject];
+          pd.classList.add('show');
+          document.getElementById('selector-section').style.display = 'none';
+          if (p.city !== '深圳' && p.city !== '香港' || p.grade !== '8' || p.subject !== 'math') {
+            document.getElementById('coming-soon').classList.add('show');
+            document.getElementById('cs-desc').textContent = '已选路径暂未上线。请重新选择。';
+            document.getElementById('cs-tag').textContent = gradeLabel[p.grade] + ' · ' + subLabel[p.subject];
+          } else {
+            document.getElementById('chapters-section').classList.add('show');
+          }
+        }
+      } catch(e) {}
+    }
+  });
+</script>
 </body>
 </html>
