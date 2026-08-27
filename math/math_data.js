@@ -1,19 +1,25 @@
 var MATH_DATA = [
   { // ch01
-      [
-        { yt: "AA6RfgP-AHU", t: "Intro to the Pythagorean theorem", m: "English · Khan Academy", duration: "~10 min" },
-        { yt: "O64YFlX1_aI", t: "Pythagorean theorem example", m: "English · Khan Academy", duration: "~6 min" },
-        { yt: "TjOlZr_2uW4", t: "Pythagorean theorem with isosceles triangle", m: "English · Khan Academy", duration: "~5 min" },
-        { yt: "T0IOrRETWhI", t: "Pythagorean theorem word problem: carpet", m: "English · Khan Academy", duration: "~5 min" },
-        { yt: "JVrkLIcA2qw", t: "Pythagorean theorem word problem: fishing boat", m: "English · Khan Academy", duration: "~5 min" },
-        { yt: "1UQ5IbihJNI", t: "Pythagorean theorem in 3D", m: "English · Khan Academy", duration: "~6 min" },
-        { yt: "yZ4CbopnVBg", t: "Find area of isosceles triangle", m: "English · Khan Academy", duration: "~5 min" },
-        { yt: "nyZuite17Pc", t: "Distance formula", m: "English · Khan Academy", duration: "~9 min" },
-        { yt: "EINpkcphsPQ", t: "Garfield's proof of the Pythagorean theorem", m: "English · Khan Academy", duration: "~9 min" },
-        { yt: "1ul8g55dYA4", t: "Bhaskara's proof of the Pythagorean theorem", m: "English · Khan Academy", duration: "~6 min" },
-        { yt: "LrS5_l-gk94", t: "Pythagorean theorem proof using similarity", m: "English · Khan Academy", duration: "~8 min" },
-        { yt: "rcBaqkGp7CA", t: "Another Pythagorean theorem proof", m: "English · Khan Academy", duration: "~8 min" }
-      ],
+      id: "ch01",
+      g: "8",
+      gx: 1,
+      title: "Pythagorean Theorem",
+      coverage: "g",
+      think: "A right triangle has legs $a$ and $b$, and hypotenuse $c$. What relationship connects them? Try a 3-4-5 triangle: does $3^2 + 4^2 = 5^2$?",
+      videos: [
+        { yt: "AA6RfgP-AHU", t: "Intro to the Pythagorean theorem" },
+        { yt: "O64YFlX1_aI", t: "Pythagorean theorem example" },
+        { yt: "TjOlZr_2uW4", t: "Pythagorean theorem with isosceles triangle" },
+        { yt: "T0IOrRETWhI", t: "Pythagorean theorem word problem: carpet" },
+        { yt: "JVrkLIcA2qw", t: "Pythagorean theorem word problem: fishing boat" },
+        { yt: "1UQ5IbihJNI", t: "Pythagorean theorem in 3D" },
+        { yt: "yZ4CbopnVBg", t: "Find area of isosceles triangle" },
+        { yt: "nyZuite17Pc", t: "Distance formula" },
+        { yt: "EINpkcphsPQ", t: "Garfield's proof of the Pythagorean theorem" },
+        { yt: "1ul8g55dYA4", t: "Bhaskara's proof of the Pythagorean theorem" },
+        { yt: "LrS5_l-gk94", t: "Pythagorean theorem proof using similarity" },
+        { yt: "rcBaqkGp7CA", t: "Another Pythagorean theorem proof" }
+      ]
       notes: [
     "In a right triangle (直角三角形): $a^2 + b^2 = c^2$, where $c$ is the hypotenuse (斜边, opposite the right angle).",
     "Find hypotenuse: $c = sqrt{a^2+b^2}$. Find a leg: $a = sqrt{c^2-b^2}$.",
@@ -104,15 +110,21 @@ var MATH_DATA = [
   },
 
   { // ch02
-      [
-        { yt: "mbc3_e5lWw0", t: "Intro to square roots", m: "English · Khan Academy", duration: "~5 min" },
-        { yt: "EFVrAk61xjE", t: "Approximating square roots to hundredths", m: "English · Khan Academy", duration: "~5 min" },
-        { yt: "KibTbfkoPTs", t: "Comparing irrational numbers with radicals", m: "English · Khan Academy", duration: "~5 min" },
-        { yt: "87_qIofPwhg", t: "Intro to cube roots", m: "English · Khan Academy", duration: "~6 min" },
-        { yt: "DKh16Th8x6o", t: "Worked example: Cube root of a negative number", m: "English · Khan Academy", duration: "~4 min" },
-        { yt: "cLP7INqs3JM", t: "Intro to rational & irrational numbers", m: "English · Khan Academy", duration: "~9 min" },
-        { yt: "-QHff5pRdM8", t: "Classifying numbers", m: "English · Khan Academy", duration: "~7 min" }
-      ],
+      id: "ch02",
+      g: "8",
+      gx: 2,
+      title: "Real Numbers",
+      coverage: "g",
+      think: "$\\sqrt{2} \\approx 1.41421356...$ — can you write it as a fraction of two integers? What does this tell us about $\\sqrt{2}$?",
+      videos: [
+        { yt: "mbc3_e5lWw0", t: "Intro to square roots" },
+        { yt: "EFVrAk61xjE", t: "Approximating square roots to hundredths" },
+        { yt: "KibTbfkoPTs", t: "Comparing irrational numbers with radicals" },
+        { yt: "87_qIofPwhg", t: "Intro to cube roots" },
+        { yt: "DKh16Th8x6o", t: "Worked example: Cube root of a negative number" },
+        { yt: "cLP7INqs3JM", t: "Intro to rational & irrational numbers" },
+        { yt: "-QHff5pRdM8", t: "Classifying numbers" }
+      ]
       notes: [
     "Square root（平方根）: $sqrt{a}$ is the number whose square is $a$. Default = principal (non-negative) root.",
     "$sqrt{a^2} = |a|$; $(-3)^2 = 9$, so $sqrt{9} = 3$ (not $-3$).",
@@ -186,12 +198,18 @@ var MATH_DATA = [
   },
 
   { // ch03
-      [
-        { yt: "VhNkWdLGpmA", t: "Points on the coordinate plane examples", m: "English · Khan Academy", duration: "~6 min" },
-        { yt: "1op92ojA6q0", t: "Quadrants of the coordinate plane", m: "English · Khan Academy", duration: "~5 min" },
-        { yt: "b9H22F0Qbgw", t: "Finding the point not graphed", m: "English · Khan Academy", duration: "~5 min" },
-        { yt: "nyZuite17Pc", t: "Distance formula", m: "English · Khan Academy", duration: "~9 min" }
-      ],
+      id: "ch03",
+      g: "8",
+      gx: 3,
+      title: "Position & Coordinate Plane",
+      coverage: "g",
+      think: "If you walk 3 blocks east and 4 blocks north, how far are you from your starting point? Can you draw this on a grid?",
+      videos: [
+        { yt: "VhNkWdLGpmA", t: "Points on the coordinate plane examples" },
+        { yt: "1op92ojA6q0", t: "Quadrants of the coordinate plane" },
+        { yt: "b9H22F0Qbgw", t: "Finding the point not graphed" },
+        { yt: "nyZuite17Pc", t: "Distance formula" }
+      ]
       notes: [
     "Cartesian coordinate system（平面直角坐标系）: x-axis (horizontal) and y-axis (vertical), intersect at the origin $(0,0)$.",
     "Ordered pair $(x,y)$: x = horizontal position, y = vertical position. The origin is $(0,0)$.",
@@ -272,16 +290,22 @@ var MATH_DATA = [
   },
 
   { // ch04
-      [
-        { yt: "kvGsIo1TmsM", t: "What is a function?", m: "English · Khan Academy", duration: "~8 min" },
-        { yt: "Id6UovYjd-M", t: "Worked example: Evaluating functions from equation", m: "English · Khan Academy", duration: "~6 min" },
-        { yt: "3SO1BQQ9_1E", t: "Testing if a relationship is a function", m: "English · Khan Academy", duration: "~7 min" },
-        { yt: "AZroE4fJqtQ", t: "Recognizing linear functions", m: "English · Khan Academy", duration: "~7 min" },
-        { yt: "MeU-KzdCBps", t: "Intro to slope", m: "English · Khan Academy", duration: "~9 min" },
-        { yt: "IL3UCuXrUzE", t: "Intro to slope-intercept form (y=mx+b)", m: "English · Khan Academy", duration: "~8 min" },
-        { yt: "uk7gS3cZVp4", t: "Graph from slope-intercept equation", m: "English · Khan Academy", duration: "~6 min" },
-        { yt: "xR9r38mZjK4", t: "Linear graphs word problems", m: "English · Khan Academy", duration: "~7 min" }
-      ],
+      id: "ch04",
+      g: "8",
+      gx: 4,
+      title: "Linear Functions",
+      coverage: "g",
+      think: "A taxi charges $\\$3$ base fare plus $\\$2$ per km. Write an equation for the total cost $y$ in terms of distance $x$. Is this a function?",
+      videos: [
+        { yt: "kvGsIo1TmsM", t: "What is a function?" },
+        { yt: "Id6UovYjd-M", t: "Worked example: Evaluating functions from equation" },
+        { yt: "3SO1BQQ9_1E", t: "Testing if a relationship is a function" },
+        { yt: "AZroE4fJqtQ", t: "Recognizing linear functions" },
+        { yt: "MeU-KzdCBps", t: "Intro to slope" },
+        { yt: "IL3UCuXrUzE", t: "Intro to slope-intercept form (y=mx+b)" },
+        { yt: "uk7gS3cZVp4", t: "Graph from slope-intercept equation" },
+        { yt: "xR9r38mZjK4", t: "Linear graphs word problems" }
+      ]
       notes: [
     "Function（函数）: each input $x$ gives exactly one output $f(x)$. Written as $y = f(x)$.",
     "Linear function（一次函数）: $y = mx + b$. $m$ = slope (rate of change), $b$ = y-intercept.",
@@ -361,14 +385,20 @@ var MATH_DATA = [
   },
 
   { // ch05
-      [
-        { yt: "OcNt-36QKu8", t: "Intro to systems of equations", m: "English · Khan Academy", duration: "~8 min" },
-        { yt: "5a6zpfl50go", t: "Systems of equations with graphing", m: "English · Khan Academy", duration: "~7 min" },
-        { yt: "2EwPpga_XPw", t: "Systems of equations with substitution: potato chips", m: "English · Khan Academy", duration: "~6 min" },
-        { yt: "z1hz8-Kri1E", t: "Systems of equations with elimination: TV & DVD", m: "English · Khan Academy", duration: "~6 min" },
-        { yt: "Q0tTfe2lKIc", t: "System of equations word problem: walk & ride", m: "English · Khan Academy", duration: "~8 min" },
-        { yt: "KyHvVJWjW6Y", t: "Number of solutions to systems of equations", m: "English · Khan Academy", duration: "~7 min" }
-      ],
+      id: "ch05",
+      g: "8",
+      gx: 5,
+      title: "Systems of Linear Equations",
+      coverage: "g",
+      think: "You buy 3 apples and 2 bananas for $\\$11$. Your friend buys 2 apples and 3 bananas for $\\$9$. Can you find the price of each fruit?",
+      videos: [
+        { yt: "OcNt-36QKu8", t: "Intro to systems of equations" },
+        { yt: "5a6zpfl50go", t: "Systems of equations with graphing" },
+        { yt: "2EwPpga_XPw", t: "Systems of equations with substitution: potato chips" },
+        { yt: "z1hz8-Kri1E", t: "Systems of equations with elimination: TV & DVD" },
+        { yt: "Q0tTfe2lKIc", t: "System of equations word problem: walk & ride" },
+        { yt: "KyHvVJWjW6Y", t: "Number of solutions to systems of equations" }
+      ]
       notes: [
     "System of two linear equations（ 二元一次方程组）: two lines, find their intersection.",
     "Graphing method: plot both lines, find intersection point $(x,y)$.",
@@ -380,7 +410,6 @@ var MATH_DATA = [
       practice: [
         {
           q: "Solve by substitution: $y = x + 3$, $2x + y = 9$.",
-            dia: {"type":"coord_plane","range":[[0,4],[0,5]],"step":1,"line":{"m":1,"b":1},"line2":{"m":2,"b":-1},"points":[{"0":2,"1":3,"label":"(2,3)"}]},
           options: ["$(2,5)$","$(3,6)$","$(1,4)$","$(5,2)$"],
           ansIdx: 0,
           sol: "Substitute $y=x+3$ into $2x+(x+3)=9$: $3x=6$, $x=2$, $y=2+3=5$. Solution $(2,5)$.",
@@ -388,7 +417,6 @@ var MATH_DATA = [
         },
         {
           q: "Solve: $x + y = 7$ and $x - y = 3$.",
-            dia: {"type":"coord_plane","range":[[0,4],[0,6]],"step":1,"line":{"m":-2,"b":5},"line2":{"m":1,"b":-1},"points":[{"0":2,"1":1,"label":"(2,1)"}]},
           options: ["$(5,2)$","$(2,5)$","$(3,4)$","$(4,3)$"],
           ansIdx: 0,
           sol: "Add equations: $2x=10$, $x=5$. Then $y=7-5=2$. Solution $(5,2)$.",
@@ -403,7 +431,6 @@ var MATH_DATA = [
         },
         {
           q: "How many solutions does $y=3x+1$ and $6x-2y=4$ have?",
-            dia: {"type":"coord_plane","range":[[0,5],[0,5]],"step":1,"line":{"m":-1,"b":4},"line2":{"m":1,"b":-2},"points":[{"0":3,"1":1,"label":"(3,1)"}]},
           options: ["One solution","No solution","Infinitely many","Cannot determine"],
           ansIdx: 1,
           sol: "Rewrite second as $y=3x-2$. Same slope (3), different intercepts — parallel, no intersection.",
@@ -411,7 +438,6 @@ var MATH_DATA = [
         },
         {
           q: "Solve by elimination: $2x + 3y = 12$ and $4x - 3y = 6$.",
-            dia: {"type":"coord_plane","range":[[0,4],[0,8]],"step":1,"line":{"m":3,"b":0},"line2":{"m":-2,"b":10},"points":[{"0":2,"1":6,"label":"(2,6)"}]},
           options: ["$(3,2)$","$(2,3)$","$(4,0)$","$(1,3)$"],
           ansIdx: 0,
           sol: "Add equations: $6x=18$, $x=3$. Then $2(3)+3y=12$, $3y=6$, $y=2$. Solution $(3,2)$.",
@@ -421,7 +447,6 @@ var MATH_DATA = [
       quiz: [
         {
           q: "A phone plan charges \\$0.10 per minute and \\$15 monthly fee. Another charges \\$0.05 per minute and \\$25 fee. When are costs equal?",
-            dia: {"type":"coord_plane","range":[[0,5],[0,6]],"step":1,"line":{"m":-1,"b":5},"line2":{"m":1,"b":-1},"points":[{"0":3,"1":2,"label":"(3,2)"}]},
           options: ["200 minutes","150 minutes","300 minutes","100 minutes"],
           ansIdx: 0,
           sol: "$15+0.10m = 25+0.05m \\Rightarrow 0.05m=10 \\Rightarrow m=200$ minutes.",
@@ -445,13 +470,19 @@ var MATH_DATA = [
   },
 
   { // ch06
-      [
-        { yt: "h8EYEJ32oQ8", t: "Statistics intro: Mean, median, & mode", m: "English · Khan Academy", duration: "~9 min" },
-        { yt: "k3aKKasOmIw", t: "Mean, median, & mode example", m: "English · Khan Academy", duration: "~7 min" },
-        { yt: "0ZKtsUkrgFQ", t: "Representing data", m: "English · Khan Academy", duration: "~6 min" },
-        { yt: "gSEYtAjuZ-Y", t: "How to make a histogram", m: "English · Khan Academy", duration: "~5 min" },
-        { yt: "09Cx7xuIXig", t: "Constructing a box and whisker plot", m: "English · Khan Academy", duration: "~7 min" }
-      ],
+      id: "ch06",
+      g: "8",
+      gx: 6,
+      title: "Data Analysis",
+      coverage: "g",
+      think: "Five students scored: 72, 85, 85, 90, 98. Which number best represents 'typical' performance? Why might you choose a different one?",
+      videos: [
+        { yt: "h8EYEJ32oQ8", t: "Statistics intro: Mean, median, & mode" },
+        { yt: "k3aKKasOmIw", t: "Mean, median, & mode example" },
+        { yt: "0ZKtsUkrgFQ", t: "Representing data" },
+        { yt: "gSEYtAjuZ-Y", t: "How to make a histogram" },
+        { yt: "09Cx7xuIXig", t: "Constructing a box and whisker plot" }
+      ]
       notes: [
     "Mean（平均数）: sum of all values divided by the count. Sensitive to outliers.",
     "Median（中位数）: the middle value when data is ordered. Half the data is below, half above.",
@@ -464,7 +495,6 @@ var MATH_DATA = [
       practice: [
         {
           q: "Find the mean of: 4, 8, 6, 5, 7.",
-            dia: {"type":"dot_plot","data":[2,4,6,8]},
           options: ["$6$","$5$","$7$","$6.5$"],
           ansIdx: 0,
           sol: "$(4+8+6+5+7)/5=30/5=6$.",
@@ -472,7 +502,6 @@ var MATH_DATA = [
         },
         {
           q: "Find the median of: 3, 7, 2, 9, 4, 6.",
-            dia: {"type":"dot_plot","data":[3,1,7,5,9]},
           options: ["$5$","$5.5$","$6$","$4$"],
           ansIdx: 1,
           sol: "Ordered: 2,3,4,6,7,9. Median = average of middle two = $(4+6)/2=5$.",
@@ -480,7 +509,6 @@ var MATH_DATA = [
         },
         {
           q: "A dataset has values: 2, 3, 3, 3, 4, 5, 8. What is the mode?",
-            dia: {"type":"dot_plot","data":[2,4,6,8]},
           options: ["$3$","$2$","$4$","No mode"],
           ansIdx: 0,
           sol: "3 appears 3 times — more than any other value. Mode = 3.",
@@ -488,7 +516,6 @@ var MATH_DATA = [
         },
         {
           q: "Find the range of: 12, 18, 9, 22, 15.",
-            dia: {"type":"dot_plot","data":[1,2,2,3,4]},
           options: ["$13$","$11$","$15$","$9$"],
           ansIdx: 0,
           sol: "Range = max − min = $22 - 9 = 13$.",
@@ -496,7 +523,6 @@ var MATH_DATA = [
         },
         {
           q: "Which measure of central tendency is most affected by outliers?",
-            dia: {"type":"dot_plot","data":[5,9,2,7]},
           options: ["Mean","Median","Mode","Range"],
           ansIdx: 0,
           sol: "Mean uses all values, so extreme outliers pull it toward them. Median is robust to outliers.",
@@ -513,7 +539,6 @@ var MATH_DATA = [
         },
         {
           q: "In a class of 20 students, 8 scored above 80. What percent scored 80 or below?",
-            dia: {"type":"dot_plot","data":[1,2,3,4,5,6,7]},
           options: ["$60\\%$","$40\\%$","$55\\%$","$70\\%$"],
           ansIdx: 0,
           sol: "$(20-8)/20 = 12/20 = 0.60 = 60\\%$ scored 80 or below.",
@@ -521,7 +546,6 @@ var MATH_DATA = [
         },
         {
           q: "Find the mean of: 15, 20, 15, 10, 20.",
-            dia: {"type":"box_plot","values":[2,4,6,8,10]},
           options: ["$16$","$15$","$17.5$","$20$"],
           ansIdx: 0,
           sol: "$(15+20+15+10+20)/5 = 80/5 = 16$.",
@@ -531,15 +555,21 @@ var MATH_DATA = [
   },
 
   { // ch07
-      [
-        { yt: "aq_XL6FrmGs", t: "Parallel & perpendicular lines", m: "English · Khan Academy", duration: "~7 min" },
-        { yt: "H-E5rlpCVu4", t: "Angles, parallel lines, & transversals", m: "English · Khan Academy", duration: "~8 min" },
-        { yt: "2WjGD3LZEWo", t: "Missing angles with a transversal", m: "English · Khan Academy", duration: "~6 min" },
-        { yt: "6s1CI3uuhko", t: "Angles in a triangle sum to 180° proof", m: "English · Khan Academy", duration: "~8 min" },
-        { yt: "hmj3_zbz2eg", t: "Triangle exterior angle example", m: "English · Khan Academy", duration: "~5 min" },
-        { yt: "7FTNWE7RTfQ", t: "Isosceles & equilateral triangles problems", m: "English · Khan Academy", duration: "~7 min" },
-        { yt: "yp49bc4TT-s", t: "Corresponding parts of congruent triangles are congruent", m: "English · Khan Academy", duration: "~7 min" }
-      ],
+      id: "ch07",
+      g: "8",
+      gx: 7,
+      title: "Foundations of Geometric Proof",
+      coverage: "g",
+      think: "How can you be absolutely sure that the angles in every triangle add to 180°? Is measuring one triangle enough?",
+      videos: [
+        { yt: "aq_XL6FrmGs", t: "Parallel & perpendicular lines" },
+        { yt: "H-E5rlpCVu4", t: "Angles, parallel lines, & transversals" },
+        { yt: "2WjGD3LZEWo", t: "Missing angles with a transversal" },
+        { yt: "6s1CI3uuhko", t: "Angles in a triangle sum to 180 degrees proof" },
+        { yt: "hmj3_zbz2eg", t: "Triangle exterior angle example" },
+        { yt: "7FTNWE7RTfQ", t: "Isosceles & equilateral triangles problems" },
+        { yt: "yp49bc4TT-s", t: "Corresponding parts of congruent triangles are congruent" }
+      ]
       notes: [
     "Parallel lines（平行线）: never intersect. If two lines are cut by a transversal, corresponding angles are equal.",
     "Angle pairs（角的关系）: corresponding (equal), alternate interior (equal), alternate exterior, consecutive interior (sum to 180°).",
