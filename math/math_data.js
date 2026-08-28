@@ -19,6 +19,12 @@ var MATH_DATA = [
         { yt: "1ul8g55dYA4", t: "Bhaskara's proof of the Pythagorean theorem" },
         { yt: "LrS5_l-gk94", t: "Pythagorean theorem proof using similarity" },
         { yt: "rcBaqkGp7CA", t: "Another Pythagorean theorem proof" }
+            ],
+      subtopics: [
+        { name: "勾股定理本身", vids: [0,1,2], pq: [0,1,2,3,4,5,6,7,8,9,10] },
+        { name: "勾股应用", vids: [3,4,5,6], pq: [11,12,13,14,15,16] },
+        { name: "距离公式", vids: [7], pq: [17,18] },
+        { name: "勾股证明与勾股数", vids: [8,9,10,11], pq: [19,20] },
       ],
       notes: [
     "In a right triangle (直角三角形): $a^2 + b^2 = c^2$, where $c$ is the hypotenuse (斜边, opposite the right angle).",
