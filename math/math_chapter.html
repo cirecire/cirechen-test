@@ -116,6 +116,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 /* ── Hints ── */
 .hint-btn{background:#fef3c7;color:#92400e;border:1.5px solid #f59e0b;padding:5px 13px;border-radius:8px;font-size:12.5px;font-weight:700;cursor:pointer;margin-bottom:6px}
 .hint-btn:hover{background:#fde68a}
+/* ── interleaved subtopic (KA-style) additions ── */
+.videos{display:flex;flex-direction:column;gap:14px;margin:6px 0 4px}
+.prac-head{margin:18px 0 8px;font-size:16px;color:var(--ka-blue,#0a7cff)}
+.mbadge-wrap{margin:6px 0 2px}
+.mbadge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12.5px;font-weight:600;border:1px solid var(--border)}
+.mbadge.none{background:#f1f5f9;color:#64748b}
+.mbadge.familiar{background:#fef9c3;color:#a16207;border-color:#fde047}
+.mbadge.proficient{background:#dbeafe;color:#1d4ed8;border-color:#93c5fd}
+.mbadge.mastered{background:#dcfce7;color:#15803d;border-color:#86efac}
+.opt-wrong{border-color:#ef4444;background:#fef2f2}
+.opt-wrong .opt-l{background:#ef4444;color:#fff}
+.opt-done{cursor:default;opacity:.92}
+.opt-done:hover{transform:none}
+
 </style>
 </head>
 <body>
@@ -133,11 +147,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
     ✏️ <strong>Solve on paper first</strong>, then check your answer below.
   </div>
   <div class="stepbar" id="stepbar"></div>
-  <div class="panel" id="p1"></div>
-  <div class="panel" id="p2"></div>
-  <div class="panel" id="p3"></div>
-  <div class="panel" id="p4"></div>
-  <div class="panel" id="p5"></div>
+  <div id="panels"></div>
   <div class="done-screen" id="done">
     <div class="big">🎉</div>
     <h2 id="doneTitle">Chapter complete!</h2>
@@ -701,204 +711,263 @@ else { render(); }
 
 function pad(n){ return (n<10?"0":"") + n; }
 
+function pad(n){ return (n<10?'0':'')+n; }
+var TOTAL = 1, cur = 1, STEPS = [];
+
+function buildSteps() {
+  var steps = [{type:'think'}];
+  if (CH.subtopics && CH.subtopics.length) {
+    CH.subtopics.forEach(function(st, si){ steps.push({type:'learn', si:si}); });
+  } else {
+    steps.push({type:'watch'});
+    steps.push({type:'notes'});
+    steps.push({type:'practice'});
+  }
+  steps.push({type:'quiz'});
+  return steps;
+}
+
 function render() {
   document.getElementById("home").href = "index.html";
   document.getElementById("title").textContent = "G" + GRADE + "·" + pad(CH.gx || (idx+1)) + "  " + CH.title;
   var covTxt = {g:"🟢 KA video + practice + quiz", b:"🔵 KA video only", p:"🟣 custom only"}[CH.coverage] || "";
   document.getElementById("cov").textContent = covTxt;
-  var labels = ["Think","Watch","Notes","Practice","Quiz"];
-  var sb = "";
-  for (var i = 1; i <= TOTAL; i++) {
-    sb += '<div class="sb' + (i===cur?" active":"") + (i<cur?" done":"") + '" onclick="showStep(' + i + ')"><span class="sb-num">' + i + '</span><span class="sb-label">' + labels[i-1] + '</span></div>';
-    if (i < TOTAL) sb += '<span class="arrow">›</span>';
+  STEPS = buildSteps();
+  TOTAL = STEPS.length;
+  var labels = STEPS.map(function(s){
+    if (s.type==='think') return 'Think';
+    if (s.type==='learn') return CH.subtopics[s.si].name || ('Topic '+(s.si+1));
+    if (s.type==='watch') return 'Watch';
+    if (s.type==='notes') return 'Notes';
+    if (s.type==='practice') return 'Practice';
+    if (s.type==='quiz') return 'Quiz';
+  });
+  var sb = '';
+  for (var i=1;i<=TOTAL;i++){
+    sb += '<div class="sb'+(i===cur?' active':'')+(i<cur?' done':'')+'" onclick="showStep('+i+')"><span class="sb-num">'+i+'</span><span class="sb-label">'+esc(labels[i-1])+'</span></div>';
+    if (i<TOTAL) sb += '<span class="arrow">›</span>';
   }
   document.getElementById("stepbar").innerHTML = sb;
-  for (var s = 1; s <= TOTAL; s++) renderPanel(s);
+  var ph = '';
+  for (var k=1;k<=TOTAL;k++) ph += '<div class="panel" id="p'+k+'"></div>';
+  document.getElementById("panels").innerHTML = ph;
+  for (var s=1;s<=TOTAL;s++) renderPanel(s);
   showStep(1);
 }
+
 function showStep(step) {
-  if (cur === 2 && step !== 2) {
-    var f = document.querySelector("#p2 iframe.bili");
-    if (f) f.src = "about:blank";
-    var vids = document.querySelectorAll("#p2 video");
-    for (var vi = 0; vi < vids.length; vi++) {
-      vids[vi].pause();
-      vids[vi].currentTime = 0;
-    }
+  if (cur !== step) {
+    var vids = document.querySelectorAll("#panels video");
+    for (var vi=0; vi<vids.length; vi++){ vids[vi].pause(); vids[vi].currentTime = 0; }
   }
   cur = step;
-  for (var i = 1; i <= TOTAL; i++) {
-    var p = document.getElementById("p" + i);
-    if (p) p.classList.toggle("active", i === step);
+  for (var i=1;i<=TOTAL;i++){
+    var p = document.getElementById("p"+i);
+    if (p) p.classList.toggle("active", i===step);
   }
   var sbs = document.querySelectorAll(".sb");
-  for (var k = 0; k < sbs.length; k++) {
-    sbs[k].classList.toggle("active", k === (step-1));
-    sbs[k].classList.toggle("done", k < (step-1));
+  for (var k=0;k<sbs.length;k++){
+    sbs[k].classList.toggle("active", k===(step-1));
+    sbs[k].classList.toggle("done", k<(step-1));
   }
-  if (step === 2) renderPanel(2);
+  if (STEPS[step-1] && STEPS[step-1].type==='learn') updateMasteryBadge(STEPS[step-1].si);
   window.scrollTo({top:0, behavior:"smooth"});
 }
-function nextBtn(label) {
-  var txt = label || "Next ›";
-  return '<button class="next-btn big" onclick="nextStep()">' + txt + '</button>';
+
+function renderVideoHTML(vid) {
+  var ytId = esc(vid.yt || '');
+  var ytPageUrl = 'https://www.youtube.com/watch?v=' + ytId;
+  var khanPageUrl = vid.ka || 'https://www.khanacademy.org';
+  var localSrc = vid.local ? encodeURI(vid.local) : '';
+  if (localSrc) {
+    return '<div class="video-wrap" style="background:#000;">' +
+      '<video controls preload="metadata" playsinline style="width:100%;max-width:640px;display:block;margin:0 auto;background:#000;" src="' + localSrc + '"></video>' +
+      '<div class="video-meta"><strong>' + esc(vid.t || 'Khan Academy video') + '</strong><br>' +
+      '<span style="color:#666;">' + esc(vid.m || 'English') + ' · ' + esc(vid.duration || '~10 min') + '</span><br>' +
+      '<a href="' + khanPageUrl + '" target="_blank" class="vlink">Open on Khan Academy ↗</a>' +
+      (ytId ? ' &nbsp;|&nbsp; <a href="' + ytPageUrl + '" target="_blank" class="vlink">Watch on YouTube ↗</a>' : '') + '</div></div>';
+  }
+  var ytThumb = 'https://img.youtube.com/vi/' + ytId + '/maxresdefault.jpg';
+  return '<div class="video-wrap">' +
+    '<a href="' + ytPageUrl + '" target="_blank" class="video-thumb-link" style="display:block;position:relative;">' +
+    '<img src="' + ytThumb + '" alt="Video thumbnail" style="width:100%;max-width:640px;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.15);" onerror="this.src=\'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg\';">' +
+    '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.75);border-radius:50%;width:64px;height:64px;display:flex;align-items:center;justify-content:center;pointer-events:none;">' +
+    '<svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></a>' +
+    '<div class="video-meta"><strong>' + esc(vid.t || 'Khan Academy video') + '</strong><br>' +
+    '<span style="color:#666;">' + esc(vid.m || 'English') + ' · ' + esc(vid.duration || '~10 min') + '</span><br>' +
+    '<a href="' + ytPageUrl + '" target="_blank" class="vlink">▶ Watch on YouTube ↗</a> &nbsp;|&nbsp; ' +
+    '<a href="' + khanPageUrl + '" target="_blank" class="vlink">Open on Khan Academy ↗</a></div></div>';
 }
+
+function masteryKey(si){ return 'ka_mastery_' + CH.id + '_' + si; }
+function getMastery(si){
+  try { return JSON.parse(localStorage.getItem(masteryKey(si)) || '{"streak":0}'); }
+  catch(e){ return {streak:0}; }
+}
+function setMastery(si, m){ localStorage.setItem(masteryKey(si), JSON.stringify(m)); }
+function masteryLabel(m){
+  var s = m.streak||0;
+  if (s>=5) return {t:'掌握', c:'mastered'};
+  if (s>=3) return {t:'熟练', c:'proficient'};
+  if (s>=1) return {t:'了解', c:'familiar'};
+  return {t:'未开始', c:'none'};
+}
+function updateMasteryBadge(si){
+  var el = document.getElementById('mbadge'+si);
+  if (!el) return;
+  var lab = masteryLabel(getMastery(si));
+  el.className = 'mbadge ' + lab.c;
+  el.textContent = '掌握度：' + lab.t;
+}
+
 function renderPanel(step) {
-  var p = document.getElementById("p" + step);
+  var p = document.getElementById("p"+step);
   if (!p || !CH) return;
-  if (step === 1) {
-    p.innerHTML = '<h2>Step 1 · Think</h2><div class="elicit" id="thinkBox"></div>' + nextBtn();
+  var S = STEPS[step-1];
+  if (S.type==='think') {
+    p.innerHTML = '<h2>Step '+step+' · Think</h2><div class="elicit" id="thinkBox"></div>' + nextBtn();
     var tb = document.getElementById("thinkBox"); tb.textContent = CH.think || ""; renderMath(tb);
-  } else if (step === 2) {
-    var v = '<h2>Step 2 · Watch</h2>';
-    (CH.videos || []).forEach(function(vid){
-      var ytId = esc(vid.yt || '');
-      var ytPageUrl = 'https://www.youtube.com/watch?v=' + ytId;
-      var khanPageUrl = vid.ka || 'https://www.khanacademy.org';
-      var localSrc = vid.local ? encodeURI(vid.local) : '';
-      if (localSrc) {
-        // 本地视频直接播放（无需外网/YouTube）
-        v += '<div class="video-wrap" style="background:#000;">' +
-             '<video controls preload="metadata" playsinline style="width:100%;max-width:640px;display:block;margin:0 auto;background:#000;" src="' + localSrc + '"></video>' +
-             '<div class="video-meta">' +
-             '<strong>' + esc(vid.t || 'Khan Academy video') + '</strong><br>' +
-             '<span style="color:#666;">' + esc(vid.m || 'English') + ' · ' + esc(vid.duration || '~10 min') + '</span><br>' +
-             '<a href="' + khanPageUrl + '" target="_blank" class="vlink">Open on Khan Academy ↗</a>' +
-             (ytId ? ' &nbsp;|&nbsp; <a href="' + ytPageUrl + '" target="_blank" class="vlink">Watch on YouTube ↗</a>' : '') +
-             '</div></div>';
-      } else {
-        // 无本地文件：封面图 + 外链方案
-        var ytThumb = 'https://img.youtube.com/vi/' + ytId + '/maxresdefault.jpg';
-        v += '<div class="video-wrap">' +
-             '<a href="' + ytPageUrl + '" target="_blank" class="video-thumb-link" style="display:block;position:relative;">' +
-             '<img src="' + ytThumb + '" alt="Video thumbnail" style="width:100%;max-width:640px;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.15);" onerror="this.src=\'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg\';">' +
-             '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.75);border-radius:50%;width:64px;height:64px;display:flex;align-items:center;justify-content:center;pointer-events:none;">' +
-             '<svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></a>' +
-             '<div class="video-meta">' +
-             '<strong>' + esc(vid.t || 'Khan Academy video') + '</strong><br>' +
-             '<span style="color:#666;">' + esc(vid.m || 'English') + ' · ' + esc(vid.duration || '~10 min') + '</span><br>' +
-             '<a href="' + ytPageUrl + '" target="_blank" class="vlink">▶ Watch on YouTube ↗</a> &nbsp;|&nbsp; ' +
-             '<a href="' + khanPageUrl + '" target="_blank" class="vlink">Open on Khan Academy ↗</a>' +
-             '</div></div>';
-      }
-    });
+  } else if (S.type==='learn') {
+    var si = S.si, st = CH.subtopics[si];
+    document.getElementById("paperNote").style.display = 'block';
+    var h = '<h2>Step '+step+' · ' + esc(st.name) + '</h2>';
+    h += '<div class="mbadge-wrap"><span class="mbadge none" id="mbadge'+si+'">掌握度：未开始</span></div>';
+    h += '<div class="videos">' + (st.vids||[]).map(function(vi){ return renderVideoHTML(CH.videos[vi]); }).join('') + '</div>';
+    h += '<h3 class="prac-head">练习 · Practice</h3><div class="practiceBox" id="pb'+si+'"></div>';
+    h += nextBtn((si===CH.subtopics.length-1 ? 'Go to Quiz ›' : 'Next topic ›'));
+    p.innerHTML = h;
+    renderQs('pb'+si, st.pq.map(function(i){ return CH.practice[i]; }), 'p'+si, si);
+    updateMasteryBadge(si);
+  } else if (S.type==='watch') {
+    var v = '<h2>Step '+step+' · Watch</h2>';
+    (CH.videos||[]).forEach(function(vid){ v += renderVideoHTML(vid); });
     p.innerHTML = v + nextBtn();
-  } else if (step === 3) {
-    var n = '<h2>Step 3 · Notes</h2><ul class="notes-list" id="notesList"></ul>';
+  } else if (S.type==='notes') {
+    var n = '<h2>Step '+step+' · Notes</h2><ul class="notes-list" id="notesList"></ul>';
     p.innerHTML = n + nextBtn();
     var nl = document.getElementById("notesList");
-    (CH.notes || []).forEach(function(nt){
-      var li = document.createElement("li"); li.textContent = nt; renderMath(li); nl.appendChild(li);
-    });
-  } else if (step === 4) {
+    (CH.notes||[]).forEach(function(nt){ var li=document.createElement("li"); li.textContent=nt; renderMath(li); nl.appendChild(li); });
+  } else if (S.type==='practice') {
     document.getElementById("paperNote").style.display = 'block';
-    p.innerHTML = '<h2>Step 4 · Practice</h2><div id="practiceBox"></div>' + nextBtn("Finish practice, next ›");
-    renderQs("practiceBox", CH.practice || [], "p");
-  } else if (step === 5) {
-    p.innerHTML = '<h2>Step 5 · Quiz</h2><div id="quizBox"></div>' + nextBtn("Submit & see result ›");
-    renderQs("quizBox", CH.quiz || [], "q");
+    p.innerHTML = '<h2>Step '+step+' · Practice</h2><div id="practiceBox"></div>' + nextBtn("Finish practice, next ›");
+    renderQs("practiceBox", CH.practice||[], "p", -1);
+  } else if (S.type==='quiz') {
+    document.getElementById("paperNote").style.display = 'block';
+    p.innerHTML = '<h2>Step '+step+' · Quiz (Unit Test)</h2><div id="quizBox"></div>' + nextBtn("Submit & see result ›");
+    renderQs("quizBox", CH.quiz||[], "q", -1);
   }
 }
 
-function renderQs(boxId, questions, kind) {
+function renderQs(boxId, questions, kind, si) {
   var c = document.getElementById(boxId);
   if (!c) return;
-  if (!questions.length) { c.innerHTML = '<p style="color:var(--text2)">No questions for this step yet.</p>'; return; }
+  if (!questions.length) { c.innerHTML = '<p style="color:var(--text2)">No questions yet.</p>'; return; }
   var html = "";
   questions.forEach(function(item, i){
-    html += '<div class="q" id="' + kind + 'q' + i + '"' + (item.ansIdx !== undefined ? ' data-ansidx="' + item.ansIdx + '"' : (item.ans ? ' data-ans="' + esc(item.ans) + '"' : '')) + '>';
+    var qid = kind + 'q' + i;
+    html += '<div class="q" id="'+qid+'"' + (item.ansIdx!==undefined ? ' data-ansidx="'+item.ansIdx+'"' : '') + '>';
     html += '<div class="qnum">Question ' + (i+1) + '</div>';
     html += '<div class="qtext">' + esc(item.q) + '</div>';
-    // Hint button + hint content
     if (item.hint) {
-      html += '<button class="hint-btn" id="' + kind + 'hint' + i + 'btn" onclick="toggleHint(\'' + kind + '\',' + i + ')">💡 Hint</button>';
-      html += '<div class="hint-text" id="' + kind + 'hint' + i + '" style="display:none;margin:8px 0;padding:9px 13px;background:#fffbeb;border:1px solid #f59e0b;border-radius:8px;font-size:13.5px;color:#92400e">💡 <span>' + esc(item.hint) + '</span></div>';
+      html += '<button class="hint-btn" id="'+kind+'hint'+i+'btn" onclick="toggleHint(\''+kind+'\','+i+')">💡 Hint</button>';
+      html += '<div class="hint-text" id="'+kind+'hint'+i+'" style="display:none;margin:8px 0;padding:9px 13px;background:#fffbeb;border:1px solid #f59e0b;border-radius:8px;font-size:13.5px;color:#92400e">💡 <span>'+esc(item.hint)+'</span></div>';
     }
-    // Render diagram if present
-    if (item.dia) html += (typeof item.dia === 'string') ? item.dia : renderGraphie(item.dia);
-    // Render options if multiple choice
+    if (item.dia) html += (typeof item.dia==='string') ? item.dia : renderGraphie(item.dia);
     if (item.options && item.options.length) {
-      html += '<div class="options" id="' + kind + 'opt' + i + '">';
+      html += '<div class="options" id="'+kind+'opt'+i+'">';
       var letters = ['A','B','C','D','E','F'];
       item.options.forEach(function(opt, oi){
-        html += '<div class="opt" data-opt="' + oi + '"><span class="opt-l">' + letters[oi] + '</span><span class="opt-t">' + esc(opt) + '</span></div>';
+        html += '<div class="opt" data-opt="'+oi+'" onclick="gradeOpt(\''+kind+'\','+i+','+oi+','+si+')"><span class="opt-l">'+letters[oi]+'</span><span class="opt-t">'+esc(opt)+'</span></div>';
       });
       html += '</div>';
     }
-    // Answer area (show answer button → answer reveal)
     html += '<div class="ans-area">';
-    html += '<button class="show-ans-btn" id="' + kind + 'sh' + i + '" onclick="showAns(\'' + kind + '\',' + i + ')">Show answer &amp; solution</button>';
-    html += '<div class="ans-display" id="' + kind + 'ad' + i + '">';
-    html += '<strong>Answer:</strong> ' + esc(item.ans) + '';
+    html += '<button class="show-ans-btn" id="'+kind+'sh'+i+'" onclick="showAns(\''+kind+'\','+i+')">Show answer &amp; solution</button>';
+    html += '<div class="ans-display" id="'+kind+'ad'+i+'"><strong>Answer:</strong> '+esc(item.ans)+'</div>';
     html += '</div>';
-    html += '</div>';
-    // Solution / explanation
     if (item.sol) {
-      html += '<div class="sol" id="' + kind + 'sol' + i + '">';
-      html += '<div class="sol-header">📝 Solution</div><div class="sol-body">' + esc(item.sol) + '</div></div>';
+      html += '<div class="sol" id="'+kind+'sol'+i+'"><div class="sol-header">📝 Solution</div><div class="sol-body">'+esc(item.sol)+'</div></div>';
     }
     html += '</div>';
   });
   c.innerHTML = html;
-  // Render KaTeX math after DOM insertion
   setTimeout(function(){
-    document.querySelectorAll('#' + boxId + ' .qtext, #' + boxId + ' .ans-display, #' + boxId + ' .opt-t').forEach(renderMath);
+    document.querySelectorAll('#'+boxId+' .qtext, #'+boxId+' .ans-display, #'+boxId+' .opt-t').forEach(renderMath);
   }, 100);
 }
 
-function toggleHint(kind, i) {
-  var hintEl = document.getElementById(kind + 'hint' + i);
-  var btn = document.getElementById(kind + 'hint' + i + 'btn');
-  if (!hintEl) return;
-  if (hintEl.style.display === 'none') {
-    hintEl.style.display = 'block';
-    if (btn) btn.textContent = '🙈 Hide hint';
-    hintEl.querySelectorAll('span').forEach(renderMath);
+function gradeOpt(kind, i, oi, si) {
+  var qEl = document.getElementById(kind+'q'+i);
+  var ansIdx = qEl ? parseInt(qEl.getAttribute('data-ansidx')) : null;
+  var optWrap = document.getElementById(kind+'opt'+i);
+  if (!optWrap) return;
+  var chosen = optWrap.querySelector('.opt[data-opt="'+oi+'"]');
+  if (chosen.classList.contains('opt-done')) return;
+  optWrap.querySelectorAll('.opt').forEach(function(o){ o.classList.add('opt-done'); });
+  if (ansIdx===oi) {
+    chosen.classList.add('opt-correct');
+    if (si>=0) { var m=getMastery(si); m.streak=(m.streak||0)+1; setMastery(si,m); updateMasteryBadge(si); }
   } else {
-    hintEl.style.display = 'none';
-    if (btn) btn.textContent = '💡 Hint';
+    chosen.classList.add('opt-wrong');
+    if (ansIdx!==null) { var co=optWrap.querySelector('.opt[data-opt="'+ansIdx+'"]'); if (co) co.classList.add('opt-correct'); }
+    if (si>=0) { var m2=getMastery(si); m2.streak=0; setMastery(si,m2); updateMasteryBadge(si); }
   }
+  var solEl = document.getElementById(kind+'sol'+i);
+  if (solEl) solEl.style.display='block';
+  var btn = document.getElementById(kind+'sh'+i);
+  if (btn) btn.style.display='none';
+  var ansEl = document.getElementById(kind+'ad'+i);
+  if (ansEl) { ansEl.style.display='block'; renderMath(ansEl); }
+  var sb = solEl ? solEl.querySelector('.sol-body') : null;
+  if (sb) renderMath(sb);
+}
+
+function toggleHint(kind, i) {
+  var hintEl = document.getElementById(kind+'hint'+i);
+  var btn = document.getElementById(kind+'hint'+i+'btn');
+  if (!hintEl) return;
+  if (hintEl.style.display==='none') {
+    hintEl.style.display='block'; if (btn) btn.textContent='🙈 Hide hint';
+    hintEl.querySelectorAll('span').forEach(renderMath);
+  } else { hintEl.style.display='none'; if (btn) btn.textContent='💡 Hint'; }
 }
 
 function showAns(kind, i) {
-  var btn = document.getElementById(kind + 'sh' + i);
-  var ansEl = document.getElementById(kind + 'ad' + i);
-  var solEl = document.getElementById(kind + 'sol' + i);
-  ansEl.style.display = 'block';
-  solEl.style.display = 'block';
-  btn.style.display = 'none';
-  // highlight correct option if multiple choice
-  var qEl = document.getElementById(kind + 'q' + i);
+  var btn = document.getElementById(kind+'sh'+i);
+  var ansEl = document.getElementById(kind+'ad'+i);
+  var solEl = document.getElementById(kind+'sol'+i);
+  if (ansEl) ansEl.style.display='block';
+  if (solEl) solEl.style.display='block';
+  if (btn) btn.style.display='none';
+  var qEl = document.getElementById(kind+'q'+i);
   var ansIdx = qEl ? qEl.getAttribute('data-ansidx') : null;
-  var optWrap = document.getElementById(kind + 'opt' + i);
-  if (optWrap && ansIdx !== null) {
-    var correctOpt = optWrap.querySelector('.opt[data-opt="' + ansIdx + '"]');
+  var optWrap = document.getElementById(kind+'opt'+i);
+  if (optWrap && ansIdx!==null) {
+    var correctOpt = optWrap.querySelector('.opt[data-opt="'+ansIdx+'"]');
     if (correctOpt) correctOpt.classList.add('opt-correct');
   }
-  // render math in answer and solution
   renderMath(ansEl);
-  var solBody = solEl.querySelector('.sol-body');
+  var solBody = solEl ? solEl.querySelector('.sol-body') : null;
   if (solBody) renderMath(solBody);
 }
 
 function nextStep() {
-  if (cur < TOTAL) { showStep(cur + 1); }
-  else { finish(); }
+  if (cur < TOTAL) showStep(cur+1);
+  else finish();
 }
 function finish() {
-  var f = document.querySelector("#p2 iframe.bili");
-  if (f) f.src = "about:blank";
-  var vids = document.querySelectorAll("#p2 video");
-  for (var vi = 0; vi < vids.length; vi++) { vids[vi].pause(); vids[vi].currentTime = 0; }
-  for (var i = 1; i <= TOTAL; i++) document.getElementById("p" + i).style.display = 'none';
-  document.getElementById("stepbar").style.display = 'none';
+  var vids = document.querySelectorAll("#panels video");
+  for (var vi=0; vi<vids.length; vi++){ vids[vi].pause(); vids[vi].currentTime=0; }
+  for (var i=1;i<=TOTAL;i++) document.getElementById("p"+i).style.display='none';
+  document.getElementById("stepbar").style.display='none';
   document.getElementById("done").classList.add("show");
-  document.getElementById("doneText").textContent = "You finished G" + GRADE + "·" + pad(CH.gx || (idx+1)) + " " + CH.title;
-  var nx = CH_LIST[idx + 1];
+  document.getElementById("doneText").textContent = "You finished G"+GRADE+"·"+pad(CH.gx||(idx+1))+" "+CH.title;
+  var nx = CH_LIST[idx+1];
   var goNext = document.getElementById("goNext");
-  if (nx) { goNext.href = "math_chapter.html?ch=" + nx.id + "&grade=" + GRADE; goNext.textContent = "Go to next chapter ▶"; }
-  else { goNext.href = "index.html"; goNext.textContent = "← Back to chapter list"; }
+  if (nx) { goNext.href = "math_chapter.html?ch="+nx.id+"&grade="+GRADE; goNext.textContent="Go to next chapter ▶"; }
+  else { goNext.href="index.html"; goNext.textContent="← Back to chapter list"; }
 }
+
 </script>
 </body>
 </html>
