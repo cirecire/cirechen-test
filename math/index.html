@@ -141,8 +141,28 @@
       font-size: 15px;
       color: var(--green);
       font-weight: 600;
+      position: relative;
     }
     #path-display.show { display: block; }
+    #path-display .edit-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: 1px solid var(--green);
+      color: var(--green);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    #path-display .edit-btn:hover {
+      background: var(--green);
+      color: #fff;
+    }
 
     /* Coming soon card */
     #coming-soon {
@@ -183,6 +203,28 @@
       border: 1px solid var(--sel-border);
       font-size: 13px;
       color: var(--green);
+    }
+    #coming-soon .cs-reset {
+      display: inline-block;
+      margin: 20px 8px 0;
+      padding: 8px 22px;
+      border-radius: 999px;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    #coming-soon .cs-reset:hover { opacity: .9; }
+    #coming-soon .cs-reset:active { transform: scale(.97); }
+    /* Edit-mode hint: dim step blocks that already passed */
+    .step-block.completed { opacity: .7; pointer-events: auto; }
+    .step-block.completed .step-label::before {
+      content: "✓ ";
+      color: var(--green);
+      font-weight: 700;
     }
 
     /* ─── Chapters Grid ─── */
@@ -309,7 +351,10 @@
   </div>
 
   <!-- Selected path display -->
-  <div id="path-display"></div>
+  <div id="path-display">
+    <span id="path-text"></span>
+    <button class="edit-btn" id="edit-path-btn" type="button">✏️ 修改</button>
+  </div>
 
   <!-- Coming soon for unready combos -->
   <div id="coming-soon">
@@ -318,6 +363,8 @@
       <h3 id="cs-title">该组合暂未上线</h3>
       <p id="cs-desc"></p>
       <div class="cs-tag" id="cs-tag"></div>
+      <br>
+      <button class="cs-reset" id="cs-reset-btn" type="button">🔄 重新选择</button>
     </div>
   </div>
 
@@ -495,18 +542,63 @@
   var selectedGrade = null;
   var selectedSubject = null;
 
+  var cityLabel = { '深圳': '🇨🇳 深圳', '香港': '🇭🇰 香港', '其他': '🌏 其他地区' };
+  var gradeLabel = { '7': '7年级', '8': '8年级', '9': '9年级' };
+  var subLabel = { 'math': '📐 数学', 'physics': '🔬 物理' };
+
   function activateStep(n) {
     for (var i = 1; i <= 3; i++) {
       var s = document.getElementById('step' + i);
-      if (s) {
-        s.classList.toggle('active', i === n);
-        s.style.opacity = i < n ? '1' : (i === n ? '1' : '.4');
-        s.style.pointerEvents = i === n ? 'auto' : 'none';
-      }
+      if (!s) continue;
+      s.classList.remove('active', 'completed');
+      if (i < n) s.classList.add('completed');
+      else if (i === n) s.classList.add('active');
     }
     document.getElementById('arrow1').style.display = n >= 2 ? 'block' : 'none';
     document.getElementById('arrow2').style.display = n >= 3 ? 'block' : 'none';
   }
+
+  function showSelector() {
+    document.getElementById('selector-section').style.display = 'block';
+    document.getElementById('chapters-section').classList.remove('show');
+    document.getElementById('coming-soon').classList.remove('show');
+    document.getElementById('path-display').classList.remove('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function resetAll() {
+    selectedCity = null;
+    selectedGrade = null;
+    selectedSubject = null;
+    localStorage.removeItem('mathPath');
+    document.querySelectorAll('.pill.selected').forEach(function(b){ b.classList.remove('selected'); });
+    showSelector();
+    activateStep(1);
+  }
+
+  function renderPathDisplay() {
+    var label = '▶ ' + cityLabel[selectedCity] + ' · ' + gradeLabel[selectedGrade] + ' · ' + subLabel[selectedSubject];
+    document.getElementById('path-text').textContent = label;
+    document.getElementById('path-display').classList.add('show');
+  }
+
+  // Edit button: re-open selector at step1, keep previous selections visible (completed)
+  document.getElementById('edit-path-btn').addEventListener('click', function() {
+    // If subject already picked, allow city/grade edits; else start fresh
+    showSelector();
+    if (selectedSubject) {
+      activateStep(1); // user can re-pick from start
+    } else if (selectedGrade) {
+      activateStep(1);
+    } else if (selectedCity) {
+      activateStep(1);
+    } else {
+      activateStep(1);
+    }
+  });
+
+  // Coming-soon reset button
+  document.getElementById('cs-reset-btn').addEventListener('click', resetAll);
 
   // City pills
   document.querySelectorAll('[data-city]').forEach(function(btn) {
@@ -515,6 +607,8 @@
       btn.classList.add('selected');
       selectedCity = btn.dataset.city;
       activateStep(2);
+      // If grade+subject already chosen, re-commit
+      if (selectedGrade && selectedSubject) commitPath();
     });
   });
 
@@ -525,6 +619,7 @@
       btn.classList.add('selected');
       selectedGrade = btn.dataset.grade;
       activateStep(3);
+      if (selectedCity && selectedSubject) commitPath();
     });
   });
 
@@ -540,25 +635,14 @@
   });
 
   function commitPath() {
-    var cityLabel = { '深圳': '🇨🇳 深圳', '香港': '🇭🇰 香港', '其他': '🌏 其他地区' };
-    var gradeLabel = { '7': '7年级', '8': '8年级', '9': '9年级' };
-    var subLabel = { 'math': '📐 数学', 'physics': '🔬 物理' };
+    renderPathDisplay();
 
-    var label = cityLabel[selectedCity] + ' · ' + gradeLabel[selectedGrade] + ' · ' + subLabel[selectedSubject];
-    var pd = document.getElementById('path-display');
-    pd.textContent = '▶ ' + label;
-    pd.classList.add('show');
-
-    // Save to localStorage
-    localStorage.setItem('mathPath', JSON.stringify({ city: selectedCity, grade: selectedGrade, subject: selectedSubject }));
-
-    // Valid combo: 深圳/香港 + 8年级 + math
     var valid = (selectedCity === '深圳' || selectedCity === '香港') && selectedGrade === '8' && selectedSubject === 'math';
 
     if (valid) {
       document.getElementById('chapters-section').classList.add('show');
       document.getElementById('coming-soon').classList.remove('show');
-      document.getElementById('selector-section').style.display = 'none';
+      localStorage.setItem('mathPath', JSON.stringify({ city: selectedCity, grade: selectedGrade, subject: selectedSubject }));
     } else {
       document.getElementById('chapters-section').classList.remove('show');
       document.getElementById('coming-soon').classList.add('show');
@@ -573,37 +657,34 @@
       }
       document.getElementById('cs-desc').textContent = desc;
       document.getElementById('cs-tag').textContent = selectedGrade + '年级 · ' + subLabel[selectedSubject];
+      // Do NOT save invalid path to localStorage — force user to re-pick if they refresh
     }
   }
 
-  // Restore saved path
+  // Restore saved path (only valid ones)
   document.addEventListener('DOMContentLoaded', function() {
     var saved = localStorage.getItem('mathPath');
-    if (saved) {
-      try {
-        var p = JSON.parse(saved);
-        if (p.city && p.grade && p.subject) {
-          selectedCity = p.city;
-          selectedGrade = p.grade;
-          selectedSubject = p.subject;
-          // Auto-trigger: show path, hide selector
-          var pd = document.getElementById('path-display');
-          var cityLabel = { '深圳': '🇨🇳 深圳', '香港': '🇭🇰 香港', '其他': '🌏 其他地区' };
-          var gradeLabel = { '7': '7年级', '8': '8年级', '9': '9年级' };
-          var subLabel = { 'math': '📐 数学', 'physics': '🔬 物理' };
-          pd.textContent = '▶ ' + cityLabel[p.city] + ' · ' + gradeLabel[p.grade] + ' · ' + subLabel[p.subject];
-          pd.classList.add('show');
-          document.getElementById('selector-section').style.display = 'none';
-          if (p.city !== '深圳' && p.city !== '香港' || p.grade !== '8' || p.subject !== 'math') {
-            document.getElementById('coming-soon').classList.add('show');
-            document.getElementById('cs-desc').textContent = '已选路径暂未上线。请重新选择。';
-            document.getElementById('cs-tag').textContent = gradeLabel[p.grade] + ' · ' + subLabel[p.subject];
-          } else {
-            document.getElementById('chapters-section').classList.add('show');
-          }
-        }
-      } catch(e) {}
-    }
+    if (!saved) return;
+    try {
+      var p = JSON.parse(saved);
+      if (!p.city || !p.grade || !p.subject) return;
+      var valid = (p.city === '深圳' || p.city === '香港') && p.grade === '8' && p.subject === 'math';
+      if (!valid) return;
+      // Restore UI to a valid saved state: hide selector, show chapters + path-display
+      selectedCity = p.city;
+      selectedGrade = p.grade;
+      selectedSubject = p.subject;
+      renderPathDisplay();
+      // Highlight the matching pills in case user clicks "修改"
+      var cityBtn = document.querySelector('[data-city="' + p.city + '"]');
+      if (cityBtn) cityBtn.classList.add('selected');
+      var gradeBtn = document.querySelector('[data-grade="' + p.grade + '"]');
+      if (gradeBtn) gradeBtn.classList.add('selected');
+      var subBtn = document.querySelector('[data-subject="' + p.subject + '"]');
+      if (subBtn) subBtn.classList.add('selected');
+      activateStep(3);
+      document.getElementById('chapters-section').classList.add('show');
+    } catch(e) {}
   });
 </script>
 </body>
