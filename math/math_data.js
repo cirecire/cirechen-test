@@ -19,7 +19,7 @@ var MATH_DATA = [
         { yt: "1ul8g55dYA4", t: "Bhaskara's proof of the Pythagorean theorem" },
         { yt: "LrS5_l-gk94", t: "Pythagorean theorem proof using similarity" },
         { yt: "rcBaqkGp7CA", t: "Another Pythagorean theorem proof" }
-      ]
+      ],
       notes: [
     "In a right triangle (直角三角形): $a^2 + b^2 = c^2$, where $c$ is the hypotenuse (斜边, opposite the right angle).",
     "Find hypotenuse: $c = sqrt{a^2+b^2}$. Find a leg: $a = sqrt{c^2-b^2}$.",
@@ -124,7 +124,7 @@ var MATH_DATA = [
         { yt: "DKh16Th8x6o", t: "Worked example: Cube root of a negative number" },
         { yt: "cLP7INqs3JM", t: "Intro to rational & irrational numbers" },
         { yt: "-QHff5pRdM8", t: "Classifying numbers" }
-      ]
+      ],
       notes: [
     "Square root（平方根）: $sqrt{a}$ is the number whose square is $a$. Default = principal (non-negative) root.",
     "$sqrt{a^2} = |a|$; $(-3)^2 = 9$, so $sqrt{9} = 3$ (not $-3$).",
@@ -209,7 +209,7 @@ var MATH_DATA = [
         { yt: "1op92ojA6q0", t: "Quadrants of the coordinate plane" },
         { yt: "b9H22F0Qbgw", t: "Finding the point not graphed" },
         { yt: "nyZuite17Pc", t: "Distance formula" }
-      ]
+      ],
       notes: [
     "Cartesian coordinate system（平面直角坐标系）: x-axis (horizontal) and y-axis (vertical), intersect at the origin $(0,0)$.",
     "Ordered pair $(x,y)$: x = horizontal position, y = vertical position. The origin is $(0,0)$.",
@@ -305,7 +305,7 @@ var MATH_DATA = [
         { yt: "IL3UCuXrUzE", t: "Intro to slope-intercept form (y=mx+b)" },
         { yt: "uk7gS3cZVp4", t: "Graph from slope-intercept equation" },
         { yt: "xR9r38mZjK4", t: "Linear graphs word problems" }
-      ]
+      ],
       notes: [
     "Function（函数）: each input $x$ gives exactly one output $f(x)$. Written as $y = f(x)$.",
     "Linear function（一次函数）: $y = mx + b$. $m$ = slope (rate of change), $b$ = y-intercept.",
@@ -398,7 +398,7 @@ var MATH_DATA = [
         { yt: "z1hz8-Kri1E", t: "Systems of equations with elimination: TV & DVD" },
         { yt: "Q0tTfe2lKIc", t: "System of equations word problem: walk & ride" },
         { yt: "KyHvVJWjW6Y", t: "Number of solutions to systems of equations" }
-      ]
+      ],
       notes: [
     "System of two linear equations（ 二元一次方程组）: two lines, find their intersection.",
     "Graphing method: plot both lines, find intersection point $(x,y)$.",
@@ -482,7 +482,7 @@ var MATH_DATA = [
         { yt: "0ZKtsUkrgFQ", t: "Representing data" },
         { yt: "gSEYtAjuZ-Y", t: "How to make a histogram" },
         { yt: "09Cx7xuIXig", t: "Constructing a box and whisker plot" }
-      ]
+      ],
       notes: [
     "Mean（平均数）: sum of all values divided by the count. Sensitive to outliers.",
     "Median（中位数）: the middle value when data is ordered. Half the data is below, half above.",
@@ -569,7 +569,7 @@ var MATH_DATA = [
         { yt: "hmj3_zbz2eg", t: "Triangle exterior angle example" },
         { yt: "7FTNWE7RTfQ", t: "Isosceles & equilateral triangles problems" },
         { yt: "yp49bc4TT-s", t: "Corresponding parts of congruent triangles are congruent" }
-      ]
+      ],
       notes: [
     "Parallel lines（平行线）: never intersect. If two lines are cut by a transversal, corresponding angles are equal.",
     "Angle pairs（角的关系）: corresponding (equal), alternate interior (equal), alternate exterior, consecutive interior (sum to 180°).",
