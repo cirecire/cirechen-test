@@ -1109,9 +1109,108 @@ var MATH_DATA = [
           ansIdx: 0,
           sol: "Mean uses all values, so extreme outliers pull it toward them. Median is robust to outliers.",
         hint: "Range $=$ largest $-$ smallest.",
-        }
+        },
+        {
+          q: "Mean of $2, 5, 7, 8, 3$?",
+          options: ["$4$", "$5$", "$6$", "$25$"],
+          hint: "Sum: $2+5+7+8+3 = 25$. Divide by 5: $25/5 = 5$.",
+          ansIdx: 1,
+          sol: "Sum $= 25$, count $= 5$. Mean $= 25/5 = 5$.",
+        },
+        {
+          q: "Median of $3, 7, 9, 12, 15$?",
+          options: ["$7$", "$9$", "$10$", "$12$"],
+          hint: "Sort: $3, 7, 9, 12, 15$. Middle (3rd of 5) is $9$.",
+          ansIdx: 1,
+          sol: "Already sorted. Middle value of 5 numbers is the 3rd: $9$.",
+        },
+        {
+          q: "Median of $4, 1, 6, 8$?",
+          options: ["$4$", "$5$", "$6$", "$7$"],
+          hint: "Sort: $1, 4, 6, 8$. Middle two: $4$ and $6$. Median = $(4+6)/2 = 5$.",
+          ansIdx: 1,
+          sol: "Even count: average of two middle values: $(4 + 6)/2 = 5$.",
+        },
+        {
+          q: "Mode of $3, 5, 5, 7, 9, 5, 2$?",
+          options: ["$3$", "$5$", "$7$", "No mode"],
+          hint: "Mode = most frequent. $5$ appears 3 times, others once or twice.",
+          ansIdx: 1,
+          sol: "$5$ appears 3 times. $3, 7, 9, 2$ each appear once. Mode = $5$.",
+        },
+        {
+          q: "Dataset has values: $1, 3, 5, 7, 9$. What is the mean?",
+          options: ["$3$", "$5$", "$7$", "$25$"],
+          hint: "Sum = $1+3+5+7+9 = 25$. Mean = $25/5 = 5$.",
+          ansIdx: 1,
+          sol: "Mean = sum/count = $25/5 = 5$.",
+        },
+        {
+          q: "A dataset has values: $2, 4, 4, 4, 5, 6, 8$. What is the mode?",
+          options: ["$2$", "$4$", "$5$", "$8$"],
+          hint: "$4$ appears 3 times. Others appear once.",
+          ansIdx: 1,
+          sol: "Mode = most frequent = $4$ (appears 3 times).",
+        },
+        {
+          q: "Median of $12, 3, 7, 18, 5, 9$?",
+          options: ["$6$", "$7$", "$8$", "$9$"],
+          hint: "Sort: $3, 5, 7, 9, 12, 18$. Middle two: $7$ and $9$. Median = $8$.",
+          ansIdx: 2,
+          sol: "$(7 + 9)/2 = 16/2 = 8$.",
+        },
+        {
+          q: "Range of $3, 12, 7, 5, 9, 1$?",
+          options: ["$7$", "$9$", "$11$", "$12$"],
+          hint: "Range = max $-$ min = $12 - 1 = 11$.",
+          ansIdx: 2,
+          sol: "Max $= 12$, min $= 1$. Range $= 12 - 1 = 11$.",
+        },
+        {
+          q: "What is the range of a dataset where max $= 50$ and min $= 20$?",
+          options: ["$20$", "$30$", "$50$", "$70$"],
+          hint: "Range = $50 - 20 = 30$.",
+          ansIdx: 1,
+          sol: "Range $= \\text{max} - \\text{min} = 50 - 20 = 30$.",
+        },
+        {
+          q: "In a box plot, what does the box represent?",
+          options: ["The range", "The IQR (middle 50%)", "The median only", "The mode"],
+          hint: "Box: from Q1 (25th percentile) to Q3 (75th percentile). Middle 50% of data.",
+          ansIdx: 1,
+          sol: "The box spans Q1 to Q3 = interquartile range (IQR), the middle 50% of the data.",
+        },
+        {
+          q: "In a box plot, what do the whiskers represent?",
+          options: ["Min and max", "Q1 and Q3", "Median ± IQR", "First and last quartile"],
+          hint: "Whiskers extend from box to min and max of the data.",
+          ansIdx: 0,
+          sol: "Whiskers extend to the minimum and maximum data points (in modified plots, to 1.5*IQR).",
+        },
+        {
+          q: "Histogram is best for showing:",
+          options: ["Categories", "Numerical ranges (continuous)", "Order over time", "Percentages only"],
+          hint: "Histogram = binned continuous data. Bar chart = categories.",
+          ansIdx: 1,
+          sol: "Histogram groups numerical data into bins/ranges. For categories, use bar chart.",
+        },
+        {
+          q: "A dot plot shows:",
+          options: ["Mean and median", "Frequency of each value as dots", "Range only", "Box plot summary"],
+          hint: "Each dot = one data point. Stack dots to show distribution.",
+          ansIdx: 1,
+          sol: "Dot plot: each dot represents one data value. Dots stack to show frequency.",
+        },
+        {
+          q: "Find Q1 (lower quartile) of: $2, 4, 6, 8, 10, 12, 14$.",
+          options: ["$2$", "$$4$$", "$6$", "$8$"],
+          hint: "7 values: median is 4th = $8$. Lower half (below median): $2, 4, 6$. Q1 = median of lower = $4$.",
+          ansIdx: 1,
+          sol: "Lower half of $2,4,6,8,10,12,14$ is $2,4,6$. Q1 = middle = $4$.",
+        },
       ],
       quiz: [
+
         {
           q: "A student's test scores: 72, 85, 90, 68, 95. What is the median?",
           options: ["$82$","$85$","$80$","$90$"],
@@ -1132,7 +1231,22 @@ var MATH_DATA = [
           ansIdx: 0,
           sol: "$(15+20+15+10+20)/5 = 80/5 = 16$.",
         hint: "IQR $=Q_3-Q_1=8-4$.",
-        }
+        },
+        {
+          q: "A teacher records test scores: $72, 85, 90, 78, 85, 92, 88$. What is the median?",
+          options: ["$85$", "$86$", "$84$", "$88$"],
+          hint: "Sort: $72, 78, 85, 85, 88, 90, 92$. Middle (4th of 7) = $85$.",
+          ansIdx: 0,
+          sol: "Sorted: $72, 78, 85, 85, 88, 90, 92$. Median = $85$ (middle value).",
+        },
+        {
+          q: "What is the IQR (interquartile range) of $1, 2, 3, 4, 5, 6, 7, 8, 9$?",
+          options: ["$4$", "$5$", "$6$", "$9$"],
+          hint: "Q1 = $3$ (median of $1-4$), Q3 = $7$ (median of $6-9$). IQR = $7 - 3 = 4$.",
+          ansIdx: 0,
+          sol: "9 values: median = $5$. Lower half = $1-4$ (Q1 = $2.5$, but rounded to $3$); upper half = $6-9$ (Q3 = $7$). IQR = $7 - 3 = 4$.",
+        },
+
       ]
   },
 
