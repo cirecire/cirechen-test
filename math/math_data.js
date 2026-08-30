@@ -1318,9 +1318,108 @@ var MATH_DATA = [
           ansIdx: 0,
           sol: "Sum of angles = 180°. Base angles sum to $180°-40°=140°$, so each base angle = $70°$.",
         hint: "CPCTC = 'Corresponding Parts of Congruent Triangles are Congruent'.",
-        }
+        },
+        {
+          q: "Two parallel lines cut by a transversal. Alternate interior angles are:",
+          options: ["Equal", "Supplementary", "Always 90°", "Different"],
+          hint: "Alternate interior angles formed by parallel lines are congruent.",
+          ansIdx: 0,
+          sol: "When parallel lines are cut by a transversal, alternate interior angles are equal (congruent).",
+        },
+        {
+          q: "Co-interior (same-side interior) angles on parallel lines sum to:",
+          options: ["$90°$", "$180°$", "$360°$", "$0°$"],
+          hint: "Same-side interior angles are supplementary.",
+          ansIdx: 1,
+          sol: "Same-side interior (co-interior) angles are supplementary, summing to $180°$.",
+        },
+        {
+          q: "Two lines are parallel if they:",
+          options: ["Intersect once", "Have same slope (and different y-intercept)", "Are perpendicular", "Cross"],
+          hint: "In coordinate plane: parallel lines have equal slopes but different intercepts.",
+          ansIdx: 1,
+          sol: "In $y = mx + b$ form, parallel lines have the same slope $m$ but different $b$.",
+        },
+        {
+          q: "Vertical angles are:",
+          options: ["Equal", "Supplementary", "Right angles", "Different"],
+          hint: "Vertical (opposite) angles are always equal.",
+          ansIdx: 0,
+          sol: "Vertical angles (opposite each other when two lines cross) are always equal.",
+        },
+        {
+          q: "Corresponding angles on parallel lines are:",
+          options: ["Equal", "Supplementary", "Always acute", "Different"],
+          hint: "Corresponding angles formed by parallel lines are congruent.",
+          ansIdx: 0,
+          sol: "Corresponding angles (same position at each intersection) are congruent when lines are parallel.",
+        },
+        {
+          q: "Sum of interior angles of a triangle:",
+          options: ["$90°$", "$180°$", "$270°$", "$360°$"],
+          hint: "Three angles of any triangle always sum to $180°$.",
+          ansIdx: 1,
+          sol: "This is the triangle angle sum theorem: angles in a triangle sum to $180°$.",
+        },
+        {
+          q: "In a triangle, two angles are $50°$ and $70°$. The third angle is:",
+          options: ["$60°$", "$70°$", "$80°$", "$120°$"],
+          hint: "Sum: $50° + 70° + x = 180° \\Rightarrow x = 60°$.",
+          ansIdx: 0,
+          sol: "$50° + 70° = 120°$. $180° - 120° = 60°$. Third angle = $60°$.",
+        },
+        {
+          q: "Exterior angle of a triangle equals:",
+          options: ["Sum of two remote interior angles", "Sum of all interior angles", "Sum of two adjacent interior angles", "$180°$ minus interior"],
+          hint: "Exterior angle theorem: ext. angle = sum of the two non-adjacent interior angles.",
+          ansIdx: 0,
+          sol: "Exterior angle = sum of the two remote interior angles (the two not adjacent to it).",
+        },
+        {
+          q: "In an isosceles triangle, base angles are:",
+          options: ["Different", "Equal", "Right angles", "$120°$ each"],
+          hint: "Isosceles: two equal sides → two equal base angles.",
+          ansIdx: 1,
+          sol: "Isosceles triangle property: angles opposite equal sides are equal. The base angles are equal.",
+        },
+        {
+          q: "In an equilateral triangle, each angle is:",
+          options: ["$45°$", "$60°$", "$90°$", "$120°$"],
+          hint: "All sides equal → all angles equal. Sum $180° / 3 = 60°$.",
+          ansIdx: 1,
+          sol: "Equilateral: all sides equal. All angles equal. $180°/3 = 60°$ each.",
+        },
+        {
+          q: "Which is NOT a triangle congruence criterion?",
+          options: ["SSS", "SAS", "ASA", "AAA"],
+          hint: "AAA proves similarity, not congruence.",
+          ansIdx: 3,
+          sol: "SSS, SAS, ASA, AAS, HL prove congruence. AAA only proves similarity.",
+        },
+        {
+          q: "SSS criterion requires:",
+          options: ["Two sides and included angle", "Three sides", "Two angles and included side", "Right angle and hypotenuse"],
+          hint: "Side-Side-Side: all three sides equal.",
+          ansIdx: 1,
+          sol: "SSS: three sides of triangle 1 equal three sides of triangle 2 → congruent.",
+        },
+        {
+          q: "SAS criterion requires:",
+          options: ["Two sides and the included angle", "Two angles and a side", "Three sides", "Right angle"],
+          hint: "Side-Angle-Side: two sides and the angle BETWEEN them equal.",
+          ansIdx: 0,
+          sol: "SAS: two sides and the angle INCLUDED between them are equal.",
+        },
+        {
+          q: "Two triangles are congruent by AAS. What does this mean?",
+          options: ["Two angles and a non-included side", "Two angles and included side", "Two sides and angle", "Three angles"],
+          hint: "Angle-Angle-Side: two angles and any side (not between them).",
+          ansIdx: 0,
+          sol: "AAS: two angles and a non-included side equal.",
+        },
       ],
       quiz: [
+
         {
           q: "Lines $l \\parallel m$ are cut by transversal $t$. If $\\angle 1 = 120°$, what is $\\angle 3$ (alternate interior)?",
         dia: {"type": "triangle", "w": 4, "h": 3, "A": "A", "B": "B", "C": "C", "a": "4", "b": "3", "c": "5"},
@@ -1344,7 +1443,22 @@ var MATH_DATA = [
           ansIdx: 0,
           sol: "Exterior angle = sum of remote interior angles. $100° - 35° = 65°$.",
         hint: "Angles in a triangle sum to $180^\\circ$, so if two match, the third must too.",
-        }
+        },
+        {
+          q: "Two parallel lines cut by a transversal. One alternate interior angle is $65°$. What is the other?",
+          options: ["$65°$", "$115°$", "$90°$", "$180°$"],
+          hint: "Alternate interior angles on parallel lines are equal.",
+          ansIdx: 0,
+          sol: "Alternate interior angles are congruent. So the other is $65°$.",
+        },
+        {
+          q: "Triangle angles are $30°$, $60°$, and $x$. What is $x$?",
+          options: ["$60°$", "$90°$", "$100°$", "$120°$"],
+          hint: "$30 + 60 + x = 180 \\Rightarrow x = 90°$.",
+          ansIdx: 1,
+          sol: "$30° + 60° + x = 180° \\Rightarrow x = 90°$. Right triangle.",
+        },
+
       ]
   }
 ];
