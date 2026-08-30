@@ -151,7 +151,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
   <span class="cov" id="cov"></span>
 </div>
 <div class="wrap">
-  <div id="versionMarker" style="position:fixed;top:5px;right:5px;background:lime;color:black;padding:6px 12px;z-index:99999;font:bold 15px monospace;border:2px solid black;">v2026-08-30-FIX-NEXTBTN</div>
   <div class="paper-note" id="paperNote" style="display:none">
     ✏️ <strong>Solve on paper first</strong>, then check your answer below.
   </div>
@@ -960,7 +959,7 @@ function renderQs(boxId, questions, kind, si) {
 
   c.innerHTML = html;
   setTimeout(function() {
-    var sel = '#' + boxId + ' .qtext, #' + boxId + ' .ans-display, #' + boxId + ' .fill-input';
+    var sel = '#' + boxId + ' .qtext, #' + boxId + ' .opt-t, #' + boxId + ' .ans-display, #' + boxId + ' .hint-text span, #' + boxId + ' .sol-body, #' + boxId + ' .fill-input';
     document.querySelectorAll(sel).forEach(renderMath);
   }, 100);
 }
