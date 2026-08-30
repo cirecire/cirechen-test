@@ -484,9 +484,108 @@ var MATH_DATA = [
           ansIdx: 2,
           sol: "Both x and y are negative — Quadrant III.",
         hint: "Quadrant III has both $x<0$ and $y<0$. Look for two negative coordinates.",
-        }
+        },
+        {
+          q: "In which quadrant is the point $(4, -5)$ located?",
+          options: ["Quadrant I", "Quadrant II", "Quadrant III", "Quadrant IV"],
+          hint: "Sign of x determines left/right; sign of y determines up/down. $(+,-)$ is on the right and below the origin.",
+          ansIdx: 3,
+          sol: "$x=4>0$ (right of origin), $y=-5<0$ (below origin). Quadrant IV.",
+        },
+        {
+          q: "What is the x-coordinate of point $B(7, -3)$?",
+          options: ["$-3$", "$7$", "$-10$", "$4$"],
+          hint: "The x-coordinate is the first value in the ordered pair $(x, y)$.",
+          ansIdx: 1,
+          sol: "The ordered pair $B(7,-3)$ has x-coordinate $7$ and y-coordinate $-3$.",
+        },
+        {
+          q: "A point lies on the y-axis. Which is true?",
+          options: ["$x = 0$", "$y = 0$", "$x = y$", "$x + y = 0$"],
+          hint: "Any point on the y-axis has zero x-value (it sits directly above or below the origin).",
+          ansIdx: 0,
+          sol: "The y-axis is the set of all points where $x = 0$. So $(0, 5), (0, -2)$ are on the y-axis.",
+        },
+        {
+          q: "The point $A(-3, 4)$ is reflected across the y-axis. What is the image?",
+          options: ["$(-3, 4)$", "$(3, 4)$", "$(-3, -4)$", "$(3, -4)$"],
+          hint: "Reflection across the y-axis flips the sign of x but keeps y the same.",
+          ansIdx: 1,
+          sol: "$(-3, 4) \\to (3, 4)$. The y-coordinate is unchanged; only the x-coordinate sign flips.",
+        },
+        {
+          q: "Which point is exactly $5$ units right of the origin on the x-axis?",
+          options: ["$(5, 5)$", "$(5, 0)$", "$(0, 5)$", "$(-5, 0)$"],
+          hint: "A point on the x-axis has y = 0. 'Right of origin' means positive x.",
+          ansIdx: 1,
+          sol: "$(5, 0)$: on the x-axis ($y=0$) and right of origin ($x>0$).",
+        },
+        {
+          q: "What are the coordinates of the origin?",
+          options: ["$(1, 0)$", "$(0, 1)$", "$(0, 0)$", "$(1, 1)$"],
+          hint: "The origin is where the x-axis meets the y-axis — both coordinates are zero.",
+          ansIdx: 2,
+          sol: "The origin is the point $(0,0)$.",
+        },
+        {
+          q: "If point $P$ has $x = -2$ and $y = 6$, which quadrant?",
+          options: ["I", "II", "III", "IV"],
+          hint: "$(-, +)$ means x is negative and y is positive. That's the upper-left region.",
+          ansIdx: 1,
+          sol: "$x = -2 < 0$ (left), $y = 6 > 0$ (up). Upper-left is Quadrant II.",
+        },
+        {
+          q: "Find the distance between $A(0, 0)$ and $B(6, 8)$.",
+          options: ["$2$", "$10$", "$14$", "$100$"],
+          hint: "Use $d = \\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$. This is a 6-8-10 right triangle.",
+          ansIdx: 1,
+          sol: "$d = \\sqrt{(6-0)^2 + (8-0)^2} = \\sqrt{36 + 64} = \\sqrt{100} = 10$.",
+        },
+        {
+          q: "Distance from $(-1, -1)$ to $(2, 3)$?",
+          options: ["$\\sqrt{13}$", "$\\sqrt{25}$", "$5$", "$\\sqrt{7}$"],
+          hint: "Plug into the distance formula. Watch the signs carefully.",
+          ansIdx: 1,
+          sol: "$d = \\sqrt{(2-(-1))^2 + (3-(-1))^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$.",
+        },
+        {
+          q: "Two points are 5 units apart horizontally but 12 units apart vertically. What is the distance?",
+          options: ["$5$", "$12$", "$13$", "$17$"],
+          hint: "This is a 5-12-? right triangle. Apply Pythagoras.",
+          ansIdx: 2,
+          sol: "$d = \\sqrt{5^2 + 12^2} = \\sqrt{25 + 144} = \\sqrt{169} = 13$.",
+        },
+        {
+          q: "Distance from $(3, 4)$ to $(3, 9)$?",
+          options: ["$3$", "$4$", "$5$", "$6$"],
+          hint: "Same x-coordinate, so this is just the vertical difference.",
+          ansIdx: 2,
+          sol: "$d = \\sqrt{(3-3)^2 + (9-4)^2} = \\sqrt{0 + 25} = 5$.",
+        },
+        {
+          q: "Which ordered pair represents a point at 2 right and 3 up?",
+          options: ["$(3, 2)$", "$(2, 3)$", "$(-2, 3)$", "$(3, -2)$"],
+          hint: "'Right' = positive x, 'up' = positive y. Ordered pair is (x, y).",
+          ansIdx: 1,
+          sol: "Right 2 means x=2, up 3 means y=3. So $(2, 3)$.",
+        },
+        {
+          q: "A point at $(7, -2)$ is how many units from the x-axis?",
+          options: ["$7$", "$2$", "$5$", "$9$"],
+          hint: "Distance from x-axis equals |y-coordinate|.",
+          ansIdx: 1,
+          sol: "Distance from x-axis is $|y| = |-2| = 2$ units.",
+        },
+        {
+          q: "A triangle has vertices $A(0,0), B(4,0), C(0,3)$. What is its perimeter?",
+          options: ["$7$", "$12$", "$25$", "Not a triangle"],
+          hint: "Compute all three sides: $|AB|$, $|BC|$, $|CA|$. Then sum.",
+          ansIdx: 1,
+          sol: "$|AB| = 4$, $|AC| = 3$, $|BC| = \\sqrt{4^2+3^2} = 5$. Perimeter $= 4+3+5 = 12$.",
+        },
       ],
       quiz: [
+
         {
           q: "Which point lies on the line $y=2x+1$?",
         dia: {"type": "coord_plane", "range": [[0, 7], [0, 14]], "step": 1, "points": [{"0": 0, "1": 0, "label": "A"}, {"0": 5, "1": 12, "label": "B"}]},
@@ -510,7 +609,22 @@ var MATH_DATA = [
           ansIdx: 1,
           sol: "$2=\\frac{12-y}{7-3}=\\frac{12-y}{4}$, so $12-y=8$, $y=4$.",
         hint: "In $y=mx+b$, the y-intercept is $b$. Set $x=0$: $y=3(0)-4=-4$.",
-        }
+        },
+        {
+          q: "Find the distance between $(1, 2)$ and $(7, 10)$.",
+          options: ["$\\sqrt{36}$", "$\\sqrt{64}$", "$10$", "$14$"],
+          hint: "Distance formula: $d = \\sqrt{(7-1)^2 + (10-2)^2} = \\sqrt{36 + 64} = \\sqrt{100} = 10$.",
+          ansIdx: 2,
+          sol: "$d = \\sqrt{6^2 + 8^2} = \\sqrt{36+64} = \\sqrt{100} = 10$. This is a 6-8-10 right triangle (multiple of 3-4-5).",
+        },
+        {
+          q: "A point is 6 units from $(0, 0)$ and lies on the line $y = x$. What are its coordinates?",
+          options: ["$(3\\sqrt{2}, 3\\sqrt{2})$", "$(6, 6)$", "$(6, 0)$", "$(0, 6)$"],
+          hint: "On $y=x$, point has form $(a, a)$. Distance from origin: $a\\sqrt{2} = 6$.",
+          ansIdx: 0,
+          sol: "On $y=x$: point is $(a, a)$. Distance $= a\\sqrt{2} = 6 \\Rightarrow a = 3\\sqrt{2}$. So $(3\\sqrt{2}, 3\\sqrt{2})$.",
+        },
+
       ]
   },
 
