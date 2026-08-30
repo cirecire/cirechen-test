@@ -130,6 +130,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .opt-done{cursor:default;opacity:.92}
 .opt-done:hover{transform:none}
 
+.fill-area{margin:10px 0}
+.fill-input{padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;width:60%;max-width:320px;background:var(--card);color:var(--text)}
+.fill-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,0.15)}
+.check-btn{margin-left:8px;padding:8px 18px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;vertical-align:middle}
+.check-btn:hover{background:#2563eb}
+.check-btn:disabled{background:var(--text2);cursor:not-allowed}
+.fill-feedback{margin-top:6px;font-size:13.5px;min-height:20px;padding:4px 0}
+.q-ans{display:none}
 </style>
 </head>
 <body>
@@ -860,98 +868,332 @@ function renderPanel(step) {
   }
 }
 
+// ============================================================
+// New renderQs + checkAnswer — supports MC + fill-in-blank + free response
+// PDF requirement: "原封不动, 选择题就选择题, 应用题就应用题, 图片题就图片题"
+// ============================================================
+
+// Render question block. item schema:
+//   MC:     { q, options:[...], ansIdx, hint?, sol?, dia? }
+//   Fill:   { q, hint?, sol?, dia? }  (no options → shows text input)
+//   Free:   { q, hint?, sol?, dia? }  (same as fill, no answer field needed)
+//   With numeric answer: { q, answer:"...", hint?, sol?, dia? }
+// type field (optional override): item.type = "mc"|"fill"|"free"|"numeric"
+// if no options array → fill-in-blank
+// if no answer field in fill/numeric → no auto-check, show reveal-only
+
 function renderQs(boxId, questions, kind, si) {
   var c = document.getElementById(boxId);
   if (!c) return;
-  if (!questions.length) { c.innerHTML = '<p style="color:var(--text2)">No questions yet.</p>'; return; }
-  var html = "";
-  questions.forEach(function(item, i){
+  if (!questions || !questions.length) {
+    c.innerHTML = '<p style="color:var(--text2)">No questions yet.</p>';
+    return;
+  }
+  var html = '';
+  questions.forEach(function(item, i) {
     var qid = kind + 'q' + i;
-    html += '<div class="q" id="'+qid+'"' + (item.ansIdx!==undefined ? ' data-ansidx="'+item.ansIdx+'"' : '') + '>';
-    html += '<div class="qnum">Question ' + (i+1) + '</div>';
+    var qtype = item.type || (item.options && item.options.length ? 'mc' : 'fill');
+
+    html += '<div class="q" id="' + qid + '">';
+    html += '<div class="qnum">Question ' + (i + 1) + '</div>';
     html += '<div class="qtext">' + esc(item.q) + '</div>';
-    if (item.hint) {
-      html += '<button class="hint-btn" id="'+kind+'hint'+i+'btn" onclick="toggleHint(\''+kind+'\','+i+')">💡 Hint</button>';
-      html += '<div class="hint-text" id="'+kind+'hint'+i+'" style="display:none;margin:8px 0;padding:9px 13px;background:#fffbeb;border:1px solid #f59e0b;border-radius:8px;font-size:13.5px;color:#92400e">💡 <span>'+esc(item.hint)+'</span></div>';
+
+    // Diagram
+    if (item.dia) {
+      html += (typeof item.dia === 'string') ? item.dia : renderGraphie(item.dia);
     }
-    if (item.dia) html += (typeof item.dia==='string') ? item.dia : renderGraphie(item.dia);
-    if (item.options && item.options.length) {
-      html += '<div class="options" id="'+kind+'opt'+i+'">';
-      var letters = ['A','B','C','D','E','F'];
-      item.options.forEach(function(opt, oi){
-        html += '<div class="opt" data-opt="'+oi+'" onclick="gradeOpt(\''+kind+'\','+i+','+oi+','+si+')"><span class="opt-l">'+letters[oi]+'</span><span class="opt-t">'+esc(opt)+'</span></div>';
+
+    // Hint button
+    if (item.hint) {
+      html += '<button class="hint-btn" id="' + kind + 'hint' + i + 'btn" onclick="toggleHint(\'' + kind + '\',' + i + ')">\u{1F4A1} Hint</button>';
+      html += '<div class="hint-text" id="' + kind + 'hint' + i + '" style="display:none;margin:8px 0;padding:9px 13px;background:#fffbeb;border:1px solid #f59e0b;border-radius:8px;font-size:13.5px;color:#92400e">\u{1F4A1} <span>' + esc(item.hint) + '</span></div>';
+    }
+
+    // Render by type
+    if (qtype === 'mc') {
+      // Multiple choice: A/B/C/D buttons
+      html += '<div class="options" id="' + kind + 'opt' + i + '">';
+      var letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+      item.options.forEach(function(opt, oi) {
+        html += '<div class="opt" data-opt="' + oi + '" onclick="checkAnswer(\'' + kind + '\',' + i + ',' + oi + ',' + si + ')"><span class="opt-l">' + letters[oi] + '</span><span class="opt-t">' + esc(opt) + '</span></div>';
       });
       html += '</div>';
+      // Store correct ansIdx on the q div
+      html += '<div style="display:none" class="q-ans" data-ansidx="' + (item.ansIdx !== undefined ? item.ansIdx : -1) + '" data-qtype="mc"></div>';
+
+    } else {
+      // Fill-in-blank / free response / numeric
+      // Show a text input for student to type their answer
+      html += '<div class="fill-area" id="' + kind + 'fill' + i + '">';
+      html += '<input type="text" class="fill-input" id="' + kind + 'inp' + i + '" placeholder="Type your answer here..." onkeydown="if(event.key===\'Enter\')checkFill(\'' + kind + '\',' + i + ',' + si + ')">';
+      html += '<button class="check-btn" id="' + kind + 'chk' + i + 'btn" onclick="checkFill(\'' + kind + '\',' + i + ',' + si + ')">Check</button>';
+      html += '<div class="fill-feedback" id="' + kind + 'fb' + i + '"></div>';
+      html += '</div>';
+      // Store correct answer for checking (null = reveal only, no auto-check)
+      var correctAns = item.ansIdx !== undefined ? item.ansIdx : (item.answer !== undefined ? item.answer : null);
+      var correctStr = correctAns !== null ? String(correctAns) : '';
+      html += '<div style="display:none" class="q-ans" data-qtype="fill" data-ans="' + esc(correctStr) + '" data-ansidx="' + (item.ansIdx !== undefined ? item.ansIdx : -1) + '"></div>';
     }
+
+    // Answer reveal + solution
     html += '<div class="ans-area">';
-    html += '<button class="show-ans-btn" id="'+kind+'sh'+i+'" onclick="showAns(\''+kind+'\','+i+')">Show answer &amp; solution</button>';
-    html += '<div class="ans-display" id="'+kind+'ad'+i+'"><strong>Answer:</strong> '+esc(item.ans)+'</div>';
+    html += '<button class="show-ans-btn" id="' + kind + 'sh' + i + '" onclick="revealAns(\'' + kind + '\',' + i + ')">Show answer &amp; solution</button>';
+    // Auto-generate ansText for MC if item.ans not provided
+    var ansText = '';
+    if (item.ans !== undefined) {
+      ansText = esc(item.ans);
+    } else if (item.answer !== undefined) {
+      ansText = esc(item.answer);
+    } else if (item.options && item.options.length && item.ansIdx >= 0 && item.options[item.ansIdx]) {
+      // PDF: "原封不动" — for MC without explicit ans text, use correct option
+      var letters2 = ['A','B','C','D','E','F'];
+      ansText = letters2[item.ansIdx] + '. ' + esc(item.options[item.ansIdx]);
+    }
+    html += '<div class="ans-display" id="' + kind + 'ad' + i + '"><strong>Answer:</strong> ' + ansText + '</div>';
     html += '</div>';
     if (item.sol) {
-      html += '<div class="sol" id="'+kind+'sol'+i+'"><div class="sol-header">📝 Solution</div><div class="sol-body">'+esc(item.sol)+'</div></div>';
+      html += '<div class="sol" id="' + kind + 'sol' + i + '" style="display:none"><div class="sol-header">\u{1F4DD} Solution</div><div class="sol-body">' + esc(item.sol) + '</div></div>';
     }
-    html += '</div>';
+
+    html += '</div>'; // end .q
   });
+
   c.innerHTML = html;
-  setTimeout(function(){
-    document.querySelectorAll('#'+boxId+' .qtext, #'+boxId+' .ans-display, #'+boxId+' .opt-t').forEach(renderMath);
+  setTimeout(function() {
+    var sel = '#' + boxId + ' .qtext, #' + boxId + ' .ans-display, #' + boxId + ' .fill-input';
+    document.querySelectorAll(sel).forEach(renderMath);
   }, 100);
 }
 
-function gradeOpt(kind, i, oi, si) {
-  var qEl = document.getElementById(kind+'q'+i);
-  var ansIdx = qEl ? parseInt(qEl.getAttribute('data-ansidx')) : null;
-  var optWrap = document.getElementById(kind+'opt'+i);
+// checkAnswer — handles MC option click
+function checkAnswer(kind, i, oi, si) {
+  var qEl = document.getElementById(kind + 'q' + i);
+  if (!qEl) return;
+  var ansEl = qEl.querySelector('.q-ans');
+  var ansIdx = ansEl ? parseInt(ansEl.getAttribute('data-ansidx')) : -1;
+  var optWrap = document.getElementById(kind + 'opt' + i);
   if (!optWrap) return;
-  var chosen = optWrap.querySelector('.opt[data-opt="'+oi+'"]');
-  if (chosen.classList.contains('opt-done')) return;
-  optWrap.querySelectorAll('.opt').forEach(function(o){ o.classList.add('opt-done'); });
-  if (ansIdx===oi) {
+
+  // Prevent re-answering
+  if (optWrap.classList.contains('opt-done')) return;
+  optWrap.classList.add('opt-done');
+  optWrap.querySelectorAll('.opt').forEach(function(o) { o.classList.add('opt-done'); });
+
+  var chosen = optWrap.querySelector('.opt[data-opt="' + oi + '"]');
+  if (!chosen) return;
+
+  var correct = (ansIdx === oi);
+
+  if (correct) {
     chosen.classList.add('opt-correct');
-    if (si>=0) { var m=getMastery(si); m.streak=(m.streak||0)+1; setMastery(si,m); updateMasteryBadge(si); }
+    if (si >= 0) {
+      var m = getMastery(si);
+      m.streak = (m.streak || 0) + 1;
+      setMastery(si, m);
+      updateMasteryBadge(si);
+    }
+    // Also show sol immediately on correct
+    var solEl = document.getElementById(kind + 'sol' + i);
+    if (solEl) solEl.style.display = 'block';
+    var btn = document.getElementById(kind + 'sh' + i);
+    if (btn) btn.style.display = 'none';
+    var ansEl2 = document.getElementById(kind + 'ad' + i);
+    if (ansEl2) { ansEl2.style.display = 'block'; renderMath(ansEl2); }
+    var solBody = solEl ? solEl.querySelector('.sol-body') : null;
+    if (solBody) renderMath(solBody);
+    // Save to wrong-answer log if wrong
+    if (si >= 0) saveWrongAnswer(si, kind, i, oi, false);
   } else {
     chosen.classList.add('opt-wrong');
-    if (ansIdx!==null) { var co=optWrap.querySelector('.opt[data-opt="'+ansIdx+'"]'); if (co) co.classList.add('opt-correct'); }
-    if (si>=0) { var m2=getMastery(si); m2.streak=0; setMastery(si,m2); updateMasteryBadge(si); }
+    if (ansIdx >= 0) {
+      var co = optWrap.querySelector('.opt[data-opt="' + ansIdx + '"]');
+      if (co) co.classList.add('opt-correct');
+    }
+    if (si >= 0) {
+      var m2 = getMastery(si);
+      m2.streak = 0;
+      setMastery(si, m2);
+      updateMasteryBadge(si);
+      saveWrongAnswer(si, kind, i, oi, true);
+    }
+    // Show sol on wrong too
+    var solEl2 = document.getElementById(kind + 'sol' + i);
+    if (solEl2) solEl2.style.display = 'block';
+    var btn2 = document.getElementById(kind + 'sh' + i);
+    if (btn2) btn2.style.display = 'none';
+    var ansEl3 = document.getElementById(kind + 'ad' + i);
+    if (ansEl3) { ansEl3.style.display = 'block'; renderMath(ansEl3); }
+    var solBody2 = solEl2 ? solEl2.querySelector('.sol-body') : null;
+    if (solBody2) renderMath(solBody2);
   }
-  var solEl = document.getElementById(kind+'sol'+i);
-  if (solEl) solEl.style.display='block';
-  var btn = document.getElementById(kind+'sh'+i);
-  if (btn) btn.style.display='none';
-  var ansEl = document.getElementById(kind+'ad'+i);
-  if (ansEl) { ansEl.style.display='block'; renderMath(ansEl); }
-  var sb = solEl ? solEl.querySelector('.sol-body') : null;
-  if (sb) renderMath(sb);
 }
 
+// checkFill — handles fill-in-blank / numeric answer submission
+function checkFill(kind, i, si) {
+  var qEl = document.getElementById(kind + 'q' + i);
+  if (!qEl) return;
+  var ansEl = qEl.querySelector('.q-ans');
+  var inp = document.getElementById(kind + 'inp' + i);
+  var fb = document.getElementById(kind + 'fb' + i);
+  if (!inp || !fb) return;
+
+  var storedAns = ansEl ? ansEl.getAttribute('data-ans') : '';
+  var userAns = (inp.value || '').trim();
+
+  // Disable further input
+  inp.disabled = true;
+  var chkBtn = document.getElementById(kind + 'chk' + i + 'btn');
+  if (chkBtn) { chkBtn.disabled = true; chkBtn.textContent = 'Checked'; }
+
+  if (storedAns === '') {
+    // No auto-check available — just show "submitted" feedback
+    fb.innerHTML = '<span style="color:var(--blue)">Answer submitted. Click "Show answer" to verify.</span>';
+    fb.style.display = 'block';
+    return;
+  }
+
+  // Case-insensitive comparison for text answers
+  var correct = userAns.toLowerCase() === storedAns.toLowerCase();
+  // For numeric, also allow small tolerance
+  var userNum = parseFloat(userAns);
+  var storedNum = parseFloat(storedAns);
+  if (!isNaN(userNum) && !isNaN(storedNum)) {
+    correct = Math.abs(userNum - storedNum) < 0.005;
+  }
+
+  if (correct) {
+    fb.innerHTML = '<span style="color:var(--green);font-weight:700">\u2705 Correct!</span>';
+    if (si >= 0) {
+      var m = getMastery(si);
+      m.streak = (m.streak || 0) + 1;
+      setMastery(si, m);
+      updateMasteryBadge(si);
+    }
+    // Show sol
+    var solEl = document.getElementById(kind + 'sol' + i);
+    if (solEl) solEl.style.display = 'block';
+    var btn = document.getElementById(kind + 'sh' + i);
+    if (btn) btn.style.display = 'none';
+    var ansEl2 = document.getElementById(kind + 'ad' + i);
+    if (ansEl2) { ansEl2.style.display = 'block'; renderMath(ansEl2); }
+    var solBody = solEl ? solEl.querySelector('.sol-body') : null;
+    if (solBody) renderMath(solBody);
+    if (si >= 0) saveWrongAnswer(si, kind, i, null, false);
+  } else {
+    fb.innerHTML = '<span style="color:var(--red);font-weight:700">\u274C Not quite. Click "Show answer" to see the correct answer, then try again next time.</span>';
+    if (si >= 0) {
+      var m2 = getMastery(si);
+      m2.streak = 0;
+      setMastery(si, m2);
+      updateMasteryBadge(si);
+      saveWrongAnswer(si, kind, i, null, true);
+    }
+    // Still show sol so they learn
+    var solEl2 = document.getElementById(kind + 'sol' + i);
+    if (solEl2) solEl2.style.display = 'block';
+    var btn2 = document.getElementById(kind + 'sh' + i);
+    if (btn2) btn2.style.display = 'none';
+    var ansEl3 = document.getElementById(kind + 'ad' + i);
+    if (ansEl3) { ansEl3.style.display = 'block'; renderMath(ansEl3); }
+    var solBody2 = solEl2 ? solEl2.querySelector('.sol-body') : null;
+    if (solBody2) renderMath(solBody2);
+  }
+  fb.style.display = 'block';
+}
+
+// revealAns — shows answer and solution (for MC also highlights correct option)
+function revealAns(kind, i) {
+  var btn = document.getElementById(kind + 'sh' + i);
+  var ansEl = document.getElementById(kind + 'ad' + i);
+  var solEl = document.getElementById(kind + 'sol' + i);
+  if (ansEl) { ansEl.style.display = 'block'; renderMath(ansEl); }
+  if (solEl) solEl.style.display = 'block';
+  if (solEl) {
+    var sb = solEl.querySelector('.sol-body');
+    if (sb) renderMath(sb);
+  }
+  if (btn) btn.style.display = 'none';
+
+  // For MC, also highlight correct option
+  var qEl = document.getElementById(kind + 'q' + i);
+  if (!qEl) return;
+  var ansEl2 = qEl.querySelector('.q-ans');
+  var qtype = ansEl2 ? ansEl2.getAttribute('data-qtype') : '';
+  if (qtype === 'mc') {
+    var ansIdx = ansEl2 ? parseInt(ansEl2.getAttribute('data-ansidx')) : -1;
+    var optWrap = document.getElementById(kind + 'opt' + i);
+    if (optWrap && ansIdx >= 0) {
+      var co = optWrap.querySelector('.opt[data-opt="' + ansIdx + '"]');
+      if (co) co.classList.add('opt-correct');
+    }
+  }
+}
+
+// saveWrongAnswer — records to localStorage wrong-answer log (错题库 P1)
+function saveWrongAnswer(si, kind, i, chosenOpt, wasWrong) {
+  // Format: wrong_answers_{chId} = [{si, kind, qi, chosenOpt, correctAns, timestamp, status}]
+  if (!CH || !CH.id) return;
+  var key = 'wrong_answers_' + CH.id;
+  var log = [];
+  try { log = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+  // Remove any previous entry for same question
+  log = log.filter(function(e) { return !(e.si === si && e.kind === kind && e.i === i); });
+  if (wasWrong) {
+    var ansEl = document.getElementById(kind + 'q' + i);
+    var qansEl = ansEl ? ansEl.querySelector('.q-ans') : null;
+    var correctAns = qansEl ? (qansEl.getAttribute('data-ansidx') || qansEl.getAttribute('data-ans') || '') : '';
+    log.push({ si: si, kind: kind, i: i, chosenOpt: chosenOpt, correctAns: correctAns,
+                timestamp: Date.now(), status: 'wrong' });
+    // Keep last 100 entries
+    if (log.length > 100) log = log.slice(-100);
+    try { localStorage.setItem(key, JSON.stringify(log)); } catch(e) {}
+    // Also save to a global wrong answer list for the 错题库 page
+    var globalKey = 'wrong_answers_all';
+    var allLog = [];
+    try { allLog = JSON.parse(localStorage.getItem(globalKey) || '[]'); } catch(e) {}
+    allLog = allLog.filter(function(e) { return !(e.chId === CH.id && e.si === si && e.kind === kind && e.i === i); });
+    var qtextEl = document.getElementById(kind + 'q' + i);
+    var qtext = qtextEl ? (qtextEl.querySelector('.qtext') ? qtextEl.querySelector('.qtext').textContent : '') : '';
+    allLog.push({ chId: CH.id, si: si, kind: kind, i: i, chosenOpt: chosenOpt,
+                  correctAns: correctAns, qtext: qtext, timestamp: Date.now(), status: 'wrong' });
+    if (allLog.length > 200) allLog = allLog.slice(-200);
+    try { localStorage.setItem(globalKey, JSON.stringify(allLog)); } catch(e) {}
+  }
+}
+
+// toggleHint — unchanged
 function toggleHint(kind, i) {
-  var hintEl = document.getElementById(kind+'hint'+i);
-  var btn = document.getElementById(kind+'hint'+i+'btn');
+  var hintEl = document.getElementById(kind + 'hint' + i);
+  var btn = document.getElementById(kind + 'hint' + i + 'btn');
   if (!hintEl) return;
-  if (hintEl.style.display==='none') {
-    hintEl.style.display='block'; if (btn) btn.textContent='🙈 Hide hint';
+  if (hintEl.style.display === 'none') {
+    hintEl.style.display = 'block';
+    if (btn) btn.textContent = '\u{1F984} Hide hint';
     hintEl.querySelectorAll('span').forEach(renderMath);
-  } else { hintEl.style.display='none'; if (btn) btn.textContent='💡 Hint'; }
+  } else {
+    hintEl.style.display = 'none';
+    if (btn) btn.textContent = '\u{1F4A1} Hint';
+  }
 }
 
-function showAns(kind, i) {
-  var btn = document.getElementById(kind+'sh'+i);
-  var ansEl = document.getElementById(kind+'ad'+i);
-  var solEl = document.getElementById(kind+'sol'+i);
-  if (ansEl) ansEl.style.display='block';
-  if (solEl) solEl.style.display='block';
-  if (btn) btn.style.display='none';
-  var qEl = document.getElementById(kind+'q'+i);
-  var ansIdx = qEl ? qEl.getAttribute('data-ansidx') : null;
-  var optWrap = document.getElementById(kind+'opt'+i);
-  if (optWrap && ansIdx!==null) {
-    var correctOpt = optWrap.querySelector('.opt[data-opt="'+ansIdx+'"]');
-    if (correctOpt) correctOpt.classList.add('opt-correct');
-  }
-  renderMath(ansEl);
-  var solBody = solEl ? solEl.querySelector('.sol-body') : null;
-  if (solBody) renderMath(solBody);
-}
+// New CSS for fill-in-blank elements
+var FILL_CSS = [
+  '.fill-area{margin:10px 0}',
+  '.fill-input{padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;width:60%;max-width:320px;background:var(--card);color:var(--text)}',
+  '.fill-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,0.15)}',
+  '.check-btn{margin-left:8px;padding:8px 18px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer}',
+  '.check-btn:hover{background:#2563eb}',
+  '.check-btn:disabled{background:var(--text2);cursor:not-allowed}',
+  '.fill-feedback{margin-top:6px;font-size:13.5px;min-height:20px}',
+  '.q-ans{display:none}',
+  '.opt-correct{background:#bbf7d0 !important;border-color:#16a34a !important;color:#15803d !important}',
+  '.opt-wrong{background:#fee2e2 !important;border-color:#dc2626 !important;color:#991b1b !important}',
+  '.opt-done{cursor:default !important;opacity:0.75}',
+].join('\n');
+
+// ============================================================
+// END of new renderQs section
+// ============================================================
 
 function nextStep() {
   if (cur < TOTAL) showStep(cur+1);
