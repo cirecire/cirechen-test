@@ -698,9 +698,108 @@ var MATH_DATA = [
           ansIdx: 1,
           sol: "Solve for $y$: $-2y=-4x+8$, so $y=2x-4$. At $x=0$, $y=-4$.",
         hint: "A horizontal line has no rise, so slope $=\\frac{0}{\\text{run}}=0$.",
-        }
+        },
+        {
+          q: "Which relation is a function?",
+          options: ["$\\{(1,2),(2,3),(3,4),(2,5)\\}$", "$\\{(1,2),(2,3),(3,4),(4,5)\\}$", "$\\{(1,2),(1,3),(1,4),(1,5)\\}$", "All of them"],
+          hint: "A function: each input x maps to exactly ONE output y. The second has each x unique.",
+          ansIdx: 1,
+          sol: "$(1,2),(2,3),(3,4),(2,5)$: x=2 has two outputs (3 and 5). NOT a function. $(1,2),(1,3),(1,4),(1,5)$: x=1 has 4 outputs. NOT. Only $(1,2),(2,3),(3,4),(4,5)$ is a function.",
+        },
+        {
+          q: "In $f(x) = 3x + 2$, what is $f(5)$?",
+          options: ["$10$", "$15$", "$17$", "$25$"],
+          hint: "Replace x with 5: $f(5) = 3(5) + 2$.",
+          ansIdx: 2,
+          sol: "$f(5) = 3(5) + 2 = 15 + 2 = 17$.",
+        },
+        {
+          q: "$g(x) = x^2 - 4$. What is $g(-3)$?",
+          options: ["$-13$", "$5$", "$13$", "$-5$"],
+          hint: "Substitute $x = -3$: $g(-3) = (-3)^2 - 4$.",
+          ansIdx: 1,
+          sol: "$g(-3) = (-3)^2 - 4 = 9 - 4 = 5$. Note: $(-3)^2 = 9$, not $-9$.",
+        },
+        {
+          q: "If $h(2) = 7$, the point $(2, 7)$ is on the graph of $h$.",
+          options: ["True", "False", "Cannot tell", "Only if h is linear"],
+          hint: "By definition of function notation: $h(a) = b$ means $(a, b)$ is on the graph.",
+          ansIdx: 0,
+          sol: "$h(2) = 7$ means when input is 2, output is 7. So $(2, 7)$ is on the graph. True.",
+        },
+        {
+          q: "Which is NOT a function?",
+          options: ["$y = x + 1$", "$y = x^2$", "$y = 2$", "$x^2 + y^2 = 1$"],
+          hint: "A vertical-line test: a circle ($x^2 + y^2 = 1$) fails because vertical lines cross it twice.",
+          ansIdx: 3,
+          sol: "$x^2 + y^2 = 1$ is a circle. For x = 0, y = ±1 — two outputs for one input. NOT a function.",
+        },
+        {
+          q: "Slope of line through $(1, 2)$ and $(4, 11)$?",
+          options: ["$1$", "$2$", "$3$", "$9$"],
+          hint: "Slope = (change in y) / (change in x) = $(11-2)/(4-1) = 9/3 = 3$.",
+          ansIdx: 2,
+          sol: "$\\text{slope} = \\frac{y_2 - y_1}{x_2 - x_1} = \\frac{11 - 2}{4 - 1} = \\frac{9}{3} = 3$.",
+        },
+        {
+          q: "Slope of horizontal line $y = 5$?",
+          options: ["$5$", "$0$", "Undefined", "$1$"],
+          hint: "Horizontal line: y stays constant as x changes. No 'rise' over 'run'.",
+          ansIdx: 1,
+          sol: "Rise = $5 - 5 = 0$, run = any nonzero. So slope = $0/(\\text{anything}) = 0$.",
+        },
+        {
+          q: "Slope of vertical line $x = -3$?",
+          options: ["$0$", "$-3$", "Undefined", "$1$"],
+          hint: "Vertical line: x stays constant but y changes. 'Run' is 0, division by zero.",
+          ansIdx: 2,
+          sol: "Rise = anything nonzero, run = $0$. Slope = (nonzero)/0 is undefined.",
+        },
+        {
+          q: "Line passes through $(2,3)$ with slope $4$. What is $y$ when $x = 5$?",
+          options: ["$11$", "$12$", "$15$", "$23$"],
+          hint: "Use point-slope: $y - 3 = 4(x - 2)$. Plug x = 5: $y - 3 = 4(3) = 12$, so $y = 15$.",
+          ansIdx: 2,
+          sol: "$y - 3 = 4(5 - 2) = 4 \\cdot 3 = 12$, so $y = 15$.",
+        },
+        {
+          q: "Slope of $y = -2x + 5$?",
+          options: ["$5$", "$-2$", "$2$", "$-5$"],
+          hint: "In $y = mx + b$, slope is $m$. Here $m = -2$.",
+          ansIdx: 1,
+          sol: "$y = -2x + 5$ has $m = -2$. So slope = $-2$ (line goes down as x increases).",
+        },
+        {
+          q: "What is the y-intercept of $3x + 4y = 12$?",
+          options: ["$(0, 3)$", "$(4, 0)$", "$(0, 4)$", "$(3, 0)$"],
+          hint: "y-intercept: set $x = 0$, solve for $y$.",
+          ansIdx: 0,
+          sol: "$3(0) + 4y = 12 \\Rightarrow 4y = 12 \\Rightarrow y = 3$. So $(0, 3)$.",
+        },
+        {
+          q: "Are $y = 3x + 1$ and $y = 3x - 5$ parallel, perpendicular, or neither?",
+          options: ["Parallel", "Perpendicular", "Same line", "Neither"],
+          hint: "Parallel lines have the SAME slope. Both have slope $3$.",
+          ansIdx: 0,
+          sol: "Slope of $y = 3x + 1$ is $3$. Slope of $y = 3x - 5$ is also $3$. Same slope → parallel.",
+        },
+        {
+          q: "Line through $(0, 5)$ with slope $2$?",
+          options: ["$y = 5x + 2$", "$y = 2x + 5$", "$y = 2x - 5$", "$y = 5x - 2$"],
+          hint: "Slope-intercept form: $y = mx + b$. m=2 (slope), b=5 (y-intercept since line passes $(0,5)$).",
+          ansIdx: 1,
+          sol: "Line through $(0, 5)$ has y-intercept $b = 5$. With slope $m = 2$: $y = 2x + 5$.",
+        },
+        {
+          q: "Lines $y = 2x + 1$ and $y = -x + 7$: where do they intersect?",
+          options: ["$(1, 3)$", "$(2, 5)$", "$(3, 7)$", "$(0, 1)$"],
+          hint: "Set equal: $2x + 1 = -x + 7 \\Rightarrow 3x = 6 \\Rightarrow x = 2$. Then $y = 2(2) + 1 = 5$.",
+          ansIdx: 1,
+          sol: "$2x + 1 = -x + 7 \\Rightarrow 3x = 6 \\Rightarrow x = 2$. $y = 2(2) + 1 = 5$. Intersection: $(2, 5)$.",
+        },
       ],
       quiz: [
+
         {
           q: "Which point is the solution to $y=3x-2$ and $y=-x+6$?",
         dia: {"type": "coord_plane", "range": [[-2, 3], [-1, 8]], "step": 1, "line": {"m": 2, "b": 3}, "points": [{"0": 0, "1": 3, "label": "(0,3)"}]},
@@ -724,7 +823,22 @@ var MATH_DATA = [
           ansIdx: 0,
           sol: "$m=\\frac{3-7}{6-2}=\\frac{-4}{4}=-1$.",
         hint: "Solve for y: $4y=-2x+8$, so $y=-\\frac{1}{2}x+2$. Slope is the x-coefficient.",
-        }
+        },
+        {
+          q: "What is the slope of the line through $(0, 4)$ and $(3, 13)$?",
+          options: ["$1$", "$2$", "$3$", "$4$"],
+          hint: "Slope = $\\frac{13 - 4}{3 - 0} = \\frac{9}{3} = 3$.",
+          ansIdx: 2,
+          sol: "$\\text{slope} = \\frac{13 - 4}{3 - 0} = \\frac{9}{3} = 3$.",
+        },
+        {
+          q: "$f(x) = 5 - 2x$. What is $f(7)$?",
+          options: ["$-9$", "$-7$", "$3$", "$19$"],
+          hint: "$f(7) = 5 - 2(7) = 5 - 14 = -9$.",
+          ansIdx: 0,
+          sol: "$f(7) = 5 - 2(7) = 5 - 14 = -9$.",
+        },
+
       ]
   },
 
