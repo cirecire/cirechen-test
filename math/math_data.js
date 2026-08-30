@@ -235,6 +235,10 @@ var MATH_DATA = [
       title: "Real Numbers",
       coverage: "g",
       think: "$\\sqrt{2} \\approx 1.41421356...$ — can you write it as a fraction of two integers? What does this tell us about $\\sqrt{2}$?",
+      subtopics: [
+        { name: "平方根", vids: [0,1,2], pq: [0,3,4] },
+        { name: "立方根与有理无理数", vids: [3,4,5,6], pq: [1,2] }
+      ],
       videos: [
         { yt: "mbc3_e5lWw0", t: "Intro to square roots" },
         { yt: "EFVrAk61xjE", t: "Approximating square roots to hundredths" },
@@ -421,6 +425,10 @@ var MATH_DATA = [
       title: "Position & Coordinate Plane",
       coverage: "g",
       think: "If you walk 3 blocks east and 4 blocks north, how far are you from your starting point? Can you draw this on a grid?",
+      subtopics: [
+        { name: "坐标平面", vids: [0,1,2], pq: [0,2,4] },
+        { name: "距离公式", vids: [3], pq: [1,3] }
+      ],
       videos: [
         { yt: "VhNkWdLGpmA", t: "Points on the coordinate plane examples" },
         { yt: "1op92ojA6q0", t: "Quadrants of the coordinate plane" },
@@ -513,6 +521,11 @@ var MATH_DATA = [
       title: "Linear Functions",
       coverage: "g",
       think: "A taxi charges $\\$3$ base fare plus $\\$2$ per km. Write an equation for the total cost $y$ in terms of distance $x$. Is this a function?",
+      subtopics: [
+        { name: "函数概念", vids: [0,1,2], pq: [] },
+        { name: "线性函数与斜率", vids: [3,4,5], pq: [0,4] },
+        { name: "直线方程与综合", vids: [6,7], pq: [1,2,3] }
+      ],
       videos: [
         { yt: "kvGsIo1TmsM", t: "What is a function?" },
         { yt: "Id6UovYjd-M", t: "Worked example: Evaluating functions from equation" },
@@ -608,6 +621,12 @@ var MATH_DATA = [
       title: "Systems of Linear Equations",
       coverage: "g",
       think: "You buy 3 apples and 2 bananas for $\\$11$. Your friend buys 2 apples and 3 bananas for $\\$9$. Can you find the price of each fruit?",
+      subtopics: [
+        { name: "方程组入门", vids: [0,1], pq: [] },
+        { name: "代入法", vids: [2], pq: [0,1] },
+        { name: "消元法", vids: [3], pq: [4] },
+        { name: "应用与解的个数", vids: [4,5], pq: [2,3] }
+      ],
       videos: [
         { yt: "OcNt-36QKu8", t: "Intro to systems of equations" },
         { yt: "5a6zpfl50go", t: "Systems of equations with graphing" },
@@ -693,6 +712,10 @@ var MATH_DATA = [
       title: "Data Analysis",
       coverage: "g",
       think: "Five students scored: 72, 85, 85, 90, 98. Which number best represents 'typical' performance? Why might you choose a different one?",
+      subtopics: [
+        { name: "均值/中位数/众数", vids: [0,1], pq: [0,1,2,4] },
+        { name: "数据展示", vids: [2,3,4], pq: [3] }
+      ],
       videos: [
         { yt: "h8EYEJ32oQ8", t: "Statistics intro: Mean, median, & mode" },
         { yt: "k3aKKasOmIw", t: "Mean, median, & mode example" },
@@ -778,6 +801,11 @@ var MATH_DATA = [
       title: "Foundations of Geometric Proof",
       coverage: "g",
       think: "How can you be absolutely sure that the angles in every triangle add to 180°? Is measuring one triangle enough?",
+      subtopics: [
+        { name: "平行线与截线", vids: [0,1,2], pq: [0] },
+        { name: "三角形", vids: [3,4,5], pq: [1,4] },
+        { name: "全等三角形", vids: [6], pq: [2,3] }
+      ],
       videos: [
         { yt: "aq_XL6FrmGs", t: "Parallel & perpendicular lines" },
         { yt: "H-E5rlpCVu4", t: "Angles, parallel lines, & transversals" },
