@@ -848,7 +848,7 @@ function renderPanel(step) {
     var h = '<h2>Step '+step+' · ' + esc(st.name) + '</h2>';
     h += '<div class="mbadge-wrap"><span class="mbadge none" id="mbadge'+si+'">掌握度：未开始</span></div>';
     h += '<div class="videos">' + (st.vids||[]).map(function(vi){ return renderVideoHTML(CH.videos[vi]); }).join('') + '</div>';
-    h += '<h3 class="prac-head">练习 · Practice</h3>' + (use2?libToggle('p'):'') + '<div class="practiceBox" id="pb'+si+'"></div>';
+    h += '<h3 class="prac-head">练习 · Practice</h3>' + (CH.practice2 && CH.practice2.length ? libToggle('p') : '') + '<div class="practiceBox" id="pb'+si+'"></div>';
     h += nextBtn((si===CH.subtopics.length-1 ? 'Go to Quiz ›' : 'Next topic ›'));
     p.innerHTML = h;
     var parr = use2 ? st.pq.map(function(i){ return CH.practice2[i]; }) : st.pq.map(function(i){ return CH.practice[i]; });
