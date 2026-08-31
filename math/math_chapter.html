@@ -766,9 +766,18 @@ function render() {
   document.getElementById("cov").textContent = covTxt;
   STEPS = buildSteps();
   TOTAL = STEPS.length;
+  var SUBTOPIC_EN = {
+    '勾股定理本身':'Pythagorean Theorem','勾股定理的应用':'Applications','距离公式':'Distance Formula','勾股定理的证明':'Proofs',
+    '平方根':'Square Roots','立方根与实数':'Cube Roots & Real Numbers',
+    '位置与坐标':'Coordinate Plane','函数与一次函数':'Functions',
+    '二元一次方程组':'Systems of Equations','数据的分析':'Data Analysis',
+    '平行线的证明':'Parallel Lines','三角形':'Triangles','全等三角形':'Congruent Triangles',
+    '认识三角形':'Triangles Intro','图形的平移与旋转':'Transformations','因式分解':'Factoring',
+    '分式与分式方程':'Rational Expressions','平行四边形':'Parallelograms'
+  };
   var labels = STEPS.map(function(s){
     if (s.type==='think') return 'Think';
-    if (s.type==='learn') return CH.subtopics[s.si].name || ('Topic '+(s.si+1));
+    if (s.type==='learn') return SUBTOPIC_EN[CH.subtopics[s.si].name] || CH.subtopics[s.si].name || ('Topic '+(s.si+1));
     if (s.type==='watch') return 'Watch';
     if (s.type==='notes') return 'Notes';
     if (s.type==='practice') return 'Practice';
