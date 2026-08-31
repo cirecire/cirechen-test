@@ -844,13 +844,15 @@ function renderPanel(step) {
   } else if (S.type==='learn') {
     var si = S.si, st = CH.subtopics[si];
     document.getElementById("paperNote").style.display = 'block';
+    var use2 = curLib['p']==='2' && CH.practice2 && CH.practice2.length;
     var h = '<h2>Step '+step+' · ' + esc(st.name) + '</h2>';
     h += '<div class="mbadge-wrap"><span class="mbadge none" id="mbadge'+si+'">掌握度：未开始</span></div>';
     h += '<div class="videos">' + (st.vids||[]).map(function(vi){ return renderVideoHTML(CH.videos[vi]); }).join('') + '</div>';
-    h += '<h3 class="prac-head">练习 · Practice</h3><div class="practiceBox" id="pb'+si+'"></div>';
+    h += '<h3 class="prac-head">练习 · Practice</h3>' + (use2?libToggle('p'):'') + '<div class="practiceBox" id="pb'+si+'"></div>';
     h += nextBtn((si===CH.subtopics.length-1 ? 'Go to Quiz ›' : 'Next topic ›'));
     p.innerHTML = h;
-    renderQs('pb'+si, st.pq.map(function(i){ return CH.practice[i]; }), 'p'+si, si);
+    var parr = use2 ? st.pq.map(function(i){ return CH.practice2[i]; }) : st.pq.map(function(i){ return CH.practice[i]; });
+    renderQs('pb'+si, parr, 'p'+si, si);
     updateMasteryBadge(si);
   } else if (S.type==='watch') {
     var v = '<h2>Step '+step+' · Watch</h2>';
@@ -888,6 +890,11 @@ function switchLib(kind, lib){
   var S = STEPS[cur-1];
   if (S.type==='practice') { renderQs("practiceBox", (lib==='2'&&CH.practice2)?CH.practice2:CH.practice||[], "p", -1); }
   else if (S.type==='quiz') { renderQs("quizBox", (lib==='2'&&CH.quiz2)?CH.quiz2:CH.quiz||[], "q", -1); }
+  else if (S.type==='learn') {
+    var si = S.si, st = CH.subtopics[si];
+    var arr = (lib==='2'&&CH.practice2)?st.pq.map(function(i){return CH.practice2[i];}):st.pq.map(function(i){return CH.practice[i];});
+    renderQs('pb'+si, arr, 'p'+si, si);
+  }
   var tw=document.getElementById('libwrap_'+kind);
   if (tw) tw.innerHTML = libBtnHtml(kind,'1','📘 库1（可汗原题）')+libBtnHtml(kind,'2','📗 库2（深圳公立校）');
 }
