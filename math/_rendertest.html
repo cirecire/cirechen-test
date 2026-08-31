@@ -1,0 +1,55 @@
+<!DOCTYPE html><html><head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+</head><body>
+<div id="box"></div>
+<script>
+function renderMath(el) {
+  if (!window.katex) return;
+  // find $...$ spans (unescaped $ only) and render them
+  // \$ in text is treated as a literal dollar sign (not a math delimiter)
+  var nodes = el.childNodes;
+  for (var i = 0; i < nodes.length; i++) {
+    var node = nodes[i];
+    if (node.nodeType === 3) { // text node
+      var text = node.textContent;
+      var re = /(?<!\\)\$(?!\\)([^$]+)(?<!\\)\$/g;
+      var m, hasMatch = false, last = 0;
+      var frag = document.createDocumentFragment();
+      while ((m = re.exec(text)) !== null) {
+        hasMatch = true;
+        var idx = m.index;
+        if (idx > last) frag.appendChild(document.createTextNode(text.slice(last, idx).replace(/\\\$/g, '$')));
+        var mathEl = document.createElement('span');
+        mathEl.className = 'math-inline';
+        try {
+          katex.render(m[1], mathEl, { throwOnError: false, displayMode: false });
+        } catch(e) { mathEl.textContent = '$' + m[1] + '$'; }
+        frag.appendChild(mathEl);
+        last = idx + m[0].length;
+      }
+      if (hasMatch) {
+        if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last).replace(/\\\$/g, '$')));
+        el.replaceChild(frag, node);
+        i--;
+      } else if (text.indexOf('\\$') >= 0) {
+        // only literal \$ escapes, no math blocks
+        var tn = document.createTextNode(text.replace(/\\\$/g, '$'));
+        el.replaceChild(tn, node);
+        i--;
+      }
+    }
+  }
+}
+
+window.addEventListener('DOMContentLoaded', function(){});
+function run(){
+  var box = document.getElementById('box');
+  box.innerHTML = '';
+  // simulate the ch05 think text as it appears in math_data.js (with \\$ which JS parses to \$)
+  box.textContent = "You buy 3 apples and 2 bananas for \\$11. Your friend buys 2 apples and 3 bananas for \\$9. Can you find the price of each fruit?";
+  renderMath(box);
+  document.title = 'DONE:' + (box.innerHTML.indexOf('katex-error')>=0 ? 'ERR' : (box.innerHTML.indexOf('math-inline')>=0 ? 'MATH' : 'PLAIN'));
+}
+setTimeout(run, 600);
+</script></body></html>
