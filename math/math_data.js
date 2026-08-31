@@ -1147,7 +1147,7 @@ var MATH_DATA = [
       gx: 5,
       title: "Systems of Linear Equations",
       coverage: "g",
-      think: "You buy 3 apples and 2 bananas for $11. Your friend buys 2 apples and 3 bananas for $9. Can you find the price of each fruit?",
+      think: "You buy 3 apples and 2 bananas for \\$11. Your friend buys 2 apples and 3 bananas for \\$9. Can you find the price of each fruit?",
       subtopics: [
         { name: "方程组入门", vids: [0,1], pq: [] },
         { name: "代入法", vids: [2], pq: [0,1] },
