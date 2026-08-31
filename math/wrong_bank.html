@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>错题库 · Mistake Bank</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+:root{
+  --bg:#0a0f1e; --card:#141d33; --card2:#1a2540;
+  --text:#e8eef8; --text2:#9fb0c8; --text3:#64748b;
+  --blue:#3b82f6; --blue-banner:linear-gradient(135deg,#1e3a8a 0%,#1e40af 100%);
+  --green:#10b981; --purple:#a855f7; --red:#ef4444;
+  --border:#23304d; --shadow:0 4px 16px rgba(0,0,0,.35);
+  --bg-l:#f0f4ff; --card-l:#ffffff; --card2-l:#f8faff;
+  --text-l:#1e293b; --text2-l:#64748b; --text3-l:#94a3b8;
+  --blue-l:#2563eb; --border-l:#c7d2fe; --shadow-l:0 2px 12px rgba(0,0,0,.10);
+  --banner-l:linear-gradient(135deg,#1e3a8a 0%,#1e40af 100%);
+  --green-l:#059669;
+}
+[data-theme="light"]{
+  --bg:var(--bg-l); --card:var(--card-l); --card2:var(--card2-l);
+  --text:var(--text-l); --text2:var(--text2-l); --text3:var(--text3-l);
+  --blue:var(--blue-l); --border:var(--border-l); --shadow:var(--shadow-l);
+  --blue-banner:var(--banner-l); --green:var(--green-l);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;padding:0 0 60px}
+.banner{background:var(--blue-banner);color:#fff;padding:16px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.banner .home{color:#fff;text-decoration:none;font-size:13px;background:rgba(255,255,255,.16);padding:6px 12px;border-radius:8px}
+.banner .home:hover{background:rgba(255,255,255,.28)}
+.banner h1{font-size:18px;font-weight:800;flex:1;min-width:160px}
+.banner .sub{font-size:12px;opacity:.85;margin-top:2px}
+.theme-btn{background:rgba(255,255,255,.16);border:none;border-radius:8px;padding:7px 10px;cursor:pointer;color:#fff}
+.wrap{max-width:860px;margin:0 auto;padding:0 18px}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;margin-top:16px;box-shadow:var(--shadow)}
+.panel h2{font-size:17px;margin-bottom:6px;color:var(--blue)}
+.muted{color:var(--text2);font-size:13px;margin-bottom:14px}
+.empty{text-align:center;padding:50px 20px;color:var(--text2)}
+.empty .big{font-size:46px;margin-bottom:12px}
+.mk{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:14px}
+.mk-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13px;color:var(--text2)}
+.mk-ch{background:var(--blue);color:#fff;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700}
+.mk-kp{background:rgba(168,85,247,.18);color:var(--purple);padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700}
+.mk-q{font-size:15px;font-weight:600;margin:6px 0 4px}
+.mk-wrong{font-size:12.5px;color:var(--text3);margin-bottom:10px}
+.mk-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:none;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;transition:.15s}
+.btn-retry{background:var(--blue);color:#fff}
+.btn-retry:hover{opacity:.9}
+.btn-sol{background:transparent;border:1px solid var(--border);color:var(--text2)}
+.btn-sol:hover{border-color:var(--blue);color:var(--text)}
+.btn-del{background:transparent;border:1px solid var(--border);color:var(--text3);font-size:12px;padding:6px 10px}
+.q{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-top:10px}
+.qnum{font-size:12px;color:var(--text3);font-weight:700;margin-bottom:6px}
+.qtext{font-size:15px;font-weight:600;margin-bottom:12px}
+.options{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:10px;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;align-items:center;transition:.12s;background:var(--card2)}
+.opt:hover{border-color:var(--blue)}
+.opt-l{width:24px;height:24px;border-radius:50%;background:#e2e8f0;color:#475569;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.opt-t{font-size:14px}
+.opt-done{cursor:default}
+.opt-correct{background:rgba(16,185,129,.14);border-color:var(--green)}
+.opt-correct .opt-l{background:var(--green);color:#fff}
+.opt-wrong{background:rgba(239,68,68,.12);border-color:var(--red)}
+.opt-wrong .opt-l{background:var(--red);color:#fff}
+.fill-area{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px}
+.fill-input{flex:1;min-width:160px;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;background:var(--card2);color:var(--text);font-size:14px}
+.fill-input:focus{outline:none;border-color:var(--blue)}
+.check-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer}
+.fill-feedback{width:100%;margin-top:8px;font-size:13.5px}
+.hint-text{margin:10px 0;padding:9px 13px;background:#fffbeb;border:1px solid #f59e0b;border-radius:8px;font-size:13.5px;color:#92400e}
+.sol{margin-top:10px;padding:12px 14px;background:var(--card2);border:1px solid var(--border);border-radius:8px}
+.sol-header{font-size:12px;font-weight:700;color:var(--purple);margin-bottom:4px}
+.sol-body{font-size:13.5px}
+.master-msg{margin-top:10px;padding:10px 14px;background:rgba(16,185,129,.14);border:1px solid var(--green);border-radius:8px;color:var(--green);font-weight:600;font-size:14px}
+.dia-wrap{margin:8px 0}
+</style>
+</head>
+<body>
+<div class="banner">
+  <a class="home" href="index.html">‹ 主页</a>
+  <div style="flex:1">
+    <h1>错题库 · Mistake Bank</h1>
+    <div class="sub">做错的题会自动记到这里，换个思路再试试就能掌握 ✓</div>
+  </div>
+  <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+</div>
+
+<div class="wrap">
+  <div class="panel" id="bankPanel">
+    <h2>我的错题库</h2>
+    <div class="muted" id="bankMeta"></div>
+    <div id="bankList"></div>
+  </div>
+</div>
+
+<script src="math_data.js"></script>
+<script>
+// ---------- theme ----------
+function applyTheme(dark){ document.body.setAttribute('data-theme', dark?'dark':'light'); var b=document.getElementById('themeBtn'); if(b) b.textContent=dark?'🌙':'☀️'; }
+function toggleTheme(){ var d=document.body.getAttribute('data-theme')!=='light'; applyTheme(d); try{localStorage.setItem('mathTheme', d?'dark':'light');}catch(e){} }
+(function(){ var s='dark'; try{ s=localStorage.getItem('mathTheme')||'dark'; }catch(e){} applyTheme(s!=='light'); })();
+
+// ---------- helpers ----------
+function esc(s){ if(s===undefined||s===null) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function renderMath(el){ if(!window.katex||!el) return; var nodes=el.querySelectorAll('.math-inline, .math-block'); }
+function renderMathIn(el){
+  if(!window.katex||!el) return;
+  var walker=document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+  var texts=[]; var n; while(n=walker.nextNode()){ if(n.parentElement && (n.parentElement.tagName==='SCRIPT'||n.parentElement.tagName==='STYLE')) continue; if(/[$]/.test(n.nodeValue)) texts.push(n); }
+  texts.forEach(function(tnode){
+    var m=tnode.nodeValue.match(/\$([^$]+)\$/); if(!m) return;
+    var span=document.createElement('span'); span.className='math-inline';
+    try{ katex.render(m[1], span, {throwOnError:false, displayMode:false}); tnode.parentNode.replaceChild(span, tnode); }
+    catch(e){ span.textContent=m[0]; tnode.parentNode.replaceChild(span, tnode); }
+  });
+}
+function chById(id){ return (window.MATH_DATA||[]).find(function(c){ return c.id===id; }); }
+function subName(ch, si){ try{ return ch.subtopics[si]?ch.subtopics[si].name:('Step '+(si+1)); }catch(e){ return 'Step '+(si+1); } }
+
+// ---------- load + render bank ----------
+function loadWrong(){ try{ return JSON.parse(localStorage.getItem('wrong_answers_all')||'[]'); }catch(e){ return []; } }
+function saveWrongAll(list){ try{ localStorage.setItem('wrong_answers_all', JSON.stringify(list)); }catch(e){} }
+
+function renderBank(){
+  var list=loadWrong();
+  var meta=document.getElementById('bankMeta');
+  var box=document.getElementById('bankList');
+  if(!list.length){
+    box.innerHTML='<div class="empty"><div class="big">🎉</div><div>还没有错题记录</div><div style="margin-top:6px;font-size:13px">做练习时答错的题会自动出现在这里，换个思路再试试就能掌握！</div></div>';
+    meta.textContent=''; return;
+  }
+  meta.textContent='共 '+list.length+' 道待巩固 · 点「再试一次」做对就从这里移除';
+  // 按章节分组
+  var groups={};
+  list.forEach(function(e){ (groups[e.chId]=groups[e.chId]||[]).push(e); });
+  var html='';
+  Object.keys(groups).forEach(function(chId){
+    var ch=chById(chId); var chTitle=ch?ch.title:chId;
+    groups[chId].forEach(function(e){
+      var kp=ch?subName(ch, e.si):'';
+      var qtext=e.qtext||'（题目文本缺失）';
+      var wrongOpt=e.chosenOpt; var wrongLabel=(wrongOpt!==null&&wrongOpt!==undefined)?String.fromCharCode(65+parseInt(wrongOpt)):'—';
+      html+='<div class="mk" id="mk_'+chId+'_'+e.si+'_'+e.kind+'_'+e.i+'">'+
+        '<div class="mk-head"><span class="mk-ch">'+esc(chTitle)+'</span>'+(kp?'<span class="mk-kp">'+esc(kp)+'</span>':'')+'<span style="margin-left:auto;font-size:11px">'+esc(e.kind==='practice'?'练习':'Quiz')+'</span></div>'+
+        '<div class="mk-q">'+esc(qtext)+'</div>'+
+        '<div class="mk-wrong">之前选了 '+wrongLabel+' 选项 · 这次换个思路试试看 💡</div>'+
+        '<div class="mk-actions">'+
+          '<button class="btn btn-retry" onclick="retry(\''+chId+'\','+e.si+',\''+e.kind+'\','+e.i+')">再试一次</button>'+
+          '<button class="btn btn-sol" onclick="showSol(\''+chId+'\','+e.si+',\''+e.kind+'\','+e.i+')">看解析</button>'+
+          '<button class="btn-del" onclick="del(\''+chId+'\','+e.si+',\''+e.kind+'\','+e.i+')">移除</button>'+
+        '</div>'+
+        '<div id="retry_'+chId+'_'+e.si+'_'+e.kind+'_'+e.i+'"></div>'+
+      '</div>';
+    });
+  });
+  box.innerHTML=html;
+  setTimeout(function(){ document.querySelectorAll('#bankList .mk-q').forEach(renderMathIn); }, 60);
+}
+
+// ---------- retry ----------
+var letters=['A','B','C','D','E','F'];
+function retry(chId, si, kind, i){
+  var ch=chById(chId); if(!ch) return;
+  var q=ch[kind] && ch[kind][i]; if(!q) return;
+  var box=document.getElementById('retry_'+chId+'_'+si+'_'+kind+'_'+i);
+  if(!box) return;
+  var qid='wb_'+kind+'_'+i;
+  var qtype=q.type||(q.options&&q.options.length?'mc':'fill');
+  var html='<div class="q" id="'+qid+'">';
+  html+='<div class="qnum">再试一次</div>';
+  html+='<div class="qtext">'+esc(q.q)+'</div>';
+  if(q.dia){ /* diagram omitted in retry for brevity; show text only */ }
+  if(q.hint){ html+='<div class="hint-text"><strong>💡 提示：</strong> '+esc(q.hint)+'</div>'; }
+  if(qtype==='mc'){
+    html+='<div class="options" id="'+kind+'opt'+i+'">';
+    q.options.forEach(function(opt,oi){ html+='<div class="opt" data-opt="'+oi+'" onclick="wbCheck(\''+chId+'\','+si+',\''+kind+'\','+i+','+oi+')"><span class="opt-l">'+letters[oi]+'</span><span class="opt-t">'+esc(opt)+'</span></div>'; });
+    html+='</div>';
+    html+='<div style="display:none" class="q-ans" data-ansidx="'+(q.ansIdx!==undefined?q.ansIdx:-1)+'"></div>';
+  } else {
+    var ca=q.ansIdx!==undefined?q.ansIdx:(q.answer!==undefined?q.answer:'');
+    html+='<div class="fill-area"><input type="text" class="fill-input" id="wbinp_'+kind+'_'+i+'" placeholder="输入答案..."><button class="check-btn" onclick="wbFill(\''+chId+'\','+si+',\''+kind+'\','+i+')">检查</button><div class="fill-feedback" id="wbfb_'+kind+'_'+i+'"></div></div>';
+    html+='<div style="display:none" class="q-ans" data-ans="'+(ca!==null?esc(String(ca)):'')+'" data-ansidx="'+(q.ansIdx!==undefined?q.ansIdx:-1)+'"></div>';
+  }
+  html+='</div>';
+  box.innerHTML=html;
+  setTimeout(function(){ renderMathIn(box); }, 60);
+}
+
+function wbCheck(chId, si, kind, i, oi){
+  var qEl=document.getElementById('wb_'+kind+'_'+i); if(!qEl) return;
+  var ansEl=qEl.querySelector('.q-ans'); var ansIdx=ansEl?parseInt(ansEl.getAttribute('data-ansidx')):-1;
+  var wrap=document.getElementById(kind+'opt'+i); if(!wrap) return;
+  if(wrap.classList.contains('opt-done')) return;
+  wrap.classList.add('opt-done'); wrap.querySelectorAll('.opt').forEach(function(o){o.classList.add('opt-done');});
+  var chosen=wrap.querySelector('.opt[data-opt="'+oi+'"]'); if(!chosen) return;
+  if(ansIdx===oi){
+    chosen.classList.add('opt-correct');
+    masterMsg(chId,si,kind,i);
+    removeEntry(chId,si,kind,i);
+  } else {
+    chosen.classList.add('opt-wrong');
+    if(ansIdx>=0){ var co=wrap.querySelector('.opt[data-opt="'+ansIdx+'"]'); if(co) co.classList.add('opt-correct'); }
+    // 仍显示 sol 帮助
+    setTimeout(function(){ showSol(chId,si,kind,i); }, 200);
+  }
+}
+function wbFill(chId, si, kind, i){
+  var qEl=document.getElementById('wb_'+kind+'_'+i); if(!qEl) return;
+  var ansEl=qEl.querySelector('.q-ans'); var inp=document.getElementById('wbinp_'+kind+'_'+i); var fb=document.getElementById('wbfb_'+kind+'_'+i);
+  if(!inp||!fb) return;
+  var stored=ansEl?ansEl.getAttribute('data-ans'):''; var user=(inp.value||'').trim();
+  inp.disabled=true;
+  if(stored===''){ fb.innerHTML='<span style="color:var(--blue)">已记录，点「看解析」核对</span>'; return; }
+  var correct=user.toLowerCase()===stored.toLowerCase();
+  var un=parseFloat(user), sn=parseFloat(stored);
+  if(!isNaN(un)&&!isNaN(sn)) correct=Math.abs(un-sn)<0.005;
+  if(correct){ fb.innerHTML='<span style="color:var(--green);font-weight:700">✅ 答对了！</span>'; masterMsg(chId,si,kind,i); removeEntry(chId,si,kind,i); }
+  else { fb.innerHTML='<span style="color:var(--red)">再看看提示 💡</span>'; setTimeout(function(){ showSol(chId,si,kind,i); }, 200); }
+}
+function masterMsg(chId,si,kind,i){
+  var box=document.getElementById('retry_'+chId+'_'+si+'_'+kind+'_'+i);
+  if(box){ box.innerHTML='<div class="master-msg">✅ 掌握了！这道已从错题库移除，继续加油 💪</div>'; }
+}
+function removeEntry(chId,si,kind,i){
+  var list=loadWrong();
+  list=list.filter(function(e){ return !(e.chId===chId&&e.si===si&&e.kind===kind&&e.i===i); });
+  saveWrongAll(list);
+  // 同步移除 per-chapter 记录
+  try{
+    var k='wrong_answers_'+chId; var cl=JSON.parse(localStorage.getItem(k)||'[]');
+    cl=cl.filter(function(e){ return !(e.si===si&&e.kind===kind&&e.i===i); });
+    localStorage.setItem(k, JSON.stringify(cl));
+  }catch(e){}
+  setTimeout(renderBank, 800);
+}
+function showSol(chId,si,kind,i){
+  var ch=chById(chId); if(!ch) return;
+  var q=ch[kind]&&ch[kind][i]; if(!q||!q.sol) { return; }
+  var box=document.getElementById('retry_'+chId+'_'+si+'_'+kind+'_'+i);
+  if(!box) return;
+  if(box.querySelector('.sol')) return;
+  var div=document.createElement('div'); div.className='sol';
+  div.innerHTML='<div class="sol-header">📝 解析</div><div class="sol-body">'+esc(q.sol)+'</div>';
+  box.appendChild(div);
+  setTimeout(function(){ renderMathIn(div); }, 60);
+}
+function del(chId,si,kind,i){ removeEntry(chId,si,kind,i); }
+
+// init
+renderBank();
+</script>
+</body>
+</html>
