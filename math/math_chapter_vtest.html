@@ -169,11 +169,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
   </div>
 </div>
 
-<script>
-  // Cache-bust math_data.js when ?t=<timestamp> is present (used after deploys & in test links)
-  var _t = new URLSearchParams(location.search).get('t');
-  document.write('<scr'+'ipt src="math_data.js' + (_t ? ('?t='+encodeURIComponent(_t)) : '') + '"><\/scr'+'ipt>');
-</script>
+<script src="math_data.js"></script>
 <script>
 // Library toggle state (库1 = KA 原题 / 库2 = 深圳公立校适配) — initialized early so it is always defined.
 var curLib = {p:'1', q:'1'};
