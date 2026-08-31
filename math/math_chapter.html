@@ -169,7 +169,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
   </div>
 </div>
 
-<script src="math_data.js"></script>
+<script>
+  // Cache-bust math_data.js when ?t=<timestamp> is present (used after deploys & in test links)
+  var _t = new URLSearchParams(location.search).get('t');
+  document.write('<scr'+'ipt src="math_data.js' + (_t ? ('?t='+encodeURIComponent(_t)) : '') + '"><\/scr'+'ipt>');
+</script>
 <script>
 // ═══════════════════════════════════════════════════════════════
 // GRAPHIE → SVG ENGINE
