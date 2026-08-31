@@ -9,6 +9,7 @@
   <style>
     :root, [data-theme="dark"] {
       --ka-green: #14bf96;
+      --accent: #14bf96;
       --ka-dark: #21242c;
       --ka-blue: #1865f2;
       --ka-bg: #f7f8fa;
@@ -136,10 +137,10 @@
       margin: 20px 16px 0;
       padding: 14px 20px;
       background: var(--card);
-      border: 2px solid var(--green);
+      border: 2px solid var(--accent);
       border-radius: 12px;
       font-size: 15px;
-      color: var(--green);
+      color: var(--accent);
       font-weight: 600;
       position: relative;
     }
@@ -268,7 +269,7 @@
     .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.15); }
     .ch-num {
       width: 44px; height: 44px; border-radius: 10px;
-      background: var(--ka-green); color: white;
+      background: var(--accent); color: white;
       display: grid; place-items: center; font-weight: 800; font-size: 16px; flex-shrink: 0;
     }
     .ch-meta { flex: 1; }
@@ -278,7 +279,7 @@
     .badge {
       display: inline-block; font-size: 11px; padding: 2px 8px;
       border-radius: 999px; background: var(--sel-bg);
-      border: 1px solid var(--sel-border); color: var(--green); margin-top: 8px;
+      border: 1px solid var(--sel-border); color: var(--accent); margin-top: 8px;
     }
 
     footer {
@@ -321,7 +322,6 @@
       <div class="step-title">你所在的城市是？</div>
       <div class="pill-group">
         <button class="pill" data-city="深圳">🇨🇳 深圳</button>
-        <button class="pill" data-city="香港">🇭🇰 香港</button>
         <button class="pill" data-city="其他">🌏 其他地区</button>
       </div>
     </div>
@@ -345,7 +345,9 @@
       <div class="step-title">选择学科</div>
       <div class="pill-group">
         <button class="pill" data-subject="math">📐 数学</button>
-        <button class="pill disabled" data-subject="physics">🔬 物理 <span style="font-size:12px;opacity:.7">(即将上线)</span></button>
+        <button class="pill" data-subject="physics">🔬 物理</button>
+        <button class="pill" data-subject="chemistry">🧪 化学</button>
+        <button class="pill" data-subject="biology">🧬 生物</button>
       </div>
     </div>
   </div>
@@ -542,9 +544,9 @@
   var selectedGrade = null;
   var selectedSubject = null;
 
-  var cityLabel = { '深圳': '🇨🇳 深圳', '香港': '🇭🇰 香港', '其他': '🌏 其他地区' };
+  var cityLabel = { '深圳': '🇨🇳 深圳', '其他': '🌏 其他地区' };
   var gradeLabel = { '7': '7年级', '8': '8年级', '9': '9年级' };
-  var subLabel = { 'math': '📐 数学', 'physics': '🔬 物理' };
+  var subLabel = { 'math': '📐 数学', 'physics': '🔬 物理', 'chemistry': '🧪 化学', 'biology': '🧬 生物' };
 
   function activateStep(n) {
     for (var i = 1; i <= 3; i++) {
@@ -636,8 +638,10 @@
 
   function commitPath() {
     renderPathDisplay();
+    var SUBJECT_ACCENT = { math:'#14bf96', physics:'#2563eb', chemistry:'#8b5cf6', biology:'#0d9488' };
+    document.documentElement.style.setProperty('--accent', SUBJECT_ACCENT[selectedSubject] || '#14bf96');
 
-    var valid = (selectedCity === '深圳' || selectedCity === '香港') && selectedGrade === '8' && selectedSubject === 'math';
+    var valid = selectedCity === '深圳' && selectedGrade === '8' && selectedSubject === 'math';
 
     if (valid) {
       document.getElementById('chapters-section').classList.add('show');
@@ -668,7 +672,7 @@
     try {
       var p = JSON.parse(saved);
       if (!p.city || !p.grade || !p.subject) return;
-      var valid = (p.city === '深圳' || p.city === '香港') && p.grade === '8' && p.subject === 'math';
+      var valid = p.city === '深圳' && p.grade === '8' && p.subject === 'math';
       if (!valid) return;
       // Restore UI to a valid saved state: hide selector, show chapters + path-display
       selectedCity = p.city;
