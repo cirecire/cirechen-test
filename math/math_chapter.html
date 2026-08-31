@@ -767,13 +767,13 @@ function render() {
   STEPS = buildSteps();
   TOTAL = STEPS.length;
   var SUBTOPIC_EN = {
-    '勾股定理本身':'Pythagorean Theorem','勾股定理的应用':'Applications','距离公式':'Distance Formula','勾股定理的证明':'Proofs',
-    '平方根':'Square Roots','立方根与实数':'Cube Roots & Real Numbers',
-    '位置与坐标':'Coordinate Plane','函数与一次函数':'Functions',
-    '二元一次方程组':'Systems of Equations','数据的分析':'Data Analysis',
-    '平行线的证明':'Parallel Lines','三角形':'Triangles','全等三角形':'Congruent Triangles',
-    '认识三角形':'Triangles Intro','图形的平移与旋转':'Transformations','因式分解':'Factoring',
-    '分式与分式方程':'Rational Expressions','平行四边形':'Parallelograms'
+    '勾股定理本身':'Pythagorean Theorem','勾股应用':'Applications','距离公式':'Distance Formula','勾股证明与勾股数':'Proofs & Triples',
+    '平方根':'Square Roots','立方根与有理无理数':'Cube Roots & Irrationals',
+    '坐标平面':'Coordinate Plane',
+    '函数概念':'Functions','线性函数与斜率':'Linear Functions & Slope','直线方程与综合':'Linear Equations',
+    '方程组入门':'Systems Intro','代入法':'Substitution','消元法':'Elimination','应用与解的个数':'Applications & Solutions',
+    '均值/中位数/众数':'Mean, Median, Mode','数据展示':'Data Displays',
+    '平行线与截线':'Parallel Lines & Transversals','三角形':'Triangles','全等三角形':'Congruent Triangles'
   };
   var labels = STEPS.map(function(s){
     if (s.type==='think') return 'Think';
