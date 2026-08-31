@@ -675,29 +675,36 @@ function renderGraphie(cfg) {
 // KaTeX rendering helper for math text in questions/notes
 function renderMath(el) {
   if (!window.katex) return;
-  // find $...$ spans and render them
+  // find $...$ spans (unescaped $ only) and render them
+  // \$ in text is treated as a literal dollar sign (not a math delimiter)
   var nodes = el.childNodes;
   for (var i = 0; i < nodes.length; i++) {
     var node = nodes[i];
     if (node.nodeType === 3) { // text node
       var text = node.textContent;
-      var m = text.match(/\$[^\$]+\$/g);
-      if (m) {
-        var frag = document.createDocumentFragment();
-        var last = 0;
-        m.forEach(function(match) {
-          var idx = text.indexOf(match, last);
-          if (idx > last) frag.appendChild(document.createTextNode(text.slice(last, idx)));
-          var mathEl = document.createElement('span');
-          mathEl.className = 'math-inline';
-          try {
-            katex.render(match.slice(1,-1), mathEl, { throwOnError: false, displayMode: false });
-          } catch(e) { mathEl.textContent = match; }
-          frag.appendChild(mathEl);
-          last = idx + match.length;
-        });
-        if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      var re = /(?<!\\)\$(?!\\)([^$]+)(?<!\\)\$/g;
+      var m, hasMatch = false, last = 0;
+      var frag = document.createDocumentFragment();
+      while ((m = re.exec(text)) !== null) {
+        hasMatch = true;
+        var idx = m.index;
+        if (idx > last) frag.appendChild(document.createTextNode(text.slice(last, idx).replace(/\\\$/g, '$')));
+        var mathEl = document.createElement('span');
+        mathEl.className = 'math-inline';
+        try {
+          katex.render(m[1], mathEl, { throwOnError: false, displayMode: false });
+        } catch(e) { mathEl.textContent = '$' + m[1] + '$'; }
+        frag.appendChild(mathEl);
+        last = idx + m[0].length;
+      }
+      if (hasMatch) {
+        if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last).replace(/\\\$/g, '$')));
         el.replaceChild(frag, node);
+        i--;
+      } else if (text.indexOf('\\$') >= 0) {
+        // only literal \$ escapes, no math blocks
+        var tn = document.createTextNode(text.replace(/\\\$/g, '$'));
+        el.replaceChild(tn, node);
         i--;
       }
     }
