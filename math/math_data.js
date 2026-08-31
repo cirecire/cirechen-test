@@ -603,7 +603,181 @@ var MATH_DATA = [
           sol: "$\\sqrt{75}+\\sqrt{48}-\\sqrt{27}=5\\sqrt3+4\\sqrt3-3\\sqrt3=6\\sqrt3$.",
         },
       ]
-  },
+,
+
+  practice2: [
+    {
+      q: "What is $\\sqrt{64}$?",
+      options: ["$8$", "$16$", "$4$", "$32$"],
+      ansIdx: 0,
+      hint: "$\\sqrt{64}$ asks: what number squared gives 64? $8^2 = 64$.",
+      sol: "$\\sqrt{64}=8$ (principal, non-negative root)."
+    },
+    {
+      q: "What is $\\sqrt{144}$?",
+      options: ["$12$", "$24$", "$72$", "$6$"],
+      ansIdx: 0,
+      hint: "$12^2 = 144$.",
+      sol: "$\\sqrt{144}=12$."
+    },
+    {
+      q: "What is $\\sqrt{0.25}$?",
+      options: ["$0.5$", "$0.05$", "$5$", "$2.5$"],
+      ansIdx: 0,
+      hint: "$0.5^2 = 0.25$.",
+      sol: "$\\sqrt{0.25}=0.5$."
+    },
+    {
+      q: "What is $\\sqrt{\\frac{1}{9}}$?",
+      options: ["$\\frac{1}{3}$", "$\\frac{1}{9}$", "$3$", "$9$"],
+      ansIdx: 0,
+      hint: "$(\\frac{1}{3})^2 = \\frac{1}{9}$.",
+      sol: "$\\sqrt{\\frac{1}{9}}=\\frac{1}{3}$."
+    },
+    {
+      q: "What is $\\sqrt[3]{27}$?",
+      options: ["$3$", "$9$", "$81$", "$\\frac{1}{3}$"],
+      ansIdx: 0,
+      hint: "$\\sqrt[3]{27}$ asks: what number cubed gives 27? $3^3=27$.",
+      sol: "$\\sqrt[3]{27}=3$."
+    },
+    {
+      q: "What is $\\sqrt[3]{-64}$?",
+      options: ["$-4$", "$4$", "$-8$", "$8$"],
+      ansIdx: 0,
+      hint: "$(-4)^3 = -64$, so the cube root of a negative can be negative.",
+      sol: "$\\sqrt[3]{-64}=-4$."
+    },
+    {
+      q: "What is $\\sqrt[3]{-8}$?",
+      options: ["$-2$", "$2$", "$-4$", "$4$"],
+      ansIdx: 0,
+      hint: "$(-2)^3 = -8$.",
+      sol: "$\\sqrt[3]{-8}=-2$."
+    },
+    {
+      q: "Which expression has NO real value?",
+      options: ["$\\sqrt{-9}$", "$\\sqrt{9}$", "$\\sqrt{0}$", "$\\sqrt{4}$"],
+      ansIdx: 0,
+      hint: "No real number squared gives a negative result.",
+      sol: "$\\sqrt{-9}$ is not a real number (it is $3i$ in complex numbers)."
+    },
+    {
+      q: "How would you classify $\\sqrt{2}$?",
+      options: ["irrational", "rational", "integer", "whole"],
+      ansIdx: 0,
+      hint: "$\\sqrt{2}\\approx 1.41421356...$ never terminates or repeats.",
+      sol: "$\\sqrt{2}$ is irrational."
+    },
+    {
+      q: "How would you classify $0.333...$ (repeating)?",
+      options: ["rational", "irrational", "integer", "natural"],
+      ansIdx: 0,
+      hint: "$0.333... = \\frac{1}{3}$, a fraction of two integers.",
+      sol: "$0.333...$ is rational."
+    },
+    {
+      q: "Between which two integers is $\\sqrt{50}$?",
+      options: ["7 and 8", "5 and 6", "6 and 7", "8 and 9"],
+      ansIdx: 0,
+      hint: "$7^2=49$, $8^2=64$, and $49<50<64$.",
+      sol: "$\\sqrt{50}$ is between 7 and 8."
+    },
+    {
+      q: "Between which two integers is $\\sqrt{15}$?",
+      options: ["3 and 4", "4 and 5", "2 and 3", "5 and 6"],
+      ansIdx: 0,
+      hint: "$3^2=9$, $4^2=16$, and $9<15<16$.",
+      sol: "$\\sqrt{15}$ is between 3 and 4."
+    },
+    {
+      q: "Simplify $\\sqrt{18}$.",
+      options: ["$3\\sqrt{2}$", "$2\\sqrt{3}$", "$9\\sqrt{2}$", "$\\sqrt{18}$"],
+      ansIdx: 0,
+      hint: "$18 = 9 \\times 2$, and $\\sqrt{9}=3$.",
+      sol: "$\\sqrt{18}=\\sqrt{9\\times 2}=3\\sqrt{2}$."
+    },
+    {
+      q: "Simplify $\\sqrt{12}$.",
+      options: ["$2\\sqrt{3}$", "$3\\sqrt{2}$", "$4\\sqrt{3}$", "$\\sqrt{12}$"],
+      ansIdx: 0,
+      hint: "$12 = 4 \\times 3$, and $\\sqrt{4}=2$.",
+      sol: "$\\sqrt{12}=\\sqrt{4\\times 3}=2\\sqrt{3}$."
+    },
+    {
+      q: "Simplify $\\sqrt{50} - \\sqrt{2}$.",
+      options: ["$4\\sqrt{2}$", "$5\\sqrt{2}$", "$\\sqrt{48}$", "$6\\sqrt{2}$"],
+      ansIdx: 0,
+      hint: "$\\sqrt{50}=5\\sqrt{2}$, so $5\\sqrt{2}-\\sqrt{2}=4\\sqrt{2}$.",
+      sol: "$\\sqrt{50}-\\sqrt{2}=5\\sqrt{2}-\\sqrt{2}=4\\sqrt{2}$."
+    },
+    {
+      q: "Between which two integers is $\\sqrt{20}$?",
+      options: ["4 and 5", "3 and 4", "5 and 6", "2 and 3"],
+      ansIdx: 0,
+      hint: "$4^2=16$, $5^2=25$, and $16<20<25$.",
+      sol: "$\\sqrt{20}$ is between 4 and 5."
+    },
+    {
+      q: "Is $\\pi$ a rational number?",
+      options: ["no (irrational)", "yes", "integer", "whole"],
+      ansIdx: 0,
+      hint: "$\\pi\\approx 3.14159...$ never terminates or repeats.",
+      sol: "$\\pi$ is irrational."
+    },
+    {
+      q: "What is $\\sqrt{49} + \\sqrt{64}$?",
+      options: ["$15$", "$7$", "$8$", "$113$"],
+      ansIdx: 0,
+      hint: "$\\sqrt{49}=7$, $\\sqrt{64}=8$, so $7+8=15$.",
+      sol: "$\\sqrt{49}+\\sqrt{64}=7+8=15$."
+    },
+    {
+      q: "How would you classify $\\frac{22}{7}$?",
+      options: ["rational", "irrational", "integer", "natural"],
+      ansIdx: 0,
+      hint: "$\\frac{22}{7}$ is a fraction of two integers, so it is rational (even though often used to approximate $\\pi$).",
+      sol: "$\\frac{22}{7}$ is rational."
+    }
+  ],
+
+  quiz2: [
+    {
+      q: "What is $\\sqrt{81}$?",
+      options: ["$9$", "$18$", "$3$", "$81$"],
+      ansIdx: 0,
+      hint: "$9^2=81$.",
+      sol: "$\\sqrt{81}=9$."
+    },
+    {
+      q: "What is $\\sqrt[3]{125}$?",
+      options: ["$5$", "$25$", "$15$", "$125$"],
+      ansIdx: 0,
+      hint: "$5^3=125$.",
+      sol: "$\\sqrt[3]{125}=5$."
+    },
+    {
+      q: "Which of these is irrational?",
+      options: ["$\\sqrt{3}$", "$0$", "$-2$", "$\\frac{1}{2}$"],
+      ansIdx: 0,
+      hint: "$\\sqrt{3}$ cannot be written as a fraction; it is non-terminating, non-repeating.",
+      sol: "$\\sqrt{3}$ is irrational."
+    },
+    {
+      q: "Simplify $\\sqrt{72}$.",
+      options: ["$6\\sqrt{2}$", "$3\\sqrt{8}$", "$2\\sqrt{18}$", "$8\\sqrt{2}$"],
+      ansIdx: 0,
+      hint: "$72=36\\times 2$, $\\sqrt{36}=6$.",
+      sol: "$\\sqrt{72}=6\\sqrt{2}$."
+    },
+    {
+      q: "Between which two integers is $\\sqrt{99}$?",
+      options: ["9 and 10", "8 and 9", "7 and 8", "10 and 11"],
+      ansIdx: 0,
+      hint: "$9^2=81$, $10^2=100$, and $81<99<100$.",
+      sol: "$\\sqrt{99}$ is between 9 and 10."
+    }
+  ]  },
 
   { // ch03
       id: "ch03",
@@ -699,7 +873,90 @@ var MATH_DATA = [
         hint: "In $y=mx+b$, the y-intercept is $b$. Set $x=0$: $y=3(0)-4=-4$.",
         }
       ]
-  },
+,
+
+  practice2: [
+    {
+      q: "Find the distance between $(1,2)$ and $(4,2)$.",
+      options: ["$3$", "$5$", "$\\sqrt{13}$", "$1$"],
+      ansIdx: 0,
+      hint: "Same y, so distance $= |4-1| = 3$.",
+      sol: "Distance $= 4-1 = 3$."
+    },
+    {
+      q: "Find the distance between $(0,0)$ and $(3,4)$.",
+      options: ["$5$", "$7$", "$\\sqrt{7}$", "$12$"],
+      ansIdx: 0,
+      hint: "$\\sqrt{3^2+4^2}=\\sqrt{9+16}=\\sqrt{25}=5$.",
+      sol: "Distance $= \\sqrt{3^2+4^2}=5$."
+    },
+    {
+      q: "Find the distance between $(1,1)$ and $(4,5)$.",
+      options: ["$5$", "$7$", "$\\sqrt{20}$", "$25$"],
+      ansIdx: 0,
+      hint: "$\\sqrt{(4-1)^2+(5-1)^2}=\\sqrt{9+16}=\\sqrt{25}=5$.",
+      sol: "Distance $= \\sqrt{3^2+4^2}=5$."
+    },
+    {
+      q: "Find the midpoint of $(2,4)$ and $(6,8)$.",
+      options: ["$(4,6)$", "$(8,12)$", "$(3,4)$", "$(4,8)$"],
+      ansIdx: 0,
+      hint: "Midpoint $= (\\frac{2+6}{2}, \\frac{4+8}{2}) = (4,6)$.",
+      sol: "Midpoint $= (4,6)$."
+    },
+    {
+      q: "In which quadrant is $(-3,4)$?",
+      options: ["II", "I", "III", "IV"],
+      ansIdx: 0,
+      hint: "x negative, y positive → Quadrant II.",
+      sol: "$(-3,4)$ is in Quadrant II."
+    },
+    {
+      q: "In which quadrant is $(5,-2)$?",
+      options: ["IV", "I", "II", "III"],
+      ansIdx: 0,
+      hint: "x positive, y negative → Quadrant IV.",
+      sol: "$(5,-2)$ is in Quadrant IV."
+    },
+    {
+      q: "Find the distance from the origin to $(0,5)$.",
+      options: ["$5$", "$0$", "$25$", "$\\sqrt{5}$"],
+      ansIdx: 0,
+      hint: "On the y-axis, distance $= |5| = 5$.",
+      sol: "Distance $= 5$."
+    },
+    {
+      q: "Which point lies on the x-axis?",
+      options: ["$(4,0)$", "$(0,4)$", "$(4,4)$", "$(-4,-4)$"],
+      ansIdx: 0,
+      hint: "A point on the x-axis has y-coordinate 0.",
+      sol: "$(4,0)$ is on the x-axis."
+    }
+  ],
+
+  quiz2: [
+    {
+      q: "Find the distance between $(2,3)$ and $(2,8)$.",
+      options: ["$5$", "$11$", "$\\sqrt{13}$", "$3$"],
+      ansIdx: 0,
+      hint: "Same x, distance $= |8-3| = 5$.",
+      sol: "Distance $= 8-3 = 5$."
+    },
+    {
+      q: "In which quadrant is $(-1,-1)$?",
+      options: ["III", "I", "II", "IV"],
+      ansIdx: 0,
+      hint: "Both negative → Quadrant III.",
+      sol: "$(-1,-1)$ is in Quadrant III."
+    },
+    {
+      q: "Find the midpoint of $(0,0)$ and $(4,6)$.",
+      options: ["$(2,3)$", "$(4,6)$", "$(2,0)$", "$(0,3)$"],
+      ansIdx: 0,
+      hint: "$(\\frac{0+4}{2}, \\frac{0+6}{2}) = (2,3)$.",
+      sol: "Midpoint $= (2,3)$."
+    }
+  ]  },
 
   { // ch04
       id: "ch04",
@@ -799,7 +1056,90 @@ var MATH_DATA = [
         hint: "Solve for y: $4y=-2x+8$, so $y=-\\frac{1}{2}x+2$. Slope is the x-coefficient.",
         }
       ]
-  },
+,
+
+  practice2: [
+    {
+      q: "Find the slope of the line through $(0,0)$ and $(2,4)$.",
+      options: ["$2$", "$4$", "$\\frac{1}{2}$", "$0$"],
+      ansIdx: 0,
+      hint: "Slope $= \\frac{4-0}{2-0}=2$.",
+      sol: "Slope $= 2$."
+    },
+    {
+      q: "What is the y-intercept of $y=3x-2$?",
+      options: ["$-2$", "$3$", "$2$", "$0$"],
+      ansIdx: 0,
+      hint: "In $y=mx+b$, the y-intercept is $b=-2$.",
+      sol: "y-intercept $= -2$."
+    },
+    {
+      q: "If $f(x)=2x+1$, what is $f(3)$?",
+      options: ["$7$", "$6$", "$9$", "$4$"],
+      ansIdx: 0,
+      hint: "$f(3)=2(3)+1=7$.",
+      sol: "$f(3)=7$."
+    },
+    {
+      q: "Does the point $(2,5)$ lie on the line $y=2x+1$?",
+      options: ["yes", "no"],
+      ansIdx: 0,
+      hint: "$2(2)+1=5$, and the point's y is 5, so it lies on the line.",
+      sol: "Yes, $(2,5)$ is on $y=2x+1$."
+    },
+    {
+      q: "What is the slope of $y=-3x+5$?",
+      options: ["$-3$", "$3$", "$5$", "$-5$"],
+      ansIdx: 0,
+      hint: "In $y=mx+b$, slope is $m=-3$.",
+      sol: "Slope $= -3$."
+    },
+    {
+      q: "Which equation represents a linear function?",
+      options: ["$y=2x+3$", "$y=x^2$", "$y=\\frac{1}{x}$", "$y=\\sqrt{x}$"],
+      ansIdx: 0,
+      hint: "Linear functions have the form $y=mx+b$.",
+      sol: "$y=2x+3$ is linear."
+    },
+    {
+      q: "What is the slope of a horizontal line?",
+      options: ["$0$", "$1$", "undefined", "$-1$"],
+      ansIdx: 0,
+      hint: "A horizontal line has no rise, so slope $= 0$.",
+      sol: "Slope of a horizontal line is 0."
+    },
+    {
+      q: "Find the slope of the line through $(1,2)$ and $(3,6)$.",
+      options: ["$2$", "$4$", "$\\frac{1}{2}$", "$3$"],
+      ansIdx: 0,
+      hint: "Slope $= \\frac{6-2}{3-1}=\\frac{4}{2}=2$.",
+      sol: "Slope $= 2$."
+    }
+  ],
+
+  quiz2: [
+    {
+      q: "If $f(x)=5x-1$, what is $f(2)$?",
+      options: ["$9$", "$8$", "$10$", "$4$"],
+      ansIdx: 0,
+      hint: "$f(2)=5(2)-1=9$.",
+      sol: "$f(2)=9$."
+    },
+    {
+      q: "Find the slope of the line through $(0,1)$ and $(0,5)$.",
+      options: ["undefined", "$0$", "$4$", "$1$"],
+      ansIdx: 0,
+      hint: "Same x (vertical line) → slope is undefined.",
+      sol: "A vertical line has undefined slope."
+    },
+    {
+      q: "What is the y-intercept of $y=-x+4$?",
+      options: ["$4$", "$-1$", "$1$", "$-4$"],
+      ansIdx: 0,
+      hint: "In $y=mx+b$, y-intercept is $b=4$.",
+      sol: "y-intercept $= 4$."
+    }
+  ]  },
 
   { // ch05
       id: "ch05",
@@ -890,7 +1230,90 @@ var MATH_DATA = [
         hint: "Substitute $x=2$: $3(2)+2y=12$.",
         }
       ]
-  },
+,
+
+  practice2: [
+    {
+      q: "Solve: $x+y=5,\\ x-y=1$.",
+      options: ["$x=3, y=2$", "$x=2, y=3$", "$x=4, y=1$", "$x=1, y=4$"],
+      ansIdx: 0,
+      hint: "Add the two equations: $2x=6 \\Rightarrow x=3$, then $y=5-3=2$.",
+      sol: "$x=3, y=2$."
+    },
+    {
+      q: "Solve: $2x+y=7,\\ x+y=4$.",
+      options: ["$x=3, y=1$", "$x=1, y=3$", "$x=2, y=2$", "$x=4, y=0$"],
+      ansIdx: 0,
+      hint: "Subtract: $(2x+y)-(x+y)=7-4 \\Rightarrow x=3$, then $y=4-3=1$.",
+      sol: "$x=3, y=1$."
+    },
+    {
+      q: "Solve by substitution: $y=2x,\\ y=x+1$.",
+      options: ["$x=1, y=2$", "$x=2, y=1$", "$x=0, y=0$", "$x=1, y=1$"],
+      ansIdx: 0,
+      hint: "$2x=x+1 \\Rightarrow x=1$, then $y=2(1)=2$.",
+      sol: "$x=1, y=2$."
+    },
+    {
+      q: "How many solutions does $y=2x+1,\\ y=2x+3$ have?",
+      options: ["none", "one", "infinite", "two"],
+      ansIdx: 0,
+      hint: "Same slope (2) but different intercepts → parallel lines never meet.",
+      sol: "No solution (the lines are parallel)."
+    },
+    {
+      q: "Solve: $x+y=10,\\ x-y=2$.",
+      options: ["$x=6, y=4$", "$x=4, y=6$", "$x=5, y=5$", "$x=8, y=2$"],
+      ansIdx: 0,
+      hint: "Add: $2x=12 \\Rightarrow x=6$, then $y=10-6=4$.",
+      sol: "$x=6, y=4$."
+    },
+    {
+      q: "Solve: $3x+2y=12,\\ x=2$.",
+      options: ["$x=2, y=3$", "$x=2, y=6$", "$x=3, y=2$", "$x=2, y=9$"],
+      ansIdx: 0,
+      hint: "$3(2)+2y=12 \\Rightarrow 6+2y=12 \\Rightarrow y=3$.",
+      sol: "$x=2, y=3$."
+    },
+    {
+      q: "Solve: $y=x+2,\\ y=3x$.",
+      options: ["$x=1, y=3$", "$x=3, y=1$", "$x=2, y=4$", "$x=0, y=0$"],
+      ansIdx: 0,
+      hint: "$x+2=3x \\Rightarrow 2=2x \\Rightarrow x=1$, then $y=3$.",
+      sol: "$x=1, y=3$."
+    },
+    {
+      q: "An inconsistent system of equations means:",
+      options: ["no solution", "one solution", "infinite solutions", "two solutions"],
+      ansIdx: 0,
+      hint: "Inconsistent = the lines never intersect.",
+      sol: "No solution."
+    }
+  ],
+
+  quiz2: [
+    {
+      q: "Solve: $x+2y=8,\\ x-y=2$.",
+      options: ["$x=4, y=2$", "$x=2, y=4$", "$x=6, y=1$", "$x=3, y=3$"],
+      ansIdx: 0,
+      hint: "From $x=y+2$: $(y+2)+2y=8 \\Rightarrow 3y=6 \\Rightarrow y=2, x=4$.",
+      sol: "$x=4, y=2$."
+    },
+    {
+      q: "Solve: $2x+3y=6,\\ x=0$.",
+      options: ["$x=0, y=2$", "$x=0, y=3$", "$x=2, y=0$", "$x=0, y=6$"],
+      ansIdx: 0,
+      hint: "$2(0)+3y=6 \\Rightarrow 3y=6 \\Rightarrow y=2$.",
+      sol: "$x=0, y=2$."
+    },
+    {
+      q: "How many solutions do $y=2x+1$ and $y=2x+1$ have?",
+      options: ["infinite solutions", "one", "none", "two"],
+      ansIdx: 0,
+      hint: "They are the same line.",
+      sol: "Infinite solutions (the equations describe the same line)."
+    }
+  ]  },
 
   { // ch06
       id: "ch06",
@@ -979,7 +1402,90 @@ var MATH_DATA = [
         hint: "IQR $=Q_3-Q_1=8-4$.",
         }
       ]
-  },
+,
+
+  practice2: [
+    {
+      q: "Find the mean of $2, 4, 6, 8$.",
+      options: ["$5$", "$4$", "$6$", "$20$"],
+      ansIdx: 0,
+      hint: "Mean $= \\frac{2+4+6+8}{4}=\\frac{20}{4}=5$.",
+      sol: "Mean $= 5$."
+    },
+    {
+      q: "Find the median of $3, 1, 4, 2, 5$.",
+      options: ["$3$", "$4$", "$2$", "$5$"],
+      ansIdx: 0,
+      hint: "Sorted: $1,2,3,4,5$; the middle value is 3.",
+      sol: "Median $= 3$."
+    },
+    {
+      q: "Find the mode of $1, 2, 2, 3, 4$.",
+      options: ["$2$", "$1$", "$3$", "$4$"],
+      ansIdx: 0,
+      hint: "2 appears most often (twice).",
+      sol: "Mode $= 2$."
+    },
+    {
+      q: "Find the range of $5, 9, 2, 11$.",
+      options: ["$9$", "$6$", "$4$", "$11$"],
+      ansIdx: 0,
+      hint: "Range $= 11-2 = 9$.",
+      sol: "Range $= 9$."
+    },
+    {
+      q: "Find the mean of $10, 20, 30$.",
+      options: ["$20$", "$15$", "$25$", "$60$"],
+      ansIdx: 0,
+      hint: "Mean $= \\frac{10+20+30}{3}=20$.",
+      sol: "Mean $= 20$."
+    },
+    {
+      q: "Find the median of $7, 3, 9$.",
+      options: ["$7$", "$3$", "$9$", "$6$"],
+      ansIdx: 0,
+      hint: "Sorted: $3,7,9$; middle is 7.",
+      sol: "Median $= 7$."
+    },
+    {
+      q: "Which measure is MOST affected by an outlier?",
+      options: ["mean", "median", "mode", "none"],
+      ansIdx: 0,
+      hint: "The mean uses every value, so one extreme value pulls it far.",
+      sol: "The mean is most affected by outliers."
+    },
+    {
+      q: "Find the mean of $4, 4, 4, 4$.",
+      options: ["$4$", "$0$", "$16$", "$1$"],
+      ansIdx: 0,
+      hint: "All values are 4, so the mean is 4.",
+      sol: "Mean $= 4$."
+    }
+  ],
+
+  quiz2: [
+    {
+      q: "Find the median of $2, 4, 6, 8, 10$.",
+      options: ["$6$", "$5$", "$7$", "$4$"],
+      ansIdx: 0,
+      hint: "Sorted (already): $2,4,6,8,10$; middle is 6.",
+      sol: "Median $= 6$."
+    },
+    {
+      q: "Find the mode of $5, 5, 7, 8, 8, 8$.",
+      options: ["$8$", "$5$", "$7$", "$5$ and $8$"],
+      ansIdx: 0,
+      hint: "8 appears three times (more than any other).",
+      sol: "Mode $= 8$."
+    },
+    {
+      q: "Find the range of $1, 5, 9, 13$.",
+      options: ["$12$", "$8$", "$4$", "$13$"],
+      ansIdx: 0,
+      hint: "Range $= 13-1 = 12$.",
+      sol: "Range $= 12$."
+    }
+  ]  },
 
   { // ch07
       id: "ch07",
@@ -1077,5 +1583,88 @@ var MATH_DATA = [
         hint: "Angles in a triangle sum to $180^\\circ$, so if two match, the third must too.",
         }
       ]
-  }
+,
+
+  practice2: [
+    {
+      q: "When two parallel lines are cut by a transversal, corresponding angles are:",
+      options: ["equal", "supplementary", "complementary", "double"],
+      ansIdx: 0,
+      hint: "Corresponding angles occupy the same relative position → they are equal.",
+      sol: "Corresponding angles are equal."
+    },
+    {
+      q: "Two parallel lines are cut by a transversal. If one angle is $50^\\circ$, its corresponding angle is:",
+      options: ["$50^\\circ$", "$130^\\circ$", "$40^\\circ$", "$100^\\circ$"],
+      ansIdx: 0,
+      hint: "Corresponding angles are equal.",
+      sol: "The corresponding angle is $50^\\circ$."
+    },
+    {
+      q: "Alternate interior angles are:",
+      options: ["equal", "supplementary", "complementary", "unrelated"],
+      ansIdx: 0,
+      hint: "Alternate interior angles formed by parallel lines are equal.",
+      sol: "Alternate interior angles are equal."
+    },
+    {
+      q: "Two parallel lines cut by a transversal: consecutive interior angles sum to:",
+      options: ["$180^\\circ$", "$90^\\circ$", "$360^\\circ$", "$270^\\circ$"],
+      ansIdx: 0,
+      hint: "Consecutive (same-side) interior angles are supplementary.",
+      sol: "They sum to $180^\\circ$."
+    },
+    {
+      q: "The sum of the interior angles of a triangle is:",
+      options: ["$180^\\circ$", "$90^\\circ$", "$360^\\circ$", "$270^\\circ$"],
+      ansIdx: 0,
+      hint: "Any triangle's three angles add to 180°.",
+      sol: "Triangle angle sum $= 180^\\circ$."
+    },
+    {
+      q: "A triangle has angles $60^\\circ$ and $50^\\circ$. The third angle is:",
+      options: ["$70^\\circ$", "$80^\\circ$", "$60^\\circ$", "$110^\\circ$"],
+      ansIdx: 0,
+      hint: "$180 - 60 - 50 = 70$.",
+      sol: "Third angle $= 70^\\circ$."
+    },
+    {
+      q: "A triangle has a right angle ($90^\\circ$) and a $30^\\circ$ angle. The third angle is:",
+      options: ["$60^\\circ$", "$70^\\circ$", "$50^\\circ$", "$90^\\circ$"],
+      ansIdx: 0,
+      hint: "$180 - 90 - 30 = 60$.",
+      sol: "Third angle $= 60^\\circ$."
+    },
+    {
+      q: "Vertical angles are:",
+      options: ["equal", "supplementary", "complementary", "double"],
+      ansIdx: 0,
+      hint: "Vertical (opposite) angles formed by intersecting lines are equal.",
+      sol: "Vertical angles are equal."
+    }
+  ],
+
+  quiz2: [
+    {
+      q: "Two parallel lines cut by a transversal. If $\\angle 1 = 120^\\circ$ and $\\angle 2$ is its corresponding angle, then $\\angle 2$ =",
+      options: ["$120^\\circ$", "$60^\\circ$", "$240^\\circ$", "$30^\\circ$"],
+      ansIdx: 0,
+      hint: "Corresponding angles are equal.",
+      sol: "$\\angle 2 = 120^\\circ$."
+    },
+    {
+      q: "A triangle has angles $40^\\circ$ and $60^\\circ$. The third angle is:",
+      options: ["$80^\\circ$", "$70^\\circ$", "$100^\\circ$", "$90^\\circ$"],
+      ansIdx: 0,
+      hint: "$180 - 40 - 60 = 80$.",
+      sol: "Third angle $= 80^\\circ$."
+    },
+    {
+      q: "If alternate interior angles are equal, the two lines are:",
+      options: ["parallel", "perpendicular", "equal", "similar"],
+      ansIdx: 0,
+      hint: "Equal alternate interior angles is a test for parallel lines.",
+      sol: "The lines are parallel."
+    }
+  ]  }
 ];
