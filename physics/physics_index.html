@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8th Grade Physics — Khan Academy Style</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+:root{
+  --bg:#060d1a; --card:#0d1a30; --card2:#111f3d;
+  --text:#dde8f8; --text2:#8faac8; --text3:#4a6080;
+  --phys:#0ea5e9; --phys-banner:linear-gradient(135deg,#0c4a6e 0%,#0369a1 100%);
+  --green:#10b981; --purple:#a855f7; --amber:#f59e0b;
+  --border:#1a3050; --shadow:0 4px 16px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+.banner{background:var(--phys-banner);color:#fff;padding:18px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.banner h1{font-size:18px;font-weight:800;flex:1;min-width:200px}
+.theme-btn{background:rgba(255,255,255,.15);border:none;border-radius:8px;padding:7px 11px;cursor:pointer;color:#fff;font-size:15px;transition:.2s}
+.theme-btn:hover{background:rgba(255,255,255,.28)}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px 60px}
+h2{font-size:15px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:1.2px;margin:22px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.step-bar{display:flex;gap:8px;margin:16px 0;align-items:center;flex-wrap:wrap}
+.step-item{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 14px;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;transition:.2s}
+.step-item:hover{border-color:var(--phys);color:var(--phys)}
+.step-item.active{border-color:var(--phys);background:rgba(14,165,233,.12);color:var(--phys)}
+.step-item .num{background:var(--phys);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;text-decoration:none;color:inherit;display:block;transition:.2s;box-shadow:var(--shadow)}
+.card:hover{border-color:var(--phys);transform:translateY(-2px)}
+.card .ch{font-size:11px;color:var(--text3);font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px}
+.card .title{font-size:17px;font-weight:800;color:var(--text);margin-bottom:4px}
+.card .subtitle{font-size:13px;color:var(--text2);margin-bottom:8px}
+.card .meta{display:flex;gap:10px;flex-wrap:wrap}
+.tag{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700}
+.tag-term1{background:rgba(16,185,129,.15);color:#34d399}
+.tag-term2{background:rgba(245,158,11,.15);color:#fbbf24}
+.tag-practice{background:rgba(14,165,233,.15);color:#38bdf8}
+.cards-title{margin:20px 0 14px;font-size:16px;font-weight:700;color:var(--text2)}
+.empty{background:var(--card);border:1px dashed var(--border);border-radius:12px;padding:40px;text-align:center;color:var(--text3);font-size:14px}
+footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);text-align:center;color:var(--text3);font-size:12px}
+
+/* Light theme */
+[data-theme="light"]{--bg:#f0f6ff;--card:#ffffff;--card2:#f8faff;--text:#1a2540;--text2:#4a6080;--text3:#8faac8;--border:#d0e0f0;--shadow:0 4px 16px rgba(0,0,0,.08)}
+[data-theme="light"] .banner{background:var(--phys-banner);color:#fff}
+[data-theme="light"] .card{background:#fff;border-color:#d0e0f0}
+[data-theme="light"] .step-item{background:#fff;border-color:#d0e0f0;color:#4a6080}
+[data-theme="light"] .step-item.active{border-color:var(--phys);background:rgba(14,165,233,.08);color:var(--phys)}
+</style>
+</head>
+<body>
+<div class="banner">
+  <h1>🔬 8th Grade Physics · Khan Academy</h1>
+  <button class="theme-btn" id="themeBtn" title="Toggle day/night mode">☀️</button>
+</div>
+<div class="wrap">
+  <h2>Step 1 — City</h2>
+  <div class="step-bar" id="cityBar">
+    <button class="step-item" onclick="selectCity('深圳')">🇨🇳 深圳 Shenzhen</button>
+    <button class="step-item" onclick="selectCity('香港')">🇭🇰 香港 Hong Kong</button>
+  </div>
+
+  <h2>Step 2 — Grade</h2>
+  <div class="step-bar" id="gradeBar">
+    <button class="step-item active" onclick="selectGrade('8')">8th Grade · 8年级</button>
+  </div>
+
+  <h2>Step 3 — Subject</h2>
+  <div class="step-bar" id="subBar">
+    <button class="step-item active" onclick="selectSubject('physics')">🔬 Physics · 物理</button>
+    <button class="step-item" onclick="location.href='math_index.html'">📐 Math · 数学</button>
+  </div>
+
+  <div id="cardsTitle" class="cards-title"></div>
+  <div id="cardsGrid" class="cards"></div>
+</div>
+<footer>Physics · Khan Academy Style · 北师大版 2024 · 8th Grade</footer>
+
+<script>
+var CHAPTERS = [
+  // 上册 Term 1
+  {id:"ch01",title:"物态及其变化",subtitle:"Phase Changes",term:1,practice:5,quiz:3},
+  {id:"ch02",title:"机械运动",subtitle:"Mechanical Motion",term:1,practice:5,quiz:3},
+  {id:"ch03",title:"声现象",subtitle:"Sound and Waves",term:1,practice:5,quiz:3},
+  {id:"ch04",title:"光现象",subtitle:"Light",term:1,practice:5,quiz:3},
+  {id:"ch05",title:"透镜及其应用",subtitle:"Lenses and Vision",term:1,practice:5,quiz:3},
+  // 下册 Term 2
+  {id:"ch06",title:"质量和密度",subtitle:"Mass, Volume and Density",term:2,practice:5,quiz:3},
+  {id:"ch07",title:"运动和力",subtitle:"Motion and Forces",term:2,practice:5,quiz:3},
+  {id:"ch08",title:"压强和浮力",subtitle:"Pressure and Buoyancy",term:2,practice:5,quiz:3},
+  {id:"ch09",title:"机械和功",subtitle:"Machines and Work",term:2,practice:5,quiz:3},
+  {id:"ch10",title:"力和机械能",subtitle:"Force and Mechanical Energy",term:2,practice:5,quiz:3},
+  {id:"ch11",title:"简单机械",subtitle:"Simple Machines",term:2,practice:5,quiz:3},
+];
+
+var selectedCity = localStorage.getItem('phys-city') || '深圳';
+var selectedGrade = localStorage.getItem('phys-grade') || '8';
+var selectedSubject = localStorage.getItem('phys-sub') || 'physics';
+
+function $(id){return document.getElementById(id)}
+
+function selectCity(c){
+  selectedCity = c;
+  localStorage.setItem('phys-city', c);
+  updateStepUI();
+  showCards();
+}
+function selectGrade(g){
+  selectedGrade = g;
+  localStorage.setItem('phys-grade', g);
+  updateStepUI();
+  showCards();
+}
+function selectSubject(s){
+  if(s==='math'){location.href='math_index.html';return;}
+  selectedSubject = s;
+  localStorage.setItem('phys-sub', s);
+  updateStepUI();
+  showCards();
+}
+function updateStepUI(){
+  $('cityBar').querySelectorAll('.step-item').forEach(function(b){
+    b.classList.toggle('active', b.textContent.includes(selectedCity));
+  });
+  $('gradeBar').querySelectorAll('.step-item').forEach(function(b){
+    b.classList.toggle('active', b.textContent.includes(selectedGrade));
+  });
+  $('subBar').querySelectorAll('.step-item').forEach(function(b){
+    b.classList.toggle('active', b.textContent.includes('physics') && selectedSubject==='physics' || b.textContent.includes('Math') && selectedSubject==='math');
+  });
+}
+
+function showCards(){
+  var termLabel = selectedGrade==='8' ? '上册' : '下册';
+  $('cardsTitle').textContent = selectedCity + ' · ' + selectedGrade + '年级 · 物理 · ' + termLabel;
+
+  if(selectedSubject !== 'physics'){
+    $('cardsGrid').innerHTML = '<div class="empty">Physics content is being prepared. Please check back soon.</div>';
+    return;
+  }
+
+  var filtered = CHAPTERS.filter(function(ch){
+    return ch.term === (selectedGrade==='8' ? 1 : 2);
+  });
+
+  if(filtered.length === 0){
+    $('cardsGrid').innerHTML = '<div class="empty">No physics chapters for this grade yet.</div>';
+    return;
+  }
+
+  var html = '';
+  filtered.forEach(function(ch){
+    var termClass = ch.term===1 ? 'tag-term1' : 'tag-term2';
+    var termLabel2 = ch.term===1 ? '上册' : '下册';
+    html += '<a class="card" href="physics_chapter.html?ch='+ch.id+'&grade='+selectedGrade+'&term='+ch.term+'">' +
+      '<div class="ch">Ch' + ch.id.replace('ch','') + ' · ' + termLabel2 + '</div>' +
+      '<div class="title">'+ch.title+'</div>' +
+      '<div class="subtitle">'+ch.subtitle+'</div>' +
+      '<div class="meta">' +
+        '<span class="tag '+termClass+'">'+termLabel2+'</span>' +
+        '<span class="tag tag-practice">📝 '+ch.practice+' Practice</span>' +
+        '<span class="tag tag-practice">📋 '+ch.quiz+' Quiz</span>' +
+      '</div>' +
+    '</a>';
+  });
+  $('cardsGrid').innerHTML = html;
+}
+
+// Theme
+var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+var theme = localStorage.getItem('phys-theme') || (prefersDark ? 'dark' : 'light');
+document.documentElement.setAttribute('data-theme', theme);
+function toggleTheme(){
+  theme = theme==='dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('phys-theme', theme);
+  $('themeBtn').textContent = theme==='dark' ? '☀️' : '🌙';
+}
+$('themeBtn').textContent = theme==='dark' ? '☀️' : '🌙';
+$('themeBtn').addEventListener('click', toggleTheme);
+
+// Init
+updateStepUI();
+showCards();
+</script>
+</body>
+</html>
