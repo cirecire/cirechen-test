@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>8th Grade Physics — Khan Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="dark"] {
+      --accent: #6366f1;
+      --ka-bg: #0a0f1e;
+      --ka-card: #141d33;
+      --ka-border: #1e2a45;
+      --ka-text: #e2e8f0;
+      --ka-muted: #64748b;
+      --ka-inner: #1a2540;
+    }
+    [data-theme="light"] {
+      --accent: #4f46e5;
+      --ka-bg: #f0f2ff;
+      --ka-card: #ffffff;
+      --ka-border: #c7d2fe;
+      --ka-text: #1e293b;
+      --ka-muted: #64748b;
+      --ka-inner: #f8faff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Lato', system-ui, -apple-system, sans-serif;
+      background: var(--ka-bg);
+      color: var(--ka-text);
+      min-height: 100vh;
+      transition: background .3s, color .3s;
+    }
+    header {
+      background: linear-gradient(135deg, #312e81 0%, #4f46e5 100%);
+      color: white;
+      padding: 28px 20px 20px;
+      text-align: center;
+      position: relative;
+    }
+    header h1 { font-size: 26px; font-weight: 700; }
+    header p { opacity: 0.9; font-size: 15px; margin-top: 4px; }
+    .theme-btn {
+      background: rgba(255,255,255,.16);
+      border: none;
+      border-radius: 8px;
+      padding: 7px 10px;
+      cursor: pointer;
+      color: #fff;
+      position: absolute;
+      right: 16px;
+      top: 24px;
+      font-size: 16px;
+    }
+    .theme-btn:hover { background: rgba(255,255,255,.28); }
+    #selector-section {
+      max-width: 700px;
+      margin: 40px auto 0;
+      padding: 0 16px;
+      text-align: center;
+    }
+    .sel-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--ka-muted);
+      margin-bottom: 10px;
+    }
+    .sel-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+    .sel-btn {
+      padding: 9px 20px;
+      border-radius: 999px;
+      border: 2px solid var(--ka-border);
+      background: var(--ka-card);
+      color: var(--ka-text);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .15s;
+      font-family: inherit;
+    }
+    .sel-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .sel-btn.selected { background: var(--accent); color: #fff; border-color: var(--accent); }
+    #cards-section { max-width: 860px; margin: 24px auto; padding: 0 16px; }
+    #cards-section h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .card {
+      display: block;
+      background: var(--ka-card);
+      border: 1.5px solid var(--ka-border);
+      border-radius: 12px;
+      padding: 18px;
+      text-decoration: none;
+      color: var(--ka-text);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.3); }
+    .card.disabled { opacity: .45; cursor: not-allowed; pointer-events: none; }
+    .card.disabled:hover { transform: none; box-shadow: none; }
+    .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .ch-num { font-size: 11px; font-weight: 700; color: var(--accent); background: rgba(99,102,241,.12); padding: 3px 9px; border-radius: 999px; }
+    .badge { font-size: 11px; padding: 2px 8px; border-radius: 6px; }
+    .badge.term1 { background: #dbeafe; color: #1d4ed8; }
+    .badge.term2 { background: #ede9fe; color: #6d28d9; }
+    .badge.soon { background: #f1f5f9; color: #64748b; }
+    .card-title { font-size: 15px; font-weight: 700; color: var(--ka-text); }
+    .card-en { font-size: 12px; color: var(--ka-muted); margin-top: 2px; }
+    .card-count { font-size: 12px; color: var(--ka-muted); margin-top: 8px; }
+    .card-soon { font-size: 12px; color: #94a3b8; margin-top: 8px; font-style: italic; }
+    .card.next-up { border-color: var(--accent); background: rgba(99,102,241,.06); }
+    .card.next-up .card-title { color: var(--accent); }
+    .chapter-nav { display: flex; align-items: center; gap: 8px; margin-top: 20px; justify-content: center; }
+    .nav-btn {
+      padding: 8px 18px;
+      border: 1.5px solid var(--ka-border);
+      background: var(--ka-card);
+      color: var(--ka-text);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: .15s;
+    }
+    .nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .step-info { text-align: center; margin: 20px 0 0; font-size: 13px; color: var(--ka-muted); }
+    .step-info span { color: var(--accent); font-weight: 600; }
+    .footer-note {
+      text-align: center;
+      margin: 40px 0 20px;
+      font-size: 12px;
+      color: var(--ka-muted);
+      padding: 0 16px;
+    }
+    @media (max-width: 500px) { .card-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <button class="theme-btn" onclick="toggleTheme()" title="Toggle day/night">🌙/☀️</button>
+  <h1>🔬 8th Grade Physics</h1>
+  <p>可汗学院 · Khan Academy · 深圳八年级</p>
+</header>
+
+<div id="selector-section">
+  <div class="sel-label">Step 1 — City 城市</div>
+  <div class="sel-row" id="cityRow">
+    <button class="sel-btn" onclick="selectCity(this,'深圳')">🇨🇳 深圳</button>
+    <button class="sel-btn" onclick="selectCity(this,'香港')">🇭🇰 香港</button>
+  </div>
+
+  <div class="sel-label">Step 2 — Grade 年级</div>
+  <div class="sel-row" id="gradeRow">
+    <button class="sel-btn selected" onclick="selectGrade(this,'8')">8 年级</button>
+  </div>
+
+  <div class="sel-label">Step 3 — Subject 学科</div>
+  <div class="sel-row" id="subjectRow">
+    <button class="sel-btn selected" onclick="selectSubject(this,'physics')">🔬 物理 Physics</button>
+  </div>
+</div>
+
+<div id="cards-section" style="display:none">
+  <h2 id="cards-title">📚 Chapter Contents</h2>
+  <div class="card-grid" id="cardGrid"></div>
+  <div class="chapter-nav" id="chapterNav"></div>
+</div>
+
+<div class="footer-note">
+  可汗学院原版练习 · Khan Academy original problems · 深圳/香港公立校适配
+</div>
+
+<script>
+// ── Theme ──────────────────────────────────────────────────────────
+var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+var savedTheme = localStorage.getItem('phys-theme') || (prefersDark ? 'dark' : 'light');
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('phys-theme', t);
+}
+applyTheme(savedTheme);
+function toggleTheme() {
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+}
+
+// ── Chapter data (grade 8, term 1 = ch01–07, term 2 = ch08–11) ────
+var CHAPTERS = [
+  { id:"ch01", term:1, label:"机械运动", labelEn:"Mechanical Motion", emoji:"⚡", vcount:7 },
+  { id:"ch02", term:1, label:"声现象",   labelEn:"Sound and Waves",  emoji:"🔊", vcount:8 },
+  { id:"ch03", term:1, label:"物态变化", labelEn:"Heat & Phase Changes", emoji:"🌡", vcount:8 },
+  { id:"ch04", term:1, label:"光现象",   labelEn:"Light and Optics", emoji:"💡", vcount:7 },
+  { id:"ch05", term:1, label:"透镜",     labelEn:"Lenses and Vision", emoji:"🔍", vcount:7 },
+  { id:"ch06", term:1, label:"质量密度", labelEn:"Mass and Density", emoji:"⚖",  vcount:4 },
+  { id:"ch07", term:1, label:"力",       labelEn:"Forces and Newton's Laws", emoji:"💪", vcount:11 },
+  { id:"ch08", term:2, label:"压强",     labelEn:"Pressure", emoji:"⬇",  vcount:6 },
+  { id:"ch09", term:2, label:"浮力",     labelEn:"Buoyancy", emoji:"🛟", vcount:6 },
+  { id:"ch10", term:2, label:"功和机械能", labelEn:"Work and Energy", emoji:"⚡", vcount:5 },
+  { id:"ch11", term:2, label:"简单机械", labelEn:"Simple Machines", emoji:"🔧", vcount:8 },
+];
+
+// ── State ────────────────────────────────────────────────────────────
+var selectedCity = localStorage.getItem('phys-city') || '';
+var selectedGrade = localStorage.getItem('phys-grade') || '8';
+var selectedSubject = 'physics';
+
+function selectCity(btn, city) {
+  document.querySelectorAll('#cityRow .sel-btn').forEach(function(b){ b.classList.remove('selected'); });
+  btn.classList.add('selected');
+  selectedCity = city;
+  localStorage.setItem('phys-city', city);
+  showCards();
+}
+function selectGrade(btn, grade) {
+  document.querySelectorAll('#gradeRow .sel-btn').forEach(function(b){ b.classList.remove('selected'); });
+  btn.classList.add('selected');
+  selectedGrade = grade;
+  localStorage.setItem('phys-grade', grade);
+  showCards();
+}
+function selectSubject(btn, subj) {
+  document.querySelectorAll('#subjectRow .sel-btn').forEach(function(b){ b.classList.remove('selected'); });
+  btn.classList.add('selected');
+  selectedSubject = subj;
+  if (subj === 'math') {
+    window.location.href = 'index.html';
+    return;
+  }
+  showCards();
+}
+
+function showCards() {
+  var section = document.getElementById('cards-section');
+  if (!selectedCity) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+
+  var term = selectedGrade === '8' ? 1 : 2;
+  var chapters = CHAPTERS.filter(function(c){ return c.term === term; });
+  var grid = document.getElementById('cardGrid');
+  var nav = document.getElementById('chapterNav');
+
+  grid.innerHTML = '';
+  nav.innerHTML = '';
+
+  var termLabel = term === 1 ? '上册 · Term 1' : '下册 · Term 2';
+  document.getElementById('cards-title').textContent = selectedCity + ' · ' + selectedGrade + '年级 · ' + selectedSubject + ' · ' + termLabel;
+
+  chapters.forEach(function(ch, i) {
+    var card = document.createElement('a');
+    card.className = 'card';
+    card.href = 'physics_chapter.html?ch=' + ch.id + '&grade=' + selectedGrade + '&term=' + term;
+    card.innerHTML =
+      '<div class="card-top">' +
+        '<span class="ch-num">第' + ch.id.replace('ch','') + '章</span>' +
+        '<span class="badge term' + ch.term + '">' + (ch.term===1?'上册':'下册') + '</span>' +
+      '</div>' +
+      '<div class="card-title">' + ch.emoji + ' ' + ch.label + '</div>' +
+      '<div class="card-en">' + ch.labelEn + '</div>' +
+      '<div class="card-count">📹 ' + ch.vcount + ' videos</div>';
+    grid.appendChild(card);
+
+    // Chapter nav link
+    var nb = document.createElement('a');
+    nb.className = 'nav-btn';
+    nb.href = 'physics_chapter.html?ch=' + ch.id + '&grade=' + selectedGrade + '&term=' + term;
+    nb.textContent = ch.id.replace('ch','Ch');
+    nav.appendChild(nb);
+  });
+}
+
+// Restore last selection
+if (selectedCity) {
+  document.querySelectorAll('#cityRow .sel-btn').forEach(function(b){
+    if (b.textContent.includes(selectedCity==='深圳'?'深圳':'香港')) b.classList.add('selected');
+  });
+  showCards();
+}
+</script>
+</body>
+</html>
