@@ -1,327 +1,156 @@
-// physics_data.js — 北师大版八年级物理 · Khan Academy 对照题库
-// 课本：北师大版 2024（八年级上册 + 下册）
-// 结构：每章含 think / videos / notes / practice / quiz
-// hint/dia 待 KA 实采后补入
+// physics_data.js — 人教版八年级物理（上册）· Khan Academy 对照学习站
+// 教材：人民教育出版社 八年级物理上册（教育部审定 2013 版）
+// 结构：6 章 28 节（每节知识点并入 notes；跨学科实践节无 KA 对应题）
+// 数据契约（与 math_data.js 一致）：
+//   { id, g, gx, title, subtitle, term, coverage, think, videos:[{yt|local, t, m, duration, ka}],
+//     notes:[...], practice:[{q, dia?, options?, ansIdx|ans, sol}], quiz:[...] }
+// ⚠️ 题目必须来自 KA 真题或公立校真题（21cnjy 等），禁止 AI 编题。当前 practice/quiz 为空 = 采集中。
+
 var PHYSICS_DATA = [
 
-// ══════════════════════════════════════════════════════
-// 上册 Term 1 — Ch01~Ch05
-// ══════════════════════════════════════════════════════
-
-{ // ─────────────────────────────────────────────────
-  // Ch01 物态及其变化 Phase Changes
-  // KA: 6th grade science / Heat & temperature / States of matter
+// ══════════════════════════════════════════════════════════
+// 第一章 机械运动（4节）
+// ══════════════════════════════════════════════════════════
+{
   id: "ch01",
-  g: "8",
-  gx: 1,
-  title: "物态及其变化",
-  subtitle: "Phase Changes",
-  term: 1,
-  coverage: "g",
-  think: "What determines whether a substance is a solid, liquid, or gas? What happens to the particles inside a substance when you heat it or cool it? Why does ice melt at 0°C and water boil at 100°C at standard pressure?",
-  videos: [],
-  subtopics: [
-    { name: "Temperature & Thermometers", vids: [], pq: [] },
-    { name: "Phase Change Concepts", vids: [], pq: [] },
-  ],
-  notes: [
-    "Solid: fixed shape and volume; particles vibrate in place.",
-    "Liquid: fixed volume, takes container shape; particles slide past each other.",
-    "Gas: no fixed shape or volume; particles move freely.",
-    "Melting: solid → liquid (absorbs heat).",
-    "Freezing: liquid → solid (releases heat).",
-    "Evaporation: liquid → gas at surface (below boiling point).",
-    "Boiling: liquid → gas throughout at boiling point.",
-    "Sublimation: solid → gas directly (e.g., dry ice).",
-  ],
-  practice: [],
-  quiz: [],
-},
-
-{ // ─────────────────────────────────────────────────
-  // Ch02 机械运动 Mechanical Motion
-  // KA: Physics library → One-dimensional motion
-  id: "ch02",
   g: "8",
   gx: 1,
   title: "机械运动",
   subtitle: "Mechanical Motion",
   term: 1,
-  coverage: "g",
-  think: "How do you describe motion precisely? What is the difference between distance and displacement? Between speed and velocity? When a car accelerates from 0 to 60 km/h in 8 seconds — how do you calculate that acceleration?",
-  videos: [],
-  subtopics: [
-    { name: "Reference Frames & Displacement", vids: [], pq: [] },
-    { name: "Speed and Velocity", vids: [], pq: [] },
-    { name: "Acceleration", vids: [], pq: [] },
-  ],
+  coverage: "p",
+  think: "How do we measure length and time precisely? What does it mean to say an object is moving — moving relative to what? How do we compare how fast different objects move?",
+  videos: [
+        {yt: "GtoamALPOP0", t: "Position vs. time graphs", ka: "https://www.khanacademy.org/science/physics/one-dimensional-motion/displacement-velocity-and-time/v/position-vs-time-graphs"},
+        {yt: "oRKxmXwLvUU", t: "Calculating average velocity or speed", ka: "https://www.khanacademy.org/science/physics/one-dimensional-motion/displacement-velocity-and-time/v/calculating-average-velocity-or-speed"},
+        {yt: "FOkQszg1-j8", t: "Acceleration", ka: "https://www.khanacademy.org/science/physics/one-dimensional-motion/acceleration/v/acceleration"},
+        {yt: "3yaZ7lkQPUQ", t: "Introduction to reference frames", ka: "https://www.khanacademy.org/science/physics/one-dimensional-motion/displacement-velocity-and-time/v/introduction-to-reference-frames"},
+        {yt: "fQt69_Q2CTw", t: "Airbus A380 take-off distance", ka: "https://www.khanacademy.org/science/physics/one-dimensional-motion/kinematic-formulas/v/airbus-a380-take-off-distance"},
+        {yt: "6Zwj7wjp7hQ", t: "Intro to vectors and scalars", ka: "https://www.khanacademy.org/science/physics/one-dimensional-motion/displacement-velocity-and-time/v/intro-to-vectors-and-scalars"}
+      ],
   notes: [
-    "Distance: total path length, scalar quantity.",
-    "Displacement: change in position, vector (direction matters).",
-    "Speed = distance / time (scalar).",
-    "Velocity = displacement / time (vector).",
-    "Acceleration a = (v_f − v_i) / t.",
-    "At constant acceleration: v_f = v_i + at; s = v_i t + ½at².",
+    "§1.1 长度和时间的测量 (Measuring length and time): The SI unit of length is the metre (m); 1 m = 100 cm = 1000 mm; 1 km = 1000 m. The ruler (刻度尺) is the basic tool — read to one decimal place beyond the smallest division (估读到分度值的下一位). Time: SI unit is the second (s); stopwatch (停表/秒表) reads minutes and seconds. Error (误差) is unavoidable — reduce it by averaging multiple measurements; it is different from a mistake (错误), which can be avoided.",
+    "§1.2 运动的描述 (Describing motion): Motion and rest are relative (运动和静止是相对的) — you must choose a reference object (参照物). An object is moving if its position changes relative to the reference object. Example: passengers sitting in a moving train are at rest relative to the train but moving relative to the platform.",
+    "§1.3 运动的快慢 (Speed): Speed (速度) measures how fast an object moves: v = s / t, SI unit metre per second (m/s); 1 m/s = 3.6 km/h. Uniform linear motion (匀速直线运动): speed stays constant along a straight line. Average speed (平均速度) = total distance ÷ total time. A car at 72 km/h travels 20 m every second.",
+    "§1.4 速度的测量 (Measuring speed): Use a ruler + stopwatch to measure the average speed of a小车 on a斜面 (sloping track): v = s/t. The小车 speeds up as it goes down — the average speed over the whole track is between the speeds at the top and bottom.",
   ],
   practice: [],
   quiz: [],
 },
 
-{ // ─────────────────────────────────────────────────
-  // Ch03 声现象 Sound and Waves
-  // KA: Waves and sound / Sound
+// ══════════════════════════════════════════════════════════
+// 第二章 声现象（5节，第5节跨学科实践）
+// ══════════════════════════════════════════════════════════
+{
+  id: "ch02",
+  g: "8",
+  gx: 2,
+  title: "声现象",
+  subtitle: "Sound Phenomena",
+  term: 1,
+  coverage: "p",
+  think: "What makes sound? Why can astronauts on the Moon not talk to each other directly? Why do some sounds are high and some low, some loud and some soft? How do bats 'see' with sound?",
+  videos: [],
+  notes: [
+    "§2.1 声音的产生与传播 (Production & propagation of sound): Sound is produced by vibration (振动) — a plucked string, a drum skin, your vocal cords. Sound needs a medium (介质) to travel: solids, liquids and gases all carry sound; a vacuum (真空) cannot. Sound speed: about 340 m/s in air (15°C), faster in water (~1500 m/s) and fastest in solids. Echo (回声) = reflected sound.",
+    "§2.2 声音的特性 (Characteristics of sound): Pitch (音调) depends on frequency (频率) — high frequency = high pitch (单位 Hz). Loudness (响度) depends on amplitude (振幅) — bigger amplitude = louder; also distance from source. Timbre (音色) distinguishes different sources (same pitch & loudness, different instruments). Humans hear roughly 20 Hz – 20000 Hz; ultrasound > 20000 Hz, infrasound < 20 Hz.",
+    "§2.3 声的利用 (Uses of sound): Sound carries information (信息) — echolocation in bats, B-ultrasound (B超) in medicine. Sound carries energy (能量) — ultrasonic cleaning, ultrasonic碎石 (breaking kidney stones). Sonar (声呐) measures ocean depth using echoes.",
+    "§2.4 噪声的危害和控制 (Noise): Noise (噪声) = unwanted sound; measured in decibels (分贝, dB). 0 dB is the threshold of hearing; above 90 dB harms hearing. Control at three places: the source (声源处, e.g. muffler 消声器), in transmission (传播过程中, walls/trees), and at the receiver (人耳处, earplugs 耳塞).",
+  ],
+  practice: [],
+  quiz: [],
+},
+
+// ══════════════════════════════════════════════════════════
+// 第三章 物态变化（5节，第5节跨学科实践）
+// ══════════════════════════════════════════════════════════
+{
   id: "ch03",
   g: "8",
-  gx: 1,
-  title: "声现象",
-  subtitle: "Sound and Waves",
+  gx: 3,
+  title: "物态变化",
+  subtitle: "Changes of State",
   term: 1,
-  coverage: "g",
-  think: "How is sound produced? Does sound travel faster in air or in water? What makes a guitar string produce a higher-pitched note than a bass guitar? How do echolocation and sonar work?",
+  coverage: "p",
+  think: "Why does ice melt when heated and water freeze when cooled? Where does the 'white steam' above boiling water come from — is it really steam? Why do wet clothes dry faster on a windy sunny day?",
   videos: [],
-  subtopics: [
-    { name: "Sound Production & Propagation", vids: [], pq: [] },
-    { name: "Wave Properties: Frequency & Amplitude", vids: [], pq: [] },
-  ],
   notes: [
-    "Sound is a longitudinal wave produced by vibrating objects.",
-    "Sound requires a medium to travel (cannot travel in vacuum).",
-    "Speed of sound: ~340 m/s in air at 20°C.",
-    "Pitch is determined by frequency: higher frequency = higher pitch.",
-    "Amplitude determines loudness: larger amplitude = louder sound.",
-    "Frequency f = 1/T (Hz). Wavelength λ = v/f.",
+    "§3.1 温度 (Temperature): Temperature (温度) tells how hot or cold an object is. Celsius scale (摄氏温度): 0°C = freezing point of water, 100°C = boiling point of water (1 atm), divided into 100 equal parts. Thermometer (温度计): works by expansion of liquid (usually mercury or alcohol); read with eyes level to the liquid column. Clinical thermometer (体温计): range 35–42°C, has a narrow bend (缩口) so it can be read after removal; must be shaken before reuse.",
+    "§3.2 熔化和凝固 (Melting & freezing): Melting (熔化) = solid → liquid, absorbs heat (吸热); freezing/solidifying (凝固) = liquid → solid, releases heat (放热). Crystals (晶体) have a fixed melting point (熔点) — e.g. ice 0°C, naphthalene 80.5°C; non-crystals (非晶体, e.g. wax, glass) soften gradually with no fixed melting point. During melting of a crystal, temperature stays at the melting point until fully melted.",
+    "§3.3 汽化和液化 (Vaporization & liquefaction): Vaporization (汽化) = liquid → gas, absorbs heat. Two forms: evaporation (蒸发) happens at any temperature at the surface; boiling (沸腾) happens at the boiling point (沸点) throughout the liquid, needing continuous heat. Boiling point depends on pressure — lower pressure = lower boiling point (high mountain cooking). Liquefaction (液化) = gas → liquid, releases heat; ways: cooling (降温) and compressing (压缩体积, e.g. LPG 液化石油气).",
+    "§3.4 升华和凝华 (Sublimation & deposition): Sublimation (升华) = solid → gas directly, absorbs heat — dry ice (干冰) 'smoke', iodine crystals, camphor balls shrinking. Deposition (凝华) = gas → solid directly, releases heat — frost (霜) and snowflakes in winter, 'hoar frost' on freezer walls. The 'white steam' over boiling water is tiny water droplets (液化), not gas.",
   ],
   practice: [],
   quiz: [],
 },
 
-{ // ─────────────────────────────────────────────────
-  // Ch04 光现象 Light
-  // KA: Waves / Light / Reflection and refraction
+// ══════════════════════════════════════════════════════════
+// 第四章 光现象（5节）
+// ══════════════════════════════════════════════════════════
+{
   id: "ch04",
   g: "8",
-  gx: 1,
+  gx: 4,
   title: "光现象",
-  subtitle: "Light",
+  subtitle: "Light Phenomena",
   term: 1,
-  coverage: "g",
-  think: "Why can you see yourself in a mirror but not in a white wall? What causes a rainbow? Why does a pencil look 'broken' when you put it in water? What is the law of reflection?",
+  coverage: "p",
+  think: "How does light travel — and how do we know? Why can you see your face in a mirror but not on a wall? Why does a straw look bent in a glass of water? Why is the sky blue and a rainbow colourful?",
   videos: [],
-  subtopics: [
-    { name: "Light Propagation & Reflection", vids: [], pq: [] },
-    { name: "Refraction & Lenses", vids: [], pq: [] },
-  ],
   notes: [
-    "Light travels in straight lines (ray model).",
-    "Law of reflection: angle of incidence = angle of reflection.",
-    "Plane mirror: image is virtual, upright, same size, laterally reversed.",
-    "Refraction: light bends when passing into a different medium.",
-    "Snell's law: n₁ sin θ₁ = n₂ sin θ₂.",
-    "Critical angle causes total internal reflection.",
+    "§4.1 光的直线传播 (Rectilinear propagation): Light travels in straight lines in the same medium (光在同种均匀介质中沿直线传播). Evidence: shadows (影子), solar eclipse, 小孔成像 (pinhole image — inverted). Light source (光源): sun, lamp, firefly — objects that emit light. Speed of light: c ≈ 3×10^8 m/s in vacuum, the fastest in the universe.",
+    "§4.2 光的反射 (Reflection): Reflection law (光的反射定律): the reflected ray, incident ray and normal are in the same plane; angle of reflection = angle of incidence (反射角等于入射角). Types: specular reflection (镜面反射, smooth surface) and diffuse reflection (漫反射, rough surface) — both obey the law; we see most objects by diffuse reflection. Light path is reversible (光路可逆).",
+    "§4.3 平面镜成像 (Plane-mirror images): A plane mirror forms a virtual image (虚像) that is the same size as the object, at the same distance behind the mirror, left-right reversed (左右相反). The image cannot be projected on a screen. Applications: mirrors, periscope (潜望镜, two mirrors at 45°).",
+    "§4.4 光的折射 (Refraction): Refraction (折射): light bends when it passes obliquely from one transparent medium into another, because its speed changes. Air → water: ray bends toward the normal (折射角 < 入射角). Appearances: a straw looks bent, a pool looks shallower (池水变浅), the rising sun we see is already above the horizon. Total internal reflection (全反射) explains光纤 (optical fibre).",
+    "§4.5 光的色散 (Dispersion): Newton's prism experiment: white light splits into red, orange, yellow, green, blue, indigo, violet (红橙黄绿蓝靛紫) — dispersion (色散). Rainbow is caused by dispersion in raindrops. The three primary colours of light (色光的三原色): red, green, blue — mixing them makes white. Invisible light: infrared (红外线, heat, remote controls) and ultraviolet (紫外线, sterilisation, makes fluorescent materials glow; too much harms skin).",
   ],
   practice: [],
   quiz: [],
 },
 
-{ // ─────────────────────────────────────────────────
-  // Ch05 透镜及其应用 Lenses and Vision
-  // KA: Geometric optics / Lenses
+// ══════════════════════════════════════════════════════════
+// 第五章 透镜及其应用（5节，第5节跨学科实践）
+// ══════════════════════════════════════════════════════════
+{
   id: "ch05",
   g: "8",
-  gx: 1,
+  gx: 5,
   title: "透镜及其应用",
-  subtitle: "Lenses and Vision",
+  subtitle: "Lenses and Their Applications",
   term: 1,
-  coverage: "g",
-  think: "How does a convex lens form a real image on a screen? Why does a concave lens always produce a virtual, upright image? How do microscopes and telescopes work? What determines whether a person is nearsighted or farsighted?",
+  coverage: "p",
+  think: "Why does a magnifying glass magnify while glasses for short-sighted people make things smaller? How does a camera capture a sharp image on its sensor? Why do old people hold newspapers far away to read?",
   videos: [],
-  subtopics: [
-    { name: "Convex and Concave Lenses", vids: [], pq: [] },
-    { name: "Lens Equation and Applications", vids: [], pq: [] },
-  ],
   notes: [
-    "Convex (converging) lens: thicker in the middle.",
-    "Concave (diverging) lens: thinner in the middle.",
-    "Lens formula: 1/f = 1/v + 1/u.",
-    "Magnification M = v/u = image height / object height.",
-    "Real image: inverted, can be projected on a screen.",
-    "Virtual image: upright, cannot be projected.",
+    "§5.1 透镜 (Lenses): Convex lens (凸透镜): thicker in the middle — converges light (会聚); it has two foci (焦点 F) and focal length (焦距 f). Concave lens (凹透镜): thinner in the middle — diverges light (发散); can only form virtual images. Lens maker: parallel rays through a convex lens meet at the focus.",
+    "§5.2 生活中的透镜 (Lenses in life): Camera (照相机): object beyond 2f → real, inverted, reduced image on the sensor/film. Projector (投影仪): object between f and 2f → real, inverted, enlarged image. Magnifying glass (放大镜): object within f → virtual, upright, enlarged image. The camera and projector images are real (实像, can be projected); magnifying-glass image is virtual.",
+    "§5.3 凸透镜成像的规律 (Convex-lens imaging rule): u > 2f: real, inverted, reduced, between f and 2f (camera). u = 2f: real, inverted, same size, at 2f. f < u < 2f: real, inverted, enlarged, beyond 2f (projector). u = f: no image (parallel rays). u < f: virtual, upright, enlarged, same side (magnifier). Summary: one focus divides real from virtual; two-focus point divides enlarged from reduced.",
+    "§5.4 眼睛和眼镜 (The eye and glasses): The eye's lens (晶状体) focuses light onto the retina (视网膜) — like a camera; the ciliary muscle changes its curvature (调节). Short sight (近视): image forms in front of the retina — corrected with concave (diverging) lenses. Long sight (远视/presbyopia 老花眼): image forms behind the retina — corrected with convex (converging) lenses.",
   ],
   practice: [],
   quiz: [],
 },
 
-// ══════════════════════════════════════════════════════
-// 下册 Term 2 — Ch06~Ch11
-// ══════════════════════════════════════════════════════
-
-{ // ─────────────────────────────────────────────────
-  // Ch06 质量和密度 Mass, Volume and Density
-  // KA: Density, specific gravity / 6th grade science
+// ══════════════════════════════════════════════════════════
+// 第六章 质量与密度（4节）
+// ══════════════════════════════════════════════════════════
+{
   id: "ch06",
   g: "8",
-  gx: 1,
-  title: "质量和密度",
-  subtitle: "Mass, Volume and Density",
-  term: 2,
-  coverage: "g",
-  think: "A 1 kg block of iron and a 1 kg block of wood have the same mass — but do they have the same volume? Why does oil float on water? How do you identify an unknown metal using its density?",
+  gx: 6,
+  title: "质量与密度",
+  subtitle: "Mass and Density",
+  term: 1,
+  coverage: "p",
+  think: "Why does a huge iron anchor feel so heavy while a big piece of wood floats? Is 1 kg of iron really 'heavier' than 1 kg of cotton? How can we tell whether a 'gold' ring is really gold without destroying it?",
   videos: [],
-  subtopics: [
-    { name: "Mass and Volume", vids: [], pq: [] },
-    { name: "Density and Applications", vids: [], pq: [] },
-  ],
   notes: [
-    "Mass: amount of matter in an object (kg).",
-    "Volume: amount of space an object occupies (m³ or cm³).",
-    "Density ρ = m/V (kg/m³ or g/cm³).",
-    "Water density = 1 g/cm³ = 1000 kg/m³.",
-    "Relative density = density of substance / density of water.",
-    "Floating: object density < fluid density.",
+    "§6.1 质量 (Mass): Mass (质量) = the amount of matter in an object; it does NOT change with shape, state, or location (质量是物体的一种属性). SI unit: kilogram (kg); 1 t = 1000 kg, 1 kg = 1000 g, 1 g = 1000 mg. Measured with a balance (天平): put object on the left pan, weights on the right; read weights + rider (游码). Steps: 放平 (level), 归零 (zero the rider), 调平衡螺母 (balance the beam), 左物右码, 读数. A balance measures mass — it works on Earth or on the Moon (still balances), while a spring scale measures weight.",
+    "§6.2 密度 (Density): Density (密度) = mass per unit volume: ρ = m/V. SI unit kg/m³; 1 g/cm³ = 1000 kg/m³. Density is a property of the material (同种物质密度相同) — it does not change with mass or volume, but changes with state & temperature (water → ice: density decreases because volume expands). Water: ρ = 1.0×10^3 kg/m³ = 1 g/cm³. ρ铁 = 7.9×10^3 kg/m³ means 1 m³ of iron has mass 7.9×10^3 kg.",
+    "§6.3 测量液体和固体的密度 (Measuring density): Solid (regular shape): ruler → volume by formula, balance → mass, ρ = m/V. Solid (irregular, e.g. a stone): use a measuring cylinder (量筒) — water displacement (排水法): V = V₂ − V₁. Liquid (e.g. salt water): measure mass of beaker+liquid, pour part into the cylinder, re-weigh — the difference is the liquid's mass (avoid measuring the whole beaker's contents, which leaves liquid stuck to the wall 误差). Read the cylinder with eyes level to the bottom of the meniscus (凹液面).",
+    "§6.4 密度的应用 (Uses of density): 1. Identify materials (鉴别物质): measure ρ and compare with the table. 2. Calculate mass: m = ρV (e.g. a huge monument whose volume is hard to measure directly — no, mass from volume). 3. Calculate volume: V = m/ρ (e.g. find the volume of a thin wire). 4. Practical: hollow or solid (空心/实心判断), alloy problems. Density explains why ice floats on water (ρ冰 < ρ水) and why oil floats on water.",
   ],
   practice: [],
   quiz: [],
 },
-
-{ // ─────────────────────────────────────────────────
-  // Ch07 运动和力 Motion and Forces
-  // KA: Forces and Newton's laws of motion
-  id: "ch07",
-  g: "8",
-  gx: 1,
-  title: "运动和力",
-  subtitle: "Motion and Forces",
-  term: 2,
-  coverage: "g",
-  think: "What makes an object start moving? What keeps it moving at constant velocity? Newton's First Law says an object at rest stays at rest unless acted upon — so why does a sliding book eventually stop on a table? What is the relationship between force, mass and acceleration?",
-  videos: [],
-  subtopics: [
-    { name: "Force and Interactions", vids: [], pq: [] },
-    { name: "Newton's Laws of Motion", vids: [], pq: [] },
-    { name: "Friction", vids: [], pq: [] },
-  ],
-  notes: [
-    "Force: push or pull, measured in Newtons (N).",
-    "Newton's 1st Law (Inertia): object stays at rest or uniform motion unless acted upon by a net force.",
-    "Newton's 2nd Law: F = ma.",
-    "Newton's 3rd Law: for every action, there is an equal and opposite reaction.",
-    "Friction f = μN (μ = coefficient of friction).",
-    "Weight W = mg (g ≈ 9.8 N/kg on Earth).",
-  ],
-  practice: [],
-  quiz: [],
-},
-
-{ // ─────────────────────────────────────────────────
-  // Ch08 压强和浮力 Pressure and Buoyancy
-  // KA: Fluids / Pressure / Buoyancy
-  id: "ch08",
-  g: "8",
-  gx: 1,
-  title: "压强和浮力",
-  subtitle: "Pressure and Buoyancy",
-  term: 2,
-  coverage: "g",
-  think: "Why does a sharp knife cut better than a blunt one? Why do deep-sea divers need special suits? Why does a steel ship float even though steel is denser than water? What is Archimedes' principle?",
-  videos: [],
-  subtopics: [
-    { name: "Pressure in Solids and Fluids", vids: [], pq: [] },
-    { name: "Buoyancy and Archimedes' Principle", vids: [], pq: [] },
-  ],
-  notes: [
-    "Pressure p = F/A (force per unit area, N/m² = Pa).",
-    "Fluid pressure increases with depth: p = ρgh.",
-    "Atmospheric pressure ≈ 1.01 × 10⁵ Pa at sea level.",
-    "Buoyant force F_b = ρ_fluid × g × V_displaced.",
-    "Floating: F_b = mg (weight balanced by buoyant force).",
-    "Sinking: ρ_object > ρ_fluid (weight > buoyant force).",
-  ],
-  practice: [],
-  quiz: [],
-},
-
-{ // ─────────────────────────────────────────────────
-  // Ch09 机械和功 Machines and Work
-  // KA: Simple machines / Work and energy
-  id: "ch09",
-  g: "8",
-  gx: 1,
-  title: "机械和功",
-  subtitle: "Machines and Work",
-  term: 2,
-  coverage: "g",
-  think: "What does it mean to 'do work' in physics? Lifting a 50 kg object 2 m high — how much work do you do? A lever lets you lift a heavy rock with less force — but do you also do less work?",
-  videos: [],
-  subtopics: [
-    { name: "Work and Energy", vids: [], pq: [] },
-    { name: "Simple Machines", vids: [], pq: [] },
-  ],
-  notes: [
-    "Work W = F × s × cos θ (J = N·m).",
-    "1 J = energy used when a 1 N force moves an object 1 m.",
-    "Power P = W/t (watts, W = J/s).",
-    "Mechanical advantage MA = F_out / F_in.",
-    "Lever: MA = effort arm / load arm.",
-    "Pulley: MA = number of supporting rope segments.",
-  ],
-  practice: [],
-  quiz: [],
-},
-
-{ // ─────────────────────────────────────────────────
-  // Ch10 力和机械能 Force and Mechanical Energy
-  // KA: Work and energy / Conservation of energy
-  id: "ch10",
-  g: "8",
-  gx: 1,
-  title: "力和机械能",
-  subtitle: "Force and Mechanical Energy",
-  term: 2,
-  coverage: "g",
-  think: "A roller coaster at the top of a hill has maximum potential energy. At the bottom, that energy has converted into kinetic energy. What happens at the middle of the track? Where does the energy go when the coaster eventually stops?",
-  videos: [],
-  subtopics: [
-    { name: "Kinetic and Potential Energy", vids: [], pq: [] },
-    { name: "Conservation of Energy", vids: [], pq: [] },
-  ],
-  notes: [
-    "Kinetic energy KE = ½mv² (J).",
-    "Gravitational potential energy PE = mgh (J).",
-    "Elastic potential energy PE = ½kx² (k = spring constant).",
-    "Law of conservation of energy: energy cannot be created or destroyed, only transformed.",
-    "Total mechanical energy = KE + PE = constant (without friction).",
-    "With friction: some mechanical energy → thermal energy.",
-  ],
-  practice: [],
-  quiz: [],
-},
-
-{ // ─────────────────────────────────────────────────
-  // Ch11 简单机械 Simple Machines
-  // KA: Simple machines
-  id: "ch11",
-  g: "8",
-  gx: 1,
-  title: "简单机械",
-  subtitle: "Simple Machines",
-  term: 2,
-  coverage: "g",
-  think: "A construction worker uses a wheelbarrow to move heavy bricks. A chef uses a bottle opener to pry off a cap. A flag is raised using a pulley system. What do all these devices have in common — and how do they make work easier?",
-  videos: [],
-  subtopics: [
-    { name: "Levers and Inclined Planes", vids: [], pq: [] },
-    { name: "Mechanical Advantage and Efficiency", vids: [], pq: [] },
-  ],
-  notes: [
-    "Six simple machines: lever, inclined plane, wedge, screw, wheel and axle, pulley.",
-    "Mechanical advantage MA = output force / input force.",
-    "Velocity ratio VR = distance moved by effort / distance moved by load.",
-    "Efficiency η = (MA / VR) × 100%.",
-    "Ideal machine: η = 100%, MA = VR.",
-    "Real machines: friction reduces efficiency (η < 100%).",
-  ],
-  practice: [],
-  quiz: [],
-},
-
-]; // end PHYSICS_DATA
+];
