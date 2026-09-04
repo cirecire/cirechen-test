@@ -736,7 +736,7 @@ function renderPanel(step) {
 function renderOneQ(item, kind, qi) {
   var html = '<div class="q" id="' + kind + 'q' + qi + '"' +
               (item.ansIdx !== undefined ? ' data-ansidx="' + item.ansIdx + '"' : (item.ans ? ' data-ans="' + esc(item.ans) + '"' : '')) + '>';
-  html += '<div class="qnum">Question ' + (qi+1) + '</div>';
+  html += '<div class="qnum">Question ' + (qi+1) + (item.multi ? ' <span style="color:var(--blue);font-size:0.85em">(choose all that apply)</span>' : '') + '</div>';
   html += '<div class="qtext">' + esc(item.q) + '</div>';
   if (item.dia) html += (typeof item.dia === 'string') ? item.dia : renderGraphie(item.dia);
   if (item.options && item.options.length) {
@@ -782,13 +782,17 @@ function showAns(kind, i) {
   ansEl.style.display = 'block';
   solEl.style.display = 'block';
   btn.style.display = 'none';
-  // highlight correct option if multiple choice
+  // highlight correct option(s) — ansIdx can be '3' (single) or '0,3' (multi-select)
   var qEl = document.getElementById(kind + 'q' + i);
-  var ansIdx = qEl ? qEl.getAttribute('data-ansidx') : null;
+  var ansIdxStr = qEl ? qEl.getAttribute('data-ansidx') : null;
   var optWrap = document.getElementById(kind + 'opt' + i);
-  if (optWrap && ansIdx !== null) {
-    var correctOpt = optWrap.querySelector('.opt[data-opt="' + ansIdx + '"]');
-    if (correctOpt) correctOpt.classList.add('opt-correct');
+  if (optWrap && ansIdxStr !== null) {
+    // Support both single ('3') and multi ('0,3') formats
+    ansIdxStr.split(',').forEach(function(idx) {
+      idx = idx.trim();
+      var correctOpt = optWrap.querySelector('.opt[data-opt="' + idx + '"]');
+      if (correctOpt) correctOpt.classList.add('opt-correct');
+    });
   }
   // render math in answer and solution
   renderMath(ansEl);
