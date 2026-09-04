@@ -283,16 +283,135 @@ var PHYSICS_DATA = [
   subtitle: "Changes of State",
   term: 1,
   coverage: "p",
-  think: "Why does ice melt when heated and water freeze when cooled? Where does the 'white steam' above boiling water come from — is it really steam? Why do wet clothes dry faster on a windy sunny day?",
-  videos: [],
+  think: "Why does ice cream melt on a hot day, and why does a puddle disappear after the rain? What is 'temperature' really measuring? Why do we feel cold when alcohol on our skin evaporates, and why does dry ice 'smoke' without melting?",
+  subtopics: [
+    { name: "§3.1 温度 · Temperature & Thermometers",     vids: [0],       pq: [0] },
+    { name: "§3.2 熔化和凝固 · Melting & Freezing",        vids: [1, 3],    pq: [1, 2] },
+    { name: "§3.3 汽化和液化 · Vaporization & Liquefaction", vids: [4],    pq: [3] },
+    { name: "§3.4 升华和凝华 · Sublimation & Deposition",  vids: [2, 5],    pq: [4] },
+  ],
+  videos: [
+    {yt: "pKvo0XWZtjo", t: "States of matter", ka: "https://www.khanacademy.org/science/chemistry/states-of-matter-and-intermolecular-forces/states-of-matter/v/states-of-matter"},
+    {yt: "zz4KbvF_X-0", t: "Specific heat, heat of fusion and vaporization example", ka: "https://www.khanacademy.org/science/chemistry/states-of-matter-and-intermolecular-forces/states-of-matter/v/specific-heat-heat-of-fusion-and-vaporization"},
+    {yt: "tvO0358YUYM", t: "Change of state example", ka: "https://www.khanacademy.org/science/chemistry/states-of-matter-and-intermolecular-forces/states-of-matter/v/change-of-state-example"},
+    {yt: "lsXcKgjg8Hs", t: "Chilling water problem", ka: "https://www.khanacademy.org/science/chemistry/states-of-matter-and-intermolecular-forces/states-of-matter/v/chilling-water-problem"},
+    {yt: "hA5jddDYcyg", t: "Vapor pressure", ka: "https://www.khanacademy.org/science/chemistry/states-of-matter-and-intermolecular-forces/states-of-matter/v/vapor-pressure"},
+    {yt: "Qp87Z4m8R-w", t: "Phase diagrams", ka: "https://www.khanacademy.org/science/chemistry/states-of-matter-and-intermolecular-forces/states-of-matter/v/phase-diagrams"}
+  ],
   notes: [
     "§3.1 温度 (Temperature): Temperature (温度) tells how hot or cold an object is. Celsius scale (摄氏温度): 0°C = freezing point of water, 100°C = boiling point of water (1 atm), divided into 100 equal parts. Thermometer (温度计): works by expansion of liquid (usually mercury or alcohol); read with eyes level to the liquid column. Clinical thermometer (体温计): range 35–42°C, has a narrow bend (缩口) so it can be read after removal; must be shaken before reuse.",
     "§3.2 熔化和凝固 (Melting & freezing): Melting (熔化) = solid → liquid, absorbs heat (吸热); freezing/solidifying (凝固) = liquid → solid, releases heat (放热). Crystals (晶体) have a fixed melting point (熔点) — e.g. ice 0°C, naphthalene 80.5°C; non-crystals (非晶体, e.g. wax, glass) soften gradually with no fixed melting point. During melting of a crystal, temperature stays at the melting point until fully melted.",
     "§3.3 汽化和液化 (Vaporization & liquefaction): Vaporization (汽化) = liquid → gas, absorbs heat. Two forms: evaporation (蒸发) happens at any temperature at the surface; boiling (沸腾) happens at the boiling point (沸点) throughout the liquid, needing continuous heat. Boiling point depends on pressure — lower pressure = lower boiling point (high mountain cooking). Liquefaction (液化) = gas → liquid, releases heat; ways: cooling (降温) and compressing (压缩体积, e.g. LPG 液化石油气).",
     "§3.4 升华和凝华 (Sublimation & deposition): Sublimation (升华) = solid → gas directly, absorbs heat — dry ice (干冰) 'smoke', iodine crystals, camphor balls shrinking. Deposition (凝华) = gas → solid directly, releases heat — frost (霜) and snowflakes in winter, 'hoar frost' on freezer walls. The 'white steam' over boiling water is tiny water droplets (液化), not gas.",
   ],
-  practice: [],
-  quiz: [],
+  practice: [
+    {
+      q: "Which estimate of temperature is the most reasonable?",
+      options: [
+        "The average summer temperature in a hot city is 50 degree C",
+        "The normal body temperature of a healthy person is 26 degree C",
+        "The temperature inside a refrigerator's fridge compartment is about 5 degree C",
+        "Water in a pressure cooker boils at 80 degree C",
+      ],
+      ansIdx: 2,
+      sol: "A fridge compartment is kept at about 5 degree C (C is correct). 50 degree C average summer temperature is too high, normal body temperature is about 37 degree C (not 26), and water in a pressure cooker boils ABOVE 100 degree C because of the higher pressure (not 80).",
+      hint: "Normal body temperature is about 37 degree C. Water normally boils at 100 degree C, and a pressure cooker makes it boil even hotter.",
+      source: "21cnjy 20952910 Q1 (人教版八上 第三章 物态变化)"
+    },
+    {
+      q: "Which of the following is an example of FREEZING (solidification, 凝固)?",
+      options: [
+        "Water drops turn into ice as they drip (滴水成冰)",
+        "Water vapor in the air turns into frost on cold nights (气凝结霜)",
+        "Snow and ice melt in the warm spring sun (冰雪消融)",
+        "Thick fog slowly disappears in the morning (浓雾消散)",
+      ],
+      ansIdx: 0,
+      sol: "Freezing is the change from LIQUID to SOLID. Water drops (liquid) turning into ice (solid) is freezing, so A. Frost is gas-to-solid (deposition/凝华, B); melting snow is solid-to-liquid (C); fog disappearing is liquid-to-gas (evaporation, D).",
+      hint: "Freezing = liquid to solid. Which one starts as a liquid and ends as a solid?",
+      source: "21cnjy 23584969 Q3 (人教版八上 第三章 物态变化 考点练习)"
+    },
+    {
+      q: "The melting point of the crystal naphthalene (海波) is 48 degree C. At exactly 48 degree C, the naphthalene could be ______.",
+      options: [
+        "solid only",
+        "liquid only",
+        "a mix of solid and liquid",
+        "solid, liquid, or a mix of solid and liquid - all are possible",
+      ],
+      ansIdx: 3,
+      sol: "During melting, a crystal stays at its melting point while heat is absorbed, so at 48 degree C it may be just about to melt (solid), just finished melting (liquid), or partway through (solid-liquid mix). All three are possible - D is correct.",
+      hint: "While a crystal is melting, its temperature stays fixed at the melting point the whole time. So what states can it be in at that temperature?",
+      source: "21cnjy 23570349 Q2 (人教版八上 第三章 物态变化 章末练习)"
+    },
+    {
+      q: "Which statement about everyday phenomena is WRONG?",
+      options: [
+        "A pressure cooker cooks food faster because the high pressure inside makes water boil at a LOWER temperature",
+        "After sweating, a fan makes you feel cooler because it speeds up evaporation",
+        "In summer, a cold drink bottle taken from the fridge 'sweats' on the outside - this is liquefaction (液化)",
+        "In winter in the south, little water drops on the window usually appear on the INNER side of the glass",
+      ],
+      ansIdx: 0,
+      sol: "A pressure cooker raises the pressure, which RAISES the boiling point (e.g. to about 120 degree C), so food cooks faster. Saying the boiling point becomes LOWER is wrong - A is the WRONG statement. B, C and D are all correct.",
+      hint: "Higher pressure makes water boil at a higher or lower temperature?",
+      source: "21cnjy 23584969 Q8 (人教版八上 第三章 物态变化 考点练习)"
+    },
+    {
+      q: "In summer, dry ice (solid carbon dioxide) is put with fresh food during transport to keep it cold. This works because dry ice ______.",
+      options: [
+        "melts and absorbs heat",
+        "liquefies and absorbs heat",
+        "sublimes and absorbs heat",
+        "deposits and absorbs heat",
+      ],
+      ansIdx: 2,
+      sol: "Dry ice goes directly from SOLID to GAS at ordinary pressure - that is sublimation (升华), and sublimation ABSORBS heat from the surroundings, cooling the food. So C is correct. (Melting/liquefying would need liquid CO2, and 'deposits' is gas-to-solid.)",
+      hint: "Does dry ice melt into a liquid, or go straight from solid to gas? Does that process absorb or release heat?",
+      source: "21cnjy 23584969 Q12 (人教版八上 第三章 物态变化 考点练习)"
+    }
+  ],
+  quiz: [
+    {
+      q: "A test tube of alcohol is placed in a beaker of water, and the water is heated until it boils and keeps boiling. (Boiling point: alcohol 78 degree C, water 100 degree C at standard pressure.) The alcohol in the test tube will ______.",
+      options: [
+        "boil, because it reaches its boiling point and keeps absorbing heat",
+        "not boil, because it can never reach its boiling point",
+        "reach its boiling point but cannot boil",
+        "freeze first because it absorbs too much heat",
+      ],
+      ansIdx: 0,
+      sol: "The water bath stays at about 100 degree C, which is ABOVE alcohol's boiling point of 78 degree C. The alcohol heats up to 78 degree C and, since the bath is hotter, it keeps absorbing heat - so it boils. Answer: A.",
+      hint: "Can the alcohol reach 78 degree C in a 100 degree C water bath? Once at its boiling point, does it keep getting heat?",
+      source: "21cnjy 23584969 Q7 (人教版八上 第三章 物态变化 考点练习)"
+    },
+    {
+      q: "A sea of clouds (云海) is a famous view on mountain tops. The 'cloud' you see is actually ______.",
+      options: [
+        "smoke coming out of the mountain",
+        "water vapor that has frozen into small ice crystals",
+        "water vapor evaporating from the mountain",
+        "tiny water drops formed when water vapor meets cold air and liquefies",
+      ],
+      ansIdx: 3,
+      sol: "Clouds and fog are made of TINY LIQUID WATER DROPS formed when invisible water vapor in the air cools down and liquefies (液化) around dust particles. So D is correct. Water vapor itself is invisible - the white cloud is the liquefied droplets.",
+      hint: "Is water vapor visible? When warm wet air rises and cools, what does the vapor turn into?",
+      source: "21cnjy 20935858 Q6 (人教版八上 第三章 物态变化)"
+    },
+    {
+      q: "In the movie The Battle at Lake Changjin, soldiers fighting at -30 degree C got frost (霜) on their eyebrows and beards. Which of the following forms in the SAME way as this frost?",
+      options: [
+        "snow and ice melting in the sun (冰雪消融)",
+        "rime ice (雾凇) on trees",
+        "thick fog everywhere (大雾弥漫)",
+        "a lake freezing over (湖水结冰)",
+      ],
+      ansIdx: 1,
+      sol: "Frost on the soldiers' eyebrows forms when water vapor in the breath hits the freezing-cold surface and goes straight from GAS to SOLID - deposition/凝华. Tree rime (雾凇) forms the same way, so B. Melting is solid-to-liquid (A), fog is liquefaction (C), freezing lake water is liquid-to-solid (D).",
+      hint: "Frost = water vapor turns directly into ice. Which other phenomenon is also gas-to-solid?",
+      source: "21cnjy 23570349 Q3 (人教版八上 第三章 物态变化 章末练习)"
+    }
+  ],
 },
 
 // ══════════════════════════════════════════════════════════
