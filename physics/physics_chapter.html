@@ -24,6 +24,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .banner .cov{display:inline-block;margin-top:4px;font-size:11px;font-weight:700;padding:2px 10px;border-radius:999px;background:rgba(255,255,255,.18)}
 .wrap{max-width:860px;margin:0 auto;padding:0 18px}
 .stepbar{display:flex;gap:6px;align-items:center;margin:18px 0;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);overflow-x:auto}
+.subtopic-header{font-size:13px;font-weight:700;color:var(--blue);margin:18px 0 8px;padding:6px 12px;background:linear-gradient(90deg,rgba(14,165,233,.15),transparent);border-left:3px solid var(--blue);border-radius:0 6px 6px 0;text-transform:uppercase;letter-spacing:.5px}
 .sb{display:flex;align-items:center;gap:8px;cursor:pointer;white-space:nowrap;padding:4px 6px;border-radius:8px}
 .sb-num{width:26px;height:26px;border-radius:50%;background:#e2e8f0;color:#475569;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;transition:.15s}
 .sb.active .sb-num{background:var(--blue);color:#fff}
@@ -574,6 +575,61 @@ function renderMath(el) {
 
 function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
+// ─── Subtopic helpers ─────────────────────────────────────────
+// Renders a subtopic header div (or nothing if no subtopics exist)
+function subtopicHdr(name) {
+  return '<div class="subtopic-header">' + esc(name) + '</div>';
+}
+// Build video HTML for a single video entry
+function buildVideoHTML(vid) {
+  var ytId = esc(vid.yt || '');
+  var ytPageUrl = 'https://www.youtube.com/watch?v=' + ytId;
+  var khanPageUrl = vid.ka || 'https://www.khanacademy.org';
+  var localSrc = vid.local ? encodeURI(vid.local) : '';
+  if (localSrc) {
+    return '<div class="video-wrap" style="background:#000;">' +
+           '<video controls preload="metadata" playsinline style="width:100%;max-width:640px;display:block;margin:0 auto;background:#000;" src="' + localSrc + '"></video>' +
+           '<div class="video-meta">' +
+           '<strong>' + esc(vid.t || 'Khan Academy video') + '</strong><br>' +
+           '<span style="color:#666;">' + esc(vid.m || 'English') + ' · ' + esc(vid.duration || '~10 min') + '</span><br>' +
+           '<a href="' + khanPageUrl + '" target="_blank" class="vlink">Open on Khan Academy ↗</a>' +
+           (ytId ? ' &nbsp;|&nbsp; <a href="' + ytPageUrl + '" target="_blank" class="vlink">Watch on YouTube ↗</a>' : '') +
+           '</div></div>';
+  } else {
+    var ytThumb = 'https://img.youtube.com/vi/' + ytId + '/maxresdefault.jpg';
+    return '<div class="video-wrap">' +
+           '<a href="' + ytPageUrl + '" target="_blank" class="video-thumb-link" style="display:block;position:relative;">' +
+           '<img src="' + ytThumb + '" alt="Video thumbnail" style="width:100%;max-width:640px;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.15);" onerror="this.src=\'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg\';">' +
+           '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.75);border-radius:50%;width:64px;height:64px;display:flex;align-items:center;justify-content:center;pointer-events:none;">' +
+           '<svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></a>' +
+           '<div class="video-meta">' +
+           '<strong>' + esc(vid.t || 'Khan Academy video') + '</strong><br>' +
+           '<span style="color:#666;">' + esc(vid.m || 'English') + ' · ' + esc(vid.duration || '~10 min') + '</span><br>' +
+           '<a href="' + ytPageUrl + '" target="_blank" class="vlink">▶ Watch on YouTube ↗</a> &nbsp;|&nbsp; ' +
+           '<a href="' + khanPageUrl + '" target="_blank" class="vlink">Open on Khan Academy ↗</a>' +
+           '</div></div>';
+  }
+}
+// Renders Watch (Step 2): uses subtopics if available, falls back to flat list
+function renderWatch() {
+  var v = '<h2>Step 2 · Watch</h2>';
+  if (CH.subtopics && CH.subtopics.length) {
+    CH.subtopics.forEach(function(st) {
+      v += subtopicHdr(st.name);
+      (st.vids || []).forEach(function(vi) {
+        if (CH.videos && CH.videos[vi] !== undefined) v += buildVideoHTML(CH.videos[vi]);
+      });
+      (st.pq || []).forEach(function(qi) {
+        if (CH.practice && CH.practice[qi] !== undefined) v += renderOneQ(CH.practice[qi], 'p', 'p' + qi);
+      });
+    });
+  } else {
+    (CH.videos || []).forEach(function(vid){ v += buildVideoHTML(vid); });
+  }
+  return v;
+}
+// ──────────────────────────────────────────────────────────────
+
 // ═══════════════════════════════════════════════════════════════
 // PAGE LOGIC
 // ═══════════════════════════════════════════════════════════════
@@ -638,39 +694,11 @@ function renderPanel(step) {
     p.innerHTML = '<h2>Step 1 · Think</h2><div class="elicit" id="thinkBox"></div>' + nextBtn();
     var tb = document.getElementById("thinkBox"); tb.textContent = CH.think || ""; renderMath(tb);
   } else if (step === 2) {
-    var v = '<h2>Step 2 · Watch</h2>';
-    (CH.videos || []).forEach(function(vid){
-      var ytId = esc(vid.yt || '');
-      var ytPageUrl = 'https://www.youtube.com/watch?v=' + ytId;
-      var khanPageUrl = vid.ka || 'https://www.khanacademy.org';
-      var localSrc = vid.local ? encodeURI(vid.local) : '';
-      if (localSrc) {
-        // 本地视频直接播放（无需外网/YouTube）
-        v += '<div class="video-wrap" style="background:#000;">' +
-             '<video controls preload="metadata" playsinline style="width:100%;max-width:640px;display:block;margin:0 auto;background:#000;" src="' + localSrc + '"></video>' +
-             '<div class="video-meta">' +
-             '<strong>' + esc(vid.t || 'Khan Academy video') + '</strong><br>' +
-             '<span style="color:#666;">' + esc(vid.m || 'English') + ' · ' + esc(vid.duration || '~10 min') + '</span><br>' +
-             '<a href="' + khanPageUrl + '" target="_blank" class="vlink">Open on Khan Academy ↗</a>' +
-             (ytId ? ' &nbsp;|&nbsp; <a href="' + ytPageUrl + '" target="_blank" class="vlink">Watch on YouTube ↗</a>' : '') +
-             '</div></div>';
-      } else {
-        // 无本地文件：封面图 + 外链方案
-        var ytThumb = 'https://img.youtube.com/vi/' + ytId + '/maxresdefault.jpg';
-        v += '<div class="video-wrap">' +
-             '<a href="' + ytPageUrl + '" target="_blank" class="video-thumb-link" style="display:block;position:relative;">' +
-             '<img src="' + ytThumb + '" alt="Video thumbnail" style="width:100%;max-width:640px;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.15);" onerror="this.src=\'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg\';">' +
-             '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.75);border-radius:50%;width:64px;height:64px;display:flex;align-items:center;justify-content:center;pointer-events:none;">' +
-             '<svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></a>' +
-             '<div class="video-meta">' +
-             '<strong>' + esc(vid.t || 'Khan Academy video') + '</strong><br>' +
-             '<span style="color:#666;">' + esc(vid.m || 'English') + ' · ' + esc(vid.duration || '~10 min') + '</span><br>' +
-             '<a href="' + ytPageUrl + '" target="_blank" class="vlink">▶ Watch on YouTube ↗</a> &nbsp;|&nbsp; ' +
-             '<a href="' + khanPageUrl + '" target="_blank" class="vlink">Open on Khan Academy ↗</a>' +
-             '</div></div>';
-      }
-    });
-    p.innerHTML = v + nextBtn();
+    p.innerHTML = renderWatch() + nextBtn();
+    // KaTeX for practice questions embedded in Watch step
+    setTimeout(function(){
+      document.querySelectorAll('#p2 .qtext, #p2 .ans-display, #p2 .opt-t').forEach(renderMath);
+    }, 100);
   } else if (step === 3) {
     var n = '<h2>Step 3 · Notes</h2><ul class="notes-list" id="notesList"></ul>';
     p.innerHTML = n + nextBtn();
@@ -681,11 +709,55 @@ function renderPanel(step) {
   } else if (step === 4) {
     document.getElementById("paperNote").style.display = 'block';
     p.innerHTML = '<h2>Step 4 · Practice</h2><div id="practiceBox"></div>' + nextBtn("Finish practice, next ›");
-    renderQs("practiceBox", CH.practice || [], "p");
+    var pb = document.getElementById("practiceBox");
+    if (CH.subtopics && CH.subtopics.length) {
+      var ph = '';
+      CH.subtopics.forEach(function(st) {
+        ph += subtopicHdr(st.name);
+        (st.pq || []).forEach(function(qi) {
+          if (CH.practice && CH.practice[qi] !== undefined) ph += renderOneQ(CH.practice[qi], 'p', qi);
+        });
+      });
+      pb.innerHTML = ph || '<p style="color:var(--text2)">No practice questions yet.</p>';
+      setTimeout(function(){
+        document.querySelectorAll('#practiceBox .qtext, #practiceBox .ans-display, #practiceBox .opt-t').forEach(renderMath);
+      }, 100);
+    } else {
+      renderQs("practiceBox", CH.practice || [], "p");
+    }
   } else if (step === 5) {
     p.innerHTML = '<h2>Step 5 · Quiz</h2><div id="quizBox"></div>' + nextBtn("Submit & see result ›");
     renderQs("quizBox", CH.quiz || [], "q");
   }
+}
+
+// Render a single question; returns HTML string.
+// kind: 'p'=practice, 'q'=quiz, 'w'=embedded-in-watch
+function renderOneQ(item, kind, qi) {
+  var html = '<div class="q" id="' + kind + 'q' + qi + '"' +
+              (item.ansIdx !== undefined ? ' data-ansidx="' + item.ansIdx + '"' : (item.ans ? ' data-ans="' + esc(item.ans) + '"' : '')) + '>';
+  html += '<div class="qnum">Question ' + (qi+1) + '</div>';
+  html += '<div class="qtext">' + esc(item.q) + '</div>';
+  if (item.dia) html += (typeof item.dia === 'string') ? item.dia : renderGraphie(item.dia);
+  if (item.options && item.options.length) {
+    html += '<div class="options" id="' + kind + 'opt' + qi + '">';
+    var letters = ['A','B','C','D','E','F'];
+    item.options.forEach(function(opt, oi){
+      html += '<div class="opt" data-opt="' + oi + '"><span class="opt-l">' + letters[oi] + '</span><span class="opt-t">' + esc(opt) + '</span></div>';
+    });
+    html += '</div>';
+  }
+  html += '<div class="ans-area">';
+  html += '<button class="show-ans-btn" id="' + kind + 'sh' + qi + '" onclick="showAns(\'' + kind + '\',' + qi + ')">Show answer &amp; solution</button>';
+  html += '<div class="ans-display" id="' + kind + 'ad' + qi + '">';
+  html += '<strong>Answer:</strong> ' + esc(item.ans || '') + '';
+  html += '</div></div>';
+  if (item.sol) {
+    html += '<div class="sol" id="' + kind + 'sol' + qi + '">';
+    html += '<div class="sol-header">📝 Solution</div><div class="sol-body">' + esc(item.sol) + '</div></div>';
+  }
+  html += '</div>';
+  return html;
 }
 
 function renderQs(boxId, questions, kind) {
@@ -694,33 +766,7 @@ function renderQs(boxId, questions, kind) {
   if (!questions.length) { c.innerHTML = '<p style="color:var(--text2)">No questions for this step yet.</p>'; return; }
   var html = "";
   questions.forEach(function(item, i){
-    html += '<div class="q" id="' + kind + 'q' + i + '"' + (item.ansIdx !== undefined ? ' data-ansidx="' + item.ansIdx + '"' : (item.ans ? ' data-ans="' + esc(item.ans) + '"' : '')) + '>';
-    html += '<div class="qnum">Question ' + (i+1) + '</div>';
-    html += '<div class="qtext">' + esc(item.q) + '</div>';
-    // Render diagram if present
-    if (item.dia) html += (typeof item.dia === 'string') ? item.dia : renderGraphie(item.dia);
-    // Render options if multiple choice
-    if (item.options && item.options.length) {
-      html += '<div class="options" id="' + kind + 'opt' + i + '">';
-      var letters = ['A','B','C','D','E','F'];
-      item.options.forEach(function(opt, oi){
-        html += '<div class="opt" data-opt="' + oi + '"><span class="opt-l">' + letters[oi] + '</span><span class="opt-t">' + esc(opt) + '</span></div>';
-      });
-      html += '</div>';
-    }
-    // Answer area (show answer button → answer reveal)
-    html += '<div class="ans-area">';
-    html += '<button class="show-ans-btn" id="' + kind + 'sh' + i + '" onclick="showAns(\'' + kind + '\',' + i + ')">Show answer &amp; solution</button>';
-    html += '<div class="ans-display" id="' + kind + 'ad' + i + '">';
-    html += '<strong>Answer:</strong> ' + esc(item.ans) + '';
-    html += '</div>';
-    html += '</div>';
-    // Solution / explanation
-    if (item.sol) {
-      html += '<div class="sol" id="' + kind + 'sol' + i + '">';
-      html += '<div class="sol-header">📝 Solution</div><div class="sol-body">' + esc(item.sol) + '</div></div>';
-    }
-    html += '</div>';
+    html += renderOneQ(item, kind, i);
   });
   c.innerHTML = html;
   // Render KaTeX math after DOM insertion
