@@ -44,58 +44,97 @@ var PHYSICS_DATA = [
   ],
   practice: [
     {
-      q: "In daily life, people sometimes use body parts to estimate length. When an adult spreads both arms horizontally, the distance between the fingertips of the two hands is called \"1 tuǒ\". Which of the following best describes the length of \"1 tuǒ\"?",
-      options: ["A. 17 mm", "B. 17 cm", "C. 17 dm", "D. 17 m"],
-      dia: {type: "description", text: "A person with arms spread horizontally, labeled '1 tuǒ' between fingertips."},
-      ansIdx: 2,
-      sol: "1 tuǒ (成年人两臂左右平伸时，两手中指尖之间的距离) ≈ arm span of an adult ≈ 1.5–1.8 m. Among the options: 17 dm = 1.7 m ✓; 17 mm = 0.017 m (too small); 17 cm = 0.17 m (too small); 17 m (too large). Answer: C."
+      q: "Which of the following can represent a vector?",
+      options: [
+        "A line segment beginning at (0,0) and ending at (2,7)",
+        "The length of the distance between the points (0,0) and (2,7)",
+        "The length of the distance between the points (2,7) and (0,0)",
+        "A line segment beginning at (2,7) and ending at (0,0)",
+      ],
+      ansIdx: "0,3",
+      sol: "A vector has both magnitude and direction. A line segment with a specified start and end point (A: from (0,0) to (2,7); D: from (2,7) to (0,0)) has direction — it can represent a vector. The 'length of the distance' between two points (B and C) has magnitude but no direction, so it is a scalar. Answers: A and D.",
+      multi: true,
+      hint: "What makes something a vector, not a scalar? Does a 'distance' have direction? Does a 'line segment from point A to point B' have direction?",
+      source: "KA recognizing-vectors Problem 1"
     },
     {
-      q: "During the process of riding a bicycle to school, Xiao Ming says he is at rest. Which of the following objects did Xiao Ming most likely choose as his reference frame?",
-      options: ["A. The ground", "B. Trees by the road", "C. An oncoming vehicle", "D. The bicycle frame"],
+      q: "Which of the following can be modeled by a vector?",
+      options: [
+        "The length of the distance between the white ball and the black ball on a pool table",
+        "The length of the distance between a table at a restaurant and the kitchen",
+        "An order in a restaurant where four people ordered two items each",
+        "The movement of an airplane",
+      ],
       ansIdx: 3,
-      sol: "If Xiao Ming says he is at rest, he must be choosing a reference frame that is moving together with him. The bicycle frame moves with Xiao Ming, so relative to the frame he is stationary. Ground, trees, and oncoming vehicles all move relative to him. Answer: D."
+      sol: "A vector requires both magnitude and direction. The movement of an airplane (D) has a speed (magnitude) and a heading (direction), so it can be modeled as a vector. Pool ball distance, restaurant distance, and food orders all lack direction — they are scalars. Answer: D. (KA original, multi-select)",
+      hint: "Which of these has both a size AND a direction? A distance between two objects? Or the movement of an airplane?",
+      source: "KA recognizing-vectors Problem 2"
     },
     {
       q: "The figure shows the s-t graph of an object moving in a straight line. Which of the following statements is INCORRECT?",
-      options: ["A. At t = 15 s, the object has traveled a distance of 30 m.", "B. The average speed of the object in 20 s is 2 m/s.", "C. The object moves with constant speed throughout the entire 20 s.", "D. The object's speed during 0–5 s is greater than its speed during 10–20 s."],
-      dia: {type: "s-t-graph", text: "s-t graph: 0–5s slanted up to 20m, 5–10s horizontal (at rest), 10–20s slanted up to 40m total."},
+      options: [
+        "At t = 15 s, the object has traveled a distance of 30 m.",
+        "The average speed of the object in 20 s is 2 m/s.",
+        "The object moves with constant speed throughout the entire 20 s.",
+        "The object's speed during 0–5 s is greater than its speed during 10–20 s.",
+      ],
+      dia: {type: "s-t-graph", text: "s-t graph: 0-5s slanted up to 20m, 5-10s horizontal (at rest), 10-20s slanted up to 40m total."},
       ansIdx: 2,
-      sol: "From the s-t graph: the object moves at constant speed from 0–5 s (20 m), is at rest from 5–10 s (horizontal line), then moves at a different constant speed from 10–20 s (20 m more, total 40 m). It does NOT move at constant speed throughout the 20 s — statement C is the INCORRECT statement (the question asks which is wrong). Answer: C."
+      sol: "From the s-t graph: the object moves at constant speed from 0-5 s (20 m), is at rest from 5-10 s (horizontal line), then moves at a different constant speed from 10-20 s (20 m more, total 40 m). It does NOT move at constant speed throughout the 20 s — statement C is the INCORRECT statement. Answer: C."
     },
     {
-      q: "A robot dog does one-way straight-line motion. It travels 10 m at constant speed in 0–5 s, stays still for 5–10 s, then travels another 20 m at constant speed in 10–15 s. Which statement about the robot dog's motion is correct?",
-      options: ["A. The speed in 0–5 s is 5 m/s.", "B. The average speed in the first 10 s is 2 m/s.", "C. The speed in 0–5 s is less than the speed in 10–15 s.", "D. The average speed in 15 s is 3 m/s."],
-      ansIdx: 2,
-      sol: "Speed in 0–5 s = 10 m / 5 s = 2 m/s (A is wrong: says 5 m/s). Average speed in first 10 s = 10 m / 10 s = 1 m/s (B is wrong: says 2 m/s). Speed in 10–15 s = 20 m / 5 s = 4 m/s. Since 2 m/s < 4 m/s, C is CORRECT. Average speed in 15 s = 30 m / 15 s = 2 m/s (D is wrong: says 3 m/s). Answer: C."
+      q: "A car doing which of the following is accelerating?",
+      options: [
+        "Moving straight at a constant speed",
+        "Speeding up",
+        "Moving around a curve at a constant speed",
+        "Slowing down",
+      ],
+      ansIdx: "1,2,3",
+      sol: "Acceleration is any change in velocity (speed or direction). Speeding up (B), slowing down (D), and turning at constant speed (C) all involve a change in velocity. Moving straight at constant speed (A) has no change in speed or direction, so no acceleration. Answers: B, C, and D.",
+      multi: true,
+      hint: "Acceleration means changing velocity. Velocity = speed + direction. Which options involve changing speed, changing direction, or both?",
+      source: "KA describing-motion Acceleration Q6"
     },
     {
-      q: "Two objects M and N start from the same point at the same time and move to the right along a straight line. Their s–t graph is shown in the figure. Which statement is correct?",
-      options: ["A. When they meet, both objects have traveled 100 m.", "B. Both objects move with constant speed from 0 to 40 s.", "C. The speed of object M is 10 m/s.", "D. The maximum distance between M and N before they meet is 400 m."],
-      dia: {type: "s-t-graph", text: "s-t graph: M starts at s=0 and moves right; N starts at s=0 at t=0 but from t=0 is already at s=100 m and stays flat until t=10 s, then both move and meet at t=40 s at s=300 m."},
+      q: "Two objects M and N start from the same point at the same time and move to the right along a straight line. Their s-t graph is shown in the figure. Which statement is correct?",
+      options: [
+        "When they meet, both objects have traveled 100 m.",
+        "Both objects move with constant speed from 0 to 40 s.",
+        "The speed of object M is 10 m/s.",
+        "The maximum distance between M and N before they meet is 400 m.",
+      ],
+      dia: {type: "s-t-graph", text: "s-t graph: M starts at s=0 and moves right; N starts at s=100 m and stays flat until t=10 s, then both move and meet at t=40 s at s=300 m."},
       ansIdx: 3,
       sol: "From the s-t graph: at t=0, M is at s=0 and N is at s=100 m, so the initial separation is 100 m. From t=0 to t=10 s, N is stationary while M moves forward. The maximum distance between M and N before they meet is 400 m (per the exam solution key). Answer: D."
     }
   ],
   quiz: [
     {
-      q: "The figure shows the v–t graph of a car on a straight road. Which statement about the car's motion is correct?",
-      options: ["A. The car's speed decreases from t = 2 s to t = 4 s.", "B. At t = 5 s, the car's speed is 30 m/s.", "C. The car travels 60 m between t = 5 s and t = 6 s.", "D. The car's average speed over the first 10 s is 3 m/s."],
+      q: "The figure shows the v-t graph of a car on a straight road. Which statement about the car's motion is correct?",
+      options: [
+        "The car's speed decreases from t = 2 s to t = 4 s.",
+        "At t = 5 s, the car's speed is 30 m/s.",
+        "The car travels 60 m between t = 5 s and t = 6 s.",
+        "The car's average speed over the first 10 s is 3 m/s.",
+      ],
       dia: {type: "v-t-graph", text: "v-t graph: from t=0 to t=2s sloping upward, t=2 to t=4s also sloping up (speed increasing), t=4 to t=6s constant at v=30 m/s, then decreasing."},
       ansIdx: 1,
-      sol: "From the v-t graph: from t=2s to t=4s the graph slopes upward (speed increasing, not decreasing), so A is wrong. At t=5s the graph shows v=30 m/s, so B is CORRECT. Distance from t=5s to t=6s = v × Δt = 30 m/s × 1 s = 30 m (not 60 m, so C is wrong). For the first 10s, area under the v-t curve ≈ 55 m, so average speed ≈ 5.5 m/s (not 3 m/s, so D is wrong). Answer: B."
+      sol: "From the v-t graph: from t=2s to t=4s the graph slopes upward (speed increasing, not decreasing), so A is wrong. At t=5s the graph shows v=30 m/s, so B is CORRECT. Distance from t=5s to t=6s = v x dt = 30 m/s x 1 s = 30 m (not 60 m, so C is wrong). For the first 10s, area under the v-t curve is about 55 m, so average speed is about 5.5 m/s (not 3 m/s, so D is wrong). Answer: B."
     },
     {
       q: "An object moves in a straight line. Its speed is 4 m/s for the first 5 s, then it is at rest for 5 s, then moves at 8 m/s for the next 10 s. What is the average speed of the object over the entire 20 s?",
-      options: ["A. 4 m/s", "B. 5 m/s", "C. 6 m/s", "D. 8 m/s"],
+      options: ["3 m/s", "5 m/s", "6 m/s", "8 m/s"],
       ansIdx: 1,
-      sol: "Total distance = (4 m/s × 5 s) + (0 m/s × 5 s) + (8 m/s × 10 s) = 20 m + 0 m + 80 m = 100 m. Total time = 20 s. Average speed = 100 m / 20 s = 5 m/s. Answer: B."
+      sol: "Total distance = (4 m/s x 5 s) + (0 m/s x 5 s) + (8 m/s x 10 s) = 20 + 0 + 80 = 100 m. Total time = 20 s. Average speed = 100 m / 20 s = 5 m/s. Answer: B.",
+      hint: "Average speed = total distance / total time. What is the total distance traveled in all three segments?",
     },
     {
       q: "Two cars A and B are on a straight road. Car A is 200 m ahead of Car B, and both are moving in the same direction. Car A travels at 15 m/s and Car B travels at 20 m/s. How long does it take for Car B to catch up with Car A?",
-      options: ["A. 20 s", "B. 30 s", "C. 40 s", "D. 50 s"],
+      options: ["20 s", "30 s", "40 s", "50 s"],
       ansIdx: 2,
-      sol: "Relative speed = v_B − v_A = 20 m/s − 15 m/s = 5 m/s. Initial separation = 200 m. Time to catch up = distance / relative speed = 200 m / 5 m/s = 40 s. Answer: C."
+      sol: "Relative speed = v_B - v_A = 20 m/s - 15 m/s = 5 m/s. Initial separation = 200 m. Time to catch up = 200 m / 5 m/s = 40 s. Answer: C.",
+      hint: "In a chase problem, use relative speed (v_B - v_A). The distance to close is the initial gap of 200 m.",
     }
   ],
 },
