@@ -76,23 +76,23 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);text-
   <div id="cardsTitle" class="cards-title"></div>
   <div id="cardsGrid" class="cards"></div>
 </div>
-<footer>Physics · Khan Academy Style · 北师大版 2024 · 8th Grade</footer>
+<footer>Physics · Khan Academy Style · 人教版 八年级上册（教育部审定2013版） · 8th Grade · Term 1 (2026秋)</footer>
 
 <script>
 var CHAPTERS = [
-  // 上册 Term 1
-  {id:"ch01",title:"物态及其变化",subtitle:"Phase Changes",term:1,practice:5,quiz:3},
-  {id:"ch02",title:"机械运动",subtitle:"Mechanical Motion",term:1,practice:5,quiz:3},
-  {id:"ch03",title:"声现象",subtitle:"Sound and Waves",term:1,practice:5,quiz:3},
-  {id:"ch04",title:"光现象",subtitle:"Light",term:1,practice:5,quiz:3},
-  {id:"ch05",title:"透镜及其应用",subtitle:"Lenses and Vision",term:1,practice:5,quiz:3},
-  // 下册 Term 2
-  {id:"ch06",title:"质量和密度",subtitle:"Mass, Volume and Density",term:2,practice:5,quiz:3},
-  {id:"ch07",title:"运动和力",subtitle:"Motion and Forces",term:2,practice:5,quiz:3},
-  {id:"ch08",title:"压强和浮力",subtitle:"Pressure and Buoyancy",term:2,practice:5,quiz:3},
-  {id:"ch09",title:"机械和功",subtitle:"Machines and Work",term:2,practice:5,quiz:3},
-  {id:"ch10",title:"力和机械能",subtitle:"Force and Mechanical Energy",term:2,practice:5,quiz:3},
-  {id:"ch11",title:"简单机械",subtitle:"Simple Machines",term:2,practice:5,quiz:3},
+  // 人教版八年级物理上册 2026 秋 - 6 chapters
+  {id:"ch01",title:"机械运动",subtitle:"Mechanical Motion",term:1,practice:5,quiz:3},
+  {id:"ch02",title:"声现象",subtitle:"Sound Phenomena",term:1,practice:5,quiz:3},
+  {id:"ch03",title:"物态变化",subtitle:"Phase Changes",term:1,practice:5,quiz:3},
+  {id:"ch04",title:"光现象",subtitle:"Light Phenomena",term:1,practice:5,quiz:3},
+  {id:"ch05",title:"透镜及其应用",subtitle:"Lenses and Their Applications",term:1,practice:5,quiz:3},
+  {id:"ch06",title:"质量与密度",subtitle:"Mass and Density",term:1,practice:5,quiz:3},
+  // 下册待 2027 春上线
+  {id:"ch07",title:"运动和力",subtitle:"Motion and Force",term:2,practice:0,quiz:0,disabled:true},
+  {id:"ch08",title:"压强",subtitle:"Pressure",term:2,practice:0,quiz:0,disabled:true},
+  {id:"ch09",title:"浮力",subtitle:"Buoyancy",term:2,practice:0,quiz:0,disabled:true},
+  {id:"ch10",title:"功和机械能",subtitle:"Work and Mechanical Energy",term:2,practice:0,quiz:0,disabled:true},
+  {id:"ch11",title:"简单机械",subtitle:"Simple Machines",term:2,practice:0,quiz:0,disabled:true},
 ];
 
 var selectedCity = localStorage.getItem('phys-city') || '深圳';
@@ -154,16 +154,28 @@ function showCards(){
   filtered.forEach(function(ch){
     var termClass = ch.term===1 ? 'tag-term1' : 'tag-term2';
     var termLabel2 = ch.term===1 ? '上册' : '下册';
-    html += '<a class="card" href="physics_chapter.html?ch='+ch.id+'&grade='+selectedGrade+'&term='+ch.term+'">' +
-      '<div class="ch">Ch' + ch.id.replace('ch','') + ' · ' + termLabel2 + '</div>' +
-      '<div class="title">'+ch.title+'</div>' +
-      '<div class="subtitle">'+ch.subtitle+'</div>' +
-      '<div class="meta">' +
-        '<span class="tag '+termClass+'">'+termLabel2+'</span>' +
-        '<span class="tag tag-practice">📝 '+ch.practice+' Practice</span>' +
-        '<span class="tag tag-practice">📋 '+ch.quiz+' Quiz</span>' +
-      '</div>' +
-    '</a>';
+    if(ch.disabled) {
+      html += '<div class="card" style="opacity:0.5;cursor:not-allowed;background:var(--card2);">' +
+        '<div class="ch">Ch' + ch.id.replace('ch','') + ' · ' + termLabel2 + '</div>' +
+        '<div class="title">'+ch.title+'</div>' +
+        '<div class="subtitle">'+ch.subtitle+'</div>' +
+        '<div class="meta">' +
+          '<span class="tag '+termClass+'">'+termLabel2+'</span>' +
+          '<span class="tag" style="background:rgba(100,116,139,.15);color:#94a3b8">🔒 下学期上线</span>' +
+        '</div>' +
+      '</div>';
+    } else {
+      html += '<a class="card" href="physics_chapter.html?ch='+ch.id+'&grade='+selectedGrade+'&term='+ch.term+'">' +
+        '<div class="ch">Ch' + ch.id.replace('ch','') + ' · ' + termLabel2 + '</div>' +
+        '<div class="title">'+ch.title+'</div>' +
+        '<div class="subtitle">'+ch.subtitle+'</div>' +
+        '<div class="meta">' +
+          '<span class="tag '+termClass+'">'+termLabel2+'</span>' +
+          '<span class="tag tag-practice">📝 '+ch.practice+' Practice</span>' +
+          '<span class="tag tag-practice">📋 '+ch.quiz+' Quiz</span>' +
+        '</div>' +
+      '</a>';
+    }
   });
   $('cardsGrid').innerHTML = html;
 }
