@@ -150,16 +150,126 @@ var PHYSICS_DATA = [
   subtitle: "Sound Phenomena",
   term: 1,
   coverage: "p",
-  think: "What makes sound? Why can astronauts on the Moon not talk to each other directly? Why do some sounds are high and some low, some loud and some soft? How do bats 'see' with sound?",
-  videos: [],
+  think: "What makes sound? Why can astronauts on the Moon not talk to each other directly? Why are some sounds high and some low, some loud and some soft? How do bats and doctors use sound?",
+  subtopics: [
+    { name: "§2.1 声音的产生与传播 · Production & Propagation", vids: [0, 2, 3], pq: [0] },
+    { name: "§2.2 声音的特性 · Pitch, Loudness & Timbre",        vids: [1, 5],    pq: [1, 2] },
+    { name: "§2.3 声的利用 · Uses of Sound",                      vids: [6],       pq: [3] },
+    { name: "§2.4 噪声的危害和控制 · Noise",                      vids: [4],       pq: [4] },
+  ],
+  videos: [
+    {yt: "nGKffdaI4Pg", t: "Production of sound", ka: "https://www.khanacademy.org/science/physics/mechanical-waves-and-sound/sound-topic/v/production-of-sound"},
+    {yt: "-_xZZt99MzY", t: "Sound properties: amplitude, period, frequency, wavelength", ka: "https://www.khanacademy.org/science/physics/mechanical-waves-and-sound/sound-topic/v/sound-properties-amplitude-period-frequency-wavelength"},
+    {yt: "UgE2GIQwUCw", t: "Speed of sound", ka: "https://www.khanacademy.org/science/physics/mechanical-waves-and-sound/sound-topic/v/speed-of-sound"},
+    {yt: "yF4cvbAYjwI", t: "Relative speed of sound in solids, liquids, and gases", ka: "https://www.khanacademy.org/science/physics/mechanical-waves-and-sound/sound-topic/v/relative-speed-of-sound-in-solids-liquids-and-gases"},
+    {yt: "_p-WyPg1sbU", t: "Decibel Scale", ka: "https://www.khanacademy.org/science/physics/mechanical-waves-and-sound/sound-topic/v/decibel-scale"},
+    {yt: "46V8qqVRirk", t: "Why do sounds get softer?", ka: "https://www.khanacademy.org/science/physics/mechanical-waves-and-sound/sound-topic/v/why-do-sounds-get-softer"},
+    {yt: "sTcqtljxLOk", t: "Ultrasound medical imaging", ka: "https://www.khanacademy.org/science/physics/mechanical-waves-and-sound/sound-topic/v/ultrasound-medical-imaging"}
+  ],
   notes: [
     "§2.1 声音的产生与传播 (Production & propagation of sound): Sound is produced by vibration (振动) — a plucked string, a drum skin, your vocal cords. Sound needs a medium (介质) to travel: solids, liquids and gases all carry sound; a vacuum (真空) cannot. Sound speed: about 340 m/s in air (15°C), faster in water (~1500 m/s) and fastest in solids. Echo (回声) = reflected sound.",
     "§2.2 声音的特性 (Characteristics of sound): Pitch (音调) depends on frequency (频率) — high frequency = high pitch (单位 Hz). Loudness (响度) depends on amplitude (振幅) — bigger amplitude = louder; also distance from source. Timbre (音色) distinguishes different sources (same pitch & loudness, different instruments). Humans hear roughly 20 Hz – 20000 Hz; ultrasound > 20000 Hz, infrasound < 20 Hz.",
     "§2.3 声的利用 (Uses of sound): Sound carries information (信息) — echolocation in bats, B-ultrasound (B超) in medicine. Sound carries energy (能量) — ultrasonic cleaning, ultrasonic碎石 (breaking kidney stones). Sonar (声呐) measures ocean depth using echoes.",
     "§2.4 噪声的危害和控制 (Noise): Noise (噪声) = unwanted sound; measured in decibels (分贝, dB). 0 dB is the threshold of hearing; above 90 dB harms hearing. Control at three places: the source (声源处, e.g. muffler 消声器), in transmission (传播过程中, walls/trees), and at the receiver (人耳处, earplugs 耳塞).",
   ],
-  practice: [],
-  quiz: [],
+  practice: [
+    {
+      q: "In the poem 'The Child Fishing', a boy fishing by a river waves silently at a passerby instead of answering aloud, because he is afraid of scaring away the fish. From the physics of sound, which statement is CORRECT?",
+      options: [
+        "The speed of a sound wave does not change when it passes from air into water",
+        "Sound can travel only in air, and cannot travel in water",
+        "If the boy answered aloud, his voice could travel through the water and scare the fish away",
+        "Sound travels faster in air than in water",
+      ],
+      ansIdx: 2,
+      sol: "Fish hear sounds that travel through water, and the boy knows his voice would reach them. Sound CAN travel in water (B is wrong) and it travels FASTER in water than in air (A and D are wrong - entering water changes and increases its speed). So C is the CORRECT statement.",
+      hint: "Can sound travel in water? Is sound faster in air or in water? Would the fish hear the boy's voice?",
+      source: "21cnjy 23386951 Q2 (人教版八上 第二章 声现象)"
+    },
+    {
+      q: "Eight identical glass bottles are filled with water to different heights, tuned so that striking them produces do-re-mi-fa-sol-la-ti-do. When you blow across the tops of the bottles instead, each gives a whistle-like tone. Which statement is CORRECT?",
+      options: [
+        "When struck, the sound is produced only by the vibration of the glass itself",
+        "When struck, the sound is produced only by the vibration of the water column",
+        "When blown, the whistle tone is produced by the vibration of the air column inside the bottle",
+        "When blown, the whistle tone is produced by the vibration of the water column",
+      ],
+      ansIdx: 2,
+      sol: "Striking a bottle makes the glass and the water it holds vibrate together (not 'only glass' and not 'only water', so A and B are wrong). Blowing across the top sets the AIR column inside the bottle vibrating - like blowing over the mouth of any bottle - so C is CORRECT, not D.",
+      hint: "What is vibrating when you strike the bottle? What is vibrating when you blow across the opening - glass, water, or air?",
+      source: "21cnjy 23386951 Q6 (人教版八上 第二章 声现象)"
+    },
+    {
+      q: "Build a whistle: wrap some cotton on a chopstick, wet it, and push it into a plastic tube open at both ends, like a piston. Blow across the top of the tube while sliding the piston up and down. Sliding the piston changes the ______ of the sound.",
+      options: [
+        "Loudness (响度)",
+        "Pitch (音调)",
+        "Timbre (音色)",
+        "All of the above",
+      ],
+      ansIdx: 1,
+      sol: "Sliding the piston changes the length of the vibrating air column. A longer air column vibrates more slowly (lower frequency, lower pitch); a shorter one gives higher pitch. So B - the PITCH (音调) changes. Loudness would change only if you blew harder or softer; timbre depends on the tube material.",
+      hint: "A longer air column vibrates faster or slower? Pitch depends on frequency - so what does sliding the piston change?",
+      source: "21cnjy 23386951 Q15 (人教版八上 第二章 声现象)"
+    },
+    {
+      q: "Which of the following does NOT obtain information by using sound?",
+      options: [
+        "An experienced beekeeper can tell from the buzzing whether the bees have collected nectar",
+        "People tap a watermelon and listen to judge whether it is ripe",
+        "While pouring boiled water into a thermos, you can tell from the sound how full it is",
+        "Workers use ultrasonic waves to clean watch parts",
+      ],
+      ansIdx: 3,
+      sol: "A, B and C all LISTEN to sound in order to learn something about an object (obtaining information). Ultrasonic cleaning (D) uses the ENERGY of sound waves to shake dirt off the parts - it does not obtain information. Answer: D. (Note the question asks for the one that does NOT use sound for information.)",
+      hint: "Three options are about 'listening to tell/judge/know something' - that is obtaining information. Which one uses sound for something else?",
+      source: "21cnjy 23386951 Q8 (人教版八上 第二章 声现象)"
+    },
+    {
+      q: "In a factory, workers put soft pads and covers around noisy machines (给声源加垫或罩). This is done mainly to ______.",
+      options: [
+        "protect the safety of the workers",
+        "reduce the noise while it is being transmitted",
+        "reduce the noise at the sound source",
+        "reduce the noise at the human ear",
+      ],
+      ansIdx: 2,
+      sol: "The pads and covers are added directly ON the machine - that is, on the sound source itself - so the noise is reduced AT THE SOURCE (在声源处减弱噪声). Answer: C. Ear muffs would be 'at the ear' and sound barriers would be 'during transmission'.",
+      hint: "Where are the pads placed - on the machine, along the path, or on the worker's ears?",
+      source: "21cnjy 23386951 Q17 (人教版八上 第二章 声现象)"
+    }
+  ],
+  quiz: [
+    {
+      q: "At a 100 m race, the timekeeper at the finish line starts the stopwatch when he HEARS the starting gun, and records 14.00 s for runner Li Ming. The air temperature is 15 degree C (speed of sound = 340 m/s). What is Li Ming's real time?",
+      options: ["14.00 s", "14.15 s", "14.29 s", "13.71 s"],
+      ansIdx: 2,
+      sol: "The sound of the gun takes t = s / v = 100 m / 340 m/s about 0.29 s to travel from the start line to the finish line. The timekeeper therefore started the watch 0.29 s LATE, so the real time = 14.00 + 0.29 = 14.29 s. Answer: C.",
+      hint: "Did the timekeeper start early or late? How long did the gun sound take to reach him over 100 m?",
+      source: "21cnjy 23386951 Q10 (人教版八上 第二章 声现象)"
+    },
+    {
+      q: "A ship uses sonar: it sends an ultrasonic pulse straight down to the seabed and receives the echo after 2 s. The speed of sound in seawater at 25 degree C is 1531 m/s. How deep is the sea at this spot?",
+      options: ["765.5 m", "1531 m", "3062 m", "6124 m"],
+      ansIdx: 1,
+      sol: "The pulse travels DOWN and then BACK UP - a total distance of 2 x depth - in 2 s. So 2d = v x t = 1531 m/s x 2 s = 3062 m, which gives d = 1531 m. Answer: B. (Careful: the 2 s is the ROUND-TRIP time, so do not forget to divide by 2.)",
+      hint: "In 2 s the sound goes down AND comes back. So the distance it covers is twice the depth.",
+      source: "21cnjy 23386951 Q28 (人教版八上 第二章 声现象)"
+    },
+    {
+      q: "Which statement about noise is WRONG?",
+      options: [
+        "0 dB means there is no sound at all",
+        "A street is unusually quiet after a snowfall, because soft snow absorbs sound",
+        "A silenced submachine gun is very quiet because measures are taken at the sound source",
+        "Sound barriers along highways block the noise of passing cars",
+      ],
+      ansIdx: 0,
+      sol: "0 dB is the threshold of hearing - the faintest sound a healthy human ear can just detect. It does NOT mean 'no sound' (sound of 0 dB still exists, so A is WRONG - and the question asks for the WRONG statement). B, C and D are all correct statements about absorbing, silencing and blocking noise.",
+      hint: "0 dB is not silence - it is the faintest sound we can hear. Which option is the false statement?",
+      source: "21cnjy 23386951 Q13 (人教版八上 第二章 声现象)"
+    }
+  ],
 },
 
 // ══════════════════════════════════════════════════════════
