@@ -20,6 +20,14 @@ var PHYSICS_DATA = [
   term: 1,
   coverage: "p",
   think: "How do we measure length and time precisely? What does it mean to say an object is moving — moving relative to what? How do we compare how fast different objects move?",
+  // KA subtopic structure: each subtopic = video(s) + practice question(s), then next subtopic.
+  // practice[] is the flat array; subtopics.pq references indices into it.
+  subtopics: [
+    { name: "§1.1 长度和时间的测量 · Length & Time", vids: [0, 5], pq: [0] },
+    { name: "§1.2 运动的描述 · Describing Motion", vids: [3],          pq: [1] },
+    { name: "§1.3 运动的快慢 · Speed & Velocity", vids: [1, 2],      pq: [2, 3] },
+    { name: "§1.4 速度的测量 · Measuring Speed",     vids: [4],          pq: [4] },
+  ],
   videos: [
         {yt: "GtoamALPOP0", t: "Position vs. time graphs", ka: "https://www.khanacademy.org/science/physics/one-dimensional-motion/displacement-velocity-and-time/v/position-vs-time-graphs"},
         {yt: "oRKxmXwLvUU", t: "Calculating average velocity or speed", ka: "https://www.khanacademy.org/science/physics/one-dimensional-motion/displacement-velocity-and-time/v/calculating-average-velocity-or-speed"},
