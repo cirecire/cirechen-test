@@ -44,7 +44,7 @@ var PHYSICS_DATA = [
   ],
   practice: [
     {
-      q: "In daily life, people sometimes use body parts to estimate length. When an adult spreads both arms horizontally, the distance between the fingertips of the two hands is called \\"1 tuǒ\\". Which of the following best describes the length of \\"1 tuǒ\\"?",
+      q: "In daily life, people sometimes use body parts to estimate length. When an adult spreads both arms horizontally, the distance between the fingertips of the two hands is called \"1 tuǒ\". Which of the following best describes the length of \"1 tuǒ\"?",
       options: ["A. 17 mm", "B. 17 cm", "C. 17 dm", "D. 17 m"],
       dia: {type: "description", text: "A person with arms spread horizontally, labeled '1 tuǒ' between fingertips."},
       ansIdx: 2,
