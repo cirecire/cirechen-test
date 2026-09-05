@@ -95,6 +95,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 /* ── Instruction strip ── */
 .paper-note{background:#fffbea;border:1px solid #f59e0b;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:13px;color:#92400e;text-align:center}
 .paper-note strong{color:#d97706}
+
+/* ── Bank toggle (KA vs 21cnjy) ── */
+.bank-toggle{display:flex;align-items:center;gap:8px;margin:8px 0 14px;flex-wrap:wrap}
+.bank-toggle .bank-label{font-size:13px;font-weight:600;color:var(--text2)}
+.bank-btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:7px 16px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+.bank-btn:hover{border-color:var(--blue)}
+.bank-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
 </style>
 </head>
 <body>
@@ -121,7 +128,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
   </div>
 </div>
 
-<script src="physics_data.js?v=20260904d"></script>
+<script src="physics_data.js?v=20260905a"></script>
 <script>
 // ═══════════════════════════════════════════════════════════════
 // GRAPHIE → SVG ENGINE
@@ -641,6 +648,7 @@ var CH_ID = params.get("ch") || "ch01";
 var GRADE = params.get("grade") || "8";
 var TOTAL = 5, cur = 1;
 var CH = null, CH_LIST = [], idx = -1;
+var BANK = 'ka'; // 'ka' = Khan Academy bank (practice/quiz), 'cn' = 21cnjy bank (practice2/quiz2)
 for (var i = 0; i < PHYSICS_DATA.length; i++) {
   if (PHYSICS_DATA[i].id === CH_ID) { CH = PHYSICS_DATA[i]; if (!GRADE) GRADE = CH.g || "8"; break; }
 }
@@ -690,6 +698,19 @@ function nextBtn(label) {
   var txt = label || "Next ›";
   return '<button class="next-btn big" onclick="nextStep()">' + txt + '</button>';
 }
+function bankToggleHTML() {
+  return '<div class="bank-toggle">' +
+    '<span class="bank-label">题库 Bank:</span>' +
+    '<button class="bank-btn' + (BANK==='ka'?' active':'') + '" data-bank="ka" onclick="switchBank(\'ka\')">可汗 KA</button>' +
+    '<button class="bank-btn' + (BANK==='cn'?' active':'') + '" data-bank="cn" onclick="switchBank(\'cn\')">公立校 21cnjy</button>' +
+    '</div>';
+}
+function switchBank(b) {
+  BANK = b;
+  if (cur === 4) renderPanel(4);
+  else if (cur === 5) renderPanel(5);
+  window.scrollTo({top:0, behavior:"smooth"});
+}
 function renderPanel(step) {
   var p = document.getElementById("p" + step);
   if (!p || !CH) return;
@@ -711,14 +732,15 @@ function renderPanel(step) {
     });
   } else if (step === 4) {
     document.getElementById("paperNote").style.display = 'block';
-    p.innerHTML = '<h2>Step 4 · Practice</h2><div id="practiceBox"></div>' + nextBtn("Finish practice, next ›");
+    var curP = (BANK === 'ka') ? (CH.practice || []) : (CH.practice2 || CH.practice || []);
+    p.innerHTML = '<h2>Step 4 · Practice</h2>' + bankToggleHTML() + '<div id="practiceBox"></div>' + nextBtn("Finish practice, next ›");
     var pb = document.getElementById("practiceBox");
     if (CH.subtopics && CH.subtopics.length) {
       var ph = '';
       CH.subtopics.forEach(function(st) {
         ph += subtopicHdr(st.name);
         (st.pq || []).forEach(function(qi) {
-          if (CH.practice && CH.practice[qi] !== undefined) ph += renderOneQ(CH.practice[qi], 'p', qi);
+          if (curP[qi] !== undefined) ph += renderOneQ(curP[qi], 'p', qi);
         });
       });
       pb.innerHTML = ph || '<p style="color:var(--text2)">No practice questions yet.</p>';
@@ -726,11 +748,12 @@ function renderPanel(step) {
         document.querySelectorAll('#practiceBox .qtext, #practiceBox .ans-display, #practiceBox .opt-t').forEach(renderMath);
       }, 100);
     } else {
-      renderQs("practiceBox", CH.practice || [], "p");
+      renderQs("practiceBox", curP, "p");
     }
   } else if (step === 5) {
-    p.innerHTML = '<h2>Step 5 · Quiz</h2><div id="quizBox"></div>' + nextBtn("Submit & see result ›");
-    renderQs("quizBox", CH.quiz || [], "q");
+    var curQ = (BANK === 'ka') ? (CH.quiz || []) : (CH.quiz2 || CH.quiz || []);
+    p.innerHTML = '<h2>Step 5 · Quiz</h2>' + bankToggleHTML() + '<div id="quizBox"></div>' + nextBtn("Submit & see result ›");
+    renderQs("quizBox", curQ, "q");
   }
 }
 
