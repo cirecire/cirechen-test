@@ -45,8 +45,7 @@ var PHYSICS_DATA = [
           4
         ],
         "pq": [
-          4,
-          5
+          4
         ]
       }
     ],
@@ -159,20 +158,6 @@ var PHYSICS_DATA = [
         },
         "ansIdx": 3,
         "sol": "From the s-t graph: at t=0, M is at s=0 and N is at s=100 m, so the initial separation is 100 m. From t=0 to t=10 s, N is stationary while M moves forward. The maximum distance between M and N before they meet is 400 m (per the exam solution key). Answer: D."
-      },
-      {
-        "q": "A car doing which of the following is accelerating? Choose all answers that apply:",
-        "options": [
-          "moving straight at a constant speed",
-          "speeding up",
-          "moving around a curve at constant speed",
-          "slowing down"
-        ],
-        "ansIdx": "1,2,3",
-        "multi": true,
-        "sol": "Acceleration means velocity is changing — speed up, slow down, or change direction. Constant straight-line speed = no acceleration. So speeding up (B), turning at constant speed (C), and slowing down (D) are all accelerating. Answer: B, C, D.",
-        "hint": "Velocity includes speed AND direction. Does 'constant speed straight' change velocity? Does 'turning' change direction?",
-        "source": "KA describing-motion Acceleration Q6"
       }
     ],
     "quiz": [
