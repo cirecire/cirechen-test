@@ -829,9 +829,11 @@ function showAns(kind, i) {
   var solBody = solEl.querySelector('.sol-body');
   if (solBody) renderMath(solBody);
 }
+function nextStep() {
   if (cur < TOTAL) { showStep(cur + 1); }
   else { finish(); }
 }
+
 function finish() {
   var f = document.querySelector("#p2 iframe.bili");
   if (f) f.src = "about:blank";
