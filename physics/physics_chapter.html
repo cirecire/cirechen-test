@@ -128,7 +128,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
   </div>
 </div>
 
-<script src="physics_data.js?v=20260906a"></script>
+<script src="physics_data.js?v=20260906b"></script>
 <script>
 // ═══════════════════════════════════════════════════════════════
 // GRAPHIE → SVG ENGINE
@@ -537,6 +537,59 @@ function renderGraphie(cfg) {
     svg3 += svgStr;
     svg3 += '</svg>';
     return '<div class="dia-wrap">'+svg3+'</div>';
+  }
+
+  if (cfg.type === 's-t-graph' || cfg.type === 'v-t-graph') {
+    // Generic line graph: s-t or v-t. Renders grid, axes, tick labels, and one or more polylines.
+    var xr = cfg.xRange, yr = cfg.yRange;
+    var xStep = cfg.xStep || 1, yStep = cfg.yStep || 1;
+    var vW = 520, vH = 320, PL = 50, PR = 25, PT = 18, PB = 42;
+    var uW = vW - PL - PR, uH = vH - PT - PB;
+    var sx = uW / (xr[1]-xr[0]), sy = uH / (yr[1]-yr[0]);
+    var ox = PL - xr[0]*sx, oy = PT + yr[1]*sy;
+    var s = '';
+    // grid + tick labels
+    for (var gx = Math.ceil(xr[0]/xStep)*xStep; gx <= xr[1]; gx += xStep) {
+      var px = ox + gx*sx;
+      s += '<line x1="'+px.toFixed(1)+'" y1="'+PT+'" x2="'+px.toFixed(1)+'" y2="'+(vH-PB)+'" stroke="#e2e8f0" stroke-width="0.6"/>';
+      if (Math.abs(gx) > 1e-6) s += '<text x="'+px.toFixed(1)+'" y="'+(vH-PB+15)+'" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">'+gx+'</text>';
+    }
+    for (var gy = Math.ceil(yr[0]/yStep)*yStep; gy <= yr[1]; gy += yStep) {
+      var py = oy - gy*sy;
+      s += '<line x1="'+PL+'" y1="'+py.toFixed(1)+'" x2="'+(vW-PR)+'" y2="'+py.toFixed(1)+'" stroke="#e2e8f0" stroke-width="0.6"/>';
+      if (Math.abs(gy) > 1e-6) s += '<text x="'+(PL-7)+'" y="'+(py.toFixed(1)+4)+'" text-anchor="end" font-family="sans-serif" font-size="11" fill="#64748b">'+gy+'</text>';
+    }
+    // axes (with arrowheads)
+    s += '<line x1="'+PL+'" y1="'+oy.toFixed(1)+'" x2="'+(vW-PR)+'" y2="'+oy.toFixed(1)+'" stroke="#475569" stroke-width="1.4"/>';
+    s += '<line x1="'+ox.toFixed(1)+'" y1="'+PT+'" x2="'+ox.toFixed(1)+'" y2="'+(vH-PB)+'" stroke="#475569" stroke-width="1.4"/>';
+    s += '<polygon points="'+(vW-PR)+','+oy.toFixed(1)+','+(vW-PR-8)+','+(oy-4).toFixed(1)+','+(vW-PR-8)+','+(oy+4).toFixed(1)+'" fill="#475569"/>';
+    s += '<polygon points="'+ox.toFixed(1)+','+PT+','+(ox-4).toFixed(1)+','+(PT+8)+','+(ox+4).toFixed(1)+','+(PT+8)+'" fill="#475569"/>';
+    // origin label (0)
+    s += '<text x="'+(ox-7)+'" y="'+(oy+14)+'" text-anchor="end" font-family="sans-serif" font-size="11" fill="#64748b">0</text>';
+    // axis labels
+    s += '<text x="'+(vW-PR/2)+'" y="'+(oy+18)+'" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#475569">'+esc(cfg.xLabel||'')+'</text>';
+    s += '<text x="'+(ox-10)+'" y="'+(PT+12)+'" text-anchor="end" font-family="sans-serif" font-size="12" fill="#475569">'+esc(cfg.yLabel||'')+'</text>';
+    // plot lines
+    (cfg.lines || []).forEach(function(ln){
+      var pts = ln.pts || [];
+      if (pts.length < 2) return;
+      var color = ln.color || '#3b82f6';
+      var d = 'M'+(ox+pts[0][0]*sx).toFixed(1)+','+(oy-pts[0][1]*sy).toFixed(1);
+      for (var i=1;i<pts.length;i++) d += ' L'+(ox+pts[i][0]*sx).toFixed(1)+','+(oy-pts[i][1]*sy).toFixed(1);
+      s += '<path d="'+d+'" fill="none" stroke="'+color+'" stroke-width="2.4" stroke-linejoin="round"/>';
+      // dots at vertices (skip endpoints that are at axes origin unless labeled)
+      pts.forEach(function(p, idx){
+        s += '<circle cx="'+(ox+p[0]*sx).toFixed(1)+'" cy="'+(oy-p[1]*sy).toFixed(1)+'" r="3" fill="'+color+'"/>';
+      });
+      // line label near midpoint
+      if (ln.label) {
+        var mid = pts[Math.floor(pts.length/2)];
+        var lx = ox+mid[0]*sx + 8, ly = oy-mid[1]*sy - 6;
+        s += '<text x="'+lx.toFixed(1)+'" y="'+ly.toFixed(1)+'" font-family="sans-serif" font-size="13" fill="'+color+'" font-weight="700">'+esc(ln.label)+'</text>';
+      }
+    });
+    var svgSG = '<svg viewBox="0 0 '+vW+' '+vH+'" width="'+vW+'" height="'+vH+'" xmlns="http://www.w3.org/2000/svg">'+s+'</svg>';
+    return '<div class="dia-wrap"><div style="display:inline-block;background:#f8fafc;border-radius:6px;padding:10px">'+svgSG+'</div></div>';
   }
 
   // Generic: execute cfg.code array of draw commands
