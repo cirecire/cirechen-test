@@ -128,7 +128,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
   </div>
 </div>
 
-<script src="physics_data.js?v=20260905a"></script>
+<script src="physics_data.js?v=20260906a"></script>
 <script>
 // ═══════════════════════════════════════════════════════════════
 // GRAPHIE → SVG ENGINE
@@ -629,8 +629,10 @@ function renderWatch() {
       (st.vids || []).forEach(function(vi) {
         if (CH.videos && CH.videos[vi] !== undefined) v += buildVideoHTML(CH.videos[vi]);
       });
-      (st.pq || []).forEach(function(qi) {
-        if (CH.practice && CH.practice[qi] !== undefined) v += renderOneQ(CH.practice[qi], 'p', 'p' + qi);
+      var pq = (BANK === 'ka') ? (st.pq || []) : (st.pq2 || []);
+      var arr = (BANK === 'ka') ? CH.practice : CH.practice2;
+      pq.forEach(function(qi) {
+        if (arr && arr[qi] !== undefined) v += renderOneQ(arr[qi], 'p', 'p' + qi);
       });
     });
   } else {
@@ -738,12 +740,13 @@ function renderPanel(step) {
     if (CH.subtopics && CH.subtopics.length) {
       var ph = '';
       CH.subtopics.forEach(function(st) {
-        ph += subtopicHdr(st.name);
-        (st.pq || []).forEach(function(qi) {
+        var pq = (BANK === 'ka') ? (st.pq || []) : (st.pq2 || []);
+        if (pq.length) ph += subtopicHdr(st.name);
+        pq.forEach(function(qi) {
           if (curP[qi] !== undefined) ph += renderOneQ(curP[qi], 'p', qi);
         });
       });
-      pb.innerHTML = ph || '<p style="color:var(--text2)">No practice questions yet.</p>';
+      pb.innerHTML = ph || '<p style="color:var(--text2)">' + (BANK === 'ka' ? '该章暂无可汗（Khan Academy）练习题。可汗物理该章原题多为填空 / 画图题，平台暂仅支持选择题，故此处为空——请切换到「公立校 21cnjy」题库。' : 'No practice questions yet.') + '</p>';
       setTimeout(function(){
         document.querySelectorAll('#practiceBox .qtext, #practiceBox .ans-display, #practiceBox .opt-t').forEach(renderMath);
       }, 100);
