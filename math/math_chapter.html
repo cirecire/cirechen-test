@@ -97,6 +97,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 /* ── Instruction strip ── */
 .paper-note{background:#fffbea;border:1px solid #f59e0b;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:13px;color:#92400e;text-align:center}
 .paper-note strong{color:#d97706}
+
+/* ── Bank toggle (KA vs 21cnjy) ── */
+.bank-bar{display:flex;gap:8px;margin-bottom:14px}
+.bank-btn{padding:6px 14px;border-radius:8px;border:2px solid #334155;background:#1e293b;color:#94a3b8;font-size:12px;font-weight:700;cursor:pointer;transition:.15s}
+.bank-btn:hover{border-color:#475569}
+.bank-btn.active{background:#2563eb;color:#fff;border-color:#2563eb}
 </style>
 </head>
 <body>
@@ -123,7 +129,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
   </div>
 </div>
 
-<script src="math_data.js?v=20260905a"></script>
+<script src="math_data.js?v=20260906e"></script>
 <script>
 // ═══════════════════════════════════════════════════════════════
 // GRAPHIE → SVG ENGINE
@@ -704,6 +710,30 @@ function nextBtn(label) {
   var txt = label || "Next ›";
   return '<button class="next-btn big" onclick="nextStep()">' + txt + '</button>';
 }
+var BANK = 'ka'; // 'ka' = Khan Academy bank (practice/quiz), 'cn' = 21cnjy bank (practice2/quiz2)
+
+function bankToggleHTML() {
+  return '<div class="bank-bar">' +
+    '<button class="bank-btn' + (BANK==='ka'?' active':'') + '" onclick="switchBank(' + String.fromCharCode(39) + 'ka' + String.fromCharCode(39) + ')">可汗 KA</button>' +
+    '<button class="bank-btn' + (BANK==='cn'?' active':'') + '" onclick="switchBank(' + String.fromCharCode(39) + 'cn' + String.fromCharCode(39) + ')">公立校 21cnjy</button>' +
+  '</div>';
+}
+
+function switchBank(b) {
+  BANK = b;
+  renderPanel(cur);
+}
+
+function bankPractice() {
+  return (BANK === 'ka') ? (CH.practice || []) : (CH.practice2 || []);
+}
+function bankQuiz() {
+  return (BANK === 'ka') ? (CH.quiz || []) : (CH.quiz2 || []);
+}
+function bankPQ(st) {
+  return (BANK === 'ka') ? (st.pq || []) : (st.pq2 || []);
+}
+
 function renderPanel(step) {
   var p = document.getElementById("p" + step);
   if (!p || !CH) return;
@@ -711,16 +741,17 @@ function renderPanel(step) {
     p.innerHTML = '<h2>Step 1 · Think</h2><div class="elicit" id="thinkBox"></div>' + nextBtn();
     var tb = document.getElementById("thinkBox"); tb.textContent = CH.think || ""; renderMath(tb);
   } else if (step === 2) {
-    // Khan Academy subtopic pattern: per-skill video → immediately practice
-    var v = '<h2>Step 2 · Watch</h2>';
+    var v = '<h2>Step 2 · Watch</h2>' + bankToggleHTML();
     if (CH.subtopics && CH.subtopics.length) {
       CH.subtopics.forEach(function(st) {
         v += subtopicHdr(st.name);
         (st.vids || []).forEach(function(vi) {
           if (CH.videos && CH.videos[vi] !== undefined) v += buildVideoHTML(CH.videos[vi]);
         });
-        (st.pq || []).forEach(function(qi) {
-          if (CH.practice && CH.practice[qi] !== undefined) v += renderOneQ(CH.practice[qi], 'p', qi);
+        var qids = bankPQ(st);
+        var prac = bankPractice();
+        qids.forEach(function(qi) {
+          if (prac[qi] !== undefined) v += renderOneQ(prac[qi], 'p', qi);
         });
       });
     } else {
@@ -728,7 +759,6 @@ function renderPanel(step) {
     }
     v += nextBtn();
     p.innerHTML = v;
-    // KaTeX for practice questions embedded in Watch step
     setTimeout(function(){
       document.querySelectorAll('#p2 .qtext, #p2 .ans-display, #p2 .opt-t').forEach(renderMath);
     }, 100);
@@ -741,26 +771,30 @@ function renderPanel(step) {
     });
   } else if (step === 4) {
     document.getElementById("paperNote").style.display = 'block';
-    p.innerHTML = '<h2>Step 4 · Practice</h2><div id="practiceBox"></div>' + nextBtn("Finish practice, next ›");
+    var ph = '<h2>Step 4 · Practice</h2>' + bankToggleHTML() + '<div id="practiceBox"></div>' + nextBtn("Finish practice, next ›");
+    p.innerHTML = ph;
     var pb = document.getElementById("practiceBox");
+    var prac = bankPractice();
     if (CH.subtopics && CH.subtopics.length) {
-      var ph = '';
+      var html = '';
       CH.subtopics.forEach(function(st) {
-        ph += subtopicHdr(st.name);
-        (st.pq || []).forEach(function(qi) {
-          if (CH.practice && CH.practice[qi] !== undefined) ph += renderOneQ(CH.practice[qi], 'p', qi);
+        html += subtopicHdr(st.name);
+        var qids = bankPQ(st);
+        qids.forEach(function(qi) {
+          if (prac[qi] !== undefined) html += renderOneQ(prac[qi], 'p', qi);
         });
       });
-      pb.innerHTML = ph || '<p style="color:var(--text2)">No practice questions yet.</p>';
+      pb.innerHTML = html || '<p style="color:var(--text2)">No practice questions yet.</p>';
       setTimeout(function(){
         document.querySelectorAll('#practiceBox .qtext, #practiceBox .ans-display, #practiceBox .opt-t').forEach(renderMath);
       }, 100);
     } else {
-      renderQs("practiceBox", CH.practice || [], "p");
+      renderQs("practiceBox", prac, "p");
     }
   } else if (step === 5) {
-    p.innerHTML = '<h2>Step 5 · Quiz</h2><div id="quizBox"></div>' + nextBtn("Submit & see result ›");
-    renderQs("quizBox", CH.quiz || [], "q");
+    var quiz = bankQuiz();
+    p.innerHTML = '<h2>Step 5 · Quiz</h2>' + bankToggleHTML() + '<div id="quizBox"></div>' + nextBtn("Submit & see result ›");
+    renderQs("quizBox", quiz, "q");
   }
 }
 
