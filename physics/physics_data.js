@@ -146,7 +146,40 @@ var PHYSICS_DATA = [
         ],
         "dia": {
           "type": "s-t-graph",
-          "text": "s-t graph: 0-5s slanted up to 20m, 5-10s horizontal (at rest), 10-20s slanted up to 40m total."
+          "xLabel": "t / s",
+          "yLabel": "s / m",
+          "xRange": [
+            0,
+            20
+          ],
+          "yRange": [
+            0,
+            40
+          ],
+          "xStep": 5,
+          "yStep": 10,
+          "lines": [
+            {
+              "pts": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  5,
+                  20
+                ],
+                [
+                  10,
+                  20
+                ],
+                [
+                  20,
+                  40
+                ]
+              ]
+            }
+          ]
         },
         "ansIdx": 2,
         "sol": "From the s-t graph: the object moves at constant speed from 0-5 s (20 m), is at rest from 5-10 s (horizontal line), then moves at a different constant speed from 10-20 s (20 m more, total 40 m). It does NOT move at constant speed throughout the 20 s — statement C is the INCORRECT statement. Answer: C."
@@ -161,7 +194,52 @@ var PHYSICS_DATA = [
         ],
         "dia": {
           "type": "s-t-graph",
-          "text": "s-t graph: M starts at s=0 and moves right; N starts at s=100 m and stays flat until t=10 s, then both move and meet at t=40 s at s=300 m."
+          "xLabel": "t / s",
+          "yLabel": "s / m",
+          "xRange": [
+            0,
+            40
+          ],
+          "yRange": [
+            0,
+            300
+          ],
+          "xStep": 10,
+          "yStep": 100,
+          "lines": [
+            {
+              "pts": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  40,
+                  300
+                ]
+              ],
+              "label": "M",
+              "color": "#3b82f6"
+            },
+            {
+              "pts": [
+                [
+                  0,
+                  100
+                ],
+                [
+                  10,
+                  100
+                ],
+                [
+                  40,
+                  300
+                ]
+              ],
+              "label": "N",
+              "color": "#ef4444"
+            }
+          ]
         },
         "ansIdx": 3,
         "sol": "From the s-t graph: at t=0, M is at s=0 and N is at s=100 m, so the initial separation is 100 m. From t=0 to t=10 s, N is stationary while M moves forward. The maximum distance between M and N before they meet is 400 m (per the exam solution key). Answer: D."
@@ -178,7 +256,44 @@ var PHYSICS_DATA = [
         ],
         "dia": {
           "type": "v-t-graph",
-          "text": "v-t graph: from t=0 to t=2s sloping upward, t=2 to t=4s also sloping up (speed increasing), t=4 to t=6s constant at v=30 m/s, then decreasing."
+          "xLabel": "t / s",
+          "yLabel": "v / (m·s⁻¹)",
+          "xRange": [
+            0,
+            10
+          ],
+          "yRange": [
+            0,
+            30
+          ],
+          "xStep": 2,
+          "yStep": 10,
+          "lines": [
+            {
+              "pts": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  2,
+                  10
+                ],
+                [
+                  4,
+                  30
+                ],
+                [
+                  6,
+                  30
+                ],
+                [
+                  10,
+                  0
+                ]
+              ]
+            }
+          ]
         },
         "ansIdx": 1,
         "sol": "From the v-t graph: from t=2s to t=4s the graph slopes upward (speed increasing, not decreasing), so A is wrong. At t=5s the graph shows v=30 m/s, so B is CORRECT. Distance from t=5s to t=6s = v x dt = 30 m/s x 1 s = 30 m (not 60 m, so C is wrong). For the first 10s, area under the v-t curve is about 55 m, so average speed is about 5.5 m/s (not 3 m/s, so D is wrong). Answer: B."
