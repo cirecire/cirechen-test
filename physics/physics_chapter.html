@@ -128,7 +128,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
   </div>
 </div>
 
-<script src="physics_data.js?v=20260906d"></script>
+<script src="physics_data.js?v=20260906f"></script>
 <script>
 // ═══════════════════════════════════════════════════════════════
 // GRAPHIE → SVG ENGINE
@@ -673,9 +673,16 @@ function buildVideoHTML(vid) {
            '</div></div>';
   }
 }
+function bankPractice() {
+  return (BANK === 'ka') ? (CH.practice || []) : (CH.practice2 || []);
+}
+function bankQuiz() {
+  return (BANK === 'ka') ? (CH.quiz || []) : (CH.quiz2 || []);
+}
+
 // Renders Watch (Step 2): uses subtopics if available, falls back to flat list
 function renderWatch() {
-  var v = '<h2>Step 2 · Watch</h2>';
+  var v = '<h2>Step 2 · Watch</h2>' + bankToggleHTML();
   if (CH.subtopics && CH.subtopics.length) {
     CH.subtopics.forEach(function(st) {
       v += subtopicHdr(st.name);
@@ -693,6 +700,7 @@ function renderWatch() {
   }
   return v;
 }
+
 // ──────────────────────────────────────────────────────────────
 
 // ═══════════════════════════════════════════════════════════════
