@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Chapter 3 · Position & Coordinates · BNU 8th Grade Math</title>
+<style>
+:root{
+ --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
+ --accent:#7c3aed; --ok:#16a34a; --err:#dc2626; --warn:#d97706;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.wrap{display:grid;grid-template-columns:240px 1fr;gap:18px;max-width:1180px;margin:0 auto;padding:18px}
+header{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;padding:22px 26px;border-radius:14px;margin-bottom:14px;grid-column:1/-1}
+header h1{font-size:22px;margin-bottom:4px}
+header p{opacity:.92;font-size:13px}
+nav{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;height:fit-content;position:sticky;top:14px}
+.nav-i{padding:10px 12px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.nav-i:hover{background:#f5f3ff}
+.nav-i.on{background:var(--accent);color:#fff}
+.nav-i .st{font-size:11px;opacity:.85}
+.nav-i .st.ok{color:var(--ok)}
+.nav-i .st.err{color:var(--err)}
+.nav-i.on .st.ok,.nav-i.on .st.err{color:#fff}
+main{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 26px;min-height:80vh}
+h2{font-size:18px;margin-bottom:6px}
+.lesson-id{color:var(--muted);font-size:13px;margin-bottom:14px}
+.box{background:#f9fafb;border:1px solid var(--line);border-radius:10px;padding:14px;margin:14px 0}
+.box h3{font-size:15px;margin-bottom:8px;color:var(--accent)}
+.box .cn{font-size:12px;color:var(--muted);font-style:italic}
+.step{padding:10px 14px;background:var(--accent);color:#fff;border-radius:8px;margin-bottom:14px;font-size:15px}
+.note{background:#fffbeb;border-left:3px solid var(--warn);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
+.note strong{color:var(--warn)}
+.vid{margin:14px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.vid-h{padding:10px 14px;background:#f5f3ff;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.vid-h .meta{display:flex;gap:8px;align-items:center;font-size:11px}
+.tag{background:#e5e7eb;padding:2px 8px;border-radius:10px;font-size:11px}
+.tag.core{background:#dcfce7;color:#166534}
+.tag.ext{background:#fef3c7;color:#92400e}
+.vid-h .cn{font-size:12px;color:var(--muted);margin-right:auto}
+.vid-h .title{font-size:13px;font-weight:600}
+button{font-family:inherit;border:none;cursor:pointer;border-radius:8px;padding:8px 14px;font-size:14px;background:var(--accent);color:#fff}
+button.secondary{background:#e5e7eb;color:var(--text)}
+button:hover{opacity:.92}
+input[type=text],input[type=number]{padding:10px 12px;font-size:15px;border:1px solid var(--line);border-radius:8px;width:120px;font-family:inherit}
+input:focus{outline:none;border-color:var(--accent)}
+input.ok{border-color:var(--ok);background:#f0fdf4}
+input.err{border-color:var(--err);background:#fef2f2}
+input:disabled{background:#f3f4f6;cursor:not-allowed}
+.q{margin:12px 0;padding:14px;background:#f9fafb;border-radius:8px;border-left:3px solid var(--accent)}
+.q .q-text{font-size:15px;margin-bottom:8px}
+.q .q-cn{font-size:12px;color:var(--muted);margin-bottom:8px}
+.q .feedback{margin-top:8px;font-size:13px;padding:6px 10px;border-radius:6px;display:none}
+.q .feedback.show{display:block}
+.q .feedback.ok{background:#dcfce7;color:#166534}
+.q .feedback.err{background:#fee2e2;color:#991b1b}
+.q .feedback.warn{background:#fef3c7;color:#92400e}
+.hint{background:#fef3c7;border-left:3px solid var(--warn);padding:10px 12px;border-radius:6px;margin:8px 0;font-size:13px;display:none}
+.hint.show{display:block}
+.diff{display:flex;gap:10px;align-items:center;margin:10px 0;font-size:13px}
+.diff button{padding:4px 10px;font-size:12px}
+.diff button.on{background:var(--ok)}
+.controls{display:flex;gap:10px;margin:14px 0;flex-wrap:wrap;align-items:center}
+.controls .info{margin-left:auto;font-size:13px;color:var(--muted)}
+.progress{height:6px;background:#e5e7eb;border-radius:3px;overflow:hidden;margin:8px 0}
+.progress div{height:100%;background:var(--accent);transition:width .3s}
+svg{max-width:100%;display:block;margin:0 auto}
+.num{color:var(--accent);font-weight:600}
+svg circle{transition:r .2s,fill .2s}
+svg line,svg path{transition:stroke .3s,opacity .3s}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <h1>Chapter 3 · Position & Coordinates</h1>
+ <p>Grade 8 · BNU Edition · 5 class periods · the shortest chapter</p>
+ <p style="margin-top:6px;font-size:12px">北师大八年级上 · 第三章 · 位置与坐标 · 5 课时（最易掌握）</p>
+</header>
+<nav id="nav"></nav>
+<main id="main"></main>
+</div>
+
+<script>
+const VDIR='videos/Ch03_位置与坐标/';
+const KEY='bnu8_ch03_state';
+let S=load();
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return{};}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+const LESSONS=[
+ {id:'k1',t:'Determining Position',cn:'确定位置（有序数对、方向角）',n:'3.1'},
+ {id:'k2',t:'The Coordinate Plane',cn:'平面直角坐标系',n:'3.2'},
+ {id:'k3',t:'Reflections & Coordinates',cn:'轴对称与坐标变化',n:'3.3'},
+ {id:'ext',t:'Extension: Transformations',cn:'拓展：平移、旋转、缩放',n:'Ext'},
+ {id:'test',t:'Chapter Test',cn:'章末检测',n:'Test'}
+];
+let cur='k1';
+function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
+function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function pick(a){return a[ri(0,a.length-1)];}
+
+/* ===== 视频清单（北师大 3 知识点 + 可汗拓展） ===== */
+const VIDEOS={
+k1:[
+ {f:'01_Introduction to the coordinate plane.mp4',t:'Intro to the coordinate plane',c:'core',d:'坐标系引入'},
+ {f:'02_Coordinate plane examples.mp4',t:'Coordinate plane examples',c:'core',d:'坐标系例题'},
+],
+k2:[
+ {f:'08_Interpreting plotted points.mp4',t:'Interpreting plotted points',c:'core',d:'认识点的坐标'},
+ {f:'09_Finding the point not graphed.mp4',t:'Finding the point not graphed',c:'core',d:'找出未画的点'},
+ {f:'10_Plotting a point (ordered pair).mp4',t:'Plotting a point (ordered pair)',c:'core',d:'描点'},
+],
+k3:[
+ {f:'11_Reflecting points.mp4',t:'Reflecting points',c:'core',d:'点的对称'},
+ {f:'12_Reflecting shapes.mp4',t:'Reflecting shapes',c:'core',d:'图形的对称'},
+ {f:'05_Using reflection tool.mp4',t:'Using reflection tool',c:'core',d:'对称工具'},
+],
+ext:[
+ {f:'03_Introduction to transformations.mp4',t:'Intro to transformations',c:'ext',d:'变换概述'},
+ {f:'04_Translation example.mp4',t:'Translation example',c:'ext',d:'平移示例'},
+ {f:'06_Using rotation widget.mp4',t:'Using rotation widget',c:'ext',d:'旋转'},
+ {f:'07_Scaling down a triangle by half.mp4',t:'Scaling down a triangle by half',c:'ext',d:'缩放'},
+],
+};
+
+/* ============ 微课 K1：经纬度 + 有序数对 ============ */
+function microK1(el){
+ el.innerHTML=`
+  <div class="step">Micro-lesson · 确定位置的有序数对</div>
+  <div class="box">
+   <h3>Step 1 — One number is not enough</h3>
+   <div class="cn">一个数不够定位</div>
+   <p>Say you're in Shenzhen — but Shenzhen is 2000 km². You need two numbers: <span class="num">22.5°N, 114.0°E</span> (latitude, longitude).</p>
+   <p>So a position in a plane is always given as an <b>ordered pair (x, y)</b> — order matters: (3, 5) ≠ (5, 3).</p>
+  </div>
+  <div class="box">
+   <h3>Step 2 — Direction angle as a 1D solution</h3>
+   <div class="cn">方向角：先用方向，再加距离</div>
+   <p>Before the coordinate plane, Chinese maps used <b>方向角 (bearing)</b>: from a known point, go "north 30° east, 50 meters". One direction + one distance = one position.</p>
+   <p>Same logic as (r, θ) in polar coordinates.</p>
+  </div>
+  <div class="box">
+   <h3>Step 3 — From bearing to ordered pair</h3>
+   <div class="cn">从方向角到有序数对</div>
+   <p>The coordinate plane is just <b>two perpendicular axes</b> — once you set them, every point has exactly one ordered pair. So "ordered pair" is the bridge from any positioning system (latitude/longitude, bearing, or grid).</p>
+  </div>
+  <div class="note"><strong>Why this matters:</strong> K1 looks trivial but it's the mental setup for the whole chapter. If your kid gets "an ordered pair (x, y) uniquely identifies a point", everything else is downhill.</div>`;
+}
+
+/* ============ 微课 K2：交互式平面直角坐标系 ============ */
+function microK2(el){
+ let px=2,py=3,drag=null;
+ const render=()=>{
+  const X=x=>240+x*30, Y=y=>240-y*30;
+  const quadrants=[
+   {x:1,y:1,label:'I (+,+)'},{x:-1,y:1,label:'II (−,+)'},{x:-1,y:-1,label:'III (−,−)'},{x:1,y:-1,label:'IV (+,−)'}
+  ];
+  let q=quadrants.map(qt=>{
+   const cx=qt.x*150,cy=qt.y*100;
+   const onAxis=(px===0)||(py===0);
+   return `<text x="${X(cx/150*3-0)+15}" y="${Y(cy/100*4+1.5)-10}" font-size="13" fill="#9ca3af" font-weight="600">${qt.label}</text>`;
+  }).join('');
+  el.innerHTML=`
+   <div class="step">Micro-lesson · 拖动点 P 看坐标如何变化</div>
+   <div class="box">
+    <h3>The four quadrants · 四个象限</h3>
+    <div class="cn">X 轴把平面分上下；Y 轴分左右；交叉形成四个象限（按逆时针编号：I、II、III、IV）</div>
+    <svg viewBox="0 0 480 480" style="background:#fafafa;border-radius:8px;cursor:crosshair" id="svgK2">
+     <defs>
+      <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#374151"/></marker>
+     </defs>
+     <line x1="20" y1="${Y(0)}" x2="460" y2="${Y(0)}" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+     <line x1="${X(0)}" y1="460" x2="${X(0)}" y2="20" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+     <text x="455" y="${Y(0)-6}" font-size="14" fill="#374151">x</text>
+     <text x="${X(0)+8}" y="20" font-size="14" fill="#374151">y</text>
+     <text x="${X(0)-5}" y="${Y(0)+14}" font-size="11" fill="#6b7280">O</text>
+     ${[-4,-3,-2,-1,1,2,3,4].map(i=>`<line x1="${X(i)}" y1="${Y(0)-3}" x2="${X(i)}" y2="${Y(0)+3}" stroke="#9ca3af"/><text x="${X(i)-3}" y="${Y(0)+15}" font-size="10" fill="#6b7280">${i}</text>`).join('')}
+     ${[-4,-3,-2,-1,1,2,3,4].map(i=>`<line x1="${X(0)-3}" y1="${Y(i)}" x2="${X(0)+3}" y2="${Y(i)}" stroke="#9ca3af"/><text x="${X(0)-15}" y="${Y(i)+4}" font-size="10" fill="#6b7280">${i}</text>`).join('')}
+     ${q}
+     <line x1="${X(0)}" y1="${Y(0)}" x2="${X(px)}" y2="${Y(py)}" stroke="#7c3aed" stroke-width="2" stroke-dasharray="4 3"/>
+     <line x1="${X(px)}" y1="${Y(0)}" x2="${X(px)}" y2="${Y(py)}" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3"/>
+     <line x1="${X(0)}" y1="${Y(py)}" x2="${X(px)}" y2="${Y(py)}" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="3 3"/>
+     <circle cx="${X(px)}" cy="${Y(py)}" r="8" fill="#7c3aed" stroke="#fff" stroke-width="2" id="dotP"/>
+     <text x="${X(px)+12}" y="${Y(py)-8}" font-size="14" font-weight="bold" fill="#7c3aed">P(${px}, ${py})</text>
+     <text x="${X(px/2)-12}" y="${Y(0)-6}" font-size="11" fill="#dc2626">x=${px}</text>
+     <text x="${X(0)+8}" y="${Y(py/2)+4}" font-size="11" fill="#16a34a">y=${py}</text>
+    </svg>
+    <div class="box" style="margin-top:14px;background:#fef3c7">
+     <h3 id="quadrantInfo">Quadrant analysis</h3>
+     <div id="coordDesc" style="font-size:14px"></div>
+    </div>
+   </div>`;
+  const desc=px>0&&py>0?'Quadrant I · 第一象限 (+,+)':
+            px<0&&py>0?'Quadrant II · 第二象限 (−,+)':
+            px<0&&py<0?'Quadrant III · 第三象限 (−,−)':
+            px>0&&py<0?'Quadrant IV · 第四象限 (+,−)':
+            'On the axes · 在坐标轴上 (sign is mixed)';
+  const sp=Math.abs(px)+Math.abs(py);
+  el.querySelector('#coordDesc').innerHTML=`坐标 <b class="num">(${px}, ${py})</b> → ${desc}<br>到原点距离的曼哈顿距离 = |x|+|y| = <b>${sp}</b>`;
+  const svg=el.querySelector('#svgK2');
+  svg.onmousedown=e=>{drag=true;update(e);};
+  svg.onmousemove=e=>{if(drag)update(e);};
+  svg.onmouseup=svg.onmouseleave=()=>drag=false;
+  svg.ontouchstart=svg.ontouchmove=e=>{update(e.touches[0]);e.preventDefault();};
+  function update(e){
+   const r=svg.getBoundingClientRect();
+   const x=Math.round(((e.clientX-r.left)/r.width*480-240)/30);
+   const y=Math.round((240-(e.clientY-r.top)/r.height*480)/30);
+   px=Math.max(-4,Math.min(4,x)); py=Math.max(-4,Math.min(4,y));
+   render();
+  }
+ };
+ render();
+}
+
+/* ============ 微课 K3：交互式轴对称 ============ */
+function microK3(el){
+ let px=2,py=3,axis='x';
+ const render=()=>{
+  let rx,ry,rule,ruleCN;
+  if(axis==='x'){rx=px;ry=-py;rule=`(${px}, ${py}) → (${px}, ${py<0?'−'+(-py):py})`;ruleCN='关于 x 轴对称：<b>x 不变，y 变号</b>';}
+  else if(axis==='y'){rx=-px;ry=py;rule=`(${px}, ${py}) → (${px<0?'−'+(-px):px}, ${py})`;ruleCN='关于 y 轴对称：<b>y 不变，x 变号</b>';}
+  else{rx=-px;ry=-py;rule=`(${px}, ${py}) → (${px<0?'−'+(-px):px}, ${py<0?'−'+(-py):py})`;ruleCN='关于原点对称：<b>x 和 y 都变号</b>';}
+  const X=x=>240+x*30, Y=y=>240-y*30;
+  el.innerHTML=`
+   <div class="step">Micro-lesson · 拖动 P 看对称点的坐标规律</div>
+   <div class="controls">
+    <button class="${axis==='x'?'on':''}" data-a="x">Reflect across x-axis · 关于 x 轴</button>
+    <button class="${axis==='y'?'on':''}" data-a="y">Reflect across y-axis · 关于 y 轴</button>
+    <button class="${axis==='o'?'on':''}" data-a="o">Reflect across origin · 关于原点</button>
+   </div>
+   <div class="box">
+    <svg viewBox="0 0 480 480" style="background:#fafafa;border-radius:8px;cursor:crosshair" id="svgK3">
+     <defs><marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#374151"/></marker></defs>
+     <line x1="20" y1="${Y(0)}" x2="460" y2="${Y(0)}" stroke="#374151" stroke-width="2" marker-end="url(#arr3)"/>
+     <line x1="${X(0)}" y1="460" x2="${X(0)}" y2="20" stroke="#374151" stroke-width="2" marker-end="url(#arr3)"/>
+     <text x="455" y="${Y(0)-6}" font-size="14" fill="#374151">x</text>
+     <text x="${X(0)+8}" y="20" font-size="14" fill="#374151">y</text>
+     ${[-4,-3,-2,-1,1,2,3,4].map(i=>`<line x1="${X(i)}" y1="${Y(0)-3}" x2="${X(i)}" y2="${Y(0)+3}" stroke="#9ca3af"/><text x="${X(i)-3}" y="${Y(0)+15}" font-size="10" fill="#6b7280">${i}</text>`).join('')}
+     ${[-4,-3,-2,-1,1,2,3,4].map(i=>`<line x1="${X(0)-3}" y1="${Y(i)}" x2="${X(0)+3}" y2="${Y(i)}" stroke="#9ca3af"/><text x="${X(0)-15}" y="${Y(i)+4}" font-size="10" fill="#6b7280">${i}</text>`).join('')}
+     ${axis==='x'?`<line x1="20" y1="${Y(0)}" x2="460" y2="${Y(0)}" stroke="#d97706" stroke-width="3" opacity=".6"/>`:''}
+     ${axis==='y'?`<line x1="${X(0)}" y1="20" x2="${X(0)}" y2="460" stroke="#d97706" stroke-width="3" opacity=".6"/>`:''}
+     <line x1="${X(px)}" y1="${Y(py)}" x2="${X(rx)}" y2="${Y(ry)}" stroke="#7c3aed" stroke-width="2" stroke-dasharray="4 3"/>
+     <circle cx="${X(px)}" cy="${Y(py)}" r="8" fill="#7c3aed" stroke="#fff" stroke-width="2"/>
+     <circle cx="${X(rx)}" cy="${Y(ry)}" r="8" fill="#dc2626" stroke="#fff" stroke-width="2"/>
+     <text x="${X(px)+12}" y="${Y(py)-8}" font-size="13" font-weight="bold" fill="#7c3aed">P(${px},${py})</text>
+     <text x="${X(rx)+12}" y="${Y(ry)-8}" font-size="13" font-weight="bold" fill="#dc2626">P'(${rx},${ry})</text>
+    </svg>
+    <div class="box" style="margin-top:14px;background:#dbeafe">
+     <h3>The rule · 对称规律</h3>
+     <p style="font-size:16px">${rule}</p>
+     <p style="margin-top:6px;font-size:14px">${ruleCN}</p>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-top:8px">提示：拖动 P 点（或点击坐标轴切换对称轴）观察 P 和 P' 坐标的关系。</p>
+   </div>`;
+  el.querySelectorAll('[data-a]').forEach(b=>{b.onclick=()=>{axis=b.dataset.a;render();};});
+  const svg=el.querySelector('#svgK3');
+  let drag=false;
+  svg.onmousedown=()=>drag=true;
+  svg.onmousemove=e=>{if(drag)update(e);};
+  svg.onmouseup=svg.onmouseleave=()=>drag=false;
+  function update(e){
+   const r=svg.getBoundingClientRect();
+   px=Math.max(-4,Math.min(4,Math.round(((e.clientX-r.left)/r.width*480-240)/30)));
+   py=Math.max(-4,Math.min(4,Math.round((240-(e.clientY-r.top)/r.height*480)/30)));
+   render();
+  }
+ };
+ render();
+}
+
+/* ============ 学前诊断 ============ */
+function diag(el,lessonId,generator){
+ el.innerHTML=`<div class="step">Pre-check · 学前诊断</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 题快速测一下。3/3 通过则跳过讲解；有错才进微课。</p><div id="diagQ"></div></div>`;
+ const qEl=el.querySelector('#diagQ');
+ let ok=0;
+ const qs=Array.from({length:3},()=>generator('diag'));
+ let i=0;
+ const show=()=>{
+  if(i>=3){
+   st(lessonId).diag=ok;
+   if(ok===3){
+    qEl.innerHTML=`<div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>3/3 都对：</strong>这个知识点你已掌握。可跳过微课直接练习。</div><div style="margin-top:14px"><button id="skipMicro">Skip to practice · 跳过微课</button></div>`;
+    qEl.querySelector('#skipMicro').onclick=()=>{cur=`prac-${lessonId}`;render();};
+   } else {
+    qEl.innerHTML=`<div class="note" style="background:#fef3c7;border-color:var(--warn)"><strong>${ok}/3 对：</strong>看下方的微课把这块补起来。</div><div style="margin-top:14px"><button id="goMicro">Start micro-lesson · 进入微课</button></div>`;
+    qEl.querySelector('#goMicro').onclick=()=>{cur=`micro-${lessonId}`;render();};
+   }
+   save();renderNav();
+   return;
+  }
+  const q=qs[i];
+  qEl.innerHTML=`
+   <div class="q">
+    <div class="q-text">${i+1}. ${q.q}</div>
+    <div class="q-cn">${q.qcn||''}</div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+     <input type="text" id="da" autocomplete="off" placeholder="?"> <button id="sub">Submit · 提交</button>
+    </div>
+    <div class="hint" id="ht"></div>
+    <div class="feedback" id="fb"></div>
+   </div>`;
+  const input=qEl.querySelector('#da'),fb=qEl.querySelector('#fb'),ht=qEl.querySelector('#ht');
+  input.focus();
+  qEl.querySelector('#sub').onclick=check;
+  input.onkeydown=e=>{if(e.key==='Enter')check();};
+  function check(){
+   const ans=input.value.trim();
+   const correct=q.check(ans);
+   if(correct===true){ok++;fb.className='feedback show ok';fb.textContent='✓ Correct · 正确';input.disabled=true;setTimeout(()=>{i++;show();},700);}
+   else if(correct==='hint'){ht.className='hint show';ht.textContent=q.hint||'再想想看。';}
+   else{fb.className='feedback show err';fb.textContent='✗ 答案不对，再试一次。';}
+  }
+ };
+ show();
+}
+
+/* ============ 练习生成器（按知识点） ============ */
+const generators={
+k1:()=>{ // 有序数对 + 方向角
+ const type=ri(1,3);
+ if(type===1){
+  const x=ri(-4,4),y=ri(-4,4);
+  const opts=[`(${x},${y})`,`(${y},${x})`,`(${x},${-y})`,`(${-x},${y})`];
+  return {q:`Point P has x-coordinate ${x} and y-coordinate ${y}. Which is its ordered pair?`,qcn:`点 P 的 x 坐标是 ${x}，y 坐标是 ${y}。用有序数对表示 P：`,
+   check:a=>a===opts[0],ans:opts[0],opts,choice:true,hint:'Order matters: (x, y), not (y, x).'};
+ } else if(type===2){
+  const x=ri(-3,3),y=ri(-3,3);
+  return {q:`Find the point (${x}, ${y}). Which quadrant is it in?`,qcn:`点 (${x}, ${y}) 在第几象限？`,
+   check:a=>{
+    const n=parseInt(a);
+    if(x>0&&y>0)return n===1;
+    if(x<0&&y>0)return n===2;
+    if(x<0&&y<0)return n===3;
+    if(x>0&&y<0)return n===4;
+    return false;
+   },hint:`(${x}, ${y}) — x sign × y sign tells you the quadrant.`};
+ } else {
+  const a=ri(1,3),b=ri(1,3);
+  return {q:`In a grid, point A is at row ${a}, column ${b}. What is the ordered pair (column, row)?`,qcn:`网格中 A 在第 ${a} 行、第 ${b} 列，用 (列, 行) 表示：`,
+   check:a=>a===`(${b},${a})`,ans:`(${b},${a})`,hint:'In an ordered pair: x comes first (column), y second (row).'};
+ }
+},
+k2:()=>{ // 描点 + 识别坐标
+ const type=ri(1,2);
+ if(type===1){
+  const x=ri(-5,5),y=ri(-5,5);
+  return {q:`What are the coordinates of the point 3 units right of origin and 2 units up?`,qcn:`从原点向右 3 个单位、向上 2 个单位的点坐标是：`,
+   check:a=>a===`(${ri === undefined ? 3 : 3},${2})`,ans:`(3,2)`,hint:'Right is +x, up is +y.'};
+ } else {
+  const x=ri(-4,4),y=ri(-4,4);
+  return {q:`The point (${x}, ${y}) — what is its distance from the y-axis (absolute value of x)?`,qcn:`点 (${x}, ${y}) 到 y 轴的距离是：`,
+   check:a=>parseInt(a)===Math.abs(x),ans:String(Math.abs(x)),hint:'Distance from y-axis = |x|.'};
+ }
+},
+k3:()=>{ // 对称
+ const ax=['x','y','o'][ri(0,2)];
+ const x=ri(-4,4),y=ri(-4,4);
+ let rx,ry;
+ if(ax==='x'){rx=x;ry=-y;}
+ else if(ax==='y'){rx=-x;ry=y;}
+ else{rx=-x;ry=-y;}
+ return {q:`If point P = (${x}, ${y}) is reflected across the ${ax==='o'?'origin':ax+'-axis'}, what is P'?`,
+   qcn:`点 P = (${x}, ${y}) 关于${ax==='o'?'原点':ax+' 轴'}对称的点 P' 坐标是：`,
+   check:a=>{
+    const m=a.match(/^\(?\s*(-?\d+)\s*,\s*(-?\d+)\s*\)?$/);
+    if(!m)return false;
+    return parseInt(m[1])===rx&&parseInt(m[2])===ry;
+   },ans:`(${rx},${ry})`,
+   hint:ax==='x'?'(x, y) → (x, −y)':ax==='y'?'(x, y) → (−x, y)':'(x, y) → (−x, −y)'};
+},
+};
+
+/* ============ 视频模块 ============ */
+function videos(el,lessonId){
+ const list=VIDEOS[lessonId]||[];
+ if(!list.length){el.innerHTML='<div class="note">No videos for this section.</div>';return;}
+ let html=`<div class="step">Khan Academy Videos · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
+ html+=`<div class="box"><p style="font-size:13px;color:var(--muted)">可汗视频按层：<span class="tag core">Core 核心</span> 对应北师大考点必看；<span class="tag ext">Ext 拓展</span> 是可汗有但北师大讲得浅的内容，选看。</p></div>`;
+ list.forEach((v,i)=>{
+  const watched=st(lessonId).vid[i];
+  html+=`<div class="vid">
+   <div class="vid-h">
+    <span class="title">${v.t}</span>
+    <span class="cn">${v.d}</span>
+    <span class="meta">
+     <span class="tag ${v.c}">${v.c==='core'?'Core 核心':'Ext 拓展'}</span>
+     <span class="st ${watched?'ok':''}">${watched?'✓ 已看':'未看'}</span>
+     <button data-i="${i}">${watched?'▶ Replay':'▶ Play'}</button>
+    </span>
+   </div>
+   <div id="vc${i}" style="display:${watched?'block':'none'}">
+    <video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video>
+   </div>
+  </div>`;
+ });
+ el.innerHTML=html;
+ el.querySelectorAll('[data-i]').forEach(b=>{
+  b.onclick=()=>{
+   const i=parseInt(b.dataset.i);
+   const slot=el.querySelector('#vc'+i);
+   const v=slot.querySelector('video');
+   if(slot.style.display==='none'){slot.style.display='block';v.play();}
+   else{v.pause();v.currentTime=0;slot.style.display='none';}
+   st(lessonId).vid[i]=true;save();renderNav();b.textContent='▶ Replay';
+   b.parentElement.querySelector('.st').className='st ok';
+   b.parentElement.querySelector('.st').textContent='✓ 已看';
+  };
+ });
+}
+
+/* ============ 练习模块 ============ */
+function practice(el,lessonId){
+ const gen=generators[lessonId];
+ if(!gen){el.innerHTML='<div class="note">No practice for this.</div>';return;}
+ const s=st(lessonId);
+ let streak=0,need=5,q=null,ans='';
+ let diff=1; // 1=easy,2=med,3=hard
+ const pickDiff=()=>diff;
+ function newQ(){q=gen(pickDiff());}
+ const update=()=>{
+  el.innerHTML=`
+   <div class="step">Practice · 练习（${streak}/${need}）</div>
+   <div class="diff">
+    难度：
+    <button class="secondary ${diff===1?'on':''}" data-d="1">Easy 简单</button>
+    <button class="secondary ${diff===2?'on':''}" data-d="2">Medium 中等</button>
+    <button class="secondary ${diff===3?'on':''}" data-d="3">Hard 困难</button>
+    <span class="info">对 ${s.prac.ok}/${s.prac.tot}（连对 ${streak}）<button class="secondary" id="rs" style="margin-left:8px">Reset 重置</button></span>
+   </div>
+   <div class="progress"><div style="width:${(streak/need)*100}%"></div></div>
+   <div class="q">
+    <div class="q-text">${q.q}</div>
+    <div class="q-cn">${q.qcn||''}</div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+     <input type="text" id="pi" autocomplete="off" placeholder="?"> <button id="ps">Submit · 提交</button>
+    </div>
+    <div class="hint" id="ph"></div>
+    <div class="feedback" id="pf"></div>
+   </div>`;
+  el.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{diff=parseInt(b.dataset.d);update();});
+  el.querySelector('#rs').onclick=()=>{s.prac={ok:0,tot:0};streak=0;diff=1;save();update();renderNav();};
+  const inp=el.querySelector('#pi'),fb=el.querySelector('#pf'),ht=el.querySelector('#ph');
+  inp.focus();
+  el.querySelector('#ps').onclick=check;
+  inp.onkeydown=e=>{if(e.key==='Enter')check();};
+  function check(){
+   const a=inp.value.trim();
+   const r=q.check(a);
+   if(r===true){
+    streak++;s.prac.ok++;s.prac.tot++;
+    fb.className='feedback show ok';fb.textContent='✓ 正确！';
+    inp.disabled=true;
+    if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>本节过关！✓</strong>';save();renderNav();}
+    else if(streak>=3&&diff<3){diff++;}
+    setTimeout(()=>{newQ();update();},900);
+   } else if(r==='hint'){
+    ht.className='hint show';ht.textContent=q.hint||'再想想看。';
+   } else {
+    streak=0;s.prac.tot++;if(diff>1)diff--;
+    fb.className='feedback show err';fb.textContent=`✗ 答案不对，正确是 ${q.ans||'再试一次'}。`;
+    save();renderNav();
+   }
+   save();
+  }
+ };
+ newQ();update();
+}
+
+/* ============ 章末测 ============ */
+function chTest(el){
+ el.innerHTML=`<div class="step">Chapter Test · 章末检测</div><div class="box"><p style="font-size:13px;color:var(--muted)">共 8 题，覆盖本章所有知识点。计时（不计分）。</p><div id="tq"></div></div>`;
+ const tq=el.querySelector('#tq');
+ const qs=[];
+ for(let i=0;i<3;i++)qs.push(generators.k1(i+1));
+ for(let i=0;i<2;i++)qs.push(generators.k2(i+1));
+ for(let i=0;i<3;i++)qs.push(generators.k3());
+ let i=0,ok=0;
+ const show=()=>{
+  if(i>=qs.length){
+   tq.innerHTML=`<div class="note" style="background:${ok>=6?'#dcfce7':'#fef3c7'};border-color:${ok>=6?'var(--ok)':'var(--warn)'}"><strong>${ok}/${qs.length}</strong> ${ok>=6?'章末通过！可以进下一章':'再回去复习错的知识点'}</div>`;
+   S.test={ok,tot:qs.length};save();renderNav();return;
+  }
+  const q=qs[i];
+  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="ti" autocomplete="off"><button id="ts">Submit</button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
+  const inp=tq.querySelector('#ti'),fb=tq.querySelector('#tf'),ht=tq.querySelector('#th');
+  inp.focus();tq.querySelector('#ts').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
+  function check(){
+   const r=q.check(inp.value.trim());
+   if(r===true){ok++;fb.className='feedback show ok';fb.textContent='✓';inp.disabled=true;setTimeout(()=>{i++;show();},600);}
+   else if(r==='hint'){ht.className='hint show';ht.textContent=q.hint;}
+   else{fb.className='feedback show err';fb.textContent='✗';setTimeout(()=>{i++;show();},900);}
+  }
+ };
+ show();
+}
+
+/* ============ 渲染 ============ */
+function renderNav(){
+ const nav=document.getElementById('nav');
+ nav.innerHTML=LESSONS.map(l=>{
+  const s=st(l.id);
+  let stxt='';
+  if(s.done)stxt='<span class="st ok">✓</span>';
+  else if(s.prac.tot>0)stxt=`<span class="st ${s.prac.ok/s.prac.tot>0.6?'ok':'err'}">${s.prac.ok}/${s.prac.tot}</span>`;
+  return `<div class="nav-i ${l.id===cur||cur===`micro-${l.id}`||cur===`diag-${l.id}`||cur===`prac-${l.id}`?'on':''}" data-go="${l.id}">
+   <span><b>${l.n}</b> ${l.cn}</span>${stxt}</div>`;
+ }).join('');
+ nav.querySelectorAll('[data-go]').forEach(n=>n.onclick=()=>{
+  const id=n.dataset.go;
+  cur = id==='test' ? 'test' : (id==='ext' ? 'ext' : `micro-${id}`);
+  render();
+ });
+}
+
+function render(){
+ const main=document.getElementById('main');
+ renderNav();
+ if(cur==='test'){chTest(main);return;}
+ const m=cur.match(/^(diag|micro|prac)-(\w+)$/);
+ if(m){
+  const phase=m[1],id=m[2];
+  const lesson=LESSONS.find(l=>l.id===id);
+  if(!lesson){main.innerHTML='<div class="note">Unknown lesson</div>';return;}
+  if(id==='ext'){
+   main.innerHTML=`<div class="step">Extension: Transformations · 拓展：平移、旋转、缩放</div><div class="box"><p style="font-size:13px;color:var(--muted)">八年级上 Ch03 不学平移/旋转/缩放（Ch10 才学）。但理解坐标系之后，可汗的变换视频能加深"坐标 ↔ 图形变化"的直觉。</p></div>`;
+   videos(main,'ext');
+   return;
+  }
+  const titles={k1:'确定位置',k2:'平面直角坐标系',k3:'轴对称与坐标变化'};
+  main.innerHTML=`<div class="lesson-id">${lesson.n} · ${titles[id]} · ${lesson.cn}</div>`;
+  const c=document.createElement('div');main.appendChild(c);
+  if(phase==='diag'){
+   if(st(id).diag===3){cur=`micro-${id}`;render();return;}
+   diag(c,id,generators[id]);
+  } else if(phase==='micro'){
+   if(id==='k1')microK1(c);
+   else if(id==='k2')microK2(c);
+   else if(id==='k3')microK3(c);
+   const after=document.createElement('div');main.appendChild(after);
+   videos(after,id);
+   const btn=document.createElement('div');btn.style.marginTop='14px';
+   btn.innerHTML=`<button id="toPrac">Go to practice · 开始练习</button>`;
+   main.appendChild(btn);
+   btn.querySelector('#toPrac').onclick=()=>{cur=`prac-${id}`;render();};
+  } else if(phase==='prac'){
+   practice(c,id);
+  }
+ } else {
+  main.innerHTML='<div class="note">Select a lesson on the left.</div>';
+ }
+}
+render();
+</script>
+</body>
+</html>
