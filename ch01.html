@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch01 Pythagorean Theorem · 勾股定理</title>
+<style>
+:root{
+  --bg:#f7f8fa; --card:#fff; --ink:#1c2430; --mute:#6b7785; --line:#e3e8ef;
+  --accent:#2563eb; --accent2:#0ea5e9; --ok:#16a34a; --bad:#dc2626; --warn:#f59e0b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding:20px}
+header{background:linear-gradient(135deg,#2563eb,#0ea5e9);color:#fff;padding:26px 20px;border-radius:14px;margin-bottom:18px}
+header h1{font-size:24px;font-weight:700}
+header .sub{opacity:.92;font-size:14px;margin-top:4px}
+header .cn{font-size:13px;opacity:.85;margin-top:2px}
+.layout{display:grid;grid-template-columns:236px 1fr;gap:18px}
+@media(max-width:820px){.layout{grid-template-columns:1fr}}
+nav{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;height:fit-content;position:sticky;top:14px}
+.nav-i{padding:10px 12px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.nav-i:hover{background:#f1f5f9}
+.nav-i.on{background:var(--accent);color:#fff}
+.nav-i .st{font-size:11px;opacity:.85}
+main{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;min-height:520px}
+h2{font-size:19px;margin-bottom:6px}
+h3{font-size:16px;margin:18px 0 8px;color:var(--accent)}
+.cn-tag{color:var(--mute);font-weight:400;font-size:13px}
+.lead{color:var(--mute);font-size:14px;margin-bottom:14px}
+.box{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:14px;margin:12px 0}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:8px;padding:9px 16px;font-size:14px;font-weight:600;background:var(--accent);color:#fff;transition:.15s}
+button:hover{filter:brightness(1.08)}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.ghost{background:#fff;color:var(--accent);border:1px solid var(--accent)}
+button.ok{background:var(--ok)}button.bad{background:var(--bad)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.step{display:inline-block;background:#eef2ff;color:var(--accent);padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:10px}
+/* 微课 */
+.micro{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+@media(max-width:680px){.micro{grid-template-columns:1fr}}
+.fig{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center}
+.fig .cap{font-size:13px;font-weight:600;margin-bottom:6px}
+.fig .sub2{font-size:12px;color:var(--mute)}
+svg{display:block;margin:0 auto}
+.slider-row{display:flex;gap:20px;justify-content:center;align-items:center;margin:12px 0;flex-wrap:wrap}
+.slider-row label{font-size:13px;display:flex;align-items:center;gap:8px}
+input[type=range]{width:130px;accent-color:var(--accent)}
+.val{font-weight:700;color:var(--accent);min-width:56px;display:inline-block}
+.eqbox{text-align:center;font-size:17px;padding:12px;background:#fff;border:2px solid var(--accent);border-radius:10px;margin:12px 0;font-weight:700}
+.eqbox .num{color:var(--accent)}
+/* 视频 */
+.vid-item{display:flex;gap:12px;align-items:flex-start;padding:10px;border:1px solid var(--line);border-radius:10px;margin:8px 0;background:#fff}
+.vid-item .t{flex:1}
+.vid-item .t b{font-size:14px;display:block}
+.vid-item .t small{color:var(--mute);font-size:12px}
+.badge{font-size:11px;padding:2px 8px;border-radius:12px;font-weight:600;white-space:nowrap}
+.b-core{background:#dcfce7;color:#15803d}
+.b-ext{background:#fef3c7;color:#a16207}
+video{width:100%;max-width:520px;border-radius:8px;background:#000;display:block;margin:8px 0}
+/* 练习 */
+.q{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0}
+.q .qt{font-size:15px;margin-bottom:10px}
+.opt{display:block;width:100%;text-align:left;padding:10px 14px;margin:6px 0;border:1.5px solid var(--line);border-radius:8px;background:#fff;font-size:14px;font-family:inherit}
+.opt:hover:not(:disabled){border-color:var(--accent);background:#f0f7ff}
+.opt.sel-ok{border-color:var(--ok);background:#dcfce7}
+.opt.sel-bad{border-color:var(--bad);background:#fee2e2}
+.fb{margin-top:10px;padding:10px;border-radius:8px;font-size:13px;display:none}
+.fb.ok{display:block;background:#dcfce7;color:#15803d}
+.fb.bad{display:block;background:#fee2e2;color:#b91c1c}
+.hint{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px;font-size:13px;margin-top:8px;display:none}
+.hint.on{display:block}
+.prog{height:8px;background:#e5e7eb;border-radius:4px;overflow:hidden;margin:10px 0}
+.prog i{display:block;height:100%;background:var(--ok);transition:.3s}
+.stat{display:flex;gap:14px;font-size:13px;color:var(--mute);flex-wrap:wrap}
+.stat b{color:var(--ink)}
+.mastery{font-size:12px;padding:3px 10px;border-radius:12px;font-weight:600}
+.m-none{background:#f1f5f9;color:#64748b}.m-fam{background:#fef3c7;color:#a16207}
+.m-pro{background:#dbeafe;color:#1d4ed8}.m-mas{background:#dcfce7;color:#15803d}
+.note{font-size:12px;color:var(--mute);margin-top:6px}
+.credit{margin-top:22px;padding:12px;border-top:1px solid var(--line);font-size:12px;color:var(--mute)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Chapter 1 · Pythagorean Theorem</h1>
+  <div class="sub">Grade 8 · BNU Edition · 4 lessons</div>
+  <div class="cn">北师大版 八年级上册 第一章 勾股定理（4 课时）</div>
+</header>
+
+<div class="layout">
+  <nav id="nav"></nav>
+  <main id="main"></main>
+</div>
+
+<div class="credit">
+  Video content source: Khan Academy · CC BY-NC-SA. 视频内容来源：可汗学院（CC BY-NC-SA 许可，署名-非商业-相同方式共享）.<br>
+  本页为 学习原型（测试站），仅用于自学练习。
+</div>
+</div>
+
+<script>
+/* ============ 数据：Ch01 视频（测试站线上路径） ============ */
+const VDIR = 'videos/Ch01_勾股定理/';
+const V = {
+  k1: [
+    {f:'01_The Pythagorean theorem intro.mp4', t:'Intro to the Pythagorean theorem', c:'core', d:'概念引入：斜边与两条直角边'},
+    {f:'02_Pythagorean theorem.mp4', t:'Pythagorean theorem', c:'core', d:'定理的标准表述与用法'},
+    {f:'03_Pythagorean theorem 1.mp4', t:'Pythagorean theorem 1', c:'core', d:'入门例题'},
+    {f:'04_Pythagorean theorem 2.mp4', t:'Pythagorean theorem 2', c:'core', d:'进阶例题'},
+    {f:'05_Pythagorean theorem 3.mp4', t:'Pythagorean theorem 3', c:'core', d:'变式演练'},
+    {f:'06_Bhaskara\'s proof of the Pythagorean theorem.mp4', t:"Bhaskara's proof", c:'ext', d:'为什么成立 · 证法一（印度）'},
+    {f:'07_Another Pythagorean theorem proof.mp4', t:'Another proof', c:'ext', d:'为什么成立 · 证法二'},
+    {f:'08_Garfield\'s proof of the Pythagorean theorem.mp4', t:"Garfield's proof", c:'ext', d:'为什么成立 · 证法三（梯形）'},
+    {f:'09_Pythagorean theorem proof using similarity.mp4', t:'Proof using similarity', c:'ext', d:'为什么成立 · 证法四（相似）'}
+  ],
+  k2: [
+    {f:'10_Converse of Pythagoras Theorem.mp4', t:'Converse of Pythagoras Theorem', c:'core', d:'逆定理：一定是直角三角形吗'}
+  ],
+  k3: [
+    {f:'12_Pythagorean theorem in 3D.mp4', t:'Pythagorean theorem in 3D', c:'core', d:'立体情形：长方体对角线'},
+    {f:'11_Distance formula.mp4', t:'Distance formula', c:'core', d:'两点间距离公式'}
+  ],
+  k4: [
+    {f:'13_Algebraic midpoint of a segment exercise.mp4', t:'Midpoint of a segment', c:'ext', d:'线段中点（拓展）'}
+  ]
+};
+
+/* ============ 状态 ============ */
+const KEY='bnu8_ch01_state';
+let S = load();
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY)) || {}; }catch(e){ return {}; } }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+const LESSONS=[
+  {id:'k1', t:'Exploring the Theorem', cn:'探索勾股定理', n:'1.1'},
+  {id:'k2', t:'Is It Right? (Converse)', cn:'一定是直角三角形吗', n:'1.2'},
+  {id:'k3', t:'Applications', cn:'勾股定理的应用', n:'1.3'},
+  {id:'k4', t:'Strategy: Reflect', cn:'问题解决策略：反思', n:'1.4'},
+  {id:'test', t:'Chapter Test', cn:'章末检测', n:'Test'}
+];
+let cur='k1';
+function st(id){ return S[id] || (S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false}); }
+
+/* ============ 工具 ============ */
+function ri(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
+function pick(a){ return a[ri(0,a.length-1)]; }
+function gcd(a,b){ return b?gcd(b,a%b):a; }
+const PYTH=[[3,4,5],[5,12,13],[6,8,10],[7,24,25],[8,15,17],[9,12,15],[9,40,41],[10,24,26],[12,16,20],[15,20,25],[12,35,37],[11,60,61],[20,21,29],[18,24,30],[16,30,34],[21,28,35]];
+
+/* ============ 生成式练习引擎 ============ */
+function genQ(type,diff){
+  // diff 1..3
+  if(type==='hyp'){
+    let a,b,c;
+    if(diff===1){ const p=pick(PYTH.filter(x=>x[0]<=9&&x[1]<=12)); a=p[0];b=p[1];c=p[2]; }
+    else if(diff===2){ const p=pick(PYTH.filter(x=>x[2]<=26)); a=p[0];b=p[1];c=p[2]; }
+    else { a=ri(3,20); b=ri(3,20); c=Math.sqrt(a*a+b*b);
+           if(Math.abs(c-Math.round(c))>1e-9){ b=Math.round(Math.sqrt(Math.pow(Math.ceil(c),2)-a*a)); c=Math.ceil(c); }
+           c=Math.round(c); }
+    return {q:`A right triangle has legs <b>a = ${a}</b> and <b>b = ${b}</b>. Find the hypotenuse <b>c</b>.<br><span class="cn-tag">直角三角形两直角边为 ${a} 和 ${b}，求斜边</span>`,
+            ans:c, unit:'',
+            sol:`c² = a² + b² = ${a}² + ${b}² = ${a*a} + ${b*b} = ${a*a+b*b}，所以 c = ${c}`};
+  }
+  if(type==='leg'){
+    let p=pick(diff===1?PYTH.filter(x=>x[2]<=15):PYTH);
+    let [a,b,c]=p; let give=(Math.random()<0.5)?a:b; let ask=(give===a)?b:a;
+    return {q:`A right triangle has hypotenuse <b>c = ${c}</b> and one leg <b>${give}</b>. Find the other leg.<br><span class="cn-tag">斜边 ${c}，一条直角边 ${give}，求另一条直角边</span>`,
+            ans:ask,
+            sol:`设另一直角边为 x：x² + ${give}² = ${c}²，x² = ${c*c} − ${give*give} = ${c*c-give*give}，x = ${ask}`};
+  }
+  if(type==='conv'){
+    const p=pick(PYTH); let [a,b,c]=p;
+    const isRight = Math.random()<0.5;
+    let arr;
+    if(isRight){ arr=[a,b,c]; }
+    else { let d=c+ri(1,3); arr=[a,b,d]; }
+    // 打乱
+    for(let i=arr.length-1;i>0;i--){ const j=ri(0,i); [arr[i],arr[j]]=[arr[j],arr[i]]; }
+    return {q:`Do sides <b>${arr[0]}</b>, <b>${arr[1]}</b>, <b>${arr[2]}</b> form a right triangle?<br><span class="cn-tag">三边为 ${arr.join('、')}，能组成直角三角形吗</span>`,
+            ans:isRight?'Yes':'No', isRight:isRight, sides:arr,
+            sol:isRight? `${arr.slice().sort((x,y)=>x-y).join('² + ')}² : 较小两边平方和 = ${Math.min(...arr)**2 + (arr.reduce((s,x)=>s+x,0)-Math.max(...arr)-Math.min(...arr))**2}，最大边平方 = ${Math.max(...arr)**2}，相等 → 是直角三角形`
+                      : `最大边 ${Math.max(...arr)} 的平方 = ${Math.max(...arr)**2}；另两边平方和 = ${arr.filter(x=>x!==Math.max(...arr)).map(x=>x*x).join(' + ')} = ${arr.filter(x=>x!==Math.max(...arr)).reduce((s,x)=>s+x*x,0)}。不相等 → 不是直角三角形`};
+  }
+  if(type==='word'){
+    const scenes=[
+      {cn:'梯子靠墙', en:'A ladder of length L leans against a wall. Its foot is D from the wall. How high up the wall does it reach?', ask:'h'},
+      {cn:'旗杆拉绳', en:'A flagpole is H tall. A rope is tied from the top to a stake D from the base. How long is the rope?', ask:'r'},
+      {cn:'折竹', en:'A bamboo of total length L breaks so the top touches the ground D from the base. How high is the break?', ask:'h'}
+    ];
+    const sc=pick(scenes);
+    if(sc.ask==='h'){
+      const p=pick(PYTH.filter(x=>x[2]<=25)); let [d,h,l]=p;
+      return {q:`${sc.en.replace('L',l).replace('D',d)}<br><span class="cn-tag">${sc.cn}：${l} 长的${sc.cn==='折竹'?'竹子':'梯子'}，底端距 ${d}，求高度</span>`,
+              ans:h, sol:`h² + ${d}² = ${l}²，h² = ${l*l} − ${d*d} = ${l*l-d*d}，h = ${h}`};
+    } else if(sc.ask==='r'){
+      const p=pick(PYTH.filter(x=>x[2]<=25)); let [d,h,r]=p;
+      return {q:`${sc.en.replace('H',h).replace('D',d)}<br><span class="cn-tag">${sc.cn}：杆高 ${h}，绳桩距底 ${d}，求绳长</span>`,
+              ans:r, sol:`r² = ${h}² + ${d}² = ${h*h+d*d}，r = ${r}`};
+    } else {
+      const p=pick(PYTH.filter(x=>x[2]<=25)); let [d,h,l]=p;
+      return {q:`${sc.en.replace('L',l).replace('D',d)}<br><span class="cn-tag">${sc.cn}：竹长 ${l}，折断后顶端距底 ${d}，求折点高度</span>`,
+              ans:h, sol:`设折点高 h：折断部分长 ${l}−h，有 h² + ${d}² = (${l}−h)²，解得 h = ${h}`};
+    }
+  }
+}
+
+function renderQ(el,q,onAns,showHint){
+  el.innerHTML=`<div class="q"><div class="qt">${q.q}</div><div id="opts"></div>
+    <div class="row"><button class="ghost" id="hb">Hint 提示</button></div>
+    <div class="hint" id="hint">${q.hint||'先找出最大边（斜边），再套 a² + b² = c²。'}</div>
+    <div class="fb" id="fb"></div></div>`;
+  const od=el.querySelector('#opts');
+  let opts;
+  if(q.ans==='Yes'||q.ans==='No'){ opts=['Yes','No']; }
+  else{
+    const n=q.ans;
+    opts=[n, n+ri(1,3), Math.max(1,n-ri(1,3)), n+ri(4,8)];
+    opts=[...new Set(opts)]; while(opts.length<4) opts.push(n+ri(-3,9));
+    opts=[...new Set(opts)].slice(0,4);
+  }
+  opts.sort(()=>Math.random()-0.5);
+  opts.forEach(o=>{
+    const b=document.createElement('button');
+    b.className='opt'; b.innerHTML=String(o);
+    b.onclick=()=>{
+      od.querySelectorAll('.opt').forEach(x=>x.disabled=true);
+      const ok = String(o)===String(q.ans);
+      b.classList.add(ok?'sel-ok':'sel-bad');
+      if(!ok) od.querySelectorAll('.opt').forEach(x=>{ if(x.innerHTML===String(q.ans)) x.classList.add('sel-ok'); });
+      const fb=el.querySelector('#fb');
+      fb.className='fb '+(ok?'ok':'bad');
+      fb.innerHTML=(ok?'✓ Correct. ':'✗ Not quite. ')+q.sol;
+      onAns(ok);
+    };
+    od.appendChild(b);
+  });
+  el.querySelector('#hb').onclick=()=>el.querySelector('#hint').classList.add('on');
+}
+
+/* ============ 微课 K1：双图等面积法 ============ */
+function microK1(el){
+  let a=3,b=4;
+  el.innerHTML=`
+    <div class="step">Interactive Micro-lesson · 可交互微课</div>
+    <h3>Why is a² + b² = c²? <span class="cn-tag">为什么勾股定理成立</span></h3>
+    <div class="lead">北师大教材通常直接给出结论。下面用「两个等面积的大正方形」来证明它 —— 拖动滑块改变 a、b，看数字如何始终成立。</div>
+    <div class="slider-row">
+      <label>a = <input type="range" id="ra" min="1" max="8" value="3"><span class="val" id="va">3</span></label>
+      <label>b = <input type="range" id="rb" min="1" max="8" value="4"><span class="val" id="vb">4</span></label>
+    </div>
+    <div class="micro">
+      <div class="fig"><div class="cap">Left square <span class="cn-tag">左图</span></div>
+        <div class="sub2">4 triangles + 1 square of side c</div>
+        <svg id="svgL" viewBox="0 0 240 240" width="230" height="230"></svg>
+        <div class="sub2">面积 = 4×(½ab) + <b>c²</b></div>
+      </div>
+      <div class="fig"><div class="cap">Right square <span class="cn-tag">右图</span></div>
+        <div class="sub2">4 triangles + a² square + b² square</div>
+        <svg id="svgR" viewBox="0 0 240 240" width="230" height="230"></svg>
+        <div class="sub2">面积 = 4×(½ab) + <b>a² + b²</b></div>
+      </div>
+    </div>
+    <div class="eqbox" id="eq"></div>
+    <div class="box"><b>结论 Conclusion：</b>两个大正方形边长都是 a+b，面积相等；两边都减去同样的 4 个直角三角形，剩下的必然相等 —— 所以 <b>c² = a² + b²</b>。<br>
+    <span class="cn-tag">这就是勾股定理的证明思路：等面积法。</span></div>
+    <div class="row"><button id="next1">下一步：看视频讲解 →</button></div>`;
+  const draw=()=>{
+    const s=a+b, c2=a*a+b*b, c=Math.sqrt(c2);
+    const SC=200/s, ox=20, oy=20;
+    const X=v=>ox+v*SC, Y=v=>oy+(s-v)*SC; // Y 翻转（SVG y 向下）
+    // 左图
+    let L=`<rect x="${X(0)}" y="${Y(s)}" width="${s*SC}" height="${s*SC}" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>`;
+    const P=[[b,0],[s,b],[a,s],[0,a]];
+    [[[0,0],[b,0],[0,a]],[[s,0],[s,b],[b,0]],[[s,s],[a,s],[s,b]],[[0,s],[0,a],[a,s]]].forEach((t,i)=>{
+      L+=`<polygon points="${t.map(p=>X(p[0])+','+Y(p[1])).join(' ')}" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="1.5"/>`;
+    });
+    L+=`<polygon points="${P.map(p=>X(p[0])+','+Y(p[1])).join(' ')}" fill="#fecaca" stroke="#dc2626" stroke-width="2"/>`;
+    L+=`<text x="${X(a/2+1)}" y="${Y(s/2)}" font-size="13" fill="#dc2626" font-weight="bold">c²=${c2}</text>`;
+    el.querySelector('#svgL').innerHTML=L;
+    // 右图
+    let R=`<rect x="${X(0)}" y="${Y(s)}" width="${s*SC}" height="${s*SC}" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>`;
+    R+=`<rect x="${X(0)}" y="${Y(s)}" width="${a*SC}" height="${a*SC}" fill="#bbf7d0" stroke="#15803d" stroke-width="2"/>`;
+    R+=`<text x="${X(a/2)}" y="${Y(s-a/2)}" font-size="13" fill="#15803d" font-weight="bold">a²=${a*a}</text>`;
+    R+=`<rect x="${X(a)}" y="${Y(b)}" width="${b*SC}" height="${b*SC}" fill="#fde68a" stroke="#a16207" stroke-width="2"/>`;
+    R+=`<text x="${X(a+b/2)}" y="${Y(b/2)}" font-size="13" fill="#a16207" font-weight="bold">b²=${b*b}</text>`;
+    [[[0,0],[a,0],[a,b]],[[0,0],[a,b],[0,b]],[[a,b],[s,b],[a,s]],[[a,b],[s,s],[a,s]]].forEach(t=>{
+      R+=`<polygon points="${t.map(p=>X(p[0])+','+Y(p[1])).join(' ')}" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="1.5"/>`;
+    });
+    el.querySelector('#svgR').innerHTML=R;
+    el.querySelector('#eq').innerHTML=
+      `a² + b² = <span class="num">${a}² + ${b}² = ${a*a} + ${b*b} = ${c2}</span> = c² &nbsp;&nbsp;→&nbsp;&nbsp; c = √${c2} ≈ ${c.toFixed(2)}`;
+  };
+  const ra=el.querySelector('#ra'), rb=el.querySelector('#rb');
+  ra.oninput=()=>{a=+ra.value; el.querySelector('#va').textContent=a; draw();};
+  rb.oninput=()=>{b=+rb.value; el.querySelector('#vb').textContent=b; draw();};
+  draw();
+  el.querySelector('#next1').onclick=()=>{ document.getElementById('vidk1').scrollIntoView({behavior:'smooth'}); };
+}
+
+/* ============ 微课 K2：逆定理判定器 ============ */
+function microK2(el){
+  el.innerHTML=`
+    <div class="step">Interactive Micro-lesson · 可交互微课</div>
+    <h3>Converse: is it a right triangle? <span class="cn-tag">逆定理：一定是直角三角形吗</span></h3>
+    <div class="lead">定理是「直角 → a²+b²=c²」；逆定理是「a²+b²=c² → 直角」。方向相反，别搞混。拖动三边看判定结果。</div>
+    <div class="slider-row">
+      <label>边1 <input type="range" id="s1" min="1" max="20" value="3"><span class="val" id="v1">3</span></label>
+      <label>边2 <input type="range" id="s2" min="1" max="20" value="4"><span class="val" id="v2">4</span></label>
+      <label>边3 <input type="range" id="s3" min="1" max="25" value="6"><span class="val" id="v3">6</span></label>
+    </div>
+    <div class="eqbox" id="verdict"></div>
+    <div class="box" id="detail"></div>
+    <div class="box"><b>注意：</b>判定前先<b>找出最大边</b>当作 c，再看较小两边的平方和是否等于 c²。
+    若 a²+b² &gt; c² 是锐角三角形，若 a²+b² &lt; c² 是钝角三角形。<br>
+    <span class="cn-tag">北师大常考「一定是直角三角形吗」，关键就在这三种情况。</span></div>`;
+  const upd=()=>{
+    const v=[+el.querySelector('#s1').value,+el.querySelector('#s2').value,+el.querySelector('#s3').value];
+    const mx=Math.max(...v), rest=v.filter((x,i)=>x!==mx||i!==v.indexOf(mx));
+    const s2=rest[0]*rest[0]+rest[1]*rest[1], m2=mx*mx;
+    const canTri = rest[0]+rest[1]>mx;
+    let txt,bg;
+    if(!canTri){ txt=`✗ 不能构成三角形（${rest[0]} + ${rest[1]} ≤ ${mx}）`; bg='#fee2e2'; }
+    else if(s2===m2){ txt=`✓ 是直角三角形（right triangle）`; bg='#dcfce7'; }
+    else if(s2>m2){ txt=`锐角三角形（acute）· a²+b² > c²`; bg='#fef3c7'; }
+    else { txt=`钝角三角形（obtuse）· a²+b² < c²`; bg='#fee2e2'; }
+    const vd=el.querySelector('#verdict'); vd.innerHTML=txt; vd.style.background=bg;
+    el.querySelector('#detail').innerHTML=
+      `最大边 ${mx}：${mx}² = <b>${m2}</b><br>另两边平方和：${rest[0]}² + ${rest[1]}² = ${rest[0]*rest[0]} + ${rest[1]*rest[1]} = <b>${s2}</b><br>
+       比较：${s2} ${s2===m2?'=':(s2>m2?'>':'<')} ${m2}`;
+  };
+  [1,2,3].forEach(i=>{
+    const s=el.querySelector('#s'+i);
+    s.oninput=()=>{ el.querySelector('#v'+i).textContent=s.value; upd(); };
+  });
+  upd();
+}
+
+/* ============ 微课 K3：应用 ============ */
+function microK3(el){
+  el.innerHTML=`
+    <div class="step">Interactive Micro-lesson · 可交互微课</div>
+    <h3>Real-world applications <span class="cn-tag">勾股定理的应用</span></h3>
+    <div class="lead">可汗的应用题是美式情境（地毯、渔船）。北师大考的是旗杆、梯子、池塘、折竹 —— 下面用中国孩子熟悉的情境。</div>
+    <div class="box">
+      <b>解题四步：</b><br>
+      1. 画图，标出直角三角形 Draw & label<br>
+      2. 分清斜边和直角边 Identify c<br>
+      3. 列式 a² + b² = c²<br>
+      4. 求解并检查单位是否合理 Check<br>
+      <span class="cn-tag">「反思」这一步最容易漏：算完要回头看答案是否符合实际。</span>
+    </div>
+    <div class="slider-row">
+      <label>墙高 h <input type="range" id="hh" min="3" max="15" value="8"><span class="val" id="vhh">8</span></label>
+      <label>距墙 d <input type="range" id="dd" min="1" max="15" value="6"><span class="val" id="vdd">6</span></label>
+    </div>
+    <div class="fig"><div class="cap">梯子问题 Ladder problem</div>
+      <svg id="svgW" viewBox="0 0 320 220" width="300" height="206"></svg>
+      <div class="sub2" id="wcalc"></div></div>`;
+  const draw=()=>{
+    const h=+el.querySelector('#hh').value, d=+el.querySelector('#dd').value;
+    const L=Math.sqrt(h*h+d*d);
+    const SC=180/Math.max(h,d,10);
+    const bx=40, by=190;
+    let g=`<line x1="${bx}" y1="${by}" x2="${bx+d*SC}" y2="${by}" stroke="#1c2430" stroke-width="2"/>
+           <line x1="${bx}" y1="${by}" x2="${bx}" y2="${by-h*SC}" stroke="#1c2430" stroke-width="2"/>
+           <line x1="${bx}" y1="${by-h*SC}" x2="${bx+d*SC}" y2="${by}" stroke="#2563eb" stroke-width="3"/>
+           <text x="${bx+d*SC/2-16}" y="${by+16}" font-size="12" fill="#1c2430">d = ${d}</text>
+           <text x="${bx-28}" y="${by-h*SC/2}" font-size="12" fill="#1c2430">h = ${h}</text>
+           <text x="${bx+d*SC/2+10}" y="${by-h*SC/2-6}" font-size="13" fill="#2563eb" font-weight="bold">L = ${L.toFixed(2)}</text>`;
+    el.querySelector('#svgW').innerHTML=g;
+    el.querySelector('#wcalc').innerHTML=
+      `L² = h² + d² = ${h}² + ${d}² = ${h*h} + ${d*d} = ${h*h+d*d} &nbsp;→&nbsp; L = √${h*h+d*d} ≈ <b>${L.toFixed(2)}</b>`;
+  };
+  el.querySelector('#hh').oninput=()=>{el.querySelector('#vhh').textContent=el.querySelector('#hh').value;draw();};
+  el.querySelector('#dd').oninput=()=>{el.querySelector('#vdd').textContent=el.querySelector('#dd').value;draw();};
+  draw();
+}
+
+/* ============ 视频列表 ============ */
+function videos(el,list,id){
+  el.innerHTML=`<h3>Videos <span class="cn-tag">视频（来源：可汗学院）</span></h3>
+    <div class="lead">标记 <span class="badge b-core">Core 核心</span> 对应北师大考点，必看；<span class="badge b-ext">Ext 拓展</span> 是「为什么成立」的多种证法，学有余力再看。</div>`;
+  list.forEach((v,i)=>{
+    const d=document.createElement('div'); d.className='vid-item';
+    d.innerHTML=`<div class="t"><b>${v.t}</b><small>${v.d}</small>
+      <span class="badge ${v.c==='core'?'b-core':'b-ext'}">${v.c==='core'?'Core 核心':'Ext 拓展'}</span></div>`;
+    const b=document.createElement('button'); b.className='ghost'; b.textContent='▶ Play';
+    b.onclick=()=>{
+      let p=d.querySelector('video');
+      if(!p){
+        p=document.createElement('video'); p.controls=true; p.preload='metadata';
+        p.src=encodeURI(VDIR+v.f);
+        d.appendChild(p);
+        st(id).vid[i]=true; save(); renderNav();
+      }
+      p.scrollIntoView({behavior:'smooth',block:'center'}); p.play();
+    };
+    d.appendChild(b); el.appendChild(d);
+  });
+}
+
+/* ============ 诊断 ============ */
+function diag(el,id,types){
+  const s=st(id);
+  if(s.diag){ 
+    el.innerHTML=`<div class="box"><b>Pre-check 学前诊断：</b>${s.diag.pass?
+      '✓ 全部答对，可以直接进入练习。':'已完成，有错题 → 先看微课和视频。'}</div>`;
+    return; 
+  }
+  el.innerHTML=`<div class="step">Step 1 · Pre-check 学前诊断</div>
+    <div class="lead">3 道题。全对说明你已掌握，可跳过讲解直接练习；有错才需要看微课。<span class="cn-tag">这是可汗「先测再学」的思路。</span></div>
+    <div id="dq"></div><div class="row"><button id="ddone" disabled>提交诊断</button></div>`;
+  const box=el.querySelector('#dq');
+  let ok=0, done=0, qs=types.map(t=>genQ(t,1));
+  qs.forEach(q=>{
+    const d=document.createElement('div');
+    box.appendChild(d);
+    renderQ(d,q,r=>{ if(r)ok++; done++; if(done===qs.length){ const b=el.querySelector('#ddone'); b.disabled=false; } },true);
+  });
+  el.querySelector('#ddone').onclick=()=>{
+    s.diag={ok:ok,tot:qs.length,pass:ok===qs.length}; save();
+    el.innerHTML=`<div class="box"><b>诊断结果：${ok}/${qs.length}</b><br>
+      ${ok===qs.length?'✓ 全对 —— 直接进练习。':'建议先看微课和视频，再进练习。'}</div>`;
+  };
+}
+
+/* ============ 练习 ============ */
+function prac(el,id,types,need){
+  const s=st(id);
+  el.innerHTML=`<div class="step">Step 3 · Practice 练习</div>
+    <div class="lead">题目由程序实时生成，每次都不一样（可汗的题目也是程序生成的）。过关线：连续答对 ${need} 题。<span class="cn-tag">掌握度：${need} 题全对视为熟练。</span></div>
+    <div class="stat"><span>本轮连对：<b id="streak">0</b>/${need}</span>
+      <span>累计：<b id="cum">${s.prac.ok}/${s.prac.tot}</b></span>
+      <span id="mast"></span></div>
+    <div class="prog"><i id="pb" style="width:0%"></i></div>
+    <div id="pq"></div><div class="row"><button id="nq">下一题</button><button class="ghost" id="reset">重置掌握度</button></div>`;
+  let streak=0, diff=1;
+  const upd=()=>{
+    el.querySelector('#streak').textContent=streak;
+    el.querySelector('#cum').textContent=s.prac.ok+'/'+s.prac.tot;
+    el.querySelector('#pb').style.width=Math.min(100,streak/need*100)+'%';
+    const m=el.querySelector('#mast');
+    if(streak>=need){ m.innerHTML='<span class="mastery m-pro">Proficient 熟练</span>'; }
+    else if(s.prac.tot>0&&s.prac.ok/s.prac.tot>=0.7){ m.innerHTML='<span class="mastery m-fam">Familiar 熟悉</span>'; }
+    else m.innerHTML='<span class="mastery m-none">Not started 未开始</span>';
+  };
+  const next=()=>{
+    const box=el.querySelector('#pq'); box.innerHTML='';
+    const d=document.createElement('div'); box.appendChild(d);
+    const q=genQ(pick(types),diff);
+    renderQ(d,q,r=>{
+      s.prac.tot++; if(r){s.prac.ok++; streak++; if(streak>=3)diff=Math.min(3,diff+1);}
+      else {streak=0; diff=Math.max(1,diff-1);}
+      if(streak>=need){ s.done=true; save(); renderNav(); }
+      save(); upd();
+    },true);
+    upd();
+  };
+  el.querySelector('#nq').onclick=next;
+  el.querySelector('#reset').onclick=()=>{ s.prac={ok:0,tot:0}; s.done=false; streak=0; save(); upd(); renderNav(); };
+  next();
+}
+
+/* ============ 章末测 ============ */
+function chTest(el){
+  el.innerHTML=`<div class="step">Chapter Test · 章末检测</div>
+    <div class="lead">8 道题，覆盖本章 4 个知识点。全部独立完成，不看提示。<span class="cn-tag">对应可汗的 Unit test。</span></div>
+    <div id="tq"></div><div class="row"><button id="sub">提交</button></div><div id="res"></div>`;
+  const box=el.querySelector('#tq');
+  const types=['hyp','leg','conv','word','hyp','leg','conv','word'];
+  const qs=types.map((t,i)=>genQ(t, i<4?1:2));
+  let ans=[];
+  qs.forEach((q,i)=>{
+    const d=document.createElement('div');
+    d.innerHTML=`<div class="q"><div class="qt"><b>Q${i+1}.</b> ${q.q}</div><div id="o"></div></div>`;
+    box.appendChild(d);
+    const od=d.querySelector('#o');
+    let opts = (q.ans==='Yes'||q.ans==='No')?['Yes','No']:
+      [...new Set([q.ans,q.ans+ri(1,3),Math.max(1,q.ans-ri(1,3)),q.ans+ri(4,7)])].slice(0,4);
+    opts.sort(()=>Math.random()-0.5);
+    let sel=null;
+    opts.forEach(o=>{
+      const b=document.createElement('button'); b.className='opt'; b.innerHTML=String(o);
+      b.onclick=()=>{ od.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel-ok'));
+        b.classList.add('sel-ok'); ans[i]=String(o); };
+      od.appendChild(b);
+    });
+  });
+  el.querySelector('#sub').onclick=()=>{
+    let ok=0; qs.forEach((q,i)=>{ if(ans[i]===String(q.ans)) ok++; });
+    S.test={ok:ok,tot:qs.length}; save(); renderNav();
+    el.querySelector('#res').innerHTML=`<div class="box"><b>得分：${ok}/${qs.length}</b><br>
+      ${ok>=7?'✓ 本章掌握良好。':ok>=5?'△ 基本掌握，错题再看一遍微课。':'✗ 建议重学本章后再测。'}</div>`;
+    qs.forEach((q,i)=>{
+      el.querySelector('#res').innerHTML+=`<div class="q"><b>Q${i+1}</b> 你的答案 ${ans[i]||'未答'} · 正确 ${q.ans}<br><span class="cn-tag">${q.sol}</span></div>`;
+    });
+  };
+}
+
+/* ============ 渲染 ============ */
+function renderNav(){
+  const n=document.getElementById('nav'); n.innerHTML='';
+  LESSONS.forEach(l=>{
+    const s=st(l.id);
+    let badge='';
+    if(l.id==='test'){ if(S.test) badge=`<span class="st">${S.test.ok}/${S.test.tot}</span>`; }
+    else if(s.done) badge='<span class="st">✓</span>';
+    else if(s.prac.tot>0) badge=`<span class="st">${s.prac.ok}/${s.prac.tot}</span>`;
+    const d=document.createElement('div');
+    d.className='nav-i'+(l.id===cur?' on':'');
+    d.innerHTML=`<span>${l.n} ${l.t}</span>${badge}`;
+    d.onclick=()=>{ cur=l.id; render(); };
+    n.appendChild(d);
+  });
+}
+function render(){
+  renderNav();
+  const m=document.getElementById('main'); m.innerHTML='';
+  const L=LESSONS.find(x=>x.id===cur);
+  const h=document.createElement('h2'); h.innerHTML=`${L.n} ${L.t} <span class="cn-tag">${L.cn}</span>`;
+  m.appendChild(h);
+
+  if(cur==='k1'){
+    const d=document.createElement('div'); microK1(d); m.appendChild(d);
+    const v=document.createElement('div'); v.id='vidk1'; videos(v,V.k1,'k1'); m.appendChild(v);
+    const p=document.createElement('div'); diag(p,'k1',['hyp','leg','conv']); m.appendChild(p);
+    const pr=document.createElement('div'); prac(pr,'k1',['hyp','leg','conv'],5); m.appendChild(pr);
+  }
+  else if(cur==='k2'){
+    const d=document.createElement('div'); microK2(d); m.appendChild(d);
+    const v=document.createElement('div'); videos(v,V.k2,'k2'); m.appendChild(v);
+    const pr=document.createElement('div'); prac(pr,'k2',['conv'],5); m.appendChild(pr);
+  }
+  else if(cur==='k3'){
+    const d=document.createElement('div'); microK3(d); m.appendChild(d);
+    const v=document.createElement('div'); videos(v,V.k3,'k3'); m.appendChild(v);
+    const pr=document.createElement('div'); prac(pr,'k3',['word','hyp','leg'],5); m.appendChild(pr);
+  }
+  else if(cur==='k4'){
+    m.innerHTML+=`<div class="lead">北师大本章第 4 课时是「问题解决策略：反思」—— 教孩子在解完题后回头检验。可汗没有对应内容，这一节由我们自建。</div>`;
+    const d=document.createElement('div');
+    d.innerHTML=`<div class="box">
+      <h3>反思四问 <span class="cn-tag">Problem-solving strategy: reflect</span></h3>
+      <b>1. 答案合理吗？</b> 梯子长 2 米却靠上 10 米高的墙？不可能。<br>
+      <b>2. 斜边找对了吗？</b> 斜边一定是<b>最长</b>的那条，且对着直角。<br>
+      <b>3. 单位统一了吗？</b> 米和厘米混用是常见错误。<br>
+      <b>4. 有别的解法吗？</b> 用面积法、用方程，看结果是否一致。<br>
+      <div class="note">可汗学院没有这一节 —— 这是中国教材特有的教学设计。</div></div>`;
+    m.appendChild(d);
+    const v=document.createElement('div'); videos(v,V.k4,'k4'); m.appendChild(v);
+    const pr=document.createElement('div'); prac(pr,'k4',['word','conv'],4); m.appendChild(pr);
+  }
+  else if(cur==='test'){
+    const d=document.createElement('div'); chTest(d); m.appendChild(d);
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+render();
+</script>
+</body>
+</html>
