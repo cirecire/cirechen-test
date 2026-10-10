@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Chapter 6 · Data Analysis · BNU 8th Grade Math</title>
+<style>
+:root{
+ --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
+ --accent:#7c3aed; --ok:#16a34a; --err:#dc2626; --warn:#d97706;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.wrap{display:grid;grid-template-columns:240px 1fr;gap:18px;max-width:1200px;margin:0 auto;padding:18px}
+header{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;padding:22px 26px;border-radius:14px;margin-bottom:14px;grid-column:1/-1}
+header h1{font-size:22px;margin-bottom:4px}
+header p{opacity:.92;font-size:13px}
+nav{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;height:fit-content;position:sticky;top:14px}
+.nav-i{padding:10px 12px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.nav-i:hover{background:#f5f3ff}
+.nav-i.on{background:var(--accent);color:#fff}
+.nav-i .st{font-size:11px;opacity:.85}
+.nav-i .st.ok{color:var(--ok)}
+.nav-i .st.err{color:var(--err)}
+.nav-i.on .st.ok,.nav-i.on .st.err{color:#fff}
+main{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 26px;min-height:80vh}
+.lesson-id{color:var(--muted);font-size:13px;margin-bottom:14px}
+.box{background:#f9fafb;border:1px solid var(--line);border-radius:10px;padding:14px;margin:14px 0}
+.box h3{font-size:15px;margin-bottom:8px;color:var(--accent)}
+.box .cn{font-size:12px;color:var(--muted);font-style:italic}
+.step{padding:10px 14px;background:var(--accent);color:#fff;border-radius:8px;margin-bottom:14px;font-size:15px}
+.note{background:#fffbeb;border-left:3px solid var(--warn);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
+.note strong{color:var(--warn)}
+.vid{margin:14px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.vid-h{padding:10px 14px;background:#f5f3ff;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.vid-h .meta{display:flex;gap:8px;align-items:center;font-size:11px}
+.tag{background:#e5e7eb;padding:2px 8px;border-radius:10px;font-size:11px}
+.tag.core{background:#dcfce7;color:#166534}
+.vid-h .cn{font-size:12px;color:var(--muted);margin-right:auto}
+.vid-h .title{font-size:13px;font-weight:600}
+button{font-family:inherit;border:none;cursor:pointer;border-radius:8px;padding:8px 14px;font-size:14px;background:var(--accent);color:#fff}
+button.secondary{background:#e5e7eb;color:var(--text)}
+input[type=text]{padding:10px 12px;font-size:15px;border:1px solid var(--line);border-radius:8px;width:120px;font-family:inherit}
+.q{margin:12px 0;padding:14px;background:#f9fafb;border-radius:8px;border-left:3px solid var(--accent)}
+.q .q-text{font-size:15px;margin-bottom:8px}
+.q .q-cn{font-size:12px;color:var(--muted);margin-bottom:8px}
+.q .feedback{margin-top:8px;font-size:13px;padding:6px 10px;border-radius:6px;display:none}
+.q .feedback.show{display:block}
+.q .feedback.ok{background:#dcfce7;color:#166534}
+.q .feedback.err{background:#fee2e2;color:#991b1b}
+.hint{background:#fef3c7;border-left:3px solid var(--warn);padding:10px 12px;border-radius:6px;margin:8px 0;font-size:13px;display:none}
+.hint.show{display:block}
+.progress{height:6px;background:#e5e7eb;border-radius:3px;overflow:hidden;margin:8px 0}
+.progress div{height:100%;background:var(--accent);transition:width .3s}
+svg{max-width:100%;display:block;margin:0 auto}
+.num{color:var(--accent);font-weight:600}
+.eq{font-family:"Courier New",monospace;background:#1f2937;color:#a5f3fc;padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px;overflow-x:auto}
+.bars{display:flex;align-items:flex-end;gap:4px;height:140px;padding:14px;background:#fafafa;border-radius:6px;margin:10px 0}
+.bar{background:var(--accent);position:relative;flex:1;min-width:18px;transition:height .3s}
+.bar .label{position:absolute;bottom:-22px;left:0;right:0;text-align:center;font-size:11px;color:var(--muted)}
+.bar .v{position:absolute;top:-18px;left:0;right:0;text-align:center;font-size:11px;color:var(--text);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <h1>Chapter 6 · Data Analysis</h1>
+ <p>Grade 8 · BNU Edition · 6 class periods · 方差 / 标准差是核心考点</p>
+ <p style="margin-top:6px;font-size:12px">北师大八年级上 · 第六章 · 数据的分析 · 6 课时</p>
+</header>
+<nav id="nav"></nav>
+<main id="main"></main>
+</div>
+
+<script>
+const VDIR='videos/Ch06_数据的分析/';
+const KEY='bnu8_ch06_state';
+let S=load();
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return{};}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+const LESSONS=[
+ {id:'k1',t:'Mean / Median / Mode',cn:'平均数、中位数、众数',n:'6.1'},
+ {id:'k2',t:'★ Variance & Std Dev',cn:'★ 方差与标准差（核心）',n:'6.2'},
+ {id:'k3',t:'Box Plots',cn:'箱线图（拓展）',n:'6.3'},
+ {id:'test',t:'Chapter Test',cn:'章末检测',n:'Test'}
+];
+let cur='k1';
+function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
+function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function pick(a){return a[ri(0,a.length-1)];}
+const mean=a=>a.reduce((s,x)=>s+x,0)/a.length;
+const variance=a=>{const m=mean(a);return a.reduce((s,x)=>s+(x-m)**2,0)/a.length;};
+const std=a=>Math.sqrt(variance(a));
+
+/* ===== 视频清单 ===== */
+const VIDEOS={
+k1:[
+ {f:'13_How to classify numbers.mp4',t:'How to classify numbers',c:'core',d:'数分类（前置）'},
+ {f:'20_Means and medians of different distributions.mp4',t:'Means & medians of distributions',c:'core',d:'均值/中位数'},
+ {f:'21_Median & range puzzlers.mp4',t:'Median & range puzzlers',c:'core',d:'中位数与极差'},
+ {f:'22_Missing value given the mean.mp4',t:'Missing value given the mean',c:'core',d:'已知均值求缺值'},
+],
+k2:[
+ {f:'23_Measures of spread - range, variance & standard deviation.mp4',t:'Range, variance & standard deviation',c:'core',d:'极差/方差/标准差'},
+],
+k3:[
+ {f:'24_Reading box plots.mp4',t:'Reading box plots',c:'core',d:'读箱线图'},
+ {f:'25_Constructing a box plot.mp4',t:'Constructing a box plot',c:'core',d:'画箱线图'},
+ {f:'26_Worked example: Creating a box plot (odd number of data points).mp4',t:'Box plot: odd count',c:'core',d:'奇数个数据'},
+ {f:'27_Worked example: Creating a box plot (even number of data points).mp4',t:'Box plot: even count',c:'core',d:'偶数个数据'},
+ {f:'28_Interpreting box plots.mp4',t:'Interpreting box plots',c:'core',d:'解读箱线图'},
+ {f:'29_Judging outliers in a dataset.mp4',t:'Judging outliers',c:'core',d:'识别异常值'},
+],
+};
+
+/* ============ 微课 K1：均值/中位数/众数 ============ */
+function microK1(el){
+ let data=Array.from({length:ri(5,7)},()=>ri(10,99));
+ const render=()=>{
+  const sorted=[...data].sort((a,b)=>a-b);
+  const m=mean(data);
+  const median=sorted.length%2?sorted[(sorted.length-1)/2]:(sorted[sorted.length/2-1]+sorted[sorted.length/2])/2;
+  const freq={};data.forEach(x=>freq[x]=(freq[x]||0)+1);
+  const mode=Object.entries(freq).sort((a,b)=>b[1]-a[1])[0][0];
+  el.innerHTML=`
+   <div class="step">Micro-lesson · 平均数、中位数、众数（拖滑块看变化）</div>
+   <div class="box">
+    <p>数据：<span class="num">${data.join(', ')}</span></p>
+    <div class="controls" style="display:flex;gap:8px;margin:10px 0;align-items:center;flex-wrap:wrap">
+     ${data.map((d,i)=>`第 ${i+1} 个: <input type="number" data-i="${i}" value="${d}" min="10" max="99" style="width:60px">`).join('&nbsp; ')}
+     <button id="reroll">🎲 换组数</button>
+    </div>
+    <div class="box" style="background:#dbeafe">
+     <h3>三数对比</h3>
+     <div style="font-size:14px;line-height:2">
+      <p>📊 <b>平均数 mean</b>：<span class="num">${m.toFixed(2)}</span> （所有数求和 ÷ 个数）</p>
+      <p>📏 <b>中位数 median</b>：<span class="num">${median}</span> （排序后正中间）</p>
+      <p>🔁 <b>众数 mode</b>：<span class="num">${mode}</span> （出现次数最多的数）</p>
+     </div>
+     <p style="font-size:13px;color:var(--muted);margin-top:8px">排序后：${sorted.join(' &lt; ')}</p>
+    </div>
+    <div class="note"><strong>何时用哪个？</strong>平均数对异常值敏感（如 1,2,3,4,100 的平均数 22 严重偏大）；中位数更稳定（这组的中位数 = 3）。众数只看谁出现最多，对分布形状不敏感。</div>
+   </div>`;
+  el.querySelectorAll('input[data-i]').forEach(inp=>inp.onchange=e=>{data[parseInt(e.target.dataset.i)]=parseInt(e.target.value)||0;render();});
+  el.querySelector('#reroll').onclick=()=>{data=Array.from({length:ri(5,7)},()=>ri(10,99));render();};
+ };
+ render();
+}
+
+/* ============ 微课 K2：★ 方差与标准差（自建）========== */
+function microK2(el){
+ let data=Array.from({length:ri(5,6)},()=>ri(40,80));
+ const render=()=>{
+  const m=mean(data);
+  const v=variance(data);
+  const s=std(data);
+  el.innerHTML=`
+   <div class="step">Micro-lesson ★ · 方差与标准差（北师大核心考点，可汗只有概念）</div>
+   <div class="box">
+    <h3>Why variance? · 为什么需要方差</h3>
+    <p>两班平均分都是 80 分，能说水平一样吗？<b>不一定</b> —— 一个可能 75、80、85；另一个可能 50、80、100。均值无法体现这种"分散程度"。</p>
+    <p>需要<strong>一个数</strong>量化"数据偏离均值的程度" → 这就是<span class="num">方差 variance s²</span>和<span class="num">标准差 standard deviation s</span>。</p>
+   </div>
+   <div class="box">
+    <h3>The formula · 公式（北师大版）</h3>
+    <div class="eq">s² = (1/n) × Σᵢ₌₁ⁿ (xᵢ − x̄)²</div>
+    <div class="eq">s = √(s²)</div>
+    <p style="font-size:13px;color:var(--muted)">注意：北师大版除以 n（八上简化版），高中会学除以 n−1（样本方差无偏估计）。</p>
+   </div>
+   <div class="box">
+    <h3>Interactive demo · 拖动数据看方差</h3>
+    <p>数据：<span class="num">${data.join(', ')}</span></p>
+    <div class="controls" style="display:flex;gap:8px;margin:10px 0;align-items:center;flex-wrap:wrap">
+     ${data.map((d,i)=>`第 ${i+1}: <input type="number" data-i="${i}" value="${d}" min="0" max="100" style="width:60px">`).join(' ')}
+     <button id="reroll2">🎲 换组数</button>
+     <button id="flatten" class="secondary">把数据都设成均值</button>
+    </div>
+    <table style="width:100%;font-size:13px;border-collapse:collapse;margin:10px 0">
+     <tr style="background:#f5f3ff"><th style="padding:4px">xᵢ</th>${data.map(x=>`<th style="padding:4px">${x}</th>`).join('')}</tr>
+     <tr style="background:#fefce8"><th style="padding:4px">xᵢ − x̄</th>${data.map(x=>`<td style="padding:4px;text-align:center;color:${x>=m?'#16a34a':'#dc2626'}">${(x-m).toFixed(1)}</td>`).join('')}</tr>
+     <tr style="background:#dbeafe"><th style="padding:4px">(xᵢ − x̄)²</th>${data.map(x=>`<td style="padding:4px;text-align:center">${((x-m)**2).toFixed(2)}</td>`).join('')}</tr>
+    </table>
+    <div class="eq">x̄ = ${m.toFixed(2)} &nbsp;|&nbsp; s² = ${v.toFixed(2)} &nbsp;|&nbsp; s = ${s.toFixed(2)}</div>
+    <div style="font-size:13px;color:var(--muted)">把数据都设成均值时，方差变 0 —— 因为没有"分散"。</div>
+   </div>
+   <div class="box" style="background:#dbeafe">
+    <h3>How to use variance · 怎么用</h3>
+    <p style="font-size:14px">比较两组数据时（如两班成绩），如果平均分相同，方差小的班"更稳"。做题时套路：</p>
+    <ol style="margin-left:20px;font-size:14px;line-height:1.8">
+     <li>求平均数 x̄</li>
+     <li>求每个 (xᵢ − x̄)</li>
+     <li>平方</li>
+     <li>求和</li>
+     <li>除以 n 得 s²</li>
+     <li>开根号得 s（可选）</li>
+    </ol>
+   </div>`;
+  el.querySelectorAll('input[data-i]').forEach(inp=>inp.onchange=e=>{data[parseInt(e.target.dataset.i)]=parseInt(e.target.value)||0;render();});
+  el.querySelector('#reroll2').onclick=()=>{data=Array.from({length:ri(5,6)},()=>ri(40,80));render();};
+  el.querySelector('#flatten').onclick=()=>{data=data.map(()=>Math.round(m));render();};
+ };
+ render();
+}
+
+/* ============ 微课 K3：箱线图 ============ */
+function microK3(el){
+ let data=Array.from({length:ri(7,9)},()=>ri(50,100));
+ const render=()=>{
+  const sorted=[...data].sort((a,b)=>a-b);
+  const n=sorted.length;
+  const min=sorted[0],max=sorted[n-1];
+  const median=n%2?sorted[(n-1)/2]:(sorted[n/2-1]+sorted[n/2])/2;
+  const lo=n%2?sorted.slice(0,(n-1)/2):sorted.slice(0,n/2);
+  const hi=n%2?sorted.slice((n+1)/2):sorted.slice(n/2+1);
+  const q1=lo.length%2?lo[(lo.length-1)/2]:(lo[lo.length/2-1]+lo[lo.length/2])/2;
+  const q3=hi.length%2?hi[(hi.length-1)/2]:(hi[hi.length/2-1]+hi[hi.length/2])/2;
+  el.innerHTML=`
+   <div class="step">Micro-lesson · 箱线图 Box Plot</div>
+   <div class="box">
+    <h3>What is a box plot? · 箱线图是什么</h3>
+    <p style="font-size:14px">箱线图用一个"盒子 + 两条须"展示 5 个数：</p>
+    <ul style="margin-left:20px;font-size:14px;line-height:1.8">
+     <li>最小值 (min)、下四分位数 (Q1)、中位数 (median)、上四分位数 (Q3)、最大值 (max)</li>
+     <li>盒子 = Q1 到 Q3（含中间 50% 数据）</li>
+     <li>盒子中间线 = 中位数</li>
+     <li>两条须 = 最小和最大</li>
+    </ul>
+   </div>
+   <div class="box">
+    <h3>Live demo · 当前数据：${data.join(', ')}</h3>
+    <svg viewBox="0 0 600 200" style="background:#fafafa;border-radius:6px;margin:10px 0">
+     <line x1="50" y1="100" x2="550" y2="100" stroke="#9ca3af" stroke-width="1"/>
+     ${[min,q1,median,q3,max].map((v,i)=>{
+      const x=50+(v-30)/(100-30)*500;
+      return `<line x1="${x}" y1="80" x2="${x}" y2="120" stroke="#374151" stroke-width="1.5"/><text x="${x}" y="75" font-size="12" text-anchor="middle" fill="#374151">${v}</text>`;
+     }).join('')}
+     <rect x="${50+(q1-30)/(100-30)*500}" y="80" width="${(50+(q3-30)/(100-30)*500)-(50+(q1-30)/(100-30)*500)}" height="40" fill="#a855f7" opacity=".3" stroke="#7c3aed" stroke-width="2"/>
+     <line x1="${50+(median-30)/(100-30)*500}" y1="80" x2="${50+(median-30)/(100-30)*500}" y2="120" stroke="#dc2626" stroke-width="3"/>
+     <text x="300" y="170" font-size="12" text-anchor="middle" fill="#6b7280">min = ${min} &nbsp;|&nbsp; Q1 = ${q1} &nbsp;|&nbsp; median = ${median} &nbsp;|&nbsp; Q3 = ${q3} &nbsp;|&nbsp; max = ${max}</text>
+     <text x="300" y="190" font-size="11" text-anchor="middle" fill="#6b7280">IQR = Q3 − Q1 = ${(q3-q1).toFixed(1)} &nbsp;|&nbsp; Range = max − min = ${max-min}</text>
+    </svg>
+    <div class="controls" style="display:flex;gap:8px;margin:10px 0;align-items:center;flex-wrap:wrap">
+     ${data.map((d,i)=>`第 ${i+1}: <input type="number" data-i="${i}" value="${d}" min="30" max="100" style="width:60px">`).join(' ')}
+     <button id="reroll3">🎲 换组数</button>
+    </div>
+   </div>
+   <div class="box" style="background:#dbeafe">
+    <h3>How to read · 怎么看</h3>
+    <p style="font-size:14px"><b>盒子越长</b> = 中间 50% 数据越分散<br>
+    <b>整条须越长</b> = 整体范围越大<br>
+    <b>中位线偏一边</b> = 分布不对称（偏态）<br>
+    <b>盒子外有孤立点</b> = 异常值 outlier</p>
+   </div>
+   <div class="note"><strong>与方差的关系：</strong>方差/标准差是数值化"分散度"，箱线图是图形化"分散度"。两者互相印证 —— IQR 越大通常 s² 越大。</div>`;
+  el.querySelectorAll('input[data-i]').forEach(inp=>inp.onchange=e=>{data[parseInt(e.target.dataset.i)]=parseInt(e.target.value)||30;render();});
+  el.querySelector('#reroll3').onclick=()=>{data=Array.from({length:ri(7,9)},()=>ri(50,100));render();};
+ };
+ render();
+}
+
+/* ============ 学前诊断 ============ */
+function diag(el,lessonId,generator){
+ el.innerHTML=`<div class="step">Pre-check · 学前诊断</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 题快速测一下。</p><div id="diagQ"></div></div>`;
+ const qEl=el.querySelector('#diagQ');
+ let ok=0;
+ const qs=Array.from({length:3},()=>generator('diag'));
+ let i=0;
+ const show=()=>{
+  if(i>=3){
+   st(lessonId).diag=ok;
+   if(ok===3){
+    qEl.innerHTML=`<div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>3/3：</strong>可跳过微课。</div><div style="margin-top:14px"><button id="skipMicro">Skip to practice</button></div>`;
+    qEl.querySelector('#skipMicro').onclick=()=>{cur=`prac-${lessonId}`;render();};
+   } else {
+    qEl.innerHTML=`<div class="note" style="background:#fef3c7;border-color:var(--warn)"><strong>${ok}/3：</strong>看微课。</div><div style="margin-top:14px"><button id="goMicro">Start micro-lesson</button></div>`;
+    qEl.querySelector('#goMicro').onclick=()=>{cur=`micro-${lessonId}`;render();};
+   }
+   save();renderNav();return;
+  }
+  const q=qs[i];
+  qEl.innerHTML=`<div class="q"><div class="q-text">${i+1}. ${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="da"><button id="sub">Submit</button></div><div class="hint" id="ht"></div><div class="feedback" id="fb"></div></div>`;
+  const input=qEl.querySelector('#da'),fb=qEl.querySelector('#fb'),ht=qEl.querySelector('#ht');
+  input.focus();qEl.querySelector('#sub').onclick=check;input.onkeydown=e=>{if(e.key==='Enter')check();};
+  function check(){
+   const correct=q.check(input.value.trim());
+   if(correct===true){ok++;fb.className='feedback show ok';fb.textContent='✓';input.disabled=true;setTimeout(()=>{i++;show();},700);}
+   else if(correct==='hint'){ht.className='hint show';ht.textContent=q.hint;}
+   else{fb.className='feedback show err';fb.textContent='✗ 再试。';}
+  }
+ };
+ show();
+}
+
+/* ============ 练习生成器 ============ */
+const generators={
+k1:()=>{
+ const data=Array.from({length:5},()=>ri(1,20));
+ const m=mean(data);
+ const sorted=[...data].sort((a,b)=>a-b);
+ const median=sorted[2];
+ return {q:`Find the mean of: ${data.join(', ')}`,qcn:`求平均数：${data.join(', ')}`,
+   check:a=>Math.abs(parseFloat(a)-m)<0.01,ans:m.toFixed(2),hint:`Sum them, then divide by ${data.length}.`};
+},
+k2:()=>{
+ const data=Array.from({length:4},()=>ri(1,15));
+ const v=variance(data);
+ return {q:`Find the variance s² of: ${data.join(', ')} (BNU version: divide by n)`,qcn:`求方差（除以 n）：${data.join(', ')}`,
+   check:a=>Math.abs(parseFloat(a)-v)<0.01,ans:v.toFixed(2),hint:`Mean=${mean(data).toFixed(2)}, then sum (xᵢ−x̄)² and divide by 4.`};
+},
+k3:()=>{
+ const sorted=[ri(40,60),ri(60,70),ri(70,80),ri(80,85),ri(85,95),ri(95,99),ri(99,100)].sort((a,b)=>a-b);
+ return {q:`Sorted data: ${sorted.join(', ')}. The median (Q2) is:`,qcn:`排序数据：${sorted.join(', ')}。中位数 = ?`,
+   check:a=>Math.abs(parseFloat(a)-sorted[3])<0.01,ans:String(sorted[3]),
+   hint:`7 numbers → median is the 4th.`};
+},
+};
+
+/* ============ 视频模块 ============ */
+function videos(el,lessonId){
+ const list=VIDEOS[lessonId]||[];
+ if(!list.length){el.innerHTML='<div class="note">No videos for this section.</div>';return;}
+ let html=`<div class="step">Khan Academy Videos · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
+ list.forEach((v,i)=>{
+  const watched=st(lessonId).vid[i];
+  html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="cn">${v.d}</span><span class="meta"><span class="tag ${v.c}">${v.c==='core'?'Core 核心':'Ext 拓展'}</span><span class="st ${watched?'ok':''}">${watched?'✓':'未看'}</span><button data-i="${i}">${watched?'▶ Replay':'▶ Play'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
+ });
+ el.innerHTML=html;
+ el.querySelectorAll('[data-i]').forEach(b=>{
+  b.onclick=()=>{const i=parseInt(b.dataset.i);const slot=el.querySelector('#vc'+i);const v=slot.querySelector('video');if(slot.style.display==='none'){slot.style.display='block';v.play();}else{v.pause();v.currentTime=0;slot.style.display='none';}st(lessonId).vid[i]=true;save();renderNav();b.textContent='▶ Replay';};
+ });
+}
+
+/* ============ 练习 ============ */
+function practice(el,lessonId){
+ const gen=generators[lessonId];
+ if(!gen){el.innerHTML='<div class="note">No practice</div>';return;}
+ const s=st(lessonId);
+ let streak=0,need=5,q=null;
+ const update=()=>{
+  el.innerHTML=`<div class="step">Practice · 练习（${streak}/${need}）</div><div style="font-size:13px;color:var(--muted);margin:8px 0">对 ${s.prac.ok}/${s.prac.tot}<button class="secondary" id="rs" style="margin-left:8px">Reset</button></div><div class="progress"><div style="width:${(streak/need)*100}%"></div></div><div class="q"><div class="q-text">${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="pi"><button id="ps">Submit</button></div><div class="hint" id="ph"></div><div class="feedback" id="pf"></div></div>`;
+  el.querySelector('#rs').onclick=()=>{s.prac={ok:0,tot:0};streak=0;save();update();renderNav();};
+  const inp=el.querySelector('#pi'),fb=el.querySelector('#pf'),ht=el.querySelector('#ph');
+  inp.focus();el.querySelector('#ps').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
+  function check(){
+   const a=inp.value.trim();
+   const r=q.check(a);
+   if(r===true){
+    streak++;s.prac.ok++;s.prac.tot++;
+    fb.className='feedback show ok';fb.textContent='✓';
+    inp.disabled=true;
+    if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>本节过关！✓</strong>';save();renderNav();}
+    setTimeout(()=>{q=gen();update();},900);
+   } else if(r==='hint'){ht.className='hint show';ht.textContent=q.hint;}
+   else{streak=0;s.prac.tot++;fb.className='feedback show err';fb.textContent=`✗ 正确是 ${q.ans}`;save();renderNav();}
+  }
+ };
+ q=gen();update();
+}
+
+/* ============ 章末测 ============ */
+function chTest(el){
+ el.innerHTML=`<div class="step">Chapter Test</div><div class="box"><p style="font-size:13px;color:var(--muted)">共 6 题。</p><div id="tq"></div></div>`;
+ const tq=el.querySelector('#tq');
+ const qs=[];
+ for(let i=0;i<2;i++)qs.push(generators.k1());
+ for(let i=0;i<3;i++)qs.push(generators.k2());
+ qs.push(generators.k3());
+ let i=0,ok=0;
+ const show=()=>{
+  if(i>=qs.length){tq.innerHTML=`<div class="note" style="background:${ok>=4?'#dcfce7':'#fef3c7'}"><strong>${ok}/${qs.length}</strong> ${ok>=4?'章末通过！':'再复习'}</div>`;S.test={ok,tot:qs.length};save();renderNav();return;}
+  const q=qs[i];
+  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="ti"><button id="ts">Submit</button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
+  const inp=tq.querySelector('#ti'),fb=tq.querySelector('#tf'),ht=tq.querySelector('#th');
+  inp.focus();tq.querySelector('#ts').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
+  function check(){
+   const r=q.check(inp.value.trim());
+   if(r===true){ok++;fb.className='feedback show ok';fb.textContent='✓';inp.disabled=true;setTimeout(()=>{i++;show();},600);}
+   else if(r==='hint'){ht.className='hint show';ht.textContent=q.hint;}
+   else{fb.className='feedback show err';fb.textContent='✗';setTimeout(()=>{i++;show();},900);}
+  }
+ };
+ show();
+}
+
+/* ============ 渲染 ============ */
+function renderNav(){
+ const nav=document.getElementById('nav');
+ nav.innerHTML=LESSONS.map(l=>{
+  const s=st(l.id);
+  let stxt='';
+  if(s.done)stxt='<span class="st ok">✓</span>';
+  else if(s.prac.tot>0)stxt=`<span class="st ${s.prac.ok/s.prac.tot>0.6?'ok':'err'}">${s.prac.ok}/${s.prac.tot}</span>`;
+  return `<div class="nav-i ${l.id===cur||cur===`micro-${l.id}`||cur===`diag-${l.id}`||cur===`prac-${l.id}`?'on':''}" data-go="${l.id}"><span><b>${l.n}</b> ${l.cn}</span>${stxt}</div>`;
+ }).join('');
+ nav.querySelectorAll('[data-go]').forEach(n=>n.onclick=()=>{const id=n.dataset.go;cur=id==='test'?'test':`micro-${id}`;render();});
+}
+
+function render(){
+ const main=document.getElementById('main');
+ renderNav();
+ if(cur==='test'){chTest(main);return;}
+ const m=cur.match(/^(diag|micro|prac)-(\w+)$/);
+ if(m){
+  const phase=m[1],id=m[2];
+  const lesson=LESSONS.find(l=>l.id===id);
+  if(!lesson){main.innerHTML='<div class="note">Unknown</div>';return;}
+  const titles={k1:'平均数/中位数/众数',k2:'方差与标准差',k3:'箱线图'};
+  main.innerHTML=`<div class="lesson-id">${lesson.n} · ${titles[id]} · ${lesson.cn}</div>`;
+  const c=document.createElement('div');main.appendChild(c);
+  if(phase==='diag'){
+   if(st(id).diag===3){cur=`micro-${id}`;render();return;}
+   diag(c,id,generators[id]);
+  } else if(phase==='micro'){
+   if(id==='k1')microK1(c);
+   else if(id==='k2')microK2(c);
+   else if(id==='k3')microK3(c);
+   const after=document.createElement('div');main.appendChild(after);
+   videos(after,id);
+   const btn=document.createElement('div');btn.style.marginTop='14px';
+   btn.innerHTML=`<button id="toPrac">Go to practice · 开始练习</button>`;
+   main.appendChild(btn);
+   btn.querySelector('#toPrac').onclick=()=>{cur=`prac-${id}`;render();};
+  } else if(phase==='prac'){practice(c,id);}
+ } else {
+  main.innerHTML='<div class="note">Select a lesson on the left.</div>';
+ }
+}
+render();
+</script>
+</body>
+</html>

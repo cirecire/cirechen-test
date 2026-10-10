@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Chapter 7 · Proofs with Parallel Lines · BNU 8th Grade Math</title>
+<style>
+:root{
+ --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
+ --accent:#7c3aed; --ok:#16a34a; --err:#dc2626; --warn:#d97706;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.wrap{display:grid;grid-template-columns:240px 1fr;gap:18px;max-width:1200px;margin:0 auto;padding:18px}
+header{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;padding:22px 26px;border-radius:14px;margin-bottom:14px;grid-column:1/-1}
+header h1{font-size:22px;margin-bottom:4px}
+header p{opacity:.92;font-size:13px}
+nav{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;height:fit-content;position:sticky;top:14px}
+.nav-i{padding:10px 12px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.nav-i:hover{background:#f5f3ff}
+.nav-i.on{background:var(--accent);color:#fff}
+.nav-i .st{font-size:11px;opacity:.85}
+.nav-i .st.ok{color:var(--ok)}
+.nav-i .st.err{color:var(--err)}
+.nav-i.on .st.ok,.nav-i.on .st.err{color:#fff}
+main{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 26px;min-height:80vh}
+.lesson-id{color:var(--muted);font-size:13px;margin-bottom:14px}
+.box{background:#f9fafb;border:1px solid var(--line);border-radius:10px;padding:14px;margin:14px 0}
+.box h3{font-size:15px;margin-bottom:8px;color:var(--accent)}
+.box .cn{font-size:12px;color:var(--muted);font-style:italic}
+.step{padding:10px 14px;background:var(--accent);color:#fff;border-radius:8px;margin-bottom:14px;font-size:15px}
+.note{background:#fffbeb;border-left:3px solid var(--warn);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
+.note strong{color:var(--warn)}
+.vid{margin:14px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.vid-h{padding:10px 14px;background:#f5f3ff;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.vid-h .meta{display:flex;gap:8px;align-items:center;font-size:11px}
+.tag{background:#e5e7eb;padding:2px 8px;border-radius:10px;font-size:11px}
+.tag.core{background:#dcfce7;color:#166534}
+.vid-h .cn{font-size:12px;color:var(--muted);margin-right:auto}
+.vid-h .title{font-size:13px;font-weight:600}
+button{font-family:inherit;border:none;cursor:pointer;border-radius:8px;padding:8px 14px;font-size:14px;background:var(--accent);color:#fff}
+button.secondary{background:#e5e7eb;color:var(--text)}
+input[type=text]{padding:10px 12px;font-size:15px;border:1px solid var(--line);border-radius:8px;width:120px;font-family:inherit}
+.q{margin:12px 0;padding:14px;background:#f9fafb;border-radius:8px;border-left:3px solid var(--accent)}
+.q .q-text{font-size:15px;margin-bottom:8px}
+.q .q-cn{font-size:12px;color:var(--muted);margin-bottom:8px}
+.q .feedback{margin-top:8px;font-size:13px;padding:6px 10px;border-radius:6px;display:none}
+.q .feedback.show{display:block}
+.q .feedback.ok{background:#dcfce7;color:#166534}
+.q .feedback.err{background:#fee2e2;color:#991b1b}
+.hint{background:#fef3c7;border-left:3px solid var(--warn);padding:10px 12px;border-radius:6px;margin:8px 0;font-size:13px;display:none}
+.hint.show{display:block}
+.progress{height:6px;background:#e5e7eb;border-radius:3px;overflow:hidden;margin:8px 0}
+.progress div{height:100%;background:var(--accent);transition:width .3s}
+svg{max-width:100%;display:block;margin:0 auto}
+.num{color:var(--accent);font-weight:600}
+.proof{background:#fff;border:2px solid #7c3aed;border-radius:8px;padding:14px;margin:10px 0;font-family:"Courier New",monospace;font-size:14px;line-height:1.9}
+.proof .yin{color:#16a34a;font-weight:600;margin-right:6px}
+.proof .yj{color:#dc2626;font-weight:600;margin-right:6px}
+.proof .row{display:flex;gap:8px;padding:2px 0}
+.proof .step-row{flex:1}
+.proof .reason{color:var(--muted);font-style:italic;width:200px;text-align:right}
+.eq{font-family:"Courier New",monospace;background:#1f2937;color:#a5f3fc;padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <h1>Chapter 7 · Proofs with Parallel Lines</h1>
+ <p>Grade 8 · BNU Edition · 7 class periods · ★ 证明书写是中国独有体系</p>
+ <p style="margin-top:6px;font-size:12px">北师大八年级上 · 第七章 · 平行线的证明 · 7 课时（首次学演绎推理）</p>
+</header>
+<nav id="nav"></nav>
+<main id="main"></main>
+</div>
+
+<script>
+const VDIR='videos/Ch07_平行线的证明/';
+const KEY='bnu8_ch07_state';
+let S=load();
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return{};}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+const LESSONS=[
+ {id:'k1',t:'Why Prove?',cn:'为什么要证明',n:'7.1'},
+ {id:'k2',t:'★ Proof Writing',cn:'★ 证明书写格式 ∵/∴',n:'7.2'},
+ {id:'k3',t:'Parallel Lines · Judge',cn:'平行线的判定',n:'7.3'},
+ {id:'k4',t:'Parallel Lines · Properties',cn:'平行线的性质',n:'7.4'},
+ {id:'k5',t:'Triangle Angle Sum',cn:'三角形内角和',n:'7.5'},
+ {id:'test',t:'Chapter Test',cn:'章末检测',n:'Test'}
+];
+let cur='k1';
+function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
+function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+
+/* ===== 视频 ===== */
+const VIDEOS={
+k3:[
+ {f:'01_Angles, parallel lines, & transversals.mp4',t:'Angles, parallel lines, & transversals',c:'core',d:'截线与角'},
+ {f:'02_Measures of angles formed by a transversal.mp4',t:'Measures of angles from transversal',c:'core',d:'截线成角'},
+ {f:'06_Triangle angles and parallel lines.mp4',t:'Triangle angles & parallel lines',c:'core',d:'三角形与平行线'},
+],
+k4:[
+ {f:'07_Parallel lines and transversals review.mp4',t:'Parallel & transversals review',c:'core',d:'复习'},
+ {f:'08_Angles, parallel lines, transversals — Proofs.mp4',t:'Proofs with transversals',c:'core',d:'证明'},
+],
+k5:[
+ {f:'09_Triangle exterior angle example.mp4',t:'Exterior angle example',c:'core',d:'外角示例'},
+ {f:'10_Intro to isosceles triangles.mp4',t:'Isosceles triangles',c:'core',d:'等腰三角形'},
+ {f:'11_Challenging triangle angle problem.mp4',t:'Challenging angle problem',c:'core',d:'挑战题'},
+ {f:'12_Missing angles with a transversal.mp4',t:'Missing angles (transversal)',c:'core',d:'截线求角'},
+ {f:'13_Worked example - Triangle angles (diagram).mp4',t:'Worked: triangle angles',c:'core',d:'三角形角（带图）'},
+ {f:'14_Isosceles & equilateral triangles problems.mp4',t:'Isosceles & equilateral',c:'core',d:'等腰等边'},
+ {f:'15_Angles in a triangle sum to 180° proof.mp4',t:'Sum to 180° proof',c:'core',d:'内角和 180° 证明'},
+],
+};
+
+/* ============ 微课 K1：为什么要证明 ============ */
+function microK1(el){
+ el.innerHTML=`
+  <div class="step">Micro-lesson · 为什么要证明（演绎推理的意义）</div>
+  <div class="box">
+   <h3>从实验到证明 · The shift</h3>
+   <p>小学到初一的几何，主要靠<strong>度量、画图、观察</strong>。但有件事不行：</p>
+   <p style="margin:10px 0;font-size:15px"><b>"所有三角形内角和都是 180°"</b>——画过 100 个三角形都成立，能说它"一定成立"吗？</p>
+  </div>
+  <div class="box" style="background:#fee2e2">
+   <h3>为什么不能"看"出来</h3>
+   <p style="font-size:14px">看图会出误差。你画的三角形，内角和可能是 178° 或 182°，但其实是测量误差。如果要"保证成立"，需要<b>严格的逻辑推导</b> —— 这就是<b>证明 proof</b>。</p>
+  </div>
+  <div class="box" style="background:#dbeafe">
+   <h3>Proof 的本质 · 用已知推未知</h3>
+   <p style="font-size:14px">从"已知的真命题"出发，按照"逻辑规则"，推出"新的真命题"。</p>
+   <p style="font-size:14px">已知（公理、已证命题）→ 推理规则 → 结论</p>
+  </div>
+  <div class="note"><strong>关键概念：</strong><br>
+   <b>公理 axiom</b>：公认的、不证自明的基本事实（如"两点确定一条直线"）<br>
+   <b>定理 theorem</b>：通过证明得到的真命题（如"三角形内角和 180°"）<br>
+   <b>证明 proof</b>：从公理/已证定理推新定理的逻辑过程</div>`;
+}
+
+/* ============ 微课 K2：★ 证明书写格式 ============ */
+function microK2(el){
+ el.innerHTML=`
+  <div class="step">Micro-lesson ★ · 证明书写格式（∵ / ∴ 体系 · 中国独有）</div>
+  <div class="box">
+   <h3>Three-line template · 三行范式</h3>
+   <p style="font-size:14px">中国几何证明的标准格式是<b>两列式</b>：左边是步骤，右边是依据（理由）。用 ∵ (since) 和 ∴ (therefore) 标记。</p>
+  </div>
+  <div class="box">
+   <h3>Symbol key · 符号</h3>
+   <p style="font-size:16px;font-family:monospace">
+    <span class="num">∵</span> = "因为" / "since" &nbsp;&nbsp;&nbsp; <span class="num">∴</span> = "所以" / "therefore"
+   </p>
+  </div>
+  <div class="box" style="background:#dbeafe">
+   <h3>Worked example · 范例</h3>
+   <p><b>题：</b>已知 AB ∥ CD，∠B = ∠D。求证：AD ∥ BC。</p>
+   <div class="proof">
+    <div class="row"><span class="step-row"><span class="yin">∵</span> AB ∥ CD</span><span class="reason">（已知）</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠B = ∠ACD （内错角相等）</span><span class="reason">（两直线平行，内错角相等）</span></div>
+    <div class="row"><span class="step-row"><span class="yin">∵</span> ∠B = ∠D （已知）</span><span class="reason">（已知）</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠D = ∠ACD</span><span class="reason">（等量代换）</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> AD ∥ BC</span><span class="reason">（内错角相等，两直线平行）</span></div>
+   </div>
+  </div>
+  <div class="box" style="background:#fffbeb">
+   <h3>Common 依据 (reasons) · 常用理由</h3>
+   <ul style="margin-left:20px;font-size:14px;line-height:1.9">
+    <li><b>已知</b> — 题目直接告诉的条件</li>
+    <li><b>两直线平行，内错角相等</b> — 平行线被截得的角关系</li>
+    <li><b>两直线平行，同位角相等</b> — 同上</li>
+    <li><b>两直线平行，同旁内角互补</b> — 同上</li>
+    <li><b>等量代换</b> — 把等式一边替换</li>
+    <li><b>定义</b> — 如"对顶角相等"由对顶角定义</li>
+    <li><b>已证定理</b> — 如"三角形内角和 180°"</li>
+   </ul>
+  </div>
+  <div class="note"><strong>What Khan does not teach:</strong>可汗从来不教证明书写格式 —— 他们用两栏表格（Statement | Reason），跟中国 ∵/∴ 两列式几乎一样，但中国是主流考试必考。可汗的 Proofs 视频 (k4 ext) 演示了思路，但格式细节没讲。<br>学完这节，孩子应该能写出像上面那样的"两列式"证明。</div>`;
+}
+
+/* ============ 微课 K3：平行线的判定 ============ */
+function microK3(el){
+ el.innerHTML=`
+  <div class="step">Micro-lesson · 平行线的判定 (Parallel Lines · Judgment)</div>
+  <div class="box">
+   <h3>三句话 · Three equivalent conditions</h3>
+   <p style="font-size:14px">以下三条任一成立，两条线就平行（被第三条线 a transversal 截断）：</p>
+   <div class="box" style="background:#dbeafe;margin:10px 0">
+    <p><b>① 同位角相等，两直线平行</b></p>
+    <p><b>② 内错角相等，两直线平行</b></p>
+    <p><b>③ 同旁内角互补，两直线平行</b></p>
+   </div>
+  </div>
+  <div class="box">
+   <h3>图示 · Diagram</h3>
+   <svg viewBox="0 0 400 200" style="background:#fafafa;border-radius:6px">
+    <line x1="50" y1="60" x2="350" y2="60" stroke="#374151" stroke-width="2"/>
+    <line x1="50" y1="140" x2="350" y2="140" stroke="#374151" stroke-width="2"/>
+    <line x1="180" y1="20" x2="240" y2="180" stroke="#dc2626" stroke-width="2"/>
+    <text x="320" y="55" font-size="12" fill="#374151">a</text>
+    <text x="320" y="135" font-size="12" fill="#374151">b</text>
+    <text x="245" y="25" font-size="12" fill="#dc2626">c</text>
+    <circle cx="200" cy="60" r="14" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+    <circle cx="220" cy="140" r="14" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+    <text x="200" y="55" font-size="10" text-anchor="middle">①</text>
+    <text x="220" y="135" font-size="10" text-anchor="middle">②</text>
+    <text x="170" y="100" font-size="11" fill="#6b7280">同位角</text>
+    <text x="280" y="100" font-size="11" fill="#6b7280">内错角</text>
+   </svg>
+  </div>
+  <div class="box" style="background:#fffbeb">
+   <h3>Why this works · 为什么这三条互相等价</h3>
+   <p style="font-size:14px">假设 a ∥ b，则它们与截线 c 形成的 8 个角有固定关系：<br>
+   同位角相等（位置相同）<br>
+   内错角相等（位置交叉，但本质是同位角的对顶）<br>
+   同旁内角互补（内错角 + 同位角 = 180°）</p>
+   <p style="font-size:14px">反过来：如果同位角相等（其他条件不变），两线必平行 —— 这是判定定理。</p>
+  </div>`;
+}
+
+/* ============ 微课 K4：平行线的性质 ============ */
+function microK4(el){
+ el.innerHTML=`
+  <div class="step">Micro-lesson · 平行线的性质 (Properties)</div>
+  <div class="box" style="background:#dbeafe">
+   <h3>Two directions · 两个方向</h3>
+   <p style="font-size:14px"><b>判定：</b>从角相等 → 推出线平行（已知角，求证线平行）</p>
+   <p style="font-size:14px"><b>性质：</b>从线平行 → 推出角相等（已知线平行，求角的度数）</p>
+   <p style="font-size:14px">互为<b>逆命题</b>。判定和性质恰好反过来。</p>
+  </div>
+  <div class="box">
+   <h3>应用 · Application</h3>
+   <div class="proof" style="font-size:13px">
+    <p><b>题：</b>AB ∥ CD，∠B = 50°，求 ∠D。</p>
+    <div class="row"><span class="step-row"><span class="yin">∵</span> AB ∥ CD</span><span class="reason">（已知）</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠B + ∠D = 180°</span><span class="reason">（两直线平行，同旁内角互补）</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠D = 180° − 50° = <span class="num">130°</span></span><span class="reason">（等式的性质）</span></div>
+   </div>
+  </div>
+  <div class="note"><strong>如何区分判定和性质：</strong><br>
+   题目说"已知 a ∥ b，求角" → 用<strong>性质</strong>（由线推角）<br>
+   题目说"已知角相等，求证 a ∥ b" → 用<strong>判定</strong>（由角推线）<br>
+   一字之差：判定用"角→线"，性质用"线→角"。</div>`;
+}
+
+/* ============ 微课 K5：三角形内角和 ============ */
+function microK5(el){
+ el.innerHTML=`
+  <div class="step">Micro-lesson · 三角形内角和定理 (Triangle Angle Sum)</div>
+  <div class="box" style="background:#dbeafe">
+   <h3>定理 · Theorem</h3>
+   <p style="font-size:18px;text-align:center">三角形三个内角的和 = <span class="num">180°</span></p>
+  </div>
+  <div class="box">
+   <h3>★ 证明 · Proof (用平行线)</h3>
+   <p style="font-size:14px">作辅助线：过 A 作 DE ∥ BC。</p>
+   <div class="proof">
+    <div class="row"><span class="step-row"><span class="yin">∵</span> DE ∥ BC</span><span class="reason">（作辅助线）</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠DAB = ∠B（内错角）</span><span class="reason">（两直线平行，内错角相等）</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠EAC = ∠C（内错角）</span><span class="reason">（两直线平行，内错角相等）</span></div>
+    <div class="row"><span class="step-row"><span class="yin">∵</span> ∠BAC = ∠DAB + ∠EAC</span><span class="reason">（角的和）</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠A = ∠B + ∠C</span><span class="reason">（等量代换）</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠A + ∠B + ∠C = 180°</span><span class="reason">（平角定义）</span></div>
+   </div>
+  </div>
+  <div class="box" style="background:#fffbeb">
+   <h3>外角定理 · Exterior Angle</h3>
+   <p style="font-size:14px">三角形的一个外角 = <b>不相邻</b>的两个内角之和。</p>
+   <p style="font-size:14px">这意味着：三角形的外角比任何相邻内角都大。</p>
+  </div>
+  <div class="note"><strong>延伸（八下）</strong>：等腰三角形底角相等（反之亦然）。这一节是铺垫，下学期会展开。</div>`;
+}
+
+/* ============ 学前诊断 ============ */
+function diag(el,lessonId,generator){
+ el.innerHTML=`<div class="step">Pre-check · 学前诊断</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 题快速测一下。</p><div id="diagQ"></div></div>`;
+ const qEl=el.querySelector('#diagQ');
+ let ok=0;
+ const qs=Array.from({length:3},()=>generator('diag'));
+ let i=0;
+ const show=()=>{
+  if(i>=3){
+   st(lessonId).diag=ok;
+   if(ok===3){qEl.innerHTML=`<div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>3/3</strong></div><div style="margin-top:14px"><button id="skipMicro">Skip to practice</button></div>`;qEl.querySelector('#skipMicro').onclick=()=>{cur=`prac-${lessonId}`;render();};}
+   else{qEl.innerHTML=`<div class="note" style="background:#fef3c7;border-color:var(--warn)"><strong>${ok}/3</strong></div><div style="margin-top:14px"><button id="goMicro">Start micro-lesson</button></div>`;qEl.querySelector('#goMicro').onclick=()=>{cur=`micro-${lessonId}`;render();};}
+   save();renderNav();return;
+  }
+  const q=qs[i];
+  qEl.innerHTML=`<div class="q"><div class="q-text">${i+1}. ${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="da"><button id="sub">Submit</button></div><div class="hint" id="ht"></div><div class="feedback" id="fb"></div></div>`;
+  const input=qEl.querySelector('#da'),fb=qEl.querySelector('#fb'),ht=qEl.querySelector('#ht');
+  input.focus();qEl.querySelector('#sub').onclick=check;input.onkeydown=e=>{if(e.key==='Enter')check();};
+  function check(){
+   const correct=q.check(input.value.trim());
+   if(correct===true){ok++;fb.className='feedback show ok';fb.textContent='✓';input.disabled=true;setTimeout(()=>{i++;show();},700);}
+   else if(correct==='hint'){ht.className='hint show';ht.textContent=q.hint;}
+   else{fb.className='feedback show err';fb.textContent='✗ 再试。';}
+  }
+ };
+ show();
+}
+
+/* ============ 练习生成器 ============ */
+const generators={
+k3:()=>{
+ const a=ri(40,140);
+  return {q:`If a transversal crosses two lines and the corresponding angles are equal (both ${a}°), are the two lines parallel? Answer "yes" or "no".`,qcn:`同位角相等（都 ${a}°），两直线平行吗？`,
+   check:a=>{const ans=a.toLowerCase().trim();return ans==='yes'||ans==='y'||ans==='是';},
+   ans:'yes',hint:'Corresponding angles equal ⟹ parallel.'};
+},
+k4:()=>{
+ const a=ri(40,140);
+  return {q:`If a ∥ b and the co-interior angle is ${a}°, what is the other co-interior angle?`,qcn:`a ∥ b，同旁内角之一为 ${a}°，另一个 = ?`,
+   check:a=>parseInt(a)===180-a,ans:String(180-a),hint:'Co-interior angles sum to 180°.'};
+},
+k5:()=>{
+ const a=ri(30,80),b=ri(30,80);
+  return {q:`In a triangle, ∠A = ${a}°, ∠B = ${b}°. Find ∠C.`,qcn:`三角形 ∠A = ${a}°, ∠B = ${b}°，求 ∠C = ?`,
+   check:a=>parseInt(a)===180-a-b,ans:String(180-a-b),hint:'Sum to 180°.'};
+},
+};
+
+/* ============ 视频模块 ============ */
+function videos(el,lessonId){
+ const list=VIDEOS[lessonId]||[];
+ if(!list.length){el.innerHTML='<div class="note">No videos for this section.</div>';return;}
+ let html=`<div class="step">Khan Academy Videos · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
+ list.forEach((v,i)=>{
+  const watched=st(lessonId).vid[i];
+  html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="cn">${v.d}</span><span class="meta"><span class="tag ${v.c}">${v.c==='core'?'Core 核心':'Ext 拓展'}</span><span class="st ${watched?'ok':''}">${watched?'✓':'未看'}</span><button data-i="${i}">${watched?'▶ Replay':'▶ Play'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
+ });
+ el.innerHTML=html;
+ el.querySelectorAll('[data-i]').forEach(b=>{
+  b.onclick=()=>{const i=parseInt(b.dataset.i);const slot=el.querySelector('#vc'+i);const v=slot.querySelector('video');if(slot.style.display==='none'){slot.style.display='block';v.play();}else{v.pause();v.currentTime=0;slot.style.display='none';}st(lessonId).vid[i]=true;save();renderNav();b.textContent='▶ Replay';};
+ });
+}
+
+/* ============ 练习 ============ */
+function practice(el,lessonId){
+ const gen=generators[lessonId];
+ if(!gen){el.innerHTML='<div class="note">No practice (K1/K2 are concept lessons)</div>';return;}
+ const s=st(lessonId);
+ let streak=0,need=5,q=null;
+ const update=()=>{
+  el.innerHTML=`<div class="step">Practice · 练习（${streak}/${need}）</div><div style="font-size:13px;color:var(--muted);margin:8px 0">对 ${s.prac.ok}/${s.prac.tot}<button class="secondary" id="rs" style="margin-left:8px">Reset</button></div><div class="progress"><div style="width:${(streak/need)*100}%"></div></div><div class="q"><div class="q-text">${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="pi"><button id="ps">Submit</button></div><div class="hint" id="ph"></div><div class="feedback" id="pf"></div></div>`;
+  el.querySelector('#rs').onclick=()=>{s.prac={ok:0,tot:0};streak=0;save();update();renderNav();};
+  const inp=el.querySelector('#pi'),fb=el.querySelector('#pf'),ht=el.querySelector('#ph');
+  inp.focus();el.querySelector('#ps').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
+  function check(){
+   const a=inp.value.trim();
+   const r=q.check(a);
+   if(r===true){streak++;s.prac.ok++;s.prac.tot++;fb.className='feedback show ok';fb.textContent='✓';inp.disabled=true;if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>本节过关！✓</strong>';save();renderNav();}setTimeout(()=>{q=gen();update();},900);}
+   else if(r==='hint'){ht.className='hint show';ht.textContent=q.hint;}
+   else{streak=0;s.prac.tot++;fb.className='feedback show err';fb.textContent=`✗ 正确是 ${q.ans}`;save();renderNav();}
+  }
+ };
+ q=gen();update();
+}
+
+/* ============ 章末测 ============ */
+function chTest(el){
+ el.innerHTML=`<div class="step">Chapter Test</div><div class="box"><p style="font-size:13px;color:var(--muted)">共 6 题。</p><div id="tq"></div></div>`;
+ const tq=el.querySelector('#tq');
+ const qs=[];
+ for(let i=0;i<2;i++)qs.push(generators.k3());
+ for(let i=0;i<2;i++)qs.push(generators.k4());
+ for(let i=0;i<2;i++)qs.push(generators.k5());
+ let i=0,ok=0;
+ const show=()=>{
+  if(i>=qs.length){tq.innerHTML=`<div class="note" style="background:${ok>=4?'#dcfce7':'#fef3c7'}"><strong>${ok}/${qs.length}</strong> ${ok>=4?'章末通过！':'再复习'}</div>`;S.test={ok,tot:qs.length};save();renderNav();return;}
+  const q=qs[i];
+  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="ti"><button id="ts">Submit</button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
+  const inp=tq.querySelector('#ti'),fb=tq.querySelector('#tf'),ht=tq.querySelector('#th');
+  inp.focus();tq.querySelector('#ts').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
+  function check(){
+   const r=q.check(inp.value.trim());
+   if(r===true){ok++;fb.className='feedback show ok';fb.textContent='✓';inp.disabled=true;setTimeout(()=>{i++;show();},600);}
+   else if(r==='hint'){ht.className='hint show';ht.textContent=q.hint;}
+   else{fb.className='feedback show err';fb.textContent='✗';setTimeout(()=>{i++;show();},900);}
+  }
+ };
+ show();
+}
+
+/* ============ 渲染 ============ */
+function renderNav(){
+ const nav=document.getElementById('nav');
+ nav.innerHTML=LESSONS.map(l=>{
+  const s=st(l.id);
+  let stxt='';
+  if(s.done)stxt='<span class="st ok">✓</span>';
+  else if(s.prac.tot>0)stxt=`<span class="st ${s.prac.ok/s.prac.tot>0.6?'ok':'err'}">${s.prac.ok}/${s.prac.tot}</span>`;
+  return `<div class="nav-i ${l.id===cur||cur===`micro-${l.id}`||cur===`diag-${l.id}`||cur===`prac-${l.id}`?'on':''}" data-go="${l.id}"><span><b>${l.n}</b> ${l.cn}</span>${stxt}</div>`;
+ }).join('');
+ nav.querySelectorAll('[data-go]').forEach(n=>n.onclick=()=>{const id=n.dataset.go;cur=id==='test'?'test':`micro-${id}`;render();});
+}
+
+function render(){
+ const main=document.getElementById('main');
+ renderNav();
+ if(cur==='test'){chTest(main);return;}
+ const m=cur.match(/^(diag|micro|prac)-(\w+)$/);
+ if(m){
+  const phase=m[1],id=m[2];
+  const lesson=LESSONS.find(l=>l.id===id);
+  if(!lesson){main.innerHTML='<div class="note">Unknown</div>';return;}
+  const titles={k1:'为什么要证明',k2:'证明书写格式',k3:'平行线的判定',k4:'平行线的性质',k5:'三角形内角和'};
+  main.innerHTML=`<div class="lesson-id">${lesson.n} · ${titles[id]} · ${lesson.cn}</div>`;
+  const c=document.createElement('div');main.appendChild(c);
+  if(phase==='diag'){
+   if(st(id).diag===3){cur=`micro-${id}`;render();return;}
+   diag(c,id,generators[id]||(()=>({q:'(no diag for this lesson)',check:()=>true})));
+  } else if(phase==='micro'){
+   if(id==='k1')microK1(c);
+   else if(id==='k2')microK2(c);
+   else if(id==='k3')microK3(c);
+   else if(id==='k4')microK4(c);
+   else if(id==='k5')microK5(c);
+   const after=document.createElement('div');main.appendChild(after);
+   videos(after,id);
+   const btn=document.createElement('div');btn.style.marginTop='14px';
+   btn.innerHTML=`<button id="toPrac">Go to practice · 开始练习</button>`;
+   main.appendChild(btn);
+   btn.querySelector('#toPrac').onclick=()=>{cur=`prac-${id}`;render();};
+  } else if(phase==='prac'){practice(c,id);}
+ } else {
+  main.innerHTML='<div class="note">Select a lesson on the left.</div>';
+ }
+}
+render();
+</script>
+</body>
+</html>
