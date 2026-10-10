@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch02 Real Numbers · 实数</title>
+<style>
+:root{
+  --bg:#f7f8fa; --card:#fff; --ink:#1c2430; --mute:#6b7785; --line:#e3e8ef;
+  --accent:#7c3aed; --accent2:#0ea5e9; --ok:#16a34a; --bad:#dc2626; --warn:#f59e0b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding:20px}
+header{background:linear-gradient(135deg,#7c3aed,#0ea5e9);color:#fff;padding:26px 20px;border-radius:14px;margin-bottom:18px}
+header h1{font-size:24px;font-weight:700}
+header .sub{opacity:.92;font-size:14px;margin-top:4px}
+header .cn{font-size:13px;opacity:.85;margin-top:2px}
+.layout{display:grid;grid-template-columns:236px 1fr;gap:18px}
+@media(max-width:820px){.layout{grid-template-columns:1fr}}
+nav{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;height:fit-content;position:sticky;top:14px}
+.nav-i{padding:10px 12px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.nav-i:hover{background:#f5f3ff}
+.nav-i.on{background:var(--accent);color:#fff}
+.nav-i .st{font-size:11px;opacity:.85}
+main{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;min-height:520px}
+h2{font-size:19px;margin-bottom:6px}
+h3{font-size:16px;margin:18px 0 8px;color:var(--accent)}
+.cn-tag{color:var(--mute);font-weight:400;font-size:13px}
+.lead{color:var(--mute);font-size:14px;margin-bottom:14px}
+.box{background:#faf9ff;border:1px solid var(--line);border-radius:10px;padding:14px;margin:12px 0}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:8px;padding:9px 16px;font-size:14px;font-weight:600;background:var(--accent);color:#fff;transition:.15s}
+button:hover{filter:brightness(1.08)}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.ghost{background:#fff;color:var(--accent);border:1px solid var(--accent)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.step{display:inline-block;background:#f3e8ff;color:var(--accent);padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:10px}
+.micro{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+@media(max-width:680px){.micro{grid-template-columns:1fr}}
+.fig{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center}
+.fig .cap{font-size:13px;font-weight:600;margin-bottom:6px}
+.fig .sub2{font-size:12px;color:var(--mute)}
+svg{display:block;margin:0 auto}
+.slider-row{display:flex;gap:20px;justify-content:center;align-items:center;margin:12px 0;flex-wrap:wrap}
+.slider-row label{font-size:13px;display:flex;align-items:center;gap:8px}
+input[type=range]{width:130px;accent-color:var(--accent)}
+.val{font-weight:700;color:var(--accent);min-width:56px;display:inline-block}
+.eqbox{text-align:center;font-size:16px;padding:12px;background:#fff;border:2px solid var(--accent);border-radius:10px;margin:12px 0;font-weight:700}
+.eqbox .num{color:var(--accent)}
+.vid-item{display:flex;gap:12px;align-items:flex-start;padding:10px;border:1px solid var(--line);border-radius:10px;margin:8px 0;background:#fff}
+.vid-item .t{flex:1}
+.vid-item .t b{font-size:14px;display:block}
+.vid-item .t small{color:var(--mute);font-size:12px}
+.badge{font-size:11px;padding:2px 8px;border-radius:12px;font-weight:600;white-space:nowrap}
+.b-core{background:#dcfce7;color:#15803d}
+.b-ext{background:#fef3c7;color:#a16207}
+.b-link{background:#e0e7ff;color:#4338ca}
+video{width:100%;max-width:520px;border-radius:8px;background:#000;display:block;margin:8px 0}
+.q{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0}
+.q .qt{font-size:15px;margin-bottom:10px}
+.opt{display:block;width:100%;text-align:left;padding:10px 14px;margin:6px 0;border:1.5px solid var(--line);border-radius:8px;background:#fff;font-size:14px;font-family:inherit}
+.opt:hover:not(:disabled){border-color:var(--accent);background:#f5f3ff}
+.opt.sel-ok{border-color:var(--ok);background:#dcfce7}
+.opt.sel-bad{border-color:var(--bad);background:#fee2e2}
+.fb{margin-top:10px;padding:10px;border-radius:8px;font-size:13px;display:none}
+.fb.ok{display:block;background:#dcfce7;color:#15803d}
+.fb.bad{display:block;background:#fee2e2;color:#b91c1c}
+.hint{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px;font-size:13px;margin-top:8px;display:none}
+.hint.on{display:block}
+.prog{height:8px;background:#e5e7eb;border-radius:4px;overflow:hidden;margin:10px 0}
+.prog i{display:block;height:100%;background:var(--ok);transition:.3s}
+.stat{display:flex;gap:14px;font-size:13px;color:var(--mute);flex-wrap:wrap}
+.stat b{color:var(--ink)}
+.mastery{font-size:12px;padding:3px 10px;border-radius:12px;font-weight:600}
+.m-none{background:#f1f5f9;color:#64748b}.m-fam{background:#fef3c7;color:#a16207}
+.m-pro{background:#dbeafe;color:#1d4ed8}.m-mas{background:#dcfce7;color:#15803d}
+.note{font-size:12px;color:var(--mute);margin-top:6px}
+.credit{margin-top:22px;padding:12px;border-top:1px solid var(--line);font-size:12px;color:var(--mute)}
+.stepbtn{padding:6px 12px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Chapter 2 · Real Numbers</h1>
+  <div class="sub">Grade 8 · BNU Edition · 11 lessons · the heaviest chapter</div>
+  <div class="cn">北师大版 八年级上册 第二章 实数（11 课时 · 本章课时最多）</div>
+</header>
+
+<div class="layout">
+  <nav id="nav"></nav>
+  <main id="main"></main>
+</div>
+
+<div class="credit">
+  Video content source: Khan Academy · CC BY-NC-SA. 视频内容来源：可汗学院（CC BY-NC-SA）。<br>
+  本页为 学习原型（测试站），仅用于自学练习。
+</div>
+</div>
+
+<script>
+const VDIR='videos/Ch02_实数/';
+const V={
+ k1:[
+  {f:'01_Introduction to rational and irrational numbers.mp4',t:'Intro to rational & irrational numbers',c:'core',d:'有理数与无理数的定义'},
+  {f:'02_Recognizing rational and irrational numbers (examples).mp4',t:'Recognizing rational & irrational (examples)',c:'core',d:'辨别练习'},
+  {f:'03_Proof that square root of 2 is irrational.mp4',t:'Proof that √2 is irrational',c:'core',d:'为什么 √2 不是有理数 · 北师大一笔带过'},
+  {f:'33_Classifying numbers - rational & irrational.mp4',t:'Classifying numbers: rational & irrational',c:'core',d:'数的分类'}
+ ],
+ k2:[
+  {f:'07_Introduction to square roots.mp4',t:'Introduction to square roots',c:'core',d:'平方根与算术平方根'},
+  {f:'08_Square root of decimal (example).mp4',t:'Square root of a decimal',c:'core',d:'小数开平方'}
+ ],
+ k3:[
+  {f:'11_Introduction to cube roots.mp4',t:'Introduction to cube roots',c:'core',d:'立方根'},
+  {f:'12_Cube root of a negative number (example).mp4',t:'Cube root of a negative number',c:'core',d:'负数也有立方根'},
+  {f:'16_Dimensions of a cube from its volume.mp4',t:'Dimensions of a cube from its volume',c:'core',d:'由体积求边长'}
+ ],
+ k4:[
+  {f:'10_How to approximate square roots.mp4',t:'How to approximate square roots',c:'core',d:'夹逼法估算'},
+  {f:'09_Approximating square roots to hundredths.mp4',t:'Approximating square roots to hundredths',c:'core',d:'精确到百分位'}
+ ],
+ k5:[
+  {f:'15_Comparing values with calculator.mp4',t:'Comparing values with calculator',c:'core',d:'用计算器比较大小'}
+ ],
+ k6:[
+  {f:'13_How to classify numbers.mp4',t:'How to classify numbers',c:'core',d:'实数分类'},
+  {f:'14_Comparing irrational numbers involving radicals.mp4',t:'Comparing irrational numbers with radicals',c:'core',d:'含根号的无理数比大小'},
+  {f:'04_Converting a fraction to a repeating decimal.mp4',t:'Converting a fraction to a repeating decimal',c:'ext',d:'分数化循环小数'},
+  {f:'05_Converting repeating decimals to fractions 1.mp4',t:'Converting repeating decimals to fractions 1',c:'ext',d:'循环小数化分数'},
+  {f:'06_Converting repeating decimals to fractions 2.mp4',t:'Converting repeating decimals to fractions 2',c:'ext',d:'循环小数化分数 进阶'}
+ ],
+ k7:[
+  {f:'17_Simplifying square-root expressions.mp4',t:'Simplifying square-root expressions',c:'core',d:'二次根式化简'},
+  {f:'27_Exponent properties involving products.mp4',t:'Exponent properties: products',c:'link',d:'指数运算律 · 根式运算的基础'},
+  {f:'28_Exponent properties involving quotients.mp4',t:'Exponent properties: quotients',c:'link',d:'指数运算律 · 商的乘方'},
+  {f:'29_Negative exponents.mp4',t:'Negative exponents',c:'link',d:'负指数 → 与 √a = a^(1/2) 相通'},
+  {f:'30_Negative exponent intuition.mp4',t:'Negative exponent intuition',c:'link',d:'负指数的直观理解'},
+  {f:'31_Products and exponents raised to an exponent.mp4',t:'Products & exponents raised to an exponent',c:'link',d:'积的乘方'},
+  {f:'32_Powers of zero.mp4',t:'Powers of zero',c:'link',d:'零指数'}
+ ],
+ ext:[
+  {f:'18_Scientific notation examples.mp4',t:'Scientific notation examples',c:'ext',d:'科学计数法 · 初二物理化学立刻要用'},
+  {f:'19_Multiplying three numbers in scientific notation.mp4',t:'Multiplying three numbers in scientific notation',c:'ext',d:'科学计数法乘法'},
+  {f:'20_Multiplying in scientific notation.mp4',t:'Multiplying in scientific notation',c:'ext',d:'科学计数法乘法'},
+  {f:'21_Subtracting in scientific notation.mp4',t:'Subtracting in scientific notation',c:'ext',d:'科学计数法减法'},
+  {f:'22_Express a small number in scientific notation.mp4',t:'Express a small number in scientific notation',c:'ext',d:'小数用科学计数法'},
+  {f:'23_Multiplying and dividing in scientific notation.mp4',t:'Multiplying & dividing in scientific notation',c:'ext',d:'科学计数法乘除'},
+  {f:'24_Red blood cells (scientific notation word problem).mp4',t:'Red blood cells (word problem)',c:'ext',d:'科学计数法应用题'},
+  {f:'25_Speed of light and distance from sun (scientific notation).mp4',t:'Speed of light & distance from sun',c:'ext',d:'科学计数法应用题'},
+  {f:'26_U.S. national debt (scientific notation word problem).mp4',t:'U.S. national debt (word problem)',c:'ext',d:'科学计数法应用题'}
+ ]
+};
+
+const KEY='bnu8_ch02_state';
+let S=load();
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return{};}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+const LESSONS=[
+ {id:'k1',t:'Irrational Numbers',cn:'认识无理数',n:'2.1'},
+ {id:'k2',t:'Square Roots',cn:'平方根',n:'2.2'},
+ {id:'k3',t:'Cube Roots',cn:'立方根',n:'2.3'},
+ {id:'k4',t:'Estimating Roots',cn:'估算（夹逼法）',n:'2.4'},
+ {id:'k5',t:'Using a Calculator',cn:'用计算器开方',n:'2.5'},
+ {id:'k6',t:'The Real Numbers',cn:'实数',n:'2.6'},
+ {id:'k7',t:'Radicals',cn:'二次根式',n:'2.7'},
+ {id:'ext',t:'Extension: Sci Notation',cn:'拓展：科学计数法',n:'Ext'},
+ {id:'test',t:'Chapter Test',cn:'章末检测',n:'Test'}
+];
+let cur='k1';
+function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
+function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function pick(a){return a[ri(0,a.length-1)];}
+const SQR=[1,4,9,16,25,36,49,64,81,100,121,144,169,196,225];
+const CUB=[1,8,27,64,125,216,343,512,729,1000];
+
+/* ============ 微课 K1：在数轴上作出 √2（跨章衔接） ============ */
+function microK1(el){
+  let step=0;
+  const steps=[
+    {t:'数轴上画出 0 和 1',d:'先在数轴上确定单位长度 1。'},
+    {t:'在 1 处作垂线，取长度 1',d:'过 x=1 作垂线，向上量 1 个单位。'},
+    {t:'连接 0 到该点 → 斜边 = √2',d:'由勾股定理：1² + 1² = 2，所以斜边 = √2。'},
+    {t:'以 0 为圆心画弧，交数轴于 √2',d:'把这段长度转到数轴上，就得到 √2 的精确位置。'}
+  ];
+  el.innerHTML=`
+    <div class="step">Interactive Micro-lesson · 可交互微课</div>
+    <h3>√2 has an exact place on the number line <span class="cn-tag">无理数在数轴上有确定位置</span></h3>
+    <div class="lead">
+      <b>这是 Ch01 与 Ch02 的衔接断点。</b>北师大说「实数与数轴一一对应」，但 √2 到底在数轴哪里？
+      教材没讲。答案要靠<b>第一章的勾股定理</b>——点下面按钮，一步步看。
+    </div>
+    <div class="row"><button class="stepbtn" id="prev">← 上一步</button>
+      <button class="stepbtn" id="next">下一步 →</button>
+      <button class="stepbtn ghost" id="auto">自动播放</button>
+      <span class="val" id="snum">1 / 4</span></div>
+    <div class="fig"><div class="cap" id="stitle">${steps[0].t}</div>
+      <svg id="svgA" viewBox="0 0 560 260" width="540" height="250"></svg>
+      <div class="sub2" id="sdesc">${steps[0].d}</div></div>
+    <div class="box"><b>为什么这一步重要：</b>很多孩子以为 √2 ≈ 1.414 只是个「近似值」，
+      所以它「大概」在数轴上。但上面这个作图证明 √2 有个<b>精确的几何位置</b>——
+      它和 1、2 一样，是数轴上实实在在的一个点。这就是「实数与数轴一一对应」的真正含义。<br>
+      <span class="cn-tag">北师大在此处断裂：说了结论，没给理由。可汗也没有这条视频 —— 这一步由我们自建。</span></div>`;
+
+  const SC=110, OX=70, OY=190;
+  const X=v=>OX+v*SC, Y=v=>OY-v*SC;
+  function draw(){
+    let g='';
+    // 数轴
+    g+=`<line x1="${X(-0.4)}" y1="${OY}" x2="${X(4.6)}" y2="${OY}" stroke="#1c2430" stroke-width="2"/>`;
+    for(let i=0;i<=4;i++){
+      g+=`<line x1="${X(i)}" y1="${OY-5}" x2="${X(i)}" y2="${OY+5}" stroke="#1c2430" stroke-width="1.5"/>`;
+      g+=`<text x="${X(i)}" y="${OY+20}" font-size="13" fill="#1c2430" text-anchor="middle">${i}</text>`;
+    }
+    // 单位段 0→1
+    if(step>=0){
+      g+=`<line x1="${X(0)}" y1="${OY+9}" x2="${X(1)}" y2="${OY+9}" stroke="#7c3aed" stroke-width="3"/>`;
+      g+=`<text x="${X(0.5)}" y="${OY+34}" font-size="12" fill="#7c3aed" text-anchor="middle">1</text>`;
+    }
+    if(step>=1){
+      g+=`<line x1="${X(1)}" y1="${OY}" x2="${X(1)}" y2="${Y(1)}" stroke="#0ea5e9" stroke-width="3"/>`;
+      g+=`<text x="${X(1)+12}" y="${(OY+Y(1))/2}" font-size="12" fill="#0ea5e9">1</text>`;
+    }
+    if(step>=2){
+      g+=`<line x1="${X(0)}" y1="${OY}" x2="${X(1)}" y2="${Y(1)}" stroke="#dc2626" stroke-width="3"/>`;
+      const mx=(X(0)+X(1))/2, my=(OY+Y(1))/2;
+      g+=`<text x="${mx-18}" y="${my-6}" font-size="14" fill="#dc2626" font-weight="bold">√2</text>`;
+      g+=`<text x="${X(1)+16}" y="${Y(1)-4}" font-size="12" fill="#1c2430">(1,1)</text>`;
+    }
+    if(step>=3){
+      const r=Math.sqrt(2)*SC;
+      g+=`<path d="M ${X(0)+r} ${OY} A ${r} ${r} 0 0 1 ${X(1)} ${Y(1)}" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5 4"/>`;
+      g+=`<circle cx="${X(Math.sqrt(2))}" cy="${OY}" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>`;
+      g+=`<text x="${X(Math.sqrt(2))}" y="${OY-14}" font-size="13" fill="#16a34a" font-weight="bold" text-anchor="middle">√2 ≈ 1.414</text>`;
+    }
+    el.querySelector('#svgA').innerHTML=g;
+    el.querySelector('#stitle').textContent=steps[step].t;
+    el.querySelector('#sdesc').textContent=steps[step].d;
+    el.querySelector('#snum').textContent=(step+1)+' / 4';
+  }
+  el.querySelector('#next').onclick=()=>{step=Math.min(3,step+1);draw();};
+  el.querySelector('#prev').onclick=()=>{step=Math.max(0,step-1);draw();};
+  el.querySelector('#auto').onclick=()=>{
+    step=0;draw();
+    let i=0;const t=setInterval(()=>{i++;if(i>=3){clearInterval(t);}step=Math.min(3,i);draw();},1100);
+  };
+  draw();
+}
+
+/* ============ 微课 K2：√9=3 vs x²=9 → ±3 ============ */
+function microK2(el){
+  let n=9;
+  el.innerHTML=`
+    <div class="step">Interactive Micro-lesson · 可交互微课</div>
+    <h3>√n  vs  x² = n <span class="cn-tag">平方根与方程的解 · 最经典的卡点</span></h3>
+    <div class="lead">这两个问的不是同一件事，但孩子几乎都会混。拖动滑块，看清楚差别。</div>
+    <div class="slider-row"><label>n = <input type="range" id="rn" min="1" max="25" value="9"><span class="val" id="vn">9</span></label></div>
+    <div class="micro">
+      <div class="fig"><div class="cap">√n 是什么 <span class="cn-tag">算术平方根</span></div>
+        <svg id="sL" viewBox="0 0 240 150" width="230" height="144"></svg>
+        <div class="sub2" id="dL"></div></div>
+      <div class="fig"><div class="cap">x² = n 的解 <span class="cn-tag">方程的解</span></div>
+        <svg id="sR" viewBox="0 0 240 150" width="230" height="144"></svg>
+        <div class="sub2" id="dR"></div></div>
+    </div>
+    <div class="box"><b>一句话记住：</b>√n 只问「哪个<b>非负</b>数的平方是 n」，所以答案<b>只有一个</b>；
+      x² = n 问「<b>哪些数</b>的平方是 n」，所以有<b>两个</b>（一正一负），n=0 时只有一个。<br>
+      <span class="cn-tag">中文教材的「算术平方根」= 可汗的 principal square root。这个概念是中文教材特有的，可汗不这么提。</span></div>`;
+  const draw=()=>{
+    const r=Math.sqrt(n);
+    const isSq=Math.abs(r-Math.round(r))<1e-9;
+    let L=`<text x="120" y="52" font-size="26" fill="#7c3aed" font-weight="bold" text-anchor="middle">√${n} = ${isSq?Math.round(r):r.toFixed(3)}</text>
+           <text x="120" y="86" font-size="13" fill="#15803d" text-anchor="middle">只有一个值 · 非负</text>
+           <line x1="40" y1="110" x2="200" y2="110" stroke="#e3e8ef" stroke-width="2"/>
+           <circle cx="${40+(r/6)*160}" cy="110" r="7" fill="#15803d" stroke="#fff" stroke-width="2"/>
+           <text x="40" y="132" font-size="11" fill="#6b7785" text-anchor="middle">0</text>`;
+    el.querySelector('#sL').innerHTML=L;
+    el.querySelector('#dL').innerHTML=`√${n} 是「算术平方根」，只取非负数`;
+    let R=isSq
+      ? `<text x="120" y="42" font-size="22" fill="#7c3aed" font-weight="bold" text-anchor="middle">x² = ${n}</text>
+         <text x="120" y="74" font-size="20" fill="#dc2626" font-weight="bold" text-anchor="middle">x = +${Math.round(r)}  或  −${Math.round(r)}</text>
+         <text x="120" y="100" font-size="13" fill="#b91c1c" text-anchor="middle">${n===0?'只有一个（0）':'两个解 · 一正一负'}</text>
+         <line x1="30" y1="124" x2="210" y2="124" stroke="#e3e8ef" stroke-width="2"/>
+         <circle cx="${120-(r/6)*90}" cy="124" r="7" fill="#dc2626" stroke="#fff" stroke-width="2"/>
+         <circle cx="${120+(r/6)*90}" cy="124" r="7" fill="#dc2626" stroke="#fff" stroke-width="2"/>
+         <text x="${120-(r/6)*90}" y="144" font-size="11" fill="#dc2626" text-anchor="middle">−${Math.round(r)}</text>
+         <text x="${120+(r/6)*90}" y="144" font-size="11" fill="#dc2626" text-anchor="middle">+${Math.round(r)}</text>`
+      : `<text x="120" y="42" font-size="22" fill="#7c3aed" font-weight="bold" text-anchor="middle">x² = ${n}</text>
+         <text x="120" y="74" font-size="18" fill="#dc2626" font-weight="bold" text-anchor="middle">x = ±√${n} ≈ ±${r.toFixed(3)}</text>
+         <text x="120" y="100" font-size="13" fill="#b91c1c" text-anchor="middle">两个解 · 都是无理数</text>
+         <line x1="30" y1="124" x2="210" y2="124" stroke="#e3e8ef" stroke-width="2"/>
+         <circle cx="${120-(r/6)*90}" cy="124" r="7" fill="#dc2626" stroke="#fff" stroke-width="2"/>
+         <circle cx="${120+(r/6)*90}" cy="124" r="7" fill="#dc2626" stroke="#fff" stroke-width="2"/>`;
+    el.querySelector('#sR').innerHTML=R;
+    el.querySelector('#dR').innerHTML=`x² = ${n} 是方程，要找出所有平方后等于 ${n} 的数`;
+  };
+  el.querySelector('#rn').oninput=()=>{n=+el.querySelector('#rn').value;el.querySelector('#vn').textContent=n;draw();};
+  draw();
+}
+
+/* ============ 微课 K3：立方根可为负 ============ */
+function microK3(el){
+  let v=8;
+  el.innerHTML=`
+    <div class="step">Interactive Micro-lesson · 可交互微课</div>
+    <h3>Cube roots can be negative <span class="cn-tag">负数也有立方根</span></h3>
+    <div class="lead">平方根和立方根最大的差别就在这里 —— 拖动滑块穿过 0，看会发生什么。</div>
+    <div class="slider-row"><label>被开方数 <input type="range" id="rv" min="-27" max="27" value="8"><span class="val" id="vv">8</span></label></div>
+    <div class="eqbox" id="res"></div>
+    <div class="micro">
+      <div class="fig"><div class="cap">平方根 √v</div><svg id="cs" viewBox="0 0 240 120" width="230" height="115"></svg>
+        <div class="sub2" id="csd"></div></div>
+      <div class="fig"><div class="cap">立方根 ∛v</div><svg id="cc" viewBox="0 0 240 120" width="230" height="115"></svg>
+        <div class="sub2" id="ccd"></div></div>
+    </div>
+    <div class="box"><b>为什么？</b>因为负数的平方是<b>正数</b>（(−3)² = 9），所以没有哪个实数的平方是负数 →
+      √(−4) 在实数范围内<b>不存在</b>。但负数的立方仍是<b>负数</b>（(−2)³ = −8），所以 ∛(−8) = −2 完全成立。<br>
+      <span class="cn-tag">北师大讲立方根时一句话带过，孩子最容易在这里和平方根混淆。</span></div>`;
+  const draw=()=>{
+    const ok = v>=0;
+    const sr = ok?Math.sqrt(v):null;
+    const cr = Math.cbrt(v);
+    el.querySelector('#res').innerHTML =
+      `√${v} = ${ok? (Math.abs(sr-Math.round(sr))<1e-9? Math.round(sr): sr.toFixed(3)) : '<span style="color:#dc2626">实数范围内不存在</span>'}`+
+      `&nbsp;&nbsp;&nbsp;&nbsp;∛${v} = ${Math.abs(cr-Math.round(cr))<1e-9? Math.round(cr): cr.toFixed(3)}`;
+    let S1=`<text x="120" y="48" font-size="24" font-weight="bold" fill="${ok?'#15803d':'#dc2626'}" text-anchor="middle">${ok?(Math.abs(sr-Math.round(sr))<1e-9?Math.round(sr):sr.toFixed(3)):'无实数解'}</text>
+            <text x="120" y="80" font-size="12" fill="#6b7785" text-anchor="middle">${ok?'被开方数必须 ≥ 0':'负数没有（实数）平方根'}</text>`;
+    el.querySelector('#cs').innerHTML=S1;
+    el.querySelector('#csd').textContent=ok?'可以算':'不存在';
+    let S2=`<text x="120" y="48" font-size="24" font-weight="bold" fill="#15803d" text-anchor="middle">${Math.abs(cr-Math.round(cr))<1e-9?Math.round(cr):cr.toFixed(3)}</text>
+            <text x="120" y="80" font-size="12" fill="#6b7785" text-anchor="middle">${v<0?'负数也有立方根，结果为负':'正数、负数、零都能开立方'}</text>`;
+    el.querySelector('#cc').innerHTML=S2;
+    el.querySelector('#ccd').textContent='总可以算';
+  };
+  el.querySelector('#rv').oninput=()=>{v=+el.querySelector('#rv').value;el.querySelector('#vv').textContent=v;draw();};
+  draw();
+}
+
+/* ============ 微课 K4：夹逼法 ============ */
+function microK4(el){
+  let n=20;
+  el.innerHTML=`
+    <div class="step">Interactive Micro-lesson · 可交互微课</div>
+    <h3>Squeeze method <span class="cn-tag">夹逼法估算</span></h3>
+    <div class="lead">√20 到底多大？不用计算器也能算：把它夹在两个整数之间，然后一步步收紧。</div>
+    <div class="slider-row"><label>n = <input type="range" id="rn2" min="2" max="90" value="20"><span class="val" id="vn2">20</span></label></div>
+    <div class="row"><button class="stepbtn" id="refine">收紧一位小数 →</button><button class="stepbtn ghost" id="reset2">重置</button>
+      <span class="val" id="prec">整数夹逼</span></div>
+    <svg id="sq" viewBox="0 0 520 150" width="500" height="145"></svg>
+    <div class="eqbox" id="eq4"></div>
+    <div class="box"><b>夹逼法的逻辑：</b>找到两个平方值把 n 夹在中间 → a² &lt; n &lt; b²，
+      则 a &lt; √n &lt; b。再把区间十等分，试每一位小数，逐步逼近。<br>
+      <span class="cn-tag">北师大给结论「精确到 0.1」，可汗有完整演示步骤 —— 这一步是衔接补位。</span></div>`;
+  let lo=0,hi=0,d=0;
+  function init(){ lo=Math.floor(Math.sqrt(n)); hi=lo+1; d=0; }
+  function draw(){
+    const SC=440/Math.max(hi+0.5,2), OX=30;
+    let g=`<line x1="${OX}" y1="80" x2="${OX+460}" y2="80" stroke="#e3e8ef" stroke-width="3"/>`;
+    for(let i=0;i<=hi+1;i++){
+      const x=OX+i*SC;
+      g+=`<line x1="${x}" y1="72" x2="${x}" y2="88" stroke="#1c2430" stroke-width="1.5"/>
+          <text x="${x}" y="104" font-size="12" fill="#1c2430" text-anchor="middle">${i}</text>`;
+    }
+    g+=`<rect x="${OX+lo*SC}" y="60" width="${(hi-lo)*SC}" height="14" fill="#fef3c7" stroke="#a16207" stroke-width="1"/>`;
+    const trueV=Math.sqrt(n);
+    g+=`<circle cx="${OX+trueV*SC}" cy="80" r="7" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+        <text x="${OX+trueV*SC}" y="44" font-size="13" fill="#16a34a" font-weight="bold" text-anchor="middle">√${n} ≈ ${trueV.toFixed(4)}</text>`;
+    el.querySelector('#sq').innerHTML=g;
+    const a=d===0?lo:(lo+ (d===1? Math.floor((trueV-lo)*10)/10 : (trueV.toFixed(d-1)-0))).toFixed(d);
+    el.querySelector('#eq4').innerHTML=
+      `${lo}² = ${lo*lo} &lt; ${n} &lt; ${hi*hi} = ${hi}² &nbsp;→&nbsp; ${lo} &lt; √${n} &lt; ${hi}`+
+      `&nbsp;&nbsp;|&nbsp;&nbsp; <span class="num">√${n} ≈ ${trueV.toFixed(Math.min(d+1,4))}</span>`;
+    el.querySelector('#prec').textContent=d===0?'整数夹逼':('精确到 '+d+' 位小数');
+  }
+  el.querySelector('#rn2').oninput=()=>{n=+el.querySelector('#rn2').value;el.querySelector('#vn2').textContent=n;init();draw();};
+  el.querySelector('#refine').onclick=()=>{d=Math.min(4,d+1);draw();};
+  el.querySelector('#reset2').onclick=()=>{init();draw();};
+  init();draw();
+}
+
+/* ============ 微课 K7：二次根式 ============ */
+function microK7(el){
+  let n=8;
+  el.innerHTML=`
+    <div class="step">Interactive Micro-lesson · 可交互微课（自建）</div>
+    <h3>Simplifying radicals <span class="cn-tag">二次根式化简 · 北师大硬考点</span></h3>
+    <div class="lead">可汗 8 年级几乎不练二次根式运算，而这是北师大的必考点。这一节由我们自建。
+      拖动滑块看 √(a·b) = √a · √b 是怎么回事。</div>
+    <div class="slider-row">
+      <label>完全平方因子 k² <input type="range" id="rk" min="1" max="9" value="2"><span class="val" id="vk">2</span></label>
+      <label>剩余因子 m <input type="range" id="rm" min="2" max="20" value="2"><span class="val" id="vm">2</span></label>
+    </div>
+    <div class="eqbox" id="eq7"></div>
+    <div class="fig"><div class="cap">面积模型：为什么 √(k²·m) = k·√m</div>
+      <svg id="s7" viewBox="0 0 420 200" width="400" height="190"></svg>
+      <div class="sub2" id="d7"></div></div>
+    <div class="box"><b>化简步骤：</b>① 把被开方数分解，找出<b>完全平方因子</b> ② √(k²·m) = √k² · √m = k·√m
+      ③ 检查剩下的 m 是否还能再提。<br>
+      <b>运算律：</b>√a · √b = √(ab)（a,b ≥ 0）；√a ÷ √b = √(a/b)（b &gt; 0）。<br>
+      <span class="cn-tag">这些法则的根据是指数运算律：√a = a^(1/2)，所以 √a·√b = a^(1/2)·b^(1/2) = (ab)^(1/2)。上面标记为「基础」的指数视频就是它的来由。</span></div>`;
+  const draw=()=>{
+    const k=+el.querySelector('#rk').value, m=+el.querySelector('#rm').value;
+    const prod=k*k*m;
+    el.querySelector('#eq7').innerHTML=
+      `√${prod} = √(${k}² × ${m}) = √${k*k} × √${m} = <span class="num">${k}√${m}</span> &nbsp;≈ ${(k*Math.sqrt(m)).toFixed(3)}`;
+    // 面积模型：把 k²·m 的矩形分成 k² 个面积 m 的小方块
+    const S=150/Math.max(k,1);
+    let g=`<rect x="30" y="20" width="${S*k}" height="${S*k}" fill="#f3e8ff" stroke="#7c3aed" stroke-width="2"/>`;
+    for(let i=0;i<k;i++)for(let j=0;j<k;j++){
+      g+=`<rect x="${30+i*S}" y="${20+j*S}" width="${S}" height="${S}" fill="none" stroke="#c4b5fd" stroke-width="1"/>`;
+    }
+    g+=`<text x="${30+S*k/2}" y="${20+S*k+18}" font-size="12" fill="#7c3aed" text-anchor="middle">面积 = ${k}² × ${m} = ${prod}</text>`;
+    g+=`<text x="230" y="60" font-size="16" fill="#1c2430">边长 = √${prod}</text>`;
+    g+=`<text x="230" y="86" font-size="16" fill="#7c3aed" font-weight="bold">= ${k} × √${m}</text>`;
+    g+=`<text x="230" y="112" font-size="12" fill="#6b7785">（${k} 个 √${m} 并排）</text>`;
+    g+=`<line x1="230" y1="128" x2="400" y2="128" stroke="#e3e8ef" stroke-width="2"/>`;
+    for(let i=0;i<k;i++){
+      g+=`<rect x="${230+i*34}" y="140" width="32" height="32" fill="#ddd6fe" stroke="#7c3aed" stroke-width="1.5"/>
+          <text x="${230+i*34+16}" y="${160}" font-size="11" fill="#5b21b6" text-anchor="middle">${m}</text>`;
+    }
+    g+=`<text x="${230+k*34/2}" y="${186}" font-size="11" fill="#6b7785" text-anchor="middle">每块边长 √${m}，共 ${k} 块</text>`;
+    el.querySelector('#s7').innerHTML=g;
+    el.querySelector('#d7').textContent=`√${prod} = ${k}√${m}`;
+  };
+  el.querySelector('#rk').oninput=()=>{el.querySelector('#vk').textContent=el.querySelector('#rk').value;draw();};
+  el.querySelector('#rm').oninput=()=>{el.querySelector('#vm').textContent=el.querySelector('#rm').value;draw();};
+  draw();
+}
+
+/* ============ 练习引擎 ============ */
+function genQ(type,diff){
+  if(type==='sqrt'){
+    const p=pick(SQR.filter(x=>diff===1?x<=100:true));
+    return {q:`Find <b>√${p}</b>.<br><span class="cn-tag">求 ${p} 的算术平方根</span>`,
+      ans:Math.sqrt(p), sol:`因为 ${Math.sqrt(p)}² = ${p}，且算术平方根取非负数，所以 √${p} = ${Math.sqrt(p)}`};
+  }
+  if(type==='cuberoot'){
+    const sign=Math.random()<0.35?-1:1;
+    const p=pick(CUB.filter(x=>diff===1?x<=125:true));
+    const v=sign*p;
+    return {q:`Find <b>∛${v}</b>.<br><span class="cn-tag">求 ${v} 的立方根</span>`,
+      ans:Math.cbrt(v), sol:`因为 (${Math.cbrt(v)})³ = ${v}，所以 ∛${v} = ${Math.cbrt(v)}${v<0?'（负数也有立方根）':''}`};
+  }
+  if(type==='eq'){
+    const p=pick(SQR.filter(x=>diff===1?x<=81:true));
+    return {q:`Solve <b>x² = ${p}</b>. Select ALL solutions — how many are there?<br><span class="cn-tag">解方程 x² = ${p}，有几个解？</span>`,
+      ans:p===0?'1':'2', sol:`x² = ${p} → x = ±√${p} = ±${Math.sqrt(p)}，共 ${p===0?'1':'2'} 个解（一正一负）`};
+  }
+  if(type==='ratirr'){
+    const irr=['√2','√3','√5','√7','π','√10','√8'];
+    const rat=['1/2','0.75','-3','0.333...','22/7','0.6','5'];
+    const isIrr=Math.random()<0.5;
+    const v=isIrr?pick(irr):pick(rat);
+    return {q:`Is <b>${v}</b> rational or irrational?<br><span class="cn-tag">${v} 是有理数还是无理数？</span>`,
+      ans:isIrr?'Irrational':'Rational',
+      sol:isIrr?`${v} 不能写成两个整数的比，是无限不循环小数 → 无理数`:`${v} 可以写成分数（两个整数之比）→ 有理数`};
+  }
+  if(type==='estimate'){
+    const n=ri(2,90);
+    const lo=Math.floor(Math.sqrt(n));
+    return {q:`Between which two consecutive integers is <b>√${n}</b>?<br><span class="cn-tag">√${n} 在哪两个连续整数之间？</span>`,
+      ans:`${lo} and ${lo+1}`,
+      sol:`${lo}² = ${lo*lo}，${lo+1}² = ${(lo+1)*(lo+1)}。因为 ${lo*lo} < ${n} < ${(lo+1)*(lo+1)}，所以 ${lo} < √${n} < ${lo+1}`};
+  }
+  if(type==='simplify'){
+    const k=ri(2,7), m=ri(2,11);
+    return {q:`Simplify <b>√${k*k*m}</b>.<br><span class="cn-tag">化简 √${k*k*m}</span>`,
+      ans:`${k}√${m}`,
+      sol:`√${k*k*m} = √${k*k} × √${m} = ${k}√${m}`};
+  }
+}
+
+function renderQ(el,q,onAns){
+  el.innerHTML=`<div class="q"><div class="qt">${q.q}</div><div id="opts"></div>
+    <div class="row"><button class="ghost" id="hb">Hint 提示</button></div>
+    <div class="hint" id="hint">${q.hint||'先判断求的是「算术平方根」还是「方程的解」——前者只有一个非负答案，后者一正一负。'}</div>
+    <div class="fb" id="fb"></div></div>`;
+  const od=el.querySelector('#opts');
+  let opts;
+  if(['Yes','No','Rational','Irrational','1','2'].includes(String(q.ans))){
+    const map={'ratirr':['Rational','Irrational'],'eq':['1','2'],'conv':['Yes','No']};
+    opts=map[guessType(q)]||['Rational','Irrational'];
+  } else if(String(q.ans).includes(' and ')){
+    opts=[q.ans, `${parseInt(q.ans)-1} and ${parseInt(q.ans)}`, `${parseInt(q.ans)+1} and ${parseInt(q.ans)+2}`];
+  } else if(String(q.ans).includes('√')){
+    const kk=parseInt(q.ans);
+    opts=[q.ans, `${kk+1}√${q.ans.split('√')[1]}`, `${kk-1}√${q.ans.split('√')[1]}`, `√${q.ans.split('√')[1]}`];
+  } else {
+    const n=+q.ans;
+    opts=[...new Set([n, n+1, Math.max(-10,n-1), n+ri(2,4), -n])].slice(0,4);
+  }
+  opts=[...new Set(opts)].sort(()=>Math.random()-0.5);
+  opts.forEach(o=>{
+    const b=document.createElement('button'); b.className='opt'; b.innerHTML=String(o);
+    b.onclick=()=>{
+      od.querySelectorAll('.opt').forEach(x=>x.disabled=true);
+      const ok=String(o)===String(q.ans);
+      b.classList.add(ok?'sel-ok':'sel-bad');
+      if(!ok) od.querySelectorAll('.opt').forEach(x=>{if(x.innerHTML===String(q.ans))x.classList.add('sel-ok');});
+      const fb=el.querySelector('#fb'); fb.className='fb '+(ok?'ok':'bad');
+      fb.innerHTML=(ok?'✓ Correct. ':'✗ Not quite. ')+q.sol;
+      onAns(ok);
+    };
+    od.appendChild(b);
+  });
+  el.querySelector('#hb').onclick=()=>el.querySelector('#hint').classList.add('on');
+}
+function guessType(q){
+  if(q.q.includes('rational or irrational'))return 'ratirr';
+  if(q.q.includes('how many are there'))return 'eq';
+  return 'conv';
+}
+
+/* ============ 视频列表 ============ */
+function videos(el,list,id){
+  el.innerHTML=`<h3>Videos <span class="cn-tag">视频（来源：可汗学院）</span></h3>
+    <div class="lead"><span class="badge b-core">Core 核心</span> 北师大考点必看 ｜
+      <span class="badge b-link">基础 衔接</span> 北师大跳过的来由 ｜
+      <span class="badge b-ext">Ext 拓展</span> 延伸内容</div>`;
+  list.forEach((v,i)=>{
+    const d=document.createElement('div'); d.className='vid-item';
+    const cls=v.c==='core'?'b-core':(v.c==='link'?'b-link':'b-ext');
+    const lbl=v.c==='core'?'Core 核心':(v.c==='link'?'基础 衔接':'Ext 拓展');
+    d.innerHTML=`<div class="t"><b>${v.t}</b><small>${v.d}</small> <span class="badge ${cls}">${lbl}</span></div>`;
+    const b=document.createElement('button'); b.className='ghost'; b.textContent='▶ Play';
+    b.onclick=()=>{
+      let p=d.querySelector('video');
+      if(!p){p=document.createElement('video');p.controls=true;p.preload='metadata';
+        p.src=encodeURI(VDIR+v.f);d.appendChild(p);st(id).vid[i]=true;save();renderNav();}
+      p.scrollIntoView({behavior:'smooth',block:'center'});p.play();
+    };
+    d.appendChild(b); el.appendChild(d);
+  });
+}
+
+/* ============ 诊断 / 练习 / 章测 ============ */
+function diag(el,id,types){
+  const s=st(id);
+  if(s.diag){el.innerHTML=`<div class="box"><b>Pre-check 学前诊断：</b>${s.diag.pass?'✓ 全对，可直接练。':'已完成，有错题 → 先看微课。'}</div>`;return;}
+  el.innerHTML=`<div class="step">Step 1 · Pre-check 学前诊断</div>
+    <div class="lead">3 道题。全对可跳过讲解直接练习。</div>
+    <div id="dq"></div><div class="row"><button id="done2" disabled>提交诊断</button></div>`;
+  const box=el.querySelector('#dq'); let ok=0,done=0;
+  const qs=types.map(t=>genQ(t,1));
+  qs.forEach(q=>{const d=document.createElement('div');box.appendChild(d);
+    renderQ(d,q,r=>{if(r)ok++;done++;if(done===qs.length)el.querySelector('#done2').disabled=false;},true);});
+  el.querySelector('#done2').onclick=()=>{
+    s.diag={ok,tot:qs.length,pass:ok===qs.length};save();
+    el.innerHTML=`<div class="box"><b>诊断结果：${ok}/${qs.length}</b><br>${ok===qs.length?'✓ 全对，直接进练习。':'建议先看微课和视频。'}</div>`;};
+}
+function prac(el,id,types,need){
+  const s=st(id);
+  el.innerHTML=`<div class="step">Step 3 · Practice 练习</div>
+    <div class="lead">题目实时生成，每次不同。过关线：连续答对 ${need} 题。</div>
+    <div class="stat"><span>连对：<b id="sk">0</b>/${need}</span><span>累计：<b id="cm">${s.prac.ok}/${s.prac.tot}</b></span><span id="ms"></span></div>
+    <div class="prog"><i id="pb" style="width:0%"></i></div>
+    <div id="pq"></div><div class="row"><button id="nq">下一题</button><button class="ghost" id="rs">重置</button></div>`;
+  let streak=0,diff=1;
+  const upd=()=>{el.querySelector('#sk').textContent=streak;
+    el.querySelector('#cm').textContent=s.prac.ok+'/'+s.prac.tot;
+    el.querySelector('#pb').style.width=Math.min(100,streak/need*100)+'%';
+    const m=el.querySelector('#ms');
+    m.innerHTML=streak>=need?'<span class="mastery m-pro">Proficient 熟练</span>'
+      :(s.prac.tot>0&&s.prac.ok/s.prac.tot>=0.7?'<span class="mastery m-fam">Familiar 熟悉</span>'
+      :'<span class="mastery m-none">Not started</span>');};
+  const next=()=>{const box=el.querySelector('#pq');box.innerHTML='';
+    const d=document.createElement('div');box.appendChild(d);
+    const q=genQ(pick(types),diff);
+    renderQ(d,q,r=>{s.prac.tot++;if(r){s.prac.ok++;streak++;if(streak>=3)diff=Math.min(3,diff+1);}else{streak=0;diff=Math.max(1,diff-1);}
+      if(streak>=need){s.done=true;save();renderNav();}save();upd();});upd();};
+  el.querySelector('#nq').onclick=next;
+  el.querySelector('#rs').onclick=()=>{s.prac={ok:0,tot:0};s.done=false;streak=0;save();upd();renderNav();};
+  next();
+}
+function chTest(el){
+  el.innerHTML=`<div class="step">Chapter Test · 章末检测</div>
+    <div class="lead">10 道题，覆盖本章 7 个知识点。</div>
+    <div id="tq"></div><div class="row"><button id="sb">提交</button></div><div id="rs2"></div>`;
+  const box=el.querySelector('#tq');
+  const types=['sqrt','cuberoot','eq','ratirr','estimate','simplify','sqrt','cuberoot','ratirr','estimate'];
+  const qs=types.map((t,i)=>genQ(t,i<5?1:2));
+  const ans=[];
+  qs.forEach((q,i)=>{
+    const d=document.createElement('div');
+    d.innerHTML=`<div class="q"><div class="qt"><b>Q${i+1}.</b> ${q.q}</div><div id="o"></div></div>`;
+    box.appendChild(d);const od=d.querySelector('#o');
+    let opts;
+    if(['Rational','Irrational'].includes(String(q.ans)))opts=['Rational','Irrational'];
+    else if(['1','2'].includes(String(q.ans)))opts=['1','2'];
+    else if(String(q.ans).includes(' and '))opts=[q.ans,`${parseInt(q.ans)-1} and ${parseInt(q.ans)}`,`${parseInt(q.ans)+1} and ${parseInt(q.ans)+2}`];
+    else if(String(q.ans).includes('√')){const kk=parseInt(q.ans);opts=[q.ans,`${kk+1}√${q.ans.split('√')[1]}`,`${kk-1}√${q.ans.split('√')[1]}`,`√${q.ans.split('√')[1]}`];}
+    else {const n=+q.ans;opts=[...new Set([n,n+1,n-1,n+ri(2,4),-n])].slice(0,4);}
+    opts=[...new Set(opts)].sort(()=>Math.random()-0.5);
+    opts.forEach(o=>{const b=document.createElement('button');b.className='opt';b.innerHTML=String(o);
+      b.onclick=()=>{od.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel-ok'));b.classList.add('sel-ok');ans[i]=String(o);};od.appendChild(b);});
+  });
+  el.querySelector('#sb').onclick=()=>{
+    let ok=0;qs.forEach((q,i)=>{if(ans[i]===String(q.ans))ok++;});
+    S.test={ok,tot:qs.length};save();renderNav();
+    let h=`<div class="box"><b>得分：${ok}/${qs.length}</b><br>${ok>=8?'✓ 本章掌握良好。':ok>=6?'△ 基本掌握，错题再看微课。':'✗ 建议重学本章。'}</div>`;
+    qs.forEach((q,i)=>{h+=`<div class="q"><b>Q${i+1}</b> 你答 ${ans[i]||'未答'} · 正确 ${q.ans}<br><span class="cn-tag">${q.sol}</span></div>`;});
+    el.querySelector('#rs2').innerHTML=h;};
+}
+
+/* ============ 渲染 ============ */
+function renderNav(){
+  const n=document.getElementById('nav');n.innerHTML='';
+  LESSONS.forEach(l=>{
+    const s=st(l.id);let badge='';
+    if(l.id==='test'){if(S.test)badge=`<span class="st">${S.test.ok}/${S.test.tot}</span>`;}
+    else if(s.done)badge='<span class="st">✓</span>';
+    else if(s.prac.tot>0)badge=`<span class="st">${s.prac.ok}/${s.prac.tot}</span>`;
+    const d=document.createElement('div');d.className='nav-i'+(l.id===cur?' on':'');
+    d.innerHTML=`<span>${l.n} ${l.t}</span>${badge}`;
+    d.onclick=()=>{cur=l.id;render();};n.appendChild(d);});
+}
+function render(){
+  renderNav();
+  const m=document.getElementById('main');m.innerHTML='';
+  const L=LESSONS.find(x=>x.id===cur);
+  const h=document.createElement('h2');h.innerHTML=`${L.n} ${L.t} <span class="cn-tag">${L.cn}</span>`;
+  m.appendChild(h);
+  const mk=()=>{const d=document.createElement('div');m.appendChild(d);return d;};
+  if(cur==='k1'){microK1(mk());videos(mk(),V.k1,'k1');diag(mk(),'k1',['ratirr','sqrt','eq']);prac(mk(),'k1',['ratirr','sqrt','eq'],5);}
+  else if(cur==='k2'){microK2(mk());videos(mk(),V.k2,'k2');diag(mk(),'k2',['sqrt','eq']);prac(mk(),'k2',['sqrt','eq'],5);}
+  else if(cur==='k3'){microK3(mk());videos(mk(),V.k3,'k3');prac(mk(),'k3',['cuberoot'],5);}
+  else if(cur==='k4'){microK4(mk());videos(mk(),V.k4,'k4');prac(mk(),'k4',['estimate'],5);}
+  else if(cur==='k5'){
+    m.innerHTML+=`<div class="lead">北师大 2.5「用计算器开方」是操作技能。可汗没有专门视频，这一节由我们自建要点。</div>`;
+    const d=mk();d.innerHTML=`<div class="box">
+      <h3>计算器开方要点</h3>
+      <b>1. 平方根键 √</b>：先按 √ 再输数字，或先输数字再按 √（机型不同，两种都试）。<br>
+      <b>2. 立方根 ∛</b>：多数计算器用 <code>∛</code> 键，或输入 <code>^(1/3)</code>。<br>
+      <b>3. 检验</b>：算完平方/立方回去验算，确认没按错。<br>
+      <b>4. 注意显示精度</b>：计算器只显示有限位，√2 显示 1.414 是<b>近似值</b>，不是精确值。<br>
+      <div class="note">可汗无此节 —— 中国教材特有的技能要求。</div></div>`;
+    videos(mk(),V.k5,'k5');}
+  else if(cur==='k6'){
+    const d=mk();
+    d.innerHTML=`<div class="box"><h3>实数 Real numbers <span class="cn-tag">实数</span></h3>
+      实数 = 有理数 + 无理数。<br><br>
+      <b>有理数</b>：能写成 p/q（p、q 为整数，q≠0）—— 包括整数、有限小数、循环小数。<br>
+      <b>无理数</b>：无限不循环小数 —— 如 √2、√3、π。<br><br>
+      <b>关键性质：实数与数轴一一对应。</b>每一个实数都能在数轴上找到唯一的点，反之亦然。
+      √2 也能 —— 见 2.1 的作图。<br>
+      <span class="cn-tag">北师大说「一一对应」但没演示，2.1 的微课补上了这一步。</span></div>`;
+    videos(mk(),V.k6,'k6');prac(mk(),'k6',['ratirr','sqrt'],5);}
+  else if(cur==='k7'){microK7(mk());videos(mk(),V.k7,'k7');prac(mk(),'k7',['simplify','sqrt'],5);}
+  else if(cur==='ext'){
+    m.innerHTML+=`<div class="lead">科学计数法北师大八上不学，但初二物理、化学立刻要用。按「可汗完整性」原则保留为拓展层。</div>`;
+    videos(mk(),V.ext,'ext');}
+  else if(cur==='test'){chTest(mk());}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+render();
+</script>
+</body>
+</html>
