@@ -92,8 +92,8 @@ video{width:100%;max-width:520px;border-radius:8px;background:#000;display:block
 <div class="wrap">
 <header>
   <h1>Chapter 1 · Pythagorean Theorem</h1>
-  <div class="sub">Grade 8 · BNU Edition · 4 lessons</div>
-  <div class="cn">北师大版 八年级上册 第一章 勾股定理（4 课时）</div>
+  <div class="sub">Grade 8 · 八年级上 · 4 lessons</div>
+  <div class="cn">第一章 · 勾股定理</div>
 </header>
 
 <div class="layout">
@@ -102,7 +102,7 @@ video{width:100%;max-width:520px;border-radius:8px;background:#000;display:block
 </div>
 
 <div class="credit">
-  Video content source: Khan Academy · CC BY-NC-SA. 视频内容来源：可汗学院（CC BY-NC-SA 许可，署名-非商业-相同方式共享）.<br>
+  <br>
   本页为 学习原型（测试站），仅用于自学练习。
 </div>
 </div>
@@ -251,7 +251,7 @@ function microK1(el){
   el.innerHTML=`
     <div class="step">Interactive Micro-lesson · 可交互微课</div>
     <h3>Why is a² + b² = c²? <span class="cn-tag">为什么勾股定理成立</span></h3>
-    <div class="lead">北师大教材通常直接给出结论。下面用「两个等面积的大正方形」来证明它 —— 拖动滑块改变 a、b，看数字如何始终成立。</div>
+    <div class="lead">下面用「两个等面积的大正方形」来证明 —— 拖动滑块改变 a、b，看数字如何始终成立。</div>
     <div class="slider-row">
       <label>a = <input type="range" id="ra" min="1" max="8" value="3"><span class="val" id="va">3</span></label>
       <label>b = <input type="range" id="rb" min="1" max="8" value="4"><span class="val" id="vb">4</span></label>
@@ -320,7 +320,7 @@ function microK2(el){
     <div class="box" id="detail"></div>
     <div class="box"><b>注意：</b>判定前先<b>找出最大边</b>当作 c，再看较小两边的平方和是否等于 c²。
     若 a²+b² &gt; c² 是锐角三角形，若 a²+b² &lt; c² 是钝角三角形。<br>
-    <span class="cn-tag">北师大常考「一定是直角三角形吗」，关键就在这三种情况。</span></div>`;
+    <span class="cn-tag">这三种情况最常考：</span></div>`;
   const upd=()=>{
     const v=[+el.querySelector('#s1').value,+el.querySelector('#s2').value,+el.querySelector('#s3').value];
     const mx=Math.max(...v), rest=v.filter((x,i)=>x!==mx||i!==v.indexOf(mx));
@@ -348,7 +348,7 @@ function microK3(el){
   el.innerHTML=`
     <div class="step">Interactive Micro-lesson · 可交互微课</div>
     <h3>Real-world applications <span class="cn-tag">勾股定理的应用</span></h3>
-    <div class="lead">可汗的应用题是美式情境（地毯、渔船）。北师大考的是旗杆、梯子、池塘、折竹 —— 下面用中国孩子熟悉的情境。</div>
+    <div class="lead">下面用你熟悉的情境：旗杆、梯子、池塘。</div>
     <div class="box">
       <b>解题四步：</b><br>
       1. 画图，标出直角三角形 Draw & label<br>
@@ -386,8 +386,8 @@ function microK3(el){
 
 /* ============ 视频列表 ============ */
 function videos(el,list,id){
-  el.innerHTML=`<h3>Videos <span class="cn-tag">视频（来源：可汗学院）</span></h3>
-    <div class="lead">标记 <span class="badge b-core">Core 核心</span> 对应北师大考点，必看；<span class="badge b-ext">Ext 拓展</span> 是「为什么成立」的多种证法，学有余力再看。</div>`;
+  el.innerHTML=`<h3>视频</h3>
+    <div class="lead">标记 <span class="badge b-core">Core 核心</span> 必看；<span class="badge b-ext">Ext 拓展</span> 是「为什么成立」的多种证法，学有余力再看。</div>`;
   list.forEach((v,i)=>{
     const d=document.createElement('div'); d.className='vid-item';
     d.innerHTML=`<div class="t"><b>${v.t}</b><small>${v.d}</small>
@@ -416,7 +416,7 @@ function diag(el,id,types){
     return; 
   }
   el.innerHTML=`<div class="step">Step 1 · Pre-check 学前诊断</div>
-    <div class="lead">3 道题。全对说明你已掌握，可跳过讲解直接练习；有错才需要看微课。<span class="cn-tag">这是可汗「先测再学」的思路。</span></div>
+    <div class="lead">3 道题。全对说明你已掌握，可跳过讲解直接练习；有错才需要看微课。<span class="cn-tag">这是先测再学。</span></div>
     <div id="dq"></div><div class="row"><button id="ddone" disabled>提交诊断</button></div>`;
   const box=el.querySelector('#dq');
   let ok=0, done=0, qs=types.map(t=>genQ(t,1));
@@ -436,7 +436,7 @@ function diag(el,id,types){
 function prac(el,id,types,need){
   const s=st(id);
   el.innerHTML=`<div class="step">Step 3 · Practice 练习</div>
-    <div class="lead">题目由程序实时生成，每次都不一样（可汗的题目也是程序生成的）。过关线：连续答对 ${need} 题。<span class="cn-tag">掌握度：${need} 题全对视为熟练。</span></div>
+    <div class="lead">题目由程序实时生成，每次都不一样（）。过关线：连续答对 ${need} 题。<span class="cn-tag">掌握度：${need} 题全对视为熟练。</span></div>
     <div class="stat"><span>本轮连对：<b id="streak">0</b>/${need}</span>
       <span>累计：<b id="cum">${s.prac.ok}/${s.prac.tot}</b></span>
       <span id="mast"></span></div>
@@ -472,7 +472,7 @@ function prac(el,id,types,need){
 /* ============ 章末测 ============ */
 function chTest(el){
   el.innerHTML=`<div class="step">Chapter Test · 章末检测</div>
-    <div class="lead">8 道题，覆盖本章 4 个知识点。全部独立完成，不看提示。<span class="cn-tag">对应可汗的 Unit test。</span></div>
+    <div class="lead">8 道题，覆盖本章 4 个知识点。全部独立完成，不看提示。<span class="cn-tag">。</span></div>
     <div id="tq"></div><div class="row"><button id="sub">提交</button></div><div id="res"></div>`;
   const box=el.querySelector('#tq');
   const types=['hyp','leg','conv','word','hyp','leg','conv','word'];
@@ -545,7 +545,7 @@ function render(){
     const pr=document.createElement('div'); prac(pr,'k3',['word','hyp','leg'],5); m.appendChild(pr);
   }
   else if(cur==='k4'){
-    m.innerHTML+=`<div class="lead">北师大本章第 4 课时是「问题解决策略：反思」—— 教孩子在解完题后回头检验。可汗没有对应内容，这一节由我们自建。</div>`;
+    m.innerHTML+=`<div class="lead">做完一次再回头检查一遍 —— 这是数学家的好习惯。</div>`;
     const d=document.createElement('div');
     d.innerHTML=`<div class="box">
       <h3>反思四问 <span class="cn-tag">Problem-solving strategy: reflect</span></h3>
@@ -553,7 +553,7 @@ function render(){
       <b>2. 斜边找对了吗？</b> 斜边一定是<b>最长</b>的那条，且对着直角。<br>
       <b>3. 单位统一了吗？</b> 米和厘米混用是常见错误。<br>
       <b>4. 有别的解法吗？</b> 用面积法、用方程，看结果是否一致。<br>
-      <div class="note">可汗学院没有这一节 —— 这是中国教材特有的教学设计。</div></div>`;
+      <div class="note"> —— 这是这一节很重要。</div></div>`;
     m.appendChild(d);
     const v=document.createElement('div'); videos(v,V.k4,'k4'); m.appendChild(v);
     const pr=document.createElement('div'); prac(pr,'k4',['word','conv'],4); m.appendChild(pr);
