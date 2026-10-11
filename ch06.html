@@ -88,7 +88,7 @@ const LESSONS=[
  {id:'k1',t:'Mean / Median / Mode',cn:'平均数、中位数、众数',n:'6.1'},
  {id:'k2',t:'★ Variance & Std Dev',cn:'★ 方差与标准差（核心）',n:'6.2'},
  {id:'k3',t:'Box Plots',cn:'箱线图（拓展）',n:'6.3'},
- {id:'test',t:'Chapter Test',cn:'章末检测',n:'Test'}
+ {id:'test',t:'Chapter Test',cn:'章末自己测',n:'Test'}
 ];
 let cur='k1';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
@@ -129,7 +129,7 @@ function microK1(el){
   const freq={};data.forEach(x=>freq[x]=(freq[x]||0)+1);
   const mode=Object.entries(freq).sort((a,b)=>b[1]-a[1])[0][0];
   el.innerHTML=`
-   <div class="step">Micro-lesson · 平均数、中位数、众数（拖滑块看变化）</div>
+   <div class="step">平均数 / 中位数 / 众数</div>
    <div class="box">
     <p>数据：<span class="num">${data.join(', ')}</span></p>
     <div class="controls" style="display:flex;gap:8px;margin:10px 0;align-items:center;flex-wrap:wrap">
@@ -161,11 +161,11 @@ function microK2(el){
   const v=variance(data);
   const s=std(data);
   el.innerHTML=`
-   <div class="step">Micro-lesson ★ · 方差与标准差</div>
+   <div class="step">方差与标准差</div>
    <div class="box">
     <h3>Why variance? · 为什么需要方差</h3>
     <p>两班平均分都是 80 分，能说水平一样吗？<b>不一定</b> —— 一个可能 75、80、85；另一个可能 50、80、100。均值无法体现这种"分散程度"。</p>
-    <p>需要<strong>一个数</strong>量化"数据偏离均值的程度" → 这就是<span class="num">方差 variance s²</span>和<span class="num">标准差 standard deviation s</span>。</p>
+    <p>我们需要<b>一个数</b>来表达「数据偏离均值的程度」—— 这个数叫<span class="num">方差 variance s²</span>，另一个相关的叫<span class="num">标准差 standard deviation s</span>。</p>
    </div>
    <div class="box">
     <h3>The formula · 公式</h3>
@@ -221,7 +221,7 @@ function microK3(el){
   const q1=lo.length%2?lo[(lo.length-1)/2]:(lo[lo.length/2-1]+lo[lo.length/2])/2;
   const q3=hi.length%2?hi[(hi.length-1)/2]:(hi[hi.length/2-1]+hi[hi.length/2])/2;
   el.innerHTML=`
-   <div class="step">Micro-lesson · 箱线图 Box Plot</div>
+   <div class="step">箱线图</div>
    <div class="box">
     <h3>What is a box plot? · 箱线图是什么</h3>
     <p style="font-size:14px">箱线图用一个"盒子 + 两条须"展示 5 个数：</p>
@@ -264,9 +264,9 @@ function microK3(el){
  render();
 }
 
-/* ============ 学前诊断 ============ */
+/* ============ 先测一下 ============ */
 function diag(el,lessonId,generator){
- el.innerHTML=`<div class="step">Pre-check · 学前诊断</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 题快速测一下。</p><div id="diagQ"></div></div>`;
+ el.innerHTML=`<div class="step">先测一下</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 题快速测一下。</p><div id="diagQ"></div></div>`;
  const qEl=el.querySelector('#diagQ');
  let ok=0;
  const qs=Array.from({length:3},()=>generator('diag'));
@@ -343,7 +343,7 @@ function practice(el,lessonId){
  const s=st(lessonId);
  let streak=0,need=5,q=null;
  const update=()=>{
-  el.innerHTML=`<div class="step">Practice · 练习（${streak}/${need}）</div><div style="font-size:13px;color:var(--muted);margin:8px 0">对 ${s.prac.ok}/${s.prac.tot}<button class="secondary" id="rs" style="margin-left:8px">Reset</button></div><div class="progress"><div style="width:${(streak/need)*100}%"></div></div><div class="q"><div class="q-text">${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="pi"><button id="ps">Submit</button></div><div class="hint" id="ph"></div><div class="feedback" id="pf"></div></div>`;
+  el.innerHTML=`<div class="step">练一练（${streak}/${need}）</div><div style="font-size:13px;color:var(--muted);margin:8px 0">对 ${s.prac.ok}/${s.prac.tot}<button class="secondary" id="rs" style="margin-left:8px">Reset</button></div><div class="progress"><div style="width:${(streak/need)*100}%"></div></div><div class="q"><div class="q-text">${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="pi"><button id="ps">Submit</button></div><div class="hint" id="ph"></div><div class="feedback" id="pf"></div></div>`;
   el.querySelector('#rs').onclick=()=>{s.prac={ok:0,tot:0};streak=0;save();update();renderNav();};
   const inp=el.querySelector('#pi'),fb=el.querySelector('#pf'),ht=el.querySelector('#ph');
   inp.focus();el.querySelector('#ps').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
