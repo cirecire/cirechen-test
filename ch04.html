@@ -76,6 +76,12 @@ svg line,svg path{transition:stroke .3s,opacity .3s}
 </style>
 </head>
 <body>
+<div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 16px;font-size:13px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:99">
+ <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600">← 总览 Overview</a>
+ <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600">单元测试 Unit Tests</a>
+ <span style="margin-left:auto;font-size:11px;color:#6b7280">内容来源 Khan Academy · CC BY-NC-SA</span>
+</div>
+
 <div class="wrap">
 <header>
  <h1>Chapter 4 · Linear Functions</h1>
@@ -597,6 +603,9 @@ function render(){
  }
 }
 render();
+</script>
+<script>
+(function(){try{if(new URLSearchParams(location.search).get('go')==='test'){cur='test';render();}}catch(e){}})();
 </script>
 </body>
 </html>
