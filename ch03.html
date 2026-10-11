@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Chapter 3 · Position & Coordinates · BNU 8th Grade Math</title>
+<title>Chapter 3 · Position & Coordinates · 八年级上 数学</title>
 <style>
 :root{
  --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
@@ -81,8 +81,8 @@ svg line,svg path{transition:stroke .3s,opacity .3s}
 <div class="wrap">
 <header>
  <h1>Chapter 3 · Position & Coordinates</h1>
- <p>Grade 8 · BNU Edition · 5 class periods · the shortest chapter</p>
- <p style="margin-top:6px;font-size:12px">北师大八年级上 · 第三章 · 位置与坐标 · 5 课时（最易掌握）</p>
+ <p>Grade 8 · 八年级上 · 5 class periods · the shortest chapter</p>
+ <p style="margin-top:6px;font-size:12px">第三章 · 位置与坐标</p>
 </header>
 <nav id="nav"></nav>
 <main id="main"></main>
@@ -106,7 +106,7 @@ function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:fa
 function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 function pick(a){return a[ri(0,a.length-1)];}
 
-/* ===== 视频清单（北师大 3 知识点 + 可汗拓展） ===== */
+/* ===== 视频清单（4 个知识点） ===== */
 const VIDEOS={
 k1:[
  {f:'01_Introduction to the coordinate plane.mp4',t:'Intro to the coordinate plane',c:'core',d:'坐标系引入'},
@@ -382,8 +382,8 @@ k3:()=>{ // 对称
 function videos(el,lessonId){
  const list=VIDEOS[lessonId]||[];
  if(!list.length){el.innerHTML='<div class="note">No videos for this section.</div>';return;}
- let html=`<div class="step">Khan Academy Videos · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
- html+=`<div class="box"><p style="font-size:13px;color:var(--muted)">可汗视频按层：<span class="tag core">Core 核心</span> 对应北师大考点必看；<span class="tag ext">Ext 拓展</span> 是可汗有但北师大讲得浅的内容，选看。</p></div>`;
+ let html=`<div class="step">视频 · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
+ html+=`<div class="box"><p style="font-size:13px;color:var(--muted)"><span class="tag core">必看</span> 先看；<span class="tag ext">选看</span> 有余力再看。</p></div>`;
  list.forEach((v,i)=>{
   const watched=st(lessonId).vid[i];
   html+=`<div class="vid">
@@ -530,7 +530,7 @@ function render(){
   const lesson=LESSONS.find(l=>l.id===id);
   if(!lesson){main.innerHTML='<div class="note">Unknown lesson</div>';return;}
   if(id==='ext'){
-   main.innerHTML=`<div class="step">Extension: Transformations · 拓展：平移、旋转、缩放</div><div class="box"><p style="font-size:13px;color:var(--muted)">八年级上 Ch03 不学平移/旋转/缩放（Ch10 才学）。但理解坐标系之后，可汗的变换视频能加深"坐标 ↔ 图形变化"的直觉。</p></div>`;
+   main.innerHTML=`<div class="step">Extension: Transformations · 拓展：平移、旋转、缩放</div><div class="box"><p style="font-size:13px;color:var(--muted)">八年级上 Ch03 不学平移/旋转/缩放（Ch10 才学）。但理解坐标系之后，变换视频能加深"坐标 ↔ 图形变化"的直觉。</p></div>`;
    videos(main,'ext');
    return;
   }
