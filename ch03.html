@@ -98,8 +98,8 @@ const LESSONS=[
  {id:'k1',t:'Determining Position',cn:'确定位置（有序数对、方向角）',n:'3.1'},
  {id:'k2',t:'The Coordinate Plane',cn:'平面直角坐标系',n:'3.2'},
  {id:'k3',t:'Reflections & Coordinates',cn:'轴对称与坐标变化',n:'3.3'},
- {id:'ext',t:'Extension: Transformations',cn:'拓展：平移、旋转、缩放',n:'Ext'},
- {id:'test',t:'Chapter Test',cn:'章末检测',n:'Test'}
+ {id:'ext',t:'Extension: Transformations',cn:'选看 · 平移 / 旋转 / 缩放',n:'Ext'},
+ {id:'test',t:'Chapter Test',cn:'章末自己测',n:'Test'}
 ];
 let cur='k1';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
@@ -133,25 +133,25 @@ ext:[
 /* ============ 微课 K1：经纬度 + 有序数对 ============ */
 function microK1(el){
  el.innerHTML=`
-  <div class="step">Micro-lesson · 确定位置的有序数对</div>
+  <div class="step">怎么用一个数对定位？</div>
   <div class="box">
-   <h3>Step 1 — One number is not enough</h3>
-   <div class="cn">一个数不够定位</div>
+   <h3>一个数不够定位</h3>
+   <div class="cn"></div>
    <p>Say you're in Shenzhen — but Shenzhen is 2000 km². You need two numbers: <span class="num">22.5°N, 114.0°E</span> (latitude, longitude).</p>
    <p>So a position in a plane is always given as an <b>ordered pair (x, y)</b> — order matters: (3, 5) ≠ (5, 3).</p>
   </div>
   <div class="box">
-   <h3>Step 2 — Direction angle as a 1D solution</h3>
-   <div class="cn">方向角：先用方向，再加距离</div>
+   <h3>先用方向，再加距离</h3>
+   <div class="cn"></div>
    <p>Before the coordinate plane, Chinese maps used <b>方向角 (bearing)</b>: from a known point, go "north 30° east, 50 meters". One direction + one distance = one position.</p>
    <p>Same logic as (r, θ) in polar coordinates.</p>
   </div>
   <div class="box">
-   <h3>Step 3 — From bearing to ordered pair</h3>
-   <div class="cn">从方向角到有序数对</div>
+   <h3>从方向角到有序数对</h3>
+   <div class="cn"></div>
    <p>The coordinate plane is just <b>two perpendicular axes</b> — once you set them, every point has exactly one ordered pair. So "ordered pair" is the bridge from any positioning system (latitude/longitude, bearing, or grid).</p>
   </div>
-  <div class="note"><strong>Why this matters:</strong> K1 looks trivial but it's the mental setup for the whole chapter. If your kid gets "an ordered pair (x, y) uniquely identifies a point", everything else is downhill.</div>`;
+  一个 (x, y) 对应一个点 —— 一对一的。后面 K2、K3 都靠它。`;
 }
 
 /* ============ 微课 K2：交互式平面直角坐标系 ============ */
@@ -168,9 +168,9 @@ function microK2(el){
    return `<text x="${X(cx/150*3-0)+15}" y="${Y(cy/100*4+1.5)-10}" font-size="13" fill="#9ca3af" font-weight="600">${qt.label}</text>`;
   }).join('');
   el.innerHTML=`
-   <div class="step">Micro-lesson · 拖动点 P 看坐标如何变化</div>
+   <div class="step">拖动 P 看坐标变化</div>
    <div class="box">
-    <h3>The four quadrants · 四个象限</h3>
+    <h3>四个象限</h3>
     <div class="cn">X 轴把平面分上下；Y 轴分左右；交叉形成四个象限（按逆时针编号：I、II、III、IV）</div>
     <svg viewBox="0 0 480 480" style="background:#fafafa;border-radius:8px;cursor:crosshair" id="svgK2">
      <defs>
@@ -230,7 +230,7 @@ function microK3(el){
   else{rx=-px;ry=-py;rule=`(${px}, ${py}) → (${px<0?'−'+(-px):px}, ${py<0?'−'+(-py):py})`;ruleCN='关于原点对称：<b>x 和 y 都变号</b>';}
   const X=x=>240+x*30, Y=y=>240-y*30;
   el.innerHTML=`
-   <div class="step">Micro-lesson · 拖动 P 看对称点的坐标规律</div>
+   <div class="step">对称点 — 拖一拖</div>
    <div class="controls">
     <button class="${axis==='x'?'on':''}" data-a="x">Reflect across x-axis · 关于 x 轴</button>
     <button class="${axis==='y'?'on':''}" data-a="y">Reflect across y-axis · 关于 y 轴</button>
@@ -254,7 +254,7 @@ function microK3(el){
      <text x="${X(rx)+12}" y="${Y(ry)-8}" font-size="13" font-weight="bold" fill="#dc2626">P'(${rx},${ry})</text>
     </svg>
     <div class="box" style="margin-top:14px;background:#dbeafe">
-     <h3>The rule · 对称规律</h3>
+     <h3>对称规律</h3>
      <p style="font-size:16px">${rule}</p>
      <p style="margin-top:6px;font-size:14px">${ruleCN}</p>
     </div>
@@ -276,9 +276,9 @@ function microK3(el){
  render();
 }
 
-/* ============ 学前诊断 ============ */
+/* ============ 先测一下 ============ */
 function diag(el,lessonId,generator){
- el.innerHTML=`<div class="step">Pre-check · 学前诊断</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 题快速测一下。3/3 通过则跳过讲解；有错才进微课。</p><div id="diagQ"></div></div>`;
+ el.innerHTML=`<div class="step">先测一下</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 题快速测一下。3/3 通过则跳过讲解；有错才进微课。</p><div id="diagQ"></div></div>`;
  const qEl=el.querySelector('#diagQ');
  let ok=0;
  const qs=Array.from({length:3},()=>generator('diag'));
@@ -427,7 +427,7 @@ function practice(el,lessonId){
  function newQ(){q=gen(pickDiff());}
  const update=()=>{
   el.innerHTML=`
-   <div class="step">Practice · 练习（${streak}/${need}）</div>
+   <div class="step">练一练（${streak}/${need}）</div>
    <div class="diff">
     难度：
     <button class="secondary ${diff===1?'on':''}" data-d="1">Easy 简单</button>
@@ -476,7 +476,7 @@ function practice(el,lessonId){
 
 /* ============ 章末测 ============ */
 function chTest(el){
- el.innerHTML=`<div class="step">Chapter Test · 章末检测</div><div class="box"><p style="font-size:13px;color:var(--muted)">共 8 题，覆盖本章所有知识点。计时（不计分）。</p><div id="tq"></div></div>`;
+ el.innerHTML=`<div class="step">章末自己测</div><div class="box"><p style="font-size:13px;color:var(--muted)">共 8 题，覆盖本章所有知识点。计时（不计分）。</p><div id="tq"></div></div>`;
  const tq=el.querySelector('#tq');
  const qs=[];
  for(let i=0;i<3;i++)qs.push(generators.k1(i+1));
@@ -530,7 +530,7 @@ function render(){
   const lesson=LESSONS.find(l=>l.id===id);
   if(!lesson){main.innerHTML='<div class="note">Unknown lesson</div>';return;}
   if(id==='ext'){
-   main.innerHTML=`<div class="step">Extension: Transformations · 拓展：平移、旋转、缩放</div><div class="box"><p style="font-size:13px;color:var(--muted)">八年级上 Ch03 不学平移/旋转/缩放（Ch10 才学）。但理解坐标系之后，变换视频能加深"坐标 ↔ 图形变化"的直觉。</p></div>`;
+   main.innerHTML=`<div class="step">选看 · 平移 / 旋转 / 缩放</div><div class="box"><p style="font-size:13px;color:var(--muted)">看完坐标再看这几个变换，能帮你在脑子里把「坐标怎么变」想清楚。</p></div>`;
    videos(main,'ext');
    return;
   }
