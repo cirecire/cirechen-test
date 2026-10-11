@@ -170,8 +170,8 @@ const LESSONS=[
  {id:'k5',t:'Using a Calculator',cn:'用计算器开方',n:'2.5'},
  {id:'k6',t:'The Real Numbers',cn:'实数',n:'2.6'},
  {id:'k7',t:'Radicals',cn:'二次根式',n:'2.7'},
- {id:'ext',t:'Extension: Sci Notation',cn:'拓展：科学计数法',n:'Ext'},
- {id:'test',t:'Chapter Test',cn:'章末检测',n:'Test'}
+ {id:'ext',t:'Extension: Sci Notation',cn:'选看 · 科学计数法',n:'Ext'},
+ {id:'test',t:'Chapter Test',cn:'章末自己测',n:'Test'}
 ];
 let cur='k1';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
@@ -190,11 +190,10 @@ function microK1(el){
     {t:'以 0 为圆心画弧，交数轴于 √2',d:'把这段长度转到数轴上，就得到 √2 的精确位置。'}
   ];
   el.innerHTML=`
-    <div class="step">Interactive Micro-lesson · 可交互微课</div>
-    <h3>√2 has an exact place on the number line <span class="cn-tag">无理数在数轴上有确定位置</span></h3>
+    <div class="step">玩一玩</div>
+    <h3>√2 在数轴上到底在哪？</h3>
     <div class="lead">
-      <b>要靠第一章的勾股定理。</b>√2 在数轴哪里？
-      教材没讲。答案要靠<b>第一章的勾股定理</b>——点下面按钮，一步步看。
+      √2 ≈ 1.414 是近似值。要画在数轴上得用尺子量。下面用第一章的勾股定理一步步把它画出来 —— 点按钮一步步看。
     </div>
     <div class="row"><button class="stepbtn" id="prev">← 上一步</button>
       <button class="stepbtn" id="next">下一步 →</button>
@@ -203,10 +202,7 @@ function microK1(el){
     <div class="fig"><div class="cap" id="stitle">${steps[0].t}</div>
       <svg id="svgA" viewBox="0 0 560 260" width="540" height="250"></svg>
       <div class="sub2" id="sdesc">${steps[0].d}</div></div>
-    <div class="box"><b>为什么这一步重要：</b>很多孩子以为 √2 ≈ 1.414 只是个「近似值」，
-      所以它「大概」在数轴上。但上面这个作图证明 √2 有个<b>精确的几何位置</b>——
-      它和 1、2 一样，是数轴上实实在在的一个点。这就是「实数与数轴一一对应」的真正含义。<br>
-      <span class="cn-tag">这是「实数与数轴一一对应」最直观的例子 —— 一起来画。</span></div>`;
+    <div class="box">√2 就在这儿 —— 数轴上实实在在的一个点，跟 1、2、3 一样。</div>`;
 
   const SC=110, OX=70, OY=190;
   const X=v=>OX+v*SC, Y=v=>OY-v*SC;
@@ -257,21 +253,20 @@ function microK1(el){
 function microK2(el){
   let n=9;
   el.innerHTML=`
-    <div class="step">Interactive Micro-lesson · 可交互微课</div>
-    <h3>√n  vs  x² = n <span class="cn-tag">平方根与方程的解 · 最经典的卡点</span></h3>
-    <div class="lead">这两个问的不是同一件事，但孩子几乎都会混。拖动滑块，看清楚差别。</div>
+    <div class="step">玩一玩</div>
+    <h3>√n  vs  x² = n </h3>
+    <div class="lead">两个问题很像，但答案不一样。拖滑块自己看差别。</div>
     <div class="slider-row"><label>n = <input type="range" id="rn" min="1" max="25" value="9"><span class="val" id="vn">9</span></label></div>
     <div class="micro">
-      <div class="fig"><div class="cap">√n 是什么 <span class="cn-tag">算术平方根</span></div>
+      <div class="fig"><div class="cap">√n 是什么 </div>
         <svg id="sL" viewBox="0 0 240 150" width="230" height="144"></svg>
         <div class="sub2" id="dL"></div></div>
-      <div class="fig"><div class="cap">x² = n 的解 <span class="cn-tag">方程的解</span></div>
+      <div class="fig"><div class="cap">x² = n 的解 </div>
         <svg id="sR" viewBox="0 0 240 150" width="230" height="144"></svg>
         <div class="sub2" id="dR"></div></div>
     </div>
-    <div class="box"><b>一句话记住：</b>√n 只问「哪个<b>非负</b>数的平方是 n」，所以答案<b>只有一个</b>；
-      x² = n 问「<b>哪些数</b>的平方是 n」，所以有<b>两个</b>（一正一负），n=0 时只有一个。<br>
-      <span class="cn-tag">中文教材里的「算术平方根」就是一个非负数；英文叫 principal square root。</span></div>`;
+    <div class="box">√9 只问 3 — 一个答案。x²=9 问 x=±3 — 两个答案。
+      </div>`;
   const draw=()=>{
     const r=Math.sqrt(n);
     const isSq=Math.abs(r-Math.round(r))<1e-9;
@@ -308,9 +303,9 @@ function microK2(el){
 function microK3(el){
   let v=8;
   el.innerHTML=`
-    <div class="step">Interactive Micro-lesson · 可交互微课</div>
-    <h3>Cube roots can be negative <span class="cn-tag">负数也有立方根</span></h3>
-    <div class="lead">平方根和立方根最大的差别就在这里 —— 拖动滑块穿过 0，看会发生什么。</div>
+    <div class="step">玩一玩</div>
+    <h3>Cube roots can be negative </h3>
+    <div class="lead">拖滑块穿过 0 —— 看会发生什么。</div>
     <div class="slider-row"><label>被开方数 <input type="range" id="rv" min="-27" max="27" value="8"><span class="val" id="vv">8</span></label></div>
     <div class="eqbox" id="res"></div>
     <div class="micro">
@@ -319,9 +314,7 @@ function microK3(el){
       <div class="fig"><div class="cap">立方根 ∛v</div><svg id="cc" viewBox="0 0 240 120" width="230" height="115"></svg>
         <div class="sub2" id="ccd"></div></div>
     </div>
-    <div class="box"><b>为什么？</b>因为负数的平方是<b>正数</b>（(−3)² = 9），所以没有哪个实数的平方是负数 →
-      √(−4) 在实数范围内<b>不存在</b>。但负数的立方仍是<b>负数</b>（(−2)³ = −8），所以 ∛(−8) = −2 完全成立。<br>
-      <span class="cn-tag">平方根和立方根最容易混 —— 一次分清。</span></div>`;
+    <div class="box">(−3)² = 9。哪个数平方等于 −9？没有。所以 √(−4) 不存在。但 (−2)³ = −8，所以 ∛(−8) = −2。</div>`;
   const draw=()=>{
     const ok = v>=0;
     const sr = ok?Math.sqrt(v):null;
@@ -346,17 +339,15 @@ function microK3(el){
 function microK4(el){
   let n=20;
   el.innerHTML=`
-    <div class="step">Interactive Micro-lesson · 可交互微课</div>
-    <h3>Squeeze method <span class="cn-tag">夹逼法估算</span></h3>
-    <div class="lead">√20 到底多大？不用计算器也能算：把它夹在两个整数之间，然后一步步收紧。</div>
+    <div class="step">玩一玩</div>
+    <h3>Squeeze method </h3>
+    <div class="lead">√20 多大？把它夹在两个整数之间，再一步步夹紧。</div>
     <div class="slider-row"><label>n = <input type="range" id="rn2" min="2" max="90" value="20"><span class="val" id="vn2">20</span></label></div>
     <div class="row"><button class="stepbtn" id="refine">收紧一位小数 →</button><button class="stepbtn ghost" id="reset2">重置</button>
       <span class="val" id="prec">整数夹逼</span></div>
     <svg id="sq" viewBox="0 0 520 150" width="500" height="145"></svg>
     <div class="eqbox" id="eq4"></div>
-    <div class="box"><b>夹逼法的逻辑：</b>找到两个平方值把 n 夹在中间 → a² &lt; n &lt; b²，
-      则 a &lt; √n &lt; b。再把区间十等分，试每一位小数，逐步逼近。<br>
-      <span class="cn-tag">用夹逼法一步步把精度压到 0.1 —— 自己动动手。</span></div>`;
+    <div class="box">4²=16, 5²=25 → √20 在 4 和 5 之间。再看 4.4², 4.5², 4.47²…越来越精确。</div>`;
   let lo=0,hi=0,d=0;
   function init(){ lo=Math.floor(Math.sqrt(n)); hi=lo+1; d=0; }
   function draw(){
@@ -388,10 +379,9 @@ function microK4(el){
 function microK7(el){
   let n=8;
   el.innerHTML=`
-    <div class="step">Interactive Micro-lesson · 可交互微课（自建）</div>
-    <h3>Simplifying radicals <span class="cn-tag">二次根式化简</span></h3>
-    <div class="lead">化简二次根式这一关，多练几次就熟了。
-      拖动滑块看 √(a·b) = √a · √b 是怎么回事。</div>
+    <div class="step">自己玩一下</div>
+    <h3>Simplifying radicals </h3>
+    <div class="lead">拖滑块看 √(a·b) = √a · √b 是怎么回事。</div>
     <div class="slider-row">
       <label>完全平方因子 k² <input type="range" id="rk" min="1" max="9" value="2"><span class="val" id="vk">2</span></label>
       <label>剩余因子 m <input type="range" id="rm" min="2" max="20" value="2"><span class="val" id="vm">2</span></label>
@@ -400,8 +390,7 @@ function microK7(el){
     <div class="fig"><div class="cap">面积模型：为什么 √(k²·m) = k·√m</div>
       <svg id="s7" viewBox="0 0 420 200" width="400" height="190"></svg>
       <div class="sub2" id="d7"></div></div>
-    <div class="box"><b>化简步骤：</b>① 把被开方数分解，找出<b>完全平方因子</b> ② √(k²·m) = √k² · √m = k·√m
-      ③ 检查剩下的 m 是否还能再提。<br>
+    <div class="box">看 √20 = √(4·5) = 2√5 — 把里面的完全平方提出来。
       <b>运算律：</b>√a · √b = √(ab)（a,b ≥ 0）；√a ÷ √b = √(a/b)（b &gt; 0）。<br>
       <span class="cn-tag">这些法则的根据是指数运算律：√a = a^(1/2)，所以 √a·√b = a^(1/2)·b^(1/2) = (ab)^(1/2)。上面标记为「基础」的指数视频就是它的来由。</span></div>`;
   const draw=()=>{
@@ -542,8 +531,8 @@ function videos(el,list,id){
 /* ============ 诊断 / 练习 / 章测 ============ */
 function diag(el,id,types){
   const s=st(id);
-  if(s.diag){el.innerHTML=`<div class="box"><b>Pre-check 学前诊断：</b>${s.diag.pass?'✓ 全对，可直接练。':'已完成，有错题 → 先看微课。'}</div>`;return;}
-  el.innerHTML=`<div class="step">Step 1 · Pre-check 学前诊断</div>
+  if(s.diag){el.innerHTML=`<div class="box"><b>先测一下：</b>${s.diag.pass?'✓ 全对，可直接练。':'已完成，有错题 → 先看微课。'}</div>`;return;}
+  el.innerHTML=`<div class="step">先测一下</div>
     <div class="lead">3 道题。全对可跳过讲解直接练习。</div>
     <div id="dq"></div><div class="row"><button id="done2" disabled>提交诊断</button></div>`;
   const box=el.querySelector('#dq'); let ok=0,done=0;
@@ -556,7 +545,7 @@ function diag(el,id,types){
 }
 function prac(el,id,types,need){
   const s=st(id);
-  el.innerHTML=`<div class="step">Step 3 · Practice 练习</div>
+  el.innerHTML=`<div class="step">练一练</div>
     <div class="lead">题目实时生成，每次不同。过关线：连续答对 ${need} 题。</div>
     <div class="stat"><span>连对：<b id="sk">0</b>/${need}</span><span>累计：<b id="cm">${s.prac.ok}/${s.prac.tot}</b></span><span id="ms"></span></div>
     <div class="prog"><i id="pb" style="width:0%"></i></div>
@@ -579,7 +568,7 @@ function prac(el,id,types,need){
   next();
 }
 function chTest(el){
-  el.innerHTML=`<div class="step">Chapter Test · 章末检测</div>
+  el.innerHTML=`<div class="step">章末自己测</div>
     <div class="lead">10 道题，覆盖本章 7 个知识点。</div>
     <div id="tq"></div><div class="row"><button id="sb">提交</button></div><div id="rs2"></div>`;
   const box=el.querySelector('#tq');
@@ -632,18 +621,18 @@ function render(){
   else if(cur==='k3'){microK3(mk());videos(mk(),V.k3,'k3');prac(mk(),'k3',['cuberoot'],5);}
   else if(cur==='k4'){microK4(mk());videos(mk(),V.k4,'k4');prac(mk(),'k4',['estimate'],5);}
   else if(cur==='k5'){
-    m.innerHTML+=`<div class="lead">「用计算器开方」是操作技能，自己按几次就会了。</div>`;
+    m.innerHTML+=`<div class="lead">计算器按几下就会了，先自己试。</div>`;
     const d=mk();d.innerHTML=`<div class="box">
       <h3>计算器开方要点</h3>
       <b>1. 平方根键 √</b>：先按 √ 再输数字，或先输数字再按 √（机型不同，两种都试）。<br>
       <b>2. 立方根 ∛</b>：多数计算器用 <code>∛</code> 键，或输入 <code>^(1/3)</code>。<br>
       <b>3. 检验</b>：算完平方/立方回去验算，确认没按错。<br>
-      <b>4. 注意显示精度</b>：计算器只显示有限位，√2 显示 1.414 是<b>近似值</b>，不是精确值。<br>
-      <div class="note">这是必会的。</div></div>`;
+      <b>4. 精度</b>：√2 = 1.414… 是<b>近似值</b>，不是精确值。<br>
+      </div>`;
     videos(mk(),V.k5,'k5');}
   else if(cur==='k6'){
     const d=mk();
-    d.innerHTML=`<div class="box"><h3>实数 Real numbers <span class="cn-tag">实数</span></h3>
+    d.innerHTML=`<div class="box"><h3>实数 Real numbers </h3>
       实数 = 有理数 + 无理数。<br><br>
       <b>有理数</b>：能写成 p/q（p、q 为整数，q≠0）—— 包括整数、有限小数、循环小数。<br>
       <b>无理数</b>：无限不循环小数 —— 如 √2、√3、π。<br><br>
@@ -653,7 +642,7 @@ function render(){
     videos(mk(),V.k6,'k6');prac(mk(),'k6',['ratirr','sqrt'],5);}
   else if(cur==='k7'){microK7(mk());videos(mk(),V.k7,'k7');prac(mk(),'k7',['simplify','sqrt'],5);}
   else if(cur==='ext'){
-    m.innerHTML+=`<div class="lead">科学计数法初二物理、化学立刻要用 —— 提前看一眼。</div>`;
+    m.innerHTML+=`<div class="lead">物理化学公式里到处是它 —— 提前看一眼。</div>`;
     videos(mk(),V.ext,'ext');}
   else if(cur==='test'){chTest(mk());}
   window.scrollTo({top:0,behavior:'smooth'});
