@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Chapter 6 · Data Analysis · BNU 8th Grade Math</title>
+<title>Chapter 6 · Data Analysis · 八年级上 数学</title>
 <style>
 :root{
  --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
@@ -71,8 +71,8 @@ svg{max-width:100%;display:block;margin:0 auto}
 <div class="wrap">
 <header>
  <h1>Chapter 6 · Data Analysis</h1>
- <p>Grade 8 · BNU Edition · 6 class periods · 方差 / 标准差是核心考点</p>
- <p style="margin-top:6px;font-size:12px">北师大八年级上 · 第六章 · 数据的分析 · 6 课时</p>
+ <p>第六章 · 数据的分析</p>
+ <p style="margin-top:6px;font-size:12px">第六章 · 数据的分析</p>
 </header>
 <nav id="nav"></nav>
 <main id="main"></main>
@@ -161,17 +161,17 @@ function microK2(el){
   const v=variance(data);
   const s=std(data);
   el.innerHTML=`
-   <div class="step">Micro-lesson ★ · 方差与标准差（北师大核心考点，可汗只有概念）</div>
+   <div class="step">Micro-lesson ★ · 方差与标准差</div>
    <div class="box">
     <h3>Why variance? · 为什么需要方差</h3>
     <p>两班平均分都是 80 分，能说水平一样吗？<b>不一定</b> —— 一个可能 75、80、85；另一个可能 50、80、100。均值无法体现这种"分散程度"。</p>
     <p>需要<strong>一个数</strong>量化"数据偏离均值的程度" → 这就是<span class="num">方差 variance s²</span>和<span class="num">标准差 standard deviation s</span>。</p>
    </div>
    <div class="box">
-    <h3>The formula · 公式（北师大版）</h3>
+    <h3>The formula · 公式</h3>
     <div class="eq">s² = (1/n) × Σᵢ₌₁ⁿ (xᵢ − x̄)²</div>
     <div class="eq">s = √(s²)</div>
-    <p style="font-size:13px;color:var(--muted)">注意：北师大版除以 n（八上简化版），高中会学除以 n−1（样本方差无偏估计）。</p>
+    <p style="font-size:13px;color:var(--muted)">注：八年级上除以 n；高中你会学到除以 n−1（更严的样本方差）。</p>
    </div>
    <div class="box">
     <h3>Interactive demo · 拖动数据看方差</h3>
@@ -310,7 +310,7 @@ k1:()=>{
 k2:()=>{
  const data=Array.from({length:4},()=>ri(1,15));
  const v=variance(data);
- return {q:`Find the variance s² of: ${data.join(', ')} (BNU version: divide by n)`,qcn:`求方差（除以 n）：${data.join(', ')}`,
+ return {q:`Find the variance s² of: ${data.join(', ')} (divide by n)`,qcn:`求方差（除以 n）：${data.join(', ')}`,
    check:a=>Math.abs(parseFloat(a)-v)<0.01,ans:v.toFixed(2),hint:`Mean=${mean(data).toFixed(2)}, then sum (xᵢ−x̄)² and divide by 4.`};
 },
 k3:()=>{
@@ -325,7 +325,7 @@ k3:()=>{
 function videos(el,lessonId){
  const list=VIDEOS[lessonId]||[];
  if(!list.length){el.innerHTML='<div class="note">No videos for this section.</div>';return;}
- let html=`<div class="step">Khan Academy Videos · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
+ let html=`<div class="step">视频 · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
  list.forEach((v,i)=>{
   const watched=st(lessonId).vid[i];
   html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="cn">${v.d}</span><span class="meta"><span class="tag ${v.c}">${v.c==='core'?'Core 核心':'Ext 拓展'}</span><span class="st ${watched?'ok':''}">${watched?'✓':'未看'}</span><button data-i="${i}">${watched?'▶ Replay':'▶ Play'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
