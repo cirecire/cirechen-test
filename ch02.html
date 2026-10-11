@@ -90,8 +90,8 @@ video{width:100%;max-width:520px;border-radius:8px;background:#000;display:block
 <div class="wrap">
 <header>
   <h1>Chapter 2 · Real Numbers</h1>
-  <div class="sub">Grade 8 · BNU Edition · 11 lessons · the heaviest chapter</div>
-  <div class="cn">北师大版 八年级上册 第二章 实数（11 课时 · 本章课时最多）</div>
+  <div class="sub">Grade 8 · 八年级上 · 11 lessons · the heaviest chapter</div>
+  <div class="cn">第二章 · 实数</div>
 </header>
 
 <div class="layout">
@@ -100,7 +100,6 @@ video{width:100%;max-width:520px;border-radius:8px;background:#000;display:block
 </div>
 
 <div class="credit">
-  Video content source: Khan Academy · CC BY-NC-SA. 视频内容来源：可汗学院（CC BY-NC-SA）。<br>
   本页为 学习原型（测试站），仅用于自学练习。
 </div>
 </div>
@@ -111,7 +110,7 @@ const V={
  k1:[
   {f:'01_Introduction to rational and irrational numbers.mp4',t:'Intro to rational & irrational numbers',c:'core',d:'有理数与无理数的定义'},
   {f:'02_Recognizing rational and irrational numbers (examples).mp4',t:'Recognizing rational & irrational (examples)',c:'core',d:'辨别练习'},
-  {f:'03_Proof that square root of 2 is irrational.mp4',t:'Proof that √2 is irrational',c:'core',d:'为什么 √2 不是有理数 · 北师大一笔带过'},
+  {f:'03_Proof that square root of 2 is irrational.mp4',t:'Proof that √2 is irrational',c:'core',d:'为什么 √2 不是有理数'},
   {f:'33_Classifying numbers - rational & irrational.mp4',t:'Classifying numbers: rational & irrational',c:'core',d:'数的分类'}
  ],
  k2:[
@@ -194,7 +193,7 @@ function microK1(el){
     <div class="step">Interactive Micro-lesson · 可交互微课</div>
     <h3>√2 has an exact place on the number line <span class="cn-tag">无理数在数轴上有确定位置</span></h3>
     <div class="lead">
-      <b>这是 Ch01 与 Ch02 的衔接断点。</b>北师大说「实数与数轴一一对应」，但 √2 到底在数轴哪里？
+      <b>要靠第一章的勾股定理。</b>√2 在数轴哪里？
       教材没讲。答案要靠<b>第一章的勾股定理</b>——点下面按钮，一步步看。
     </div>
     <div class="row"><button class="stepbtn" id="prev">← 上一步</button>
@@ -207,7 +206,7 @@ function microK1(el){
     <div class="box"><b>为什么这一步重要：</b>很多孩子以为 √2 ≈ 1.414 只是个「近似值」，
       所以它「大概」在数轴上。但上面这个作图证明 √2 有个<b>精确的几何位置</b>——
       它和 1、2 一样，是数轴上实实在在的一个点。这就是「实数与数轴一一对应」的真正含义。<br>
-      <span class="cn-tag">北师大在此处断裂：说了结论，没给理由。可汗也没有这条视频 —— 这一步由我们自建。</span></div>`;
+      <span class="cn-tag">这是「实数与数轴一一对应」最直观的例子 —— 一起来画。</span></div>`;
 
   const SC=110, OX=70, OY=190;
   const X=v=>OX+v*SC, Y=v=>OY-v*SC;
@@ -272,7 +271,7 @@ function microK2(el){
     </div>
     <div class="box"><b>一句话记住：</b>√n 只问「哪个<b>非负</b>数的平方是 n」，所以答案<b>只有一个</b>；
       x² = n 问「<b>哪些数</b>的平方是 n」，所以有<b>两个</b>（一正一负），n=0 时只有一个。<br>
-      <span class="cn-tag">中文教材的「算术平方根」= 可汗的 principal square root。这个概念是中文教材特有的，可汗不这么提。</span></div>`;
+      <span class="cn-tag">中文教材里的「算术平方根」就是一个非负数；英文叫 principal square root。</span></div>`;
   const draw=()=>{
     const r=Math.sqrt(n);
     const isSq=Math.abs(r-Math.round(r))<1e-9;
@@ -322,7 +321,7 @@ function microK3(el){
     </div>
     <div class="box"><b>为什么？</b>因为负数的平方是<b>正数</b>（(−3)² = 9），所以没有哪个实数的平方是负数 →
       √(−4) 在实数范围内<b>不存在</b>。但负数的立方仍是<b>负数</b>（(−2)³ = −8），所以 ∛(−8) = −2 完全成立。<br>
-      <span class="cn-tag">北师大讲立方根时一句话带过，孩子最容易在这里和平方根混淆。</span></div>`;
+      <span class="cn-tag">平方根和立方根最容易混 —— 一次分清。</span></div>`;
   const draw=()=>{
     const ok = v>=0;
     const sr = ok?Math.sqrt(v):null;
@@ -357,7 +356,7 @@ function microK4(el){
     <div class="eqbox" id="eq4"></div>
     <div class="box"><b>夹逼法的逻辑：</b>找到两个平方值把 n 夹在中间 → a² &lt; n &lt; b²，
       则 a &lt; √n &lt; b。再把区间十等分，试每一位小数，逐步逼近。<br>
-      <span class="cn-tag">北师大给结论「精确到 0.1」，可汗有完整演示步骤 —— 这一步是衔接补位。</span></div>`;
+      <span class="cn-tag">用夹逼法一步步把精度压到 0.1 —— 自己动动手。</span></div>`;
   let lo=0,hi=0,d=0;
   function init(){ lo=Math.floor(Math.sqrt(n)); hi=lo+1; d=0; }
   function draw(){
@@ -390,8 +389,8 @@ function microK7(el){
   let n=8;
   el.innerHTML=`
     <div class="step">Interactive Micro-lesson · 可交互微课（自建）</div>
-    <h3>Simplifying radicals <span class="cn-tag">二次根式化简 · 北师大硬考点</span></h3>
-    <div class="lead">可汗 8 年级几乎不练二次根式运算，而这是北师大的必考点。这一节由我们自建。
+    <h3>Simplifying radicals <span class="cn-tag">二次根式化简</span></h3>
+    <div class="lead">化简二次根式这一关，多练几次就熟了。
       拖动滑块看 √(a·b) = √a · √b 是怎么回事。</div>
     <div class="slider-row">
       <label>完全平方因子 k² <input type="range" id="rk" min="1" max="9" value="2"><span class="val" id="vk">2</span></label>
@@ -520,10 +519,10 @@ function guessType(q){
 
 /* ============ 视频列表 ============ */
 function videos(el,list,id){
-  el.innerHTML=`<h3>Videos <span class="cn-tag">视频（来源：可汗学院）</span></h3>
-    <div class="lead"><span class="badge b-core">Core 核心</span> 北师大考点必看 ｜
-      <span class="badge b-link">基础 衔接</span> 北师大跳过的来由 ｜
-      <span class="badge b-ext">Ext 拓展</span> 延伸内容</div>`;
+  el.innerHTML=`<h3>视频</h3>
+    <div class="lead"><span class="badge b-core">Core 核心</span> 必看 ｜
+      <span class="badge b-link">补一补</span> ｜
+      <span class="badge b-ext">Ext 拓展</span> 加餐</div>`;
   list.forEach((v,i)=>{
     const d=document.createElement('div'); d.className='vid-item';
     const cls=v.c==='core'?'b-core':(v.c==='link'?'b-link':'b-ext');
@@ -633,14 +632,14 @@ function render(){
   else if(cur==='k3'){microK3(mk());videos(mk(),V.k3,'k3');prac(mk(),'k3',['cuberoot'],5);}
   else if(cur==='k4'){microK4(mk());videos(mk(),V.k4,'k4');prac(mk(),'k4',['estimate'],5);}
   else if(cur==='k5'){
-    m.innerHTML+=`<div class="lead">北师大 2.5「用计算器开方」是操作技能。可汗没有专门视频，这一节由我们自建要点。</div>`;
+    m.innerHTML+=`<div class="lead">「用计算器开方」是操作技能，自己按几次就会了。</div>`;
     const d=mk();d.innerHTML=`<div class="box">
       <h3>计算器开方要点</h3>
       <b>1. 平方根键 √</b>：先按 √ 再输数字，或先输数字再按 √（机型不同，两种都试）。<br>
       <b>2. 立方根 ∛</b>：多数计算器用 <code>∛</code> 键，或输入 <code>^(1/3)</code>。<br>
       <b>3. 检验</b>：算完平方/立方回去验算，确认没按错。<br>
       <b>4. 注意显示精度</b>：计算器只显示有限位，√2 显示 1.414 是<b>近似值</b>，不是精确值。<br>
-      <div class="note">可汗无此节 —— 中国教材特有的技能要求。</div></div>`;
+      <div class="note">这是必会的。</div></div>`;
     videos(mk(),V.k5,'k5');}
   else if(cur==='k6'){
     const d=mk();
@@ -650,11 +649,11 @@ function render(){
       <b>无理数</b>：无限不循环小数 —— 如 √2、√3、π。<br><br>
       <b>关键性质：实数与数轴一一对应。</b>每一个实数都能在数轴上找到唯一的点，反之亦然。
       √2 也能 —— 见 2.1 的作图。<br>
-      <span class="cn-tag">北师大说「一一对应」但没演示，2.1 的微课补上了这一步。</span></div>`;
+      <span class="cn-tag"></span></div>`;
     videos(mk(),V.k6,'k6');prac(mk(),'k6',['ratirr','sqrt'],5);}
   else if(cur==='k7'){microK7(mk());videos(mk(),V.k7,'k7');prac(mk(),'k7',['simplify','sqrt'],5);}
   else if(cur==='ext'){
-    m.innerHTML+=`<div class="lead">科学计数法北师大八上不学，但初二物理、化学立刻要用。按「可汗完整性」原则保留为拓展层。</div>`;
+    m.innerHTML+=`<div class="lead">科学计数法初二物理、化学立刻要用 —— 提前看一眼。</div>`;
     videos(mk(),V.ext,'ext');}
   else if(cur==='test'){chTest(mk());}
   window.scrollTo({top:0,behavior:'smooth'});
