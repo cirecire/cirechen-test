@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Chapter 7 · Proofs with Parallel Lines · BNU 8th Grade Math</title>
+<title>Chapter 7 · Proofs with Parallel Lines · 八年级上 数学</title>
 <style>
 :root{
  --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
@@ -73,8 +73,8 @@ svg{max-width:100%;display:block;margin:0 auto}
 <div class="wrap">
 <header>
  <h1>Chapter 7 · Proofs with Parallel Lines</h1>
- <p>Grade 8 · BNU Edition · 7 class periods · ★ 证明书写是中国独有体系</p>
- <p style="margin-top:6px;font-size:12px">北师大八年级上 · 第七章 · 平行线的证明 · 7 课时（首次学演绎推理）</p>
+ <p>Grade 8 · 八年级上 · 7 class periods · </p>
+ <p style="margin-top:6px;font-size:12px">第七章 · 平行线的证明</p>
 </header>
 <nav id="nav"></nav>
 <main id="main"></main>
@@ -181,7 +181,7 @@ function microK2(el){
     <li><b>已证定理</b> — 如"三角形内角和 180°"</li>
    </ul>
   </div>
-  <div class="note"><strong>What Khan does not teach:</strong>可汗从来不教证明书写格式 —— 他们用两栏表格（Statement | Reason），跟中国 ∵/∴ 两列式几乎一样，但中国是主流考试必考。可汗的 Proofs 视频 (k4 ext) 演示了思路，但格式细节没讲。<br>学完这节，孩子应该能写出像上面那样的"两列式"证明。</div>`;
+  <div class="note">学完这节，你就能写出像上面那样的「两列式」证明。</div>`;
 }
 
 /* ============ 微课 K3：平行线的判定 ============ */
@@ -329,7 +329,7 @@ k5:()=>{
 function videos(el,lessonId){
  const list=VIDEOS[lessonId]||[];
  if(!list.length){el.innerHTML='<div class="note">No videos for this section.</div>';return;}
- let html=`<div class="step">Khan Academy Videos · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
+ let html=`<div class="step">视频 · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
  list.forEach((v,i)=>{
   const watched=st(lessonId).vid[i];
   html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="cn">${v.d}</span><span class="meta"><span class="tag ${v.c}">${v.c==='core'?'Core 核心':'Ext 拓展'}</span><span class="st ${watched?'ok':''}">${watched?'✓':'未看'}</span><button data-i="${i}">${watched?'▶ Replay':'▶ Play'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
