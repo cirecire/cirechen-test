@@ -1,162 +1,287 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QClaw 学习站 — 选年级</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BNU Grade 8 · Semester 1 · Learning Overview · 学习总览</title>
 <style>
 :root{
-  --bg:#f6f8fb;
-  --bg-2:#eef2f7;
-  --text:#0f172a;
-  --text-2:#475569;
-  --text-3:#94a3b8;
-  --card:#ffffff;
-  --card-hover:#ffffff;
-  --border:#e2e8f0;
-  --brand:#0d9488;
-  --brand-2:#0ea5e9;
-  --brand-grad:linear-gradient(135deg,#0ea5e9 0%,#14b8a6 100%);
-  --shadow:0 1px 3px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.06);
-  --shadow-lg:0 12px 40px rgba(13,148,136,.18);
+ --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
+ --accent:#7c3aed; --ok:#16a34a; --err:#dc2626; --warn:#d97706;
 }
-[data-theme="dark"]{
-  --bg:#0b1220;
-  --bg-2:#0e1626;
-  --text:#e8eef6;
-  --text-2:#a3b1c6;
-  --text-3:#64748b;
-  --card:#141d2e;
-  --card-hover:#1a2438;
-  --border:#233044;
-  --brand:#2dd4bf;
-  --brand-2:#38bdf8;
-  --brand-grad:linear-gradient(135deg,#38bdf8 0%,#2dd4bf 100%);
-  --shadow:0 1px 3px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
-  --shadow-lg:0 12px 40px rgba(45,212,191,.22);
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-  transition:background .3s,color .3s;
-}
-/* decorative blobs */
-body::before{
-  content:"";position:fixed;top:-180px;right:-120px;width:460px;height:460px;border-radius:50%;
-  background:radial-gradient(circle at 30% 30%,rgba(14,184,166,.18),transparent 70%);
-  pointer-events:none;z-index:0;
-}
-body::after{
-  content:"";position:fixed;bottom:-200px;left:-140px;width:500px;height:500px;border-radius:50%;
-  background:radial-gradient(circle at 70% 70%,rgba(14,165,233,.16),transparent 70%);
-  pointer-events:none;z-index:0;
-}
-.wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:0 22px 64px}
-
-/* top bar */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:22px 0 8px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;letter-spacing:-.3px}
-.brand .mark{width:30px;height:30px;border-radius:9px;background:var(--brand-grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;box-shadow:var(--shadow)}
-.theme-btn{background:var(--card);border:1px solid var(--border);color:var(--text-2);border-radius:10px;padding:8px 13px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;box-shadow:var(--shadow);transition:.15s}
-.theme-btn:hover{transform:translateY(-1px)}
-
-/* hero */
-.hero{text-align:center;padding:48px 0 30px}
-.eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.5px;color:var(--brand);background:rgba(13,148,136,.1);padding:6px 14px;border-radius:999px;margin-bottom:18px}
-.hero h1{font-size:40px;font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:14px}
-.hero h1 .grad{background:var(--brand-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{font-size:16px;color:var(--text-2);max-width:440px;margin:0 auto}
-.hero .en{font-size:13px;color:var(--text-3);margin-top:6px}
-
-/* question */
-.qblock{margin:34px auto 0;max-width:520px;text-align:center}
-.qblock .qlabel{font-size:14px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
-.qblock .qhead{font-size:30px;font-weight:800;letter-spacing:-.5px}
-
-/* grade grid */
-.grades{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
-.gcard{
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  background:var(--card);border:1px solid var(--border);border-radius:20px;
-  padding:38px 20px;text-decoration:none;color:var(--text);
-  box-shadow:var(--shadow);transition:transform .16s,box-shadow .16s,border-color .16s;
-  position:relative;overflow:hidden;
-}
-.gcard::after{content:"";position:absolute;inset:0;background:var(--brand-grad);opacity:0;transition:opacity .16s}
-.gcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:transparent}
-.gcard:hover::after{opacity:.06}
-.gcard .gnum{font-size:52px;font-weight:800;line-height:1;background:var(--brand-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;z-index:1}
-.gcard .gzh{font-size:18px;font-weight:700;position:relative;z-index:1}
-.gcard .gen{font-size:13px;color:var(--text-3);position:relative;z-index:1}
-.gcard .go{margin-top:10px;font-size:13px;font-weight:700;color:var(--brand);display:flex;align-items:center;gap:4px;position:relative;z-index:1}
-.gcard:hover .go{gap:8px;transition:gap .16s}
-
-/* footer */
-.foot{text-align:center;margin-top:48px;font-size:13px;color:var(--text-3)}
-.foot a{color:var(--brand);text-decoration:none}
-.foot a:hover{text-decoration:underline}
-
-@media(max-width:560px){
-  .hero{padding:32px 0 20px}
-  .hero h1{font-size:30px}
-  .qblock .qhead{font-size:24px}
-  .grades{grid-template-columns:1fr}
-  .gcard .gnum{font-size:44px}
-}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding:18px}
+header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:24px 28px;border-radius:14px;margin-bottom:16px}
+header h1{font-size:24px;margin-bottom:6px}
+header p{opacity:.93;font-size:13px}
+.src{margin-top:10px;font-size:11px;opacity:.85;border-top:1px solid rgba(255,255,255,.25);padding-top:8px}
+h2{font-size:17px;margin:22px 0 12px;display:flex;align-items:center;gap:8px}
+h2 small{font-size:12px;color:var(--muted);font-weight:400}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.summary{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-bottom:8px}
+.big-prog{height:14px;background:#ede9fe;border-radius:7px;overflow:hidden;margin:10px 0}
+.big-prog div{height:100%;background:linear-gradient(90deg,#7c3aed,#a855f7);transition:width .4s}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:#f9fafb;border:1px solid var(--line);border-radius:9px;padding:10px 12px}
+.stat .v{font-size:19px;font-weight:700;color:var(--accent)}
+.stat .l{font-size:11px;color:var(--muted)}
+.lvbar{display:flex;height:10px;border-radius:5px;overflow:hidden;margin:8px 0 6px}
+.lvlegend{display:flex;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--muted)}
+.lvlegend span b{color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.ch{border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden;display:flex;flex-direction:column}
+.ch .top{padding:12px 16px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.ch .top .t{font-size:15px;font-weight:700}
+.ch .top .en{font-size:11px;opacity:.9}
+.ch .top .no{font-size:11px;opacity:.85;text-align:right;line-height:1.3}
+.ch .body{padding:14px 16px;flex:1;display:flex;flex-direction:column}
+.pbar{height:8px;background:#e5e7eb;border-radius:4px;overflow:hidden;margin:8px 0}
+.pbar div{height:100%;transition:width .4s}
+.klist{margin:10px 0;display:flex;flex-wrap:wrap;gap:5px}
+.kp{font-size:11px;padding:2px 8px;border-radius:10px;border:1px solid var(--line);color:var(--muted);background:#fff}
+.kp.l1{background:#fef3c7;border-color:#fcd34d;color:#92400e}
+.kp.l2{background:#dbeafe;border-color:#93c5fd;color:#1e40af}
+.kp.l3{background:#dcfce7;border-color:#86efac;color:#166534}
+.kp.l4{background:#dcfce7;border-color:#16a34a;color:#14532d;font-weight:600}
+.kp.l4::before{content:"✓ "}
+.mrow{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:auto;padding-top:10px;border-top:1px dashed var(--line)}
+.btns{display:flex;gap:8px;margin-top:10px}
+button{font-family:inherit;border:none;cursor:pointer;border-radius:8px;padding:8px 14px;font-size:13px;background:var(--accent);color:#fff}
+button.ghost{background:#e5e7eb;color:var(--text)}
+button.sm{padding:5px 10px;font-size:12px}
+a{color:var(--accent)}
+.badge{font-size:11px;padding:2px 9px;border-radius:10px;background:#f3f4f6;color:var(--muted)}
+.badge.ok{background:#dcfce7;color:#166534}
+.badge.warn{background:#fef3c7;color:#92400e}
+.badge.lock{background:#fee2e2;color:#991b1b}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{font-size:11px;color:var(--muted);font-weight:600}
+.note{background:#fffbeb;border-left:3px solid var(--warn);padding:10px 14px;border-radius:6px;margin:12px 0;font-size:13px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+input[type=file]{font-size:12px}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="topbar">
-    <div class="brand"><span class="mark">Q</span> QClaw 学习站</div>
-    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()"><span id="themeIcon">🌙</span> <span id="themeText">夜间</span></button>
-  </div>
 
-  <section class="hero">
-    <span class="eyebrow">可汗学院本地化课程 · 深圳公立校</span>
-    <h1>欢迎来到 <span class="grad">QClaw 学习站</span></h1>
-    <p>想学就学，随时学。</p>
-    <div class="en">Learn what you want, when you want.</div>
-  </section>
+<header>
+ <h1>BNU Grade 8 · Semester 1 · 八年级上 数学 学习总览</h1>
+ <p>北师大版 2026 · 7 章 · 49 课时 · 35 个知识点 · 196 段可汗微课（本地播放）</p>
+ <p style="margin-top:4px">Structure follows 北师大 as the index · every explanation follows Khan Academy's full chain（含 worked example / review）</p>
+ <div class="src">内容来源 Khan Academy · CC BY-NC-SA · 视频本地存储，不跳转 YouTube · 教学语言：English + 关键术语中文标注一次</div>
+</header>
 
-  <div class="qblock">
-    <div class="qlabel">Choose your year</div>
-    <div class="qhead">你在几年级？</div>
-  </div>
+<div class="summary">
+ <div class="card">
+  <h2 style="margin:0 0 4px">Overall Mastery · 总体掌握度 <small id="ovPct"></small></h2>
+  <div class="big-prog"><div id="ovBar" style="width:0%"></div></div>
+  <div class="lvbar" id="lvBar"></div>
+  <div class="lvlegend" id="lvLegend"></div>
+  <div style="margin-top:12px"><button id="cont">▶ 继续上次学习</button> <span id="contLbl" style="font-size:12px;color:var(--muted)"></span></div>
+ </div>
+ <div class="card">
+  <h2 style="margin:0 0 10px">At a glance · 数据</h2>
+  <div class="stats" id="stats"></div>
+ </div>
+</div>
 
-  <nav class="grades">
-    <a class="gcard" href="grade7/index.html">
-      <div class="gnum">7</div>
-      <div class="gzh">七年级</div>
-      <div class="gen">Grade 7</div>
-      <div class="go">进入 →</div>
-    </a>
-    <a class="gcard" href="grade8/index.html">
-      <div class="gnum">8</div>
-      <div class="gzh">八年级</div>
-      <div class="gen">Grade 8</div>
-      <div class="go">进入 →</div>
-    </a>
-  </nav>
+<h2>Chapters · 章节 <small>点击进入；每张卡显示该章知识点的可汗四级掌握度</small></h2>
+<div class="grid" id="chs"></div>
 
-  <footer class="foot">
-    课程内容基于 <a href="https://www.khanacademy.org" target="_blank" rel="noopener">Khan Academy</a> 本地化改编 · 适配深圳公立校教学大纲
-  </footer>
+<h2>Unit Tests · 单元测试 <small>可汗 unit test 层：跨章节综合检测，建议相关章节掌握 60% 以上再做</small></h2>
+<div class="card">
+ <table id="ut">
+  <thead><tr><th>Unit</th><th>覆盖章节</th><th>状态</th><th>最近成绩</th><th>最佳</th><th></th></tr></thead>
+  <tbody></tbody>
+ </table>
+ <div style="margin-top:12px"><button onclick="location.href='unittests.html'">进入单元测试 →</button></div>
+</div>
+
+<h2>Data · 数据管理 <small>进度保存在本机浏览器 localStorage，换设备/清缓存会丢失，建议定期导出</small></h2>
+<div class="card">
+ <div class="toolbar">
+  <button class="ghost" id="exp">⬇ 导出进度 (JSON)</button>
+  <input type="file" id="imp" accept="application/json">
+  <button class="ghost" id="impBtn">⬆ 导入</button>
+  <button class="ghost" id="clr" style="color:var(--err)">清空全部进度</button>
+ </div>
+ <div class="note" id="msg" style="display:none"></div>
+</div>
+
+<p style="margin:22px 0 40px;font-size:11px;color:var(--muted);text-align:center">
+ 内容来源 Khan Academy · CC BY-NC-SA · 本站仅用于个人学习 · 测试站 cirechen-test<br>
+ <a href="index_qclaw.html" style="font-size:11px">旧版站点入口（QClaw 原首页，已保留）</a>
+</p>
 </div>
 
 <script>
-function getStored(){return localStorage.getItem('qclaw-theme');}
-function getSys(){return window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';}
-function setTheme(t){if(t==='system'){localStorage.removeItem('qclaw-theme');document.documentElement.removeAttribute('data-theme');}else{localStorage.setItem('qclaw-theme',t);document.documentElement.setAttribute('data-theme',t);}upd();}
-function cur(){return getStored()||getSys();}
-function toggleTheme(){setTheme(cur()==='dark'?'light':'dark');}
-function upd(){var c=cur();document.getElementById('themeIcon').textContent=c==='dark'?'☀️':'🌙';document.getElementById('themeText').textContent=c==='dark'?'日间':'夜间';}
-(function(){var s=getStored();if(s)document.documentElement.setAttribute('data-theme',s);upd();window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',function(){if(!getStored())upd();});})();
+/* ================= 章节元数据（北师大索引） ================= */
+const CH=[
+ {k:'ch01',cn:'勾股定理',en:'Pythagorean Theorem',p:4,c:'#7c3aed',
+  L:[['k1','探索勾股定理'],['k2','一定是直角三角形吗'],['k3','勾股定理的应用'],['k4','问题解决策略：反思']],v:13},
+ {k:'ch02',cn:'实数',en:'Real Numbers',p:11,c:'#0891b2',
+  L:[['k1','认识无理数'],['k2','平方根'],['k3','立方根'],['k4','估算'],['k5','用计算器开方'],['k6','实数'],['k7','二次根式'],['ext','拓展·科学计数法']],v:34},
+ {k:'ch03',cn:'位置与坐标',en:'Position & Coordinates',p:5,c:'#059669',
+  L:[['k1','确定位置'],['k2','平面直角坐标系'],['k3','轴对称与坐标变化'],['ext','拓展·平移旋转缩放']],v:13},
+ {k:'ch04',cn:'一次函数',en:'Linear Functions',p:7,c:'#d97706',
+  L:[['k1','函数'],['k2','一次函数与正比例函数'],['k3','一次函数的图象'],['k4','一次函数的应用']],v:56},
+ {k:'ch05',cn:'二元一次方程组',en:'Systems of Equations',p:9,c:'#dc2626',
+  L:[['k1','认识二元一次方程组'],['k2','代入消元法'],['k3','加减消元法'],['k4','中国应用题'],['k5','方程与一次函数']],v:36},
+ {k:'ch06',cn:'数据的分析',en:'Data Analysis',p:6,c:'#db2777',
+  L:[['k1','平均数/中位数/众数'],['k2','★ 方差与标准差'],['k3','箱线图（拓展）']],v:29},
+ {k:'ch07',cn:'平行线的证明',en:'Proofs with Parallel Lines',p:7,c:'#4f46e5',
+  L:[['k1','为什么要证明'],['k2','★ 证明书写格式'],['k3','平行线的判定'],['k4','平行线的性质'],['k5','三角形内角和']],v:15},
+];
+
+const UNITS=[
+ {id:'u1',n:'Unit 1',cn:'实数与根式',en:'Real Numbers & Radicals',ch:['ch01','ch02'],q:10},
+ {id:'u2',n:'Unit 2',cn:'一次函数与方程组',en:'Linear Functions & Systems',ch:['ch04','ch05'],q:10},
+ {id:'u3',n:'Unit 3',cn:'几何与坐标',en:'Geometry & Coordinates',ch:['ch03','ch07'],q:10},
+ {id:'u4',n:'Unit 4',cn:'数据的分析',en:'Data Analysis',ch:['ch06'],q:10},
+ {id:'fin',n:'Final',cn:'期末综合挑战',en:'Course Challenge',ch:['ch01','ch02','ch03','ch04','ch05','ch06','ch07'],q:12},
+];
+
+const LVC=['#e5e7eb','#fcd34d','#60a5fa','#34d399','#16a34a'];
+const LVN=['未开始 Not started','尝试过 Attempted','熟悉 Familiar','熟练 Proficient','掌握 Mastered'];
+
+/* ================= 读各章状态 ================= */
+function rd(k){try{return JSON.parse(localStorage.getItem('bnu8_'+k+'_state'))||{};}catch(e){return {};}}
+function unitState(){try{return JSON.parse(localStorage.getItem('bnu8_unit_state'))||{};}catch(e){return {};}}
+
+/* 可汗四级掌握度 */
+function lvl(s){
+ if(!s)return 0;
+ const p=s.prac||{};
+ if(s.done)return 4;
+ if(p.tot>=5&&p.ok/p.tot>=0.8)return 3;
+ if(p.tot>0)return 2;
+ if(Object.keys(s.vid||{}).length)return 1;
+ if(s.diag!==null&&s.diag!==undefined)return 1;
+ return 0;
+}
+
+function chStat(c){
+ const S=rd(c.k);let lv=[],vw=0,ok=0,tot=0;
+ c.L.forEach(([id])=>{
+  const s=S[id]||{};lv.push(lvl(s));
+  vw+=Object.keys(s.vid||{}).length;
+  ok+=(s.prac&&s.prac.ok)||0;tot+=(s.prac&&s.prac.tot)||0;
+ });
+ const sum=lv.reduce((a,b)=>a+b,0);
+ return {lv,vw,ok,tot,pct:sum/(lv.length*4),test:S.test||null};
+}
+
+/* ================= 渲染 ================= */
+const ST=CH.map(chStat);
+
+/* 总体 */
+(function(){
+ const all=ST.flatMap(s=>s.lv);
+ const cnt=[0,0,0,0,0];all.forEach(l=>cnt[l]++);
+ const pct=Math.round(all.reduce((a,b)=>a+b,0)/(all.length*4)*100);
+ document.getElementById('ovPct').textContent=pct+'%';
+ document.getElementById('ovBar').style.width=pct+'%';
+ const bar=document.getElementById('lvBar');
+ bar.innerHTML=cnt.map((n,i)=>n?`<div style="width:${n/all.length*100}%;background:${LVC[i]}"></div>`:'').join('');
+ document.getElementById('lvLegend').innerHTML=cnt.map((n,i)=>
+  `<span><b style="color:${LVC[i]}">■</b> ${LVN[i]} <b>${n}</b></span>`).join('');
+
+ const vw=ST.reduce((a,s)=>a+s.vw,0);
+ const ok=ST.reduce((a,s)=>a+s.ok,0),tot=ST.reduce((a,s)=>a+s.tot,0);
+ const tests=ST.filter(s=>s.test&&s.test.ok/s.test.tot>=0.7).length;
+ const done=all.filter(l=>l===4).length;
+ document.getElementById('stats').innerHTML=`
+  <div class="stat"><div class="v">${done}/${all.length}</div><div class="l">知识点已掌握 Mastered</div></div>
+  <div class="stat"><div class="v">${vw}/196</div><div class="l">视频已观看 Videos</div></div>
+  <div class="stat"><div class="v">${tot?Math.round(ok/tot*100)+'%':'—'}</div><div class="l">练习正确率 (${ok}/${tot})</div></div>
+  <div class="stat"><div class="v">${tests}/7</div><div class="l">章末测通过 Chapter tests</div></div>`;
+
+ const last=localStorage.getItem('bnu8_last');
+ const lc=CH.find(c=>c.k===last);
+ document.getElementById('contLbl').textContent=lc?`上次：Ch0${CH.indexOf(lc)+1} ${lc.cn}`:'（还没有记录，随便挑一章开始）';
+ document.getElementById('cont').onclick=()=>{location.href=(lc?lc.k:'ch01')+'.html';};
+})();
+
+/* 章节卡 */
+document.getElementById('chs').innerHTML=CH.map((c,i)=>{
+ const s=ST[i];
+ const pct=Math.round(s.pct*100);
+ const kps=c.L.map(([id,name],j)=>`<span class="kp l${s.lv[j]}" title="${LVN[s.lv[j]]}">${name}</span>`).join('');
+ const t=s.test?`<span class="badge ${s.test.ok/s.test.tot>=0.7?'ok':'warn'}">章测 ${s.test.ok}/${s.test.tot}</span>`:'<span class="badge">章测未做</span>';
+ const m=s.lv.filter(x=>x===4).length;
+ return `<div class="ch">
+  <div class="top" style="background:${c.c}">
+   <div><div class="t">${c.cn}</div><div class="en">${c.en}</div></div>
+   <div class="no">Ch0${i+1}<br>${c.p} 课时<br>${m}/${c.L.length} 掌握</div>
+  </div>
+  <div class="body">
+   <div class="pbar"><div style="width:${pct}%;background:${c.c}"></div></div>
+   <div style="font-size:12px;color:var(--muted)">掌握度 ${pct}% · 视频 ${s.vw}/${c.v} · 练习 ${s.tot?s.ok+'/'+s.tot:'未练'}</div>
+   <div class="klist">${kps}</div>
+   <div class="mrow"><span>${t}</span><span>${c.p} 课时 / ${c.L.length} 知识点</span></div>
+   <div class="btns">
+    <button onclick="go('${c.k}')">进入章节 →</button>
+    <button class="ghost sm" onclick="go('${c.k}',1)">直接做章测</button>
+   </div>
+  </div>
+ </div>`;
+}).join('');
+
+function go(k,isTest){
+ localStorage.setItem('bnu8_last',k);
+ location.href=k+'.html'+(isTest?'?go=test':'');
+}
+
+/* 单元测试表 */
+(function(){
+ const U=unitState();
+ const tb=document.querySelector('#ut tbody');
+ tb.innerHTML=UNITS.map(u=>{
+  const st=U[u.id];
+  const ready=u.ch.map(k=>{const c=CH.find(x=>x.k===k);return ST[CH.indexOf(c)].pct;}).reduce((a,b)=>a+b,0)/u.ch.length;
+  const best=st&&st.best!=null?`${st.best}/${u.q}`:'—';
+  const last=st?`${st.ok}/${st.tot}`:'—';
+  const lvlTxt=st?(st.ok/u.q>=0.8?'<span class="badge ok">Mastered</span>':(st.ok/u.q>=0.6?'<span class="badge warn">Proficient</span>':'<span class="badge lock">Needs review</span>')):'<span class="badge">未测</span>';
+  const readyTxt=ready>=0.6?'<span class="badge ok">Ready</span>':'<span class="badge warn">建议先复习</span>';
+  return `<tr><td><b>${u.n}</b> ${u.cn}<br><span style="font-size:11px;color:var(--muted)">${u.en}</span></td>
+   <td style="font-size:12px">${u.ch.map(k=>'Ch0'+(CH.findIndex(x=>x.k===k)+1)).join(' · ')}</td>
+   <td>${readyTxt} ${lvlTxt}</td><td>${last}</td><td>${best}</td>
+   <td><button class="sm" onclick="location.href='unittests.html?u=${u.id}'">开始</button></td></tr>`;
+ }).join('');
+})();
+
+/* 数据管理 */
+const msg=document.getElementById('msg');
+function say(t,c){msg.style.display='block';msg.textContent=t;msg.style.borderColor=c||'var(--warn)';}
+document.getElementById('exp').onclick=()=>{
+ const data={_v:1,_t:new Date().toISOString()};
+ CH.forEach(c=>data['bnu8_'+c.k+'_state']=localStorage.getItem('bnu8_'+c.k+'_state'));
+ ['bnu8_unit_state','bnu8_wrong','bnu8_last'].forEach(k=>data[k]=localStorage.getItem(k));
+ const b=new Blob([JSON.stringify(data,null,1)],{type:'application/json'});
+ const a=document.createElement('a');a.href=URL.createObjectURL(b);
+ a.download='bnu8_progress_'+new Date().toISOString().slice(0,10)+'.json';a.click();
+ say('已导出 bnu8_progress_*.json','var(--ok)');
+};
+document.getElementById('impBtn').onclick=()=>{
+ const f=document.getElementById('imp').files[0];
+ if(!f){say('先选择 JSON 文件','var(--err)');return;}
+ const r=new FileReader();
+ r.onload=()=>{
+  try{
+   const d=JSON.parse(r.result);
+   Object.keys(d).forEach(k=>{if(k.indexOf('_')===0)return;if(d[k])localStorage.setItem(k,d[k]);});
+   say('导入成功，正在刷新…','var(--ok)');setTimeout(()=>location.reload(),900);
+  }catch(e){say('文件解析失败：'+e.message,'var(--err)');}
+ };r.readAsText(f);
+};
+document.getElementById('clr').onclick=()=>{
+ if(!confirm('确定清空全部学习进度？此操作不可撤销，建议先导出备份。'))return;
+ CH.forEach(c=>localStorage.removeItem('bnu8_'+c.k+'_state'));
+ ['bnu8_unit_state','bnu8_wrong','bnu8_last'].forEach(k=>localStorage.removeItem(k));
+ say('已清空','var(--ok)');setTimeout(()=>location.reload(),800);
+};
 </script>
 </body>
 </html>
