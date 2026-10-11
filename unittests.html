@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Unit Tests · 单元测试 · BNU Grade 8 Semester 1</title>
+<style>
+:root{
+ --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
+ --accent:#7c3aed; --ok:#16a34a; --err:#dc2626; --warn:#d97706;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.topbar{background:#fff;border-bottom:1px solid var(--line);padding:8px 16px;font-size:13px;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99}
+.topbar a{color:var(--accent);text-decoration:none;font-weight:600}
+.wrap{display:grid;grid-template-columns:220px 1fr;gap:18px;max-width:1160px;margin:0 auto;padding:18px}
+header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:22px 26px;border-radius:14px;margin-bottom:14px;grid-column:1/-1}
+header h1{font-size:22px;margin-bottom:4px}
+header p{opacity:.92;font-size:13px}
+nav{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;height:fit-content;position:sticky;top:60px}
+.nav-i{padding:10px 12px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.nav-i:hover{background:#f5f3ff}
+.nav-i.on{background:var(--accent);color:#fff}
+.nav-i .st{font-size:11px;opacity:.85}
+main{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 26px;min-height:70vh}
+.step{padding:10px 14px;background:var(--accent);color:#fff;border-radius:8px;margin-bottom:14px;font-size:15px}
+.box{background:#f9fafb;border:1px solid var(--line);border-radius:10px;padding:14px;margin:14px 0}
+.box h3{font-size:15px;margin-bottom:8px;color:var(--accent)}
+.note{background:#fffbeb;border-left:3px solid var(--warn);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:13px}
+.q{margin:12px 0;padding:14px;background:#f9fafb;border-radius:8px;border-left:3px solid var(--accent)}
+.q .q-text{font-size:15px;margin-bottom:6px}
+.q .q-cn{font-size:12px;color:var(--muted);margin-bottom:10px}
+.feedback{margin-top:8px;font-size:13px;padding:8px 10px;border-radius:6px;display:none}
+.feedback.show{display:block}
+.feedback.ok{background:#dcfce7;color:#166534}
+.feedback.err{background:#fee2e2;color:#991b1b}
+.feedback.warn{background:#fef3c7;color:#92400e}
+.hint{background:#fef3c7;border-left:3px solid var(--warn);padding:10px 12px;border-radius:6px;margin:8px 0;font-size:13px;display:none}
+.hint.show{display:block}
+input[type=text]{padding:10px 12px;font-size:15px;border:1px solid var(--line);border-radius:8px;width:140px;font-family:inherit}
+button{font-family:inherit;border:none;cursor:pointer;border-radius:8px;padding:8px 14px;font-size:14px;background:var(--accent);color:#fff}
+button.secondary{background:#e5e7eb;color:var(--text)}
+button.choice{display:block;width:100%;text-align:left;background:#fff;color:var(--text);border:1px solid var(--line);margin:6px 0}
+button.choice:hover{background:#f5f3ff;border-color:var(--accent)}
+.progress{height:8px;background:#e5e7eb;border-radius:4px;overflow:hidden;margin:10px 0}
+.progress div{height:100%;background:var(--accent);transition:width .3s}
+.badge{font-size:11px;padding:2px 9px;border-radius:10px;background:#f3f4f6;color:var(--muted)}
+.badge.ok{background:#dcfce7;color:#166534}
+.badge.warn{background:#fef3c7;color:#92400e}
+.badge.lock{background:#fee2e2;color:#991b1b}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line)}
+th{font-size:11px;color:var(--muted);font-weight:600}
+.sol{font-family:"Courier New",monospace;background:#1f2937;color:#a5f3fc;padding:8px 12px;border-radius:6px;margin-top:8px;font-size:13px;white-space:pre-wrap}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+ <a href="index.html">← 总览 Overview</a>
+ <a href="unittests.html">单元测试 Unit Tests</a>
+ <span style="margin-left:auto;font-size:11px;color:var(--muted)">内容来源 Khan Academy · CC BY-NC-SA</span>
+</div>
+
+<div class="wrap">
+<header>
+ <h1>Unit Tests · 单元测试</h1>
+ <p>可汗学习链的第三层：知识点练习 → 章末测 → <b>单元测试（跨章节混合）</b> → 期末挑战</p>
+ <p style="margin-top:6px;font-size:12px">每题 10 道（期末 12 道）· 第一次答错给提示，第二次答错给完整解法并进错题本</p>
+</header>
+<nav id="nav"></nav>
+<main id="main"></main>
+</div>
+
+<script>
+/* ================= 工具 ================= */
+function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function mkNum(q,qcn,ans,hint,sol){return {type:'num',q:q,qcn:qcn,ans:String(ans),hint:hint||'',sol:sol||''};}
+function mkChoice(q,qcn,choices,ci,hint,sol){return {type:'choice',q:q,qcn:qcn,choices:choices,ans:String(choices[ci]),ci:ci,hint:hint||'',sol:sol||''};}
+function isRight(qq,v){
+ v=String(v).trim();
+ if(qq.type==='choice'){
+  const i=parseInt(v,10);
+  if(!isNaN(i))return i===qq.ci;
+  return v.toLowerCase()===String(qq.ans).toLowerCase();
+ }
+ let x;
+ if(v.indexOf('/')>0){const p=v.split('/');x=parseFloat(p[0])/parseFloat(p[1]);}
+ else x=parseFloat(v.replace(/[^0-9.\-]/g,''));
+ if(isNaN(x))return false;
+ return Math.abs(x-parseFloat(qq.ans))<1e-6;
+}
+
+/* ================= U1 · 实数与根式 (Ch01 + Ch02) ================= */
+const TRIPLES=[[3,4,5],[5,12,13],[6,8,10],[8,15,17],[9,12,15],[7,24,25],[10,24,26],[12,16,20],[15,20,25],[9,40,41]];
+const G1=[
+ ()=>{const m=ri(2,20),n=m*m;return mkNum(`√${n} = ?`,`${n} 的算术平方根（平方根取正的那个）`,m,
+   `Which number, multiplied by itself, gives ${n}?`,`${m} × ${m} = ${n}  ⟹  √${n} = ${m}`);},
+ ()=>{const m=ri(2,10),n=m*m*m;return mkNum(`∛${n} = ?`,`${n} 的立方根`,m,
+   `Which number, cubed, gives ${n}?`,`${m}³ = ${n}  ⟹  ∛${n} = ${m}`);},
+ ()=>{const m=ri(2,15),n=m*m+ri(1,2*m);return mkNum(`Between which two consecutive whole numbers does √${n} lie? Give the SMALLER one.`,
+   `√${n} 在哪两个连续整数之间？给出较小的那个`,m,
+   `Compare ${n} with the perfect squares around it.`,`${m*m} < ${n} < ${(m+1)*(m+1)}  ⟹  ${m} < √${n} < ${m+1}`);},
+ ()=>{const m=ri(2,6),n=m*m*m+ri(1,3*m*m+3*m);return mkNum(`Between which two consecutive whole numbers does ∛${n} lie? Give the SMALLER one.`,
+   `∛${n} 在哪两个连续整数之间？给出较小的那个`,m,
+   `Compare ${n} with the perfect cubes around it.`,`${m*m*m} < ${n} < ${(m+1)*(m+1)*(m+1)}  ⟹  ${m} < ∛${n} < ${m+1}`);},
+ ()=>{const pool=[['√2',1],['√16',0],['π',1],['22/7',0],['0.1010010001… (pattern, never repeats)',1],['-√9',0],['√5',1],['1.414',0],['√7',1],['0.333… (0.3 repeating)',0],['√25',0],['2π',1]];
+   const sel=shuffle(pool).slice(0,5);const cnt=sel.filter(x=>x[1]).length;
+   return mkNum(`How many of these 5 numbers are IRRATIONAL (无理数)?  ${sel.map((x,i)=>'('+(i+1)+') '+x[0]).join('   ')}`,
+    `下面 5 个数里有几个是无理数？`,cnt,
+    `A rational number is a fraction of two integers (or a terminating / repeating decimal). √ of a non-perfect-square and π are irrational.`,
+    sel.map(x=>x[0]+' → '+(x[1]?'irrational 无理':'rational 有理')).join('\n')+`\ncount = ${cnt}`);},
+ ()=>{const t=pick(TRIPLES);const hide=ri(0,2);
+   if(hide===2)return mkNum(`A right triangle has legs ${t[0]} and ${t[1]}. Find the hypotenuse.`,`直角三角形两直角边 ${t[0]}、${t[1]}，求斜边`,t[2],
+     `a² + b² = c²`,`c² = ${t[0]}² + ${t[1]}² = ${t[0]*t[0]+t[1]*t[1]} = ${t[2]*t[2]}  ⟹  c = ${t[2]}`);
+   return mkNum(`A right triangle has one leg ${hide===0?t[1]:t[0]} and hypotenuse ${t[2]}. Find the other leg.`,
+     `直角三角形一条直角边 ${hide===0?t[1]:t[0]}，斜边 ${t[2]}，求另一条直角边`,hide===0?t[0]:t[1],
+     `a² + b² = c², so leg² = c² - (known leg)²`,
+     `x² = ${t[2]}² − ${(hide===0?t[1]:t[0])}² = ${t[2]*t[2]-(hide===0?t[1]*t[1]:t[0]*t[0])}  ⟹  x = ${hide===0?t[0]:t[1]}`);},
+ ()=>{const t=pick(TRIPLES);return mkNum(`A ${t[2]}-metre ladder leans against a wall. Its foot is ${t[0]} m from the wall. How high up the wall does it reach?`,
+   `长 ${t[2]} m 的梯子斜靠墙上，梯脚离墙 ${t[0]} m，求梯子顶端离地高度`,t[1],
+   `The wall, the ground and the ladder form a right triangle.`,`h² = ${t[2]}² − ${t[0]}² = ${t[2]*t[2]-t[0]*t[0]} = ${t[1]*t[1]}  ⟹  h = ${t[1]} m`);},
+ ()=>{const right=Math.random()<0.5;const t=pick(TRIPLES);const c=right?t[2]:t[2]+1;
+   return mkChoice(`A triangle has sides ${t[0]}, ${t[1]} and ${c}. Is it a right triangle?`,
+     `三边为 ${t[0]}、${t[1]}、${c} 的三角形是直角三角形吗？（勾股定理逆定理）`,
+     ['Yes','No'],right?0:1,
+     `Check whether (smallest)² + (middle)² equals (largest)². The largest side is ${Math.max(t[0],t[1],c)}.`,
+     `${t[0]}² + ${t[1]}² = ${t[0]*t[0]+t[1]*t[1]}  vs  ${c}² = ${c*c}\n${t[0]*t[0]+t[1]*t[1]===c*c?'equal ⟹ right triangle':'not equal ⟹ NOT a right triangle'}`);},
+ ()=>{const a=ri(2,9),b=ri(2,9);return mkNum(`A right triangle has legs ${a} and ${b}. What is c² (the square of the hypotenuse)?`,
+   `直角三角形两直角边 ${a}、${b}，斜边的平方 c² = ?`,a*a+b*b,
+   `You do not need to take the square root — the question asks for c².`,`c² = ${a}² + ${b}² = ${a*a} + ${b*b} = ${a*a+b*b}`);},
+ ()=>{const L=[[12,2,3],[18,3,2],[20,2,5],[27,3,3],[32,4,2],[45,3,5],[50,5,2],[75,5,3],[48,4,3],[8,2,2]];const x=pick(L);
+   return mkNum(`Simplify: √${x[0]} = a√${x[2]}. Find a.`,`化简二次根式：√${x[0]} = a√${x[2]}，求 a`,x[1],
+     `Factor out the largest perfect square from ${x[0]}.`,`√${x[0]} = √(${x[1]*x[1]}×${x[2]}) = ${x[1]}√${x[2]}  ⟹  a = ${x[1]}`);},
+ ()=>{const L=[[2,8,4],[3,12,6],[2,18,6],[5,20,10],[3,27,9],[2,32,8],[6,24,12],[7,28,14]];const x=pick(L);
+   return mkNum(`Compute: √${x[0]} × √${x[1]} = ?`,`计算二次根式乘法：√${x[0]} × √${x[1]} = ?`,x[2],
+     `√a × √b = √(ab).`,`√${x[0]} × √${x[1]} = √${x[0]*x[1]} = ${x[2]}`);},
+ ()=>{const m=ri(1,9),e=ri(-6,6);const val=e<0?('0.'+'0'.repeat(-e-1)+m):(m+'0'.repeat(e));
+   return mkNum(`Write ${val} in scientific notation a × 10ⁿ. What is n?`,`把 ${val} 写成科学计数法 a × 10ⁿ，求指数 n`,e,
+     `Move the decimal point so that 1 ≤ a < 10; count the moves. Left = positive n, right = negative n.`,
+     `${val} = ${m} × 10^(${e})  ⟹  n = ${e}`);},
+ ()=>mkChoice(`Every point on a number line corresponds to exactly one ___ number.`,
+   `数轴上的每一个点都唯一对应一个___数（实数与数轴一一对应）`,
+   ['rational 有理','irrational 无理','real 实','whole 非负整数'],2,
+   `Rational numbers alone leave "holes" on the line (e.g. √2).`,`有理数 + 无理数 = 实数，实数与数轴上的点一一对应 ⟹ real`),
+];
+
+/* ================= U2 · 一次函数与方程组 (Ch04 + Ch05) ================= */
+const G2=[
+ ()=>{const x1=ri(-5,5),y1=ri(-5,5),dx=ri(1,5),k=ri(-4,4);
+   return mkNum(`Find the slope of the line through (${x1}, ${y1}) and (${x1+dx}, ${y1+k*dx}).`,
+     `过点 (${x1}, ${y1}) 与 (${x1+dx}, ${y1+k*dx}) 的直线，斜率 k = ?`,k,
+     `slope = (y₂ − y₁) / (x₂ − x₁)`,`k = (${y1+k*dx} − (${y1})) / (${x1+dx} − (${x1})) = ${k*dx} / ${dx} = ${k}`);},
+ ()=>{const k=ri(-4,4)||2,x0=ri(-5,5),b=ri(-8,8),y0=k*x0+b;
+   return mkNum(`The line y = ${k}x + b passes through (${x0}, ${y0}). Find b.`,`直线 y = ${k}x + b 经过 (${x0}, ${y0})，求 b`,b,
+     `Plug the point in: y = kx + b  ⟹  b = y − kx.`,`b = ${y0} − ${k}×(${x0}) = ${y0} − ${k*x0} = ${b}`);},
+ ()=>{const k=ri(-4,4)||3,b=ri(-6,6),x0=ri(1,6),ok=Math.random()<0.5,y=k*x0+b+(ok?0:pick([1,-1,2,-2]));
+   return mkChoice(`Is the point (${x0}, ${y}) on the graph of y = ${k}x ${b>=0?'+ '+b:'− '+Math.abs(b)}?`,
+     `点 (${x0}, ${y}) 在直线 y = ${k}x ${b>=0?'+ '+b:'− '+Math.abs(b)} 上吗？`,['Yes','No'],ok?0:1,
+     `Substitute x and see whether the computed y matches.`,
+     `when x = ${x0}:  y = ${k}×${x0} ${b>=0?'+':'−'} ${Math.abs(b)} = ${k*x0+b}\ngiven y = ${y}  ⟹  ${ok?'matches ⟹ Yes':'does not match ⟹ No'}`);},
+ ()=>{const k=ri(-4,4)||2,b=ri(-6,6),x0=ri(-5,6);
+   return mkNum(`For the function y = ${k}x ${b>=0?'+ '+b:'− '+Math.abs(b)}, what is y when x = ${x0}?`,
+     `函数 y = ${k}x ${b>=0?'+ '+b:'− '+Math.abs(b)}，当 x = ${x0} 时 y = ?`,k*x0+b,
+     `Replace x by ${x0} and compute.`,`y = ${k}×(${x0}) ${b>=0?'+':'−'} ${Math.abs(b)} = ${k*x0} ${b>=0?'+':'−'} ${Math.abs(b)} = ${k*x0+b}`);},
+ ()=>{const k=ri(-5,5)||2,b=ri(-6,6);
+   return mkNum(`A line is parallel to y = ${k}x ${b>=0?'+ '+b:'− '+Math.abs(b)}. What is its slope?`,
+     `与直线 y = ${k}x ${b>=0?'+ '+b:'− '+Math.abs(b)} 平行的直线，斜率是多少？`,k,
+     `Parallel lines have equal slopes.`,`平行 ⟹ k 相等 ⟹ slope = ${k}`);},
+ ()=>{const x=ri(-9,9),y=ri(-9,9);
+   return mkNum(`Solve:  x + y = ${x+y},  x − y = ${x-y}.  Find x.`,`解方程组：x + y = ${x+y}，x − y = ${x-y}，求 x`,x,
+     `Add the two equations — y cancels.`,`相加：2x = ${(x+y)+(x-y)}  ⟹  x = ${x}`);},
+ ()=>{const a=ri(2,4),b=ri(2,4),x=ri(-9,9),y=ri(-9,9);const A=a*x+b*y,B=a*x-b*y;
+   return mkNum(`Solve:  ${a}x + ${b}y = ${A},  ${a}x − ${b}y = ${B}.  Find x.`,
+     `加减消元法：${a}x + ${b}y = ${A}，${a}x − ${b}y = ${B}，求 x`,x,
+     `The y-terms are opposites: add to eliminate y.`,`相加：${2*a}x = ${A+B}  ⟹  x = ${A+B} / ${2*a} = ${x}`);},
+ ()=>{let a,b,c,d;do{a=ri(1,4);b=ri(1,4);c=ri(1,4);d=ri(1,4);}while(a*d===b*c);
+   const x0=ri(-9,9),y0=ri(-9,9),e=a*x0+b*y0,f=c*x0+d*y0;
+   return mkNum(`Solve the system:  ${a}x + ${b}y = ${e}   and   ${c}x + ${d}y = ${f}.  Find x.`,
+     `解方程组：${a}x + ${b}y = ${e}，${c}x + ${d}y = ${f}，求 x`,x0,
+     `Eliminate y: multiply the first equation by ${d} and the second by ${b}, then subtract.`,
+     `×${d}: ${a*d}x + ${b*d}y = ${e*d}\n×${b}: ${b*c}x + ${b*d}y = ${f*b}\n相减: ${a*d-b*c}x = ${e*d-f*b}  ⟹  x = ${x0}`);},
+ ()=>{const r=ri(2,20),c=ri(2,20),H=r+c,F=4*r+2*c;
+   return mkNum(`鸡兔同笼 · ${H} heads and ${F} feet in total. How many rabbits?`,
+     `鸡兔同笼：共 ${H} 个头、${F} 只脚，兔子有几只？`,r,
+     `Let r = rabbits, c = chickens. r + c = heads, 4r + 2c = feet.`,
+     `r + c = ${H},  4r + 2c = ${F}\n相减：2r = ${F} − 2×${H} = ${F-2*H}  ⟹  r = ${r}`);},
+ ()=>{const p=pick([10,20,25,50]),base=ri(20,90)*100,now=base*(100+p)/100;
+   return mkNum(`增收节支 · This year's income is ${now} yuan, which is ${p}% more than last year. What was last year's income?`,
+     `增收节支：今年收入 ${now} 元，比去年增收 ${p}%，去年收入多少元？`,base,
+     `this year = last year × (1 + p%). So last year = this year ÷ (1 + p%).`,
+     `去年 × ${(100+p)/100} = ${now}  ⟹  去年 = ${now} ÷ ${(100+p)/100} = ${base} 元`);},
+ ()=>{let a,b;do{a=ri(2,9);b=ri(1,9);}while(a<=b);const s=a+b,D=9*(a-b);
+   return mkNum(`里程碑上的数 · A two-digit number: its tens digit and ones digit add to ${s}. Swapping the two digits gives a number ${D} SMALLER than the original. Find the original number.`,
+     `里程碑：一个两位数，十位与个位数字之和为 ${s}；交换十位与个位后，新数比原数小 ${D}。求原数`,10*a+b,
+     `Let tens = a, ones = b. Number = 10a + b. Swapped = 10b + a. Original − swapped = 9(a − b).`,
+     `a + b = ${s},  9(a − b) = ${D} ⟹ a − b = ${a-b}\n联立：a = ${a}, b = ${b}  ⟹  原数 = ${10*a+b}`);},
+ ()=>{let k1,k2;do{k1=ri(-4,4);k2=ri(-4,4);}while(k1===k2);
+   const x0=ri(-6,6),y0=ri(-6,6),b1=y0-k1*x0,b2=y0-k2*x0;
+   const s1=b1>=0?'+ '+b1:'− '+Math.abs(b1),s2=b2>=0?'+ '+b2:'− '+Math.abs(b2);
+   return mkNum(`The lines y = ${k1}x ${s1} and y = ${k2}x ${s2} intersect. What is the x-coordinate of the intersection point?`,
+     `直线 y = ${k1}x ${b1>=0?'+ '+b1:'− '+Math.abs(b1)} 与 y = ${k2}x ${b2>=0?'+ '+b2:'− '+Math.abs(b2)} 的交点横坐标 = ?`,x0,
+     `Set the two expressions for y equal and solve for x.`,
+     `${k1}x + (${b1}) = ${k2}x + (${b2})\n${k1-k2}x = ${b2-b1}  ⟹  x = ${x0}`);},
+ ()=>{const x1=ri(-5,4),y1=ri(-5,5),dx=ri(1,4),k=ri(-4,4)||3;const x2=x1+dx,y2=y1+k*dx,b=y1-k*x1;
+   return mkNum(`A line passes through (${x1}, ${y1}) and (${x2}, ${y2}). Write it as y = kx + b and find b.`,
+     `用待定系数法：直线过 (${x1}, ${y1})、(${x2}, ${y2})，写成 y = kx + b，求 b`,b,
+     `First find k = (y₂ − y₁)/(x₂ − x₁), then b = y₁ − kx₁.`,
+     `k = (${y2} − (${y1}))/(${x2} − (${x1})) = ${k*dx}/${dx} = ${k}\nb = ${y1} − ${k}×(${x1}) = ${b}`);},
+];
+
+/* ================= U3 · 几何与坐标 (Ch03 + Ch07) ================= */
+const G3=[
+ ()=>{let a,b;do{a=ri(-9,9);b=ri(-9,9);}while(a===0||b===0);
+   const ci=(a>0&&b>0)?0:(a<0&&b>0)?1:(a<0&&b<0)?2:3;
+   return mkChoice(`Which quadrant contains the point (${a}, ${b})?`,`点 (${a}, ${b}) 在第几象限？`,
+     ['I (+,+)','II (−,+)','III (−,−)','IV (+,−)'],ci,
+     `Sign of x decides left/right; sign of y decides up/down.`,
+     `x = ${a} (${a>0?'right':'left'}), y = ${b} (${b>0?'up':'down'})  ⟹  Quadrant ${['I','II','III','IV'][ci]}`);},
+ ()=>{const a=ri(-9,9),b=ri(-9,9);
+   return mkNum(`Point P(${a}, ${b}) is reflected across the x-axis (关于 x 轴对称). What is the y-coordinate of P′?`,
+     `点 P(${a}, ${b}) 关于 x 轴对称，对称点 P′ 的纵坐标 = ?`,-b,
+     `Across the x-axis: x stays, y changes sign.`,`关于 x 轴对称：(x, y) → (x, −y)  ⟹  P′ = (${a}, ${-b})`);},
+ ()=>{const a=ri(-9,9),b=ri(-9,9);
+   return mkNum(`Point P(${a}, ${b}) is reflected across the y-axis (关于 y 轴对称). What is the x-coordinate of P′?`,
+     `点 P(${a}, ${b}) 关于 y 轴对称，对称点 P′ 的横坐标 = ?`,-a,
+     `Across the y-axis: y stays, x changes sign.`,`关于 y 轴对称：(x, y) → (−x, y)  ⟹  P′ = (${-a}, ${b})`);},
+ ()=>{const a=ri(-9,9),b=ri(-9,9);
+   return mkNum(`Point P(${a}, ${b}) is reflected through the origin (关于原点对称). What is the x-coordinate of P′?`,
+     `点 P(${a}, ${b}) 关于原点对称，对称点 P′ 的横坐标 = ?`,-a,
+     `Through the origin: both coordinates change sign.`,`关于原点对称：(x, y) → (−x, −y)  ⟹  P′ = (${-a}, ${-b})`);},
+ ()=>{const a=ri(-9,9),b=ri(-9,9),m=ri(1,8),n=ri(1,8);
+   return mkNum(`Point P(${a}, ${b}) is translated ${m} units right and ${n} units down. What is the x-coordinate of the new point?`,
+     `点 P(${a}, ${b}) 向右平移 ${m}、向下平移 ${n}，新点横坐标 = ?`,a+m,
+     `Right means x increases; down means y decreases.`,`(x, y) → (x + ${m}, y − ${n})  ⟹  x′ = ${a} + ${m} = ${a+m}`);},
+ ()=>{const R=pick([['corresponding','同位角',0],['alternate interior angle','内错角',0],['co-interior angle','同旁内角',1]]);
+   const x=ri(30,150),sup=R[2]===1,ans=sup?180-x:x;
+   return mkNum(`Two parallel lines are cut by a transversal. One angle is ${x}°. What is its ${R[0]}?`,
+     `两直线平行，被第三条直线所截。其中一个角是 ${x}°，它的${R[1]} = ?`,ans,
+     sup?'Co-interior angles are supplementary (add to 180°).':'Corresponding and alternate interior angles are EQUAL when the lines are parallel.',
+     sup?`两直线平行，同旁内角互补：180° − ${x}° = ${180-x}°`:`两直线平行，${R[1]}相等 ⟹ ${x}°`);},
+ ()=>{const R=pick([['corresponding angles are equal','同位角相等',0],['alternate interior angles are equal','内错角相等',1],['co-interior angles are supplementary','同旁内角互补',2]]);
+   return mkChoice(`Two lines are cut by a transversal, and their ${R[0]}. Are the two lines parallel?`,
+     `两条直线被第三条直线所截，${R[1]}。这两条直线平行吗？`,['Yes','No'],0,
+     `These are exactly the three 判定 (judgement) conditions for parallel lines.`,
+     `平行线的判定：同位角相等 / 内错角相等 / 同旁内角互补  ⟹  两直线平行 ⟹ Yes`);},
+ ()=>{let A,B;do{A=ri(30,90);B=ri(30,80);}while(A+B>=170);
+   return mkNum(`In a triangle, ∠A = ${A}° and ∠B = ${B}°. Find ∠C.`,`三角形中 ∠A = ${A}°，∠B = ${B}°，求 ∠C`,180-A-B,
+     `The three angles of a triangle sum to 180°.`,`∠C = 180° − ${A}° − ${B}° = ${180-A-B}°`);},
+ ()=>{const A=ri(30,80),B=ri(30,80);
+   return mkNum(`In a triangle, two remote interior angles are ${A}° and ${B}°. What is the exterior angle at the third vertex?`,
+     `三角形两个不相邻的内角分别为 ${A}°、${B}°，对应的外角 = ?`,A+B,
+     `An exterior angle equals the sum of the two remote interior angles.`,`外角 = ${A}° + ${B}° = ${A+B}°`);},
+ ()=>{const v=ri(10,70)*2;
+   return mkNum(`An isosceles triangle has a vertex angle of ${v}°. What is each base angle?`,
+     `等腰三角形顶角 ${v}°，每个底角 = ?`,(180-v)/2,
+     `Base angles are equal, and all three sum to 180°.`,`底角 = (180° − ${v}°) / 2 = ${(180-v)/2}°`);},
+ ()=>{const x=ri(20,160),askV=Math.random()<0.5;
+   return mkNum(`Two straight lines intersect. One angle is ${x}°. What is its ${askV?'vertical (对顶)':'adjacent (邻补)'} angle?`,
+     `两直线相交，其中一个角 ${x}°，它的${askV?'对顶角':'邻补角'} = ?`,askV?x:180-x,
+     askV?'Vertical angles are equal.':'Adjacent angles on a straight line add to 180°.',
+     askV?`对顶角相等 ⟹ ${x}°`:`邻补角互补：180° − ${x}° = ${180-x}°`);},
+ ()=>{const onY=Math.random()<0.5;const c=ri(1,9);const pt=onY?`(0, ${c})`:`(${c}, 0)`;
+   return mkChoice(`Where does the point ${pt} lie?`,
+     `点 ${pt} 在什么地方？`,['on the x-axis 在 x 轴上','on the y-axis 在 y 轴上','in quadrant I','at the origin'],onY?1:0,
+     `A point on the x-axis has y = 0; a point on the y-axis has x = 0.`,
+     onY?`x = 0 ⟹ 在 y 轴上`:`y = 0 ⟹ 在 x 轴上`);},
+];
+
+/* ================= U4 · 数据的分析 (Ch06) ================= */
+function mkData(n,mean,spread){const d=[];let s=0;for(let i=0;i<n-1;i++){const v=ri(mean-spread,mean+spread);d.push(v);s+=v;}d.push(n*mean-s);return d;}
+const G4=[
+ ()=>{const n=ri(3,6),m=ri(5,20);let d;let guard=0;
+   do{d=mkData(n,m,8);guard++;}while(guard<40&&(d.some(v=>v<1||v>60)));
+   return mkNum(`Find the mean of: ${d.join(', ')}`,`求平均数：${d.join(', ')}`,m,
+     `mean = (sum of all values) ÷ (number of values).`,
+     `sum = ${d.reduce((a,b)=>a+b,0)}, n = ${n}  ⟹  mean = ${d.reduce((a,b)=>a+b,0)} / ${n} = ${m}`);},
+ ()=>{const n=pick([5,7]);const s=[];let v=ri(1,10);for(let i=0;i<n;i++){v+=ri(1,6);s.push(v);}
+   const med=s[(n-1)/2];const disp=shuffle(s).join(', ');
+   return mkNum(`Find the median of: ${disp}`,`求中位数：${disp}`,med,
+     `Sort the data first, then take the middle value.`,
+     `排序后：${s.join(', ')}\n共 ${n} 个数（奇数），中位数 = 第 ${(n+1)/2} 个 = ${med}`);},
+ ()=>{const m=ri(3,20);const others=[];let v=m;
+   while(others.length<4){v+=ri(2,7);others.push(v);}
+   const data=shuffle([m,m,m].concat(others));
+   return mkNum(`Find the mode of: ${data.join(', ')}`,`求众数：${data.join(', ')}`,m,
+     `The mode is the value that appears most often.`,`${m} 出现 3 次，其余各出现 1 次 ⟹ 众数 = ${m}`);},
+ ()=>{const n=pick([3,4,5,6]),m=ri(7,15);let d,sq;let guard=0;
+   do{d=[];let s=0;for(let i=0;i<n-1;i++){const x=ri(-5,5);d.push(x);s+=x;}d.push(-s);
+     sq=d.reduce((a,b)=>a+b*b,0);guard++;}while(guard<60&&sq%n!==0);
+   const data=d.map(x=>m+x);
+   return mkNum(`Find the variance of: ${data.join(', ')}   (use s² = Σ(x − x̄)² / n)`,
+     `求方差：${data.join(', ')}（s² = Σ(x − x̄)² / n）`,sq/n,
+     `First find the mean, then each deviation, square them, add, divide by n.`,
+     `x̄ = ${m}\n偏差：${d.map(x=>x>=0?'+'+x:x).join(', ')}\n平方和 = ${sq}\ns² = ${sq} / ${n} = ${sq/n}`);},
+ ()=>{const v=pick([1,4,9,16,25,36]);
+   return mkNum(`A data set has variance ${v}. What is its standard deviation?`,`一组数据的方差为 ${v}，标准差 = ?`,Math.sqrt(v),
+     `standard deviation = √(variance).`,`s = √${v} = ${Math.sqrt(v)}`);},
+ ()=>{const n=5;const s=[];let v=ri(2,12);for(let i=0;i<n;i++){v+=ri(2,9);s.push(v);}
+   const disp=shuffle(s).join(', ');
+   return mkNum(`Find the range (极差) of: ${disp}`,`求极差（最大值 − 最小值）：${disp}`,s[n-1]-s[0],
+     `range = max − min.`,`max = ${s[n-1]}, min = ${s[0]}  ⟹  极差 = ${s[n-1]-s[0]}`);},
+ ()=>{const p=pick([30,40,60,70]);const a=ri(60,95);let b=null;
+   for(let t=60;t<=95;t++){if((a*p+t*(100-p))%100===0){b=t;break;}}
+   if(b===null)b=60;
+   const w=(a*p+b*(100-p))/100;
+   return mkNum(`Weighted mean: daily work ${a} (${p}%) and final exam ${b} (${100-p}%). What is the weighted average?`,
+     `加权平均数：平时 ${a}（占 ${p}%），期末 ${b}（占 ${100-p}%），学期总评 = ?`,w,
+     `Multiply each score by its weight, then add.`,`${a}×${p}% + ${b}×${100-p}% = ${(a*p/100).toFixed(2)} + ${(b*(100-p)/100).toFixed(2)} = ${w}`);},
+ ()=>{const q1=ri(5,25),iqr=ri(6,20);
+   return mkNum(`A box plot has Q1 = ${q1} and IQR = ${iqr}. What is Q3?`,`箱线图中 Q1 = ${q1}，IQR = ${iqr}，求 Q3`,q1+iqr,
+     `IQR = Q3 − Q1.`,`Q3 = Q1 + IQR = ${q1} + ${iqr} = ${q1+iqr}`);},
+];
+
+/* ================= 单元定义 ================= */
+const UNITS=[
+ {id:'u1',n:'Unit 1',cn:'实数与根式',en:'Real Numbers & Radicals',ch:'Ch01 + Ch02',G:G1,q:10,color:'#0891b2',
+  why:'平方根/立方根/无理数/二次根式/科学计数法 + 勾股定理中的根式边长'},
+ {id:'u2',n:'Unit 2',cn:'一次函数与方程组',en:'Linear Functions & Systems',ch:'Ch04 + Ch05',G:G2,q:10,color:'#d97706',
+  why:'斜率、截距、函数求值 + 代入法/加减法解方程组、中国应用题、直线交点'},
+ {id:'u3',n:'Unit 3',cn:'几何与坐标',en:'Geometry & Coordinates',ch:'Ch03 + Ch07',G:G3,q:10,color:'#4f46e5',
+  why:'象限、对称与平移的坐标规律 + 平行线判定/性质、三角形内角和与外角'},
+ {id:'u4',n:'Unit 4',cn:'数据的分析',en:'Data Analysis',ch:'Ch06',G:G4,q:10,color:'#db2777',
+  why:'平均数/中位数/众数/方差/标准差/极差/加权平均/箱线图'},
+ {id:'fin',n:'Final',cn:'期末综合挑战',en:'Course Challenge',ch:'Ch01–Ch07',G:null,q:12,color:'#7c3aed',
+  why:'七个章节混合抽题，模拟期末综合检测'},
+];
+
+function buildQ(u){
+ let pool;
+ if(u.id==='fin'){pool=[];[G1,G2,G3,G4].forEach(G=>{shuffle(G).slice(0,3).forEach(f=>pool.push(f));});}
+ else{const G=u.G;pool=shuffle(G).slice(0,Math.min(u.q,G.length));
+   while(pool.length<u.q)pool.push(pick(G));}
+ return shuffle(pool).map(f=>f());
+}
+
+/* ================= 状态 ================= */
+const KEY='bnu8_unit_state',WKEY='bnu8_wrong';
+function US(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return {};}}
+function saveUS(o){try{localStorage.setItem(KEY,JSON.stringify(o));}catch(e){}}
+function WB(){try{return JSON.parse(localStorage.getItem(WKEY))||[];}catch(e){return [];}}
+function saveWB(a){try{localStorage.setItem(WKEY,JSON.stringify(a));}catch(e){}}
+function chPct(k){
+ try{const S=JSON.parse(localStorage.getItem('bnu8_'+k+'_state'))||{};
+  const CH={ch01:4,ch02:8,ch03:4,ch04:4,ch05:5,ch06:3,ch07:5};
+  const ids=Object.keys(S).filter(x=>x!=='test');
+  if(!ids.length)return 0;let sum=0;
+  ids.forEach(id=>{const s=S[id]||{};const p=s.prac||{};
+   sum+=s.done?4:(p.tot>=5&&p.ok/p.tot>=0.8?3:(p.tot>0?2:((s.diag!=null||Object.keys(s.vid||{}).length)?1:0)));});
+  return sum/(CH[k]*4);
+ }catch(e){return 0;}}
+function readyPct(u){
+ if(u.id==='fin'){const ks=['ch01','ch02','ch03','ch04','ch05','ch06','ch07'];return ks.reduce((a,k)=>a+chPct(k),0)/7;}
+ if(u.id==='u1')return (chPct('ch01')+chPct('ch02'))/2;
+ if(u.id==='u2')return (chPct('ch04')+chPct('ch05'))/2;
+ if(u.id==='u3')return (chPct('ch03')+chPct('ch07'))/2;
+ if(u.id==='u4')return chPct('ch06');
+ return 0;
+}
+
+/* ================= 渲染 ================= */
+let cur=UNITS[0].id;
+function renderNav(){
+ const U=US(),W=WB().filter(w=>w.due<=Date.now()).length;
+ let h=UNITS.map(u=>{const st=U[u.id];
+  const badge=st?`<span class="st">${st.ok}/${st.tot}</span>`:'';
+  return `<div class="nav-i ${cur===u.id?'on':''}" data-u="${u.id}"><span><b>${u.n}</b> ${u.cn}</span>${badge}</div>`;}).join('');
+ h+=`<div class="nav-i ${cur==='wrong'?'on':''}" data-u="wrong"><span>错题本 Review</span>${W?`<span class="st">${W}</span>`:''}</div>`;
+ const nav=document.getElementById('nav');nav.innerHTML=h;
+ nav.querySelectorAll('[data-u]').forEach(n=>n.onclick=()=>{cur=n.dataset.u;render();});
+}
+
+function intro(el,u){
+ const U=US(),st=U[u.id],rp=readyPct(u);
+ const hist=(st&&st.history)?st.history.slice(-5).reverse():[];
+ el.innerHTML=`
+  <div class="step" style="background:${u.color}">${u.n} · ${u.cn} · ${u.en}</div>
+  <div class="box"><h3>覆盖 Coverage</h3>
+   <p style="font-size:14px"><b>${u.ch}</b> — ${u.why}</p>
+   <p style="font-size:13px;color:var(--muted);margin-top:6px">共 ${u.q} 题 · 第一次答错给提示，第二次答错给完整解法</p>
+  </div>
+  <div class="box"><h3>是否准备好 · Readiness</h3>
+   <div class="progress"><div style="width:${Math.round(rp*100)}%;background:${u.color}"></div></div>
+   <p style="font-size:13px">相关章节掌握度 ${Math.round(rp*100)}% ${rp>=0.6?'<span class="badge ok">Ready</span>':'<span class="badge warn">建议先把章节练习做完再测</span>'}</p>
+  </div>
+  ${st?`<div class="box"><h3>历史记录 History</h3><table><tr><th>日期</th><th>成绩</th><th>结论</th></tr>
+   ${hist.map(x=>`<tr><td>${x.date}</td><td>${x.ok}/${x.tot}</td><td>${x.ok/x.tot>=0.8?'<span class="badge ok">Mastered</span>':(x.ok/x.tot>=0.6?'<span class="badge warn">Proficient</span>':'<span class="badge lock">Needs review</span>')}</td></tr>`).join('')}
+   <tr><td colspan="3" style="color:var(--muted)">最佳 best: ${st.best!=null?st.best+'/'+u.q:'—'}</td></tr></table></div>`:''}
+  <div style="margin-top:14px"><button id="start">▶ 开始 ${u.q} 题</button></div>`;
+ el.querySelector('#start').onclick=()=>run(el,u);
+}
+
+function run(el,u){
+ const qs=buildQ(u);let i=0,ok=0,tries=0;
+ const draw=()=>{
+  if(i>=qs.length){finish(el,u,ok,qs.length);return;}
+  const qq=qs[i];
+  el.innerHTML=`<div class="step" style="background:${u.color}">${u.n} · ${u.cn} · 第 ${i+1} / ${qs.length} 题 · 已对 ${ok}</div>
+   <div class="progress"><div style="width:${i/qs.length*100}%"></div></div>
+   <div class="q"><div class="q-text">${qq.q}</div><div class="q-cn">${qq.qcn}</div>
+    ${qq.type==='choice'
+      ?`<div id="cs">${qq.choices.map((c,j)=>`<button class="choice" data-j="${j}">${String.fromCharCode(65+j)}. ${c}</button>`).join('')}</div>`
+      :`<div style="display:flex;gap:8px"><input type="text" id="ai" placeholder="answer"><button id="sb">Submit</button></div>`}
+    <div class="hint" id="ht"></div><div class="feedback" id="fb"></div></div>`;
+  const fb=el.querySelector('#fb'),ht=el.querySelector('#ht');
+  tries=0;
+  const submit=(v)=>{
+   if(isRight(qq,v)){
+    fb.className='feedback show ok';fb.textContent='✓ Correct';
+    i++;setTimeout(draw,650);
+   }else if(tries===0){
+    tries++;ht.className='hint show';ht.innerHTML='<b>Hint · 提示：</b>'+qq.hint;
+    fb.className='feedback show warn';fb.textContent='✗ 再试一次 (try again)';
+   }else{
+    fb.className='feedback show err';
+    fb.innerHTML=`✗ 正确答案是 <b>${qq.ans}</b>`+(qq.sol?`<div class="sol">${qq.sol}</div>`:'');
+    addWrong(u,qq);
+    i++;setTimeout(draw,2600);
+   }
+  };
+  if(qq.type==='choice'){el.querySelectorAll('#cs button').forEach(b=>b.onclick=()=>{ok0(b.dataset.j);});
+   function ok0(j){el.querySelectorAll('#cs button').forEach(b=>b.disabled=true);submit(j);}}
+  else{const inp=el.querySelector('#ai');inp.focus();
+   el.querySelector('#sb').onclick=()=>submit(inp.value);inp.onkeydown=e=>{if(e.key==='Enter')submit(inp.value);};}
+ };
+ draw();
+}
+
+function finish(el,u,ok,tot){
+ const U=US();const prev=U[u.id]||{best:0,history:[]};
+ const today=new Date().toISOString().slice(0,10);
+ const best=Math.max(prev.best||0,ok);
+ const hist=(prev.history||[]).concat([{ok:ok,tot:tot,date:today}]).slice(-5);
+ U[u.id]={ok:ok,tot:tot,date:today,best:best,history:hist};saveUS(U);
+ const p=ok/tot;
+ const lvl=p>=0.8?['Mastered 掌握','var(--ok)']:(p>=0.6?['Proficient 熟练','var(--warn)']:['Needs review 需要复习','var(--err)']);
+ el.innerHTML=`<div class="step" style="background:${lvl[1]}">Result · ${ok} / ${tot}</div>
+  <div class="box"><h3 style="color:${lvl[1]}">${lvl[0]}</h3>
+   <p style="font-size:14px">正确率 ${Math.round(p*100)}% · 历史最佳 ${best}/${tot}</p>
+   <p style="font-size:13px;color:var(--muted);margin-top:6px">${p>=0.8?'这一单元已经达标，可以做下一个单元。':(p>=0.6?'基本达标，把错题过一遍再进入下一单元会更好。':'建议回到对应章节，把练习做到 7 题对 5 再回来测。')}</p>
+  </div>
+  ${p<0.8?`<div class="note"><strong>下一步：</strong>错题已自动进入错题本，点左侧「错题本」立刻复习；或回到章节页把相关知识点练到过关。</div>`:''}
+  <div style="margin-top:14px;display:flex;gap:8px"><button id="again">再测一次（换新题）</button><button class="secondary" id="back">返回</button></div>`;
+ el.querySelector('#again').onclick=()=>run(el,u);
+ el.querySelector('#back').onclick=()=>render();
+ renderNav();
+}
+
+/* ================= 错题本 ================= */
+function addWrong(u,qq){
+ const W=WB();
+ const exist=W.find(w=>w.q===qq.q);
+ if(exist){exist.ts=Date.now();exist.due=Date.now();exist.int=0;saveWB(W);return;}
+ W.push({u:u.id,un:u.n,q:qq.q,qcn:qq.qcn,ans:qq.ans,sol:qq.sol,type:qq.type,choices:qq.choices||null,ci:qq.ci,
+  ts:Date.now(),due:Date.now(),int:0,rep:0});
+ saveWB(W);
+}
+function renderWrong(el){
+ const due=WB().filter(w=>w.due<=Date.now());
+ if(!due.length){
+  el.innerHTML=`<div class="step">错题本 · Review</div>
+   <div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>当前没有到期的错题。</strong><br>
+   单元测试里第二次答错的题会自动进这里。间隔重复规则：答对 → 隔 1 天 → 2 天 → 4 天 → 8 天后彻底归档。</div>
+   <div style="margin-top:12px"><button class="secondary" onclick="render()">返回</button></div>`;
+  return;
+ }
+ let i=0;
+ const draw=()=>{
+  if(i>=due.length){el.innerHTML=`<div class="step">错题复习完成</div>
+    <div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>本轮 ${due.length} 道错题过完了。</strong></div>
+    <div style="margin-top:12px"><button class="secondary" id="b2">返回</button></div>`;
+   el.querySelector('#b2').onclick=()=>render();renderNav();return;}
+  const w=due[i];const u=UNITS.find(x=>x.id===w.u)||UNITS[0];
+  const qq={type:w.type,q:w.q,qcn:w.qcn,ans:w.ans,choices:w.choices,ci:w.ci,sol:w.sol,hint:''};
+  let tries=0;
+  el.innerHTML=`<div class="step">错题复习 · 第 ${i+1} / ${due.length} · 来自 ${u.n} ${u.cn}</div>
+   <div class="q"><div class="q-text">${w.q}</div><div class="q-cn">${w.qcn}</div>
+    ${w.type==='choice'?`<div id="cs">${(w.choices||[]).map((c,j)=>`<button class="choice" data-j="${j}">${String.fromCharCode(65+j)}. ${c}</button>`).join('')}</div>`
+     :`<div style="display:flex;gap:8px"><input type="text" id="ai"><button id="sb">Submit</button></div>`}
+    <div class="feedback" id="fb"></div></div>`;
+  const fb=el.querySelector('#fb');
+  const submit=(v)=>{
+   if(isRight(qq,v)){
+    const W=WB();const t=W.find(x=>x.q===w.q&&x.ts===w.ts);
+    if(t){t.rep=(t.rep||0)+1;t.int=Math.max(1,(t.int||0)*2)||1;t.due=Date.now()+t.int*86400000;
+      if(t.int>=8)W.splice(W.indexOf(t),1);saveWB(W);}
+    fb.className='feedback show ok';fb.textContent=`✓ 已答对，${t&&t.int?('下次复习：'+t.int+' 天后'):'已归档'}`;
+    i++;setTimeout(draw,1200);
+   }else if(tries===0){tries++;fb.className='feedback show warn';fb.textContent='✗ 再试一次';}
+   else{
+    fb.className='feedback show err';fb.innerHTML=`✗ 正确答案 <b>${w.ans}</b>`+(w.sol?`<div class="sol">${w.sol}</div>`:'');
+    const W=WB();const t=W.find(x=>x.q===w.q&&x.ts===w.ts);
+    if(t){t.int=0;t.due=Date.now();saveWB(W);}
+    i++;setTimeout(draw,2600);
+   }
+  };
+  if(w.type==='choice'){el.querySelectorAll('#cs button').forEach(b=>b.onclick=()=>{el.querySelectorAll('#cs button').forEach(x=>x.disabled=true);submit(b.dataset.j);});}
+  else{const inp=el.querySelector('#ai');inp.focus();el.querySelector('#sb').onclick=()=>submit(inp.value);
+   inp.onkeydown=e=>{if(e.key==='Enter')submit(inp.value);};}
+ };
+ draw();
+}
+
+/* ================= 主渲染 ================= */
+function render(){
+ const main=document.getElementById('main');renderNav();
+ if(cur==='wrong'){renderWrong(main);return;}
+ intro(main,UNITS.find(u=>u.id===cur));
+}
+render();
+
+/* 支持 index.html 的深链 ?u=u2 */
+(function(){const g=new URLSearchParams(location.search).get('u');
+ if(g&&UNITS.some(u=>u.id===g)){cur=g;render();}})();
+</script>
+</body>
+</html>
