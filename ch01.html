@@ -144,7 +144,7 @@ const LESSONS=[
   {id:'k2', t:'Is It Right? (Converse)', cn:'一定是直角三角形吗', n:'1.2'},
   {id:'k3', t:'Applications', cn:'勾股定理的应用', n:'1.3'},
   {id:'k4', t:'Strategy: Reflect', cn:'问题解决策略：反思', n:'1.4'},
-  {id:'test', t:'Chapter Test', cn:'章末检测', n:'Test'}
+  {id:'test', t:'Chapter Test', cn:'章末自己测', n:'Test'}
 ];
 let cur='k1';
 function st(id){ return S[id] || (S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false}); }
@@ -249,9 +249,9 @@ function renderQ(el,q,onAns,showHint){
 function microK1(el){
   let a=3,b=4;
   el.innerHTML=`
-    <div class="step">Interactive Micro-lesson · 可交互微课</div>
-    <h3>Why is a² + b² = c²? <span class="cn-tag">为什么勾股定理成立</span></h3>
-    <div class="lead">下面用「两个等面积的大正方形」来证明 —— 拖动滑块改变 a、b，看数字如何始终成立。</div>
+    <div class="step">玩一玩</div>
+    <h3>Why is a² + b² = c²? </h3>
+    <div class="lead">下面拖 a、b 两个滑块，看两个正方形面积是不是始终相等。</div>
     <div class="slider-row">
       <label>a = <input type="range" id="ra" min="1" max="8" value="3"><span class="val" id="va">3</span></label>
       <label>b = <input type="range" id="rb" min="1" max="8" value="4"><span class="val" id="vb">4</span></label>
@@ -269,8 +269,8 @@ function microK1(el){
       </div>
     </div>
     <div class="eqbox" id="eq"></div>
-    <div class="box"><b>结论 Conclusion：</b>两个大正方形边长都是 a+b，面积相等；两边都减去同样的 4 个直角三角形，剩下的必然相等 —— 所以 <b>c² = a² + b²</b>。<br>
-    <span class="cn-tag">这就是勾股定理的证明思路：等面积法。</span></div>
+    <div class="box">两边面积始终相等。那 4 个三角形是同样的，被减掉之后剩下的也必须相等。<br>
+    </div>
     <div class="row"><button id="next1">下一步：看视频讲解 →</button></div>`;
   const draw=()=>{
     const s=a+b, c2=a*a+b*b, c=Math.sqrt(c2);
@@ -308,9 +308,9 @@ function microK1(el){
 /* ============ 微课 K2：逆定理判定器 ============ */
 function microK2(el){
   el.innerHTML=`
-    <div class="step">Interactive Micro-lesson · 可交互微课</div>
-    <h3>Converse: is it a right triangle? <span class="cn-tag">逆定理：一定是直角三角形吗</span></h3>
-    <div class="lead">定理是「直角 → a²+b²=c²」；逆定理是「a²+b²=c² → 直角」。方向相反，别搞混。拖动三边看判定结果。</div>
+    <div class="step">玩一玩</div>
+    <h3>Converse: is it a right triangle? </h3>
+    <div class="lead">上一节：直角 → a²+b²=c²。把它反过来呢？a²+b²=c² → 直角？拖一拖看看是不是。</div>
     <div class="slider-row">
       <label>边1 <input type="range" id="s1" min="1" max="20" value="3"><span class="val" id="v1">3</span></label>
       <label>边2 <input type="range" id="s2" min="1" max="20" value="4"><span class="val" id="v2">4</span></label>
@@ -318,9 +318,7 @@ function microK2(el){
     </div>
     <div class="eqbox" id="verdict"></div>
     <div class="box" id="detail"></div>
-    <div class="box"><b>注意：</b>判定前先<b>找出最大边</b>当作 c，再看较小两边的平方和是否等于 c²。
-    若 a²+b² &gt; c² 是锐角三角形，若 a²+b² &lt; c² 是钝角三角形。<br>
-    <span class="cn-tag">这三种情况最常考：</span></div>`;
+    <div class="box">把最长的那条边当成 c。再算较小两边的平方和 — 等于 c² 就是直角，大于是锐角，小于是钝角。</div>`;
   const upd=()=>{
     const v=[+el.querySelector('#s1').value,+el.querySelector('#s2').value,+el.querySelector('#s3').value];
     const mx=Math.max(...v), rest=v.filter((x,i)=>x!==mx||i!==v.indexOf(mx));
@@ -346,8 +344,8 @@ function microK2(el){
 /* ============ 微课 K3：应用 ============ */
 function microK3(el){
   el.innerHTML=`
-    <div class="step">Interactive Micro-lesson · 可交互微课</div>
-    <h3>Real-world applications <span class="cn-tag">勾股定理的应用</span></h3>
+    <div class="step">玩一玩</div>
+    <h3>Real-world applications </h3>
     <div class="lead">下面用你熟悉的情境：旗杆、梯子、池塘。</div>
     <div class="box">
       <b>解题四步：</b><br>
@@ -411,11 +409,11 @@ function videos(el,list,id){
 function diag(el,id,types){
   const s=st(id);
   if(s.diag){ 
-    el.innerHTML=`<div class="box"><b>Pre-check 学前诊断：</b>${s.diag.pass?
+    el.innerHTML=`<div class="box"><b>先测一下：</b>${s.diag.pass?
       '✓ 全部答对，可以直接进入练习。':'已完成，有错题 → 先看微课和视频。'}</div>`;
     return; 
   }
-  el.innerHTML=`<div class="step">Step 1 · Pre-check 学前诊断</div>
+  el.innerHTML=`<div class="step">先测一下</div>
     <div class="lead">3 道题。全对说明你已掌握，可跳过讲解直接练习；有错才需要看微课。<span class="cn-tag">这是先测再学。</span></div>
     <div id="dq"></div><div class="row"><button id="ddone" disabled>提交诊断</button></div>`;
   const box=el.querySelector('#dq');
@@ -435,7 +433,7 @@ function diag(el,id,types){
 /* ============ 练习 ============ */
 function prac(el,id,types,need){
   const s=st(id);
-  el.innerHTML=`<div class="step">Step 3 · Practice 练习</div>
+  el.innerHTML=`<div class="step">练一练</div>
     <div class="lead">题目由程序实时生成，每次都不一样（）。过关线：连续答对 ${need} 题。<span class="cn-tag">掌握度：${need} 题全对视为熟练。</span></div>
     <div class="stat"><span>本轮连对：<b id="streak">0</b>/${need}</span>
       <span>累计：<b id="cum">${s.prac.ok}/${s.prac.tot}</b></span>
@@ -471,7 +469,7 @@ function prac(el,id,types,need){
 
 /* ============ 章末测 ============ */
 function chTest(el){
-  el.innerHTML=`<div class="step">Chapter Test · 章末检测</div>
+  el.innerHTML=`<div class="step">章末自己测</div>
     <div class="lead">8 道题，覆盖本章 4 个知识点。全部独立完成，不看提示。<span class="cn-tag">。</span></div>
     <div id="tq"></div><div class="row"><button id="sub">提交</button></div><div id="res"></div>`;
   const box=el.querySelector('#tq');
@@ -545,15 +543,15 @@ function render(){
     const pr=document.createElement('div'); prac(pr,'k3',['word','hyp','leg'],5); m.appendChild(pr);
   }
   else if(cur==='k4'){
-    m.innerHTML+=`<div class="lead">做完一次再回头检查一遍 —— 这是数学家的好习惯。</div>`;
+    m.innerHTML+=`<div class="lead">做完回头检查一遍。</div>`;
     const d=document.createElement('div');
     d.innerHTML=`<div class="box">
-      <h3>反思四问 <span class="cn-tag">Problem-solving strategy: reflect</span></h3>
+      <h3>反思四问 <span class="cn-tag">反思四问</span></h3>
       <b>1. 答案合理吗？</b> 梯子长 2 米却靠上 10 米高的墙？不可能。<br>
       <b>2. 斜边找对了吗？</b> 斜边一定是<b>最长</b>的那条，且对着直角。<br>
-      <b>3. 单位统一了吗？</b> 米和厘米混用是常见错误。<br>
+      <b>3. 单位统一了吗？</b> 米和厘米别混。<br>
       <b>4. 有别的解法吗？</b> 用面积法、用方程，看结果是否一致。<br>
-      <div class="note"> —— 这是这一节很重要。</div></div>`;
+      <div class="note"> —— </div></div>`;
     m.appendChild(d);
     const v=document.createElement('div'); videos(v,V.k4,'k4'); m.appendChild(v);
     const pr=document.createElement('div'); prac(pr,'k4',['word','conv'],4); m.appendChild(pr);
