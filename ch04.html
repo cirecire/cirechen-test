@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Chapter 4 · Linear Functions · BNU 8th Grade Math</title>
+<title>Chapter 4 · Linear Functions · 八年级上 数学</title>
 <style>
 :root{
  --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
@@ -85,8 +85,8 @@ svg line,svg path{transition:stroke .3s,opacity .3s}
 <div class="wrap">
 <header>
  <h1>Chapter 4 · Linear Functions</h1>
- <p>Grade 8 · BNU Edition · 7 class periods · the hardest chapter</p>
- <p style="margin-top:6px;font-size:12px">北师大八年级上 · 第四章 · 一次函数 · 7 课时（重难点）</p>
+ <p>Grade 8 · 八年级上 · 7 class periods · the hardest chapter</p>
+ <p style="margin-top:6px;font-size:12px">第四章 · 一次函数</p>
 </header>
 <nav id="nav"></nav>
 <main id="main"></main>
@@ -110,7 +110,7 @@ function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:fa
 function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 function pick(a){return a[ri(0,a.length-1)];}
 
-/* ===== 视频清单（按 4 个 BNU 知识点） ===== */
+/* ===== 视频清单（按 4 个知识点） ===== */
 const VIDEOS={
 k1:[
  {f:'01_What is a function-.mp4',t:'What is a function?',c:'core',d:'函数定义'},
@@ -167,7 +167,7 @@ function microK1(el){
    <p>Write <span class="num">f(x) = 2x + 1</span> instead of y. f(3) means "plug x=3 in": f(3) = 2·3+1 = 7.</p>
    <p>The variable is just a placeholder — <span class="num">f(t) = 2t + 1</span> is the same function.</p>
   </div>
-  <div class="note"><strong>Why BNU Ch04 K1 is hard for kids:</strong> BNU says "y=kx+b where k≠0 is a linear function" — but a function is a more general idea. The <b>linear</b> part (k≠0) is a separate property. A function can be quadratic (y=x²) or anything else. We introduce the general idea first, then specialize.</div>`;
+  <div class="note">y = kx + b（k≠0）才叫一次函数。但「函数」范围更广 —— y = x² 也是函数。我们先讲函数的一般概念，再讲一次函数这个特例。</div>`;
 }
 
 /* ============ 微课 K2：交互式一次函数 ============ */
@@ -206,7 +206,7 @@ function microK2(el){
       <p>• When <b>k > 0</b>: line goes up-right. When <b>k < 0</b>: goes down-right.</p>
       <p>• When <b>|k|</b> is larger: steeper. When <b>|k|</b> is smaller: flatter.</p>
       <p>• <b>b</b> shifts the line up (b > 0) or down (b < 0) without changing slope.</p>
-      <p>• <b>k = 0</b>: horizontal line at y = b. Not a linear function by BNU's definition (but it IS a constant function).</p>
+      <p>• <b>k = 0</b>: horizontal line at y = b. Not a linear function in this textbook (but it IS a constant function).</p>
      </div>
     </div>
    </div>`;
@@ -226,7 +226,7 @@ function microK3(el){
   const mStr=Math.abs(m)===Infinity?'undefined (vertical line)':m.toFixed(2);
   const riseColor=m>=0?'#16a34a':'#dc2626';
   el.innerHTML=`
-   <div class="step">Micro-lesson ★ · 斜率公式（可汗没有这个视频，我们自建）</div>
+   <div class="step">Micro-lesson ★ · 斜率公式</div>
    <div class="box">
     <p>斜率 slope 描述一条线"有多陡"，用字母 <span class="num">k</span>（或 m）表示。定义：</p>
     <div class="eq">k = (y₂ − y₁) / (x₂ − x₁) = <span class="frac"><span class="num">rise 纵坐标变化 Δy</span><span class="den">run 横坐标变化 Δx</span></span></div>
@@ -257,7 +257,7 @@ function microK3(el){
       <p>• <b>Positive k</b> (green): line goes up-right. Negative k (red): down-right.</p>
       <p>• <b>|k|</b> = how steep: |k|=1 is 45°; |k|=2 is twice as steep.</p>
       <p>• <b>Δx = 0</b> (vertical line): k is undefined — not a function!</p>
-      <p>• <b>Same line, different points, same k</b>: try dragging P₁ and P₂ to opposite ends of the same line, k doesn't change. (This is what the Khan video "Similar triangles to prove slope is constant" proves.)</p>
+      <p>• <b>Same line, different points, same k</b>: try dragging P₁ and P₂ to opposite ends of the same line, k doesn't change. (Similar triangles prove this — there's a video on it.)</p>
      </div>
     </div>
    </div>`;
@@ -441,8 +441,8 @@ k4:()=>{
 function videos(el,lessonId){
  const list=VIDEOS[lessonId]||[];
  if(!list.length){el.innerHTML='<div class="note">No videos for this section.</div>';return;}
- let html=`<div class="step">Khan Academy Videos · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
- html+=`<div class="box"><p style="font-size:13px;color:var(--muted)">按 BNU 考点排序，先看 <span class="tag core">Core 核心</span>，再考虑 <span class="tag ext">Ext 拓展</span>。</p></div>`;
+ let html=`<div class="step">视频 · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
+ html+=`<div class="box"><p style="font-size:13px;color:var(--muted)"><span class="tag core">必看</span> 先看；<span class="tag ext">选看</span> 有余力再看。</p></div>`;
  list.forEach((v,i)=>{
   const watched=st(lessonId).vid[i];
   html+=`<div class="vid">
