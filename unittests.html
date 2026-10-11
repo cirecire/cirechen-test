@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Unit Tests · 单元测试 · BNU Grade 8 Semester 1</title>
+<title>升级挑战 · 综合大考 · 八上数学</title>
 <style>
 :root{
  --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
@@ -57,16 +57,16 @@ th{font-size:11px;color:var(--muted);font-weight:600}
 <body>
 
 <div class="topbar">
- <a href="index.html">← 总览 Overview</a>
- <a href="unittests.html">单元测试 Unit Tests</a>
+ <a href="index.html">← 我的学习地图</a>
+ <a href="unittests.html">升级挑战</a>
  <span style="margin-left:auto;font-size:11px;color:var(--muted)">内容来源 Khan Academy · CC BY-NC-SA</span>
 </div>
 
 <div class="wrap">
 <header>
- <h1>Unit Tests · 单元测试</h1>
- <p>可汗学习链的第三层：知识点练习 → 章末测 → <b>单元测试（跨章节混合）</b> → 期末挑战</p>
- <p style="margin-top:6px;font-size:12px">每题 10 道（期末 12 道）· 第一次答错给提示，第二次答错给完整解法并进错题本</p>
+ <h1>🏆 升级挑战</h1>
+ <p>把一章学过的几节混到一起考 —— 通过就能解锁下一个</p>
+ <p style="margin-top:6px;font-size:12px">每关 10 道题（期末大挑战 12 道）· 第一次答错给提示，第二次答错给完整解法，并自动进错题本</p>
 </header>
 <nav id="nav"></nav>
 <main id="main"></main>
@@ -316,16 +316,16 @@ const G4=[
 
 /* ================= 单元定义 ================= */
 const UNITS=[
- {id:'u1',n:'Unit 1',cn:'实数与根式',en:'Real Numbers & Radicals',ch:'Ch01 + Ch02',G:G1,q:10,color:'#0891b2',
-  why:'平方根/立方根/无理数/二次根式/科学计数法 + 勾股定理中的根式边长'},
- {id:'u2',n:'Unit 2',cn:'一次函数与方程组',en:'Linear Functions & Systems',ch:'Ch04 + Ch05',G:G2,q:10,color:'#d97706',
-  why:'斜率、截距、函数求值 + 代入法/加减法解方程组、中国应用题、直线交点'},
- {id:'u3',n:'Unit 3',cn:'几何与坐标',en:'Geometry & Coordinates',ch:'Ch03 + Ch07',G:G3,q:10,color:'#4f46e5',
+ {id:'u1',n:'第 1 关',cn:'实数与根式',en:'Real Numbers & Radicals',ch:'Ch01 + Ch02',G:G1,q:10,color:'#0891b2',
+  why:'平方根/立方根/无理数/二次根式 + 勾股定理中的根式边长'},
+ {id:'u2',n:'第 2 关',cn:'一次函数与方程组',en:'Linear Functions & Systems',ch:'Ch04 + Ch05',G:G2,q:10,color:'#d97706',
+  why:'斜率、截距、函数求值 + 代入法/加减法解方程组、鸡兔同笼、增收节支、直线交点'},
+ {id:'u3',n:'第 3 关',cn:'几何与坐标',en:'Geometry & Coordinates',ch:'Ch03 + Ch07',G:G3,q:10,color:'#4f46e5',
   why:'象限、对称与平移的坐标规律 + 平行线判定/性质、三角形内角和与外角'},
- {id:'u4',n:'Unit 4',cn:'数据的分析',en:'Data Analysis',ch:'Ch06',G:G4,q:10,color:'#db2777',
+ {id:'u4',n:'第 4 关',cn:'数据的分析',en:'Data Analysis',ch:'Ch06',G:G4,q:10,color:'#db2777',
   why:'平均数/中位数/众数/方差/标准差/极差/加权平均/箱线图'},
- {id:'fin',n:'Final',cn:'期末综合挑战',en:'Course Challenge',ch:'Ch01–Ch07',G:null,q:12,color:'#7c3aed',
-  why:'七个章节混合抽题，模拟期末综合检测'},
+ {id:'fin',n:'期末大挑战',cn:'七章混在一起考',en:'Course Challenge',ch:'全部 7 章',G:null,q:12,color:'#7c3aed',
+  why:'七章混合抽题，模拟期末综合检测'},
 ];
 
 function buildQ(u){
@@ -367,7 +367,7 @@ function renderNav(){
  let h=UNITS.map(u=>{const st=U[u.id];
   const badge=st?`<span class="st">${st.ok}/${st.tot}</span>`:'';
   return `<div class="nav-i ${cur===u.id?'on':''}" data-u="${u.id}"><span><b>${u.n}</b> ${u.cn}</span>${badge}</div>`;}).join('');
- h+=`<div class="nav-i ${cur==='wrong'?'on':''}" data-u="wrong"><span>错题本 Review</span>${W?`<span class="st">${W}</span>`:''}</div>`;
+ h+=`<div class="nav-i ${cur==='wrong'?'on':''}" data-u="wrong"><span>错题本</span>${W?`<span class="st">${W}</span>`:''}</div>`;
  const nav=document.getElementById('nav');nav.innerHTML=h;
  nav.querySelectorAll('[data-u]').forEach(n=>n.onclick=()=>{cur=n.dataset.u;render();});
 }
@@ -376,18 +376,18 @@ function intro(el,u){
  const U=US(),st=U[u.id],rp=readyPct(u);
  const hist=(st&&st.history)?st.history.slice(-5).reverse():[];
  el.innerHTML=`
-  <div class="step" style="background:${u.color}">${u.n} · ${u.cn} · ${u.en}</div>
-  <div class="box"><h3>覆盖 Coverage</h3>
-   <p style="font-size:14px"><b>${u.ch}</b> — ${u.why}</p>
+  <div class="step" style="background:${u.color}">${u.n} · ${u.cn}</div>
+  <div class="box"><h3>这里面考什么</h3>
+   <p style="font-size:14px">${u.ch} — ${u.why}</p>
    <p style="font-size:13px;color:var(--muted);margin-top:6px">共 ${u.q} 题 · 第一次答错给提示，第二次答错给完整解法</p>
   </div>
-  <div class="box"><h3>是否准备好 · Readiness</h3>
+  <div class="box"><h3>你的准备情况</h3>
    <div class="progress"><div style="width:${Math.round(rp*100)}%;background:${u.color}"></div></div>
-   <p style="font-size:13px">相关章节掌握度 ${Math.round(rp*100)}% ${rp>=0.6?'<span class="badge ok">Ready</span>':'<span class="badge warn">建议先把章节练习做完再测</span>'}</p>
+   <p style="font-size:13px">相关章节进度 ${Math.round(rp*100)}% ${rp>=0.6?'<span class="badge ok">可以挑战</span>':'<span class="badge warn">先把章节练完</span>'}</p>
   </div>
-  ${st?`<div class="box"><h3>历史记录 History</h3><table><tr><th>日期</th><th>成绩</th><th>结论</th></tr>
-   ${hist.map(x=>`<tr><td>${x.date}</td><td>${x.ok}/${x.tot}</td><td>${x.ok/x.tot>=0.8?'<span class="badge ok">Mastered</span>':(x.ok/x.tot>=0.6?'<span class="badge warn">Proficient</span>':'<span class="badge lock">Needs review</span>')}</td></tr>`).join('')}
-   <tr><td colspan="3" style="color:var(--muted)">最佳 best: ${st.best!=null?st.best+'/'+u.q:'—'}</td></tr></table></div>`:''}
+  ${st?`<div class="box"><h3>上一次成绩</h3><table><tr><th>日期</th><th>成绩</th><th>结论</th></tr>
+   ${hist.map(x=>`<tr><td>${x.date}</td><td>${x.ok}/${x.tot}</td><td>${x.ok/x.tot>=0.8?'<span class="badge ok">太棒了</span>':(x.ok/x.tot>=0.6?'<span class="badge warn">还行</span>':'<span class="badge lock">再练练</span>')}</td></tr>`).join('')}
+   <tr><td colspan="3" style="font-size:12px;color:var(--muted)">最佳：${st.best!=null?st.best+'/'+u.q:'—'}</td></tr></table></div>`:''}
   <div style="margin-top:14px"><button id="start">▶ 开始 ${u.q} 题</button></div>`;
  el.querySelector('#start').onclick=()=>run(el,u);
 }
@@ -435,14 +435,13 @@ function finish(el,u,ok,tot){
  const hist=(prev.history||[]).concat([{ok:ok,tot:tot,date:today}]).slice(-5);
  U[u.id]={ok:ok,tot:tot,date:today,best:best,history:hist};saveUS(U);
  const p=ok/tot;
- const lvl=p>=0.8?['Mastered 掌握','var(--ok)']:(p>=0.6?['Proficient 熟练','var(--warn)']:['Needs review 需要复习','var(--err)']);
- el.innerHTML=`<div class="step" style="background:${lvl[1]}">Result · ${ok} / ${tot}</div>
+ const lvl=p>=0.8?['太棒了，全对的！','var(--ok)']:(p>=0.6?['还行，再把错题过一遍就稳了。','var(--warn)']:['还要多练 —— 回章节把相关知识点再练几个。','var(--err)']);
+ el.innerHTML=`<div class="step" style="background:${lvl[1]}">成绩 · ${ok} / ${tot}</div>
   <div class="box"><h3 style="color:${lvl[1]}">${lvl[0]}</h3>
    <p style="font-size:14px">正确率 ${Math.round(p*100)}% · 历史最佳 ${best}/${tot}</p>
-   <p style="font-size:13px;color:var(--muted);margin-top:6px">${p>=0.8?'这一单元已经达标，可以做下一个单元。':(p>=0.6?'基本达标，把错题过一遍再进入下一单元会更好。':'建议回到对应章节，把练习做到 7 题对 5 再回来测。')}</p>
   </div>
-  ${p<0.8?`<div class="note"><strong>下一步：</strong>错题已自动进入错题本，点左侧「错题本」立刻复习；或回到章节页把相关知识点练到过关。</div>`:''}
-  <div style="margin-top:14px;display:flex;gap:8px"><button id="again">再测一次（换新题）</button><button class="secondary" id="back">返回</button></div>`;
+  ${p<0.8?`<div class="note"><strong>下一步：</strong>错题已自动进错题本，点左侧「错题本」复习；或者回到章节页把对应的几个小知识练到过关。</div>`:''}
+  <div style="margin-top:14px;display:flex;gap:8px"><button id="again">再练一次（新题）</button><button class="secondary" id="back">返回</button></div>`;
  el.querySelector('#again').onclick=()=>run(el,u);
  el.querySelector('#back').onclick=()=>render();
  renderNav();
@@ -460,22 +459,22 @@ function addWrong(u,qq){
 function renderWrong(el){
  const due=WB().filter(w=>w.due<=Date.now());
  if(!due.length){
-  el.innerHTML=`<div class="step">错题本 · Review</div>
-   <div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>当前没有到期的错题。</strong><br>
-   单元测试里第二次答错的题会自动进这里。间隔重复规则：答对 → 隔 1 天 → 2 天 → 4 天 → 8 天后彻底归档。</div>
+  el.innerHTML=`<div class="step">错题本</div>
+   <div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>现在没有要复习的错题。</strong><br>
+   升级挑战里第二次答错的题会到这里。规则：答对 → 隔 1 天 → 2 天 → 4 天 → 8 天后归档。</div>
    <div style="margin-top:12px"><button class="secondary" onclick="render()">返回</button></div>`;
   return;
  }
  let i=0;
  const draw=()=>{
-  if(i>=due.length){el.innerHTML=`<div class="step">错题复习完成</div>
-    <div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>本轮 ${due.length} 道错题过完了。</strong></div>
+  if(i>=due.length){el.innerHTML=`<div class="step">本轮 ${due.length} 道错题过完啦</div>
+    <div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>做得不错！</strong>答对三次就自动归档。</div>
     <div style="margin-top:12px"><button class="secondary" id="b2">返回</button></div>`;
    el.querySelector('#b2').onclick=()=>render();renderNav();return;}
   const w=due[i];const u=UNITS.find(x=>x.id===w.u)||UNITS[0];
   const qq={type:w.type,q:w.q,qcn:w.qcn,ans:w.ans,choices:w.choices,ci:w.ci,sol:w.sol,hint:''};
   let tries=0;
-  el.innerHTML=`<div class="step">错题复习 · 第 ${i+1} / ${due.length} · 来自 ${u.n} ${u.cn}</div>
+  el.innerHTML=`<div class="step">错题复习 · 第 ${i+1} / ${due.length} · 来自 ${u.n}</div>
    <div class="q"><div class="q-text">${w.q}</div><div class="q-cn">${w.qcn}</div>
     ${w.type==='choice'?`<div id="cs">${(w.choices||[]).map((c,j)=>`<button class="choice" data-j="${j}">${String.fromCharCode(65+j)}. ${c}</button>`).join('')}</div>`
      :`<div style="display:flex;gap:8px"><input type="text" id="ai"><button id="sb">Submit</button></div>`}
