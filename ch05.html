@@ -90,7 +90,7 @@ const LESSONS=[
  {id:'k3',t:'Elimination method',cn:'加减消元法',n:'5.3'},
  {id:'k4',t:'Chinese word problems',cn:'应用：鸡兔同笼、增收节支、里程碑',n:'5.4'},
  {id:'k5',t:'Systems & graphs',cn:'方程与一次函数（直线交点）',n:'5.5'},
- {id:'test',t:'Chapter Test',cn:'章末检测',n:'Test'}
+ {id:'test',t:'Chapter Test',cn:'章末自己测',n:'Test'}
 ];
 let cur='k1';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
@@ -139,7 +139,7 @@ k5:[
 /* ============ 微课 K1：什么是方程组 ============ */
 function microK1(el){
  el.innerHTML=`
-  <div class="step">Micro-lesson · 什么是二元一次方程组</div>
+  <div class="step">二元一次方程组</div>
   <div class="box">
    <h3>Single equation · 单个方程</h3>
    <p>一个二元一次方程（如 <span class="num">x + y = 5</span>）有<strong>无数</strong>解：(0,5)、(1,4)、(2,3)、(5,0)……</p>
@@ -157,7 +157,7 @@ function microK1(el){
     <li>两线重合（k 和 b 都相同）→ <strong>无数解</strong></li>
    </ul>
   </div>
-  <div class="note"><strong>How to check a solution:</strong> Plug both numbers into BOTH equations. If both equations are true, it's a solution. (Video 02 shows this.)</div>`;
+  两个答案代回<b>两个</b>方程 —— 都成立才算对。`;
 }
 
 /* ============ 微课 K2：代入法（交互演示） ============ */
@@ -172,7 +172,7 @@ function microK2(el){
  const X=x=>340+x*30, Y=y=>280-y*30;
  const render=()=>{
   el.innerHTML=`
-   <div class="step">Micro-lesson · 代入法 (Substitution method)</div>
+   <div class="step">代入法</div>
    <div class="box">
     <h3>The 3 steps · 三步走</h3>
     <ol style="margin-left:20px;font-size:15px;line-height:1.9">
@@ -199,7 +199,7 @@ function microK2(el){
 /* ============ 微课 K3：加减消元（交互演示） ============ */
 function microK3(el){
  el.innerHTML=`
-  <div class="step">Micro-lesson · 加减消元法 (Elimination)</div>
+  <div class="step">加减消元法</div>
   <div class="box">
    <h3>When to use · 何时用</h3>
    <p>当两个方程的某个系数<strong>相同或相反</strong>时，相加或相减就能消掉一个未知数。</p>
@@ -237,7 +237,7 @@ function microK4(el){
  const render=()=>{
   const p=problems[cur];
   el.innerHTML=`
-   <div class="step">Micro-lesson ★ · 鸡兔同笼、增收节支、里程碑</div>
+   <div class="step">★ 鸡兔同笼 / 增收节支 / 里程碑</div>
    <div class="box">
     <div style="display:flex;gap:8px;margin-bottom:10px">
      ${problems.map((q,i)=>`<button class="${i===cur?'':'secondary'}" data-p="${i}">${i+1}. ${q.title.split(' · ')[0]}</button>`).join('')}
@@ -256,7 +256,7 @@ function microK4(el){
 /* ============ 微课 K5：方程与函数 ============ */
 function microK5(el){
  el.innerHTML=`
-  <div class="step">Micro-lesson · 二元一次方程与一次函数（交点 = 解）</div>
+  <div class="step">二元一次方程与一次函数</div>
   <div class="box">
    <h3>Key insight · 关键洞察</h3>
    <p>把 <span class="num">2x + y = 7</span> 写成 <span class="num">y = −2x + 7</span>，它就是一条直线。</p>
@@ -272,9 +272,9 @@ function microK5(el){
   <div class="note"><strong>与 Ch04 的联系：</strong>Ch04 学了一次函数图象，现在学方程的解就是图象的交点。这是"代数"和"几何"两大工具的统一。</div>`;
 }
 
-/* ============ 学前诊断 ============ */
+/* ============ 先测一下 ============ */
 function diag(el,lessonId,generator){
- el.innerHTML=`<div class="step">Pre-check · 学前诊断</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 题快速测一下。</p><div id="diagQ"></div></div>`;
+ el.innerHTML=`<div class="step">先测一下</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 题快速测一下。</p><div id="diagQ"></div></div>`;
  const qEl=el.querySelector('#diagQ');
  let ok=0;
  const qs=Array.from({length:3},()=>generator('diag'));
@@ -371,7 +371,7 @@ function practice(el,lessonId){
  const s=st(lessonId);
  let streak=0,need=5,q=null;
  const update=()=>{
-  el.innerHTML=`<div class="step">Practice · 练习（${streak}/${need}）</div><div class="info" style="font-size:13px;color:var(--muted);margin:8px 0">对 ${s.prac.ok}/${s.prac.tot}（连对 ${streak}）<button class="secondary" id="rs" style="margin-left:8px">Reset</button></div><div class="progress"><div style="width:${(streak/need)*100}%"></div></div><div class="q"><div class="q-text">${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="pi" autocomplete="off"><button id="ps">Submit</button></div><div class="hint" id="ph"></div><div class="feedback" id="pf"></div></div>`;
+  el.innerHTML=`<div class="step">练一练（${streak}/${need}）</div><div class="info" style="font-size:13px;color:var(--muted);margin:8px 0">对 ${s.prac.ok}/${s.prac.tot}（连对 ${streak}）<button class="secondary" id="rs" style="margin-left:8px">Reset</button></div><div class="progress"><div style="width:${(streak/need)*100}%"></div></div><div class="q"><div class="q-text">${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="pi" autocomplete="off"><button id="ps">Submit</button></div><div class="hint" id="ph"></div><div class="feedback" id="pf"></div></div>`;
   el.querySelector('#rs').onclick=()=>{s.prac={ok:0,tot:0};streak=0;save();update();renderNav();};
   const inp=el.querySelector('#pi'),fb=el.querySelector('#pf'),ht=el.querySelector('#ph');
   inp.focus();el.querySelector('#ps').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
@@ -393,7 +393,7 @@ function practice(el,lessonId){
 
 /* ============ 章末测 ============ */
 function chTest(el){
- el.innerHTML=`<div class="step">Chapter Test · 章末检测</div><div class="box"><p style="font-size:13px;color:var(--muted)">共 10 题。</p><div id="tq"></div></div>`;
+ el.innerHTML=`<div class="step">章末自己测</div><div class="box"><p style="font-size:13px;color:var(--muted)">共 10 题。</p><div id="tq"></div></div>`;
  const tq=el.querySelector('#tq');
  const qs=[];
  for(let i=0;i<2;i++)qs.push(generators.k1(i+1));
