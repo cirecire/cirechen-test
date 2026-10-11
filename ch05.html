@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Chapter 5 · Systems of Linear Equations · BNU 8th Grade Math</title>
+<title>Chapter 5 · Systems of Linear Equations · 八年级上 数学</title>
 <style>
 :root{
  --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
@@ -71,8 +71,8 @@ svg{max-width:100%;display:block;margin:0 auto}
 <div class="wrap">
 <header>
  <h1>Chapter 5 · Systems of Linear Equations</h1>
- <p>Grade 8 · BNU Edition · 9 class periods · 鸡兔同笼、增收节支、里程碑上的数</p>
- <p style="margin-top:6px;font-size:12px">北师大八年级上 · 第五章 · 二元一次方程组 · 9 课时</p>
+ <p>Grade 8 · 八年级上 · 9 class periods · 鸡兔同笼、增收节支、里程碑上的数</p>
+ <p style="margin-top:6px;font-size:12px">第五章 · 二元一次方程组</p>
 </header>
 <nav id="nav"></nav>
 <main id="main"></main>
@@ -190,7 +190,7 @@ function microK2(el){
    <div class="box" style="background:#dbeafe">
     <h3>Why it works · 原理</h3>
     <p style="font-size:14px">代入法的核心：<b>把两个未知数变成一个未知数</b>。代入后只剩 x 一个变量，能直接解出。然后回代得 y。</p>
-    <p style="font-size:14px;color:var(--muted);margin-top:6px">Khan 视频 03-07 详细演示了代入法，推荐先看 03 理解原理，再看 04-06 练例题。</p>
+    <p style="font-size:14px;color:var(--muted);margin-top:6px"> 03-07 详细演示了代入法，推荐先看 03 理解原理，再看 04-06 练例题。</p>
    </div>`;
  };
  render();
@@ -237,7 +237,7 @@ function microK4(el){
  const render=()=>{
   const p=problems[cur];
   el.innerHTML=`
-   <div class="step">Micro-lesson ★ · 中国经典应用题三件套（可汗没有，自建）</div>
+   <div class="step">Micro-lesson ★ · 鸡兔同笼、增收节支、里程碑</div>
    <div class="box">
     <div style="display:flex;gap:8px;margin-bottom:10px">
      ${problems.map((q,i)=>`<button class="${i===cur?'':'secondary'}" data-p="${i}">${i+1}. ${q.title.split(' · ')[0]}</button>`).join('')}
@@ -352,8 +352,8 @@ k5:()=>{
 function videos(el,lessonId){
  const list=VIDEOS[lessonId]||[];
  if(!list.length){el.innerHTML='<div class="note">No videos for this section.</div>';return;}
- let html=`<div class="step">Khan Academy Videos · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
- html+=`<div class="box"><p style="font-size:13px;color:var(--muted)">按 BNU 考点排序。<span class="tag core">Core</span> 必看，<span class="tag ext">Ext</span> 选看。</p></div>`;
+ let html=`<div class="step">视频 · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
+ html+=`<div class="box"><p style="font-size:13px;color:var(--muted)"><span class="tag core">必看</span> 先看；<span class="tag ext">选看</span> 有余力再看。</p></div>`;
  list.forEach((v,i)=>{
   const watched=st(lessonId).vid[i];
   html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="cn">${v.d}</span><span class="meta"><span class="tag ${v.c}">${v.c==='core'?'Core 核心':'Ext 拓展'}</span><span class="st ${watched?'ok':''}">${watched?'✓':'未看'}</span><button data-i="${i}">${watched?'▶ Replay':'▶ Play'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
