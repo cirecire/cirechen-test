@@ -103,7 +103,7 @@ const LESSONS=[
  {id:'k2',t:'Linear Functions',cn:'一次函数与正比例函数',n:'4.2'},
  {id:'k3',t:'Slope & Intercept',cn:'一次函数的图象（斜率与截距）',n:'4.3'},
  {id:'k4',t:'Applications',cn:'一次函数的应用',n:'4.4'},
- {id:'test',t:'Chapter Test',cn:'章末检测',n:'Test'}
+ {id:'test',t:'Chapter Test',cn:'章末自己测',n:'Test'}
 ];
 let cur='k1';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
@@ -148,7 +148,7 @@ k4:[
 /* ============ 微课 K1：什么是函数 ============ */
 function microK1(el){
  el.innerHTML=`
-  <div class="step">Micro-lesson · 什么是函数</div>
+  <div class="step">什么是函数？</div>
   <div class="box">
    <h3>Step 1 — A function is a one-to-one rule</h3>
    <div class="cn">函数：每个 x 只对应一个 y</div>
@@ -167,7 +167,7 @@ function microK1(el){
    <p>Write <span class="num">f(x) = 2x + 1</span> instead of y. f(3) means "plug x=3 in": f(3) = 2·3+1 = 7.</p>
    <p>The variable is just a placeholder — <span class="num">f(t) = 2t + 1</span> is the same function.</p>
   </div>
-  <div class="note">y = kx + b（k≠0）才叫一次函数。但「函数」范围更广 —— y = x² 也是函数。我们先讲函数的一般概念，再讲一次函数这个特例。</div>`;
+  <div class="note">y=kx+b（k≠0）叫一次函数。但函数范围更广 —— y=x² 也是函数。</div>`;
 }
 
 /* ============ 微课 K2：交互式一次函数 ============ */
@@ -178,7 +178,7 @@ function microK2(el){
   const xmin=-7,xmax=7;
   const px1=xmin,py1=k*xmin+b,px2=xmax,py2=k*xmax+b;
   el.innerHTML=`
-   <div class="step">Micro-lesson · 一次函数 y = kx + b — 拖滑块看图像变化</div>
+   <div class="step">一次函数 — 拖一拖</div>
    <div class="box">
     <p>拖动下方两个滑块，观察图像怎么动。<span class="num">k</span> 是斜率（线有多陡），<span class="num">b</span> 是 y 轴截距（线在哪儿起步）。</p>
     <div class="controls">
@@ -216,7 +216,7 @@ function microK2(el){
  render();
 }
 
-/* ============ 微课 K3：★ 斜率公式 ★（核心可交互微课）========== */
+/* ============ 微课 K3：斜率公式 =========== */
 function microK3(el){
  let p1x=-2,p1y=3,p2x=3,p2y=5,drag=null;
  const render=()=>{
@@ -226,7 +226,7 @@ function microK3(el){
   const mStr=Math.abs(m)===Infinity?'undefined (vertical line)':m.toFixed(2);
   const riseColor=m>=0?'#16a34a':'#dc2626';
   el.innerHTML=`
-   <div class="step">Micro-lesson ★ · 斜率公式</div>
+   <div class="step">★ 斜率公式</div>
    <div class="box">
     <p>斜率 slope 描述一条线"有多陡"，用字母 <span class="num">k</span>（或 m）表示。定义：</p>
     <div class="eq">k = (y₂ − y₁) / (x₂ − x₁) = <span class="frac"><span class="num">rise 纵坐标变化 Δy</span><span class="den">run 横坐标变化 Δx</span></span></div>
@@ -294,7 +294,7 @@ function microK3(el){
 /* ============ 微课 K4：建模应用示例 ============ */
 function microK4(el){
  el.innerHTML=`
-  <div class="step">Micro-lesson · 一次函数建模</div>
+  <div class="step">一次函数建模</div>
   <div class="box">
    <h3>The four steps · 建模四步</h3>
    <ol style="margin-left:20px;font-size:15px;line-height:1.8">
@@ -312,7 +312,7 @@ function microK4(el){
    <b>Step 3</b>: 起步价 = 8 元，代入"x=3 时 y=8"得 8 = 2·3 + b → b = 2<br>
    <b>Step 4</b>: <span class="num">y = 2x + 2</span> （x ≥ 3）</p>
   </div>
-  <div class="note"><strong>常见错误：</strong>把"起步价 8 元"算进 2 元/公里里，忘记起步价是 b。或者忽略 x ≥ 3 的定义域约束。</div>
+  小心：起步价 8 元是单独的一项（b），别和"每公里 2 元"混在一起。
   <div class="box">
    <h3>Look for these patterns in word problems</h3>
    <ul style="margin-left:20px;font-size:14px;line-height:1.8">
@@ -324,9 +324,9 @@ function microK4(el){
   </div>`;
 }
 
-/* ============ 学前诊断 ============ */
+/* ============ 先测一下 ============ */
 function diag(el,lessonId,generator){
- el.innerHTML=`<div class="step">Pre-check · 学前诊断</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 题快速测一下。3/3 通过则跳过讲解；有错才进微课。</p><div id="diagQ"></div></div>`;
+ el.innerHTML=`<div class="step">先测一下</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 题快速测一下。3/3 通过则跳过讲解；有错才进微课。</p><div id="diagQ"></div></div>`;
  const qEl=el.querySelector('#diagQ');
  let ok=0;
  const qs=Array.from({length:3},()=>generator('diag'));
@@ -483,7 +483,7 @@ function practice(el,lessonId){
  let streak=0,need=5,q=null;
  const update=()=>{
   el.innerHTML=`
-   <div class="step">Practice · 练习（${streak}/${need}）</div>
+   <div class="step">练一练（${streak}/${need}）</div>
    <div class="info" style="font-size:13px;color:var(--muted);margin:8px 0">对 ${s.prac.ok}/${s.prac.tot}（连对 ${streak}）<button class="secondary" id="rs" style="margin-left:8px">Reset 重置</button></div>
    <div class="progress"><div style="width:${(streak/need)*100}%"></div></div>
    <div class="q">
@@ -524,7 +524,7 @@ function practice(el,lessonId){
 
 /* ============ 章末测 ============ */
 function chTest(el){
- el.innerHTML=`<div class="step">Chapter Test · 章末检测</div><div class="box"><p style="font-size:13px;color:var(--muted)">共 10 题，覆盖本章 4 个知识点。</p><div id="tq"></div></div>`;
+ el.innerHTML=`<div class="step">章末自己测</div><div class="box"><p style="font-size:13px;color:var(--muted)">共 10 题，覆盖本章 4 个知识点。</p><div id="tq"></div></div>`;
  const tq=el.querySelector('#tq');
  const qs=[];
  for(let i=0;i<3;i++)qs.push(generators.k1());
