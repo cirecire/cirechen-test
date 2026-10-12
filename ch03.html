@@ -98,8 +98,8 @@ const LESSONS=[
  {id:'k1',t:'Determining Position',cn:'确定位置（有序数对、方向角）',n:'3.1'},
  {id:'k2',t:'The Coordinate Plane',cn:'平面直角坐标系',n:'3.2'},
  {id:'k3',t:'Reflections & Coordinates',cn:'轴对称与坐标变化',n:'3.3'},
- {id:'ext',t:'Extension: Transformations',cn:'选看 · 平移 / 旋转 / 缩放',n:'Ext'},
- {id:'test',t:'Chapter Test',cn:'章末自己测',n:'Test'}
+ {id:'ext',t:'Extension: Transformations',cn:'选看 · 平移 / 旋转 / 缩放',n:''},
+ {id:'test',t:'Chapter Test',cn:'章末自己测',n:''}
 ];
 let cur='k1';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
@@ -382,7 +382,7 @@ k3:()=>{ // 对称
 function videos(el,lessonId){
  const list=VIDEOS[lessonId]||[];
  if(!list.length){el.innerHTML='<div class="note">No videos for this section.</div>';return;}
- let html=`<div class="step">视频 · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
+ let html=`<div class="step">视频 · ${LESSONS.find(l=>l.id===lessonId).cn}</div>`;
  html+=`<div class="box"><p style="font-size:13px;color:var(--muted)"><span class="tag core">必看</span> 先看；<span class="tag ext">选看</span> 有余力再看。</p></div>`;
  list.forEach((v,i)=>{
   const watched=st(lessonId).vid[i];
@@ -393,7 +393,7 @@ function videos(el,lessonId){
     <span class="meta">
      <span class="tag ${v.c}">${v.c==='core'?'Core 核心':'Ext 拓展'}</span>
      <span class="st ${watched?'ok':''}">${watched?'✓ 已看':'未看'}</span>
-     <button data-i="${i}">${watched?'▶ Replay':'▶ Play'}</button>
+     <button data-i="${i}">${watched?'▶ 重看':'▶ 播放'}</button>
     </span>
    </div>
    <div id="vc${i}" style="display:${watched?'block':'none'}">
@@ -498,7 +498,7 @@ function chTest(el){
    S.test={ok,tot:qs.length};save();renderNav();return;
   }
   const q=qs[i];
-  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="ti" autocomplete="off"><button id="ts">Submit</button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
+  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="ti" autocomplete="off"><button id="ts">提交</button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
   const inp=tq.querySelector('#ti'),fb=tq.querySelector('#tf'),ht=tq.querySelector('#th');
   inp.focus();tq.querySelector('#ts').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
   function check(){
