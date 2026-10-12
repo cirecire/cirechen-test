@@ -73,8 +73,9 @@ video{width:100%;max-width:520px;border-radius:8px;background:#000;display:block
 .stat{display:flex;gap:14px;font-size:13px;color:var(--mute);flex-wrap:wrap}
 .stat b{color:var(--ink)}
 .mastery{font-size:12px;padding:3px 10px;border-radius:12px;font-weight:600}
-.m-none{background:#f1f5f9;color:#64748b}.m-fam{background:#fef3c7;color:#a16207}
-.m-pro{background:#dbeafe;color:#1d4ed8}.m-mas{background:#dcfce7;color:#15803d}
+.m-none{background:#e5e7eb;color:#475569}.m-att{background:#fef08a;color:#854d0e}
+.m-fam{background:#bfdbfe;color:#1e40af}.m-pro{background:#a7f3d0;color:#065f46}
+.m-mas{background:#16a34a;color:#fff}
 .note{font-size:12px;color:var(--mute);margin-top:6px}
 .credit{margin-top:22px;padding:12px;border-top:1px solid var(--line);font-size:12px;color:var(--mute)}
 .stepbtn{padding:6px 12px;font-size:13px}
@@ -471,7 +472,7 @@ function renderQ(el,q,onAns){
     <div class="hint" id="hint">${q.hint||'先判断求的是「算术平方根」还是「方程的解」——前者只有一个非负答案，后者一正一负。'}</div>
     <div class="fb" id="fb"></div></div>`;
   const od=el.querySelector('#opts');
-  let opts;
+  let opts; let tries=0;
   if(['Yes','No','Rational','Irrational','1','2'].includes(String(q.ans))){
     const map={'ratirr':['Rational','Irrational'],'eq':['1','2'],'conv':['Yes','No']};
     opts=map[guessType(q)]||['Rational','Irrational'];
@@ -488,13 +489,31 @@ function renderQ(el,q,onAns){
   opts.forEach(o=>{
     const b=document.createElement('button'); b.className='opt'; b.innerHTML=String(o);
     b.onclick=()=>{
-      od.querySelectorAll('.opt').forEach(x=>x.disabled=true);
       const ok=String(o)===String(q.ans);
-      b.classList.add(ok?'sel-ok':'sel-bad');
-      if(!ok) od.querySelectorAll('.opt').forEach(x=>{if(x.innerHTML===String(q.ans))x.classList.add('sel-ok');});
-      const fb=el.querySelector('#fb'); fb.className='fb '+(ok?'ok':'bad');
-      fb.innerHTML=(ok?'✓ Correct. ':'✗ Not quite. ')+q.sol;
-      onAns(ok);
+      const fb=el.querySelector('#fb');
+      if(ok){
+        od.querySelectorAll('.opt').forEach(x=>x.disabled=true);
+        b.classList.add('sel-ok');
+        fb.className='fb ok';
+        fb.innerHTML='✓ Correct. '+q.sol;
+        onAns(true);
+      } else {
+        tries++;
+        b.classList.add('sel-bad'); b.disabled=true;
+        if(tries===1){
+          el.querySelector('#hint').classList.add('on');
+          fb.className='fb bad'; fb.textContent='✗ 再试一次。';
+        } else if(tries===2){
+          fb.className='fb bad';
+          fb.textContent='✗ 还不对。'+(q.sol?('思路：'+q.sol):'再算一遍。');
+        } else {
+          od.querySelectorAll('.opt').forEach(x=>x.disabled=true);
+          od.querySelectorAll('.opt').forEach(x=>{if(x.innerHTML===String(q.ans))x.classList.add('sel-ok');});
+          fb.className='fb bad';
+          fb.innerHTML=`答案是 <b>${q.ans}</b>`+(q.sol?('。'+q.sol):'。');
+          onAns(false);
+        }
+      }
     };
     od.appendChild(b);
   });
@@ -555,9 +574,10 @@ function prac(el,id,types,need){
     el.querySelector('#cm').textContent=s.prac.ok+'/'+s.prac.tot;
     el.querySelector('#pb').style.width=Math.min(100,streak/need*100)+'%';
     const m=el.querySelector('#ms');
-    m.innerHTML=streak>=need?'<span class="mastery m-pro">Proficient 熟练</span>'
-      :(s.prac.tot>0&&s.prac.ok/s.prac.tot>=0.7?'<span class="mastery m-fam">Familiar 熟悉</span>'
-      :'<span class="mastery m-none">Not started</span>');};
+    const p=s.prac||{};
+    const L=s.done?['m-mas','全掌握']:(p.tot>=5&&p.ok/p.tot>=0.8?['m-pro','棒']
+      :(p.tot>0?['m-fam','熟了']:((Object.keys(s.vid||{}).length||s.diag!=null)?['m-att','练过几题']:['m-none','还没学'])));
+    m.innerHTML=`<span class="mastery ${L[0]}">${L[1]}</span>`;};
   const next=()=>{const box=el.querySelector('#pq');box.innerHTML='';
     const d=document.createElement('div');box.appendChild(d);
     const q=genQ(pick(types),diff);
