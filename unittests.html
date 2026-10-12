@@ -385,7 +385,7 @@ function intro(el,u){
    <div class="progress"><div style="width:${Math.round(rp*100)}%;background:${u.color}"></div></div>
    <p style="font-size:13px">相关章节进度 ${Math.round(rp*100)}% ${rp>=0.6?'<span class="badge ok">可以挑战</span>':'<span class="badge warn">先把章节练完</span>'}</p>
   </div>
-  ${st?`<div class="box"><h3>上一次成绩</h3><table><tr><th>日期</th><th>成绩</th><th>结论</th></tr>
+  ${st?`<div class="box"><h3>上一次成绩</h3><table><tr><th>日期</th><th>成绩</th><th>结果</th></tr>
    ${hist.map(x=>`<tr><td>${x.date}</td><td>${x.ok}/${x.tot}</td><td>${x.ok/x.tot>=0.8?'<span class="badge ok">太棒了</span>':(x.ok/x.tot>=0.6?'<span class="badge warn">还行</span>':'<span class="badge lock">再练练</span>')}</td></tr>`).join('')}
    <tr><td colspan="3" style="font-size:12px;color:var(--muted)">最佳：${st.best!=null?st.best+'/'+u.q:'—'}</td></tr></table></div>`:''}
   <div style="margin-top:14px"><button id="start">▶ 开始 ${u.q} 题</button></div>`;
