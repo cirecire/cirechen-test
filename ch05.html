@@ -90,7 +90,7 @@ const LESSONS=[
  {id:'k3',t:'Elimination method',cn:'加减消元法',n:'5.3'},
  {id:'k4',t:'Chinese word problems',cn:'应用：鸡兔同笼、增收节支、里程碑',n:'5.4'},
  {id:'k5',t:'Systems & graphs',cn:'方程与一次函数（直线交点）',n:'5.5'},
- {id:'test',t:'Chapter Test',cn:'章末自己测',n:'Test'}
+ {id:'test',t:'Chapter Test',cn:'章末自己测',n:''}
 ];
 let cur='k1';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
@@ -242,7 +242,7 @@ function microK4(el){
    sol:`列方程：<br>  x + y = 50<br>  20x + 30y = 1900<br><br>消元（两式都化简为 x + 1.5y = 95）：<br>  x = 50 − y<br>  20(50−y) + 30y = 1900<br>  1000 + 10y = 1900<br>  10y = 900 → <span class="num">y = 90（B 90 件）</span><br>  x = 50 − 90 = −40（不合理，题设条件互相矛盾！）<br><br><span style="color:var(--err)">真实情况：本题应改为"共 50 件、获利 1900 元"才有正解。题目出错了。</span>`},
   {title:'里程碑上的数 · Milestone Numbers',setup:`一辆汽车从 A 城出发，速度 60 km/h。两小时后另一辆从 A 城出发，速度 80 km/h，又过 3 小时后追上第一辆。问第一辆已开多远？<br><span class="cn">Car A leaves first at 60 km/h. 2 hours later car B leaves at 80 km/h, catches A 3 hours after that. Distance of car A?</span>`,
    table:[{name:'设',t:['A 速','B 速','A 追时已开']},{name:'',t:['60','80','2 + 3 = 5 h']},{name:'',t:['km/h','km/h','']}],
-   sol:`列方程：追上时两车行驶距离相等<br>  60t = 80(t − 2)，其中 t = 2 + 3 = 5<br>  60·5 = 80·(5−2)<br>  300 = 80·3 = 240 → 不相等？<br><br>注意：追及时刻是 B 出发 3 小时后，<b>不是 5 小时后</b>。<br>  60·(3+2) = 60·5 = 300<br>  80·3 = 240<br>  差 60 km，所以还差一小时没追上。<br><br>真正的解：<br>  60t = 80(t − 2)<br>  60t = 80t − 160<br>  160 = 20t → <span class="num">t = 8 h（A 开了 8 小时）</span><br>  距离 = 60·8 = <span class="num">480 km</span>`},
+   sol:`列方程：追上时两车行驶距离相等<br>  60t = 80(t − 2)，其中 t = 2 + 3 = 5<br>  60·5 = 80·(5−2)<br>  300 = 80·3 = 240 → 不相等？<br><br>追及时刻是 B 出发 3 小时后，<b>不是 5 小时后</b>。<br>  60·(3+2) = 60·5 = 300<br>  80·3 = 240<br>  差 60 km，所以还差一小时没追上。<br><br>真正的解：<br>  60t = 80(t − 2)<br>  60t = 80t − 160<br>  160 = 20t → <span class="num">t = 8 h（A 开了 8 小时）</span><br>  距离 = 60·8 = <span class="num">480 km</span>`},
  ];
  const render=()=>{
   const p=problems[cur];
@@ -302,7 +302,7 @@ function diag(el,lessonId,generator){
    save();renderNav();return;
   }
   const q=qs[i];
-  qEl.innerHTML=`<div class="q"><div class="q-text">${i+1}. ${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="da" autocomplete="off"><button id="sub">Submit</button></div><div class="hint" id="ht"></div><div class="feedback" id="fb"></div></div>`;
+  qEl.innerHTML=`<div class="q"><div class="q-text">${i+1}. ${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="da" autocomplete="off"><button id="sub">提交</button></div><div class="hint" id="ht"></div><div class="feedback" id="fb"></div></div>`;
   const input=qEl.querySelector('#da'),fb=qEl.querySelector('#fb'),ht=qEl.querySelector('#ht');
   input.focus();qEl.querySelector('#sub').onclick=check;input.onkeydown=e=>{if(e.key==='Enter')check();};
   function check(){
@@ -362,11 +362,11 @@ k5:()=>{
 function videos(el,lessonId){
  const list=VIDEOS[lessonId]||[];
  if(!list.length){el.innerHTML='<div class="note">No videos for this section.</div>';return;}
- let html=`<div class="step">视频 · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
+ let html=`<div class="step">视频 · ${LESSONS.find(l=>l.id===lessonId).cn}</div>`;
  html+=`<div class="box"><p style="font-size:13px;color:var(--muted)"><span class="tag core">必看</span> 先看；<span class="tag ext">选看</span> 有余力再看。</p></div>`;
  list.forEach((v,i)=>{
   const watched=st(lessonId).vid[i];
-  html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="cn">${v.d}</span><span class="meta"><span class="tag ${v.c}">${v.c==='core'?'Core 核心':'Ext 拓展'}</span><span class="st ${watched?'ok':''}">${watched?'✓':'未看'}</span><button data-i="${i}">${watched?'▶ Replay':'▶ Play'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
+  html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="cn">${v.d}</span><span class="meta"><span class="tag ${v.c}">${v.c==='core'?'Core 核心':'Ext 拓展'}</span><span class="st ${watched?'ok':''}">${watched?'✓':'未看'}</span><button data-i="${i}">${watched?'▶ 重看':'▶ 播放'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
  });
  el.innerHTML=html;
  el.querySelectorAll('[data-i]').forEach(b=>{
@@ -381,7 +381,7 @@ function practice(el,lessonId){
  const s=st(lessonId);
  let streak=0,need=5,q=null,tries=0;
  const update=()=>{
-  el.innerHTML=`<div class="step">练一练（${streak}/${need}）</div><div class="info" style="font-size:13px;color:var(--muted);margin:8px 0">对 ${s.prac.ok}/${s.prac.tot}（连对 ${streak}）<button class="secondary" id="rs" style="margin-left:8px">Reset</button></div><div class="progress"><div style="width:${(streak/need)*100}%"></div></div><div class="q"><div class="q-text">${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="pi" autocomplete="off"><button id="ps">Submit</button></div><div class="hint" id="ph"></div><div class="feedback" id="pf"></div></div>`;
+  el.innerHTML=`<div class="step">练一练（${streak}/${need}）</div><div class="info" style="font-size:13px;color:var(--muted);margin:8px 0">对 ${s.prac.ok}/${s.prac.tot}（连对 ${streak}）<button class="secondary" id="rs" style="margin-left:8px">Reset</button></div><div class="progress"><div style="width:${(streak/need)*100}%"></div></div><div class="q"><div class="q-text">${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="pi" autocomplete="off"><button id="ps">提交</button></div><div class="hint" id="ph"></div><div class="feedback" id="pf"></div></div>`;
   el.querySelector('#rs').onclick=()=>{s.prac={ok:0,tot:0};streak=0;save();update();renderNav();};
   const inp=el.querySelector('#pi'),fb=el.querySelector('#pf'),ht=el.querySelector('#ph');
   inp.focus();el.querySelector('#ps').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
@@ -429,7 +429,7 @@ function chTest(el){
  const show=()=>{
   if(i>=qs.length){tq.innerHTML=`<div class="note" style="background:${ok>=7?'#dcfce7':'#fef3c7'};border-color:${ok>=7?'var(--ok)':'var(--warn)'}"><strong>${ok}/${qs.length}</strong> ${ok>=7?'章末通过！':'再回去复习'}</div>`;S.test={ok,tot:qs.length};save();renderNav();return;}
   const q=qs[i];
-  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="ti"><button id="ts">Submit</button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
+  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="ti"><button id="ts">提交</button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
   const inp=tq.querySelector('#ti'),fb=tq.querySelector('#tf'),ht=tq.querySelector('#th');
   inp.focus();tq.querySelector('#ts').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
   function check(){
