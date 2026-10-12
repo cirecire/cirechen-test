@@ -145,7 +145,7 @@ const LESSONS=[
   {id:'k2', t:'Is It Right? (Converse)', cn:'一定是直角三角形吗', n:'1.2'},
   {id:'k3', t:'Applications', cn:'勾股定理的应用', n:'1.3'},
   {id:'k4', t:'Strategy: Reflect', cn:'问题解决策略：反思', n:'1.4'},
-  {id:'test', t:'Chapter Test', cn:'章末自己测', n:'Test'}
+  {id:'test', t:'Chapter Test', cn:'章末自己测', n:''}
 ];
 let cur='k1';
 function st(id){ return S[id] || (S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false}); }
@@ -408,7 +408,7 @@ function videos(el,list,id){
     const d=document.createElement('div'); d.className='vid-item';
     d.innerHTML=`<div class="t"><b>${v.t}</b><small>${v.d}</small>
       <span class="badge ${v.c==='core'?'b-core':'b-ext'}">${v.c==='core'?'Core 核心':'Ext 拓展'}</span></div>`;
-    const b=document.createElement('button'); b.className='ghost'; b.textContent='▶ Play';
+    const b=document.createElement('button'); b.className='ghost'; b.textContent='▶ 播放';
     b.onclick=()=>{
       let p=d.querySelector('video');
       if(!p){
@@ -533,7 +533,7 @@ function renderNav(){
     else if(s.prac.tot>0) badge=`<span class="st">${s.prac.ok}/${s.prac.tot}</span>`;
     const d=document.createElement('div');
     d.className='nav-i'+(l.id===cur?' on':'');
-    d.innerHTML=`<span>${l.n} ${l.t}</span>${badge}`;
+    d.innerHTML=`<span><b>${l.n}</b> ${l.cn}</span>${badge}`;
     d.onclick=()=>{ cur=l.id; render(); };
     n.appendChild(d);
   });
@@ -542,7 +542,7 @@ function render(){
   renderNav();
   const m=document.getElementById('main'); m.innerHTML='';
   const L=LESSONS.find(x=>x.id===cur);
-  const h=document.createElement('h2'); h.innerHTML=`${L.n} ${L.t} <span class="cn-tag">${L.cn}</span>`;
+  const h=document.createElement('h2'); h.innerHTML=`<b>${L.n}</b> ${L.cn}`;
   m.appendChild(h);
 
   if(cur==='k1'){
