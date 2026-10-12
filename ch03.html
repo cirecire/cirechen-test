@@ -421,10 +421,10 @@ function practice(el,lessonId){
  const gen=generators[lessonId];
  if(!gen){el.innerHTML='<div class="note">No practice for this.</div>';return;}
  const s=st(lessonId);
- let streak=0,need=5,q=null,ans='';
+ let streak=0,need=5,q=null,ans='',tries=0;
  let diff=1; // 1=easy,2=med,3=hard
  const pickDiff=()=>diff;
- function newQ(){q=gen(pickDiff());}
+ function newQ(){q=gen(pickDiff());tries=0;}
  const update=()=>{
   el.innerHTML=`
    <div class="step">练一练（${streak}/${need}）</div>
@@ -461,12 +461,21 @@ function practice(el,lessonId){
     if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>本节过关！✓</strong>';save();renderNav();}
     else if(streak>=3&&diff<3){diff++;}
     setTimeout(()=>{newQ();update();},900);
-   } else if(r==='hint'){
-    ht.className='hint show';ht.textContent=q.hint||'再想想看。';
    } else {
-    streak=0;s.prac.tot++;if(diff>1)diff--;
-    fb.className='feedback show err';fb.textContent=`✗ 答案不对，正确是 ${q.ans||'再试一次'}。`;
-    save();renderNav();
+    tries++;
+    if(tries===1){
+     ht.className='hint show';ht.textContent=q.hint||'再想想看。';
+     fb.className='feedback show err';fb.textContent='✗ 再试一次。';
+    } else if(tries===2){
+     fb.className='feedback show err';
+     fb.textContent='✗ 还不对。'+(q.sol?('思路：'+q.sol):(q.hint?('提示：'+q.hint):'再算一遍。'));
+    } else {
+     streak=0;s.prac.tot++;if(diff>1)diff--;
+     fb.className='feedback show err';
+     fb.innerHTML=`答案是 <b>${q.ans}</b>`+(q.sol?('。'+q.sol):'。');
+     inp.disabled=true;save();renderNav();
+     setTimeout(()=>{q=gen();tries=0;update();},2400);
+    }
    }
    save();
   }
