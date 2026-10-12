@@ -101,17 +101,23 @@ function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 /* ===== 视频 ===== */
 const VIDEOS={
 k3:[
- {f:'01_Angles, parallel lines, & transversals.mp4',t:'Angles, parallel lines, & transversals',c:'core',d:'截线与角'},
- {f:'02_Measures of angles formed by a transversal.mp4',t:'Measures of angles from transversal',c:'core',d:'截线成角'},
- {f:'06_Triangle angles and parallel lines.mp4',t:'Triangle angles & parallel lines',c:'core',d:'三角形与平行线'},
+ {f:'04_Identifying parallel and perpendicular lines.mp4',t:'Identifying parallel & perpendicular lines',c:'core',d:'判断平行还是垂直'},
+ {f:'03_Using algebra to find measures of angles from transversal.mp4',t:'Using algebra to find angle measures',c:'core',d:'列方程求角度'},
+ {f:'07_Finding more angles.mp4',t:'Finding more angles',c:'core',d:'再找几个角'},
+ {f:'05_Find measure of supplementary angles.mp4',t:'Supplementary angles',c:'core',d:'补角（同旁内角互补的基础）'},
 ],
 k4:[
- {f:'07_Parallel lines and transversals review.mp4',t:'Parallel & transversals review',c:'core',d:'复习'},
- {f:'08_Angles, parallel lines, transversals — Proofs.mp4',t:'Proofs with transversals',c:'core',d:'证明'},
+ {f:'01_Angles formed by parallel lines and transversals.mp4',t:'Angles formed by parallel lines & transversals',c:'core',d:'平行线被截出来的角'},
+ {f:'02_Figuring out angles between transversal and parallel lines.mp4',t:'Figuring out angles',c:'core',d:'求角的度数'},
+ {f:'12_Missing angles with a transversal.mp4',t:'Missing angles with a transversal',c:'core',d:'缺角怎么求'},
+ {f:'06_Find measure of complementary angles.mp4',t:'Complementary angles',c:'core',d:'余角'},
 ],
 k5:[
- {f:'09_Triangle exterior angle example.mp4',t:'Exterior angle example',c:'core',d:'外角示例'},
- {f:'10_Intro to isosceles triangles.mp4',t:'Isosceles triangles',c:'core',d:'等腰三角形'},
+ {f:'08_Proof- Sum of measures of angles in a triangle are 180.mp4',t:'Proof: angles in a triangle sum to 180',c:'core',d:'内角和为什么是 180°'},
+ {f:'15_Angles in a triangle sum to 180° proof.mp4',t:'Sum to 180° proof',c:'core',d:'内角和 180° 证明'},
+ {f:'14_Isosceles & equilateral triangles problems.mp4',t:'Isosceles & equilateral triangles',c:'core',d:'等腰三角形与等边三角形'},
+ {f:'09_Triangle angle example 1.mp4',t:'Triangle angle example 1',c:'ext',d:'三角形角例题 1'},
+ {f:'10_Triangle angle example 2.mp4',t:'Triangle angle example 2',c:'ext',d:'三角形角例题 2'},
  {f:'11_Challenging triangle angle problem.mp4',t:'Challenging angle problem',c:'core',d:'挑战题'},
  {f:'12_Missing angles with a transversal.mp4',t:'Missing angles (transversal)',c:'core',d:'截线求角'},
  {f:'13_Worked example - Triangle angles (diagram).mp4',t:'Worked: triangle angles',c:'core',d:'三角形角（带图）'},
@@ -338,7 +344,7 @@ function practice(el,lessonId){
  const gen=generators[lessonId];
  if(!gen){el.innerHTML='<div class="note">No practice (K1/K2 are concept lessons)</div>';return;}
  const s=st(lessonId);
- let streak=0,need=5,q=null;
+ let streak=0,need=5,q=null,tries=0;
  const update=()=>{
   el.innerHTML=`<div class="step">练一练（${streak}/${need}）</div><div style="font-size:13px;color:var(--muted);margin:8px 0">对 ${s.prac.ok}/${s.prac.tot}<button class="secondary" id="rs" style="margin-left:8px">Reset</button></div><div class="progress"><div style="width:${(streak/need)*100}%"></div></div><div class="q"><div class="q-text">${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="pi"><button id="ps">Submit</button></div><div class="hint" id="ph"></div><div class="feedback" id="pf"></div></div>`;
   el.querySelector('#rs').onclick=()=>{s.prac={ok:0,tot:0};streak=0;save();update();renderNav();};
@@ -347,12 +353,26 @@ function practice(el,lessonId){
   function check(){
    const a=inp.value.trim();
    const r=q.check(a);
-   if(r===true){streak++;s.prac.ok++;s.prac.tot++;fb.className='feedback show ok';fb.textContent='✓';inp.disabled=true;if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>本节过关！✓</strong>';save();renderNav();}setTimeout(()=>{q=gen();update();},900);}
-   else if(r==='hint'){ht.className='hint show';ht.textContent=q.hint;}
-   else{streak=0;s.prac.tot++;fb.className='feedback show err';fb.textContent=`✗ 正确是 ${q.ans}`;save();renderNav();}
+   if(r===true){streak++;s.prac.ok++;s.prac.tot++;fb.className='feedback show ok';fb.textContent='✓ 正确！';inp.disabled=true;if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>本节过关！✓</strong>';save();renderNav();}setTimeout(()=>{q=gen();tries=0;update();},900);}
+   else{
+    tries++;
+    if(tries===1){
+     ht.className='hint show';ht.textContent=q.hint||'再想想看。';
+     fb.className='feedback show err';fb.textContent='✗ 再试一次。';
+    } else if(tries===2){
+     fb.className='feedback show err';
+     fb.textContent='✗ 还不对。'+(q.sol?('思路：'+q.sol):(q.hint?('提示：'+q.hint):'再算一遍。'));
+    } else {
+     streak=0;s.prac.tot++;
+     fb.className='feedback show err';
+     fb.innerHTML=`答案是 <b>${q.ans}</b>`+(q.sol?('。'+q.sol):'。');
+     inp.disabled=true;save();renderNav();
+     setTimeout(()=>{q=gen();tries=0;update();},2400);
+    }
+   }
   }
  };
- q=gen();update();
+ q=gen();tries=0;update();
 }
 
 /* ============ 章末测 ============ */
