@@ -101,13 +101,31 @@ const std=a=>Math.sqrt(variance(a));
 /* ===== 视频清单 ===== */
 const VIDEOS={
 k1:[
- {f:'13_How to classify numbers.mp4',t:'How to classify numbers',c:'core',d:'数分类（前置）'},
- {f:'20_Means and medians of different distributions.mp4',t:'Means & medians of distributions',c:'core',d:'均值/中位数'},
- {f:'21_Median & range puzzlers.mp4',t:'Median & range puzzlers',c:'core',d:'中位数与极差'},
+ {f:'01_Finding mean, median, and mode.mp4',t:'Finding mean, median, and mode',c:'core',d:'算平均数/中位数/众数'},
+ {f:'02_Averages.mp4',t:'Averages',c:'core',d:'平均数'},
+ {f:'20_Means and medians of different distributions.mp4',t:'Means & medians of distributions',c:'core',d:'均值/中位数的分布'},
+ {f:'21_Median & range puzzlers.mp4',t:'Median & range puzzlers',c:'core',d:'中位数与极差（易错）'},
  {f:'22_Missing value given the mean.mp4',t:'Missing value given the mean',c:'core',d:'已知均值求缺值'},
+ {f:'03_Impact on median and mean when increasing highest value.mp4',t:'When highest value increases',c:'ext',d:'最大值变大会怎样'},
+ {f:'04_Impact on median and mean when removing lowest value.mp4',t:'When lowest value removed',c:'ext',d:'去掉最小值会怎样'},
+ {f:'11_Finding the range and mid-range.mp4',t:'Range and mid-range',c:'ext',d:'极差与中程数'},
+ {f:'09_Ways to represent data.mp4',t:'Ways to represent data',c:'ext',d:'数据的几种表示'},
+ {f:'06_Frequency tables and dot plots.mp4',t:'Frequency tables & dot plots',c:'ext',d:'频数表与点图'},
+ {f:'07_How to interpret a histogram.mp4',t:'Interpreting a histogram',c:'ext',d:'读直方图'},
+ {f:'08_How to create a histogram.mp4',t:'Creating a histogram',c:'ext',d:'画直方图'},
+ {f:'05_Median in a histogram.mp4',t:'Median in a histogram',c:'ext',d:'直方图里的中位数'},
+ {f:'10_Thinking about shapes of distributions.mp4',t:'Shapes of distributions',c:'ext',d:'分布的形状'},
 ],
 k2:[
  {f:'23_Measures of spread - range, variance & standard deviation.mp4',t:'Range, variance & standard deviation',c:'core',d:'极差/方差/标准差'},
+ {f:'12_Statistics- Variance of a population.mp4',t:'Variance of a population',c:'core',d:'总体方差'},
+ {f:'14_Population standard deviation.mp4',t:'Population standard deviation',c:'core',d:'总体标准差'},
+ {f:'15_Statistics- Standard deviation.mp4',t:'Standard deviation',c:'core',d:'标准差'},
+ {f:'17_Range, variance and standard deviation as measures of dispersion.mp4',t:'Dispersion measures',c:'core',d:'离散程度的几种量'},
+ {f:'13_Sample variance.mp4',t:'Sample variance',c:'ext',d:'样本方差'},
+ {f:'16_Sample standard deviation and bias.mp4',t:'Sample std dev & bias',c:'ext',d:'样本标准差与偏差'},
+ {f:'18_How to calculate interquartile range (IQR).mp4',t:'Interquartile range (IQR)',c:'ext',d:'四分位距 IQR'},
+ {f:'19_Mean absolute deviation.mp4',t:'Mean absolute deviation',c:'ext',d:'平均绝对偏差 MAD'},
 ],
 k3:[
  {f:'24_Reading box plots.mp4',t:'Reading box plots',c:'core',d:'读箱线图'},
@@ -341,7 +359,7 @@ function practice(el,lessonId){
  const gen=generators[lessonId];
  if(!gen){el.innerHTML='<div class="note">No practice</div>';return;}
  const s=st(lessonId);
- let streak=0,need=5,q=null;
+ let streak=0,need=5,q=null,tries=0;
  const update=()=>{
   el.innerHTML=`<div class="step">练一练（${streak}/${need}）</div><div style="font-size:13px;color:var(--muted);margin:8px 0">对 ${s.prac.ok}/${s.prac.tot}<button class="secondary" id="rs" style="margin-left:8px">Reset</button></div><div class="progress"><div style="width:${(streak/need)*100}%"></div></div><div class="q"><div class="q-text">${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="pi"><button id="ps">Submit</button></div><div class="hint" id="ph"></div><div class="feedback" id="pf"></div></div>`;
   el.querySelector('#rs').onclick=()=>{s.prac={ok:0,tot:0};streak=0;save();update();renderNav();};
@@ -355,12 +373,26 @@ function practice(el,lessonId){
     fb.className='feedback show ok';fb.textContent='✓';
     inp.disabled=true;
     if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>本节过关！✓</strong>';save();renderNav();}
-    setTimeout(()=>{q=gen();update();},900);
-   } else if(r==='hint'){ht.className='hint show';ht.textContent=q.hint;}
-   else{streak=0;s.prac.tot++;fb.className='feedback show err';fb.textContent=`✗ 正确是 ${q.ans}`;save();renderNav();}
+    setTimeout(()=>{q=gen();tries=0;update();},900);
+   } else {
+    tries++;
+    if(tries===1){
+     ht.className='hint show';ht.textContent=q.hint||'再想想看。';
+     fb.className='feedback show err';fb.textContent='✗ 再试一次。';
+    } else if(tries===2){
+     fb.className='feedback show err';
+     fb.textContent='✗ 还不对。'+(q.sol?('思路：'+q.sol):(q.hint?('提示：'+q.hint):'再算一遍。'));
+    } else {
+     streak=0;s.prac.tot++;
+     fb.className='feedback show err';
+     fb.innerHTML=`答案是 <b>${q.ans}</b>`+(q.sol?('。'+q.sol):'。');
+     inp.disabled=true;save();renderNav();
+     setTimeout(()=>{q=gen();tries=0;update();},2400);
+    }
+   }
   }
  };
- q=gen();update();
+ q=gen();tries=0;update();
 }
 
 /* ============ 章末测 ============ */
