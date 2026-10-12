@@ -171,8 +171,8 @@ const LESSONS=[
  {id:'k5',t:'Using a Calculator',cn:'用计算器开方',n:'2.5'},
  {id:'k6',t:'The Real Numbers',cn:'实数',n:'2.6'},
  {id:'k7',t:'Radicals',cn:'二次根式',n:'2.7'},
- {id:'ext',t:'Extension: Sci Notation',cn:'选看 · 科学计数法',n:'Ext'},
- {id:'test',t:'Chapter Test',cn:'章末自己测',n:'Test'}
+ {id:'ext',t:'Extension: Sci Notation',cn:'选看 · 科学计数法',n:''},
+ {id:'test',t:'Chapter Test',cn:'章末自己测',n:''}
 ];
 let cur='k1';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
@@ -536,7 +536,7 @@ function videos(el,list,id){
     const cls=v.c==='core'?'b-core':(v.c==='link'?'b-link':'b-ext');
     const lbl=v.c==='core'?'Core 核心':(v.c==='link'?'基础 衔接':'Ext 拓展');
     d.innerHTML=`<div class="t"><b>${v.t}</b><small>${v.d}</small> <span class="badge ${cls}">${lbl}</span></div>`;
-    const b=document.createElement('button'); b.className='ghost'; b.textContent='▶ Play';
+    const b=document.createElement('button'); b.className='ghost'; b.textContent='▶ 播放';
     b.onclick=()=>{
       let p=d.querySelector('video');
       if(!p){p=document.createElement('video');p.controls=true;p.preload='metadata';
@@ -626,14 +626,14 @@ function renderNav(){
     else if(s.done)badge='<span class="st">✓</span>';
     else if(s.prac.tot>0)badge=`<span class="st">${s.prac.ok}/${s.prac.tot}</span>`;
     const d=document.createElement('div');d.className='nav-i'+(l.id===cur?' on':'');
-    d.innerHTML=`<span>${l.n} ${l.t}</span>${badge}`;
+    d.innerHTML=`<span><b>${l.n}</b> ${l.cn}</span>${badge}`;
     d.onclick=()=>{cur=l.id;render();};n.appendChild(d);});
 }
 function render(){
   renderNav();
   const m=document.getElementById('main');m.innerHTML='';
   const L=LESSONS.find(x=>x.id===cur);
-  const h=document.createElement('h2');h.innerHTML=`${L.n} ${L.t} <span class="cn-tag">${L.cn}</span>`;
+  const h=document.createElement('h2');h.innerHTML=`<b>${L.n}</b> ${L.cn}`;
   m.appendChild(h);
   const mk=()=>{const d=document.createElement('div');m.appendChild(d);return d;};
   if(cur==='k1'){microK1(mk());videos(mk(),V.k1,'k1');diag(mk(),'k1',['ratirr','sqrt','eq']);prac(mk(),'k1',['ratirr','sqrt','eq'],5);}
