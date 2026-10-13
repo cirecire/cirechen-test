@@ -79,6 +79,21 @@ video{width:100%;max-width:520px;border-radius:8px;background:#000;display:block
 .note{font-size:12px;color:var(--mute);margin-top:6px}
 .credit{margin-top:22px;padding:12px;border-top:1px solid var(--line);font-size:12px;color:var(--mute)}
 .stepbtn{padding:6px 12px;font-size:13px}
+
+.intro-h{font-size:21px;font-weight:700;margin:0 0 4px}
+.intro-sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.kp{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:14px 0}
+.kp-c{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#f9fafb}
+.kp-c .n{font-size:12px;color:var(--accent);font-weight:700}
+.kp-c .t{font-size:15px;font-weight:600;margin:2px 0 5px;line-height:1.4}
+.kp-c .d{font-size:12px;color:var(--muted);line-height:1.55}
+.why{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:14px 16px;margin:14px 0;font-size:14px;line-height:1.85}
+.why b{color:var(--accent)}
+.how{font-size:14px;line-height:2.1;margin:8px 0 2px}
+.how b{color:var(--accent)}
+.big-start{margin-top:20px;text-align:center}
+.big-start button{font-size:16px;padding:13px 30px;border-radius:10px}
+.trytip{font-size:12px;color:var(--muted);margin:10px 0 2px}
 </style>
 </head>
 <body>
@@ -164,6 +179,7 @@ let S=load();
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return{};}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 const LESSONS=[
+ {id:'intro',t:'Intro',cn:'先看这里 · 本章要学什么',n:'🏠'},
  {id:'k1',t:'Irrational Numbers',cn:'认识无理数',n:'2.1'},
  {id:'k2',t:'Square Roots',cn:'平方根',n:'2.2'},
  {id:'k3',t:'Cube Roots',cn:'立方根',n:'2.3'},
@@ -174,7 +190,7 @@ const LESSONS=[
  {id:'ext',t:'Extension: Sci Notation',cn:'选看 · 科学计数法',n:''},
  {id:'test',t:'Chapter Test',cn:'章末自己测',n:''}
 ];
-let cur='k1';
+let cur='intro';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
 function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 function pick(a){return a[ri(0,a.length-1)];}
@@ -528,13 +544,13 @@ function guessType(q){
 /* ============ 视频列表 ============ */
 function videos(el,list,id){
   el.innerHTML=`<h3>视频</h3>
-    <div class="lead"><span class="badge b-core">Core 核心</span> 必看 ｜
+    <div class="lead"><span class="badge b-core">核心</span> 必看 ｜
       <span class="badge b-link">补一补</span> ｜
-      <span class="badge b-ext">Ext 拓展</span> 加餐</div>`;
+      <span class="badge b-ext">拓展</span> 加餐</div>`;
   list.forEach((v,i)=>{
     const d=document.createElement('div'); d.className='vid-item';
     const cls=v.c==='core'?'b-core':(v.c==='link'?'b-link':'b-ext');
-    const lbl=v.c==='core'?'Core 核心':(v.c==='link'?'基础 衔接':'Ext 拓展');
+    const lbl=v.c==='core'?'核心':(v.c==='link'?'基础 衔接':'拓展');
     d.innerHTML=`<div class="t"><b>${v.t}</b><small>${v.d}</small> <span class="badge ${cls}">${lbl}</span></div>`;
     const b=document.createElement('button'); b.className='ghost'; b.textContent='▶ 播放';
     b.onclick=()=>{
@@ -618,6 +634,31 @@ function chTest(el){
 }
 
 /* ============ 渲染 ============ */
+
+/* ===== 章节门厅：进来先看这里 ===== */
+const USE_MICRO=false;
+const INTRO={why:"画一个边长 1 的正方形，它的对角线有多长？是 √2——一个无限不循环、永远写不完的小数。计算器上显示的 1.414 只是近似值。这一章你会认识这些「写不完的数」，学会不用计算器就估出它大概多大，以及手算时怎么把根号变简单。",desc:{k1:"边长 1 的正方形，对角线是 √2——一个写不完的数",k2:"哪个数自乘等于它？求平方根",k3:"哪个数连乘三次等于它？求立方根",k4:"不用计算器，把 √2 卡在两位小数之间",k5:"计算器上怎么按，注意结果是近似值不是精确值",k6:"有理数 + 无理数 = 实数，和数轴上的点一一对应",k7:"根号怎么化简、怎么加减乘除",ext:"很大的数/很小的数怎么写得短（选看）"}};
+function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
+function introRender(main){
+  const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
+  let h='<div class="intro-h">这一章要学什么</div>'
+    +'<div class="intro-sub">先扫一眼这张清单，知道这章要去哪；然后点最下面的按钮开始。</div><div class="kp">';
+  pts.forEach(l=>{
+    const s=st(l.id);
+    const badge=s.done?' <span class="st ok">✓ 已过关</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
+    h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.cn+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
+  });
+  h+='</div>';
+  h+='<div class="why"><b>学会了能干嘛</b><br>'+INTRO.why+'</div>';
+  h+='<div class="box"><b>这一章怎么学</b><div class="how">'
+    +'① <b>看微课</b>：几分钟，先弄懂这一节在说什么<br>'
+    +'② <b>练几题</b>：连对 5 题就过关；不会的话会给提示，一步步带你做<br>'
+    +'③ <b>再下一节</b>：左边 '+pts[0].n+'、'+pts[1].n+'…… 想先学哪个点哪个，不用非按顺序'
+    +'</div></div>';
+  h+='<div class="big-start"><button id="startBtn">开始 '+pts[0].n+' '+pts[0].cn+' →</button></div>';
+  main.innerHTML=h;
+  main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
+}
 function renderNav(){
   const n=document.getElementById('nav');n.innerHTML='';
   LESSONS.forEach(l=>{
@@ -633,6 +674,7 @@ function render(){
   renderNav();
   const m=document.getElementById('main');m.innerHTML='';
   const L=LESSONS.find(x=>x.id===cur);
+  if(cur==='intro'){introRender(m);return;}
   const h=document.createElement('h2');h.innerHTML=`<b>${L.n}</b> ${L.cn}`;
   m.appendChild(h);
   const mk=()=>{const d=document.createElement('div');m.appendChild(d);return d;};
