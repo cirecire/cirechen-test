@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>我的学习地图 · 八上数学</title>
+<title>My learning map · Grade 8 math</title>
 <style>
 :root{
  --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
@@ -69,86 +69,86 @@ th{font-size:11px;color:var(--muted);font-weight:600}
 <div class="wrap">
 
 <header>
- <h1>📚 我的学习地图 · 八上数学</h1>
- <p>7 章 · 33 个知识点 · 196 段视频（本地播放，不用联网）</p>
- <p style="margin-top:4px">教学语言：English + 关键术语中文标注一次</p>
- <div class="src">视频内容来源 Khan Academy · CC BY-NC-SA</div>
+ <h1>📚 My learning map · Grade 8 math</h1>
+ <p>7 chapters · 33 topics · 196 videos (local playback, no internet needed)</p>
+ <p style="margin-top:4px">Language: English, with each key term glossed in Chinese once</p>
+ <div class="src">Video content from Khan Academy · CC BY-NC-SA</div>
 </header>
 
 <div class="summary">
  <div class="card">
-  <h2 style="margin:0 0 4px">你的进度 <small id="ovPct"></small></h2>
+  <h2 style="margin:0 0 4px">Your progress <small id="ovPct"></small></h2>
   <div class="big-prog"><div id="ovBar" style="width:0%"></div></div>
   <div class="lvbar" id="lvBar"></div>
   <div class="lvlegend" id="lvLegend"></div>
-  <div style="margin-top:12px"><button id="cont">▶ 接着上次学到的地方继续</button> <span id="contLbl" style="font-size:12px;color:var(--muted)"></span></div>
+  <div style="margin-top:12px"><button id="cont">▶ Pick up where you left off</button> <span id="contLbl" style="font-size:12px;color:var(--muted)"></span></div>
  </div>
  <div class="card">
-  <h2 style="margin:0 0 10px">数字</h2>
+  <h2 style="margin:0 0 10px">Numbers</h2>
   <div class="stats" id="stats"></div>
  </div>
 </div>
 
-<h2>章节 <small>每张卡显示你已经做到哪一档</small></h2>
+<h2>Chapters <small>each card shows how far you have got</small></h2>
 <div class="grid" id="chs"></div>
 
-<h2>升级挑战 <small>把一章里学过的几节混到一起考 —— 通过就能解锁下一个</small></h2>
+<h2>Level-up challenges <small>mixes sections from one chapter — pass it to unlock the next</small></h2>
 <div class="card">
  <table id="ut">
-  <thead><tr><th>挑战</th><th>题数</th><th>状态</th><th>上次</th><th>最佳</th><th></th></tr></thead>
+  <thead><tr><th>Challenge</th><th>Questions</th><th>Status</th><th>Last</th><th>Best</th><th></th></tr></thead>
   <tbody></tbody>
  </table>
- <div style="margin-top:12px"><button onclick="location.href='unittests.html'">进入挑战 →</button></div>
+ <div style="margin-top:12px"><button onclick="location.href='unittests.html'">Go to the challenges →</button></div>
 </div>
 
 <details class="parents">
- <summary>🛠 家长工具（点这里）</summary>
+ <summary>🛠 Parent tools (click here)</summary>
  <div style="margin-top:8px">
-  进度保存在这台电脑的浏览器里。换了电脑、删了缓存，或者想换个浏览器，就会丢 —— 建议定期导出备份一份。换回这台电脑再导入即可。
+  Progress is saved in this browser on this computer. Switching computers, clearing the cache or changing browsers loses it — export a backup now and then, and import it back later.
  </div>
  <div class="toolbar">
-  <button class="ghost" id="exp">⬇ 导出进度 (JSON)</button>
+  <button class="ghost" id="exp">⬇ Export progress (JSON)</button>
   <input type="file" id="imp" accept="application/json">
-  <button class="ghost" id="impBtn">⬆ 导入</button>
-  <button class="ghost" id="clr" style="color:var(--err)">清空全部进度</button>
+  <button class="ghost" id="impBtn">⬆ Import</button>
+  <button class="ghost" id="clr" style="color:var(--err)">Clear all progress</button>
  </div>
  <div class="note" id="msg" style="display:none"></div>
 </details>
 
 <p style="margin:22px 0 40px;font-size:11px;color:var(--muted);text-align:center">
- 视频内容来源 Khan Academy · CC BY-NC-SA · 本站仅用于个人学习 · 测试站 cirechen-test<br>
- <a href="index_qclaw.html" style="font-size:11px">旧版站点入口</a>
+ Video content from Khan Academy · CC BY-NC-SA · this site is for personal study only · test site cirechen-test<br>
+ <a href="index_qclaw.html" style="font-size:11px">Old site</a>
 </p>
 </div>
 
 <script>
 const CH=[
- {k:'ch01',cn:'勾股定理',en:'Pythagorean Theorem',p:4,c:'#7c3aed',
-  L:[['k1','探索勾股定理'],['k2','一定是直角三角形吗'],['k3','勾股定理的应用'],['k4','问题解决策略：反思']],v:13},
- {k:'ch02',cn:'实数',en:'Real Numbers',p:11,c:'#0891b2',
-  L:[['k1','认识无理数'],['k2','平方根'],['k3','立方根'],['k4','估算'],['k5','用计算器开方'],['k6','实数'],['k7','二次根式'],['ext','拓展·科学计数法']],v:34},
- {k:'ch03',cn:'位置与坐标',en:'Position & Coordinates',p:5,c:'#059669',
-  L:[['k1','确定位置'],['k2','平面直角坐标系'],['k3','轴对称与坐标变化'],['ext','拓展·平移旋转缩放']],v:13},
- {k:'ch04',cn:'一次函数',en:'Linear Functions',p:7,c:'#d97706',
-  L:[['k1','函数'],['k2','一次函数与正比例函数'],['k3','一次函数的图象'],['k4','一次函数的应用']],v:56},
- {k:'ch05',cn:'二元一次方程组',en:'Systems of Equations',p:9,c:'#dc2626',
-  L:[['k1','认识二元一次方程组'],['k2','代入消元法'],['k3','加减消元法'],['k4','中国应用题'],['k5','方程与一次函数']],v:36},
- {k:'ch06',cn:'数据的分析',en:'Data Analysis',p:6,c:'#db2777',
-  L:[['k1','平均数/中位数/众数'],['k2','★ 方差与标准差'],['k3','箱线图（拓展）']],v:29},
- {k:'ch07',cn:'平行线的证明',en:'Proofs with Parallel Lines',p:7,c:'#4f46e5',
-  L:[['k1','为什么要证明'],['k2','★ 证明书写格式'],['k3','平行线的判定'],['k4','平行线的性质'],['k5','三角形内角和']],v:15},
+ {k:'ch01',cn:'Pythagorean Theorem',en:'Pythagorean Theorem',p:4,c:'#7c3aed',
+  L:[['k1','Exploring the theorem'],['k2','Is it a right triangle?'],['k3','Applications'],['k4','Strategy: reflect']],v:13},
+ {k:'ch02',cn:'Real Numbers',en:'Real Numbers',p:11,c:'#0891b2',
+  L:[['k1','Irrational numbers'],['k2','Square roots'],['k3','Cube roots'],['k4','Estimating roots'],['k5','Using a calculator'],['k6','The real numbers'],['k7','Radicals'],['ext','拓展·科学计数法']],v:34},
+ {k:'ch03',cn:'Position & Coordinates',en:'Position & Coordinates',p:5,c:'#059669',
+  L:[['k1','Locating points'],['k2','The coordinate plane'],['k3','Reflections and coordinates'],['ext','拓展·平移旋转缩放']],v:13},
+ {k:'ch04',cn:'Linear Functions',en:'Linear Functions',p:7,c:'#d97706',
+  L:[['k1','What is a function?'],['k2','Linear and proportional functions'],['k3','Graphs: slope and intercept'],['k4','Applications']],v:56},
+ {k:'ch05',cn:'Systems of Equations',en:'Systems of Equations',p:9,c:'#dc2626',
+  L:[['k1','What is a system?'],['k2','Substitution'],['k3','Elimination'],['k4','Word problems'],['k5','Systems and graphs']],v:36},
+ {k:'ch06',cn:'Data Analysis',en:'Data Analysis',p:6,c:'#db2777',
+  L:[['k1','Mean / median / mode'],['k2','Variance & standard deviation'],['k3','Box plots']],v:29},
+ {k:'ch07',cn:'Proofs with Parallel Lines',en:'Proofs with Parallel Lines',p:7,c:'#4f46e5',
+  L:[['k1','Why prove?'],['k2','Writing a proof'],['k3','Parallel lines: the tests'],['k4','Parallel lines: what follows'],['k5','Triangle angle sum']],v:15},
 ];
 
 const UNITS=[
- {id:'u1',n:'第 1 关',cn:'实数与根式',ch:['ch01','ch02'],q:10},
- {id:'u2',n:'第 2 关',cn:'一次函数与方程组',ch:['ch04','ch05'],q:10},
- {id:'u3',n:'第 3 关',cn:'几何与坐标',ch:['ch03','ch07'],q:10},
- {id:'u4',n:'第 4 关',cn:'数据的分析',ch:['ch06'],q:10},
- {id:'fin',n:'期末大挑战',cn:'七章混在一起考',ch:['ch01','ch02','ch03','ch04','ch05','ch06','ch07'],q:12},
+ {id:'u1',n:'Level 1',cn:'Real numbers and radicals',ch:['ch01','ch02'],q:10},
+ {id:'u2',n:'Level 2',cn:'Linear functions and systems',ch:['ch04','ch05'],q:10},
+ {id:'u3',n:'Level 3',cn:'Geometry and coordinates',ch:['ch03','ch07'],q:10},
+ {id:'u4',n:'Level 4',cn:'Data Analysis',ch:['ch06'],q:10},
+ {id:'fin',n:'Final challenge',cn:'All seven chapters mixed',ch:['ch01','ch02','ch03','ch04','ch05','ch06','ch07'],q:12},
 ];
 
 const LVC=['#e5e7eb','#fcd34d','#60a5fa','#34d399','#16a34a'];
-const LVN=['还没学','练过几题','熟了','棒','全掌握'];
+const LVN=['Not started','Attempted','Familiar','Proficient','Mastered'];
 
 function rd(k){try{return JSON.parse(localStorage.getItem('bnu8_'+k+'_state'))||{};}catch(e){return {};}}
 function unitState(){try{return JSON.parse(localStorage.getItem('bnu8_unit_state'))||{};}catch(e){return {};}}
@@ -191,14 +191,14 @@ function chNo(c){return String(CH.indexOf(c)+1).padStart(2,'0');}
  const tests=ST.filter(s=>s.test&&s.test.ok/s.test.tot>=0.7).length;
  const done=all.filter(l=>l===4).length;
  document.getElementById('stats').innerHTML=`
-  <div class="stat"><div class="v">${done}/${all.length}</div><div class="l">已"全掌握"的小知识</div></div>
-  <div class="stat"><div class="v">${vw}/196</div><div class="l">看过的视频</div></div>
-  <div class="stat"><div class="v">${tot?Math.round(ok/tot*100)+'%':'—'}</div><div class="l">练习正确率（${ok}/${tot}）</div></div>
-  <div class="stat"><div class="v">${tests}/7</div><div class="l">章末测通过</div></div>`;
+  <div class="stat"><div class="v">${done}/${all.length}</div><div class="l">topics fully mastered</div></div>
+  <div class="stat"><div class="v">${vw}/196</div><div class="l">videos watched</div></div>
+  <div class="stat"><div class="v">${tot?Math.round(ok/tot*100)+'%':'—'}</div><div class="l">practice accuracy (${ok}/${tot})</div></div>
+  <div class="stat"><div class="v">${tests}/7</div><div class="l">chapter tests passed</div></div>`;
 
  const last=localStorage.getItem('bnu8_last');
  const lc=CH.find(c=>c.k===last);
- document.getElementById('contLbl').textContent=lc?'上次学到 第 '+chNo(lc)+' 章 '+lc.cn:'（随便挑一章开始）';
+ document.getElementById('contLbl').textContent=lc?'Last up to chapter '+chNo(lc)+' — '+lc.cn:'(pick any chapter to start)';
  document.getElementById('cont').onclick=()=>{location.href=(lc?lc.k:'ch01')+'.html';};
 })();
 
@@ -206,21 +206,21 @@ document.getElementById('chs').innerHTML=CH.map((c,i)=>{
  const s=ST[i];
  const pct=Math.round(s.pct*100);
  const kps=c.L.map(([id,name],j)=>`<span class="kp l${s.lv[j]}" title="${LVN[s.lv[j]]}">${name}</span>`).join('');
- const t=s.test?`<span class="badge ${s.test.ok/s.test.tot>=0.7?'ok':'warn'}">章末测 ${s.test.ok}/${s.test.tot}</span>`:'<span class="badge">章末测还没做</span>';
+ const t=s.test?`<span class="badge ${s.test.ok/s.test.tot>=0.7?'ok':'warn'}">chapter test ${s.test.ok}/${s.test.tot}</span>`:'<span class="badge">章末测还没做</span>';
  const m=s.lv.filter(x=>x===4).length;
  return `<div class="ch">
   <div class="top" style="background:${c.c}">
    <div><div class="t">${c.cn}</div><div class="en">${c.en}</div></div>
-   <div class="no">第 ${chNo(c)} 章<br>${m}/${c.L.length} 小知识搞定</div>
+   <div class="no">Chapter ${chNo(c)}<br>${m}/${c.L.length} topics done</div>
   </div>
   <div class="body">
    <div class="pbar"><div style="width:${pct}%;background:${c.c}"></div></div>
-   <div style="font-size:12px;color:var(--muted)">${pct}% · 视频 ${s.vw}/${c.v} · 练习 ${s.tot?s.ok+'/'+s.tot:'还没练'}</div>
+   <div style="font-size:12px;color:var(--muted)">${pct}% · 视频 ${s.vw}/${c.v} · 练习 ${s.tot?s.ok+'/'+s.tot:'not practised yet'}</div>
    <div class="klist">${kps}</div>
-   <div class="mrow"><span>${t}</span><span>${c.p} 课时</span></div>
+   <div class="mrow"><span>${t}</span><span>${c.p} periods</span></div>
    <div class="btns">
-    <button onclick="go('${c.k}')">进去学 →</button>
-    <button class="ghost sm" onclick="go('${c.k}',1)">直接做章末测</button>
+    <button onclick="go('${c.k}')">Go in →</button>
+    <button class="ghost sm" onclick="go('${c.k}',1)">Go straight to the chapter test</button>
    </div>
   </div>
  </div>`;
@@ -239,12 +239,12 @@ function go(k,isTest){
   const ready=u.ch.map(k=>{const c=CH.find(x=>x.k===k);return ST[CH.indexOf(c)].pct;}).reduce((a,b)=>a+b,0)/u.ch.length;
   const best=st&&st.best!=null?`${st.best}/${u.q}`:'—';
   const last=st?`${st.ok}/${st.tot}`:'—';
-  const lvlTxt=st?(st.ok/u.q>=0.8?'<span class="badge ok">太棒了</span>':(st.ok/u.q>=0.6?'<span class="badge warn">还行</span>':'<span class="badge lock">再练练</span>')):'<span class="badge">还没挑战</span>';
-  const readyTxt=ready>=0.6?'<span class="badge ok">可以挑战</span>':'<span class="badge warn">先把章节练完</span>';
-  return `<tr><td><b>${u.n}</b> ${u.cn}<br><span style="font-size:11px;color:var(--muted)">${u.ch.map(k=>'第 '+(CH.findIndex(x=>x.k===k)+1)+' 章').join(' · ')}</span></td>
-   <td style="font-size:12px">${u.q} 题</td>
+  const lvlTxt=st?(st.ok/u.q>=0.8?'<span class="badge ok">Excellent</span>':(st.ok/u.q>=0.6?'<span class="badge warn">还行</span>':'<span class="badge lock">再练练</span>')):'<span class="badge">还没挑战</span>';
+  const readyTxt=ready>=0.6?'<span class="badge ok">Ready to try</span>':'<span class="badge warn">Finish the chapters first</span>';
+  return `<tr><td><b>${u.n}</b> ${u.cn}<br><span style="font-size:11px;color:var(--muted)">${u.ch.map(k=>'Chapter '+(CH.findIndex(x=>x.k===k)+1)+' 章').join(' · ')}</span></td>
+   <td style="font-size:12px">${u.q} questions</td>
    <td>${readyTxt} ${lvlTxt}</td><td>${last}</td><td>${best}</td>
-   <td><button class="sm" onclick="location.href='unittests.html?u=${u.id}'">开始</button></td></tr>`;
+   <td><button class="sm" onclick="location.href='unittests.html?u=${u.id}'">Start</button></td></tr>`;
  }).join('');
 })();
 
@@ -257,25 +257,25 @@ document.getElementById('exp').onclick=()=>{
  const b=new Blob([JSON.stringify(data,null,1)],{type:'application/json'});
  const a=document.createElement('a');a.href=URL.createObjectURL(b);
  a.download='bnu8_progress_'+new Date().toISOString().slice(0,10)+'.json';a.click();
- say('已导出','var(--ok)');
+ say('Exported','var(--ok)');
 };
 document.getElementById('impBtn').onclick=()=>{
  const f=document.getElementById('imp').files[0];
- if(!f){say('先选一个 JSON 文件','var(--err)');return;}
+ if(!f){say('Choose a JSON file first','var(--err)');return;}
  const r=new FileReader();
  r.onload=()=>{
   try{
    const d=JSON.parse(r.result);
    Object.keys(d).forEach(k=>{if(k.indexOf('_')===0)return;if(d[k])localStorage.setItem(k,d[k]);});
-   say('导入成功，马上刷新','var(--ok)');setTimeout(()=>location.reload(),900);
-  }catch(e){say('文件读不出来：'+e.message,'var(--err)');}
+   say('Imported, reloading','var(--ok)');setTimeout(()=>location.reload(),900);
+  }catch(e){say('Could not read the file: '+e.message,'var(--err)');}
  };r.readAsText(f);
 };
 document.getElementById('clr').onclick=()=>{
- if(!confirm('确定清空全部进度？建议先导出备份。'))return;
+ if(!confirm('确定Clear all progress？建议先导出备份。'))return;
  CH.forEach(c=>localStorage.removeItem('bnu8_'+c.k+'_state'));
  ['bnu8_unit_state','bnu8_wrong','bnu8_last'].forEach(k=>localStorage.removeItem(k));
- say('已清空','var(--ok)');setTimeout(()=>location.reload(),800);
+ say('Cleared','var(--ok)');setTimeout(()=>location.reload(),800);
 };
 </script>
 </body>
