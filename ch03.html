@@ -293,7 +293,7 @@ function microK3(el){
 
 /* ============ Quick check ============ */
 function diag(el,lessonId,generator){
- el.innerHTML=`<div class="step">Quick check</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 questions, just to see where you stand.3/3 通过则跳过讲解；有错才进Lesson。</p><div id="diagQ"></div></div>`;
+ el.innerHTML=`<div class="step">Quick check</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 questions, just to see where you stand. Pass 3/3 to skip the lesson; otherwise the lesson comes next.</p><div id="diagQ"></div></div>`;
  const qEl=el.querySelector('#diagQ');
  let ok=0;
  const qs=Array.from({length:3},()=>generator('diag'));
@@ -499,7 +499,7 @@ function practice(el,lessonId){
 
 /* ============ Chapter test ============ */
 function chTest(el){
- el.innerHTML=`<div class="step">Chapter test</div><div class="box"><p style="font-size:13px;color:var(--muted)">8 questions，覆盖本章所有知识点。计时 (not scored).</p><div id="tq"></div></div>`;
+ el.innerHTML=`<div class="step">Chapter test</div><div class="box"><p style="font-size:13px;color:var(--muted)">8 questions covering every topic in this chapter. Not timed, not scored.</p><div id="tq"></div></div>`;
  const tq=el.querySelector('#tq');
  const qs=[];
  for(let i=0;i<3;i++)qs.push(generators.k1(i+1));
@@ -508,7 +508,7 @@ function chTest(el){
  let i=0,ok=0;
  const show=()=>{
   if(i>=qs.length){
-   tq.innerHTML=`<div class="note" style="background:${ok>=6?'#dcfce7':'#fef3c7'};border-color:${ok>=6?'var(--ok)':'var(--warn)'}"><strong>${ok}/${qs.length}</strong> ${ok>=6?'Chapter passed!可以进下一章':'再回去复习错的知识点'}</div>`;
+   tq.innerHTML=`<div class="note" style="background:${ok>=6?'#dcfce7':'#fef3c7'};border-color:${ok>=6?'var(--ok)':'var(--warn)'}"><strong>${ok}/${qs.length}</strong> ${ok>=6?'Chapter passed! Move on to the next chapter':'Go back and review what you missed'}</div>`;
    S.test={ok,tot:qs.length};save();renderNav();return;
   }
   const q=qs[i];
@@ -580,7 +580,7 @@ function render(){
   const lesson=LESSONS.find(l=>l.id===id);
   if(!lesson){main.innerHTML='<div class="note">Unknown lesson</div>';return;}
   if(id==='ext'){
-   main.innerHTML=`<div class="step">Optional · Translations / rotations / dilations</div><div class="box"><p style="font-size:13px;color:var(--muted)">Once coordinates make sense, these transformations help you picture how coordinates变」想清楚。</p></div>`;
+   main.innerHTML=`<div class="step">Optional · Translations / rotations / dilations</div><div class="box"><p style="font-size:13px;color:var(--muted)">Once coordinates make sense, these transformations help you picture how coordinates move and change.</p></div>`;
    videos(main,'ext');
    return;
   }
