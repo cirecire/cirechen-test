@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>二元一次方程组 · 八上数学</title>
+<title>Chapter 5 · Systems of linear equations</title>
 <style>
 :root{
  --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
@@ -78,16 +78,16 @@ svg{max-width:100%;display:block;margin:0 auto}
 </head>
 <body>
 <div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 16px;font-size:13px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:99">
- <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600">← 总览 Overview</a>
- <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600">单元测试 Unit Tests</a>
- <span style="margin-left:auto;font-size:11px;color:#6b7280">内容来源 Khan Academy · CC BY-NC-SA</span>
+ <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600">← Overview</a>
+ <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600">Unit tests</a>
+ <span style="margin-left:auto;font-size:11px;color:#6b7280">Content from Khan Academy · CC BY-NC-SA</span>
 </div>
 
 <div class="wrap">
 <header>
  <h1>Chapter 5 · Systems of Linear Equations</h1>
- <p>Grade 8 · 八年级上 · 9 class periods · 鸡兔同笼、增收节支、里程碑上的数</p>
- <p style="margin-top:6px;font-size:12px">第五章 · 二元一次方程组</p>
+ <p>Grade 8 · 9 class periods · chickens and rabbits, sales and costs, milestone numbers</p>
+ <p style="margin-top:6px;font-size:12px">Chapter 5 · Systems of linear equations</p>
 </header>
 <nav id="nav"></nav>
 <main id="main"></main>
@@ -100,207 +100,207 @@ let S=load();
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return{};}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 const LESSONS=[
- {id:'intro',t:'Intro',cn:'先看这里 · 本章要学什么',n:'🏠'},
- {id:'k1',t:'What is a system?',cn:'认识二元一次方程组',n:'5.1'},
- {id:'k2',t:'Substitution method',cn:'代入消元法',n:'5.2'},
- {id:'k3',t:'Elimination method',cn:'加减消元法',n:'5.3'},
- {id:'k4',t:'Chinese word problems',cn:'应用：鸡兔同笼、增收节支、里程碑',n:'5.4'},
- {id:'k5',t:'Systems & graphs',cn:'方程与一次函数（直线交点）',n:'5.5'},
- {id:'test',t:'Chapter Test',cn:'章末自己测',n:''}
+ {id:'intro',t:'Intro',cn:'Start here · What this chapter covers',n:'🏠'},
+ {id:'k1',t:'What is a system?',cn:'What is a system?',n:'5.1'},
+ {id:'k2',t:'Substitution method',cn:'Substitution',n:'5.2'},
+ {id:'k3',t:'Elimination method',cn:'Elimination',n:'5.3'},
+ {id:'k4',t:'Word problems',cn:'Word problems',n:'5.4'},
+ {id:'k5',t:'Systems & graphs',cn:'Systems and graphs',n:'5.5'},
+ {id:'test',t:'Chapter Test',cn:'Chapter test',n:''}
 ];
 let cur='intro';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
 function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 function pick(a){return a[ri(0,a.length-1)];}
 
-/* ===== 视频清单 ===== */
+/* ===== Video list ===== */
 const VIDEOS={
 k1:[
- {f:'01_Solving linear systems by graphing (intro).mp4',t:'Solving systems by graphing',c:'core',d:'图象法引入'},
- {f:'02_Checking solutions to systems of equations example.mp4',t:'Checking solutions',c:'core',d:'验证解'},
- {f:'18_Constructing solutions to systems of equations.mp4',t:'Constructing solutions',c:'core',d:'构造解'},
+ {f:'01_Solving linear systems by graphing (intro).mp4',t:'Solving systems by graphing',c:'core'},
+ {f:'02_Checking solutions to systems of equations example.mp4',t:'Checking solutions',c:'core'},
+ {f:'18_Constructing solutions to systems of equations.mp4',t:'Constructing solutions',c:'core'},
 ],
 k2:[
- {f:'03_The substitution method.mp4',t:'Substitution method',c:'core',d:'代入法'},
- {f:'04_Substitution method 2.mp4',t:'Substitution method 2',c:'core',d:'代入法例 2'},
- {f:'05_Solving systems by substitution — Example 3.mp4',t:'Substitution example 3',c:'core',d:'代入法例 3'},
- {f:'06_Solving systems by substitution — Example 2.mp4',t:'Substitution example 2',c:'core',d:'代入法例 4'},
- {f:'07_Linear systems word problem with substitution.mp4',t:'Word problem: substitution',c:'core',d:'代入法应用题'},
- {f:'24_Systems of equations with substitution - 2y=x+7 & x=y-4.mp4',t:'Substitution worked 1',c:'ext',d:'代入法例题 1'},
- {f:'25_Systems of equations with substitution - -3x-4y=-2 & y=2x-5.mp4',t:'Substitution worked 2',c:'ext',d:'代入法例题 2'},
- {f:'26_Systems of equations with substitution - 9x+3y=15 & y-x=5.mp4',t:'Substitution worked 3',c:'ext',d:'代入法例题 3'},
- {f:'27_Systems of equations with substitution - y=-5x+8 & 10x+2y=-2.mp4',t:'Substitution worked 4',c:'ext',d:'代入法例题 4'},
- {f:'28_Systems of equations with substitution - y=4x-17.5 & y+2x=6.5.mp4',t:'Substitution worked 5',c:'ext',d:'代入法例题 5'},
- {f:'29_Systems of equations with substitution - y=-1-4x+100 & y=-1-4.mp4',t:'Substitution worked 6',c:'ext',d:'代入法例题 6'},
+ {f:'03_The substitution method.mp4',t:'Substitution method',c:'core'},
+ {f:'04_Substitution method 2.mp4',t:'Substitution method 2',c:'core'},
+ {f:'05_Solving systems by substitution — Example 3.mp4',t:'Substitution example 3',c:'core'},
+ {f:'06_Solving systems by substitution — Example 2.mp4',t:'Substitution example 2',c:'core'},
+ {f:'07_Linear systems word problem with substitution.mp4',t:'Word problem: substitution',c:'core'},
+ {f:'24_Systems of equations with substitution - 2y=x+7 & x=y-4.mp4',t:'Substitution worked 1',c:'ext'},
+ {f:'25_Systems of equations with substitution - -3x-4y=-2 & y=2x-5.mp4',t:'Substitution worked 2',c:'ext'},
+ {f:'26_Systems of equations with substitution - 9x+3y=15 & y-x=5.mp4',t:'Substitution worked 3',c:'ext'},
+ {f:'27_Systems of equations with substitution - y=-5x+8 & 10x+2y=-2.mp4',t:'Substitution worked 4',c:'ext'},
+ {f:'28_Systems of equations with substitution - y=4x-17.5 & y+2x=6.5.mp4',t:'Substitution worked 5',c:'ext'},
+ {f:'29_Systems of equations with substitution - y=-1-4x+100 & y=-1-4.mp4',t:'Substitution worked 6',c:'ext'},
 ],
 k3:[
- {f:'08_Addition elimination method 1.mp4',t:'Elimination 1',c:'core',d:'加减消元 1'},
- {f:'09_Addition elimination method 2.mp4',t:'Elimination 2',c:'core',d:'加减消元 2'},
- {f:'10_Addition elimination method 3.mp4',t:'Elimination 3',c:'core',d:'加减消元 3'},
- {f:'11_Addition elimination method 4.mp4',t:'Elimination 4',c:'core',d:'加减消元 4'},
- {f:'12_Solving systems by elimination — Example 2.mp4',t:'Elimination example 2',c:'core',d:'消元例 2'},
- {f:'13_Solving systems by elimination — Example 3.mp4',t:'Elimination example 3',c:'core',d:'消元例 3'},
+ {f:'08_Addition elimination method 1.mp4',t:'Elimination 1',c:'core'},
+ {f:'09_Addition elimination method 2.mp4',t:'Elimination 2',c:'core'},
+ {f:'10_Addition elimination method 3.mp4',t:'Elimination 3',c:'core'},
+ {f:'11_Addition elimination method 4.mp4',t:'Elimination 4',c:'core'},
+ {f:'12_Solving systems by elimination — Example 2.mp4',t:'Elimination example 2',c:'core'},
+ {f:'13_Solving systems by elimination — Example 3.mp4',t:'Elimination example 3',c:'core'},
 ],
 k4:[
- {f:'14_Systems of equations word problems — Example 1.mp4',t:'Word problem 1',c:'core',d:'应用题 1'},
- {f:'15_Systems of equations word problems — Example 2.mp4',t:'Word problem 2',c:'core',d:'应用题 2'},
- {f:'16_Systems of equations word problems — Example 4.mp4',t:'Word problem 4',c:'core',d:'应用题 4'},
- {f:'33_Age word problem - Imran.mp4',t:'Age: Imran',c:'core',d:'年龄问题'},
- {f:'34_Age word problem - Ben & William.mp4',t:'Age: Ben & William',c:'core',d:'年龄问题'},
- {f:'35_Age word problem - Arman & Diya.mp4',t:'Age: Arman & Diya',c:'core',d:'年龄问题'},
+ {f:'14_Systems of equations word problems — Example 1.mp4',t:'Word problem 1',c:'core'},
+ {f:'15_Systems of equations word problems — Example 2.mp4',t:'Word problem 2',c:'core'},
+ {f:'16_Systems of equations word problems — Example 4.mp4',t:'Word problem 4',c:'core'},
+ {f:'33_Age word problem - Imran.mp4',t:'Age: Imran',c:'core'},
+ {f:'34_Age word problem - Ben & William.mp4',t:'Age: Ben & William',c:'core'},
+ {f:'35_Age word problem - Arman & Diya.mp4',t:'Age: Arman & Diya',c:'core'},
 ],
 k5:[
- {f:'17_Graphical systems application problem.mp4',t:'Graphical application',c:'core',d:'图象应用'},
- {f:'19_Graphing systems of equations.mp4',t:'Graphing systems',c:'core',d:'画图象'},
- {f:'20_Graphically solving systems — Example 3.mp4',t:'Graphing example',c:'core',d:'图象例 3'},
- {f:'30_Systems of equations number of solutions - fruit prices (1 of.mp4',t:'Solutions: fruit prices 1',c:'core',d:'解的个数'},
- {f:'32_How many solutions does a system of linear equations have if.mp4',t:'How many solutions?',c:'core',d:'解的个数理论'},
- {f:'21_Systems of equations with graphing - chores.mp4',t:'Graphing worked: chores',c:'ext',d:'图象法家务题'},
- {f:'22_Systems of equations with graphing - 5x+3y=7 & 3x-2y=8.mp4',t:'Graphing worked 1',c:'ext',d:'图象法例题 1'},
- {f:'23_Systems of equations with graphing - exact & approximate solu.mp4',t:'Graphing: exact & approx',c:'ext',d:'精确解与近似解'},
- {f:'31_Systems of equations number of solutions - fruit prices (2 of.mp4',t:'Solutions: fruit prices 2',c:'ext',d:'解的个数 2'},
+ {f:'17_Graphical systems application problem.mp4',t:'Graphical application',c:'core'},
+ {f:'19_Graphing systems of equations.mp4',t:'Graphing systems',c:'core'},
+ {f:'20_Graphically solving systems — Example 3.mp4',t:'Graphing example',c:'core'},
+ {f:'30_Systems of equations number of solutions - fruit prices (1 of.mp4',t:'Solutions: fruit prices 1',c:'core'},
+ {f:'32_How many solutions does a system of linear equations have if.mp4',t:'How many solutions?',c:'core'},
+ {f:'21_Systems of equations with graphing - chores.mp4',t:'Graphing worked: chores',c:'ext'},
+ {f:'22_Systems of equations with graphing - 5x+3y=7 & 3x-2y=8.mp4',t:'Graphing worked 1',c:'ext'},
+ {f:'23_Systems of equations with graphing - exact & approximate solu.mp4',t:'Graphing: exact & approx',c:'ext'},
+ {f:'31_Systems of equations number of solutions - fruit prices (2 of.mp4',t:'Solutions: fruit prices 2',c:'ext'},
 ],
 };
 
-/* ============ 微课 K1：什么是方程组 ============ */
+/* ============ Lesson K1: what is a system? ============ */
 function microK1(el){
  el.innerHTML=`
-  <div class="step">二元一次方程组</div>
+  <div class="step">Systems of two linear equations</div>
   <div class="box">
-   <h3>Single equation · 单个方程</h3>
-   <p>一个二元一次方程（如 <span class="num">x + y = 5</span>）有<strong>无数</strong>解：(0,5)、(1,4)、(2,3)、(5,0)……</p>
+   <h3>A single equation</h3>
+   <p>One equation in two unknowns (say <span class="num">x + y = 5</span>) has <strong>infinitely many</strong> solutions: (0, 5), (1, 4), (2, 3), (5, 0)…</p>
   </div>
   <div class="box">
-   <h3>Two equations = one solution · 两个方程 = 一个解</h3>
-   <p>再加一个方程（如 <span class="num">x − y = 1</span>），两条线在平面上交于一点 — <strong>那个点同时满足两个方程</strong>。</p>
+   <h3>Two equations, one solution</h3>
+   <p>Add a second equation (say <span class="num">x − y = 1</span>) and the two lines cross at one point — <strong>that point satisfies both equations at once</strong>.</p>
    <div class="eq">x + y = 5<br>x − y = 1<br>━━━━━<br>x = 3, y = 2  ✓</div>
   </div>
   <div class="box">
-   <h3>Three possibilities · 三种情况</h3>
+   <h3>Three possibilities</h3>
    <ul style="margin-left:20px;font-size:14px;line-height:1.8">
-    <li>两线相交于一点 → <strong>唯一解</strong>（最常见）</li>
-    <li>两线平行（k 相同 b 不同）→ <strong>无解</strong></li>
-    <li>两线重合（k 和 b 都相同）→ <strong>无数解</strong></li>
+    <li>The lines cross at one point → <strong>exactly one solution</strong> (most common)</li>
+    <li>The lines are parallel (same k, different b) → <strong>no solution</strong></li>
+    <li>The lines coincide (same k and b) → <strong>infinitely many solutions</strong></li>
    </ul>
   </div>
-  两个答案代回<b>两个</b>方程 —— 都成立才算对。`;
+  Substitute both answers back into <b>both</b> equations — only count it right if both hold.`;
 }
 
-/* ============ 微课 K2：代入法（交互演示） ============ */
+/* ============ Lesson K2: substitution ============ */
 function microK2(el){
  let phase=0;
  const eqs=[
-  {a:'x + y = 7',b:'2x − y = 5',hint:'从第一式得 y = 7 − x'},
-  {a:'3x + 2y = 16',b:'y = x + 1',hint:'第二式已是 y = ... 的形式'},
-  {a:'2x + y = 11',b:'x + 3y = 18',hint:'从第二式得 x = 18 − 3y'},
+  {a:'x + y = 7',b:'2x − y = 5',hint:'from the first equation, y = 7 − x'},
+  {a:'3x + 2y = 16',b:'y = x + 1',hint:'the second equation is already y = …'},
+  {a:'2x + y = 11',b:'x + 3y = 18',hint:'from the second equation, x = 18 − 3y'},
  ];
  const e=eqs[ri(0,eqs.length-1)];
  const X=x=>340+x*30, Y=y=>280-y*30;
  const render=()=>{
   el.innerHTML=`
-   <div class="step">代入法</div>
+   <div class="step">Substitution</div>
    <div class="box">
-    <h3>The 3 steps · 三步走</h3>
+    <h3>The steps</h3>
     <ol style="margin-left:20px;font-size:15px;line-height:1.9">
-     <li><b>变形</b>：把一个方程写成 <span class="num">y = ...</span> 或 <span class="num">x = ...</span></li>
-     <li><b>代入</b>：把这个表达式代到另一个方程里去</li>
-     <li><b>求解</b>：解只剩一个未知数的一元方程</li>
-     <li><b>回代</b>：求出的值代回任一原方程求另一个未知数</li>
+     <li><b>Rearrange</b> one equation into <span class="num">y = …</span> or <span class="num">x = …</span></li>
+     <li><b>Substitute</b> that expression into the other equation</li>
+     <li><b>Solve</b> the resulting one-unknown equation</li>
+     <li><b>Back-substitute</b> to get the other unknown</li>
     </ol>
    </div>
    <div class="box">
-    <h3>Sample problem · 例子</h3>
+    <h3>Sample problem</h3>
     <div class="eq">${e.a}<br>${e.b}</div>
     <p style="font-size:14px;color:var(--muted)">${e.hint}</p>
    </div>
    <div class="box" style="background:#dbeafe">
-    <h3>Why it works · 原理</h3>
-    <p style="font-size:14px">代入法的核心：<b>把两个未知数变成一个未知数</b>。代入后只剩 x 一个变量，能直接解出。然后回代得 y。</p>
-    <p style="font-size:14px;color:var(--muted);margin-top:6px"> 03-07 详细演示了代入法，推荐先看 03 理解原理，再看 04-06 练例题。</p>
+    <h3>Why it works</h3>
+    <p style="font-size:14px">The whole point of substitution: <b>turn two unknowns into one</b>. After substituting, only x is left and you can solve it, then back-substitute for y.</p>
+    <p style="font-size:14px;color:var(--muted);margin-top:6px">Videos 03–07 walk through substitution; watch 03 for the idea, then 04–06 for worked examples.</p>
    </div>`;
  };
  render();
 }
 
-/* ============ 微课 K3：加减消元（交互演示） ============ */
+/* ============ Lesson K3: elimination ============ */
 function microK3(el){
  el.innerHTML=`
-  <div class="step">加减消元法</div>
+  <div class="step">Elimination</div>
   <div class="box">
-   <h3>When to use · 何时用</h3>
-   <p>当两个方程的某个系数<strong>相同或相反</strong>时，相加或相减就能消掉一个未知数。</p>
+   <h3>When to use it</h3>
+   <p>When a coefficient is <strong>the same or opposite</strong> in the two equations, adding or subtracting cancels one unknown.</p>
   </div>
   <div class="box">
-   <h3>Worked example · 典型例题</h3>
+   <h3>Worked example</h3>
    <div class="eq">3x + 2y = 12  ... (1)<br>2x − 2y =  4  ... (2)</div>
-   <p style="font-size:14px;margin-top:8px">(1) + (2)：y 系数 +2 和 −2 相加 = 0，y 被消掉：</p>
+   <p style="font-size:14px;margin-top:8px">(1) + (2): the y coefficients +2 and −2 sum to 0, so y disappears:</p>
    <div class="eq">5x = 16  →  <span class="num">x = 16/5 = 3.2</span></p>
-   <p style="font-size:14px">回代 (2)：2(3.2) − 2y = 4 → 6.4 − 2y = 4 → 2y = 2.4 → <span class="num">y = 1.2</span></p>
-   <p style="font-size:14px;margin-top:6px">验证 (1)：3(3.2) + 2(1.2) = 9.6 + 2.4 = 12 ✓</p>
+   <p style="font-size:14px">Back into (2): 2(3.2) − 2y = 4 → 6.4 − 2y = 4 → 2y = 2.4 → <span class="num">y = 1.2</span></p>
+   <p style="font-size:14px;margin-top:6px">Check in (1): 3(3.2) + 2(1.2) = 9.6 + 2.4 = 12 ✓</p>
   </div>
   <div class="box" style="background:#dbeafe">
-   <h3>What if coefficients don't match? · 系数不一致怎么办</h3>
-   <p style="font-size:14px">把某个（或两个）方程<strong>乘一个数</strong>，让系数变得相同或相反。</p>
-   <p style="font-size:14px;color:var(--muted);margin-top:6px">例：x + y = 5 和 2x − y = 4 系数已经相反，直接相加即可。<br>但 x + 2y = 5 和 3x + 5y = 14 中 x 系数 1 和 3，把第一个方程×3 或第二个×1，再相减消 x。</p>
+   <h3>What if the coefficients do not match?</h3>
+   <p style="font-size:14px"><strong>Multiply</strong> one (or both) equations by a number so the coefficients match or oppose.</p>
+   <p style="font-size:14px;color:var(--muted);margin-top:6px">For example, in x + y = 5 and 2x − y = 4 the coefficients already oppose, so just add. But in x + 2y = 5 and 3x + 5y = 14 the x coefficients are 1 and 3, so multiply the first equation×3 或第二个×1，再相减消 x。</p>
   </div>
-  <div class="note"><strong>代入法 vs 加减消元：</strong>如果某个方程已经写成 y = ... 或 x = ... 用代入最快；否则一般加减消元更直接（不用展开括号）。</div>`;
+  <div class="note"><strong>Substitution vs elimination:</strong> if one equation is already y = … or x = …, substitution is fastest; otherwise elimination is usually more direct (no brackets to expand).</div>`;
 }
 
-/* ============ 微课 K4：★ 中国应用题三件套（自建）========== */
+/* ============ Lesson K4: three classic word problems ============ */
 function microK4(el){
  let cur=0;
  const problems=[
-  {title:'鸡兔同笼 · Chickens and Rabbits',setup:`鸡兔同笼，头共 35 个，脚共 94 只。问鸡兔各几只？<br><span class="cn">Classical Chinese problem: total 35 heads, 94 feet. Find chickens and rabbits.</span>`,
-   table:[{name:'设',t:['鸡','兔','合计']},{name:'只数',t:['x','y','35']},{name:'脚数',t:['2x','4y','94']}],
-   sol:`第一步：列方程<br>  x + y = 35<br>  2x + 4y = 94<br><br>第二步：消元（让 y 系数相同 → 都×2）<br>  2x + 2y = 70<br>  2x + 4y = 94<br>  相减：2y = 24 → <span class="num">y = 12（兔 12 只）</span><br>  代入：x = 35 − 12 = <span class="num">23（鸡 23 只）</span><br><br>验证：23 + 12 = 35 ✓；2·23 + 4·12 = 46 + 48 = 94 ✓`},
-  {title:'增收节支 · Sales & Expenses',setup:`某商店购进 A、B 两种商品共 50 件。A 售价 80 元、获利 20 元；B 售价 120 元、获利 30 元。总获利 1900 元。问各多少件？<br><span class="cn">50 items total. A: 80元 selling, 20元 profit. B: 120元 selling, 30元 profit. Total profit 1900元. Find quantities.</span>`,
-   table:[{name:'设',t:['A件数','B件数','合计']},{name:'',t:['x','y','50']},{name:'每件获利',t:['20','30','—']},{name:'总获利',t:['20x','30y','1900']}],
-   sol:`列方程：<br>  x + y = 50<br>  20x + 30y = 1900<br><br>消元（两式都化简为 x + 1.5y = 95）：<br>  x = 50 − y<br>  20(50−y) + 30y = 1900<br>  1000 + 10y = 1900<br>  10y = 900 → <span class="num">y = 90（B 90 件）</span><br>  x = 50 − 90 = −40（不合理，题设条件互相矛盾！）<br><br><span style="color:var(--err)">真实情况：本题应改为"共 50 件、获利 1900 元"才有正解。题目出错了。</span>`},
-  {title:'里程碑上的数 · Milestone Numbers',setup:`一辆汽车从 A 城出发，速度 60 km/h。两小时后另一辆从 A 城出发，速度 80 km/h，又过 3 小时后追上第一辆。问第一辆已开多远？<br><span class="cn">Car A leaves first at 60 km/h. 2 hours later car B leaves at 80 km/h, catches A 3 hours after that. Distance of car A?</span>`,
-   table:[{name:'设',t:['A 速','B 速','A 追时已开']},{name:'',t:['60','80','2 + 3 = 5 h']},{name:'',t:['km/h','km/h','']}],
-   sol:`列方程：追上时两车行驶距离相等<br>  60t = 80(t − 2)，其中 t = 2 + 3 = 5<br>  60·5 = 80·(5−2)<br>  300 = 80·3 = 240 → 不相等？<br><br>追及时刻是 B 出发 3 小时后，<b>不是 5 小时后</b>。<br>  60·(3+2) = 60·5 = 300<br>  80·3 = 240<br>  差 60 km，所以还差一小时没追上。<br><br>真正的解：<br>  60t = 80(t − 2)<br>  60t = 80t − 160<br>  160 = 20t → <span class="num">t = 8 h（A 开了 8 小时）</span><br>  距离 = 60·8 = <span class="num">480 km</span>`},
+  {title:'Chickens and Rabbits',setup:`Chickens and rabbits in one cage: 35 heads, 94 feet. How many of each?<br><span class="cn">Classical problem: 35 heads, 94 feet. Find chickens and rabbits.</span>`,
+   table:[{name:'',t:['chickens','rabbits','total']},{name:'count',t:['x','y','35']},{name:'feet',t:['2x','4y','94']}],
+   sol:`Step 1, write the equations:<br>  x + y = 35<br>  2x + 4y = 94<br><br>Step 2, eliminate (match the y coefficients, ×2):<br>  2x + 2y = 70<br>  2x + 4y = 94<br>  subtract: 2y = 24 → <span class="num">y = 12（兔 12 只）</span><br>  代入：x = 35 − 12 = <span class="num">23（鸡 23 只）</span><br><br>验证：23 + 12 = 35 ✓；2·23 + 4·12 = 46 + 48 = 94 ✓`},
+  {title:'Sales & Expenses',setup:`A shop stocks 50 items of types A and B. A sells for ¥80 with ¥20 profit; B sells for ¥120 with ¥30 profit. Total profit is ¥1900. How many of each?<br><span class="cn">50 items total. A: 80元 selling, 20元 profit. B: 120元 selling, 30元 profit. Total profit 1900元. Find quantities.</span>`,
+   table:[{name:'',t:['count of A','count of B','total']},{name:'',t:['x','y','50']},{name:'profit each',t:['20','30','—']},{name:'total profit',t:['20x','30y','1900']}],
+   sol:`Write the equations:<br>  x + y = 50<br>  20x + 30y = 1900<br><br>Eliminate (both reduce to x + 1.5y = 95):<br>  x = 50 − y<br>  20(50−y) + 30y = 1900<br>  1000 + 10y = 1900<br>  10y = 900 → <span class="num">y = 90（B 90 件）</span><br>  x = 50 − 90 = −40（不合理，题设条件互相矛盾！）<br><br><span style="color:var(--err)">真实情况：本题应改为"共 50 件、获利 1900 元"才有正解。题目出错了。</span>`},
+  {title:'Milestone Numbers',setup:`A car leaves town A at 60 km/h. Two hours later a second car leaves A at 80 km/h, and catches up 3 hours after that. How far has the first car gone?<br><span class="cn">Car A leaves first at 60 km/h. 2 hours later car B leaves at 80 km/h, catches A 3 hours after that. Distance of car A?</span>`,
+   table:[{name:'',t:['A speed','B speed','time A has driven']},{name:'',t:['60','80','2 + 3 = 5 h']},{name:'',t:['km/h','km/h','']}],
+   sol:`Equation: at the moment of catching up the distances are equal<br>  60t = 80(t − 2), where t = 2 + 3 = 5<br>  60·5 = 80·(5−2)<br>  300 = 80·3 = 240 → not equal?<br><br>The catch-up happens 3 hours after B starts, <b>not 5 hours after</b>.br>  60·(3+2) = 60·5 = 300<br>  80·3 = 240<br>  差 60 km，所以还差一小时没追上。<br><br>真正的解：<br>  60t = 80(t − 2)<br>  60t = 80t − 160<br>  160 = 20t → <span class="num">t = 8 h（A 开了 8 小时）</span><br>  距离 = 60·8 = <span class="num">480 km</span>`},
  ];
  const render=()=>{
   const p=problems[cur];
   el.innerHTML=`
-   <div class="step">★ 鸡兔同笼 / 增收节支 / 里程碑</div>
+   <div class="step">★ Chickens & rabbits / sales & costs / milestone numbers</div>
    <div class="box">
     <div style="display:flex;gap:8px;margin-bottom:10px">
      ${problems.map((q,i)=>`<button class="${i===cur?'':'secondary'}" data-p="${i}">${i+1}. ${q.title.split(' · ')[0]}</button>`).join('')}
     </div>
     <h3>${p.title}</h3>
     <p style="font-size:14px;margin-top:8px">${p.setup}</p>
-    <h3 style="margin-top:14px">Solution · 解答</h3>
+    <h3 style="margin-top:14px">Solution</h3>
     <div class="eq">${p.sol}</div>
    </div>
-   <div class="note"><strong>通用思路：</strong>① 设未知数（一般设两个：x 和 y）② 找两个等量关系列两个方程 ③ 解方程组 ④ 验证合理性（x、y > 0；单位一致；答案要回到题目检验）</div>`;
+   <div class="note"><strong>General method:</strong> ① name the unknowns (usually two: x and y) ② find two equalities and write two equations ③ solve the system ④ check it makes sense (x, y > 0; units consistent; answer the actual question)</div>`;
   el.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{cur=parseInt(b.dataset.p);render();});
  };
  render();
 }
 
-/* ============ 微课 K5：方程与函数 ============ */
+/* ============ Lesson K5: equations and functions ============ */
 function microK5(el){
  el.innerHTML=`
-  <div class="step">二元一次方程与一次函数</div>
+  <div class="step">Equations and linear functions</div>
   <div class="box">
-   <h3>Key insight · 关键洞察</h3>
-   <p>把 <span class="num">2x + y = 7</span> 写成 <span class="num">y = −2x + 7</span>，它就是一条直线。</p>
-   <p>把方程组 {2x + y = 7, x + y = 4} 都画成图，两条直线的<strong>交点</strong>就是方程组的<strong>解</strong>。</p>
+   <h3>The key insight</h3>
+   <p>Rewrite <span class="num">2x + y = 7</span> as <span class="num">y = −2x + 7</span> and it is a straight line.</p>
+   <p>Graph both equations of {2x + y = 7, x + y = 4} and the <strong>intersection</strong> of the two lines is the <strong>solution</strong> of the system.</p>
   </div>
   <div class="box" style="background:#dbeafe">
-   <h3>用一次函数解方程组</h3>
-   <p style="font-size:14px">① 把两个方程都化为 y = kx + b 的形式</p>
-   <p style="font-size:14px">② 画图象（或者用代数解）</p>
-   <p style="font-size:14px">③ 交点 (x₀, y₀) 就是解</p>
-   <p style="font-size:14px;margin-top:8px"><b>特殊情况：</b>两直线平行 → 无解（k 相同 b 不同）；两直线重合 → 无数解（k 和 b 都相同）</p>
+   <h3>Solving a system with graphs</h3>
+   <p style="font-size:14px">① Put both equations into y = kx + b form</p>
+   <p style="font-size:14px">② Draw them (or solve algebraically)</p>
+   <p style="font-size:14px">③ The intersection (x₀, y₀) is the solution</p>
+   <p style="font-size:14px;margin-top:8px"><b>Special cases:</b> parallel lines → no solution (same k, different b); coincident lines → infinitely many (same k and b)</p>
   </div>
-  <div class="note"><strong>与 Ch04 的联系：</strong>Ch04 学了一次函数图象，现在学方程的解就是图象的交点。这是"代数"和"几何"两大工具的统一。</div>`;
+  <div class="note"><strong>Link to chapter 4:</strong> there you learned to graph linear functions; here the solution of a system turns out to be the intersection of two graphs. Algebra and geometry meeting.</div>`;
 }
 
-/* ============ 先测一下 ============ */
+/* ============ Quick check ============ */
 function diag(el,lessonId,generator){
- el.innerHTML=`<div class="step">先测一下</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 题快速测一下。</p><div id="diagQ"></div></div>`;
+ el.innerHTML=`<div class="step">Quick check</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 questions, just to see where you stand.</p><div id="diagQ"></div></div>`;
  const qEl=el.querySelector('#diagQ');
  let ok=0;
  const qs=Array.from({length:3},()=>generator('diag'));
@@ -309,16 +309,16 @@ function diag(el,lessonId,generator){
   if(i>=3){
    st(lessonId).diag=ok;
    if(ok===3){
-    qEl.innerHTML=`<div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>3/3 都对：</strong>可跳过微课。</div><div style="margin-top:14px"><button id="skipMicro">跳过微课，去练习 →</button></div>`;
+    qEl.innerHTML=`<div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>3/3:</strong> you can skip the lesson.</div><div style="margin-top:14px"><button id="skipMicro">Skip the lesson, go to practice →</button></div>`;
     qEl.querySelector('#skipMicro').onclick=()=>{cur=`prac-${lessonId}`;render();};
    } else {
-    qEl.innerHTML=`<div class="note" style="background:#fef3c7;border-color:var(--warn)"><strong>${ok}/3 对：</strong>看下方微课。</div><div style="margin-top:14px"><button id="goMicro">进入微课 →</button></div>`;
+    qEl.innerHTML=`<div class="note" style="background:#fef3c7;border-color:var(--warn)"><strong>${ok}/3:</strong> work through the lesson below.</div><div style="margin-top:14px"><button id="goMicro">Go to lesson →</button></div>`;
     qEl.querySelector('#goMicro').onclick=()=>{cur=`micro-${lessonId}`;render();};
    }
    save();renderNav();return;
   }
   const q=qs[i];
-  qEl.innerHTML=`<div class="q"><div class="q-text">${i+1}. ${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="da" autocomplete="off"><button id="sub">提交</button></div><div class="hint" id="ht"></div><div class="feedback" id="fb"></div></div>`;
+  qEl.innerHTML=`<div class="q"><div class="q-text">${i+1}. ${q.q}</div><div style="display:flex;gap:8px"><input id="da" autocomplete="off"><button id="sub">Submit</button></div><div class="hint" id="ht"></div><div class="feedback" id="fb"></div></div>`;
   const input=qEl.querySelector('#da'),fb=qEl.querySelector('#fb'),ht=qEl.querySelector('#ht');
   input.focus();qEl.querySelector('#sub').onclick=check;input.onkeydown=e=>{if(e.key==='Enter')check();};
   function check(){
@@ -326,13 +326,13 @@ function diag(el,lessonId,generator){
    const correct=q.check(ans);
    if(correct===true){ok++;fb.className='feedback show ok';fb.textContent='✓';input.disabled=true;setTimeout(()=>{i++;show();},700);}
    else if(correct==='hint'){ht.className='hint show';ht.textContent=q.hint;}
-   else{fb.className='feedback show err';fb.textContent='✗ 再试一次。';}
+   else{fb.className='feedback show err';fb.textContent='✗ Try again。';}
   }
  };
  show();
 }
 
-/* ============ 练习生成器 ============ */
+/* ============ Practice generators ============ */
 const generators={
 k1:()=>{
  const x=ri(-3,3),y=ri(-3,3);
@@ -340,64 +340,59 @@ k1:()=>{
  const a2=ri(1,4),b2=ri(1,4),c2=a2*x+a2*y;
  const sol=[x,y];
  return {q:`Is (${x}, ${y}) a solution to the system:<br>${a1}x + ${b1}y = ${c1}<br>${a2}x + ${b2}y = ${c2}<br>Answer "yes" or "no".`,
-   qcn:`(${x}, ${y}) 是方程组的解吗？`,
-   check:a=>{const ans=a.toLowerCase().trim();return ans==='yes'||ans==='y'||ans==='是';},
+   check:a=>{const ans=a.toLowerCase().trim();return ans==='yes'||ans==='y'||ans==='yes';},
    ans:'yes',hint:`Plug in: ${a1}·${x} + ${b1}·${y} = ${c1}? and ${a2}·${x} + ${b2}·${y} = ${c2}?`};
 },
 k2:()=>{
  const y=ri(1,5);
  const x=ri(1,5);
   return {q:`Solve: y = ${y - x} + x (i.e. y = 2x - ${x}), and 3x + y = ${3*x + y}. Find x.`,
-   qcn:`解方程组 y = 2x − ${x}, 3x + y = ${3*x + y}。求 x = ?`,
    check:a=>parseInt(a)===x,ans:String(x),hint:`Substitute y=2x-${x} into 3x+y=${3*x+y}.`};
 },
 k3:()=>{
  const x=ri(2,5),y=ri(1,4);
   return {q:`Add the two equations:<br>x + 2y = ${x+2*y}<br>3x − 2y = ${3*x-2*y}<br>Find x.`,
-   qcn:`两式相加消 y：x + 2y = ${x+2*y}, 3x − 2y = ${3*x-2*y}。求 x = ?`,
    check:a=>parseInt(a)===x,ans:String(x),hint:`Add: 4x = ${(x+2*y)+(3*x-2*y)}.`};
 },
 k4:()=>{
- // 鸡兔同笼变体
+ // chickens and rabbits variant
  const chickens=ri(5,15),rabbits=ri(3,8);
  const total=chickens+rabbits,feet=2*chickens+4*rabbits;
- return {q:`鸡兔同笼，共 ${total} 头，${feet} 脚。兔有几只？（填数字）`,
-   qcn:`${total} heads, ${feet} feet. How many rabbits?`,
+ return {q:`Chickens and rabbits: ${total} heads, ${feet} feet. How many rabbits? (number only)`,
    check:a=>parseInt(a)===rabbits,ans:String(rabbits),
    hint:`Let x=chickens, y=rabbits. x+y=${total}, 2x+4y=${feet}. Solve for y.`};
 },
 k5:()=>{
  const x=ri(1,4),y=ri(1,4);
  return {q:`Two lines: y = ${ri(1,3)}x + ${y - ri(1,3)*x} and y = −${ri(1,3)}x + ${y + ri(1,3)*x}. They cross at x = ${x}. Find y.`,
-   qcn:`两直线交于 x = ${x}，y = ?`,
    check:a=>parseInt(a)===y,ans:String(y),hint:`Plug x=${x} into either equation.`};
 },
 };
 
-/* ============ 视频模块 ============ */
+/* ============ Videos module ============ */
 function videos(el,lessonId){
  const list=VIDEOS[lessonId]||[];
  if(!list.length){el.innerHTML='<div class="note">No videos for this section.</div>';return;}
- let html=`<div class="step">视频 · ${LESSONS.find(l=>l.id===lessonId).cn}</div>`;
- html+=`<div class="box"><p style="font-size:13px;color:var(--muted)"><span class="tag core">必看</span> 先看；<span class="tag ext">选看</span> 有余力再看。</p></div>`;
+ let html=`<div class="step">Videos · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
+ html+=`<div class="box"><p style="font-size:13px;color:var(--muted)"><span class="tag core">Watch first</span> watch first; <span class="tag ext">Optional</span> if you have time.</p></div>`;
  list.forEach((v,i)=>{
   const watched=st(lessonId).vid[i];
-  html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="cn">${v.d}</span><span class="meta"><span class="tag ${v.c}">${v.c==='core'?'核心':'拓展'}</span><span class="st ${watched?'ok':''}">${watched?'✓':'未看'}</span><button data-i="${i}">${watched?'▶ 重看':'▶ 播放'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
+  html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="meta"><span class="tag ${v.c}">${v.c==='core'?'Core':'Extra'}</span><span class="st ${watched?'ok':''}">${watched?'✓':'Unwatched'}</span><button data-i="${i}">${watched?'▶ Replay':'▶ Play'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
  });
  el.innerHTML=html;
  el.querySelectorAll('[data-i]').forEach(b=>{
-  b.onclick=()=>{const i=parseInt(b.dataset.i);const slot=el.querySelector('#vc'+i);const v=slot.querySelector('video');if(slot.style.display==='none'){slot.style.display='block';v.play();}else{v.pause();v.currentTime=0;slot.style.display='none';}st(lessonId).vid[i]=true;save();renderNav();b.textContent='▶ 重看';b.parentElement.querySelector('.st').className='st ok';b.parentElement.querySelector('.st').textContent='✓';};
+  b.onclick=()=>{const i=parseInt(b.dataset.i);const slot=el.querySelector('#vc'+i);const v=slot.querySelector('video');if(slot.style.display==='none'){slot.style.display='block';v.play();}else{v.pause();v.currentTime=0;slot.style.display='none';}st(lessonId).vid[i]=true;save();renderNav();b.textContent='▶ Replay';b.parentElement.querySelector('.st').className='st ok';b.parentElement.querySelector('.st').textContent='✓';};
  });
 }
 
-/* ============ 练习模块 ============ */
+/* ============ Practice module ============ */
 function practice(el,lessonId){
  const gen=generators[lessonId];
  if(!gen){el.innerHTML='<div class="note">No practice for this.</div>';return;}
  const s=st(lessonId);
  let streak=0,need=5,q=null,tries=0;
  const update=()=>{
-  el.innerHTML=`<div class="step">练一练（${streak}/${need}）</div><div class="info" style="font-size:13px;color:var(--muted);margin:8px 0">对 ${s.prac.ok}/${s.prac.tot}（连对 ${streak}）<button class="secondary" id="rs" style="margin-left:8px">Reset</button></div><div class="progress"><div style="width:${(streak/need)*100}%"></div></div><div class="q"><div class="q-text">${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="pi" autocomplete="off"><button id="ps">提交</button></div><div class="hint" id="ph"></div><div class="feedback" id="pf"></div></div>`;
+  el.innerHTML=`<div class="step">Practice (${streak}/${need}）</div><div class="info" style="font-size:13px;color:var(--muted);margin:8px 0">Correct: ${s.prac.ok}/${s.prac.tot} (streak ${streak})<button class="secondary" id="rs" style="margin-left:8px">Reset</button></div><div class="progress"><div style="width:${(streak/need)*100}%"></div></div><div class="q"><div class="q-text">${q.q}</div><div style="display:flex;gap:8px"><input id="pi" autocomplete="off"><button id="ps">Submit</button></div><div class="hint" id="ph"></div><div class="feedback" id="pf"></div></div>`;
   el.querySelector('#rs').onclick=()=>{s.prac={ok:0,tot:0};streak=0;save();update();renderNav();};
   const inp=el.querySelector('#pi'),fb=el.querySelector('#pf'),ht=el.querySelector('#ph');
   inp.focus();el.querySelector('#ps').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
@@ -406,22 +401,22 @@ function practice(el,lessonId){
    const r=q.check(a);
    if(r===true){
     streak++;s.prac.ok++;s.prac.tot++;
-    fb.className='feedback show ok';fb.textContent='✓ 正确！';
+    fb.className='feedback show ok';fb.textContent='✓ correct！';
     inp.disabled=true;
-    if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>本节过关！✓</strong>';save();renderNav();}
+    if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>Section cleared ✓</strong>';save();renderNav();}
     setTimeout(()=>{q=gen();tries=0;update();},900);
    } else {
     tries++;
     if(tries===1){
-     ht.className='hint show';ht.textContent=q.hint||'再想想看。';
-     fb.className='feedback show err';fb.textContent='✗ 再试一次。';
+     ht.className='hint show';ht.textContent=q.hint||'Have another go.';
+     fb.className='feedback show err';fb.textContent='✗ Try again。';
     } else if(tries===2){
      fb.className='feedback show err';
-     fb.textContent='✗ 还不对。'+(q.sol?('思路：'+q.sol):(q.hint?('提示：'+q.hint):'再算一遍。'));
+     fb.textContent='✗ Not quite. '+(q.sol?('Method: '+q.sol):(q.hint?('Hint: '+q.hint):'Work through it once more.'));
     } else {
      streak=0;s.prac.tot++;
      fb.className='feedback show err';
-     fb.innerHTML=`答案是 <b>${q.ans}</b>`+(q.sol?('。'+q.sol):'。');
+     fb.innerHTML=`The answer is <b>${q.ans}</b>`+(q.sol?('。'+q.sol):'。');
      inp.disabled=true;save();renderNav();
      setTimeout(()=>{q=gen();tries=0;update();},2400);
     }
@@ -431,9 +426,9 @@ function practice(el,lessonId){
  q=gen();tries=0;update();
 }
 
-/* ============ 章末测 ============ */
+/* ============ Chapter test ============ */
 function chTest(el){
- el.innerHTML=`<div class="step">章末自己测</div><div class="box"><p style="font-size:13px;color:var(--muted)">共 10 题。</p><div id="tq"></div></div>`;
+ el.innerHTML=`<div class="step">Chapter test</div><div class="box"><p style="font-size:13px;color:var(--muted)">10 questions.</p><div id="tq"></div></div>`;
  const tq=el.querySelector('#tq');
  const qs=[];
  for(let i=0;i<2;i++)qs.push(generators.k1(i+1));
@@ -443,9 +438,9 @@ function chTest(el){
  for(let i=0;i<2;i++)qs.push(generators.k5());
  let i=0,ok=0;
  const show=()=>{
-  if(i>=qs.length){tq.innerHTML=`<div class="note" style="background:${ok>=7?'#dcfce7':'#fef3c7'};border-color:${ok>=7?'var(--ok)':'var(--warn)'}"><strong>${ok}/${qs.length}</strong> ${ok>=7?'章末通过！':'再回去复习'}</div>`;S.test={ok,tot:qs.length};save();renderNav();return;}
+  if(i>=qs.length){tq.innerHTML=`<div class="note" style="background:${ok>=7?'#dcfce7':'#fef3c7'};border-color:${ok>=7?'var(--ok)':'var(--warn)'}"><strong>${ok}/${qs.length}</strong> ${ok>=7?'Chapter passed!':'再回去复习'}</div>`;S.test={ok,tot:qs.length};save();renderNav();return;}
   const q=qs[i];
-  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="ti"><button id="ts">提交</button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
+  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div style="display:flex;gap:8px"><input id="ti"><button id="ts">Submit</button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
   const inp=tq.querySelector('#ti'),fb=tq.querySelector('#tf'),ht=tq.querySelector('#th');
   inp.focus();tq.querySelector('#ts').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
   function check(){
@@ -458,29 +453,30 @@ function chTest(el){
  show();
 }
 
-/* ============ 渲染 ============ */
+/* ============ Render ============ */
 
-/* ===== 章节门厅：进来先看这里 ===== */
+/* ===== Chapter lobby: start here ===== */
+const GLOSS={k1:"二元一次方程组",k2:"代入消元法",k3:"加减消元法",k4:"应用题",k5:"交点"};
 const USE_MICRO=true;
-const INTRO={why:"鸡兔同笼：一共 35 个头、94 只脚，鸡和兔各几只？设两个未知数、列两个方程，一次就解出来。算单价、行程问题（相遇、追及）、调配问题（增收节支），本质都是「两个条件，求两个数」。这章给你两套解法，还能画图看交点——两条直线交在哪，答案就是哪。",desc:{k1:"两个未知数、两个条件，怎么列出来",k2:"把一个未知数换掉，剩下的就只有一个了",k3:"两个式子相加或相减，消掉一个未知数",k4:"把中文应用题翻译成方程：鸡兔同笼、增收节支、里程碑",k5:"两条直线的交点，就是方程组的解"}};
+const INTRO={why:"Chickens and rabbits in one cage: 35 heads, 94 feet. How many of each? Name two unknowns, write two equations, solve it in one go. Unit prices, meeting and catching-up problems, mixing and budgeting — all of them are \"two conditions, two unknowns\". This chapter gives you two algebraic methods, plus the picture: where the two lines cross is the answer.",desc:{k1:"Two unknowns, two conditions — how to set it up",k2:"Replace one unknown so that only one is left",k3:"Add or subtract the equations to cancel one unknown",k4:"Turning word problems into equations",k5:"Where the two lines cross is the solution"}};
 function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
 function introRender(main){
   const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
-  let h='<div class="intro-h">这一章要学什么</div>'
-    +'<div class="intro-sub">先扫一眼这张清单，知道这章要去哪；然后点最下面的按钮开始。</div><div class="kp">';
+  let h='<div class="intro-h">What this chapter covers</div>'
+    +'<div class="intro-sub">Skim the list to see where this chapter is going, then press the button at the bottom.</div><div class="kp">';
   pts.forEach(l=>{
     const s=st(l.id);
-    const badge=s.done?' <span class="st ok">✓ 已过关</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
+    const badge=s.done?' <span class="st ok">✓ done</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
     h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.cn+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
   });
   h+='</div>';
-  h+='<div class="why"><b>学会了能干嘛</b><br>'+INTRO.why+'</div>';
-  h+='<div class="box"><b>这一章怎么学</b><div class="how">'
-    +'① <b>看微课</b>：几分钟，先弄懂这一节在说什么<br>'
-    +'② <b>练几题</b>：连对 5 题就过关；不会的话会给提示，一步步带你做<br>'
-    +'③ <b>再下一节</b>：左边 '+pts[0].n+'、'+pts[1].n+'…… 想先学哪个点哪个，不用非按顺序'
+  h+='<div class="why"><b>Where this shows up in real life</b><br>'+INTRO.why+'</div>';
+  h+='<div class="box"><b>How this chapter works</b><div class="how">'
+    +'① <b>Watch the lesson</b>: a few minutes to get what the section is about<br>'
+    +'② <b>Practice</b>: 5 correct in a row clears it; if you get stuck, hints walk you through<br>'
+    +'③ <b>Next section</b>: on the left, '+pts[0].n+'、'+pts[1].n+'… open whichever you want, in any order'
     +'</div></div>';
-  h+='<div class="big-start"><button id="startBtn">开始 '+pts[0].n+' '+pts[0].cn+' →</button></div>';
+  h+='<div class="big-start"><button id="startBtn">Start '+pts[0].n+' '+pts[0].cn+' →</button></div>';
   main.innerHTML=h;
   main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
 }
@@ -491,7 +487,7 @@ function renderNav(){
   let stxt='';
   if(s.done)stxt='<span class="st ok">✓</span>';
   else if(s.prac.tot>0)stxt=`<span class="st ${s.prac.ok/s.prac.tot>0.6?'ok':'err'}">${s.prac.ok}/${s.prac.tot}</span>`;
-  return `<div class="nav-i ${l.id===cur||cur===`micro-${l.id}`||cur===`diag-${l.id}`||cur===`prac-${l.id}`?'on':''}" data-go="${l.id}"><span><b>${l.n}</b> ${l.cn}</span>${stxt}</div>`;
+  return `<div class="nav-i ${l.id===cur||cur===`micro-${l.id}`||cur===`diag-${l.id}`||cur===`prac-${l.id}`?'on':''}" data-go="${l.id}"><span><b>${l.n}</b> ${l.t}</span>${stxt}</div>`;
  }).join('');
  nav.querySelectorAll('[data-go]').forEach(n=>n.onclick=()=>{const id=n.dataset.go;cur=id==='test'?'test':`micro-${id}`;render();});
 }
@@ -506,7 +502,7 @@ function render(){
   const phase=m[1],id=m[2];
   const lesson=LESSONS.find(l=>l.id===id);
   if(!lesson){main.innerHTML='<div class="note">Unknown</div>';return;}
-  const titles={k1:'认识方程组',k2:'代入消元法',k3:'加减消元法',k4:'中国应用题三件套',k5:'方程与一次函数'};
+  const titles={k1:'What is a system?',k2:'Substitution',k3:'Elimination',k4:'Word problems',k5:'Systems and graphs'};
   main.innerHTML=`<div class="lesson-id">${lesson.n} · ${titles[id]} · ${lesson.cn}</div>`;
   const c=document.createElement('div');main.appendChild(c);
   if(phase==='diag'){
@@ -521,7 +517,7 @@ function render(){
    const after=document.createElement('div');main.appendChild(after);
    videos(after,id);
    const btn=document.createElement('div');btn.style.marginTop='14px';
-   btn.innerHTML=`<button id="toPrac">Go to practice · 开始练习</button>`;
+   btn.innerHTML=`<button id="toPrac">Go to practice</button>`;
    main.appendChild(btn);
    btn.querySelector('#toPrac').onclick=()=>{cur=`prac-${id}`;render();};
   } else if(phase==='prac'){practice(c,id);}
