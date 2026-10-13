@@ -59,6 +59,21 @@ input:focus{outline:none;border-color:var(--accent)}
 svg{max-width:100%;display:block;margin:0 auto}
 .num{color:var(--accent);font-weight:600}
 .eq{font-family:"Courier New",monospace;background:#1f2937;color:#a5f3fc;padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px;overflow-x:auto}
+
+.intro-h{font-size:21px;font-weight:700;margin:0 0 4px}
+.intro-sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.kp{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:14px 0}
+.kp-c{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#f9fafb}
+.kp-c .n{font-size:12px;color:var(--accent);font-weight:700}
+.kp-c .t{font-size:15px;font-weight:600;margin:2px 0 5px;line-height:1.4}
+.kp-c .d{font-size:12px;color:var(--muted);line-height:1.55}
+.why{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:14px 16px;margin:14px 0;font-size:14px;line-height:1.85}
+.why b{color:var(--accent)}
+.how{font-size:14px;line-height:2.1;margin:8px 0 2px}
+.how b{color:var(--accent)}
+.big-start{margin-top:20px;text-align:center}
+.big-start button{font-size:16px;padding:13px 30px;border-radius:10px}
+.trytip{font-size:12px;color:var(--muted);margin:10px 0 2px}
 </style>
 </head>
 <body>
@@ -85,6 +100,7 @@ let S=load();
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return{};}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 const LESSONS=[
+ {id:'intro',t:'Intro',cn:'先看这里 · 本章要学什么',n:'🏠'},
  {id:'k1',t:'What is a system?',cn:'认识二元一次方程组',n:'5.1'},
  {id:'k2',t:'Substitution method',cn:'代入消元法',n:'5.2'},
  {id:'k3',t:'Elimination method',cn:'加减消元法',n:'5.3'},
@@ -92,7 +108,7 @@ const LESSONS=[
  {id:'k5',t:'Systems & graphs',cn:'方程与一次函数（直线交点）',n:'5.5'},
  {id:'test',t:'Chapter Test',cn:'章末自己测',n:''}
 ];
-let cur='k1';
+let cur='intro';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
 function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 function pick(a){return a[ri(0,a.length-1)];}
@@ -293,10 +309,10 @@ function diag(el,lessonId,generator){
   if(i>=3){
    st(lessonId).diag=ok;
    if(ok===3){
-    qEl.innerHTML=`<div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>3/3 都对：</strong>可跳过微课。</div><div style="margin-top:14px"><button id="skipMicro">Skip to practice</button></div>`;
+    qEl.innerHTML=`<div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>3/3 都对：</strong>可跳过微课。</div><div style="margin-top:14px"><button id="skipMicro">跳过微课，去练习 →</button></div>`;
     qEl.querySelector('#skipMicro').onclick=()=>{cur=`prac-${lessonId}`;render();};
    } else {
-    qEl.innerHTML=`<div class="note" style="background:#fef3c7;border-color:var(--warn)"><strong>${ok}/3 对：</strong>看下方微课。</div><div style="margin-top:14px"><button id="goMicro">Start micro-lesson</button></div>`;
+    qEl.innerHTML=`<div class="note" style="background:#fef3c7;border-color:var(--warn)"><strong>${ok}/3 对：</strong>看下方微课。</div><div style="margin-top:14px"><button id="goMicro">进入微课 →</button></div>`;
     qEl.querySelector('#goMicro').onclick=()=>{cur=`micro-${lessonId}`;render();};
    }
    save();renderNav();return;
@@ -366,11 +382,11 @@ function videos(el,lessonId){
  html+=`<div class="box"><p style="font-size:13px;color:var(--muted)"><span class="tag core">必看</span> 先看；<span class="tag ext">选看</span> 有余力再看。</p></div>`;
  list.forEach((v,i)=>{
   const watched=st(lessonId).vid[i];
-  html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="cn">${v.d}</span><span class="meta"><span class="tag ${v.c}">${v.c==='core'?'Core 核心':'Ext 拓展'}</span><span class="st ${watched?'ok':''}">${watched?'✓':'未看'}</span><button data-i="${i}">${watched?'▶ 重看':'▶ 播放'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
+  html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="cn">${v.d}</span><span class="meta"><span class="tag ${v.c}">${v.c==='core'?'核心':'拓展'}</span><span class="st ${watched?'ok':''}">${watched?'✓':'未看'}</span><button data-i="${i}">${watched?'▶ 重看':'▶ 播放'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
  });
  el.innerHTML=html;
  el.querySelectorAll('[data-i]').forEach(b=>{
-  b.onclick=()=>{const i=parseInt(b.dataset.i);const slot=el.querySelector('#vc'+i);const v=slot.querySelector('video');if(slot.style.display==='none'){slot.style.display='block';v.play();}else{v.pause();v.currentTime=0;slot.style.display='none';}st(lessonId).vid[i]=true;save();renderNav();b.textContent='▶ Replay';b.parentElement.querySelector('.st').className='st ok';b.parentElement.querySelector('.st').textContent='✓';};
+  b.onclick=()=>{const i=parseInt(b.dataset.i);const slot=el.querySelector('#vc'+i);const v=slot.querySelector('video');if(slot.style.display==='none'){slot.style.display='block';v.play();}else{v.pause();v.currentTime=0;slot.style.display='none';}st(lessonId).vid[i]=true;save();renderNav();b.textContent='▶ 重看';b.parentElement.querySelector('.st').className='st ok';b.parentElement.querySelector('.st').textContent='✓';};
  });
 }
 
@@ -443,6 +459,31 @@ function chTest(el){
 }
 
 /* ============ 渲染 ============ */
+
+/* ===== 章节门厅：进来先看这里 ===== */
+const USE_MICRO=true;
+const INTRO={why:"鸡兔同笼：一共 35 个头、94 只脚，鸡和兔各几只？设两个未知数、列两个方程，一次就解出来。算单价、行程问题（相遇、追及）、调配问题（增收节支），本质都是「两个条件，求两个数」。这章给你两套解法，还能画图看交点——两条直线交在哪，答案就是哪。",desc:{k1:"两个未知数、两个条件，怎么列出来",k2:"把一个未知数换掉，剩下的就只有一个了",k3:"两个式子相加或相减，消掉一个未知数",k4:"把中文应用题翻译成方程：鸡兔同笼、增收节支、里程碑",k5:"两条直线的交点，就是方程组的解"}};
+function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
+function introRender(main){
+  const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
+  let h='<div class="intro-h">这一章要学什么</div>'
+    +'<div class="intro-sub">先扫一眼这张清单，知道这章要去哪；然后点最下面的按钮开始。</div><div class="kp">';
+  pts.forEach(l=>{
+    const s=st(l.id);
+    const badge=s.done?' <span class="st ok">✓ 已过关</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
+    h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.cn+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
+  });
+  h+='</div>';
+  h+='<div class="why"><b>学会了能干嘛</b><br>'+INTRO.why+'</div>';
+  h+='<div class="box"><b>这一章怎么学</b><div class="how">'
+    +'① <b>看微课</b>：几分钟，先弄懂这一节在说什么<br>'
+    +'② <b>练几题</b>：连对 5 题就过关；不会的话会给提示，一步步带你做<br>'
+    +'③ <b>再下一节</b>：左边 '+pts[0].n+'、'+pts[1].n+'…… 想先学哪个点哪个，不用非按顺序'
+    +'</div></div>';
+  h+='<div class="big-start"><button id="startBtn">开始 '+pts[0].n+' '+pts[0].cn+' →</button></div>';
+  main.innerHTML=h;
+  main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
+}
 function renderNav(){
  const nav=document.getElementById('nav');
  nav.innerHTML=LESSONS.map(l=>{
@@ -458,6 +499,7 @@ function renderNav(){
 function render(){
  const main=document.getElementById('main');
  renderNav();
+ if(cur==='intro'||cur==='micro-intro'){introRender(main);return;}
  if(cur==='test'){chTest(main);return;}
  const m=cur.match(/^(diag|micro|prac)-(\w+)$/);
  if(m){
@@ -484,7 +526,7 @@ function render(){
    btn.querySelector('#toPrac').onclick=()=>{cur=`prac-${id}`;render();};
   } else if(phase==='prac'){practice(c,id);}
  } else {
-  main.innerHTML='<div class="note">Select a lesson on the left.</div>';
+  introRender(main);
  }
 }
 render();
