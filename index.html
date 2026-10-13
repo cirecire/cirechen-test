@@ -126,9 +126,9 @@ const CH=[
  {k:'ch01',cn:'Pythagorean Theorem',en:'Pythagorean Theorem',p:4,c:'#7c3aed',
   L:[['k1','Exploring the theorem'],['k2','Is it a right triangle?'],['k3','Applications'],['k4','Strategy: reflect']],v:13},
  {k:'ch02',cn:'Real Numbers',en:'Real Numbers',p:11,c:'#0891b2',
-  L:[['k1','Irrational numbers'],['k2','Square roots'],['k3','Cube roots'],['k4','Estimating roots'],['k5','Using a calculator'],['k6','The real numbers'],['k7','Radicals'],['ext','拓展·科学计数法']],v:34},
+  L:[['k1','Irrational numbers'],['k2','Square roots'],['k3','Cube roots'],['k4','Estimating roots'],['k5','Using a calculator'],['k6','The real numbers'],['k7','Radicals'],['ext','Extension · Scientific notation']],v:34},
  {k:'ch03',cn:'Position & Coordinates',en:'Position & Coordinates',p:5,c:'#059669',
-  L:[['k1','Locating points'],['k2','The coordinate plane'],['k3','Reflections and coordinates'],['ext','拓展·平移旋转缩放']],v:13},
+  L:[['k1','Locating points'],['k2','The coordinate plane'],['k3','Reflections and coordinates'],['ext','Extension · Translations, rotations, dilations']],v:13},
  {k:'ch04',cn:'Linear Functions',en:'Linear Functions',p:7,c:'#d97706',
   L:[['k1','What is a function?'],['k2','Linear and proportional functions'],['k3','Graphs: slope and intercept'],['k4','Applications']],v:56},
  {k:'ch05',cn:'Systems of Equations',en:'Systems of Equations',p:9,c:'#dc2626',
@@ -206,7 +206,7 @@ document.getElementById('chs').innerHTML=CH.map((c,i)=>{
  const s=ST[i];
  const pct=Math.round(s.pct*100);
  const kps=c.L.map(([id,name],j)=>`<span class="kp l${s.lv[j]}" title="${LVN[s.lv[j]]}">${name}</span>`).join('');
- const t=s.test?`<span class="badge ${s.test.ok/s.test.tot>=0.7?'ok':'warn'}">chapter test ${s.test.ok}/${s.test.tot}</span>`:'<span class="badge">章末测还没做</span>';
+ const t=s.test?`<span class="badge ${s.test.ok/s.test.tot>=0.7?'ok':'warn'}">chapter test ${s.test.ok}/${s.test.tot}</span>`:'<span class="badge">Chapter test not taken</span>';
  const m=s.lv.filter(x=>x===4).length;
  return `<div class="ch">
   <div class="top" style="background:${c.c}">
@@ -215,7 +215,7 @@ document.getElementById('chs').innerHTML=CH.map((c,i)=>{
   </div>
   <div class="body">
    <div class="pbar"><div style="width:${pct}%;background:${c.c}"></div></div>
-   <div style="font-size:12px;color:var(--muted)">${pct}% · 视频 ${s.vw}/${c.v} · 练习 ${s.tot?s.ok+'/'+s.tot:'not practised yet'}</div>
+   <div style="font-size:12px;color:var(--muted)">${pct}% · videos ${s.vw}/${c.v} · practice ${s.tot?s.ok+'/'+s.tot:'not practised yet'}</div>
    <div class="klist">${kps}</div>
    <div class="mrow"><span>${t}</span><span>${c.p} periods</span></div>
    <div class="btns">
@@ -239,9 +239,9 @@ function go(k,isTest){
   const ready=u.ch.map(k=>{const c=CH.find(x=>x.k===k);return ST[CH.indexOf(c)].pct;}).reduce((a,b)=>a+b,0)/u.ch.length;
   const best=st&&st.best!=null?`${st.best}/${u.q}`:'—';
   const last=st?`${st.ok}/${st.tot}`:'—';
-  const lvlTxt=st?(st.ok/u.q>=0.8?'<span class="badge ok">Excellent</span>':(st.ok/u.q>=0.6?'<span class="badge warn">还行</span>':'<span class="badge lock">再练练</span>')):'<span class="badge">还没挑战</span>';
+  const lvlTxt=st?(st.ok/u.q>=0.8?'<span class="badge ok">Excellent</span>':(st.ok/u.q>=0.6?'<span class="badge warn">Fair</span>':'<span class="badge lock">More practice</span>')):'<span class="badge">Not attempted</span>';
   const readyTxt=ready>=0.6?'<span class="badge ok">Ready to try</span>':'<span class="badge warn">Finish the chapters first</span>';
-  return `<tr><td><b>${u.n}</b> ${u.cn}<br><span style="font-size:11px;color:var(--muted)">${u.ch.map(k=>'Chapter '+(CH.findIndex(x=>x.k===k)+1)+' 章').join(' · ')}</span></td>
+  return `<tr><td><b>${u.n}</b> ${u.cn}<br><span style="font-size:11px;color:var(--muted)">${u.ch.map(k=>'Chapter '+(CH.findIndex(x=>x.k===k)+1)).join(' · ')}</span></td>
    <td style="font-size:12px">${u.q} questions</td>
    <td>${readyTxt} ${lvlTxt}</td><td>${last}</td><td>${best}</td>
    <td><button class="sm" onclick="location.href='unittests.html?u=${u.id}'">Start</button></td></tr>`;
@@ -272,7 +272,7 @@ document.getElementById('impBtn').onclick=()=>{
  };r.readAsText(f);
 };
 document.getElementById('clr').onclick=()=>{
- if(!confirm('确定Clear all progress？建议先导出备份。'))return;
+ if(!confirm('Clear all progress? Export a backup first, then confirm.'))return;
  CH.forEach(c=>localStorage.removeItem('bnu8_'+c.k+'_state'));
  ['bnu8_unit_state','bnu8_wrong','bnu8_last'].forEach(k=>localStorage.removeItem(k));
  say('Cleared','var(--ok)');setTimeout(()=>location.reload(),800);
