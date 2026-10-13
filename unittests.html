@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>升级挑战 · 综合大考 · 八上数学</title>
+<title>Level-up challenges · Grade 8 math</title>
 <style>
 :root{
  --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
@@ -57,23 +57,23 @@ th{font-size:11px;color:var(--muted);font-weight:600}
 <body>
 
 <div class="topbar">
- <a href="index.html">← 我的学习地图</a>
- <a href="unittests.html">升级挑战</a>
- <span style="margin-left:auto;font-size:11px;color:var(--muted)">内容来源 Khan Academy · CC BY-NC-SA</span>
+ <a href="index.html">← My learning map</a>
+ <a href="unittests.html">Level-up challenges</a>
+ <span style="margin-left:auto;font-size:11px;color:var(--muted)">Content from Khan Academy · CC BY-NC-SA</span>
 </div>
 
 <div class="wrap">
 <header>
- <h1>🏆 升级挑战</h1>
- <p>把一章学过的几节混到一起考 —— 通过就能解锁下一个</p>
- <p style="margin-top:6px;font-size:12px">每关 10 道题（期末大挑战 12 道）· 第一次答错给提示，第二次答错给完整解法，并自动进错题本</p>
+ <h1>🏆 Level-up challenges</h1>
+ <p>Mixes sections from one chapter — pass it to unlock the next.</p>
+ <p style="margin-top:6px;font-size:12px">10 questions per level (12 for the final). Miss once and you get a hint; miss twice and you get the full solution, and it goes into your review list.</p>
 </header>
 <nav id="nav"></nav>
 <main id="main"></main>
 </div>
 
 <script>
-/* ================= 工具 ================= */
+/* ================= Helpers ================= */
 function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 function pick(a){return a[Math.floor(Math.random()*a.length)];}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=a[i];a[i]=a[j];a[j]=t;}return a;}
@@ -93,239 +93,239 @@ function isRight(qq,v){
  return Math.abs(x-parseFloat(qq.ans))<1e-6;
 }
 
-/* ================= U1 · 实数与根式 (Ch01 + Ch02) ================= */
+/* ================= U1 · Real numbers and radicals (Ch01 + Ch02) ================= */
 const TRIPLES=[[3,4,5],[5,12,13],[6,8,10],[8,15,17],[9,12,15],[7,24,25],[10,24,26],[12,16,20],[15,20,25],[9,40,41]];
 const G1=[
- ()=>{const m=ri(2,20),n=m*m;return mkNum(`√${n} = ?`,`${n} 的算术平方根（平方根取正的那个）`,m,
+ ()=>{const m=ri(2,20),n=m*m;return mkNum(`√${n} = ?`,`${n}  — its principal square root (the positive one)`,m,
    `Which number, multiplied by itself, gives ${n}?`,`${m} × ${m} = ${n}  ⟹  √${n} = ${m}`);},
- ()=>{const m=ri(2,10),n=m*m*m;return mkNum(`∛${n} = ?`,`${n} 的立方根`,m,
+ ()=>{const m=ri(2,10),n=m*m*m;return mkNum(`∛${n} = ?`,`${n}  — its cube root`,m,
    `Which number, cubed, gives ${n}?`,`${m}³ = ${n}  ⟹  ∛${n} = ${m}`);},
  ()=>{const m=ri(2,15),n=m*m+ri(1,2*m);return mkNum(`Between which two consecutive whole numbers does √${n} lie? Give the SMALLER one.`,
-   `√${n} 在哪两个连续整数之间？给出较小的那个`,m,
+   `√${n}  lies between which two consecutive integers? Give the smaller one`,m,
    `Compare ${n} with the perfect squares around it.`,`${m*m} < ${n} < ${(m+1)*(m+1)}  ⟹  ${m} < √${n} < ${m+1}`);},
  ()=>{const m=ri(2,6),n=m*m*m+ri(1,3*m*m+3*m);return mkNum(`Between which two consecutive whole numbers does ∛${n} lie? Give the SMALLER one.`,
-   `∛${n} 在哪两个连续整数之间？给出较小的那个`,m,
+   `∛${n}  lies between which two consecutive integers? Give the smaller one`,m,
    `Compare ${n} with the perfect cubes around it.`,`${m*m*m} < ${n} < ${(m+1)*(m+1)*(m+1)}  ⟹  ${m} < ∛${n} < ${m+1}`);},
  ()=>{const pool=[['√2',1],['√16',0],['π',1],['22/7',0],['0.1010010001… (pattern, never repeats)',1],['-√9',0],['√5',1],['1.414',0],['√7',1],['0.333… (0.3 repeating)',0],['√25',0],['2π',1]];
    const sel=shuffle(pool).slice(0,5);const cnt=sel.filter(x=>x[1]).length;
-   return mkNum(`How many of these 5 numbers are IRRATIONAL (无理数)?  ${sel.map((x,i)=>'('+(i+1)+') '+x[0]).join('   ')}`,
-    `下面 5 个数里有几个是无理数？`,cnt,
+   return mkNum(`How many of these 5 numbers are irrational?  ${sel.map((x,i)=>'('+(i+1)+') '+x[0]).join('   ')}`,
+    `How many of these 5 numbers are irrational?`,cnt,
     `A rational number is a fraction of two integers (or a terminating / repeating decimal). √ of a non-perfect-square and π are irrational.`,
-    sel.map(x=>x[0]+' → '+(x[1]?'irrational 无理':'rational 有理')).join('\n')+`\ncount = ${cnt}`);},
+    sel.map(x=>x[0]+' → '+(x[1]?'irrational':'rational')).join('\n')+`\ncount = ${cnt}`);},
  ()=>{const t=pick(TRIPLES);const hide=ri(0,2);
-   if(hide===2)return mkNum(`A right triangle has legs ${t[0]} and ${t[1]}. Find the hypotenuse.`,`直角三角形两直角边 ${t[0]}、${t[1]}，求斜边`,t[2],
+   if(hide===2)return mkNum(`A right triangle has legs ${t[0]} and ${t[1]}. Find the hypotenuse.`,`A right triangle has legs ${t[0]} and ${t[1]}; find the hypotenuse`,t[2],
      `a² + b² = c²`,`c² = ${t[0]}² + ${t[1]}² = ${t[0]*t[0]+t[1]*t[1]} = ${t[2]*t[2]}  ⟹  c = ${t[2]}`);
    return mkNum(`A right triangle has one leg ${hide===0?t[1]:t[0]} and hypotenuse ${t[2]}. Find the other leg.`,
-     `直角三角形一条直角边 ${hide===0?t[1]:t[0]}，斜边 ${t[2]}，求另一条直角边`,hide===0?t[0]:t[1],
+     `One leg is ${hide===0?t[1]:t[0]} and the hypotenuse is ${t[2]}; find the other leg`,hide===0?t[0]:t[1],
      `a² + b² = c², so leg² = c² - (known leg)²`,
      `x² = ${t[2]}² − ${(hide===0?t[1]:t[0])}² = ${t[2]*t[2]-(hide===0?t[1]*t[1]:t[0]*t[0])}  ⟹  x = ${hide===0?t[0]:t[1]}`);},
  ()=>{const t=pick(TRIPLES);return mkNum(`A ${t[2]}-metre ladder leans against a wall. Its foot is ${t[0]} m from the wall. How high up the wall does it reach?`,
-   `长 ${t[2]} m 的梯子斜靠墙上，梯脚离墙 ${t[0]} m，求梯子顶端离地高度`,t[1],
+   `A ${t[2]} m ladder leans on a wall, its foot ${t[0]} m from the wall. How high does it reach?`,t[1],
    `The wall, the ground and the ladder form a right triangle.`,`h² = ${t[2]}² − ${t[0]}² = ${t[2]*t[2]-t[0]*t[0]} = ${t[1]*t[1]}  ⟹  h = ${t[1]} m`);},
  ()=>{const right=Math.random()<0.5;const t=pick(TRIPLES);const c=right?t[2]:t[2]+1;
    return mkChoice(`A triangle has sides ${t[0]}, ${t[1]} and ${c}. Is it a right triangle?`,
-     `三边为 ${t[0]}、${t[1]}、${c} 的三角形是直角三角形吗？（勾股定理逆定理）`,
+     `Do sides ${t[0]}, ${t[1]}, ${c} make a right triangle? (converse of the theorem)`,
      ['Yes','No'],right?0:1,
      `Check whether (smallest)² + (middle)² equals (largest)². The largest side is ${Math.max(t[0],t[1],c)}.`,
      `${t[0]}² + ${t[1]}² = ${t[0]*t[0]+t[1]*t[1]}  vs  ${c}² = ${c*c}\n${t[0]*t[0]+t[1]*t[1]===c*c?'equal ⟹ right triangle':'not equal ⟹ NOT a right triangle'}`);},
  ()=>{const a=ri(2,9),b=ri(2,9);return mkNum(`A right triangle has legs ${a} and ${b}. What is c² (the square of the hypotenuse)?`,
-   `直角三角形两直角边 ${a}、${b}，斜边的平方 c² = ?`,a*a+b*b,
+   `The legs are ${a} and ${b}; what is c², the square of the hypotenuse?`,a*a+b*b,
    `You do not need to take the square root — the question asks for c².`,`c² = ${a}² + ${b}² = ${a*a} + ${b*b} = ${a*a+b*b}`);},
  ()=>{const L=[[12,2,3],[18,3,2],[20,2,5],[27,3,3],[32,4,2],[45,3,5],[50,5,2],[75,5,3],[48,4,3],[8,2,2]];const x=pick(L);
-   return mkNum(`Simplify: √${x[0]} = a√${x[2]}. Find a.`,`化简二次根式：√${x[0]} = a√${x[2]}，求 a`,x[1],
+   return mkNum(`Simplify: √${x[0]} = a√${x[2]}. Find a.`,`Simplify the radical: √${x[0]} = a√${x[2]}. Find a.`,x[1],
      `Factor out the largest perfect square from ${x[0]}.`,`√${x[0]} = √(${x[1]*x[1]}×${x[2]}) = ${x[1]}√${x[2]}  ⟹  a = ${x[1]}`);},
  ()=>{const L=[[2,8,4],[3,12,6],[2,18,6],[5,20,10],[3,27,9],[2,32,8],[6,24,12],[7,28,14]];const x=pick(L);
-   return mkNum(`Compute: √${x[0]} × √${x[1]} = ?`,`计算二次根式乘法：√${x[0]} × √${x[1]} = ?`,x[2],
+   return mkNum(`Compute: √${x[0]} × √${x[1]} = ?`,`Compute √${x[0]} × √${x[1]}.`,x[2],
      `√a × √b = √(ab).`,`√${x[0]} × √${x[1]} = √${x[0]*x[1]} = ${x[2]}`);},
  ()=>{const m=ri(1,9),e=ri(-6,6);const val=e<0?('0.'+'0'.repeat(-e-1)+m):(m+'0'.repeat(e));
-   return mkNum(`Write ${val} in scientific notation a × 10ⁿ. What is n?`,`把 ${val} 写成科学计数法 a × 10ⁿ，求指数 n`,e,
+   return mkNum(`Write ${val} in scientific notation a × 10ⁿ. What is n?`,`Write ${val} as a × 10ⁿ. What is n?`,e,
      `Move the decimal point so that 1 ≤ a < 10; count the moves. Left = positive n, right = negative n.`,
      `${val} = ${m} × 10^(${e})  ⟹  n = ${e}`);},
  ()=>mkChoice(`Every point on a number line corresponds to exactly one ___ number.`,
-   `数轴上的每一个点都唯一对应一个___数（实数与数轴一一对应）`,
-   ['rational 有理','irrational 无理','real 实','whole 非负整数'],2,
-   `Rational numbers alone leave "holes" on the line (e.g. √2).`,`有理数 + 无理数 = 实数，实数与数轴上的点一一对应 ⟹ real`),
+   `Every point on the number line matches exactly one ___ number.`,
+   ['rational','irrational','real','whole'],2,
+   `Rational numbers alone leave "holes" on the line (e.g. √2).`,`Rationals + irrationals = reals, matching points on the line one to one ⟹ real`),
 ];
 
-/* ================= U2 · 一次函数与方程组 (Ch04 + Ch05) ================= */
+/* ================= U2 · Linear functions and systems (Ch04 + Ch05) ================= */
 const G2=[
  ()=>{const x1=ri(-5,5),y1=ri(-5,5),dx=ri(1,5),k=ri(-4,4);
    return mkNum(`Find the slope of the line through (${x1}, ${y1}) and (${x1+dx}, ${y1+k*dx}).`,
-     `过点 (${x1}, ${y1}) 与 (${x1+dx}, ${y1+k*dx}) 的直线，斜率 k = ?`,k,
+     `The line through (${x1}, ${y1}) and (${x1+dx}, ${y1+k*dx}) has slope k = ?`,k,
      `slope = (y₂ − y₁) / (x₂ − x₁)`,`k = (${y1+k*dx} − (${y1})) / (${x1+dx} − (${x1})) = ${k*dx} / ${dx} = ${k}`);},
  ()=>{const k=ri(-4,4)||2,x0=ri(-5,5),b=ri(-8,8),y0=k*x0+b;
-   return mkNum(`The line y = ${k}x + b passes through (${x0}, ${y0}). Find b.`,`直线 y = ${k}x + b 经过 (${x0}, ${y0})，求 b`,b,
+   return mkNum(`The line y = ${k}x + b passes through (${x0}, ${y0}). Find b.`,`The line y = ${k}x + b passes through (${x0}, ${y0}). Find b.`,b,
      `Plug the point in: y = kx + b  ⟹  b = y − kx.`,`b = ${y0} − ${k}×(${x0}) = ${y0} − ${k*x0} = ${b}`);},
  ()=>{const k=ri(-4,4)||3,b=ri(-6,6),x0=ri(1,6),ok=Math.random()<0.5,y=k*x0+b+(ok?0:pick([1,-1,2,-2]));
    return mkChoice(`Is the point (${x0}, ${y}) on the graph of y = ${k}x ${b>=0?'+ '+b:'− '+Math.abs(b)}?`,
-     `点 (${x0}, ${y}) 在直线 y = ${k}x ${b>=0?'+ '+b:'− '+Math.abs(b)} 上吗？`,['Yes','No'],ok?0:1,
+     `Is the point (${x0}, ${y}) on the line y = ${k}x ${b>=0?'+ '+b:'− '+Math.abs(b)}?`,['Yes','No'],ok?0:1,
      `Substitute x and see whether the computed y matches.`,
      `when x = ${x0}:  y = ${k}×${x0} ${b>=0?'+':'−'} ${Math.abs(b)} = ${k*x0+b}\ngiven y = ${y}  ⟹  ${ok?'matches ⟹ Yes':'does not match ⟹ No'}`);},
  ()=>{const k=ri(-4,4)||2,b=ri(-6,6),x0=ri(-5,6);
    return mkNum(`For the function y = ${k}x ${b>=0?'+ '+b:'− '+Math.abs(b)}, what is y when x = ${x0}?`,
-     `函数 y = ${k}x ${b>=0?'+ '+b:'− '+Math.abs(b)}，当 x = ${x0} 时 y = ?`,k*x0+b,
+     `For y = ${k}x ${b>=0?'+ '+b:'− '+Math.abs(b)}, what is y when x = ${x0}?`,k*x0+b,
      `Replace x by ${x0} and compute.`,`y = ${k}×(${x0}) ${b>=0?'+':'−'} ${Math.abs(b)} = ${k*x0} ${b>=0?'+':'−'} ${Math.abs(b)} = ${k*x0+b}`);},
  ()=>{const k=ri(-5,5)||2,b=ri(-6,6);
    return mkNum(`A line is parallel to y = ${k}x ${b>=0?'+ '+b:'− '+Math.abs(b)}. What is its slope?`,
-     `与直线 y = ${k}x ${b>=0?'+ '+b:'− '+Math.abs(b)} 平行的直线，斜率是多少？`,k,
-     `Parallel lines have equal slopes.`,`平行 ⟹ k 相等 ⟹ slope = ${k}`);},
+     `A line parallel to y = ${k}x ${b>=0?'+ '+b:'− '+Math.abs(b)} has what slope?`,k,
+     `Parallel lines have equal slopes.`,`Parallel means equal slopes ⟹ slope = ${k}`);},
  ()=>{const x=ri(-9,9),y=ri(-9,9);
-   return mkNum(`Solve:  x + y = ${x+y},  x − y = ${x-y}.  Find x.`,`解方程组：x + y = ${x+y}，x − y = ${x-y}，求 x`,x,
-     `Add the two equations — y cancels.`,`相加：2x = ${(x+y)+(x-y)}  ⟹  x = ${x}`);},
+   return mkNum(`Solve:  x + y = ${x+y},  x − y = ${x-y}.  Find x.`,`Solve x + y = ${x+y} and x − y = ${x-y}. Find x.`,x,
+     `Add the two equations — y cancels.`,`Adding: 2x = ${(x+y)+(x-y)}  ⟹  x = ${x}`);},
  ()=>{const a=ri(2,4),b=ri(2,4),x=ri(-9,9),y=ri(-9,9);const A=a*x+b*y,B=a*x-b*y;
    return mkNum(`Solve:  ${a}x + ${b}y = ${A},  ${a}x − ${b}y = ${B}.  Find x.`,
-     `加减消元法：${a}x + ${b}y = ${A}，${a}x − ${b}y = ${B}，求 x`,x,
-     `The y-terms are opposites: add to eliminate y.`,`相加：${2*a}x = ${A+B}  ⟹  x = ${A+B} / ${2*a} = ${x}`);},
+     `By elimination: ${a}x + ${b}y = ${A}, ${a}x − ${b}y = ${B}. Find x.`,x,
+     `The y-terms are opposites: add to eliminate y.`,`Adding: ${2*a}x = ${A+B}  ⟹  x = ${A+B} / ${2*a} = ${x}`);},
  ()=>{let a,b,c,d;do{a=ri(1,4);b=ri(1,4);c=ri(1,4);d=ri(1,4);}while(a*d===b*c);
    const x0=ri(-9,9),y0=ri(-9,9),e=a*x0+b*y0,f=c*x0+d*y0;
    return mkNum(`Solve the system:  ${a}x + ${b}y = ${e}   and   ${c}x + ${d}y = ${f}.  Find x.`,
-     `解方程组：${a}x + ${b}y = ${e}，${c}x + ${d}y = ${f}，求 x`,x0,
+     `Solve ${a}x + ${b}y = ${e} and ${c}x + ${d}y = ${f}. Find x.`,x0,
      `Eliminate y: multiply the first equation by ${d} and the second by ${b}, then subtract.`,
-     `×${d}: ${a*d}x + ${b*d}y = ${e*d}\n×${b}: ${b*c}x + ${b*d}y = ${f*b}\n相减: ${a*d-b*c}x = ${e*d-f*b}  ⟹  x = ${x0}`);},
+     `×${d}: ${a*d}x + ${b*d}y = ${e*d}\n×${b}: ${b*c}x + ${b*d}y = ${f*b}\nsubtract:  ${a*d-b*c}x = ${e*d-f*b}  ⟹  x = ${x0}`);},
  ()=>{const r=ri(2,20),c=ri(2,20),H=r+c,F=4*r+2*c;
    return mkNum(`鸡兔同笼 · ${H} heads and ${F} feet in total. How many rabbits?`,
-     `鸡兔同笼：共 ${H} 个头、${F} 只脚，兔子有几只？`,r,
+     `Chickens and rabbits: ${H} heads and ${F} feet in total. How many rabbits?`,r,
      `Let r = rabbits, c = chickens. r + c = heads, 4r + 2c = feet.`,
-     `r + c = ${H},  4r + 2c = ${F}\n相减：2r = ${F} − 2×${H} = ${F-2*H}  ⟹  r = ${r}`);},
+     `r + c = ${H},  4r + 2c = ${F}\nsubtracting: 2r = ${F} − 2×${H} = ${F-2*H}  ⟹  r = ${r}`);},
  ()=>{const p=pick([10,20,25,50]),base=ri(20,90)*100,now=base*(100+p)/100;
    return mkNum(`增收节支 · This year's income is ${now} yuan, which is ${p}% more than last year. What was last year's income?`,
-     `增收节支：今年收入 ${now} 元，比去年增收 ${p}%，去年收入多少元？`,base,
+     `Income this year is ${now} yuan, ${p}% more than last year. What was it last year?`,base,
      `this year = last year × (1 + p%). So last year = this year ÷ (1 + p%).`,
-     `去年 × ${(100+p)/100} = ${now}  ⟹  去年 = ${now} ÷ ${(100+p)/100} = ${base} 元`);},
+     `last year × ${(100+p)/100} = ${now}  ⟹  last year = ${now} ÷ ${(100+p)/100} = ${base} yuan`);},
  ()=>{let a,b;do{a=ri(2,9);b=ri(1,9);}while(a<=b);const s=a+b,D=9*(a-b);
    return mkNum(`里程碑上的数 · A two-digit number: its tens digit and ones digit add to ${s}. Swapping the two digits gives a number ${D} SMALLER than the original. Find the original number.`,
-     `里程碑：一个两位数，十位与个位数字之和为 ${s}；交换十位与个位后，新数比原数小 ${D}。求原数`,10*a+b,
+     `A two-digit number has digits summing to ${s}; swapping them gives a number ${D} smaller. Find the original.`,10*a+b,
      `Let tens = a, ones = b. Number = 10a + b. Swapped = 10b + a. Original − swapped = 9(a − b).`,
-     `a + b = ${s},  9(a − b) = ${D} ⟹ a − b = ${a-b}\n联立：a = ${a}, b = ${b}  ⟹  原数 = ${10*a+b}`);},
+     `a + b = ${s},  9(a − b) = ${D} ⟹ a − b = ${a-b}\nsolving: a = ${a}, b = ${b}  ⟹  the number = ${10*a+b}`);},
  ()=>{let k1,k2;do{k1=ri(-4,4);k2=ri(-4,4);}while(k1===k2);
    const x0=ri(-6,6),y0=ri(-6,6),b1=y0-k1*x0,b2=y0-k2*x0;
    const s1=b1>=0?'+ '+b1:'− '+Math.abs(b1),s2=b2>=0?'+ '+b2:'− '+Math.abs(b2);
    return mkNum(`The lines y = ${k1}x ${s1} and y = ${k2}x ${s2} intersect. What is the x-coordinate of the intersection point?`,
-     `直线 y = ${k1}x ${b1>=0?'+ '+b1:'− '+Math.abs(b1)} 与 y = ${k2}x ${b2>=0?'+ '+b2:'− '+Math.abs(b2)} 的交点横坐标 = ?`,x0,
+     `The lines y = ${k1}x ${b1>=0?'+ '+b1:'− '+Math.abs(b1)} and y = ${k2}x ${b2>=0?'+ '+b2:'− '+Math.abs(b2)} meet at x = ?`,x0,
      `Set the two expressions for y equal and solve for x.`,
      `${k1}x + (${b1}) = ${k2}x + (${b2})\n${k1-k2}x = ${b2-b1}  ⟹  x = ${x0}`);},
  ()=>{const x1=ri(-5,4),y1=ri(-5,5),dx=ri(1,4),k=ri(-4,4)||3;const x2=x1+dx,y2=y1+k*dx,b=y1-k*x1;
    return mkNum(`A line passes through (${x1}, ${y1}) and (${x2}, ${y2}). Write it as y = kx + b and find b.`,
-     `用待定系数法：直线过 (${x1}, ${y1})、(${x2}, ${y2})，写成 y = kx + b，求 b`,b,
+     `The line through (${x1}, ${y1}) and (${x2}, ${y2}) is y = kx + b. Find b.`,b,
      `First find k = (y₂ − y₁)/(x₂ − x₁), then b = y₁ − kx₁.`,
      `k = (${y2} − (${y1}))/(${x2} − (${x1})) = ${k*dx}/${dx} = ${k}\nb = ${y1} − ${k}×(${x1}) = ${b}`);},
 ];
 
-/* ================= U3 · 几何与坐标 (Ch03 + Ch07) ================= */
+/* ================= U3 · Geometry and coordinates (Ch03 + Ch07) ================= */
 const G3=[
  ()=>{let a,b;do{a=ri(-9,9);b=ri(-9,9);}while(a===0||b===0);
    const ci=(a>0&&b>0)?0:(a<0&&b>0)?1:(a<0&&b<0)?2:3;
-   return mkChoice(`Which quadrant contains the point (${a}, ${b})?`,`点 (${a}, ${b}) 在第几象限？`,
+   return mkChoice(`Which quadrant contains the point (${a}, ${b})?`,`Which quadrant is the point (${a}, ${b}) in?`,
      ['I (+,+)','II (−,+)','III (−,−)','IV (+,−)'],ci,
      `Sign of x decides left/right; sign of y decides up/down.`,
      `x = ${a} (${a>0?'right':'left'}), y = ${b} (${b>0?'up':'down'})  ⟹  Quadrant ${['I','II','III','IV'][ci]}`);},
  ()=>{const a=ri(-9,9),b=ri(-9,9);
-   return mkNum(`Point P(${a}, ${b}) is reflected across the x-axis (关于 x 轴对称). What is the y-coordinate of P′?`,
-     `点 P(${a}, ${b}) 关于 x 轴对称，对称点 P′ 的纵坐标 = ?`,-b,
-     `Across the x-axis: x stays, y changes sign.`,`关于 x 轴对称：(x, y) → (x, −y)  ⟹  P′ = (${a}, ${-b})`);},
+   return mkNum(`Point P(${a}, ${b}) is reflected across the x-axis (across the x-axis). What is the y-coordinate of P′?`,
+     `P(${a}, ${b}) is reflected across the x-axis. The y-coordinate of P′ = ?`,-b,
+     `Across the x-axis: x stays, y changes sign.`,`Across the x-axis: (x, y) → (x, −y)  ⟹  P′ = (${a}, ${-b})`);},
  ()=>{const a=ri(-9,9),b=ri(-9,9);
-   return mkNum(`Point P(${a}, ${b}) is reflected across the y-axis (关于 y 轴对称). What is the x-coordinate of P′?`,
-     `点 P(${a}, ${b}) 关于 y 轴对称，对称点 P′ 的横坐标 = ?`,-a,
-     `Across the y-axis: y stays, x changes sign.`,`关于 y 轴对称：(x, y) → (−x, y)  ⟹  P′ = (${-a}, ${b})`);},
+   return mkNum(`Point P(${a}, ${b}) is reflected across the y-axis (across the y-axis). What is the x-coordinate of P′?`,
+     `P(${a}, ${b}) is reflected across the y-axis. The x-coordinate of P′ = ?`,-a,
+     `Across the y-axis: y stays, x changes sign.`,`Across the y-axis: (x, y) → (−x, y)  ⟹  P′ = (${-a}, ${b})`);},
  ()=>{const a=ri(-9,9),b=ri(-9,9);
-   return mkNum(`Point P(${a}, ${b}) is reflected through the origin (关于原点对称). What is the x-coordinate of P′?`,
-     `点 P(${a}, ${b}) 关于原点对称，对称点 P′ 的横坐标 = ?`,-a,
-     `Through the origin: both coordinates change sign.`,`关于原点对称：(x, y) → (−x, −y)  ⟹  P′ = (${-a}, ${-b})`);},
+   return mkNum(`Point P(${a}, ${b}) is reflected through the origin (through the origin). What is the x-coordinate of P′?`,
+     `P(${a}, ${b}) is reflected through the origin. The x-coordinate of P′ = ?`,-a,
+     `Through the origin: both coordinates change sign.`,`Through the origin: (x, y) → (−x, −y)  ⟹  P′ = (${-a}, ${-b})`);},
  ()=>{const a=ri(-9,9),b=ri(-9,9),m=ri(1,8),n=ri(1,8);
    return mkNum(`Point P(${a}, ${b}) is translated ${m} units right and ${n} units down. What is the x-coordinate of the new point?`,
-     `点 P(${a}, ${b}) 向右平移 ${m}、向下平移 ${n}，新点横坐标 = ?`,a+m,
+     `P(${a}, ${b}) moves right ${m} and down ${n}. The new x-coordinate = ?`,a+m,
      `Right means x increases; down means y decreases.`,`(x, y) → (x + ${m}, y − ${n})  ⟹  x′ = ${a} + ${m} = ${a+m}`);},
- ()=>{const R=pick([['corresponding','同位角',0],['alternate interior angle','内错角',0],['co-interior angle','同旁内角',1]]);
+ ()=>{const R=pick([['corresponding','corresponding',0],['alternate interior angle','alternate interior angle',0],['co-interior angle','co-interior angle',1]]);
    const x=ri(30,150),sup=R[2]===1,ans=sup?180-x:x;
    return mkNum(`Two parallel lines are cut by a transversal. One angle is ${x}°. What is its ${R[0]}?`,
-     `两直线平行，被第三条直线所截。其中一个角是 ${x}°，它的${R[1]} = ?`,ans,
+     `Two parallel lines are cut by a third. One angle is ${x}°; its ${R[1]} = ?`,ans,
      sup?'Co-interior angles are supplementary (add to 180°).':'Corresponding and alternate interior angles are EQUAL when the lines are parallel.',
-     sup?`两直线平行，同旁内角互补：180° − ${x}° = ${180-x}°`:`两直线平行，${R[1]}相等 ⟹ ${x}°`);},
- ()=>{const R=pick([['corresponding angles are equal','同位角相等',0],['alternate interior angles are equal','内错角相等',1],['co-interior angles are supplementary','同旁内角互补',2]]);
+     sup?`Parallel lines: co-interior angles sum to 180°, so 180° − ${x}° = ${180-x}°`:`Parallel lines: ${R[1]} are equal ⟹ ${x}°`);},
+ ()=>{const R=pick([['corresponding angles are equal','corresponding angles are equal',0],['alternate interior angles are equal','alternate interior angles are equal',1],['co-interior angles are supplementary','同旁内角互补',2]]);
    return mkChoice(`Two lines are cut by a transversal, and their ${R[0]}. Are the two lines parallel?`,
-     `两条直线被第三条直线所截，${R[1]}。这两条直线平行吗？`,['Yes','No'],0,
-     `These are exactly the three 判定 (judgement) conditions for parallel lines.`,
-     `平行线的判定：同位角相等 / 内错角相等 / 同旁内角互补  ⟹  两直线平行 ⟹ Yes`);},
+     `Two lines are cut by a third; ${R[1]}. Are the two lines parallel?`,['Yes','No'],0,
+     `These are exactly the three tests for parallel lines.`,
+     `The tests: corresponding equal, or alternate interior equal, or co-interior supplementary ⟹ parallel ⟹ Yes`);},
  ()=>{let A,B;do{A=ri(30,90);B=ri(30,80);}while(A+B>=170);
-   return mkNum(`In a triangle, ∠A = ${A}° and ∠B = ${B}°. Find ∠C.`,`三角形中 ∠A = ${A}°，∠B = ${B}°，求 ∠C`,180-A-B,
+   return mkNum(`In a triangle, ∠A = ${A}° and ∠B = ${B}°. Find ∠C.`,`In a triangle ∠A = ${A}° and ∠B = ${B}°. Find ∠C.`,180-A-B,
      `The three angles of a triangle sum to 180°.`,`∠C = 180° − ${A}° − ${B}° = ${180-A-B}°`);},
  ()=>{const A=ri(30,80),B=ri(30,80);
    return mkNum(`In a triangle, two remote interior angles are ${A}° and ${B}°. What is the exterior angle at the third vertex?`,
-     `三角形两个不相邻的内角分别为 ${A}°、${B}°，对应的外角 = ?`,A+B,
-     `An exterior angle equals the sum of the two remote interior angles.`,`外角 = ${A}° + ${B}° = ${A+B}°`);},
+     `Two remote interior angles are ${A}° and ${B}°; the matching exterior angle = ?`,A+B,
+     `An exterior angle equals the sum of the two remote interior angles.`,`Exterior = ${A}° + ${B}° = ${A+B}°`);},
  ()=>{const v=ri(10,70)*2;
    return mkNum(`An isosceles triangle has a vertex angle of ${v}°. What is each base angle?`,
-     `等腰三角形顶角 ${v}°，每个底角 = ?`,(180-v)/2,
-     `Base angles are equal, and all three sum to 180°.`,`底角 = (180° − ${v}°) / 2 = ${(180-v)/2}°`);},
+     `An isosceles triangle has vertex angle ${v}°; each base angle = ?`,(180-v)/2,
+     `Base angles are equal, and all three sum to 180°.`,`Base angle = (180° − ${v}°) / 2 = ${(180-v)/2}°`);},
  ()=>{const x=ri(20,160),askV=Math.random()<0.5;
-   return mkNum(`Two straight lines intersect. One angle is ${x}°. What is its ${askV?'vertical (对顶)':'adjacent (邻补)'} angle?`,
-     `两直线相交，其中一个角 ${x}°，它的${askV?'对顶角':'邻补角'} = ?`,askV?x:180-x,
+   return mkNum(`Two straight lines intersect. One angle is ${x}°. What is its ${askV?'vertical':'adjacent'} angle?`,
+     `Two lines intersect; one angle is ${x}°. Its ${askV?'vertical':'adjacent'} angle = ?`,askV?x:180-x,
      askV?'Vertical angles are equal.':'Adjacent angles on a straight line add to 180°.',
-     askV?`对顶角相等 ⟹ ${x}°`:`邻补角互补：180° − ${x}° = ${180-x}°`);},
+     askV?`Vertical angles are equal ⟹ ${x}°`:`Adjacent angles sum to 180°: 180° − ${x}° = ${180-x}°`);},
  ()=>{const onY=Math.random()<0.5;const c=ri(1,9);const pt=onY?`(0, ${c})`:`(${c}, 0)`;
    return mkChoice(`Where does the point ${pt} lie?`,
-     `点 ${pt} 在什么地方？`,['on the x-axis 在 x 轴上','on the y-axis 在 y 轴上','in quadrant I','at the origin'],onY?1:0,
+     `Where is the point ${pt}?`,['on the x-axis','on the y-axis','in quadrant I','at the origin'],onY?1:0,
      `A point on the x-axis has y = 0; a point on the y-axis has x = 0.`,
-     onY?`x = 0 ⟹ 在 y 轴上`:`y = 0 ⟹ 在 x 轴上`);},
+     onY?`x = 0 ⟹ on the y-axis`:`y = 0 ⟹ on the x-axis`);},
 ];
 
-/* ================= U4 · 数据的分析 (Ch06) ================= */
+/* ================= U4 · Data analysis (Ch06) ================= */
 function mkData(n,mean,spread){const d=[];let s=0;for(let i=0;i<n-1;i++){const v=ri(mean-spread,mean+spread);d.push(v);s+=v;}d.push(n*mean-s);return d;}
 const G4=[
  ()=>{const n=ri(3,6),m=ri(5,20);let d;let guard=0;
    do{d=mkData(n,m,8);guard++;}while(guard<40&&(d.some(v=>v<1||v>60)));
-   return mkNum(`Find the mean of: ${d.join(', ')}`,`求平均数：${d.join(', ')}`,m,
+   return mkNum(`Find the mean of: ${d.join(', ')}`,`Find the mean of: ${d.join(', ')}`,m,
      `mean = (sum of all values) ÷ (number of values).`,
      `sum = ${d.reduce((a,b)=>a+b,0)}, n = ${n}  ⟹  mean = ${d.reduce((a,b)=>a+b,0)} / ${n} = ${m}`);},
  ()=>{const n=pick([5,7]);const s=[];let v=ri(1,10);for(let i=0;i<n;i++){v+=ri(1,6);s.push(v);}
    const med=s[(n-1)/2];const disp=shuffle(s).join(', ');
-   return mkNum(`Find the median of: ${disp}`,`求中位数：${disp}`,med,
+   return mkNum(`Find the median of: ${disp}`,`Find the median of: ${disp}`,med,
      `Sort the data first, then take the middle value.`,
-     `排序后：${s.join(', ')}\n共 ${n} 个数（奇数），中位数 = 第 ${(n+1)/2} 个 = ${med}`);},
+     `Sorted: ${s.join(', ')}\n${n} values (odd), so the median is the ${(n+1)/2}th = ${med}`);},
  ()=>{const m=ri(3,20);const others=[];let v=m;
    while(others.length<4){v+=ri(2,7);others.push(v);}
    const data=shuffle([m,m,m].concat(others));
-   return mkNum(`Find the mode of: ${data.join(', ')}`,`求众数：${data.join(', ')}`,m,
-     `The mode is the value that appears most often.`,`${m} 出现 3 次，其余各出现 1 次 ⟹ 众数 = ${m}`);},
+   return mkNum(`Find the mode of: ${data.join(', ')}`,`Find the mode of: ${data.join(', ')}`,m,
+     `The mode is the value that appears most often.`,`${m} appears 3 times, everything else once ⟹ mode = ${m}`);},
  ()=>{const n=pick([3,4,5,6]),m=ri(7,15);let d,sq;let guard=0;
    do{d=[];let s=0;for(let i=0;i<n-1;i++){const x=ri(-5,5);d.push(x);s+=x;}d.push(-s);
      sq=d.reduce((a,b)=>a+b*b,0);guard++;}while(guard<60&&sq%n!==0);
    const data=d.map(x=>m+x);
    return mkNum(`Find the variance of: ${data.join(', ')}   (use s² = Σ(x − x̄)² / n)`,
-     `求方差：${data.join(', ')}（s² = Σ(x − x̄)² / n）`,sq/n,
+     `Find the variance of: ${data.join(', ')} (s² = Σ(x − x̄)² / n)`,sq/n,
      `First find the mean, then each deviation, square them, add, divide by n.`,
-     `x̄ = ${m}\n偏差：${d.map(x=>x>=0?'+'+x:x).join(', ')}\n平方和 = ${sq}\ns² = ${sq} / ${n} = ${sq/n}`);},
+     `x̄ = ${m}\ndeviations: ${d.map(x=>x>=0?'+'+x:x).join(', ')}\nsum of squares = ${sq}\ns² = ${sq} / ${n} = ${sq/n}`);},
  ()=>{const v=pick([1,4,9,16,25,36]);
-   return mkNum(`A data set has variance ${v}. What is its standard deviation?`,`一组数据的方差为 ${v}，标准差 = ?`,Math.sqrt(v),
+   return mkNum(`A data set has variance ${v}. What is its standard deviation?`,`A data set has variance ${v}. What is its standard deviation?`,Math.sqrt(v),
      `standard deviation = √(variance).`,`s = √${v} = ${Math.sqrt(v)}`);},
  ()=>{const n=5;const s=[];let v=ri(2,12);for(let i=0;i<n;i++){v+=ri(2,9);s.push(v);}
    const disp=shuffle(s).join(', ');
-   return mkNum(`Find the range (极差) of: ${disp}`,`求极差（最大值 − 最小值）：${disp}`,s[n-1]-s[0],
-     `range = max − min.`,`max = ${s[n-1]}, min = ${s[0]}  ⟹  极差 = ${s[n-1]-s[0]}`);},
+   return mkNum(`Find the range of: ${disp}`,`Find the range (max − min) of: ${disp}`,s[n-1]-s[0],
+     `range = max − min.`,`max = ${s[n-1]}, min = ${s[0]}  ⟹  range = ${s[n-1]-s[0]}`);},
  ()=>{const p=pick([30,40,60,70]);const a=ri(60,95);let b=null;
    for(let t=60;t<=95;t++){if((a*p+t*(100-p))%100===0){b=t;break;}}
    if(b===null)b=60;
    const w=(a*p+b*(100-p))/100;
    return mkNum(`Weighted mean: daily work ${a} (${p}%) and final exam ${b} (${100-p}%). What is the weighted average?`,
-     `加权平均数：平时 ${a}（占 ${p}%），期末 ${b}（占 ${100-p}%），学期总评 = ?`,w,
+     `Weighted mean: coursework ${a} (${p}%), final ${b} (${100-p}%). Overall = ?`,w,
      `Multiply each score by its weight, then add.`,`${a}×${p}% + ${b}×${100-p}% = ${(a*p/100).toFixed(2)} + ${(b*(100-p)/100).toFixed(2)} = ${w}`);},
  ()=>{const q1=ri(5,25),iqr=ri(6,20);
-   return mkNum(`A box plot has Q1 = ${q1} and IQR = ${iqr}. What is Q3?`,`箱线图中 Q1 = ${q1}，IQR = ${iqr}，求 Q3`,q1+iqr,
+   return mkNum(`A box plot has Q1 = ${q1} and IQR = ${iqr}. What is Q3?`,`A box plot has Q1 = ${q1} and IQR = ${iqr}. What is Q3?`,q1+iqr,
      `IQR = Q3 − Q1.`,`Q3 = Q1 + IQR = ${q1} + ${iqr} = ${q1+iqr}`);},
 ];
 
-/* ================= 单元定义 ================= */
+/* ================= Unit definitions ================= */
 const UNITS=[
- {id:'u1',n:'第 1 关',cn:'实数与根式',en:'Real Numbers & Radicals',ch:'Ch01 + Ch02',G:G1,q:10,color:'#0891b2',
-  why:'平方根/立方根/无理数/二次根式 + 勾股定理中的根式边长'},
- {id:'u2',n:'第 2 关',cn:'一次函数与方程组',en:'Linear Functions & Systems',ch:'Ch04 + Ch05',G:G2,q:10,color:'#d97706',
-  why:'斜率、截距、函数求值 + 代入法/加减法解方程组、鸡兔同笼、增收节支、直线交点'},
- {id:'u3',n:'第 3 关',cn:'几何与坐标',en:'Geometry & Coordinates',ch:'Ch03 + Ch07',G:G3,q:10,color:'#4f46e5',
-  why:'象限、对称与平移的坐标规律 + 平行线判定/性质、三角形内角和与外角'},
- {id:'u4',n:'第 4 关',cn:'数据的分析',en:'Data Analysis',ch:'Ch06',G:G4,q:10,color:'#db2777',
-  why:'平均数/中位数/众数/方差/标准差/极差/加权平均/箱线图'},
- {id:'fin',n:'期末大挑战',cn:'七章混在一起考',en:'Course Challenge',ch:'全部 7 章',G:null,q:12,color:'#7c3aed',
-  why:'七章混合抽题，模拟期末综合检测'},
+ {id:'u1',n:'Level 1',cn:'Real Numbers & Radicals',en:'Real Numbers & Radicals',ch:'Ch01 + Ch02',G:G1,q:10,color:'#0891b2',
+  why:'Square roots, cube roots, irrationals and radicals, plus radical side lengths'},
+ {id:'u2',n:'Level 2',cn:'Linear Functions & Systems',en:'Linear Functions & Systems',ch:'Ch04 + Ch05',G:G2,q:10,color:'#d97706',
+  why:'Slope, intercept and evaluating functions; systems by substitution and elimination; chickens and rabbits; income problems; intersections'},
+ {id:'u3',n:'Level 3',cn:'Geometry & Coordinates',en:'Geometry & Coordinates',ch:'Ch03 + Ch07',G:G3,q:10,color:'#4f46e5',
+  why:'Quadrants, reflections and translations; parallel-line tests and properties; triangle angle sum and exterior angles'},
+ {id:'u4',n:'Level 4',cn:'Data Analysis',en:'Data Analysis',ch:'Ch06',G:G4,q:10,color:'#db2777',
+  why:'Mean, median, mode, variance, standard deviation, range, weighted mean and box plots'},
+ {id:'fin',n:'Final challenge',cn:'All seven chapters mixed',en:'Course Challenge',ch:'all 7 chapters',G:null,q:12,color:'#7c3aed',
+  why:'Questions drawn from all seven chapters — a run-through of the final exam'},
 ];
 
 function buildQ(u){
@@ -336,7 +336,7 @@ function buildQ(u){
  return shuffle(pool).map(f=>f());
 }
 
-/* ================= 状态 ================= */
+/* ================= State ================= */
 const KEY='bnu8_unit_state',WKEY='bnu8_wrong';
 function US(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return {};}}
 function saveUS(o){try{localStorage.setItem(KEY,JSON.stringify(o));}catch(e){}}
@@ -360,14 +360,14 @@ function readyPct(u){
  return 0;
 }
 
-/* ================= 渲染 ================= */
+/* ================= Render ================= */
 let cur=UNITS[0].id;
 function renderNav(){
  const U=US(),W=WB().filter(w=>w.due<=Date.now()).length;
  let h=UNITS.map(u=>{const st=U[u.id];
   const badge=st?`<span class="st">${st.ok}/${st.tot}</span>`:'';
   return `<div class="nav-i ${cur===u.id?'on':''}" data-u="${u.id}"><span><b>${u.n}</b> ${u.cn}</span>${badge}</div>`;}).join('');
- h+=`<div class="nav-i ${cur==='wrong'?'on':''}" data-u="wrong"><span>错题本</span>${W?`<span class="st">${W}</span>`:''}</div>`;
+ h+=`<div class="nav-i ${cur==='wrong'?'on':''}" data-u="wrong"><span>Review list</span>${W?`<span class="st">${W}</span>`:''}</div>`;
  const nav=document.getElementById('nav');nav.innerHTML=h;
  nav.querySelectorAll('[data-u]').forEach(n=>n.onclick=()=>{cur=n.dataset.u;render();});
 }
@@ -377,18 +377,18 @@ function intro(el,u){
  const hist=(st&&st.history)?st.history.slice(-5).reverse():[];
  el.innerHTML=`
   <div class="step" style="background:${u.color}">${u.n} · ${u.cn}</div>
-  <div class="box"><h3>这里面考什么</h3>
+  <div class="box"><h3>What this covers</h3>
    <p style="font-size:14px">${u.ch} — ${u.why}</p>
-   <p style="font-size:13px;color:var(--muted);margin-top:6px">共 ${u.q} 题 · 第一次答错给提示，第二次答错给完整解法</p>
+   <p style="font-size:13px;color:var(--muted);margin-top:6px">${u.q} questions · miss once and you get a hint, miss twice and you get the full solution</p>
   </div>
-  <div class="box"><h3>你的准备情况</h3>
+  <div class="box"><h3>How ready you are</h3>
    <div class="progress"><div style="width:${Math.round(rp*100)}%;background:${u.color}"></div></div>
-   <p style="font-size:13px">相关章节进度 ${Math.round(rp*100)}% ${rp>=0.6?'<span class="badge ok">可以挑战</span>':'<span class="badge warn">先把章节练完</span>'}</p>
+   <p style="font-size:13px">Chapter progress ${Math.round(rp*100)}%  ${rp>=0.6?'<span class="badge ok">Ready to try</span>':'<span class="badge warn">Finish the chapters first</span>'}</p>
   </div>
-  ${st?`<div class="box"><h3>上一次成绩</h3><table><tr><th>日期</th><th>成绩</th><th>结果</th></tr>
-   ${hist.map(x=>`<tr><td>${x.date}</td><td>${x.ok}/${x.tot}</td><td>${x.ok/x.tot>=0.8?'<span class="badge ok">太棒了</span>':(x.ok/x.tot>=0.6?'<span class="badge warn">还行</span>':'<span class="badge lock">再练练</span>')}</td></tr>`).join('')}
-   <tr><td colspan="3" style="font-size:12px;color:var(--muted)">最佳：${st.best!=null?st.best+'/'+u.q:'—'}</td></tr></table></div>`:''}
-  <div style="margin-top:14px"><button id="start">▶ 开始 ${u.q} 题</button></div>`;
+  ${st?`<div class="box"><h3>Last score</h3><table><tr><th>Date</th><th>Score</th><th>Result</th></tr>
+   ${hist.map(x=>`<tr><td>${x.date}</td><td>${x.ok}/${x.tot}</td><td>${x.ok/x.tot>=0.8?'<span class="badge ok">Excellent</span>':(x.ok/x.tot>=0.6?'<span class="badge warn">还行</span>':'<span class="badge lock">再练练</span>')}</td></tr>`).join('')}
+   <tr><td colspan="3" style="font-size:12px;color:var(--muted)">Best: ${st.best!=null?st.best+'/'+u.q:'—'}</td></tr></table></div>`:''}
+  <div style="margin-top:14px"><button id="start">▶ Start ${u.q} questions</button></div>`;
  el.querySelector('#start').onclick=()=>run(el,u);
 }
 
@@ -397,7 +397,7 @@ function run(el,u){
  const draw=()=>{
   if(i>=qs.length){finish(el,u,ok,qs.length);return;}
   const qq=qs[i];
-  el.innerHTML=`<div class="step" style="background:${u.color}">${u.n} · ${u.cn} · 第 ${i+1} / ${qs.length} 题 · 已对 ${ok}</div>
+  el.innerHTML=`<div class="step" style="background:${u.color}">${u.n} · ${u.cn} · question ${i+1} / ${qs.length} · ${ok} correct</div>
    <div class="progress"><div style="width:${i/qs.length*100}%"></div></div>
    <div class="q"><div class="q-text">${qq.q}</div><div class="q-cn">${qq.qcn}</div>
     ${qq.type==='choice'
@@ -411,11 +411,11 @@ function run(el,u){
     fb.className='feedback show ok';fb.textContent='✓ Correct';
     i++;setTimeout(draw,650);
    }else if(tries===0){
-    tries++;ht.className='hint show';ht.innerHTML='<b>Hint · 提示：</b>'+qq.hint;
-    fb.className='feedback show warn';fb.textContent='✗ 再试一次 (try again)';
+    tries++;ht.className='hint show';ht.innerHTML='<b>Hint:</b>'+qq.hint;
+    fb.className='feedback show warn';fb.textContent='✗ Try again';
    }else{
     fb.className='feedback show err';
-    fb.innerHTML=`✗ 正确答案是 <b>${qq.ans}</b>`+(qq.sol?`<div class="sol">${qq.sol}</div>`:'');
+    fb.innerHTML=`✗ The answer is <b>${qq.ans}</b>`+(qq.sol?`<div class="sol">${qq.sol}</div>`:'');
     addWrong(u,qq);
     i++;setTimeout(draw,2600);
    }
@@ -435,19 +435,19 @@ function finish(el,u,ok,tot){
  const hist=(prev.history||[]).concat([{ok:ok,tot:tot,date:today}]).slice(-5);
  U[u.id]={ok:ok,tot:tot,date:today,best:best,history:hist};saveUS(U);
  const p=ok/tot;
- const lvl=p>=0.8?['太棒了，全对的！','var(--ok)']:(p>=0.6?['还行，再把错题过一遍就稳了。','var(--warn)']:['还要多练 —— 回章节把相关知识点再练几个。','var(--err)']);
- el.innerHTML=`<div class="step" style="background:${lvl[1]}">成绩 · ${ok} / ${tot}</div>
+ const lvl=p>=0.8?['Excellent，全对的！','var(--ok)']:(p>=0.6?['Solid — go over the misses once more.','var(--warn)']:['More practice — go back to the chapters and drill those topics.','var(--err)']);
+ el.innerHTML=`<div class="step" style="background:${lvl[1]}">Score · ${ok} / ${tot}</div>
   <div class="box"><h3 style="color:${lvl[1]}">${lvl[0]}</h3>
-   <p style="font-size:14px">正确率 ${Math.round(p*100)}% · 历史最佳 ${best}/${tot}</p>
+   <p style="font-size:14px">Accuracy ${Math.round(p*100)}% · best ever ${best}/${tot}</p>
   </div>
-  ${p<0.8?`<div class="note"><strong>下一步：</strong>错题已自动进错题本，点左侧「错题本」复习；或者回到章节页把对应的几个小知识练到过关。</div>`:''}
-  <div style="margin-top:14px;display:flex;gap:8px"><button id="again">再练一次（新题）</button><button class="secondary" id="back">返回</button></div>`;
+  ${p<0.8?`<div class="note"><strong>Next:</strong> misses go into your Review list automatically — click "Review list" on the left, or go back to the chapters and drill those topics.</div>`:''}
+  <div style="margin-top:14px;display:flex;gap:8px"><button id="again">Practise again (new questions)</button><button class="secondary" id="back">Back</button></div>`;
  el.querySelector('#again').onclick=()=>run(el,u);
  el.querySelector('#back').onclick=()=>render();
  renderNav();
 }
 
-/* ================= 错题本 ================= */
+/* ================= Review list ================= */
 function addWrong(u,qq){
  const W=WB();
  const exist=W.find(w=>w.q===qq.q);
@@ -459,22 +459,22 @@ function addWrong(u,qq){
 function renderWrong(el){
  const due=WB().filter(w=>w.due<=Date.now());
  if(!due.length){
-  el.innerHTML=`<div class="step">错题本</div>
-   <div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>现在没有要复习的错题。</strong><br>
-   升级挑战里第二次答错的题会到这里。规则：答对 → 隔 1 天 → 2 天 → 4 天 → 8 天后归档。</div>
-   <div style="margin-top:12px"><button class="secondary" onclick="render()">返回</button></div>`;
+  el.innerHTML=`<div class="step">Review list</div>
+   <div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>Nothing to review right now.</strong><br>
+   Questions you miss twice in the challenges land here. Get one right and it comes back in 1 day, then 2, then 4, then 8 before it is filed away.</div>
+   <div style="margin-top:12px"><button class="secondary" onclick="render()">Back</button></div>`;
   return;
  }
  let i=0;
  const draw=()=>{
-  if(i>=due.length){el.innerHTML=`<div class="step">本轮 ${due.length} 道错题过完啦</div>
-    <div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>做得不错！</strong>答对三次就自动归档。</div>
-    <div style="margin-top:12px"><button class="secondary" id="b2">返回</button></div>`;
+  if(i>=due.length){el.innerHTML=`<div class="step">That is all ${due.length} of them for now</div>
+    <div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>Nice work!</strong> Three correct and it is filed away.</div>
+    <div style="margin-top:12px"><button class="secondary" id="b2">Back</button></div>`;
    el.querySelector('#b2').onclick=()=>render();renderNav();return;}
   const w=due[i];const u=UNITS.find(x=>x.id===w.u)||UNITS[0];
   const qq={type:w.type,q:w.q,qcn:w.qcn,ans:w.ans,choices:w.choices,ci:w.ci,sol:w.sol,hint:''};
   let tries=0;
-  el.innerHTML=`<div class="step">错题复习 · 第 ${i+1} / ${due.length} · 来自 ${u.n}</div>
+  el.innerHTML=`<div class="step">Review · ${i+1} / ${due.length} · from ${u.n}</div>
    <div class="q"><div class="q-text">${w.q}</div><div class="q-cn">${w.qcn}</div>
     ${w.type==='choice'?`<div id="cs">${(w.choices||[]).map((c,j)=>`<button class="choice" data-j="${j}">${String.fromCharCode(65+j)}. ${c}</button>`).join('')}</div>`
      :`<div style="display:flex;gap:8px"><input type="text" id="ai"><button id="sb">Submit</button></div>`}
@@ -485,11 +485,11 @@ function renderWrong(el){
     const W=WB();const t=W.find(x=>x.q===w.q&&x.ts===w.ts);
     if(t){t.rep=(t.rep||0)+1;t.int=Math.max(1,(t.int||0)*2)||1;t.due=Date.now()+t.int*86400000;
       if(t.int>=8)W.splice(W.indexOf(t),1);saveWB(W);}
-    fb.className='feedback show ok';fb.textContent=`✓ 已答对，${t&&t.int?('下次复习：'+t.int+' 天后'):'已归档'}`;
+    fb.className='feedback show ok';fb.textContent=`✓ Correct — ${t&&t.int?('next review in '+t.int+' days'):'filed away'}`;
     i++;setTimeout(draw,1200);
-   }else if(tries===0){tries++;fb.className='feedback show warn';fb.textContent='✗ 再试一次';}
+   }else if(tries===0){tries++;fb.className='feedback show warn';fb.textContent='✗ Try again';}
    else{
-    fb.className='feedback show err';fb.innerHTML=`✗ 正确答案 <b>${w.ans}</b>`+(w.sol?`<div class="sol">${w.sol}</div>`:'');
+    fb.className='feedback show err';fb.innerHTML=`✗ The answer is <b>${w.ans}</b>`+(w.sol?`<div class="sol">${w.sol}</div>`:'');
     const W=WB();const t=W.find(x=>x.q===w.q&&x.ts===w.ts);
     if(t){t.int=0;t.due=Date.now();saveWB(W);}
     i++;setTimeout(draw,2600);
@@ -502,7 +502,7 @@ function renderWrong(el){
  draw();
 }
 
-/* ================= 主渲染 ================= */
+/* ================= Main render ================= */
 function render(){
  const main=document.getElementById('main');renderNav();
  if(cur==='wrong'){renderWrong(main);return;}
@@ -510,7 +510,7 @@ function render(){
 }
 render();
 
-/* 支持 index.html 的深链 ?u=u2 */
+/* deep link support: ?u=u2 from index.html */
 (function(){const g=new URLSearchParams(location.search).get('u');
  if(g&&UNITS.some(u=>u.id===g)){cur=g;render();}})();
 </script>
