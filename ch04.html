@@ -101,8 +101,7 @@ svg line,svg path{transition:stroke .3s,opacity .3s}
 <header>
  <h1>Chapter 4 · Linear Functions</h1>
  <p>Grade 8 · 7 class periods · the hardest chapter</p>
- <p style="margin-top:6px;font-size:12px">Chapter 4 · Linear functions</p>
-</header>
+ </header>
 <nav id="nav"></nav>
 <main id="main"></main>
 </div>
@@ -623,7 +622,7 @@ function introRender(main){
   pts.forEach(l=>{
     const s=st(l.id);
     const badge=s.done?' <span class="st ok">✓ done</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
-    h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.cn+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
+    h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.t+(GLOSS[l.id]?' <span class="cn-tag">'+GLOSS[l.id]+'</span>':'')+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
   });
   h+='</div>';
   h+='<div class="why"><b>Where this shows up in real life</b><br>'+INTRO.why+'</div>';
