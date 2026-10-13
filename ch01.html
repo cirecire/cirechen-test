@@ -81,6 +81,21 @@ video{width:100%;max-width:520px;border-radius:8px;background:#000;display:block
 .m-mas{background:#16a34a;color:#fff}
 .note{font-size:12px;color:var(--mute);margin-top:6px}
 .credit{margin-top:22px;padding:12px;border-top:1px solid var(--line);font-size:12px;color:var(--mute)}
+
+.intro-h{font-size:21px;font-weight:700;margin:0 0 4px}
+.intro-sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.kp{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:14px 0}
+.kp-c{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#f9fafb}
+.kp-c .n{font-size:12px;color:var(--accent);font-weight:700}
+.kp-c .t{font-size:15px;font-weight:600;margin:2px 0 5px;line-height:1.4}
+.kp-c .d{font-size:12px;color:var(--muted);line-height:1.55}
+.why{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:14px 16px;margin:14px 0;font-size:14px;line-height:1.85}
+.why b{color:var(--accent)}
+.how{font-size:14px;line-height:2.1;margin:8px 0 2px}
+.how b{color:var(--accent)}
+.big-start{margin-top:20px;text-align:center}
+.big-start button{font-size:16px;padding:13px 30px;border-radius:10px}
+.trytip{font-size:12px;color:var(--muted);margin:10px 0 2px}
 </style>
 </head>
 <body>
@@ -141,13 +156,14 @@ let S = load();
 function load(){ try{ return JSON.parse(localStorage.getItem(KEY)) || {}; }catch(e){ return {}; } }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
 const LESSONS=[
+ {id:'intro',t:'Intro',cn:'先看这里 · 本章要学什么',n:'🏠'},
   {id:'k1', t:'Exploring the Theorem', cn:'探索勾股定理', n:'1.1'},
   {id:'k2', t:'Is It Right? (Converse)', cn:'一定是直角三角形吗', n:'1.2'},
   {id:'k3', t:'Applications', cn:'勾股定理的应用', n:'1.3'},
   {id:'k4', t:'Strategy: Reflect', cn:'问题解决策略：反思', n:'1.4'},
   {id:'test', t:'Chapter Test', cn:'章末自己测', n:''}
 ];
-let cur='k1';
+let cur='intro';
 function st(id){ return S[id] || (S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false}); }
 
 /* ============ 工具 ============ */
@@ -403,11 +419,11 @@ function microK3(el){
 /* ============ 视频列表 ============ */
 function videos(el,list,id){
   el.innerHTML=`<h3>视频</h3>
-    <div class="lead">标记 <span class="badge b-core">Core 核心</span> 必看；<span class="badge b-ext">Ext 拓展</span> 是「为什么成立」的多种证法，学有余力再看。</div>`;
+    <div class="lead">标记 <span class="badge b-core">核心</span> 必看；<span class="badge b-ext">拓展</span> 是「为什么成立」的多种证法，学有余力再看。</div>`;
   list.forEach((v,i)=>{
     const d=document.createElement('div'); d.className='vid-item';
     d.innerHTML=`<div class="t"><b>${v.t}</b><small>${v.d}</small>
-      <span class="badge ${v.c==='core'?'b-core':'b-ext'}">${v.c==='core'?'Core 核心':'Ext 拓展'}</span></div>`;
+      <span class="badge ${v.c==='core'?'b-core':'b-ext'}">${v.c==='core'?'核心':'拓展'}</span></div>`;
     const b=document.createElement('button'); b.className='ghost'; b.textContent='▶ 播放';
     b.onclick=()=>{
       let p=d.querySelector('video');
@@ -523,6 +539,31 @@ function chTest(el){
 }
 
 /* ============ 渲染 ============ */
+
+/* ===== 章节门厅：进来先看这里 ===== */
+const USE_MICRO=false;
+const INTRO={why:"手机说 6.1 英寸屏，指的是对角线——为什么不用长和宽？因为对角线最能代表「屏幕多大」。给你长和宽，用勾股定理就能算出它。量球场、看斜坡多长、判断一个角是不是直角（做手工、装修都用得上），都是同一招。",desc:{k1:"直角三角形三边有个固定关系：两条直角边的平方和 = 斜边的平方",k2:"反过来用：三边满足 a²+b²=c²，就一定是直角三角形",k3:"拿它算长度、算距离，解决梯子、折纸、蚂蚁爬行这类题",k4:"做完了回头检查一遍，确认答案合不合理"}};
+function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
+function introRender(main){
+  const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
+  let h='<div class="intro-h">这一章要学什么</div>'
+    +'<div class="intro-sub">先扫一眼这张清单，知道这章要去哪；然后点最下面的按钮开始。</div><div class="kp">';
+  pts.forEach(l=>{
+    const s=st(l.id);
+    const badge=s.done?' <span class="st ok">✓ 已过关</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
+    h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.cn+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
+  });
+  h+='</div>';
+  h+='<div class="why"><b>学会了能干嘛</b><br>'+INTRO.why+'</div>';
+  h+='<div class="box"><b>这一章怎么学</b><div class="how">'
+    +'① <b>看微课</b>：几分钟，先弄懂这一节在说什么<br>'
+    +'② <b>练几题</b>：连对 5 题就过关；不会的话会给提示，一步步带你做<br>'
+    +'③ <b>再下一节</b>：左边 '+pts[0].n+'、'+pts[1].n+'…… 想先学哪个点哪个，不用非按顺序'
+    +'</div></div>';
+  h+='<div class="big-start"><button id="startBtn">开始 '+pts[0].n+' '+pts[0].cn+' →</button></div>';
+  main.innerHTML=h;
+  main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
+}
 function renderNav(){
   const n=document.getElementById('nav'); n.innerHTML='';
   LESSONS.forEach(l=>{
@@ -542,6 +583,7 @@ function render(){
   renderNav();
   const m=document.getElementById('main'); m.innerHTML='';
   const L=LESSONS.find(x=>x.id===cur);
+  if(cur==='intro'){introRender(m);return;}
   const h=document.createElement('h2'); h.innerHTML=`<b>${L.n}</b> ${L.cn}`;
   m.appendChild(h);
 
