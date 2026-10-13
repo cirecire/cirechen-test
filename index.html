@@ -16,6 +16,25 @@ header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:24p
 header h1{font-size:24px;margin-bottom:6px}
 header p{opacity:.93;font-size:13px}
 .src{margin-top:10px;font-size:11px;opacity:.75}
+/* ===== Welcome guide (dismissable) ===== */
+.welcome{background:linear-gradient(135deg,#fef3c7,#fde68a);border:1px solid #fcd34d;border-radius:14px;padding:20px 24px;margin-bottom:16px;position:relative}
+.welcome-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:12px}
+.welcome .hi{font-size:20px;font-weight:700;color:#92400e;line-height:1.2}
+.welcome-close{background:transparent;color:#92400e;font-size:18px;padding:2px 8px;cursor:pointer;border:none;line-height:1;border-radius:6px}
+.welcome-close:hover{background:rgba(146,64,14,.12)}
+.welcome-lead{font-size:14px;color:#78350f;margin-bottom:14px;line-height:1.5}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.step-card{background:rgba(255,255,255,.65);border-radius:10px;padding:10px 12px;border:1px solid rgba(252,211,77,.5)}
+.step-no{width:24px;height:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;margin-bottom:6px}
+.step-t{font-weight:600;font-size:13px;color:#1f2937;margin-bottom:3px}
+.step-d{font-size:12px;color:#6b7280;line-height:1.4}
+.welcome-cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.welcome-cta .big{font-size:15px;padding:11px 20px;background:#7c3aed;color:#fff;border-radius:9px;border:none;cursor:pointer;font-weight:600;font-family:inherit}
+.welcome-cta .big:hover{background:#6d28d9}
+.welcome-cta .skip{font-size:12px;color:#78350f;text-decoration:underline;cursor:pointer;background:transparent;border:none;padding:4px 6px;font-family:inherit}
+.show-guide{font-size:12px;color:#fff;opacity:.85;text-decoration:underline;margin-left:12px;cursor:pointer;background:transparent;border:none;padding:0;font-family:inherit;font-weight:400}
+.show-guide:hover{opacity:1}
+@media(max-width:680px){.steps{grid-template-columns:1fr}}
 h2{font-size:17px;margin:22px 0 12px;display:flex;align-items:center;gap:8px}
 h2 small{font-size:12px;color:var(--muted);font-weight:400}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
@@ -74,6 +93,23 @@ th{font-size:11px;color:var(--muted);font-weight:600}
  <p style="margin-top:4px">Language: English, with each key term glossed in Chinese once</p>
  <div class="src">Video content from Khan Academy · CC BY-NC-SA</div>
 </header>
+
+<div class="welcome" id="welcome">
+ <div class="welcome-head">
+  <div class="hi" id="welcomeHi">👋 Hi! Ready to start?</div>
+  <button class="welcome-close" id="welcomeClose" title="Hide this guide" aria-label="Hide this guide">✕</button>
+ </div>
+ <p class="welcome-lead" id="welcomeLead">Math gets easier when you do a little every day. This site walks you through all of Grade 8, one chapter at a time.</p>
+ <div class="steps">
+  <div class="step-card"><div class="step-no">1</div><div class="step-t">Pick a chapter</div><div class="step-d">7 chapters in total. Start with Chapter 1 if you're new.</div></div>
+  <div class="step-card"><div class="step-no">2</div><div class="step-t">Watch &amp; practise</div><div class="step-d">A short video, then a few questions. Get 5 in a row right and you've got it.</div></div>
+  <div class="step-card"><div class="step-no">3</div><div class="step-t">Pass the test</div><div class="step-d">Pass the chapter test to unlock the next one.</div></div>
+ </div>
+ <div class="welcome-cta">
+  <button class="big" id="welcomeStart">▶ Start with Chapter 1</button>
+  <button class="skip" id="welcomeSkip">Hide this guide</button>
+ </div>
+</div>
 
 <div class="summary">
  <div class="card">
@@ -274,9 +310,67 @@ document.getElementById('impBtn').onclick=()=>{
 document.getElementById('clr').onclick=()=>{
  if(!confirm('Clear all progress? Export a backup first, then confirm.'))return;
  CH.forEach(c=>localStorage.removeItem('bnu8_'+c.k+'_state'));
- ['bnu8_unit_state','bnu8_wrong','bnu8_last'].forEach(k=>localStorage.removeItem(k));
+ ['bnu8_unit_state','bnu8_wrong','bnu8_last','bnu8_guide_dismissed'].forEach(k=>localStorage.removeItem(k));
  say('Cleared','var(--ok)');setTimeout(()=>location.reload(),800);
 };
+
+/* ================= Welcome guide ================= */
+(function(){
+ const WKEY='bnu8_guide_dismissed';
+ const el=document.getElementById('welcome');
+ if(!el)return;
+
+ // Figure out the next chapter to suggest (first chapter that is not fully mastered)
+ function nextCh(){
+  for(let i=0;i<CH.length;i++){
+   const c=CH[i],s=ST[i];
+   const mastered=s.lv.filter(x=>x===4).length;
+   if(mastered<c.L.length)return {c,i,mastered,total:c.L.length};
+  }
+  return null;
+ }
+ const n=nextCh();
+ const hi=document.getElementById('welcomeHi');
+ const lead=document.getElementById('welcomeLead');
+ const btn=document.getElementById('welcomeStart');
+ if(n){
+  if(n.mastered===0){
+   hi.textContent='👋 Hi! Ready to start?';
+   lead.textContent='Math gets easier when you do a little every day. This site walks you through all of Grade 8, one chapter at a time.';
+   btn.textContent='▶ Start with Chapter 1 · '+n.c.cn;
+  }else{
+   hi.textContent='👋 Welcome back!';
+   lead.textContent='Pick up where you left off, or jump to any chapter below.';
+   btn.textContent='▶ Continue Chapter '+(n.i+1)+' · '+n.c.cn;
+  }
+  btn.onclick=()=>{localStorage.setItem('bnu8_last',n.c.k);location.href=n.c.k+'.html';};
+ }else{
+  hi.textContent='🎉 All 7 chapters done!';
+  lead.textContent='Nice work. Try the Level-up challenges below to keep sharp.';
+  btn.textContent='🏆 Go to the challenges';
+  btn.onclick=()=>{location.href='unittests.html';};
+ }
+
+ function dismiss(){
+  localStorage.setItem(WKEY,'1');
+  el.style.display='none';
+  addShowLink();
+ }
+ document.getElementById('welcomeClose').onclick=dismiss;
+ document.getElementById('welcomeSkip').onclick=dismiss;
+
+ function addShowLink(){
+  const h=document.querySelector('header h1');
+  if(h && !document.getElementById('showGuideBtn')){
+   const a=document.createElement('button');
+   a.id='showGuideBtn';a.className='show-guide';
+   a.textContent='Show the guide again';
+   a.onclick=()=>{el.style.display='block';a.remove();localStorage.removeItem(WKEY);};
+   h.appendChild(a);
+  }
+ }
+ if(localStorage.getItem(WKEY)==='1'){el.style.display='none';addShowLink();}
+})();
 </script>
 </body>
 </html>
