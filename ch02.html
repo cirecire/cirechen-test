@@ -339,7 +339,7 @@ function microK3(el){
     el.querySelector('#res').innerHTML =
       `√${v} = ${ok? (Math.abs(sr-Math.round(sr))<1e-9? Math.round(sr): sr.toFixed(3)) : '<span style="color:#dc2626">does not exist in the real numbers</span>'}`+
       `&nbsp;&nbsp;&nbsp;&nbsp;∛${v} = ${Math.abs(cr-Math.round(cr))<1e-9? Math.round(cr): cr.toFixed(3)}`;
-    let S1=`<text x="120" y="48" font-size="24" font-weight="bold" fill="${ok?'#15803d':'#dc2626'}" text-anchor="middle">${ok?(Math.abs(sr-Math.round(sr))<1e-9?Math.round(sr):sr.toFixed(3)):'无实数解'}</text>
+    let S1=`<text x="120" y="48" font-size="24" font-weight="bold" fill="${ok?'#15803d':'#dc2626'}" text-anchor="middle">${ok?(Math.abs(sr-Math.round(sr))<1e-9?Math.round(sr):sr.toFixed(3)):'No real solution'}</text>
             <text x="120" y="80" font-size="12" fill="#6b7785" text-anchor="middle">${ok?'the number under the root must be ≥ 0':'negative numbers have no (real) square root'}</text>`;
     el.querySelector('#cs').innerHTML=S1;
     el.querySelector('#csd').textContent=ok?'can be done':'does not exist';
