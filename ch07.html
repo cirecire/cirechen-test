@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>平行线的证明 · 八上数学</title>
+<title>Chapter 7 · Proof with parallel lines</title>
 <style>
 :root{
  --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
@@ -80,16 +80,16 @@ svg{max-width:100%;display:block;margin:0 auto}
 </head>
 <body>
 <div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 16px;font-size:13px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:99">
- <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600">← 总览 Overview</a>
- <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600">单元测试 Unit Tests</a>
- <span style="margin-left:auto;font-size:11px;color:#6b7280">内容来源 Khan Academy · CC BY-NC-SA</span>
+ <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600">← Overview</a>
+ <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600">Unit tests</a>
+ <span style="margin-left:auto;font-size:11px;color:#6b7280">Content from Khan Academy · CC BY-NC-SA</span>
 </div>
 
 <div class="wrap">
 <header>
  <h1>Chapter 7 · Proofs with Parallel Lines</h1>
- <p>Grade 8 · 八年级上 · 7 class periods · </p>
- <p style="margin-top:6px;font-size:12px">第七章 · 平行线的证明</p>
+ <p>Grade 8 · 7 class periods</p>
+ <p style="margin-top:6px;font-size:12px">Chapter 7 · Proof with parallel lines</p>
 </header>
 <nav id="nav"></nav>
 <main id="main"></main>
@@ -102,122 +102,122 @@ let S=load();
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return{};}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 const LESSONS=[
- {id:'intro',t:'Intro',cn:'先看这里 · 本章要学什么',n:'🏠'},
- {id:'k1',t:'Why Prove?',cn:'为什么要证明',n:'7.1'},
- {id:'k2',t:'★ Proof Writing',cn:'★ 证明书写格式 ∵/∴',n:'7.2'},
- {id:'k3',t:'Parallel Lines · Judge',cn:'平行线的判定',n:'7.3'},
- {id:'k4',t:'Parallel Lines · Properties',cn:'平行线的性质',n:'7.4'},
- {id:'k5',t:'Triangle Angle Sum',cn:'三角形内角和',n:'7.5'},
- {id:'test',t:'Chapter Test',cn:'章末自己测',n:''}
+ {id:'intro',t:'Intro',cn:'Start here · What this chapter covers',n:'🏠'},
+ {id:'k1',t:'Why Prove?',cn:'Why prove?',n:'7.1'},
+ {id:'k2',t:'Writing a proof (∵/∴)',cn:'Writing a proof (∵/∴)',n:'7.2'},
+ {id:'k3',t:'Parallel lines: the tests',cn:'Parallel lines: the tests',n:'7.3'},
+ {id:'k4',t:'Parallel lines: what follows',cn:'Parallel lines: what follows',n:'7.4'},
+ {id:'k5',t:'Triangle Angle Sum',cn:'Triangle angle sum',n:'7.5'},
+ {id:'test',t:'Chapter Test',cn:'Chapter test',n:''}
 ];
 let cur='intro';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
 function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 
-/* ===== 视频 ===== */
+/* ===== Videos ===== */
 const VIDEOS={
 k3:[
- {f:'04_Identifying parallel and perpendicular lines.mp4',t:'Identifying parallel & perpendicular lines',c:'core',d:'判断平行还是垂直'},
- {f:'03_Using algebra to find measures of angles from transversal.mp4',t:'Using algebra to find angle measures',c:'core',d:'列方程求角度'},
- {f:'07_Finding more angles.mp4',t:'Finding more angles',c:'core',d:'再找几个角'},
- {f:'05_Find measure of supplementary angles.mp4',t:'Supplementary angles',c:'core',d:'补角（同旁内角互补的基础）'},
+ {f:'04_Identifying parallel and perpendicular lines.mp4',t:'Identifying parallel & perpendicular lines',c:'core'},
+ {f:'03_Using algebra to find measures of angles from transversal.mp4',t:'Using algebra to find angle measures',c:'core'},
+ {f:'07_Finding more angles.mp4',t:'Finding more angles',c:'core'},
+ {f:'05_Find measure of supplementary angles.mp4',t:'Supplementary angles',c:'core'},
 ],
 k4:[
- {f:'01_Angles formed by parallel lines and transversals.mp4',t:'Angles formed by parallel lines & transversals',c:'core',d:'平行线被截出来的角'},
- {f:'02_Figuring out angles between transversal and parallel lines.mp4',t:'Figuring out angles',c:'core',d:'求角的度数'},
- {f:'12_Missing angles with a transversal.mp4',t:'Missing angles with a transversal',c:'core',d:'缺角怎么求'},
- {f:'06_Find measure of complementary angles.mp4',t:'Complementary angles',c:'core',d:'余角'},
+ {f:'01_Angles formed by parallel lines and transversals.mp4',t:'Angles formed by parallel lines & transversals',c:'core'},
+ {f:'02_Figuring out angles between transversal and parallel lines.mp4',t:'Figuring out angles',c:'core'},
+ {f:'12_Missing angles with a transversal.mp4',t:'Missing angles with a transversal',c:'core'},
+ {f:'06_Find measure of complementary angles.mp4',t:'Complementary angles',c:'core'},
 ],
 k5:[
- {f:'08_Proof- Sum of measures of angles in a triangle are 180.mp4',t:'Proof: angles in a triangle sum to 180',c:'core',d:'内角和为什么是 180°'},
- {f:'15_Angles in a triangle sum to 180° proof.mp4',t:'Sum to 180° proof',c:'core',d:'内角和 180° 证明'},
- {f:'14_Isosceles & equilateral triangles problems.mp4',t:'Isosceles & equilateral triangles',c:'core',d:'等腰三角形与等边三角形'},
- {f:'09_Triangle angle example 1.mp4',t:'Triangle angle example 1',c:'ext',d:'三角形角例题 1'},
- {f:'10_Triangle angle example 2.mp4',t:'Triangle angle example 2',c:'ext',d:'三角形角例题 2'},
- {f:'11_Challenging triangle angle problem.mp4',t:'Challenging angle problem',c:'core',d:'挑战题'},
- {f:'12_Missing angles with a transversal.mp4',t:'Missing angles (transversal)',c:'core',d:'截线求角'},
- {f:'13_Worked example - Triangle angles (diagram).mp4',t:'Worked: triangle angles',c:'core',d:'三角形角（带图）'},
- {f:'14_Isosceles & equilateral triangles problems.mp4',t:'Isosceles & equilateral',c:'core',d:'等腰等边'},
- {f:'15_Angles in a triangle sum to 180° proof.mp4',t:'Sum to 180° proof',c:'core',d:'内角和 180° 证明'},
+ {f:'08_Proof- Sum of measures of angles in a triangle are 180.mp4',t:'Proof: angles in a triangle sum to 180',c:'core'},
+ {f:'15_Angles in a triangle sum to 180° proof.mp4',t:'Sum to 180° proof',c:'core'},
+ {f:'14_Isosceles & equilateral triangles problems.mp4',t:'Isosceles & equilateral triangles',c:'core'},
+ {f:'09_Triangle angle example 1.mp4',t:'Triangle angle example 1',c:'ext'},
+ {f:'10_Triangle angle example 2.mp4',t:'Triangle angle example 2',c:'ext'},
+ {f:'11_Challenging triangle angle problem.mp4',t:'Challenging angle problem',c:'core'},
+ {f:'12_Missing angles with a transversal.mp4',t:'Missing angles (transversal)',c:'core'},
+ {f:'13_Worked example - Triangle angles (diagram).mp4',t:'Worked: triangle angles',c:'core'},
+ {f:'14_Isosceles & equilateral triangles problems.mp4',t:'Isosceles & equilateral',c:'core'},
+ {f:'15_Angles in a triangle sum to 180° proof.mp4',t:'Sum to 180° proof',c:'core'},
 ],
 };
 
-/* ============ 微课 K1：为什么要证明 ============ */
+/* ============ Lesson K1: why prove? ============ */
 function microK1(el){
  el.innerHTML=`
-  <div class="step">什么是证明？</div>
+  <div class="step">What is a proof?</div>
   <div class="box">
-   <h3>从实验到证明 · The shift</h3>
-   <p>小学到初一的几何，主要靠<strong>度量、画图、观察</strong>。但有件事不行：</p>
-   <p style="margin:10px 0;font-size:15px"><b>"所有三角形内角和都是 180°"</b>——画过 100 个三角形都成立，能说它"一定成立"吗？</p>
+   <h3>From experiment to proof</h3>
+   <p>Up to now geometry has rested on <strong>measuring, drawing and looking</strong>. But that cannot do one thing:</p>
+   <p style="margin:10px 0;font-size:15px"><b>"The angles of every triangle add to 180°"</b> — it holds for the 100 triangles you drew, but does that let you say it <i>must</i> hold?</p>
   </div>
   <div class="box" style="background:#fee2e2">
-   <h3>为什么不能"看"出来</h3>
-   <p style="font-size:14px">画的三角形内角和可能是 178° 或 182° —— 那是测量误差，不是定理错了。要"保证成立"，得用<b>严格的逻辑推导</b>，也就是<b>证明 proof</b>。</p>
+   <h3>Why looking is not enough</h3>
+   <p style="font-size:14px">Your drawn triangle might come out at 178° or 182° — that is measurement error, not a broken theorem. To <i>guarantee</i> it you need <b>strict logical deduction</b>, which is what a <b>proof</b> is.</p>
   </div>
   <div class="box" style="background:#dbeafe">
-   <h3>Proof 的本质 · 用已知推未知</h3>
-   <p style="font-size:14px">从"已知的真命题"出发，按照"逻辑规则"，推出"新的真命题"。</p>
-   <p style="font-size:14px">已知（公理、已证命题）→ 推理规则 → 结论</p>
+   <h3>What a proof is: known to unknown</h3>
+   <p style="font-size:14px">Start from statements already known to be true, follow the rules of logic, and arrive at a new true statement.</p>
+   <p style="font-size:14px">known (axioms, proved results) → rules of inference → conclusion</p>
   </div>
   `;
 }
 
-/* ============ 微课 K2：★ 证明书写格式 ============ */
+/* ============ Lesson K2: how to write a proof ============ */
 function microK2(el){
  el.innerHTML=`
-  <div class="step">★ 证明书写格式</div>
+  <div class="step">★ How to write a proof</div>
   <div class="box">
-   <h3>Three-line template · 三行范式</h3>
-   <p style="font-size:14px">中国几何证明的标准格式是<b>两列式</b>：左边是步骤，右边是依据（理由）。用 ∵ (since) 和 ∴ (therefore) 标记。</p>
+   <h3>The standard layout</h3>
+   <p style="font-size:14px">The standard layout is <b>two columns</b>: the step on the left, the reason for it on the right, marked with ∵ (since) and ∴ (therefore).</p>
   </div>
   <div class="box">
-   <h3>Symbol key · 符号</h3>
+   <h3>Symbol key</h3>
    <p style="font-size:16px;font-family:monospace">
-    <span class="num">∵</span> = "因为" / "since" &nbsp;&nbsp;&nbsp; <span class="num">∴</span> = "所以" / "therefore"
+    <span class="num">∵</span> = "since" &nbsp;&nbsp;&nbsp; <span class="num">∴</span> = "therefore"
    </p>
   </div>
   <div class="box" style="background:#dbeafe">
-   <h3>Worked example · 范例</h3>
-   <p><b>题：</b>已知 AB ∥ CD，∠B = ∠D。求证：AD ∥ BC。</p>
+   <h3>Worked example</h3>
+   <p><b>Problem:</b> given AB ∥ CD and ∠B = ∠D, prove AD ∥ BC.</p>
    <div class="proof">
-    <div class="row"><span class="step-row"><span class="yin">∵</span> AB ∥ CD</span><span class="reason">（已知）</span></div>
-    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠B = ∠ACD （内错角相等）</span><span class="reason">（两直线平行，内错角相等）</span></div>
-    <div class="row"><span class="step-row"><span class="yin">∵</span> ∠B = ∠D （已知）</span><span class="reason">（已知）</span></div>
-    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠D = ∠ACD</span><span class="reason">（等量代换）</span></div>
-    <div class="row"><span class="step-row"><span class="yj">∴</span> AD ∥ BC</span><span class="reason">（内错角相等，两直线平行）</span></div>
+    <div class="row"><span class="step-row"><span class="yin">∵</span> AB ∥ CD</span><span class="reason">(given)</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠B = ∠ACD (alternate interior angles)</span><span class="reason">(parallel lines → alternate interior angles equal)</span></div>
+    <div class="row"><span class="step-row"><span class="yin">∵</span> ∠B = ∠D (given)</span><span class="reason">(given)</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠D = ∠ACD</span><span class="reason">(substitution of equals)</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> AD ∥ BC</span><span class="reason">(alternate interior angles equal → lines parallel)</span></div>
    </div>
   </div>
   <div class="box" style="background:#fffbeb">
-   <h3>Common 依据 (reasons) · 常用理由</h3>
+   <h3>Common reasons</h3>
    <ul style="margin-left:20px;font-size:14px;line-height:1.9">
-    <li><b>已知</b> — 题目直接告诉的条件</li>
-    <li><b>两直线平行，内错角相等</b> — 平行线被截得的角关系</li>
-    <li><b>两直线平行，同位角相等</b> — 同上</li>
-    <li><b>两直线平行，同旁内角互补</b> — 同上</li>
-    <li><b>等量代换</b> — 把等式一边替换</li>
-    <li><b>定义</b> — 如"对顶角相等"由对顶角定义</li>
-    <li><b>已证定理</b> — 如"三角形内角和 180°"</li>
+    <li><b>Given</b> — stated in the problem</li>
+    <li><b>Parallel lines → alternate interior angles equal</b></li>
+    <li><b>Parallel lines → corresponding angles equal</b></li>
+    <li><b>Parallel lines → co-interior angles sum to 180°</b></li>
+    <li><b>Substitution of equals</b> — replace one side of an equality</li>
+    <li><b>Definition</b> — e.g. vertical angles are equal, by definition</li>
+    <li><b>A proved theorem</b> — e.g. the angles of a triangle sum to 180°</li>
    </ul>
   </div>
-  <div class="note">学完这节，你就能写出像上面那样的「两列式」证明。</div>`;
+  <div class="note">After this section you should be able to write a two-column proof like the one above.</div>`;
 }
 
-/* ============ 微课 K3：平行线的判定 ============ */
+/* ============ Lesson K3: the tests for parallel lines ============ */
 function microK3(el){
  el.innerHTML=`
-  <div class="step">平行线的判定</div>
+  <div class="step">The tests for parallel lines</div>
   <div class="box">
-   <h3>三句话 · Three equivalent conditions</h3>
-   <p style="font-size:14px">以下三条任一成立，两条线就平行（被第三条线 a transversal 截断）：</p>
+   <h3>Three equivalent conditions</h3>
+   <p style="font-size:14px">Any one of these being true makes the two lines parallel (cut by a third line, a transversal):</p>
    <div class="box" style="background:#dbeafe;margin:10px 0">
-    <p><b>① 同位角相等，两直线平行</b></p>
-    <p><b>② 内错角相等，两直线平行</b></p>
-    <p><b>③ 同旁内角互补，两直线平行</b></p>
+    <p><b>① Corresponding angles equal → lines parallel</b></p>
+    <p><b>② Alternate interior angles equal → lines parallel</b></p>
+    <p><b>③ Co-interior angles summing to 180° → lines parallel</b></p>
    </div>
   </div>
   <div class="box">
-   <h3>图示 · Diagram</h3>
+   <h3>Diagram</h3>
    <svg viewBox="0 0 400 200" style="background:#fafafa;border-radius:6px">
     <line x1="50" y1="60" x2="350" y2="60" stroke="#374151" stroke-width="2"/>
     <line x1="50" y1="140" x2="350" y2="140" stroke="#374151" stroke-width="2"/>
@@ -229,72 +229,72 @@ function microK3(el){
     <circle cx="220" cy="140" r="14" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
     <text x="200" y="55" font-size="10" text-anchor="middle">①</text>
     <text x="220" y="135" font-size="10" text-anchor="middle">②</text>
-    <text x="170" y="100" font-size="11" fill="#6b7280">同位角</text>
-    <text x="280" y="100" font-size="11" fill="#6b7280">内错角</text>
+    <text x="170" y="100" font-size="11" fill="#6b7280">corresponding</text>
+    <text x="280" y="100" font-size="11" fill="#6b7280">alternate interior</text>
    </svg>
   </div>
   <div class="box" style="background:#fffbeb">
-   <h3>这三条为什么是等价的？</h3>
-   <p style="font-size:14px">a∥b 时，那 8 个角位置就定死了：同位角相等、内错角相等（对顶 + 同位）、同旁内角互补（180°）。反过来同理 —— 这是判定定理。</p>
+   <h3>Why are the three equivalent?</h3>
+   <p style="font-size:14px">Once a ∥ b, all eight angles are pinned down: corresponding angles equal, alternate interior equal (vertical plus corresponding), co-interior summing to 180°. Running it backwards gives the tests.</p>
   </div>`;
 }
 
-/* ============ 微课 K4：平行线的性质 ============ */
+/* ============ Lesson K4: what follows from parallel lines ============ */
 function microK4(el){
  el.innerHTML=`
-  <div class="step">平行线的性质</div>
+  <div class="step">What follows from parallel lines</div>
   <div class="box" style="background:#dbeafe">
-   <h3>Two directions · 两个方向</h3>
-   <p style="font-size:14px"><b>判定：</b>从角相等 → 推出线平行（已知角，求证线平行）</p>
-   <p style="font-size:14px"><b>性质：</b>从线平行 → 推出角相等（已知线平行，求角的度数）</p>
-   <p style="font-size:14px">互为<b>逆命题</b>。判定和性质恰好反过来。</p>
+   <h3>Two directions</h3>
+   <p style="font-size:14px"><b>Test:</b> from equal angles → conclude the lines are parallel</p>
+   <p style="font-size:14px"><b>Property:</b> from parallel lines → conclude angles are equal (find the angle)</p>
+   <p style="font-size:14px">They are <b>converses</b> of each other — the test and the property run in opposite directions.</p>
   </div>
   <div class="box">
-   <h3>应用 · Application</h3>
+   <h3>Application</h3>
    <div class="proof" style="font-size:13px">
-    <p><b>题：</b>AB ∥ CD，∠B = 50°，求 ∠D。</p>
-    <div class="row"><span class="step-row"><span class="yin">∵</span> AB ∥ CD</span><span class="reason">（已知）</span></div>
-    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠B + ∠D = 180°</span><span class="reason">（两直线平行，同旁内角互补）</span></div>
-    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠D = 180° − 50° = <span class="num">130°</span></span><span class="reason">（等式的性质）</span></div>
+    <p><b>Problem:</b> AB ∥ CD and ∠B = 50°. Find ∠D.</p>
+    <div class="row"><span class="step-row"><span class="yin">∵</span> AB ∥ CD</span><span class="reason">(given)</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠B + ∠D = 180°</span><span class="reason">(parallel lines → co-interior angles sum to 180°)</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠D = 180° − 50° = <span class="num">130°</span></span><span class="reason">(properties of equality)</span></div>
    </div>
   </div>
-  <div class="note"><strong>如何区分判定和性质：</strong><br>
-   题目说"已知 a ∥ b，求角" → 用<strong>性质</strong>（由线推角）<br>
-   题目说"已知角相等，求证 a ∥ b" → 用<strong>判定</strong>（由角推线）<br>
-   一字之差：判定用"角→线"，性质用"线→角"。</div>`;
+  <div class="note"><strong>Telling the two apart:</strong><br>
+   Given "a ∥ b, find the angle" → use the <strong>property</strong> (lines to angles)<br>
+   Given "angles are equal, prove a ∥ b" → use the <strong>test</strong> (angles to lines)<br>
+   One word apart: the test goes angles → lines, the property lines → angles.</div>`;
 }
 
-/* ============ 微课 K5：三角形内角和 ============ */
+/* ============ Lesson K5: the triangle angle sum ============ */
 function microK5(el){
  el.innerHTML=`
-  <div class="step">三角形内角和</div>
+  <div class="step">The triangle angle sum</div>
   <div class="box" style="background:#dbeafe">
-   <h3>定理 · Theorem</h3>
-   <p style="font-size:18px;text-align:center">三角形三个内角的和 = <span class="num">180°</span></p>
+   <h3>Theorem</h3>
+   <p style="font-size:18px;text-align:center">The three interior angles of a triangle sum to <span class="num">180°</span></p>
   </div>
   <div class="box">
-   <h3>★ 证明 · Proof (用平行线)</h3>
-   <p style="font-size:14px">作辅助线：过 A 作 DE ∥ BC。</p>
+   <h3>★ Proof (using parallel lines)</h3>
+   <p style="font-size:14px">Draw a helper line: through A, draw DE ∥ BC.</p>
    <div class="proof">
-    <div class="row"><span class="step-row"><span class="yin">∵</span> DE ∥ BC</span><span class="reason">（作辅助线）</span></div>
-    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠DAB = ∠B（内错角）</span><span class="reason">（两直线平行，内错角相等）</span></div>
-    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠EAC = ∠C（内错角）</span><span class="reason">（两直线平行，内错角相等）</span></div>
-    <div class="row"><span class="step-row"><span class="yin">∵</span> ∠BAC = ∠DAB + ∠EAC</span><span class="reason">（角的和）</span></div>
-    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠A = ∠B + ∠C</span><span class="reason">（等量代换）</span></div>
-    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠A + ∠B + ∠C = 180°</span><span class="reason">（平角定义）</span></div>
+    <div class="row"><span class="step-row"><span class="yin">∵</span> DE ∥ BC</span><span class="reason">(by construction)</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠DAB = ∠B(alternate interior)</span><span class="reason">(parallel lines → alternate interior angles equal)</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠EAC = ∠C(alternate interior)</span><span class="reason">(parallel lines → alternate interior angles equal)</span></div>
+    <div class="row"><span class="step-row"><span class="yin">∵</span> ∠BAC = ∠DAB + ∠EAC</span><span class="reason">(sum of angles)</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠A = ∠B + ∠C</span><span class="reason">(substitution of equals)</span></div>
+    <div class="row"><span class="step-row"><span class="yj">∴</span> ∠A + ∠B + ∠C = 180°</span><span class="reason">(a straight angle is 180°)</span></div>
    </div>
   </div>
   <div class="box" style="background:#fffbeb">
-   <h3>外角定理 · Exterior Angle</h3>
-   <p style="font-size:14px">三角形的一个外角 = <b>不相邻</b>的两个内角之和。</p>
-   <p style="font-size:14px">这意味着：三角形的外角比任何相邻内角都大。</p>
+   <h3>Exterior angle</h3>
+   <p style="font-size:14px">An exterior angle of a triangle equals the sum of the two <b>opposite interior</b> angles.</p>
+   <p style="font-size:14px">So an exterior angle is larger than either opposite interior angle.</p>
   </div>
-  <div class="note"><strong>延伸（八下）</strong>：等腰三角形底角相等（反之亦然）。这一节是铺垫，下学期会展开。</div>`;
+  <div class="note"><strong>Looking ahead:</strong> in an isosceles triangle the base angles are equal, and conversely. This section sets that up.</div>`;
 }
 
-/* ============ 先测一下 ============ */
+/* ============ Quick check ============ */
 function diag(el,lessonId,generator){
- el.innerHTML=`<div class="step">先测一下</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 题快速测一下。</p><div id="diagQ"></div></div>`;
+ el.innerHTML=`<div class="step">Quick check</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 questions, just to see where you stand.</p><div id="diagQ"></div></div>`;
  const qEl=el.querySelector('#diagQ');
  let ok=0;
  const qs=Array.from({length:3},()=>generator('diag'));
@@ -302,86 +302,86 @@ function diag(el,lessonId,generator){
  const show=()=>{
   if(i>=3){
    st(lessonId).diag=ok;
-   if(ok===3){qEl.innerHTML=`<div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>3/3</strong></div><div style="margin-top:14px"><button id="skipMicro">跳过微课，去练习 →</button></div>`;qEl.querySelector('#skipMicro').onclick=()=>{cur=`prac-${lessonId}`;render();};}
-   else{qEl.innerHTML=`<div class="note" style="background:#fef3c7;border-color:var(--warn)"><strong>${ok}/3</strong></div><div style="margin-top:14px"><button id="goMicro">进入微课 →</button></div>`;qEl.querySelector('#goMicro').onclick=()=>{cur=`micro-${lessonId}`;render();};}
+   if(ok===3){qEl.innerHTML=`<div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>3/3</strong></div><div style="margin-top:14px"><button id="skipMicro">Skip the lesson, go to practice →</button></div>`;qEl.querySelector('#skipMicro').onclick=()=>{cur=`prac-${lessonId}`;render();};}
+   else{qEl.innerHTML=`<div class="note" style="background:#fef3c7;border-color:var(--warn)"><strong>${ok}/3</strong></div><div style="margin-top:14px"><button id="goMicro">Go to lesson →</button></div>`;qEl.querySelector('#goMicro').onclick=()=>{cur=`micro-${lessonId}`;render();};}
    save();renderNav();return;
   }
   const q=qs[i];
-  qEl.innerHTML=`<div class="q"><div class="q-text">${i+1}. ${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="da"><button id="sub">提交</button></div><div class="hint" id="ht"></div><div class="feedback" id="fb"></div></div>`;
+  qEl.innerHTML=`<div class="q"><div class="q-text">${i+1}. ${q.q}</div><div style="display:flex;gap:8px"><input id="da"><button id="sub">Submit</button></div><div class="hint" id="ht"></div><div class="feedback" id="fb"></div></div>`;
   const input=qEl.querySelector('#da'),fb=qEl.querySelector('#fb'),ht=qEl.querySelector('#ht');
   input.focus();qEl.querySelector('#sub').onclick=check;input.onkeydown=e=>{if(e.key==='Enter')check();};
   function check(){
    const correct=q.check(input.value.trim());
    if(correct===true){ok++;fb.className='feedback show ok';fb.textContent='✓';input.disabled=true;setTimeout(()=>{i++;show();},700);}
    else if(correct==='hint'){ht.className='hint show';ht.textContent=q.hint;}
-   else{fb.className='feedback show err';fb.textContent='✗ 再试。';}
+   else{fb.className='feedback show err';fb.textContent='✗ Try again.';}
   }
  };
  show();
 }
 
-/* ============ 练习生成器 ============ */
+/* ============ Practice generators ============ */
 const generators={
 k3:()=>{
  const a=ri(40,140);
-  return {q:`If a transversal crosses two lines and the corresponding angles are equal (both ${a}°), are the two lines parallel? Answer "yes" or "no".`,qcn:`同位角相等（都 ${a}°），两直线平行吗？`,
-   check:a=>{const ans=a.toLowerCase().trim();return ans==='yes'||ans==='y'||ans==='是';},
+  return {q:`If a transversal crosses two lines and the corresponding angles are equal (both ${a}°), are the two lines parallel? Answer "yes" or "no".`,
+   check:a=>{const ans=a.toLowerCase().trim();return ans==='yes'||ans==='y'||ans==='yes';},
    ans:'yes',hint:'Corresponding angles equal ⟹ parallel.'};
 },
 k4:()=>{
  const a=ri(40,140);
-  return {q:`If a ∥ b and the co-interior angle is ${a}°, what is the other co-interior angle?`,qcn:`a ∥ b，同旁内角之一为 ${a}°，另一个 = ?`,
+  return {q:`If a ∥ b and the co-interior angle is ${a}°, what is the other co-interior angle?`,
    check:a=>parseInt(a)===180-a,ans:String(180-a),hint:'Co-interior angles sum to 180°.'};
 },
 k5:()=>{
  const a=ri(30,80),b=ri(30,80);
-  return {q:`In a triangle, ∠A = ${a}°, ∠B = ${b}°. Find ∠C.`,qcn:`三角形 ∠A = ${a}°, ∠B = ${b}°，求 ∠C = ?`,
+  return {q:`In a triangle, ∠A = ${a}°, ∠B = ${b}°. Find ∠C.`,
    check:a=>parseInt(a)===180-a-b,ans:String(180-a-b),hint:'Sum to 180°.'};
 },
 };
 
-/* ============ 视频模块 ============ */
+/* ============ Videos module ============ */
 function videos(el,lessonId){
  const list=VIDEOS[lessonId]||[];
  if(!list.length){el.innerHTML='<div class="note">No videos for this section.</div>';return;}
- let html=`<div class="step">视频 · ${LESSONS.find(l=>l.id===lessonId).cn}</div>`;
+ let html=`<div class="step">Videos · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
  list.forEach((v,i)=>{
   const watched=st(lessonId).vid[i];
-  html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="cn">${v.d}</span><span class="meta"><span class="tag ${v.c}">${v.c==='core'?'核心':'拓展'}</span><span class="st ${watched?'ok':''}">${watched?'✓':'未看'}</span><button data-i="${i}">${watched?'▶ 重看':'▶ 播放'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
+  html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="meta"><span class="tag ${v.c}">${v.c==='core'?'Core':'Extra'}</span><span class="st ${watched?'ok':''}">${watched?'✓':'Unwatched'}</span><button data-i="${i}">${watched?'▶ Replay':'▶ Play'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
  });
  el.innerHTML=html;
  el.querySelectorAll('[data-i]').forEach(b=>{
-  b.onclick=()=>{const i=parseInt(b.dataset.i);const slot=el.querySelector('#vc'+i);const v=slot.querySelector('video');if(slot.style.display==='none'){slot.style.display='block';v.play();}else{v.pause();v.currentTime=0;slot.style.display='none';}st(lessonId).vid[i]=true;save();renderNav();b.textContent='▶ 重看';};
+  b.onclick=()=>{const i=parseInt(b.dataset.i);const slot=el.querySelector('#vc'+i);const v=slot.querySelector('video');if(slot.style.display==='none'){slot.style.display='block';v.play();}else{v.pause();v.currentTime=0;slot.style.display='none';}st(lessonId).vid[i]=true;save();renderNav();b.textContent='▶ Replay';};
  });
 }
 
-/* ============ 练习 ============ */
+/* ============ Practice ============ */
 function practice(el,lessonId){
  const gen=generators[lessonId];
  if(!gen){el.innerHTML='<div class="note">No practice (K1/K2 are concept lessons)</div>';return;}
  const s=st(lessonId);
  let streak=0,need=5,q=null,tries=0;
  const update=()=>{
-  el.innerHTML=`<div class="step">练一练（${streak}/${need}）</div><div style="font-size:13px;color:var(--muted);margin:8px 0">对 ${s.prac.ok}/${s.prac.tot}<button class="secondary" id="rs" style="margin-left:8px">Reset</button></div><div class="progress"><div style="width:${(streak/need)*100}%"></div></div><div class="q"><div class="q-text">${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="pi"><button id="ps">提交</button></div><div class="hint" id="ph"></div><div class="feedback" id="pf"></div></div>`;
+  el.innerHTML=`<div class="step">Practice (${streak}/${need}）</div><div style="font-size:13px;color:var(--muted);margin:8px 0">Correct: ${s.prac.ok}/${s.prac.tot}<button class="secondary" id="rs" style="margin-left:8px">Reset</button></div><div class="progress"><div style="width:${(streak/need)*100}%"></div></div><div class="q"><div class="q-text">${q.q}</div><div style="display:flex;gap:8px"><input id="pi"><button id="ps">Submit</button></div><div class="hint" id="ph"></div><div class="feedback" id="pf"></div></div>`;
   el.querySelector('#rs').onclick=()=>{s.prac={ok:0,tot:0};streak=0;save();update();renderNav();};
   const inp=el.querySelector('#pi'),fb=el.querySelector('#pf'),ht=el.querySelector('#ph');
   inp.focus();el.querySelector('#ps').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
   function check(){
    const a=inp.value.trim();
    const r=q.check(a);
-   if(r===true){streak++;s.prac.ok++;s.prac.tot++;fb.className='feedback show ok';fb.textContent='✓ 正确！';inp.disabled=true;if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>本节过关！✓</strong>';save();renderNav();}setTimeout(()=>{q=gen();tries=0;update();},900);}
+   if(r===true){streak++;s.prac.ok++;s.prac.tot++;fb.className='feedback show ok';fb.textContent='✓ correct！';inp.disabled=true;if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>Section cleared ✓</strong>';save();renderNav();}setTimeout(()=>{q=gen();tries=0;update();},900);}
    else{
     tries++;
     if(tries===1){
-     ht.className='hint show';ht.textContent=q.hint||'再想想看。';
-     fb.className='feedback show err';fb.textContent='✗ 再试一次。';
+     ht.className='hint show';ht.textContent=q.hint||'Have another go.';
+     fb.className='feedback show err';fb.textContent='✗ Try again。';
     } else if(tries===2){
      fb.className='feedback show err';
-     fb.textContent='✗ 还不对。'+(q.sol?('思路：'+q.sol):(q.hint?('提示：'+q.hint):'再算一遍。'));
+     fb.textContent='✗ Not quite. '+(q.sol?('Method: '+q.sol):(q.hint?('Hint: '+q.hint):'Work through it once more.'));
     } else {
      streak=0;s.prac.tot++;
      fb.className='feedback show err';
-     fb.innerHTML=`答案是 <b>${q.ans}</b>`+(q.sol?('。'+q.sol):'。');
+     fb.innerHTML=`The answer is <b>${q.ans}</b>`+(q.sol?('。'+q.sol):'。');
      inp.disabled=true;save();renderNav();
      setTimeout(()=>{q=gen();tries=0;update();},2400);
     }
@@ -391,9 +391,9 @@ function practice(el,lessonId){
  q=gen();tries=0;update();
 }
 
-/* ============ 章末测 ============ */
+/* ============ Chapter test ============ */
 function chTest(el){
- el.innerHTML=`<div class="step">章末自己测</div><div class="box"><p style="font-size:13px;color:var(--muted)">共 6 题。</p><div id="tq"></div></div>`;
+ el.innerHTML=`<div class="step">Chapter test</div><div class="box"><p style="font-size:13px;color:var(--muted)">6 questions.</p><div id="tq"></div></div>`;
  const tq=el.querySelector('#tq');
  const qs=[];
  for(let i=0;i<2;i++)qs.push(generators.k3());
@@ -401,9 +401,9 @@ function chTest(el){
  for(let i=0;i<2;i++)qs.push(generators.k5());
  let i=0,ok=0;
  const show=()=>{
-  if(i>=qs.length){tq.innerHTML=`<div class="note" style="background:${ok>=4?'#dcfce7':'#fef3c7'}"><strong>${ok}/${qs.length}</strong> ${ok>=4?'章末通过！':'再复习'}</div>`;S.test={ok,tot:qs.length};save();renderNav();return;}
+  if(i>=qs.length){tq.innerHTML=`<div class="note" style="background:${ok>=4?'#dcfce7':'#fef3c7'}"><strong>${ok}/${qs.length}</strong> ${ok>=4?'Chapter passed!':'Review it again'}</div>`;S.test={ok,tot:qs.length};save();renderNav();return;}
   const q=qs[i];
-  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div class="q-cn">${q.qcn||''}</div><div style="display:flex;gap:8px"><input id="ti"><button id="ts">提交</button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
+  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div style="display:flex;gap:8px"><input id="ti"><button id="ts">Submit</button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
   const inp=tq.querySelector('#ti'),fb=tq.querySelector('#tf'),ht=tq.querySelector('#th');
   inp.focus();tq.querySelector('#ts').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
   function check(){
@@ -416,29 +416,30 @@ function chTest(el){
  show();
 }
 
-/* ============ 渲染 ============ */
+/* ============ Render ============ */
 
-/* ===== 章节门厅：进来先看这里 ===== */
+/* ===== Chapter lobby: start here ===== */
+const GLOSS={k1:"证明",k2:"两列式证明",k3:"平行线的判定",k4:"平行线的性质",k5:"三角形内角和"};
 const USE_MICRO=true;
-const INTRO={why:"「内错角相等，两直线平行」——为什么它一定对？以前靠量，现在要靠讲理由。这章教你把「我觉得对」变成「我有根据」：每一步都写清楚因为什么、所以什么（∵ ∴）。这种讲道理的本事，以后解几何题、写议论文、跟人争论都用得上。",desc:{k1:"光「看着像」不够，得说出理由",k2:"每一步都写「因为…所以…」（∵ ∴）的标准格式",k3:"满足什么条件，就能判定两条直线平行",k4:"已经知道平行，能推出哪些角相等",k5:"三角形三个内角加起来是 180°，怎么证出来"}};
+const INTRO={why:"\"If alternate interior angles are equal, the lines are parallel\" — but why must that be true? Measuring it is not an argument. This chapter turns \"looks right to me\" into \"here is my reason\": every step written as because…, therefore… (∵ ∴). That habit of backing up a claim carries into geometry, into essays, into any argument you ever make.",desc:{k1:"\"It looks right\" is not enough — you need a reason",k2:"The standard format: every step as because…, therefore… (∵ ∴)",k3:"What lets you conclude that two lines are parallel",k4:"Once you know lines are parallel, what follows from it",k5:"The three angles of a triangle add to 180° — and how to prove it"}};
 function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
 function introRender(main){
   const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
-  let h='<div class="intro-h">这一章要学什么</div>'
-    +'<div class="intro-sub">先扫一眼这张清单，知道这章要去哪；然后点最下面的按钮开始。</div><div class="kp">';
+  let h='<div class="intro-h">What this chapter covers</div>'
+    +'<div class="intro-sub">Skim the list to see where this chapter is going, then press the button at the bottom.</div><div class="kp">';
   pts.forEach(l=>{
     const s=st(l.id);
-    const badge=s.done?' <span class="st ok">✓ 已过关</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
+    const badge=s.done?' <span class="st ok">✓ done</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
     h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.cn+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
   });
   h+='</div>';
-  h+='<div class="why"><b>学会了能干嘛</b><br>'+INTRO.why+'</div>';
-  h+='<div class="box"><b>这一章怎么学</b><div class="how">'
-    +'① <b>看微课</b>：几分钟，先弄懂这一节在说什么<br>'
-    +'② <b>练几题</b>：连对 5 题就过关；不会的话会给提示，一步步带你做<br>'
-    +'③ <b>再下一节</b>：左边 '+pts[0].n+'、'+pts[1].n+'…… 想先学哪个点哪个，不用非按顺序'
+  h+='<div class="why"><b>Where this shows up in real life</b><br>'+INTRO.why+'</div>';
+  h+='<div class="box"><b>How this chapter works</b><div class="how">'
+    +'① <b>Watch the lesson</b>: a few minutes to get what the section is about<br>'
+    +'② <b>Practice</b>: 5 correct in a row clears it; if you get stuck, hints walk you through<br>'
+    +'③ <b>Next section</b>: on the left, '+pts[0].n+'、'+pts[1].n+'… open whichever you want, in any order'
     +'</div></div>';
-  h+='<div class="big-start"><button id="startBtn">开始 '+pts[0].n+' '+pts[0].cn+' →</button></div>';
+  h+='<div class="big-start"><button id="startBtn">Start '+pts[0].n+' '+pts[0].cn+' →</button></div>';
   main.innerHTML=h;
   main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
 }
@@ -449,7 +450,7 @@ function renderNav(){
   let stxt='';
   if(s.done)stxt='<span class="st ok">✓</span>';
   else if(s.prac.tot>0)stxt=`<span class="st ${s.prac.ok/s.prac.tot>0.6?'ok':'err'}">${s.prac.ok}/${s.prac.tot}</span>`;
-  return `<div class="nav-i ${l.id===cur||cur===`micro-${l.id}`||cur===`diag-${l.id}`||cur===`prac-${l.id}`?'on':''}" data-go="${l.id}"><span><b>${l.n}</b> ${l.cn}</span>${stxt}</div>`;
+  return `<div class="nav-i ${l.id===cur||cur===`micro-${l.id}`||cur===`diag-${l.id}`||cur===`prac-${l.id}`?'on':''}" data-go="${l.id}"><span><b>${l.n}</b> ${l.t}</span>${stxt}</div>`;
  }).join('');
  nav.querySelectorAll('[data-go]').forEach(n=>n.onclick=()=>{const id=n.dataset.go;cur=id==='test'?'test':`micro-${id}`;render();});
 }
@@ -464,7 +465,7 @@ function render(){
   const phase=m[1],id=m[2];
   const lesson=LESSONS.find(l=>l.id===id);
   if(!lesson){main.innerHTML='<div class="note">Unknown</div>';return;}
-  const titles={k1:'为什么要证明',k2:'证明书写格式',k3:'平行线的判定',k4:'平行线的性质',k5:'三角形内角和'};
+  const titles={k1:'Why prove?',k2:'Writing a proof',k3:'Parallel lines: the tests',k4:'Parallel lines: what follows',k5:'Triangle angle sum'};
   main.innerHTML=`<div class="lesson-id">${lesson.n} · ${titles[id]} · ${lesson.cn}</div>`;
   const c=document.createElement('div');main.appendChild(c);
   if(phase==='diag'){
@@ -479,7 +480,7 @@ function render(){
    const after=document.createElement('div');main.appendChild(after);
    videos(after,id);
    const btn=document.createElement('div');btn.style.marginTop='14px';
-   btn.innerHTML=`<button id="toPrac">Go to practice · 开始练习</button>`;
+   btn.innerHTML=`<button id="toPrac">Go to practice</button>`;
    main.appendChild(btn);
    btn.querySelector('#toPrac').onclick=()=>{cur=`prac-${id}`;render();};
   } else if(phase==='prac'){practice(c,id);}
