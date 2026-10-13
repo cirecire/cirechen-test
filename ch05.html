@@ -240,7 +240,7 @@ function microK3(el){
   <div class="box" style="background:#dbeafe">
    <h3>What if the coefficients do not match?</h3>
    <p style="font-size:14px"><strong>Multiply</strong> one (or both) equations by a number so the coefficients match or oppose.</p>
-   <p style="font-size:14px;color:var(--muted);margin-top:6px">For example, in x + y = 5 and 2x − y = 4 the coefficients already oppose, so just add. But in x + 2y = 5 and 3x + 5y = 14 the x coefficients are 1 and 3, so multiply the first equation×3 或第二个×1，再相减消 x。</p>
+   <p style="font-size:14px;color:var(--muted);margin-top:6px">For example, in x + y = 5 and 2x − y = 4 the coefficients already oppose, so just add. But in x + 2y = 5 and 3x + 5y = 14 the x coefficients are 1 and 3, so multiply the first equation by 3, then subtract to eliminate x.</p>
   </div>
   <div class="note"><strong>Substitution vs elimination:</strong> if one equation is already y = … or x = …, substitution is fastest; otherwise elimination is usually more direct (no brackets to expand).</div>`;
 }
@@ -251,13 +251,13 @@ function microK4(el){
  const problems=[
   {title:'Chickens and Rabbits',setup:`Chickens and rabbits in one cage: 35 heads, 94 feet. How many of each?<br><span class="cn">Classical problem: 35 heads, 94 feet. Find chickens and rabbits.</span>`,
    table:[{name:'',t:['chickens','rabbits','total']},{name:'count',t:['x','y','35']},{name:'feet',t:['2x','4y','94']}],
-   sol:`Step 1, write the equations:<br>  x + y = 35<br>  2x + 4y = 94<br><br>Step 2, eliminate (match the y coefficients, ×2):<br>  2x + 2y = 70<br>  2x + 4y = 94<br>  subtract: 2y = 24 → <span class="num">y = 12（兔 12 只）</span><br>  代入：x = 35 − 12 = <span class="num">23（鸡 23 只）</span><br><br>验证：23 + 12 = 35 ✓；2·23 + 4·12 = 46 + 48 = 94 ✓`},
-  {title:'Sales & Expenses',setup:`A shop stocks 50 items of types A and B. A sells for ¥80 with ¥20 profit; B sells for ¥120 with ¥30 profit. Total profit is ¥1900. How many of each?<br><span class="cn">50 items total. A: 80元 selling, 20元 profit. B: 120元 selling, 30元 profit. Total profit 1900元. Find quantities.</span>`,
+   sol:`Step 1, write the equations:<br>  x + y = 35<br>  2x + 4y = 94<br><br>Step 2, eliminate (match the y coefficients, ×2):<br>  2x + 2y = 70<br>  2x + 4y = 94<br>  subtract: 2y = 24 → <span class="num">y = 12 rabbits</span><br>  substitute: x = 35 − 12 = <span class="num">23 chickens</span><br><br>Check: 23 + 12 = 35 ✓; 2·23 + 4·12 = 46 + 48 = 94 ✓`},
+  {title:'Sales & Expenses',setup:`A shop stocks 50 items of types A and B. A sells for ¥80 with ¥20 profit; B sells for ¥120 with ¥30 profit. Total profit is ¥1900. How many of each?<br><span class="cn">50 items total. A: sells at 80, 20 profit. B: sells at 120, 30 profit. Total profit 1900. Find quantities.</span>`,
    table:[{name:'',t:['count of A','count of B','total']},{name:'',t:['x','y','50']},{name:'profit each',t:['20','30','—']},{name:'total profit',t:['20x','30y','1900']}],
-   sol:`Write the equations:<br>  x + y = 50<br>  20x + 30y = 1900<br><br>Eliminate (both reduce to x + 1.5y = 95):<br>  x = 50 − y<br>  20(50−y) + 30y = 1900<br>  1000 + 10y = 1900<br>  10y = 900 → <span class="num">y = 90（B 90 件）</span><br>  x = 50 − 90 = −40（不合理，题设条件互相矛盾！）<br><br><span style="color:var(--err)">真实情况：本题应改为"共 50 件、获利 1900 元"才有正解。题目出错了。</span>`},
+   sol:`Write the equations:<br>  x + y = 50<br>  20x + 30y = 1900<br><br>Eliminate (both reduce to x + 1.5y = 95):<br>  x = 50 − y<br>  20(50−y) + 30y = 1900<br>  1000 + 10y = 1900<br>  10y = 900 → <span class="num">y = 90 of B</span><br>  x = 50 − 90 = −40 (impossible — the conditions contradict each other!)<br><br><span style="color:var(--err)">In reality this problem should read "50 items, total profit 1900" to have a positive solution. The numbers are inconsistent.</span>`},
   {title:'Milestone Numbers',setup:`A car leaves town A at 60 km/h. Two hours later a second car leaves A at 80 km/h, and catches up 3 hours after that. How far has the first car gone?<br><span class="cn">Car A leaves first at 60 km/h. 2 hours later car B leaves at 80 km/h, catches A 3 hours after that. Distance of car A?</span>`,
    table:[{name:'',t:['A speed','B speed','time A has driven']},{name:'',t:['60','80','2 + 3 = 5 h']},{name:'',t:['km/h','km/h','']}],
-   sol:`Equation: at the moment of catching up the distances are equal<br>  60t = 80(t − 2), where t = 2 + 3 = 5<br>  60·5 = 80·(5−2)<br>  300 = 80·3 = 240 → not equal?<br><br>The catch-up happens 3 hours after B starts, <b>not 5 hours after</b>.br>  60·(3+2) = 60·5 = 300<br>  80·3 = 240<br>  差 60 km，所以还差一小时没追上。<br><br>真正的解：<br>  60t = 80(t − 2)<br>  60t = 80t − 160<br>  160 = 20t → <span class="num">t = 8 h（A 开了 8 小时）</span><br>  距离 = 60·8 = <span class="num">480 km</span>`},
+   sol:`Equation: at the moment of catching up the distances are equal<br>  60t = 80(t − 2), where t is the time car A has been driving<br>  60·5 = 80·(5−2) [wrong guess t=5]<br>  300 = 80·3 = 240 → not equal<br><br>The catch-up happens 3 hours after B starts, <b>not 5 hours after A</b>.<br>  60·(3+2) = 60·5 = 300<br>  80·3 = 240 → still 60 km apart, so one more hour needed<br><br>Correct solution:<br>  60t = 80(t − 2)<br>  60t = 80t − 160<br>  160 = 20t → <span class="num">t = 8 h (car A drove 8 hours)</span><br>  distance = 60·8 = <span class="num">480 km</span>`},
  ];
  const render=()=>{
   const p=problems[cur];
@@ -437,7 +437,7 @@ function chTest(el){
  for(let i=0;i<2;i++)qs.push(generators.k5());
  let i=0,ok=0;
  const show=()=>{
-  if(i>=qs.length){tq.innerHTML=`<div class="note" style="background:${ok>=7?'#dcfce7':'#fef3c7'};border-color:${ok>=7?'var(--ok)':'var(--warn)'}"><strong>${ok}/${qs.length}</strong> ${ok>=7?'Chapter passed!':'再回去复习'}</div>`;S.test={ok,tot:qs.length};save();renderNav();return;}
+  if(i>=qs.length){tq.innerHTML=`<div class="note" style="background:${ok>=7?'#dcfce7':'#fef3c7'};border-color:${ok>=7?'var(--ok)':'var(--warn)'}"><strong>${ok}/${qs.length}</strong> ${ok>=7?'Chapter passed!':'Go back and review'}</div>`;S.test={ok,tot:qs.length};save();renderNav();return;}
   const q=qs[i];
   tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div style="display:flex;gap:8px"><input id="ti"><button id="ts">Submit</button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
   const inp=tq.querySelector('#ti'),fb=tq.querySelector('#tf'),ht=tq.querySelector('#th');
