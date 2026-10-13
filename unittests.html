@@ -183,17 +183,17 @@ const G2=[
      `Eliminate y: multiply the first equation by ${d} and the second by ${b}, then subtract.`,
      `×${d}: ${a*d}x + ${b*d}y = ${e*d}\n×${b}: ${b*c}x + ${b*d}y = ${f*b}\nsubtract:  ${a*d-b*c}x = ${e*d-f*b}  ⟹  x = ${x0}`);},
  ()=>{const r=ri(2,20),c=ri(2,20),H=r+c,F=4*r+2*c;
-   return mkNum(`鸡兔同笼 · ${H} heads and ${F} feet in total. How many rabbits?`,
+   return mkNum(`Chickens & Rabbits · ${H} heads and ${F} feet in total. How many rabbits?`,
      `Chickens and rabbits: ${H} heads and ${F} feet in total. How many rabbits?`,r,
      `Let r = rabbits, c = chickens. r + c = heads, 4r + 2c = feet.`,
      `r + c = ${H},  4r + 2c = ${F}\nsubtracting: 2r = ${F} − 2×${H} = ${F-2*H}  ⟹  r = ${r}`);},
  ()=>{const p=pick([10,20,25,50]),base=ri(20,90)*100,now=base*(100+p)/100;
-   return mkNum(`增收节支 · This year's income is ${now} yuan, which is ${p}% more than last year. What was last year's income?`,
+   return mkNum(`Income & Expenses · This year's income is ${now} yuan, which is ${p}% more than last year. What was last year's income?`,
      `Income this year is ${now} yuan, ${p}% more than last year. What was it last year?`,base,
      `this year = last year × (1 + p%). So last year = this year ÷ (1 + p%).`,
      `last year × ${(100+p)/100} = ${now}  ⟹  last year = ${now} ÷ ${(100+p)/100} = ${base} yuan`);},
  ()=>{let a,b;do{a=ri(2,9);b=ri(1,9);}while(a<=b);const s=a+b,D=9*(a-b);
-   return mkNum(`里程碑上的数 · A two-digit number: its tens digit and ones digit add to ${s}. Swapping the two digits gives a number ${D} SMALLER than the original. Find the original number.`,
+   return mkNum(`Milestone Numbers · A two-digit number: its tens digit and ones digit add to ${s}. Swapping the two digits gives a number ${D} SMALLER than the original. Find the original number.`,
      `A two-digit number has digits summing to ${s}; swapping them gives a number ${D} smaller. Find the original.`,10*a+b,
      `Let tens = a, ones = b. Number = 10a + b. Swapped = 10b + a. Original − swapped = 9(a − b).`,
      `a + b = ${s},  9(a − b) = ${D} ⟹ a − b = ${a-b}\nsolving: a = ${a}, b = ${b}  ⟹  the number = ${10*a+b}`);},
@@ -241,7 +241,7 @@ const G3=[
      `Two parallel lines are cut by a third. One angle is ${x}°; its ${R[1]} = ?`,ans,
      sup?'Co-interior angles are supplementary (add to 180°).':'Corresponding and alternate interior angles are EQUAL when the lines are parallel.',
      sup?`Parallel lines: co-interior angles sum to 180°, so 180° − ${x}° = ${180-x}°`:`Parallel lines: ${R[1]} are equal ⟹ ${x}°`);},
- ()=>{const R=pick([['corresponding angles are equal','corresponding angles are equal',0],['alternate interior angles are equal','alternate interior angles are equal',1],['co-interior angles are supplementary','同旁内角互补',2]]);
+ ()=>{const R=pick([['corresponding angles are equal','corresponding angles are equal',0],['alternate interior angles are equal','alternate interior angles are equal',1],['co-interior angles are supplementary','co-interior angles are supplementary',2]]);
    return mkChoice(`Two lines are cut by a transversal, and their ${R[0]}. Are the two lines parallel?`,
      `Two lines are cut by a third; ${R[1]}. Are the two lines parallel?`,['Yes','No'],0,
      `These are exactly the three tests for parallel lines.`,
@@ -386,7 +386,7 @@ function intro(el,u){
    <p style="font-size:13px">Chapter progress ${Math.round(rp*100)}%  ${rp>=0.6?'<span class="badge ok">Ready to try</span>':'<span class="badge warn">Finish the chapters first</span>'}</p>
   </div>
   ${st?`<div class="box"><h3>Last score</h3><table><tr><th>Date</th><th>Score</th><th>Result</th></tr>
-   ${hist.map(x=>`<tr><td>${x.date}</td><td>${x.ok}/${x.tot}</td><td>${x.ok/x.tot>=0.8?'<span class="badge ok">Excellent</span>':(x.ok/x.tot>=0.6?'<span class="badge warn">还行</span>':'<span class="badge lock">再练练</span>')}</td></tr>`).join('')}
+   ${hist.map(x=>`<tr><td>${x.date}</td><td>${x.ok}/${x.tot}</td><td>${x.ok/x.tot>=0.8?'<span class="badge ok">Excellent</span>':(x.ok/x.tot>=0.6?'<span class="badge warn">Fair</span>':'<span class="badge lock">More practice</span>')}</td></tr>`).join('')}
    <tr><td colspan="3" style="font-size:12px;color:var(--muted)">Best: ${st.best!=null?st.best+'/'+u.q:'—'}</td></tr></table></div>`:''}
   <div style="margin-top:14px"><button id="start">▶ Start ${u.q} questions</button></div>`;
  el.querySelector('#start').onclick=()=>run(el,u);
@@ -435,7 +435,7 @@ function finish(el,u,ok,tot){
  const hist=(prev.history||[]).concat([{ok:ok,tot:tot,date:today}]).slice(-5);
  U[u.id]={ok:ok,tot:tot,date:today,best:best,history:hist};saveUS(U);
  const p=ok/tot;
- const lvl=p>=0.8?['Excellent，全对的！','var(--ok)']:(p>=0.6?['Solid — go over the misses once more.','var(--warn)']:['More practice — go back to the chapters and drill those topics.','var(--err)']);
+ const lvl=p>=0.8?['Excellent — all correct!','var(--ok)']:(p>=0.6?['Solid — go over the misses once more.','var(--warn)']:['More practice — go back to the chapters and drill those topics.','var(--err)']);
  el.innerHTML=`<div class="step" style="background:${lvl[1]}">Score · ${ok} / ${tot}</div>
   <div class="box"><h3 style="color:${lvl[1]}">${lvl[0]}</h3>
    <p style="font-size:14px">Accuracy ${Math.round(p*100)}% · best ever ${best}/${tot}</p>
