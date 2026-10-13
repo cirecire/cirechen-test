@@ -87,8 +87,7 @@ svg{max-width:100%;display:block;margin:0 auto}
 <header>
  <h1>Chapter 5 · Systems of Linear Equations</h1>
  <p>Grade 8 · 9 class periods · chickens and rabbits, sales and costs, milestone numbers</p>
- <p style="margin-top:6px;font-size:12px">Chapter 5 · Systems of linear equations</p>
-</header>
+ </header>
 <nav id="nav"></nav>
 <main id="main"></main>
 </div>
@@ -467,7 +466,7 @@ function introRender(main){
   pts.forEach(l=>{
     const s=st(l.id);
     const badge=s.done?' <span class="st ok">✓ done</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
-    h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.cn+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
+    h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.t+(GLOSS[l.id]?' <span class="cn-tag">'+GLOSS[l.id]+'</span>':'')+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
   });
   h+='</div>';
   h+='<div class="why"><b>Where this shows up in real life</b><br>'+INTRO.why+'</div>';
