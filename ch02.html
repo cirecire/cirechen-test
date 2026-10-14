@@ -210,7 +210,7 @@ const LESSONS=[
  {id:'k6',t:'The Real Numbers',cn:'The real numbers',n:'2.6'},
  {id:'k7',t:'Radicals',cn:'Radicals',n:'2.7'},
  {id:'ext',t:'Optional · Scientific notation',cn:'Optional · Scientific notation',n:''},
- {id:'test',t:'Chapter Test',cn:'Chapter test',n:''}
+ {id:'test',t:'Chapter check',cn:'Chapter check',n:''}
 ];
 let cur='intro';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
@@ -626,7 +626,7 @@ function prac(el,id,types,need){
   next();
 }
 function chTest(el){
-  el.innerHTML=`<div class="step"><span class="en">Chapter test</span><span class="zh">章末测</span></div>
+  el.innerHTML=`<div class="step"><span class="en">Chapter check</span><span class="zh">章末自己测</span></div>
     <div class="lead">10 questions covering the 7 topics in this chapter.</div>
     <div id="tq"></div><div class="row"><button id="sb"><span class="en">Submit</span><span class="zh">提交</span></button></div><div id="rs2"></div>`;
   const box=el.querySelector('#tq');
@@ -682,7 +682,7 @@ function introRender(main){
   main.innerHTML=h;
   main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
 }
-const NAVZH={"intro":"概览","k1":"无理数","k2":"平方根","k3":"立方根","k4":"估算","k5":"计算器","k6":"实数","k7":"二次根式","ext":"科学计数法","test":"章末测"};
+const NAVZH={"intro":"概览","k1":"无理数","k2":"平方根","k3":"立方根","k4":"估算","k5":"计算器","k6":"实数","k7":"二次根式","ext":"科学计数法","test":"章末自己测"};
 const LKEY='bnu8_lang';
 function getLang(){return localStorage.getItem(LKEY)||'en';}
 function setLang(l){localStorage.setItem(LKEY,l);applyLang();}
