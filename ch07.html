@@ -130,7 +130,7 @@ const LESSONS=[
  {id:'k3',t:'Parallel lines: the tests',cn:'Parallel lines: the tests',n:'7.3'},
  {id:'k4',t:'Parallel lines: what follows',cn:'Parallel lines: what follows',n:'7.4'},
  {id:'k5',t:'Triangle Angle Sum',cn:'Triangle angle sum',n:'7.5'},
- {id:'test',t:'Chapter Test',cn:'Chapter test',n:''}
+ {id:'test',t:'Chapter check',cn:'Chapter check',n:''}
 ];
 let cur='intro';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
@@ -413,9 +413,9 @@ function practice(el,lessonId){
  q=gen();tries=0;update();
 }
 
-/* ============ Chapter test ============ */
+/* ============ Chapter check ============ */
 function chTest(el){
- el.innerHTML=`<div class="step"><span class="en">Chapter test</span><span class="zh">章末测</span></div><div class="box"><p style="font-size:13px;color:var(--muted)">6 questions.</p><div id="tq"></div></div>`;
+ el.innerHTML=`<div class="step"><span class="en">Chapter check</span><span class="zh">章末自己测</span></div><div class="box"><p style="font-size:13px;color:var(--muted)">6 questions.</p><div id="tq"></div></div>`;
  const tq=el.querySelector('#tq');
  const qs=[];
  for(let i=0;i<2;i++)qs.push(generators.k3());
@@ -465,7 +465,7 @@ function introRender(main){
   main.innerHTML=h;
   main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
 }
-const NAVZH={"intro":"概览","k1":"为什么证明","k2":"书写证明","k3":"平行线的判定","k4":"平行线的性质","k5":"三角形内角和","test":"章末测"};
+const NAVZH={"intro":"概览","k1":"为什么证明","k2":"书写证明","k3":"平行线的判定","k4":"平行线的性质","k5":"三角形内角和","test":"章末自己测"};
 const LKEY='bnu8_lang';
 function getLang(){return localStorage.getItem(LKEY)||'en';}
 function setLang(l){localStorage.setItem(LKEY,l);applyLang();}
