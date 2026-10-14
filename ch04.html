@@ -112,12 +112,13 @@ body.lang-zh .zh{display:inline}
 </div>
 
 <div class="langbar">
- <span class="lab">中文多寡 · Language</span>
+ <span class="lab">显示语言 · Language display</span>
  <span class="langseg">
-  <button data-lang="en" onclick="setLang('en')">English · 英文强</button>
-  <button data-lang="mix" onclick="setLang('mix')">Balanced · 平衡</button>
-  <button data-lang="zh" onclick="setLang('zh')">中文偏多</button>
+  <button data-lang="en" onclick="setLang('en')">English only · 全英文</button>
+  <button data-lang="mix" onclick="setLang('mix')">English + 中文 · 英文为主</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文 + English · 中文为主</button>
  </span>
+ <span class="lab" style="font-weight:400">随时可改 · change anytime</span>
 </div>
 
 <div class="wrap">
@@ -381,7 +382,7 @@ function microK4(el){
    <p style="margin-top:8px"><b>Step 1</b>: constants are the ¥8 flagfall and ¥2 per extra km<br>
    <b>Step 2</b>: something of the form y = kx + b<br>
    <b>Step 3</b>: at x = 3 the fare is 8, so 8 = 2·3 + b → b = 2<br>
-   <b>Step 4</b>: <span class="num">y = 2x + 2</span> （x ≥ 3）</p>
+   <b>Step 4</b>: <span class="num">y = 2x + 2</span> (x ≥ 3)</p>
   </div>
   Careful: the ¥8 flagfall is its own term (b) — do not fold it into the ¥2 per km.
   <div class="box">
@@ -421,7 +422,7 @@ function diag(el,lessonId,generator){
     <div class="q-text">${i+1}. ${q.q}</div>
     
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-     <input type="text" id="da" autocomplete="off" placeholder="?"> <button id="sub"><span class="en">Submit · Submit</span><span class="zh">提交</span></button>
+     <input type="text" id="da" autocomplete="off" placeholder="?"> <button id="sub"><span class="en">Submit</span><span class="zh">提交</span></button>
     </div>
     <div class="hint" id="ht"></div>
     <div class="feedback" id="fb"></div>
@@ -457,7 +458,9 @@ k1:()=>{
   const a=ri(2,5),b=ri(-3,3);
   const x=ri(1,4);
   return {q:`If f(x) = ${a}x + ${b}, what is f(${x})?`,
-   check:a=>parseInt(a)===a*x+b,ans:String(a*x+b),hint:`f(${x}) = ${a}*${x} + ${b}`};
+   // NB: do NOT name the parameter `a` — it would shadow the coefficient above
+   // and the checker would compare against the child's own input.
+   check:v=>parseInt(v)===a*x+b,ans:String(a*x+b),hint:`f(${x}) = ${a}*${x} + ${b}`};
  } else {
   // vertical line test
   return {q:`Does the circle x²+y²=1 pass the vertical line test? Answer "yes" or "no".`,
@@ -554,19 +557,25 @@ function practice(el,lessonId){
  let streak=0,need=5,q=null,tries=0;
  const update=()=>{
   el.innerHTML=`
-   <div class="step"><span class="en">Practice</span><span class="zh">练习</span> (${streak}/${need}）</div>
+   <div class="step"><span class="en">Practice</span><span class="zh">练习</span> (${streak}/${need})</div>
    <div class="info" style="font-size:13px;color:var(--muted);margin:8px 0">Correct: ${s.prac.ok}/${s.prac.tot} (streak ${streak})<button class="secondary" id="rs" style="margin-left:8px"><span class="en">Reset</span><span class="zh">重置</span></button></div>
    <div class="progress"><div style="width:${(streak/need)*100}%"></div></div>
    <div class="q">
     <div class="q-text">${q.q}</div>
     
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-     <input type="text" id="pi" autocomplete="off" placeholder="?"> <button id="ps"><span class="en">Submit · Submit</span><span class="zh">提交</span></button>
+     <input type="text" id="pi" autocomplete="off" placeholder="?"> <button id="ps"><span class="en">Submit</span><span class="zh">提交</span></button>
     </div>
     <div class="hint" id="ph"></div>
     <div class="feedback" id="pf"></div>
    </div>`;
   el.querySelector('#rs').onclick=()=>{s.prac={ok:0,tot:0};streak=0;save();update();renderNav();};
+
+  const syncTop=()=>{
+   const stp=el.querySelector('.step'); if(stp) stp.innerHTML='<span class="en">Practice</span><span class="zh">练习</span> ('+streak+'/'+need+')';
+   const pg=el.querySelector('.progress'); if(pg&&pg.firstElementChild) pg.firstElementChild.style.width=(streak/need)*100+'%';
+   const inf=el.querySelector('.info'); if(inf){const rb=inf.querySelector('#rs');inf.textContent='Correct: '+s.prac.ok+'/'+s.prac.tot+' (streak '+streak+') ';if(rb)inf.appendChild(rb);}
+  };
   const inp=el.querySelector('#pi'),fb=el.querySelector('#pf'),ht=el.querySelector('#ph');
   inp.focus();
   el.querySelector('#ps').onclick=check;
@@ -576,22 +585,24 @@ function practice(el,lessonId){
    const r=q.check(a);
    if(r===true){
     streak++;s.prac.ok++;s.prac.tot++;
-    fb.className='feedback show ok';fb.textContent='✓ correct！';
+    fb.className='feedback show ok';fb.textContent='✓ correct!';
     inp.disabled=true;
+    syncTop();
     if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>Section cleared ✓</strong>';save();renderNav();}
     setTimeout(()=>{q=gen();tries=0;update();},900);
    } else {
     tries++;
     if(tries===1){
      ht.className='hint show';ht.textContent=q.hint||'Have another go.';
-     fb.className='feedback show err';fb.textContent='✗ Try again。';
+     fb.className='feedback show err';fb.textContent='✗ Try again. ';
     } else if(tries===2){
      fb.className='feedback show err';
      fb.textContent='✗ Not quite. '+(q.sol?('Method: '+q.sol):(q.hint?('Hint: '+q.hint):'Work through it once more.'));
     } else {
-     streak=0;s.prac.tot++;
+     streak=0;s.prac.tot++;syncTop();
+     
      fb.className='feedback show err';
-     fb.innerHTML=`The answer is <b>${q.ans}</b>`+(q.sol?('。'+q.sol):'。');
+     fb.innerHTML=`The answer is <b>${q.ans}</b>`+(q.sol?('. '+q.sol):'. ');
      inp.disabled=true;save();renderNav();
      setTimeout(()=>{q=gen();tries=0;update();},2400);
     }
@@ -652,7 +663,7 @@ function introRender(main){
   h+='<div class="box"><b><span class="en">How this chapter works</span><span class="zh">本章怎么学</span></b><div class="how">'
     +'① <b><span class="en">Watch the lesson</span><span class="zh">看微课</span></b>: <span class="en">a few minutes to get what the section is about</span><span class="zh">花几分钟了解本节内容</span><br>'
     +'② <b><span class="en">Practice</span><span class="zh">练一练</span></b>: <span class="en">5 correct in a row clears it; if you get stuck, hints walk you through</span><span class="zh">连对 5 题就算过关；卡住了就看提示</span><br>'
-    +'③ <b><span class="en">Next section</span><span class="zh">下一节</span></b>: <span class="en">on the left, </span><span class="zh">在左侧，</span>'+pts[0].n+'、'+pts[1].n+'… open whichever you want, in any order'
+    +'③ <b><span class="en">Next section</span><span class="zh">下一节</span></b>: <span class="en">on the left, </span><span class="zh">在左侧，</span>'+pts[0].n+', '+pts[1].n+'… open whichever you want, in any order'
     +'</div></div>';
   h+='<div class="big-start"><button id="startBtn">'+pts[0].n+' <span class="en">'+pts[0].t+'</span><span class="zh">开始 · '+NAVZH[pts[0].id]+'</span> →</button></div>';
   main.innerHTML=h;
