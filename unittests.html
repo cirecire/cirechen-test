@@ -52,22 +52,47 @@ table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
 th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line)}
 th{font-size:11px;color:var(--muted);font-weight:600}
 .sol{font-family:"Courier New",monospace;background:#1f2937;color:#a5f3fc;padding:8px 12px;border-radius:6px;margin-top:8px;font-size:13px;white-space:pre-wrap}
+/* ===== Language tiers (en / mix / zh) ===== */
+.zh{display:none}
+body.lang-en .zh{display:none}
+body.lang-mix .zh{display:inline;font-size:.82em;color:var(--muted);margin-left:6px;font-weight:400}
+body.lang-zh .en{display:inline;font-size:.78em;color:var(--muted);margin-left:6px;font-weight:400}
+body.lang-zh .zh{display:inline}
+.langbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px;font-size:13px}
+.langbar .lab{color:var(--muted);font-weight:600}
+.langseg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.langseg button{background:#fff;color:var(--text);border:none;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit;border-right:1px solid var(--line)}
+.langseg button:last-child{border-right:none}
+.langseg button.on{background:var(--accent);color:#fff}
+/* question Chinese twin: hidden in en, subtitle in mix, primary in zh */
+.q .q-cn{font-size:12px;color:var(--muted);margin-bottom:10px}
+body.lang-en .q .q-cn{display:none}
+body.lang-zh .q .q-text{font-size:.82em;color:var(--muted);margin-bottom:6px}
+body.lang-zh .q .q-cn{font-size:15px;color:var(--text);font-weight:600;margin-bottom:10px}
 </style>
 </head>
 <body>
 
 <div class="topbar">
- <a href="index.html">← My learning map</a>
- <a href="unittests.html">Level-up challenges</a>
- <span style="margin-left:auto;font-size:11px;color:var(--muted)">Content from Khan Academy · CC BY-NC-SA</span>
+ <a href="index.html"><span class="en">← My learning map</span><span class="zh">← 我的学习地图</span></a>
+ <a href="unittests.html"><span class="en">Level-up challenges</span><span class="zh">闯关挑战</span></a>
+ <span style="margin-left:auto;font-size:11px;color:var(--muted)"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
 </div>
 
 <div class="wrap">
 <header>
- <h1>🏆 Level-up challenges</h1>
- <p>Mixes sections from one chapter — pass it to unlock the next.</p>
- <p style="margin-top:6px;font-size:12px">10 questions per level (12 for the final). Miss once and you get a hint; miss twice and you get the full solution, and it goes into your review list.</p>
+ <h1><span class="en">🏆 Level-up challenges</span><span class="zh">🏆 闯关挑战</span></h1>
+ <p><span class="en">Mixes sections from one chapter — pass it to unlock the next.</span><span class="zh">把一章的内容混在一起考——通过才能解锁下一关。</span></p>
+ <p style="margin-top:6px;font-size:12px"><span class="en">10 questions per level (12 for the final). Miss once and you get a hint; miss twice and you get the full solution, and it goes into your review list.</span><span class="zh">每关 10 题（期末 12 题）。错一次会给提示；错两次直接给完整解法，并自动收进复习清单。</span></p>
 </header>
+<div class="langbar" style="grid-column:1/-1">
+ <span class="lab">中文多寡 · Language</span>
+ <span class="langseg">
+  <button data-lang="en" onclick="setLang('en')">English · 英文强</button>
+  <button data-lang="mix" onclick="setLang('mix')">Balanced · 平衡</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文偏多</button>
+ </span>
+</div>
 <nav id="nav"></nav>
 <main id="main"></main>
 </div>
@@ -367,7 +392,7 @@ function renderNav(){
  let h=UNITS.map(u=>{const st=U[u.id];
   const badge=st?`<span class="st">${st.ok}/${st.tot}</span>`:'';
   return `<div class="nav-i ${cur===u.id?'on':''}" data-u="${u.id}"><span><b>${u.n}</b> ${u.cn}</span>${badge}</div>`;}).join('');
- h+=`<div class="nav-i ${cur==='wrong'?'on':''}" data-u="wrong"><span>Review list</span>${W?`<span class="st">${W}</span>`:''}</div>`;
+ h+=`<div class="nav-i ${cur==='wrong'?'on':''}" data-u="wrong"><span><span class="en">Review list</span><span class="zh">复习清单</span></span>${W?`<span class="st">${W}</span>`:''}</div>`;
  const nav=document.getElementById('nav');nav.innerHTML=h;
  nav.querySelectorAll('[data-u]').forEach(n=>n.onclick=()=>{cur=n.dataset.u;render();});
 }
@@ -377,18 +402,18 @@ function intro(el,u){
  const hist=(st&&st.history)?st.history.slice(-5).reverse():[];
  el.innerHTML=`
   <div class="step" style="background:${u.color}">${u.n} · ${u.cn}</div>
-  <div class="box"><h3>What this covers</h3>
+  <div class="box"><h3><span class="en">What this covers</span><span class="zh">这一关考什么</span></h3>
    <p style="font-size:14px">${u.ch} — ${u.why}</p>
-   <p style="font-size:13px;color:var(--muted);margin-top:6px">${u.q} questions · miss once and you get a hint, miss twice and you get the full solution</p>
+   <p style="font-size:13px;color:var(--muted);margin-top:6px"><span class="en">${u.q} questions · miss once and you get a hint, miss twice and you get the full solution</span><span class="zh">${u.q} 道题 · 错一次给提示，错两次给完整解法</span></p>
   </div>
-  <div class="box"><h3>How ready you are</h3>
+  <div class="box"><h3><span class="en">How ready you are</span><span class="zh">你准备得怎么样</span></h3>
    <div class="progress"><div style="width:${Math.round(rp*100)}%;background:${u.color}"></div></div>
-   <p style="font-size:13px">Chapter progress ${Math.round(rp*100)}%  ${rp>=0.6?'<span class="badge ok">Ready to try</span>':'<span class="badge warn">Finish the chapters first</span>'}</p>
+   <p style="font-size:13px"><span class="en">Chapter progress ${Math.round(rp*100)}%</span><span class="zh">章节进度 ${Math.round(rp*100)}%</span>  ${rp>=0.6?'<span class="badge ok"><span class="en">Ready to try</span><span class="zh">可以来试试</span></span>':'<span class="badge warn"><span class="en">Finish the chapters first</span><span class="zh">先把章节学完</span></span>'}</p>
   </div>
-  ${st?`<div class="box"><h3>Last score</h3><table><tr><th>Date</th><th>Score</th><th>Result</th></tr>
-   ${hist.map(x=>`<tr><td>${x.date}</td><td>${x.ok}/${x.tot}</td><td>${x.ok/x.tot>=0.8?'<span class="badge ok">Excellent</span>':(x.ok/x.tot>=0.6?'<span class="badge warn">Fair</span>':'<span class="badge lock">More practice</span>')}</td></tr>`).join('')}
-   <tr><td colspan="3" style="font-size:12px;color:var(--muted)">Best: ${st.best!=null?st.best+'/'+u.q:'—'}</td></tr></table></div>`:''}
-  <div style="margin-top:14px"><button id="start">▶ Start ${u.q} questions</button></div>`;
+  ${st?`<div class="box"><h3><span class="en">Last score</span><span class="zh">上次成绩</span></h3><table><tr><th><span class="en">Date</span><span class="zh">日期</span></th><th><span class="en">Score</span><span class="zh">得分</span></th><th><span class="en">Result</span><span class="zh">结果</span></th></tr>
+   ${hist.map(x=>`<tr><td>${x.date}</td><td>${x.ok}/${x.tot}</td><td>${x.ok/x.tot>=0.8?'<span class="badge ok"><span class="en">Excellent</span><span class="zh">全对</span></span>':(x.ok/x.tot>=0.6?'<span class="badge warn"><span class="en">Fair</span><span class="zh">还不错</span></span>':'<span class="badge lock"><span class="en">More practice</span><span class="zh">多练练</span></span>')}</td></tr>`).join('')}
+   <tr><td colspan="3" style="font-size:12px;color:var(--muted)"><span class="en">Best:</span><span class="zh">最佳：</span> ${st.best!=null?st.best+'/'+u.q:'—'}</td></tr></table></div>`:''}
+  <div style="margin-top:14px"><button id="start"><span class="en">▶ Start ${u.q} questions</span><span class="zh">▶ 开始 ${u.q} 道题</span></button></div>`;
  el.querySelector('#start').onclick=()=>run(el,u);
 }
 
@@ -397,25 +422,25 @@ function run(el,u){
  const draw=()=>{
   if(i>=qs.length){finish(el,u,ok,qs.length);return;}
   const qq=qs[i];
-  el.innerHTML=`<div class="step" style="background:${u.color}">${u.n} · ${u.cn} · question ${i+1} / ${qs.length} · ${ok} correct</div>
+  el.innerHTML=`<div class="step" style="background:${u.color}"><span class="en">${u.n} · ${u.cn} · question ${i+1} / ${qs.length} · ${ok} correct</span><span class="zh">${u.n} · 第 ${i+1} / ${qs.length} 题 · 对了 ${ok} 道</span></div>
    <div class="progress"><div style="width:${i/qs.length*100}%"></div></div>
    <div class="q"><div class="q-text">${qq.q}</div><div class="q-cn">${qq.qcn}</div>
     ${qq.type==='choice'
       ?`<div id="cs">${qq.choices.map((c,j)=>`<button class="choice" data-j="${j}">${String.fromCharCode(65+j)}. ${c}</button>`).join('')}</div>`
-      :`<div style="display:flex;gap:8px"><input type="text" id="ai" placeholder="answer"><button id="sb">Submit</button></div>`}
+      :`<div style="display:flex;gap:8px"><input type="text" id="ai" placeholder="answer"><button id="sb"><span class="en">Submit</span><span class="zh">提交</span></button></div>`}
     <div class="hint" id="ht"></div><div class="feedback" id="fb"></div></div>`;
   const fb=el.querySelector('#fb'),ht=el.querySelector('#ht');
   tries=0;
   const submit=(v)=>{
    if(isRight(qq,v)){
-    fb.className='feedback show ok';fb.textContent='✓ Correct';
+    fb.className='feedback show ok';fb.innerHTML='✓ <span class="en">Correct</span><span class="zh">答对</span>';
     i++;setTimeout(draw,650);
    }else if(tries===0){
-    tries++;ht.className='hint show';ht.innerHTML='<b>Hint:</b>'+qq.hint;
-    fb.className='feedback show warn';fb.textContent='✗ Try again';
+    tries++;ht.className='hint show';ht.innerHTML='<b><span class="en">Hint:</span><span class="zh">提示：</span></b>'+qq.hint;
+    fb.className='feedback show warn';fb.innerHTML='✗ <span class="en">Try again</span><span class="zh">再试一次</span>';
    }else{
     fb.className='feedback show err';
-    fb.innerHTML=`✗ The answer is <b>${qq.ans}</b>`+(qq.sol?`<div class="sol">${qq.sol}</div>`:'');
+    fb.innerHTML=`✗ <span class="en">The answer is</span><span class="zh">答案是</span> <b>${qq.ans}</b>`+(qq.sol?`<div class="sol">${qq.sol}</div>`:'');
     addWrong(u,qq);
     i++;setTimeout(draw,2600);
    }
@@ -435,13 +460,13 @@ function finish(el,u,ok,tot){
  const hist=(prev.history||[]).concat([{ok:ok,tot:tot,date:today}]).slice(-5);
  U[u.id]={ok:ok,tot:tot,date:today,best:best,history:hist};saveUS(U);
  const p=ok/tot;
- const lvl=p>=0.8?['Excellent — all correct!','var(--ok)']:(p>=0.6?['Solid — go over the misses once more.','var(--warn)']:['More practice — go back to the chapters and drill those topics.','var(--err)']);
- el.innerHTML=`<div class="step" style="background:${lvl[1]}">Score · ${ok} / ${tot}</div>
-  <div class="box"><h3 style="color:${lvl[1]}">${lvl[0]}</h3>
-   <p style="font-size:14px">Accuracy ${Math.round(p*100)}% · best ever ${best}/${tot}</p>
+ const lvl=p>=0.8?['Excellent — all correct!','var(--ok)','全对！']:(p>=0.6?['Solid — go over the misses once more.','var(--warn)','还不错，把错的再过一遍']:['More practice — go back to the chapters and drill those topics.','var(--err)','多练练，回章节把那些知识点刷熟练']);
+ el.innerHTML=`<div class="step" style="background:${lvl[1]}"><span class="en">Score · ${ok} / ${tot}</span><span class="zh">得分 · ${ok} / ${tot}</span></div>
+  <div class="box"><h3 style="color:${lvl[1]}"><span class="en">${lvl[0]}</span><span class="zh">${lvl[2]}</span></h3>
+   <p style="font-size:14px"><span class="en">Accuracy ${Math.round(p*100)}% · best ever ${best}/${tot}</span><span class="zh">正确率 ${Math.round(p*100)}% · 最佳 ${best}/${tot}</span></p>
   </div>
-  ${p<0.8?`<div class="note"><strong>Next:</strong> misses go into your Review list automatically — click "Review list" on the left, or go back to the chapters and drill those topics.</div>`:''}
-  <div style="margin-top:14px;display:flex;gap:8px"><button id="again">Practise again (new questions)</button><button class="secondary" id="back">Back</button></div>`;
+  ${p<0.8?`<div class="note"><strong><span class="en">Next:</span><span class="zh">下一步：</span></strong> <span class="en">misses go into your Review list automatically — click "Review list" on the left, or go back to the chapters and drill those topics.</span><span class="zh">错题会自动进复习清单——点左边的「复习清单」，或者回章节把那些知识点刷熟练。</span></div>`:''}
+  <div style="margin-top:14px;display:flex;gap:8px"><button id="again"><span class="en">Practise again (new questions)</span><span class="zh">再练一次（新题）</span></button><button class="secondary" id="back"><span class="en">Back</span><span class="zh">返回</span></button></div>`;
  el.querySelector('#again').onclick=()=>run(el,u);
  el.querySelector('#back').onclick=()=>render();
  renderNav();
@@ -459,25 +484,25 @@ function addWrong(u,qq){
 function renderWrong(el){
  const due=WB().filter(w=>w.due<=Date.now());
  if(!due.length){
-  el.innerHTML=`<div class="step">Review list</div>
-   <div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>Nothing to review right now.</strong><br>
-   Questions you miss twice in the challenges land here. Get one right and it comes back in 1 day, then 2, then 4, then 8 before it is filed away.</div>
-   <div style="margin-top:12px"><button class="secondary" onclick="render()">Back</button></div>`;
+  el.innerHTML=`<div class="step"><span class="en">Review list</span><span class="zh">复习清单</span></div>
+   <div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong><span class="en">Nothing to review right now.</span><span class="zh">暂时没有要复习的。</span></strong><br>
+   <span class="en">Questions you miss twice in the challenges land here. Get one right and it comes back in 1 day, then 2, then 4, then 8 before it is filed away.</span><span class="zh">闯关里错两次的题会进这里。答对一次，过 1 天、2 天、4 天、8 天再来，连对三次就归档。</span></div>
+   <div style="margin-top:12px"><button class="secondary" onclick="render()"><span class="en">Back</span><span class="zh">返回</span></button></div>`;
   return;
  }
  let i=0;
  const draw=()=>{
-  if(i>=due.length){el.innerHTML=`<div class="step">That is all ${due.length} of them for now</div>
-    <div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>Nice work!</strong> Three correct and it is filed away.</div>
-    <div style="margin-top:12px"><button class="secondary" id="b2">Back</button></div>`;
+  if(i>=due.length){el.innerHTML=`<div class="step"><span class="en">That is all ${due.length} of them for now</span><span class="zh">这 ${due.length} 道都复习完啦</span></div>
+    <div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong><span class="en">Nice work!</span><span class="zh">真棒！</span></strong> <span class="en">Three correct and it is filed away.</span><span class="zh">连对三次就归档。</span></div>
+    <div style="margin-top:12px"><button class="secondary" id="b2"><span class="en">Back</span><span class="zh">返回</span></button></div>`;
    el.querySelector('#b2').onclick=()=>render();renderNav();return;}
   const w=due[i];const u=UNITS.find(x=>x.id===w.u)||UNITS[0];
   const qq={type:w.type,q:w.q,qcn:w.qcn,ans:w.ans,choices:w.choices,ci:w.ci,sol:w.sol,hint:''};
   let tries=0;
-  el.innerHTML=`<div class="step">Review · ${i+1} / ${due.length} · from ${u.n}</div>
+  el.innerHTML=`<div class="step"><span class="en">Review · ${i+1} / ${due.length} · from ${u.n}</span><span class="zh">复习 · 第 ${i+1} / ${due.length} 题 · 来自 ${u.n}</span></div>
    <div class="q"><div class="q-text">${w.q}</div><div class="q-cn">${w.qcn}</div>
     ${w.type==='choice'?`<div id="cs">${(w.choices||[]).map((c,j)=>`<button class="choice" data-j="${j}">${String.fromCharCode(65+j)}. ${c}</button>`).join('')}</div>`
-     :`<div style="display:flex;gap:8px"><input type="text" id="ai"><button id="sb">Submit</button></div>`}
+     :`<div style="display:flex;gap:8px"><input type="text" id="ai"><button id="sb"><span class="en">Submit</span><span class="zh">提交</span></button></div>`}
     <div class="feedback" id="fb"></div></div>`;
   const fb=el.querySelector('#fb');
   const submit=(v)=>{
@@ -485,11 +510,11 @@ function renderWrong(el){
     const W=WB();const t=W.find(x=>x.q===w.q&&x.ts===w.ts);
     if(t){t.rep=(t.rep||0)+1;t.int=Math.max(1,(t.int||0)*2)||1;t.due=Date.now()+t.int*86400000;
       if(t.int>=8)W.splice(W.indexOf(t),1);saveWB(W);}
-    fb.className='feedback show ok';fb.textContent=`✓ Correct — ${t&&t.int?('next review in '+t.int+' days'):'filed away'}`;
+    fb.className='feedback show ok';fb.innerHTML=`✓ <span class="en">Correct — ${t&&t.int?('next review in '+t.int+' days'):'filed away'}</span><span class="zh">答对 — ${t&&t.int?('下次复习在 '+t.int+' 天后'):'已归档'}</span>`;
     i++;setTimeout(draw,1200);
-   }else if(tries===0){tries++;fb.className='feedback show warn';fb.textContent='✗ Try again';}
+   }else if(tries===0){tries++;fb.className='feedback show warn';fb.innerHTML='✗ <span class="en">Try again</span><span class="zh">再试一次</span>';}
    else{
-    fb.className='feedback show err';fb.innerHTML=`✗ The answer is <b>${w.ans}</b>`+(w.sol?`<div class="sol">${w.sol}</div>`:'');
+    fb.className='feedback show err';fb.innerHTML=`✗ <span class="en">The answer is</span><span class="zh">答案是</span> <b>${w.ans}</b>`+(w.sol?`<div class="sol">${w.sol}</div>`:'');
     const W=WB();const t=W.find(x=>x.q===w.q&&x.ts===w.ts);
     if(t){t.int=0;t.due=Date.now();saveWB(W);}
     i++;setTimeout(draw,2600);
@@ -513,6 +538,18 @@ render();
 /* deep link support: ?u=u2 from index.html */
 (function(){const g=new URLSearchParams(location.search).get('u');
  if(g&&UNITS.some(u=>u.id===g)){cur=g;render();}})();
+
+/* ================= Language tier (en / mix / zh) ================= */
+const LKEY='bnu8_lang';
+function getLang(){return localStorage.getItem(LKEY)||'en';}
+function setLang(l){localStorage.setItem(LKEY,l);applyLang();}
+function applyLang(){
+ const l=getLang();
+ document.body.className=(' '+document.body.className+' ').replace(/\s+lang-(en|mix|zh)\b/g,' ').trim();
+ if(l==='mix'||l==='zh')document.body.classList.add('lang-'+l);
+ document.querySelectorAll('.langseg button').forEach(b=>{b.classList.toggle('on',b.dataset.lang===l);});
+}
+applyLang();
 </script>
 </body>
 </html>
