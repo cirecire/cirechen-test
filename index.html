@@ -183,9 +183,9 @@ const CH=[
  {k:'ch01',cn:'Pythagorean Theorem',cz:'勾股定理',en:'Pythagorean Theorem',p:4,c:'#7c3aed',
   L:[['k1','Exploring the theorem'],['k2','Is it a right triangle?'],['k3','Applications'],['k4','Strategy: reflect']],v:13},
  {k:'ch02',cn:'Real Numbers',cz:'实数',en:'Real Numbers',p:11,c:'#0891b2',
-  L:[['k1','Irrational numbers'],['k2','Square roots'],['k3','Cube roots'],['k4','Estimating roots'],['k5','Using a calculator'],['k6','The real numbers'],['k7','Radicals'],['ext','Extension · Scientific notation']],v:34},
+  L:[['k1','Irrational numbers'],['k2','Square roots'],['k3','Cube roots'],['k4','Estimating roots'],['k5','Using a calculator'],['k6','The real numbers'],['k7','Radicals'],['ext','Optional extra · Scientific notation']],v:34},
  {k:'ch03',cn:'Position & Coordinates',cz:'位置与坐标',en:'Position & Coordinates',p:5,c:'#059669',
-  L:[['k1','Locating points'],['k2','The coordinate plane'],['k3','Reflections and coordinates'],['ext','Extension · Translations, rotations, dilations']],v:13},
+  L:[['k1','Locating points'],['k2','The coordinate plane'],['k3','Reflections and coordinates'],['ext','Optional extra · Translations, rotations, dilations']],v:13},
  {k:'ch04',cn:'Linear Functions',cz:'一次函数',en:'Linear Functions',p:7,c:'#d97706',
   L:[['k1','What is a function?'],['k2','Linear and proportional functions'],['k3','Graphs: slope and intercept'],['k4','Applications']],v:56},
  {k:'ch05',cn:'Systems of Equations',cz:'二元一次方程组',en:'Systems of Equations',p:9,c:'#dc2626',
@@ -264,7 +264,7 @@ document.getElementById('chs').innerHTML=CH.map((c,i)=>{
  const s=ST[i];
  const pct=Math.round(s.pct*100);
  const kps=c.L.map(([id,name],j)=>`<span class="kp l${s.lv[j]}" title="${LVN[s.lv[j]]}">${name}</span>`).join('');
- const t=s.test?`<span class="badge ${s.test.ok/s.test.tot>=0.7?'ok':'warn'}"><span class="en">chapter test ${s.test.ok}/${s.test.tot}</span><span class="zh">章末测 ${s.test.ok}/${s.test.tot}</span></span>`:'<span class="badge"><span class="en">Chapter test not taken</span><span class="zh">还没做章末测</span></span>';
+ const t=s.test?`<span class="badge ${s.test.ok/s.test.tot>=0.7?'ok':'warn'}"><span class="en">chapter check ${s.test.ok}/${s.test.tot}</span><span class="zh">章末自测 ${s.test.ok}/${s.test.tot}</span></span>`:'<span class="badge"><span class="en">Chapter check not taken</span><span class="zh">还没做章末自测</span></span>';
  const m=s.lv.filter(x=>x===4).length;
  return `<div class="ch">
   <div class="top" style="background:${c.c}">
