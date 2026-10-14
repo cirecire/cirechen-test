@@ -183,7 +183,7 @@ const LESSONS=[
   {id:'k2', t:'Is It Right? (Converse)', cn:'Is it a right triangle?', n:'1.2'},
   {id:'k3', t:'Applications', cn:'Applications', n:'1.3'},
   {id:'k4', t:'Strategy: Reflect', cn:'Strategy: reflect', n:'1.4'},
-  {id:'test', t:'Chapter Test', cn:'Chapter test', n:''}
+  {id:'test', t:'Chapter check', cn:'Chapter check', n:''}
 ];
 let cur='intro';
 function st(id){ return S[id] || (S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false}); }
@@ -524,9 +524,9 @@ function prac(el,id,types,need){
   next();
 }
 
-/* ============ Chapter test ============ */
+/* ============ Chapter check ============ */
 function chTest(el){
-  el.innerHTML=`<div class="step"><span class="en">Chapter test</span><span class="zh">章末测</span></div>
+  el.innerHTML=`<div class="step"><span class="en">Chapter check</span><span class="zh">章末自己测</span></div>
     <div class="lead">8 questions covering the 4 topics in this chapter. Do them on your own, no hints.</div>
     <div id="tq"></div><div class="row"><button id="sub"><span class="en">Submit</span><span class="zh">提交</span></button></div><div id="res"></div>`;
   const box=el.querySelector('#tq');
@@ -587,7 +587,7 @@ function introRender(main){
   main.innerHTML=h;
   main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
 }
-const NAVZH={"intro":"概览","k1":"勾股定理","k2":"勾股定理的逆定理","k3":"应用","k4":"策略·反思","test":"章末测"};
+const NAVZH={"intro":"概览","k1":"勾股定理","k2":"勾股定理的逆定理","k3":"应用","k4":"策略·反思","test":"章末自己测"};
 const LKEY='bnu8_lang';
 function getLang(){return localStorage.getItem(LKEY)||'en';}
 function setLang(l){localStorage.setItem(LKEY,l);applyLang();}
