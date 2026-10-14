@@ -118,12 +118,13 @@ body.lang-zh .zh{display:inline}
 </div>
 
 <div class="langbar">
- <span class="lab">中文多寡 · Language</span>
+ <span class="lab">显示语言 · Language display</span>
  <span class="langseg">
-  <button data-lang="en" onclick="setLang('en')">English · 英文强</button>
-  <button data-lang="mix" onclick="setLang('mix')">Balanced · 平衡</button>
-  <button data-lang="zh" onclick="setLang('zh')">中文偏多</button>
+  <button data-lang="en" onclick="setLang('en')">English only · 全英文</button>
+  <button data-lang="mix" onclick="setLang('mix')">English + 中文 · 英文为主</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文 + English · 中文为主</button>
  </span>
+ <span class="lab" style="font-weight:400">随时可改 · change anytime</span>
 </div>
 
 <div class="wrap">
@@ -288,7 +289,7 @@ function microK1(el){
   draw();
 }
 
-/* ============ Lesson K2：√9=3 vs x²=9 → ±3 ============ */
+/* ============ Lesson K2: √9=3 vs x²=9 → ±3 ============ */
 function microK2(el){
   let n=9;
   el.innerHTML=`
@@ -466,19 +467,19 @@ function genQ(type,diff){
   if(type==='sqrt'){
     const p=pick(SQR.filter(x=>diff===1?x<=100:true));
     return {q:`Find <b>√${p}</b>.<br><span class="cn-tag">Find the principal square root of ${p}.</span>`,
-      ans:Math.sqrt(p), sol:`Since ${Math.sqrt(p)}² = ${p}, and the principal root is non-negative, √${p} = ${Math.sqrt(p)}`};
+      kind:'sqrt', ans:Math.sqrt(p), sol:`Since ${Math.sqrt(p)}² = ${p}, and the principal root is non-negative, √${p} = ${Math.sqrt(p)}`};
   }
   if(type==='cuberoot'){
     const sign=Math.random()<0.35?-1:1;
     const p=pick(CUB.filter(x=>diff===1?x<=125:true));
     const v=sign*p;
     return {q:`Find <b>∛${v}</b>.<br><span class="cn-tag">Find the cube root of ${v}.</span>`,
-      ans:Math.cbrt(v), sol:`Since (${Math.cbrt(v)})³ = ${v}, ∛${v} = ${Math.cbrt(v)}${v<0?'(negative numbers have cube roots too)':''}`};
+      kind:'cuberoot', ans:Math.cbrt(v), sol:`Since (${Math.cbrt(v)})³ = ${v}, ∛${v} = ${Math.cbrt(v)}${v<0?'(negative numbers have cube roots too)':''}`};
   }
   if(type==='eq'){
     const p=pick(SQR.filter(x=>diff===1?x<=81:true));
     return {q:`Solve <b>x² = ${p}</b>. Select ALL solutions — how many are there?<br><span class="cn-tag">Solve x² = ${p}. How many solutions?</span>`,
-      ans:p===0?'1':'2', sol:`x² = ${p} → x = ±√${p} = ±${Math.sqrt(p)}，so ${p===0?'1':'2'} solutions (one positive, one negative)`};
+      kind:'eq', ans:p===0?'1':'2', sol:`x² = ${p} → x = ±√${p} = ±${Math.sqrt(p)}, so ${p===0?'1':'2'} solutions (one positive, one negative)`};
   }
   if(type==='ratirr'){
     const irr=['√2','√3','√5','√7','π','√10','√8'];
@@ -486,20 +487,20 @@ function genQ(type,diff){
     const isIrr=Math.random()<0.5;
     const v=isIrr?pick(irr):pick(rat);
     return {q:`Is <b>${v}</b> rational or irrational?<br><span class="cn-tag">Is ${v} rational or irrational?</span>`,
-      ans:isIrr?'Irrational':'Rational',
+      kind:'ratirr', ans:isIrr?'Irrational':'Rational',
       sol:isIrr?`${v} cannot be written as a ratio of two integers; its decimal never ends and never repeats → irrational`:`${v} can be written as a fraction (a ratio of two integers) → rational`};
   }
   if(type==='estimate'){
     const n=ri(2,90);
     const lo=Math.floor(Math.sqrt(n));
     return {q:`Between which two consecutive integers is <b>√${n}</b>?<br><span class="cn-tag">Between which two consecutive integers does √${n} lie?</span>`,
-      ans:`${lo} and ${lo+1}`,
+      kind:'estimate', ans:`${lo} and ${lo+1}`,
       sol:`${lo}² = ${lo*lo} and ${lo+1}² = ${(lo+1)*(lo+1)}. Since ${lo*lo} < ${n} < ${(lo+1)*(lo+1)}, we get ${lo} < √${n} < ${lo+1}`};
   }
   if(type==='simplify'){
     const k=ri(2,7), m=ri(2,11);
     return {q:`Simplify <b>√${k*k*m}</b>.<br><span class="cn-tag">Simplify √${k*k*m}.</span>`,
-      ans:`${k}√${m}`,
+      kind:'simplify', ans:`${k}√${m}`,
       sol:`√${k*k*m} = √${k*k} × √${m} = ${k}√${m}`};
   }
 }
@@ -511,10 +512,11 @@ function renderQ(el,q,onAns){
     <div class="fb" id="fb"></div></div>`;
   const od=el.querySelector('#opts');
   let opts; let tries=0;
-  if(['Yes','No','Rational','Irrational','1','2'].includes(String(q.ans))){
-    const map={'ratirr':['Rational','Irrational'],'eq':['1','2'],'conv':['Yes','No']};
-    opts=map[guessType(q)]||['Rational','Irrational'];
-  } else if(String(q.ans).includes(' and ')){
+  // choose options by the question's KIND, never by the answer's value
+  if(q.kind==='ratirr'){opts=['Rational','Irrational'];}
+  else if(q.kind==='eq'){opts=['1','2'];}
+  else if(q.kind==='conv'||String(q.ans)==='Yes'||String(q.ans)==='No'){opts=['Yes','No'];}
+  else if(String(q.ans).includes(' and ')){
     opts=[q.ans, `${parseInt(q.ans)-1} and ${parseInt(q.ans)}`, `${parseInt(q.ans)+1} and ${parseInt(q.ans)+2}`];
   } else if(String(q.ans).includes('√')){
     const kk=parseInt(q.ans);
@@ -540,7 +542,7 @@ function renderQ(el,q,onAns){
         b.classList.add('sel-bad'); b.disabled=true;
         if(tries===1){
           el.querySelector('#hint').classList.add('on');
-          fb.className='fb bad'; fb.textContent='✗ Try again。';
+          fb.className='fb bad'; fb.textContent='✗ Try again. ';
         } else if(tries===2){
           fb.className='fb bad';
           fb.textContent='✗ Not quite. '+(q.sol?('Method: '+q.sol):'Work through it once more.');
@@ -548,7 +550,7 @@ function renderQ(el,q,onAns){
           od.querySelectorAll('.opt').forEach(x=>x.disabled=true);
           od.querySelectorAll('.opt').forEach(x=>{if(x.innerHTML===String(q.ans))x.classList.add('sel-ok');});
           fb.className='fb bad';
-          fb.innerHTML=`The answer is <b>${q.ans}</b>`+(q.sol?('。'+q.sol):'。');
+          fb.innerHTML=`The answer is <b>${q.ans}</b>`+(q.sol?('. '+q.sol):'. ');
           onAns(false);
         }
       }
@@ -573,7 +575,7 @@ function videos(el,list,id){
     const d=document.createElement('div'); d.className='vid-item';
     const cls=v.c==='core'?'b-core':(v.c==='link'?'b-link':'b-ext');
     const lbl=v.c==='core'?'<span class="en">Core</span><span class="zh">核心</span>':(v.c==='link'?'<span class="en">Foundation</span><span class="zh">基础</span>':'<span class="en">Extra</span><span class="zh">拓展</span>');
-    d.innerHTML=`<div class="t"><b>${v.t}</b><small>${v.d}</small> <span class="badge ${cls}">${lbl}</span></div>`;
+    d.innerHTML=`<div class="t"><b>${v.t}</b><small>${v.d||''}</small> <span class="badge ${cls}">${lbl}</span></div>`;
     const b=document.createElement('button'); b.className='ghost'; b.innerHTML='<span class="en">▶ Play</span><span class="zh">▶ 播放</span>';
     b.onclick=()=>{
       let p=d.querySelector('video');
@@ -588,7 +590,7 @@ function videos(el,list,id){
 /* ============ Diagnostic / practice / chapter test ============ */
 function diag(el,id,types){
   const s=st(id);
-  if(s.diag){el.innerHTML=`<div class="box"><b>Quick check：</b>${s.diag.pass?'✓ all correct — go straight to practice.':'Done, with some wrong — watch the lesson first.'}</div>`;return;}
+  if(s.diag){el.innerHTML=`<div class="box"><b>Quick check: </b>${s.diag.pass?'✓ all correct — go straight to practice.':'Done, with some wrong — watch the lesson first.'}</div>`;return;}
   el.innerHTML=`<div class="step"><span class="en">Quick check</span><span class="zh">小测一下</span></div>
     <div class="lead">Three questions. All correct and you can skip straight to practice.</div>
     <div id="dq"></div><div class="row"><button id="done2" disabled><span class="en">Submit</span><span class="zh">提交</span></button></div>`;
@@ -638,8 +640,8 @@ function chTest(el){
     d.innerHTML=`<div class="q"><div class="qt"><b>Q${i+1}.</b> ${q.q}</div><div id="o"></div></div>`;
     box.appendChild(d);const od=d.querySelector('#o');
     let opts;
-    if(['Rational','Irrational'].includes(String(q.ans)))opts=['Rational','Irrational'];
-    else if(['1','2'].includes(String(q.ans)))opts=['1','2'];
+    if(q.kind==='ratirr')opts=['Rational','Irrational'];
+    else if(q.kind==='eq')opts=['1','2'];
     else if(String(q.ans).includes(' and '))opts=[q.ans,`${parseInt(q.ans)-1} and ${parseInt(q.ans)}`,`${parseInt(q.ans)+1} and ${parseInt(q.ans)+2}`];
     else if(String(q.ans).includes('√')){const kk=parseInt(q.ans);opts=[q.ans,`${kk+1}√${q.ans.split('√')[1]}`,`${kk-1}√${q.ans.split('√')[1]}`,`√${q.ans.split('√')[1]}`];}
     else {const n=+q.ans;opts=[...new Set([n,n+1,n-1,n+ri(2,4),-n])].slice(0,4);}
@@ -676,7 +678,7 @@ function introRender(main){
   h+='<div class="box"><b><span class="en">How this chapter works</span><span class="zh">本章怎么学</span></b><div class="how">'
     +'① <b><span class="en">Watch the lesson</span><span class="zh">看微课</span></b>: <span class="en">a few minutes to get what the section is about</span><span class="zh">花几分钟了解本节内容</span><br>'
     +'② <b><span class="en">Practice</span><span class="zh">练一练</span></b>: <span class="en">5 correct in a row clears it; if you get stuck, hints walk you through</span><span class="zh">连对 5 题就算过关；卡住了就看提示</span><br>'
-    +'③ <b><span class="en">Next section</span><span class="zh">下一节</span></b>: <span class="en">on the left, </span><span class="zh">在左侧，</span>'+pts[0].n+'、'+pts[1].n+'… open whichever you want, in any order'
+    +'③ <b><span class="en">Next section</span><span class="zh">下一节</span></b>: <span class="en">on the left, </span><span class="zh">在左侧，</span>'+pts[0].n+', '+pts[1].n+'… open whichever you want, in any order'
     +'</div></div>';
   h+='<div class="big-start"><button id="startBtn">'+pts[0].n+' <span class="en">'+pts[0].t+'</span><span class="zh">开始 · '+NAVZH[pts[0].id]+'</span> →</button></div>';
   main.innerHTML=h;
@@ -694,7 +696,9 @@ function renderNav(){
   const n=document.getElementById('nav');n.innerHTML='';
   LESSONS.forEach(l=>{
     const s=st(l.id);let badge='';
-    if(l.id==='test'){if(S.test)badge=`<span class="st">${S.test.ok}/${S.test.tot}</span>`;}
+    // st('test') creates a state object, so S.test exists before the test is taken —
+    // only show a score once there is one, otherwise it prints "undefined/undefined"
+    if(l.id==='test'){if(S.test&&S.test.tot!=null)badge=`<span class="st">${S.test.ok}/${S.test.tot}</span>`;}
     else if(s.done)badge='<span class="st">✓</span>';
     else if(s.prac.tot>0)badge=`<span class="st">${s.prac.ok}/${s.prac.tot}</span>`;
     const d=document.createElement('div');d.className='nav-i'+(l.id===cur?' on':'');
