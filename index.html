@@ -34,6 +34,18 @@ header p{opacity:.93;font-size:13px}
 .welcome-cta .skip{font-size:12px;color:#78350f;text-decoration:underline;cursor:pointer;background:transparent;border:none;padding:4px 6px;font-family:inherit}
 .show-guide{font-size:12px;color:#fff;opacity:.85;text-decoration:underline;margin-left:12px;cursor:pointer;background:transparent;border:none;padding:0;font-family:inherit;font-weight:400}
 .show-guide:hover{opacity:1}
+/* ===== Language tiers (en / mix / zh) ===== */
+.zh{display:none}
+body.lang-en .zh{display:none}
+body.lang-mix .zh{display:inline;font-size:.82em;color:var(--muted);margin-left:6px;font-weight:400}
+body.lang-zh .en{display:inline;font-size:.78em;color:var(--muted);margin-left:6px;font-weight:400}
+body.lang-zh .zh{display:inline}
+.langbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 16px;font-size:13px}
+.langbar .lab{color:var(--muted);font-weight:600}
+.langseg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.langseg button{background:#fff;color:var(--text);border:none;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit;border-right:1px solid var(--line)}
+.langseg button:last-child{border-right:none}
+.langseg button.on{background:var(--accent);color:#fff}
 @media(max-width:680px){.steps{grid-template-columns:1fr}}
 h2{font-size:17px;margin:22px 0 12px;display:flex;align-items:center;gap:8px}
 h2 small{font-size:12px;color:var(--muted);font-weight:400}
@@ -88,10 +100,10 @@ th{font-size:11px;color:var(--muted);font-weight:600}
 <div class="wrap">
 
 <header>
- <h1>📚 My learning map · Grade 8 math</h1>
- <p>7 chapters · 33 topics · 196 videos (local playback, no internet needed)</p>
- <p style="margin-top:4px">Language: English, with each key term glossed in Chinese once</p>
- <div class="src">Video content from Khan Academy · CC BY-NC-SA</div>
+ <h1><span class="en">📚 My learning map · Grade 8 math</span><span class="zh">📚 我的学习地图 · 八年级数学</span></h1>
+ <p><span class="en">7 chapters · 33 topics · 196 videos (local playback, no internet needed)</span><span class="zh">7 章 · 33 个知识点 · 196 段视频（本地播放，无需联网）</span></p>
+ <p style="margin-top:4px"><span class="en">Language: English, with each key term glossed in Chinese once</span><span class="zh">语言：全英文，每个关键词在门厅标注一次中文</span></p>
+ <div class="src"><span class="en">Video content from Khan Academy · CC BY-NC-SA</span><span class="zh">视频内容来自 Khan Academy · CC BY-NC-SA</span></div>
 </header>
 
 <div class="welcome" id="welcome">
@@ -101,9 +113,9 @@ th{font-size:11px;color:var(--muted);font-weight:600}
  </div>
  <p class="welcome-lead" id="welcomeLead">Math gets easier when you do a little every day. This site walks you through all of Grade 8, one chapter at a time.</p>
  <div class="steps">
-  <div class="step-card"><div class="step-no">1</div><div class="step-t">Pick a chapter</div><div class="step-d">7 chapters in total. Start with Chapter 1 if you're new.</div></div>
-  <div class="step-card"><div class="step-no">2</div><div class="step-t">Watch &amp; practise</div><div class="step-d">A short video, then a few questions. Get 5 in a row right and you've got it.</div></div>
-  <div class="step-card"><div class="step-no">3</div><div class="step-t">Pass the test</div><div class="step-d">Pass the chapter test to unlock the next one.</div></div>
+  <div class="step-card"><div class="step-no">1</div><div class="step-t"><span class="en">Pick a chapter</span><span class="zh">选一章</span></div><div class="step-d"><span class="en">7 chapters in total. Start with Chapter 1 if you're new.</span><span class="zh">一共 7 章，新手从第 1 章开始。</span></div></div>
+  <div class="step-card"><div class="step-no">2</div><div class="step-t"><span class="en">Watch &amp; practise</span><span class="zh">看视频练一练</span></div><div class="step-d"><span class="en">A short video, then a few questions. Get 5 in a row right and you've got it.</span><span class="zh">先看一小段视频，再做几道题。连对 5 题就算学会。</span></div></div>
+  <div class="step-card"><div class="step-no">3</div><div class="step-t"><span class="en">Pass the test</span><span class="zh">通过章末测</span></div><div class="step-d"><span class="en">Pass the chapter test to unlock the next one.</span><span class="zh">章末测通过，就能解锁下一章。</span></div></div>
  </div>
  <div class="welcome-cta">
   <button class="big" id="welcomeStart">▶ Start with Chapter 1</button>
@@ -111,67 +123,76 @@ th{font-size:11px;color:var(--muted);font-weight:600}
  </div>
 </div>
 
+<div class="langbar">
+ <span class="lab">中文多寡 · Language</span>
+ <span class="langseg">
+  <button data-lang="en" onclick="setLang('en')">English · 英文强</button>
+  <button data-lang="mix" onclick="setLang('mix')">Balanced · 平衡</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文偏多</button>
+ </span>
+</div>
+
 <div class="summary">
  <div class="card">
-  <h2 style="margin:0 0 4px">Your progress <small id="ovPct"></small></h2>
+  <h2 style="margin:0 0 4px"><span class="en">Your progress</span><span class="zh">学习进度</span> <small id="ovPct"></small></h2>
   <div class="big-prog"><div id="ovBar" style="width:0%"></div></div>
   <div class="lvbar" id="lvBar"></div>
   <div class="lvlegend" id="lvLegend"></div>
-  <div style="margin-top:12px"><button id="cont">▶ Pick up where you left off</button> <span id="contLbl" style="font-size:12px;color:var(--muted)"></span></div>
+  <div style="margin-top:12px"><button id="cont"><span class="en">▶ Pick up where you left off</span><span class="zh">▶ 接着上次继续</span></button> <span id="contLbl" style="font-size:12px;color:var(--muted)"></span></div>
  </div>
  <div class="card">
-  <h2 style="margin:0 0 10px">Numbers</h2>
+  <h2 style="margin:0 0 10px"><span class="en">Numbers</span><span class="zh">数据一览</span></h2>
   <div class="stats" id="stats"></div>
  </div>
 </div>
 
-<h2>Chapters <small>each card shows how far you have got</small></h2>
+<h2><span class="en">Chapters</span><span class="zh">章节</span> <small><span class="en">each card shows how far you have got</span><span class="zh">每张卡片显示你学到了哪</span></small></h2>
 <div class="grid" id="chs"></div>
 
-<h2>Level-up challenges <small>mixes sections from one chapter — pass it to unlock the next</small></h2>
+<h2><span class="en">Level-up challenges</span><span class="zh">闯关挑战</span> <small><span class="en">mixes sections from one chapter — pass it to unlock the next</span><span class="zh">把一章的内容混在一起考——通过才能解锁下一关</span></small></h2>
 <div class="card">
  <table id="ut">
-  <thead><tr><th>Challenge</th><th>Questions</th><th>Status</th><th>Last</th><th>Best</th><th></th></tr></thead>
+  <thead><tr><th><span class="en">Challenge</span><span class="zh">挑战</span></th><th><span class="en">Questions</span><span class="zh">题数</span></th><th><span class="en">Status</span><span class="zh">状态</span></th><th><span class="en">Last</span><span class="zh">上次</span></th><th><span class="en">Best</span><span class="zh">最佳</span></th><th></th></tr></thead>
   <tbody></tbody>
  </table>
- <div style="margin-top:12px"><button onclick="location.href='unittests.html'">Go to the challenges →</button></div>
+ <div style="margin-top:12px"><button onclick="location.href='unittests.html'"><span class="en">Go to the challenges →</span><span class="zh">去闯关挑战 →</span></button></div>
 </div>
 
 <details class="parents">
- <summary>🛠 Parent tools (click here)</summary>
+ <summary><span class="en">🛠 Parent tools (click here)</span><span class="zh">🛠 家长工具（点这里）</span></summary>
  <div style="margin-top:8px">
-  Progress is saved in this browser on this computer. Switching computers, clearing the cache or changing browsers loses it — export a backup now and then, and import it back later.
+  <span class="en">Progress is saved in this browser on this computer. Switching computers, clearing the cache or changing browsers loses it — export a backup now and then, and import it back later.</span><span class="zh">进度保存在这台电脑的浏览器里。换电脑、清缓存或换浏览器都会丢失——记得时不时导出备份，以后再导入回来。</span>
  </div>
  <div class="toolbar">
-  <button class="ghost" id="exp">⬇ Export progress (JSON)</button>
+  <button class="ghost" id="exp"><span class="en">⬇ Export progress (JSON)</span><span class="zh">⬇ 导出进度（JSON）</span></button>
   <input type="file" id="imp" accept="application/json">
-  <button class="ghost" id="impBtn">⬆ Import</button>
-  <button class="ghost" id="clr" style="color:var(--err)">Clear all progress</button>
+  <button class="ghost" id="impBtn"><span class="en">⬆ Import</span><span class="zh">⬆ 导入</span></button>
+  <button class="ghost" id="clr" style="color:var(--err)"><span class="en">Clear all progress</span><span class="zh">清除全部进度</span></button>
  </div>
  <div class="note" id="msg" style="display:none"></div>
 </details>
 
 <p style="margin:22px 0 40px;font-size:11px;color:var(--muted);text-align:center">
- Video content from Khan Academy · CC BY-NC-SA · this site is for personal study only · test site cirechen-test<br>
+ <span class="en">Video content from Khan Academy · CC BY-NC-SA · this site is for personal study only · test site cirechen-test</span><span class="zh">视频内容来自 Khan Academy · CC BY-NC-SA · 本站仅作个人学习用 · 测试站 cirechen-test</span><br>
  <a href="index_qclaw.html" style="font-size:11px">Old site</a>
 </p>
 </div>
 
 <script>
 const CH=[
- {k:'ch01',cn:'Pythagorean Theorem',en:'Pythagorean Theorem',p:4,c:'#7c3aed',
+ {k:'ch01',cn:'Pythagorean Theorem',cz:'勾股定理',en:'Pythagorean Theorem',p:4,c:'#7c3aed',
   L:[['k1','Exploring the theorem'],['k2','Is it a right triangle?'],['k3','Applications'],['k4','Strategy: reflect']],v:13},
- {k:'ch02',cn:'Real Numbers',en:'Real Numbers',p:11,c:'#0891b2',
+ {k:'ch02',cn:'Real Numbers',cz:'实数',en:'Real Numbers',p:11,c:'#0891b2',
   L:[['k1','Irrational numbers'],['k2','Square roots'],['k3','Cube roots'],['k4','Estimating roots'],['k5','Using a calculator'],['k6','The real numbers'],['k7','Radicals'],['ext','Extension · Scientific notation']],v:34},
- {k:'ch03',cn:'Position & Coordinates',en:'Position & Coordinates',p:5,c:'#059669',
+ {k:'ch03',cn:'Position & Coordinates',cz:'位置与坐标',en:'Position & Coordinates',p:5,c:'#059669',
   L:[['k1','Locating points'],['k2','The coordinate plane'],['k3','Reflections and coordinates'],['ext','Extension · Translations, rotations, dilations']],v:13},
- {k:'ch04',cn:'Linear Functions',en:'Linear Functions',p:7,c:'#d97706',
+ {k:'ch04',cn:'Linear Functions',cz:'一次函数',en:'Linear Functions',p:7,c:'#d97706',
   L:[['k1','What is a function?'],['k2','Linear and proportional functions'],['k3','Graphs: slope and intercept'],['k4','Applications']],v:56},
- {k:'ch05',cn:'Systems of Equations',en:'Systems of Equations',p:9,c:'#dc2626',
+ {k:'ch05',cn:'Systems of Equations',cz:'二元一次方程组',en:'Systems of Equations',p:9,c:'#dc2626',
   L:[['k1','What is a system?'],['k2','Substitution'],['k3','Elimination'],['k4','Word problems'],['k5','Systems and graphs']],v:36},
- {k:'ch06',cn:'Data Analysis',en:'Data Analysis',p:6,c:'#db2777',
+ {k:'ch06',cn:'Data Analysis',cz:'数据分析',en:'Data Analysis',p:6,c:'#db2777',
   L:[['k1','Mean / median / mode'],['k2','Variance & standard deviation'],['k3','Box plots']],v:29},
- {k:'ch07',cn:'Proofs with Parallel Lines',en:'Proofs with Parallel Lines',p:7,c:'#4f46e5',
+ {k:'ch07',cn:'Proofs with Parallel Lines',cz:'平行线证明',en:'Proofs with Parallel Lines',p:7,c:'#4f46e5',
   L:[['k1','Why prove?'],['k2','Writing a proof'],['k3','Parallel lines: the tests'],['k4','Parallel lines: what follows'],['k5','Triangle angle sum']],v:15},
 ];
 
@@ -185,6 +206,7 @@ const UNITS=[
 
 const LVC=['#e5e7eb','#fcd34d','#60a5fa','#34d399','#16a34a'];
 const LVN=['Not started','Attempted','Familiar','Proficient','Mastered'];
+const LVN_ZH=['还没开始','接触过','比较熟','很熟练','已掌握'];
 
 function rd(k){try{return JSON.parse(localStorage.getItem('bnu8_'+k+'_state'))||{};}catch(e){return {};}}
 function unitState(){try{return JSON.parse(localStorage.getItem('bnu8_unit_state'))||{};}catch(e){return {};}}
@@ -220,21 +242,21 @@ function chNo(c){return String(CH.indexOf(c)+1).padStart(2,'0');}
  const bar=document.getElementById('lvBar');
  bar.innerHTML=cnt.map((n,i)=>n?`<div style="width:${n/all.length*100}%;background:${LVC[i]}"></div>`:'').join('');
  document.getElementById('lvLegend').innerHTML=cnt.map((n,i)=>
-  `<span><b style="color:${LVC[i]}">■</b> ${LVN[i]} <b>${n}</b></span>`).join('');
+  `<span><b style="color:${LVC[i]}">■</b> <span class="en">${LVN[i]}</span><span class="zh">${LVN_ZH[i]}</span> <b>${n}</b></span>`).join('');
 
  const vw=ST.reduce((a,s)=>a+s.vw,0);
  const ok=ST.reduce((a,s)=>a+s.ok,0),tot=ST.reduce((a,s)=>a+s.tot,0);
  const tests=ST.filter(s=>s.test&&s.test.ok/s.test.tot>=0.7).length;
  const done=all.filter(l=>l===4).length;
  document.getElementById('stats').innerHTML=`
-  <div class="stat"><div class="v">${done}/${all.length}</div><div class="l">topics fully mastered</div></div>
-  <div class="stat"><div class="v">${vw}/196</div><div class="l">videos watched</div></div>
-  <div class="stat"><div class="v">${tot?Math.round(ok/tot*100)+'%':'—'}</div><div class="l">practice accuracy (${ok}/${tot})</div></div>
-  <div class="stat"><div class="v">${tests}/7</div><div class="l">chapter tests passed</div></div>`;
+  <div class="stat"><div class="v">${done}/${all.length}</div><div class="l"><span class="en">topics fully mastered</span><span class="zh">已完全掌握的知识点</span></div></div>
+  <div class="stat"><div class="v">${vw}/196</div><div class="l"><span class="en">videos watched</span><span class="zh">已看视频</span></div></div>
+  <div class="stat"><div class="v">${tot?Math.round(ok/tot*100)+'%':'—'}</div><div class="l"><span class="en">practice accuracy (${ok}/${tot})</span><span class="zh">练习正确率（${ok}/${tot}）</span></div></div>
+  <div class="stat"><div class="v">${tests}/7</div><div class="l"><span class="en">chapter tests passed</span><span class="zh">已通过的章末测</span></div></div>`;
 
  const last=localStorage.getItem('bnu8_last');
  const lc=CH.find(c=>c.k===last);
- document.getElementById('contLbl').textContent=lc?'Last up to chapter '+chNo(lc)+' — '+lc.cn:'(pick any chapter to start)';
+ document.getElementById('contLbl').innerHTML=lc?('<span class="en">Last up to chapter '+chNo(lc)+' — '+lc.cn+'</span><span class="zh">上次学到第 '+chNo(lc)+' 章 — '+lc.cn+'</span>'):'<span class="en">(pick any chapter to start)</span><span class="zh">（选任意一章开始）</span>';
  document.getElementById('cont').onclick=()=>{location.href=(lc?lc.k:'ch01')+'.html';};
 })();
 
@@ -242,21 +264,21 @@ document.getElementById('chs').innerHTML=CH.map((c,i)=>{
  const s=ST[i];
  const pct=Math.round(s.pct*100);
  const kps=c.L.map(([id,name],j)=>`<span class="kp l${s.lv[j]}" title="${LVN[s.lv[j]]}">${name}</span>`).join('');
- const t=s.test?`<span class="badge ${s.test.ok/s.test.tot>=0.7?'ok':'warn'}">chapter test ${s.test.ok}/${s.test.tot}</span>`:'<span class="badge">Chapter test not taken</span>';
+ const t=s.test?`<span class="badge ${s.test.ok/s.test.tot>=0.7?'ok':'warn'}"><span class="en">chapter test ${s.test.ok}/${s.test.tot}</span><span class="zh">章末测 ${s.test.ok}/${s.test.tot}</span></span>`:'<span class="badge"><span class="en">Chapter test not taken</span><span class="zh">还没做章末测</span></span>';
  const m=s.lv.filter(x=>x===4).length;
  return `<div class="ch">
   <div class="top" style="background:${c.c}">
-   <div><div class="t">${c.cn}</div><div class="en">${c.en}</div></div>
-   <div class="no">Chapter ${chNo(c)}<br>${m}/${c.L.length} topics done</div>
+   <div><div class="t"><span class="en">${c.cn}</span><span class="zh">${c.cz}</span></div><div class="en" style="font-size:11px;opacity:.9">Chapter ${chNo(c)}</div></div>
+   <div class="no"><span class="en">Chapter ${chNo(c)}</span><span class="zh">第 ${chNo(c)} 章</span><br><span class="en">${m}/${c.L.length} topics done</span><span class="zh">${m}/${c.L.length} 个知识点已学完</span></div>
   </div>
   <div class="body">
    <div class="pbar"><div style="width:${pct}%;background:${c.c}"></div></div>
-   <div style="font-size:12px;color:var(--muted)">${pct}% · videos ${s.vw}/${c.v} · practice ${s.tot?s.ok+'/'+s.tot:'not practised yet'}</div>
+   <div style="font-size:12px;color:var(--muted)">${pct}% · <span class="en">videos ${s.vw}/${c.v} · practice ${s.tot?s.ok+'/'+s.tot:'not practised yet'}</span><span class="zh">视频 ${s.vw}/${c.v} · 练习 ${s.tot?s.ok+'/'+s.tot:'还没练'}</span></div>
    <div class="klist">${kps}</div>
-   <div class="mrow"><span>${t}</span><span>${c.p} periods</span></div>
+   <div class="mrow"><span>${t}</span><span><span class="en">${c.p} periods</span><span class="zh">${c.p} 课时</span></span></div>
    <div class="btns">
-    <button onclick="go('${c.k}')">Go in →</button>
-    <button class="ghost sm" onclick="go('${c.k}',1)">Go straight to the chapter test</button>
+    <button onclick="go('${c.k}')"><span class="en">Go in →</span><span class="zh">进去 →</span></button>
+    <button class="ghost sm" onclick="go('${c.k}',1)"><span class="en">Go straight to the chapter test</span><span class="zh">直接去做章末测</span></button>
    </div>
   </div>
  </div>`;
@@ -333,21 +355,22 @@ document.getElementById('clr').onclick=()=>{
  const hi=document.getElementById('welcomeHi');
  const lead=document.getElementById('welcomeLead');
  const btn=document.getElementById('welcomeStart');
+ const nm=n?n.c.cn:'';
  if(n){
   if(n.mastered===0){
-   hi.textContent='👋 Hi! Ready to start?';
-   lead.textContent='Math gets easier when you do a little every day. This site walks you through all of Grade 8, one chapter at a time.';
-   btn.textContent='▶ Start with Chapter 1 · '+n.c.cn;
+   hi.innerHTML='<span class="en">👋 Hi! Ready to start?</span><span class="zh">👋 准备好开始了吗？</span>';
+   lead.innerHTML='<span class="en">Math gets easier when you do a little every day. This site walks you through all of Grade 8, one chapter at a time.</span><span class="zh">每天做一点，数学就会变简单。这个网站带着你一章一章学完八年级。</span>';
+   btn.innerHTML='<span class="en">▶ Start with Chapter 1 · '+nm+'</span><span class="zh">▶ 从第 1 章开始 · '+nm+'</span>';
   }else{
-   hi.textContent='👋 Welcome back!';
-   lead.textContent='Pick up where you left off, or jump to any chapter below.';
-   btn.textContent='▶ Continue Chapter '+(n.i+1)+' · '+n.c.cn;
+   hi.innerHTML='<span class="en">👋 Welcome back!</span><span class="zh">👋 欢迎回来！</span>';
+   lead.innerHTML='<span class="en">Pick up where you left off, or jump to any chapter below.</span><span class="zh">接着上次学的地方继续，或者从下面的任意一章开始。</span>';
+   btn.innerHTML='<span class="en">▶ Continue Chapter '+(n.i+1)+' · '+nm+'</span><span class="zh">▶ 继续第 '+(n.i+1)+' 章 · '+nm+'</span>';
   }
   btn.onclick=()=>{localStorage.setItem('bnu8_last',n.c.k);location.href=n.c.k+'.html';};
  }else{
-  hi.textContent='🎉 All 7 chapters done!';
-  lead.textContent='Nice work. Try the Level-up challenges below to keep sharp.';
-  btn.textContent='🏆 Go to the challenges';
+  hi.innerHTML='<span class="en">🎉 All 7 chapters done!</span><span class="zh">🎉 7 章全部学完啦！</span>';
+  lead.innerHTML='<span class="en">Nice work. Try the Level-up challenges below to keep sharp.</span><span class="zh">真棒。试试下面的「闯关挑战」保持手感。</span>';
+  btn.innerHTML='<span class="en">🏆 Go to the challenges</span><span class="zh">🏆 去闯关挑战</span>';
   btn.onclick=()=>{location.href='unittests.html';};
  }
 
@@ -371,6 +394,18 @@ document.getElementById('clr').onclick=()=>{
  }
  if(localStorage.getItem(WKEY)==='1'){el.style.display='none';addShowLink();}
 })();
+
+/* ================= Language tier (en / mix / zh) ================= */
+const LKEY='bnu8_lang';
+function getLang(){return localStorage.getItem(LKEY)||'en';}
+function setLang(l){localStorage.setItem(LKEY,l);applyLang();}
+function applyLang(){
+ const l=getLang();
+ document.body.className=(' '+document.body.className+' ').replace(/\s+lang-(en|mix|zh)\b/g,' ').trim();
+ if(l==='mix'||l==='zh')document.body.classList.add('lang-'+l);
+ document.querySelectorAll('.langseg button').forEach(b=>{b.classList.toggle('on',b.dataset.lang===l);});
+}
+applyLang();
 </script>
 </body>
 </html>
