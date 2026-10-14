@@ -76,19 +76,42 @@ svg{max-width:100%;display:block;margin:0 auto}
 .big-start{margin-top:20px;text-align:center}
 .big-start button{font-size:16px;padding:13px 30px;border-radius:10px}
 .trytip{font-size:12px;color:var(--muted);margin:10px 0 2px}
+
+/* ===== Language tiers (en / mix / zh) ===== */
+.zh{display:none}
+body.lang-en .zh{display:none}
+body.lang-mix .zh{display:inline;font-size:.82em;color:#6b7280;margin-left:6px;font-weight:400}
+body.lang-zh .en{display:inline;font-size:.78em;color:#6b7280;margin-left:6px;font-weight:400}
+body.lang-zh .zh{display:inline}
+.langbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px;font-size:13px}
+.langbar .lab{color:#6b7280;font-weight:600}
+.langseg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.langseg button{background:#fff;color:#1f2937;border:none;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit;border-right:1px solid var(--line)}
+.langseg button:last-child{border-right:none}
+.langseg button.on{background:var(--accent);color:#fff}
+
 </style>
 </head>
 <body>
 <div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 16px;font-size:13px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:99">
- <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600">← Overview</a>
- <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600">Unit tests</a>
- <span style="margin-left:auto;font-size:11px;color:#6b7280">Content from Khan Academy · CC BY-NC-SA</span>
+ <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">← Overview</span><span class="zh">← 总览</span></a>
+ <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">Unit tests</span><span class="zh">单元测试</span></a>
+ <span style="margin-left:auto;font-size:11px;color:#6b7280"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
+</div>
+
+<div class="langbar">
+ <span class="lab">中文多寡 · Language</span>
+ <span class="langseg">
+  <button data-lang="en" onclick="setLang('en')">English · 英文强</button>
+  <button data-lang="mix" onclick="setLang('mix')">Balanced · 平衡</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文偏多</button>
+ </span>
 </div>
 
 <div class="wrap">
 <header>
- <h1>Chapter 7 · Proofs with Parallel Lines</h1>
- <p>Grade 8 · 7 class periods</p>
+ <h1><span class="en">Chapter 7 · Proofs with Parallel Lines</span><span class="zh">第 7 章 · 平行线证明</span></h1>
+ <p><span class="en">Grade 8 · 7 class periods</span><span class="zh">八年级 · 7 课时</span></p>
  </header>
 <nav id="nav"></nav>
 <main id="main"></main>
@@ -293,7 +316,7 @@ function microK5(el){
 
 /* ============ Quick check ============ */
 function diag(el,lessonId,generator){
- el.innerHTML=`<div class="step">Quick check</div><div class="box"><p style="font-size:14px;color:var(--muted)">3 questions, just to see where you stand.</p><div id="diagQ"></div></div>`;
+ el.innerHTML=`<div class="step"><span class="en">Quick check</span><span class="zh">小测一下</span></div><div class="box"><p style="font-size:14px;color:var(--muted)">3 questions, just to see where you stand.</p><div id="diagQ"></div></div>`;
  const qEl=el.querySelector('#diagQ');
  let ok=0;
  const qs=Array.from({length:3},()=>generator('diag'));
@@ -301,8 +324,8 @@ function diag(el,lessonId,generator){
  const show=()=>{
   if(i>=3){
    st(lessonId).diag=ok;
-   if(ok===3){qEl.innerHTML=`<div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>3/3</strong></div><div style="margin-top:14px"><button id="skipMicro">Skip the lesson, go to practice →</button></div>`;qEl.querySelector('#skipMicro').onclick=()=>{cur=`prac-${lessonId}`;render();};}
-   else{qEl.innerHTML=`<div class="note" style="background:#fef3c7;border-color:var(--warn)"><strong>${ok}/3</strong></div><div style="margin-top:14px"><button id="goMicro">Go to lesson →</button></div>`;qEl.querySelector('#goMicro').onclick=()=>{cur=`micro-${lessonId}`;render();};}
+   if(ok===3){qEl.innerHTML=`<div class="note" style="background:#dcfce7;border-color:var(--ok)"><strong>3/3</strong></div><div style="margin-top:14px"><button id="skipMicro"><span class="en">Skip the lesson, go to practice →</span><span class="zh">跳过微课，去做练习 →</span></button></div>`;qEl.querySelector('#skipMicro').onclick=()=>{cur=`prac-${lessonId}`;render();};}
+   else{qEl.innerHTML=`<div class="note" style="background:#fef3c7;border-color:var(--warn)"><strong>${ok}/3</strong></div><div style="margin-top:14px"><button id="goMicro"><span class="en">Go to lesson →</span><span class="zh">去看微课 →</span></button></div>`;qEl.querySelector('#goMicro').onclick=()=>{cur=`micro-${lessonId}`;render();};}
    save();renderNav();return;
   }
   const q=qs[i];
@@ -343,10 +366,10 @@ k5:()=>{
 function videos(el,lessonId){
  const list=VIDEOS[lessonId]||[];
  if(!list.length){el.innerHTML='<div class="note">No videos for this section.</div>';return;}
- let html=`<div class="step">Videos · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
+ let html=`<div class="step"><span class="en">Videos</span><span class="zh">视频</span> · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
  list.forEach((v,i)=>{
   const watched=st(lessonId).vid[i];
-  html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="meta"><span class="tag ${v.c}">${v.c==='core'?'Core':'Extra'}</span><span class="st ${watched?'ok':''}">${watched?'✓':'Unwatched'}</span><button data-i="${i}">${watched?'▶ Replay':'▶ Play'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
+  html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="meta"><span class="tag ${v.c}"><span class="en">${v.c==='core'?'Core':'Extra'}</span><span class="zh">${v.c==='core'?'核心':'拓展'}</span></span><span class="st ${watched?'ok':''}">${watched?'✓':'Unwatched'}</span><button data-i="${i}">${watched?'<span class="en">▶ Replay</span><span class="zh">▶ 重播</span>':'<span class="en">▶ Play</span><span class="zh">▶ 播放</span>'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
  });
  el.innerHTML=html;
  el.querySelectorAll('[data-i]').forEach(b=>{
@@ -361,7 +384,7 @@ function practice(el,lessonId){
  const s=st(lessonId);
  let streak=0,need=5,q=null,tries=0;
  const update=()=>{
-  el.innerHTML=`<div class="step">Practice (${streak}/${need}）</div><div style="font-size:13px;color:var(--muted);margin:8px 0">Correct: ${s.prac.ok}/${s.prac.tot}<button class="secondary" id="rs" style="margin-left:8px">Reset</button></div><div class="progress"><div style="width:${(streak/need)*100}%"></div></div><div class="q"><div class="q-text">${q.q}</div><div style="display:flex;gap:8px"><input id="pi"><button id="ps">Submit</button></div><div class="hint" id="ph"></div><div class="feedback" id="pf"></div></div>`;
+  el.innerHTML=`<div class="step"><span class="en">Practice</span><span class="zh">练习</span> (${streak}/${need}）</div><div style="font-size:13px;color:var(--muted);margin:8px 0">Correct: ${s.prac.ok}/${s.prac.tot}<button class="secondary" id="rs" style="margin-left:8px"><span class="en">Reset</span><span class="zh">重置</span></button></div><div class="progress"><div style="width:${(streak/need)*100}%"></div></div><div class="q"><div class="q-text">${q.q}</div><div style="display:flex;gap:8px"><input id="pi"><button id="ps">Submit</button></div><div class="hint" id="ph"></div><div class="feedback" id="pf"></div></div>`;
   el.querySelector('#rs').onclick=()=>{s.prac={ok:0,tot:0};streak=0;save();update();renderNav();};
   const inp=el.querySelector('#pi'),fb=el.querySelector('#pf'),ht=el.querySelector('#ph');
   inp.focus();el.querySelector('#ps').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
@@ -392,7 +415,7 @@ function practice(el,lessonId){
 
 /* ============ Chapter test ============ */
 function chTest(el){
- el.innerHTML=`<div class="step">Chapter test</div><div class="box"><p style="font-size:13px;color:var(--muted)">6 questions.</p><div id="tq"></div></div>`;
+ el.innerHTML=`<div class="step"><span class="en">Chapter test</span><span class="zh">章末测</span></div><div class="box"><p style="font-size:13px;color:var(--muted)">6 questions.</p><div id="tq"></div></div>`;
  const tq=el.querySelector('#tq');
  const qs=[];
  for(let i=0;i<2;i++)qs.push(generators.k3());
@@ -402,7 +425,7 @@ function chTest(el){
  const show=()=>{
   if(i>=qs.length){tq.innerHTML=`<div class="note" style="background:${ok>=4?'#dcfce7':'#fef3c7'}"><strong>${ok}/${qs.length}</strong> ${ok>=4?'Chapter passed!':'Review it again'}</div>`;S.test={ok,tot:qs.length};save();renderNav();return;}
   const q=qs[i];
-  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div style="display:flex;gap:8px"><input id="ti"><button id="ts">Submit</button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
+  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div style="display:flex;gap:8px"><input id="ti"><button id="ts"><span class="en">Submit</span><span class="zh">提交</span></button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
   const inp=tq.querySelector('#ti'),fb=tq.querySelector('#tf'),ht=tq.querySelector('#th');
   inp.focus();tq.querySelector('#ts').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
   function check(){
@@ -424,24 +447,32 @@ const INTRO={why:"\"If alternate interior angles are equal, the lines are parall
 function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
 function introRender(main){
   const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
-  let h='<div class="intro-h">What this chapter covers</div>'
-    +'<div class="intro-sub">Skim the list to see where this chapter is going, then press the button at the bottom.</div><div class="kp">';
+  let h='<div class="intro-h"><span class="en">What this chapter covers</span><span class="zh">本章学什么</span></div>'
+    +'<div class="intro-sub"><span class="en">Skim the list to see where this chapter is going, then press the button at the bottom.</span><span class="zh">先扫一眼下面的清单，看本章去哪，然后按底部按钮开始。</span></div><div class="kp">';
   pts.forEach(l=>{
     const s=st(l.id);
     const badge=s.done?' <span class="st ok">✓ done</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
     h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.t+(GLOSS[l.id]?' <span class="cn-tag">'+GLOSS[l.id]+'</span>':'')+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
   });
   h+='</div>';
-  h+='<div class="why"><b>Where this shows up in real life</b><br>'+INTRO.why+'</div>';
-  h+='<div class="box"><b>How this chapter works</b><div class="how">'
-    +'① <b>Watch the lesson</b>: a few minutes to get what the section is about<br>'
-    +'② <b>Practice</b>: 5 correct in a row clears it; if you get stuck, hints walk you through<br>'
-    +'③ <b>Next section</b>: on the left, '+pts[0].n+'、'+pts[1].n+'… open whichever you want, in any order'
+  h+='<div class="why"><b><span class="en">Where this shows up in real life</span><span class="zh">在真实生活里哪里会用到</span></b><br>'+INTRO.why+'</div>';
+  h+='<div class="box"><b><span class="en">How this chapter works</span><span class="zh">本章怎么学</span></b><div class="how">'
+    +'① <b><span class="en">Watch the lesson</span><span class="zh">看微课</span></b>: <span class="en">a few minutes to get what the section is about</span><span class="zh">花几分钟了解本节内容</span><br>'
+    +'② <b><span class="en">Practice</span><span class="zh">练一练</span></b>: <span class="en">5 correct in a row clears it; if you get stuck, hints walk you through</span><span class="zh">连对 5 题就算过关；卡住了就看提示</span><br>'
+    +'③ <b><span class="en">Next section</span><span class="zh">下一节</span></b>: <span class="en">on the left, </span><span class="zh">在左侧，</span>'+pts[0].n+'、'+pts[1].n+'… open whichever you want, in any order'
     +'</div></div>';
-  h+='<div class="big-start"><button id="startBtn">Start '+pts[0].n+' '+pts[0].cn+' →</button></div>';
+  h+='<div class="big-start"><button id="startBtn">'+pts[0].n+' <span class="en">'+pts[0].t+'</span><span class="zh">开始 · '+NAVZH[pts[0].id]+'</span> →</button></div>';
   main.innerHTML=h;
   main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
 }
+const NAVZH={"intro":"概览","k1":"为什么证明","k2":"书写证明","k3":"平行线的判定","k4":"平行线的性质","k5":"三角形内角和","test":"章末测"};
+const LKEY='bnu8_lang';
+function getLang(){return localStorage.getItem(LKEY)||'en';}
+function setLang(l){localStorage.setItem(LKEY,l);applyLang();}
+function applyLang(){const l=getLang();document.body.className=(' '+document.body.className+' ').replace(/\s+lang-(en|mix|zh)\b/g,' ').trim();if(l==='mix'||l==='zh')document.body.classList.add('lang-'+l);document.querySelectorAll('.langseg button').forEach(b=>{b.classList.toggle('on',b.dataset.lang===l);});}
+applyLang();
+
+
 function renderNav(){
  const nav=document.getElementById('nav');
  nav.innerHTML=LESSONS.map(l=>{
@@ -449,7 +480,7 @@ function renderNav(){
   let stxt='';
   if(s.done)stxt='<span class="st ok">✓</span>';
   else if(s.prac.tot>0)stxt=`<span class="st ${s.prac.ok/s.prac.tot>0.6?'ok':'err'}">${s.prac.ok}/${s.prac.tot}</span>`;
-  return `<div class="nav-i ${l.id===cur||cur===`micro-${l.id}`||cur===`diag-${l.id}`||cur===`prac-${l.id}`?'on':''}" data-go="${l.id}"><span><b>${l.n}</b> ${l.t}</span>${stxt}</div>`;
+  return `<div class="nav-i ${l.id===cur||cur===`micro-${l.id}`||cur===`diag-${l.id}`||cur===`prac-${l.id}`?'on':''}" data-go="${l.id}"><span><b>${l.n}</b> <span class="en">${l.t}</span><span class="zh">${NAVZH[l.id]||l.t}</span></span>${stxt}</div>`;
  }).join('');
  nav.querySelectorAll('[data-go]').forEach(n=>n.onclick=()=>{const id=n.dataset.go;cur=id==='test'?'test':`micro-${id}`;render();});
 }
@@ -465,7 +496,7 @@ function render(){
   const lesson=LESSONS.find(l=>l.id===id);
   if(!lesson){main.innerHTML='<div class="note">Unknown</div>';return;}
   const titles={k1:'Why prove?',k2:'Writing a proof',k3:'Parallel lines: the tests',k4:'Parallel lines: what follows',k5:'Triangle angle sum'};
-  main.innerHTML=`<div class="lesson-id">${lesson.n} · ${titles[id]} · ${lesson.cn}</div>`;
+  main.innerHTML=`<div class="lesson-id">${lesson.n} · <span class="en">${titles[id]} · ${lesson.cn}</span><span class="zh">${NAVZH[id]||titles[id]}</span></div>`;
   const c=document.createElement('div');main.appendChild(c);
   if(phase==='diag'){
    if(st(id).diag===3){cur=`micro-${id}`;render();return;}
