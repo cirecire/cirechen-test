@@ -137,7 +137,7 @@ const LESSONS=[
  {id:'k2',t:'The Coordinate Plane',cn:'The coordinate plane',n:'3.2'},
  {id:'k3',t:'Reflections & Coordinates',cn:'Reflections and coordinates',n:'3.3'},
  {id:'ext',t:'Optional · Transformations',cn:'Optional · Translations / rotations / dilations',n:''},
- {id:'test',t:'Chapter Test',cn:'Chapter test',n:''}
+ {id:'test',t:'Chapter check',cn:'Chapter check',n:''}
 ];
 let cur='intro';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
@@ -520,9 +520,9 @@ function practice(el,lessonId){
  newQ();update();
 }
 
-/* ============ Chapter test ============ */
+/* ============ Chapter check ============ */
 function chTest(el){
- el.innerHTML=`<div class="step"><span class="en">Chapter test</span><span class="zh">章末测</span></div><div class="box"><p style="font-size:13px;color:var(--muted)">8 questions covering every topic in this chapter. Not timed, not scored.</p><div id="tq"></div></div>`;
+ el.innerHTML=`<div class="step"><span class="en">Chapter check</span><span class="zh">章末自己测</span></div><div class="box"><p style="font-size:13px;color:var(--muted)">8 questions covering every topic in this chapter. Not timed, not scored.</p><div id="tq"></div></div>`;
  const tq=el.querySelector('#tq');
  const qs=[];
  for(let i=0;i<3;i++)qs.push(generators.k1(i+1));
@@ -575,7 +575,7 @@ function introRender(main){
   main.innerHTML=h;
   main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
 }
-const NAVZH={"intro":"概览","k1":"确定位置","k2":"平面直角坐标系","k3":"轴对称与坐标","ext":"平移·旋转·位似","test":"章末测"};
+const NAVZH={"intro":"概览","k1":"确定位置","k2":"平面直角坐标系","k3":"轴对称与坐标","ext":"平移·旋转·位似","test":"章末自己测"};
 const LKEY='bnu8_lang';
 function getLang(){return localStorage.getItem(LKEY)||'en';}
 function setLang(l){localStorage.setItem(LKEY,l);applyLang();}
