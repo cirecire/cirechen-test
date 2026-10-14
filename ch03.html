@@ -108,12 +108,13 @@ body.lang-zh .zh{display:inline}
 </div>
 
 <div class="langbar">
- <span class="lab">中文多寡 · Language</span>
+ <span class="lab">显示语言 · Language display</span>
  <span class="langseg">
-  <button data-lang="en" onclick="setLang('en')">English · 英文强</button>
-  <button data-lang="mix" onclick="setLang('mix')">Balanced · 平衡</button>
-  <button data-lang="zh" onclick="setLang('zh')">中文偏多</button>
+  <button data-lang="en" onclick="setLang('en')">English only · 全英文</button>
+  <button data-lang="mix" onclick="setLang('mix')">English + 中文 · 英文为主</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文 + English · 中文为主</button>
  </span>
+ <span class="lab" style="font-weight:400">随时可改 · change anytime</span>
 </div>
 
 <div class="wrap">
@@ -340,7 +341,7 @@ function diag(el,lessonId,generator){
     <div class="q-text">${i+1}. ${q.q}</div>
     
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-     <input type="text" id="da" autocomplete="off" placeholder="?"> <button id="sub"><span class="en">Submit · Submit</span><span class="zh">提交</span></button>
+     <input type="text" id="da" autocomplete="off" placeholder="?"> <button id="sub"><span class="en">Submit</span><span class="zh">提交</span></button>
     </div>
     <div class="hint" id="ht"></div>
     <div class="feedback" id="fb"></div>
@@ -370,20 +371,18 @@ k1:()=>{ // ordered pairs and bearings
   return {q:`Point P has x-coordinate ${x} and y-coordinate ${y}. Which is its ordered pair?`,
    check:a=>a===opts[0],ans:opts[0],opts,choice:true,hint:'Order matters: (x, y), not (y, x).'};
  } else if(type===2){
-  const x=ri(-3,3),y=ri(-3,3);
+  // Never use 0: a point on an axis is not in any quadrant, so it has no answer.
+  const NZ=[-3,-2,-1,1,2,3];
+  const x=NZ[ri(0,5)], y=NZ[ri(0,5)];
+  const qn = x>0 ? (y>0?1:4) : (y>0?2:3);
   return {q:`Find the point (${x}, ${y}). Which quadrant is it in?`,
-   check:a=>{
-    const n=parseInt(a);
-    if(x>0&&y>0)return n===1;
-    if(x<0&&y>0)return n===2;
-    if(x<0&&y<0)return n===3;
-    if(x>0&&y<0)return n===4;
-    return false;
-   },hint:`(${x}, ${y}) — x sign × y sign tells you the quadrant.`};
+   check:v=>parseInt(v)===qn, ans:String(qn),
+   hint:`(${x}, ${y}) — the signs of x and y tell you the quadrant.`};
  } else {
   const a=ri(1,3),b=ri(1,3);
   return {q:`In a grid, point A is at row ${a}, column ${b}. What is the ordered pair (column, row)?`,
-   check:a=>a===`(${b},${a})`,ans:`(${b},${a})`,hint:'In an ordered pair: x comes first (column), y second (row).'};
+   // NB: do NOT name the parameter `a` — it would shadow the row number above
+   check:v=>v===`(${b},${a})`,ans:`(${b},${a})`,hint:'In an ordered pair: x comes first (column), y second (row).'};
  }
 },
 k2:()=>{ // plotting and reading points
@@ -391,7 +390,7 @@ k2:()=>{ // plotting and reading points
  if(type===1){
   const x=ri(-5,5),y=ri(-5,5);
   return {q:`What are the coordinates of the point 3 units right of origin and 2 units up?`,
-   check:a=>a===`(${ri === undefined ? 3 : 3},${2})`,ans:`(3,2)`,hint:'Right is +x, up is +y.'};
+   check:v=>v===`(3,2)`,ans:`(3,2)`,hint:'Right is +x, up is +y.'};
  } else {
   const x=ri(-4,4),y=ri(-4,4);
   return {q:`The point (${x}, ${y}) — what is its distance from the y-axis (absolute value of x)?`,
@@ -464,7 +463,7 @@ function practice(el,lessonId){
  function newQ(){q=gen(pickDiff());tries=0;}
  const update=()=>{
   el.innerHTML=`
-   <div class="step"><span class="en">Practice</span><span class="zh">练习</span> (${streak}/${need}）</div>
+   <div class="step"><span class="en">Practice</span><span class="zh">练习</span> (${streak}/${need})</div>
    <div class="diff">
     Difficulty: 
     <button class="secondary ${diff===1?'on':''}" data-d="1">Easy</button>
@@ -477,13 +476,19 @@ function practice(el,lessonId){
     <div class="q-text">${q.q}</div>
     
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-     <input type="text" id="pi" autocomplete="off" placeholder="?"> <button id="ps"><span class="en">Submit · Submit</span><span class="zh">提交</span></button>
+     <input type="text" id="pi" autocomplete="off" placeholder="?"> <button id="ps"><span class="en">Submit</span><span class="zh">提交</span></button>
     </div>
     <div class="hint" id="ph"></div>
     <div class="feedback" id="pf"></div>
    </div>`;
   el.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{diff=parseInt(b.dataset.d);update();});
   el.querySelector('#rs').onclick=()=>{s.prac={ok:0,tot:0};streak=0;diff=1;save();update();renderNav();};
+
+  const syncTop=()=>{
+   const stp=el.querySelector('.step'); if(stp) stp.innerHTML='<span class="en">Practice</span><span class="zh">练习</span> ('+streak+'/'+need+')';
+   const pg=el.querySelector('.progress'); if(pg&&pg.firstElementChild) pg.firstElementChild.style.width=(streak/need)*100+'%';
+   const inf=el.querySelector('.info'); if(inf){const rb=inf.querySelector('#rs');inf.textContent='Correct: '+s.prac.ok+'/'+s.prac.tot+' (streak '+streak+') ';if(rb)inf.appendChild(rb);}
+  };
   const inp=el.querySelector('#pi'),fb=el.querySelector('#pf'),ht=el.querySelector('#ph');
   inp.focus();
   el.querySelector('#ps').onclick=check;
@@ -493,8 +498,9 @@ function practice(el,lessonId){
    const r=q.check(a);
    if(r===true){
     streak++;s.prac.ok++;s.prac.tot++;
-    fb.className='feedback show ok';fb.textContent='✓ correct！';
+    fb.className='feedback show ok';fb.textContent='✓ correct!';
     inp.disabled=true;
+    syncTop();
     if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>Section cleared ✓</strong>';save();renderNav();}
     else if(streak>=3&&diff<3){diff++;}
     setTimeout(()=>{newQ();update();},900);
@@ -502,14 +508,15 @@ function practice(el,lessonId){
     tries++;
     if(tries===1){
      ht.className='hint show';ht.textContent=q.hint||'Have another go.';
-     fb.className='feedback show err';fb.textContent='✗ Try again。';
+     fb.className='feedback show err';fb.textContent='✗ Try again. ';
     } else if(tries===2){
      fb.className='feedback show err';
      fb.textContent='✗ Not quite. '+(q.sol?('Method: '+q.sol):(q.hint?('Hint: '+q.hint):'Work through it once more.'));
     } else {
-     streak=0;s.prac.tot++;if(diff>1)diff--;
+     streak=0;s.prac.tot++;syncTop();
+     if(diff>1)diff--;
      fb.className='feedback show err';
-     fb.innerHTML=`The answer is <b>${q.ans}</b>`+(q.sol?('。'+q.sol):'。');
+     fb.innerHTML=`The answer is <b>${q.ans}</b>`+(q.sol?('. '+q.sol):'. ');
      inp.disabled=true;save();renderNav();
      setTimeout(()=>{q=gen();tries=0;update();},2400);
     }
@@ -569,7 +576,7 @@ function introRender(main){
   h+='<div class="box"><b><span class="en">How this chapter works</span><span class="zh">本章怎么学</span></b><div class="how">'
     +'① <b><span class="en">Watch the lesson</span><span class="zh">看微课</span></b>: <span class="en">a few minutes to get what the section is about</span><span class="zh">花几分钟了解本节内容</span><br>'
     +'② <b><span class="en">Practice</span><span class="zh">练一练</span></b>: <span class="en">5 correct in a row clears it; if you get stuck, hints walk you through</span><span class="zh">连对 5 题就算过关；卡住了就看提示</span><br>'
-    +'③ <b><span class="en">Next section</span><span class="zh">下一节</span></b>: <span class="en">on the left, </span><span class="zh">在左侧，</span>'+pts[0].n+'、'+pts[1].n+'… open whichever you want, in any order'
+    +'③ <b><span class="en">Next section</span><span class="zh">下一节</span></b>: <span class="en">on the left, </span><span class="zh">在左侧，</span>'+pts[0].n+', '+pts[1].n+'… open whichever you want, in any order'
     +'</div></div>';
   h+='<div class="big-start"><button id="startBtn">'+pts[0].n+' <span class="en">'+pts[0].t+'</span><span class="zh">开始 · '+NAVZH[pts[0].id]+'</span> →</button></div>';
   main.innerHTML=h;
