@@ -120,12 +120,13 @@ body.lang-zh .zh{display:inline}
 </div>
 
 <div class="langbar">
- <span class="lab">中文多寡 · Language</span>
+ <span class="lab">显示语言 · Language display</span>
  <span class="langseg">
-  <button data-lang="en" onclick="setLang('en')">English · 英文强</button>
-  <button data-lang="mix" onclick="setLang('mix')">Balanced · 平衡</button>
-  <button data-lang="zh" onclick="setLang('zh')">中文偏多</button>
+  <button data-lang="en" onclick="setLang('en')">English only · 全英文</button>
+  <button data-lang="mix" onclick="setLang('mix')">English + 中文 · 英文为主</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文 + English · 中文为主</button>
  </span>
+ <span class="lab" style="font-weight:400">随时可改 · change anytime</span>
 </div>
 
 <div class="wrap">
@@ -201,9 +202,13 @@ function genQ(type,diff){
     let a,b,c;
     if(diff===1){ const p=pick(PYTH.filter(x=>x[0]<=9&&x[1]<=12)); a=p[0];b=p[1];c=p[2]; }
     else if(diff===2){ const p=pick(PYTH.filter(x=>x[2]<=26)); a=p[0];b=p[1];c=p[2]; }
-    else { a=ri(3,20); b=ri(3,20); c=Math.sqrt(a*a+b*b);
-           if(Math.abs(c-Math.round(c))>1e-9){ b=Math.round(Math.sqrt(Math.pow(Math.ceil(c),2)-a*a)); c=Math.ceil(c); }
-           c=Math.round(c); }
+    else {
+      // Euclid's formula gives an exact integer triple: a=m²−n², b=2mn, c=m²+n²
+      // (rounding a leg and the hypotenuse independently would NOT give a right triangle)
+      let m,n,guard=0;
+      do { m=ri(2,6); n=ri(1,m-1); a=m*m-n*n; b=2*m*n; c=m*m+n*n; guard++; } while(c>40 && guard<200);
+      if(a>b){ const t=a; a=b; b=t; }
+    }
     return {q:`A right triangle has legs <b>a = ${a}</b> and <b>b = ${b}</b>. Find the hypotenuse <b>c</b>.<br><span class="cn-tag">The legs are ${a} and ${b}; find the hypotenuse.</span>`,
             ans:c, unit:'',
             sol:`c² = a² + b² = ${a}² + ${b}² = ${a*a} + ${b*b} = ${a*a+b*b}, so c = ${c}`};
@@ -230,23 +235,29 @@ function genQ(type,diff){
   }
   if(type==='word'){
     const scenes=[
-      {cn:'Ladder against a wall', en:'A ladder of length L leans against a wall. Its foot is D from the wall. How high up the wall does it reach?', ask:'h'},
-      {cn:'Flagpole rope', en:'A flagpole is H tall. A rope is tied from the top to a stake D from the base. How long is the rope?', ask:'r'},
-      {cn:'Broken bamboo', en:'A bamboo of total length L breaks so the top touches the ground D from the base. How high is the break?', ask:'h'}
+      {cn:'Ladder against a wall', en:'A ladder of length L leans against a wall. Its foot is D from the wall. How high up the wall does it reach?', ask:'ladder'},
+      {cn:'Flagpole rope', en:'A flagpole is H tall. A rope is tied from the top to a stake D from the base. How long is the rope?', ask:'rope'},
+      {cn:'Broken bamboo', en:'A bamboo of total length L breaks so the top touches the ground D from the base. How high is the break?', ask:'bamboo'}
     ];
     const sc=pick(scenes);
-    if(sc.ask==='h'){
+    if(sc.ask==='ladder'){
+      // the ladder is the hypotenuse: h² + d² = l²
       const p=pick(PYTH.filter(x=>x[2]<=25)); let [d,h,l]=p;
-      return {q:`${sc.en.replace('L',l).replace('D',d)}<br><span class="cn-tag">${sc.cn}: a ${sc.cn==='Broken bamboo'?'bamboo':'ladder'} of length ${l}, foot ${d} from the base. How high?</span>`,
-              ans:h, sol:`h² + ${d}² = ${l}²，h² = ${l*l} − ${d*d} = ${l*l-d*d}，h = ${h}`};
-    } else if(sc.ask==='r'){
+      return {q:`${sc.en.replace('L',l).replace('D',d)}<br><span class="cn-tag">${sc.cn}: a ladder of length ${l}, foot ${d} from the wall. How high up the wall?</span>`,
+              ans:h, sol:`h² + ${d}² = ${l}², so h² = ${l*l} − ${d*d} = ${l*l-d*d}, h = ${h}`};
+    } else if(sc.ask==='rope'){
+      // the rope is the hypotenuse: r² = h² + d²
       const p=pick(PYTH.filter(x=>x[2]<=25)); let [d,h,r]=p;
       return {q:`${sc.en.replace('H',h).replace('D',d)}<br><span class="cn-tag">${sc.cn}: pole ${h} tall, stake ${d} from the base. How long is the rope?</span>`,
-              ans:r, sol:`r² = ${h}² + ${d}² = ${h*h+d*d}，r = ${r}`};
+              ans:r, sol:`r² = ${h}² + ${d}² = ${h*h+d*d}, r = ${r}`};
     } else {
-      const p=pick(PYTH.filter(x=>x[2]<=25)); let [d,h,l]=p;
+      // Bamboo: stands h tall, snaps, the top lands d from the base.
+      // Broken part = L − h, and (L − h)² = h² + d². Using triple (d,h,c):
+      // broken part = c, so the total length is L = h + c.
+      const p=pick(PYTH.filter(x=>x[2]<=25)); let [d,h,c]=p;
+      const l = h + c;
       return {q:`${sc.en.replace('L',l).replace('D',d)}<br><span class="cn-tag">${sc.cn}: bamboo ${l} long, top touches the ground ${d} from the base. How high is the break?</span>`,
-              ans:h, sol:`Call the break height h: the broken part is ${l}−h long, so h² + ${d}² = (${l}−h)², giving h = ${h}`};
+              ans:h, sol:`Broken part = ${l} − h = ${c}. Then h² + ${d}² = ${c}², so h² = ${c*c} − ${d*d} = ${c*c-d*d}, h = ${h}`};
     }
   }
 }
@@ -283,7 +294,7 @@ function renderQ(el,q,onAns,showHint){
         b.classList.add('sel-bad'); b.disabled=true;
         if(tries===1){
           el.querySelector('#hint').classList.add('on');
-          fb.className='fb bad'; fb.textContent='✗ Try again。';
+          fb.className='fb bad'; fb.textContent='✗ Try again. ';
         } else if(tries===2){
           fb.className='fb bad';
           fb.textContent='✗ Not quite. '+(q.sol?('Method: '+q.sol):'Work through it once more.');
@@ -291,7 +302,7 @@ function renderQ(el,q,onAns,showHint){
           od.querySelectorAll('.opt').forEach(x=>x.disabled=true);
           od.querySelectorAll('.opt').forEach(x=>{ if(x.innerHTML===String(q.ans)) x.classList.add('sel-ok'); });
           fb.className='fb bad';
-          fb.innerHTML=`The answer is <b>${q.ans}</b>`+(q.sol?('。'+q.sol):'。');
+          fb.innerHTML=`The answer is <b>${q.ans}</b>`+(q.sol?('. '+q.sol):'. ');
           onAns(false);
         }
       }
@@ -444,7 +455,7 @@ function videos(el,list,id){
     <div class="lead"><span class="badge b-core"><span class="en">Core</span><span class="zh">核心</span></span> watch these first. <span class="badge b-ext"><span class="en">Extra</span><span class="zh">拓展</span></span> are different proofs of why it holds — only if you have time.</div>`;
   list.forEach((v,i)=>{
     const d=document.createElement('div'); d.className='vid-item';
-    d.innerHTML=`<div class="t"><b>${v.t}</b><small>${v.d}</small>
+    d.innerHTML=`<div class="t"><b>${v.t}</b><small>${v.d||''}</small>
       <span class="badge ${v.c==='core'?'b-core':'b-ext'}">${v.c==='core'?'Core':'Extra'}</span></div>`;
     const b=document.createElement('button'); b.className='ghost'; b.innerHTML='<span class="en">▶ Play</span><span class="zh">▶ 播放</span>';
     b.onclick=()=>{
@@ -465,7 +476,7 @@ function videos(el,list,id){
 function diag(el,id,types){
   const s=st(id);
   if(s.diag){ 
-    el.innerHTML=`<div class="box"><b>Quick check：</b>${s.diag.pass?
+    el.innerHTML=`<div class="box"><b>Quick check: </b>${s.diag.pass?
       '✓ all correct — you can go straight to practice.':'Done, with some wrong — watch the lesson and videos first.'}</div>`;
     return; 
   }
@@ -581,7 +592,7 @@ function introRender(main){
   h+='<div class="box"><b><span class="en">How this chapter works</span><span class="zh">本章怎么学</span></b><div class="how">'
     +'① <b><span class="en">Watch the lesson</span><span class="zh">看微课</span></b>: <span class="en">a few minutes to get what the section is about</span><span class="zh">花几分钟了解本节内容</span><br>'
     +'② <b><span class="en">Practice</span><span class="zh">练一练</span></b>: <span class="en">5 correct in a row clears it; if you get stuck, hints walk you through</span><span class="zh">连对 5 题就算过关；卡住了就看提示</span><br>'
-    +'③ <b><span class="en">Next section</span><span class="zh">下一节</span></b>: <span class="en">on the left, </span><span class="zh">在左侧，</span>'+pts[0].n+'、'+pts[1].n+'… open whichever you want, in any order'
+    +'③ <b><span class="en">Next section</span><span class="zh">下一节</span></b>: <span class="en">on the left, </span><span class="zh">在左侧，</span>'+pts[0].n+', '+pts[1].n+'… open whichever you want, in any order'
     +'</div></div>';
   h+='<div class="big-start"><button id="startBtn">'+pts[0].n+' <span class="en">'+pts[0].t+'</span><span class="zh">开始 · '+NAVZH[pts[0].id]+'</span> →</button></div>';
   main.innerHTML=h;
@@ -600,7 +611,9 @@ function renderNav(){
   LESSONS.forEach(l=>{
     const s=st(l.id);
     let badge='';
-    if(l.id==='test'){ if(S.test) badge=`<span class="st">${S.test.ok}/${S.test.tot}</span>`; }
+    // st('test') creates a state object, so S.test exists before the test is taken —
+    // only show a score once it actually has one, otherwise it prints "undefined/undefined"
+    if(l.id==='test'){ if(S.test&&S.test.tot!=null) badge=`<span class="st">${S.test.ok}/${S.test.tot}</span>`; }
     else if(s.done) badge='<span class="st">✓</span>';
     else if(s.prac.tot>0) badge=`<span class="st">${s.prac.ok}/${s.prac.tot}</span>`;
     const d=document.createElement('div');
