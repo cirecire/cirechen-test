@@ -96,21 +96,43 @@ video{width:100%;max-width:520px;border-radius:8px;background:#000;display:block
 .big-start{margin-top:20px;text-align:center}
 .big-start button{font-size:16px;padding:13px 30px;border-radius:10px}
 .trytip{font-size:12px;color:var(--muted);margin:10px 0 2px}
+
+/* ===== Language tiers (en / mix / zh) ===== */
+.zh{display:none}
+body.lang-en .zh{display:none}
+body.lang-mix .zh{display:inline;font-size:.82em;color:#6b7280;margin-left:6px;font-weight:400}
+body.lang-zh .en{display:inline;font-size:.78em;color:#6b7280;margin-left:6px;font-weight:400}
+body.lang-zh .zh{display:inline}
+.langbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px;font-size:13px}
+.langbar .lab{color:#6b7280;font-weight:600}
+.langseg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.langseg button{background:#fff;color:#1f2937;border:none;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit;border-right:1px solid var(--line)}
+.langseg button:last-child{border-right:none}
+.langseg button.on{background:var(--accent);color:#fff}
+
 </style>
 </head>
 <body>
 <div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 16px;font-size:13px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:99">
- <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600">← Overview</a>
- <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600">Unit tests</a>
- <span style="margin-left:auto;font-size:11px;color:#6b7280">Content from Khan Academy · CC BY-NC-SA</span>
+ <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">← Overview</span><span class="zh">← 总览</span></a>
+ <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">Unit tests</span><span class="zh">单元测试</span></a>
+ <span style="margin-left:auto;font-size:11px;color:#6b7280"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
+</div>
+
+<div class="langbar">
+ <span class="lab">中文多寡 · Language</span>
+ <span class="langseg">
+  <button data-lang="en" onclick="setLang('en')">English · 英文强</button>
+  <button data-lang="mix" onclick="setLang('mix')">Balanced · 平衡</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文偏多</button>
+ </span>
 </div>
 
 <div class="wrap">
 <header>
-  <h1>Chapter 1 · Pythagorean Theorem</h1>
-  <div class="sub">Grade 8 · 4 lessons</div>
-  <div class="cn">Chapter 1 · The Pythagorean theorem</div>
-</header>
+  <h1><span class="en">Chapter 1 · Pythagorean Theorem</span><span class="zh">第 1 章 · 勾股定理</span></h1>
+  <div class="sub"><span class="en">Grade 8 · 4 lessons</span><span class="zh">八年级 · 4 节</span></div>
+  </header>
 
 <div class="layout">
   <nav id="nav"></nav>
@@ -418,13 +440,13 @@ function microK3(el){
 
 /* ============ Video list ============ */
 function videos(el,list,id){
-  el.innerHTML=`<h3>Videos</h3>
-    <div class="lead"><span class="badge b-core">Core</span> watch these first. <span class="badge b-ext">Extra</span> are different proofs of why it holds — only if you have time.</div>`;
+  el.innerHTML=`<h3><span class="en">Videos</span><span class="zh">视频</span></h3>
+    <div class="lead"><span class="badge b-core"><span class="en">Core</span><span class="zh">核心</span></span> watch these first. <span class="badge b-ext"><span class="en">Extra</span><span class="zh">拓展</span></span> are different proofs of why it holds — only if you have time.</div>`;
   list.forEach((v,i)=>{
     const d=document.createElement('div'); d.className='vid-item';
     d.innerHTML=`<div class="t"><b>${v.t}</b><small>${v.d}</small>
       <span class="badge ${v.c==='core'?'b-core':'b-ext'}">${v.c==='core'?'Core':'Extra'}</span></div>`;
-    const b=document.createElement('button'); b.className='ghost'; b.textContent='▶ Play';
+    const b=document.createElement('button'); b.className='ghost'; b.innerHTML='<span class="en">▶ Play</span><span class="zh">▶ 播放</span>';
     b.onclick=()=>{
       let p=d.querySelector('video');
       if(!p){
@@ -447,9 +469,9 @@ function diag(el,id,types){
       '✓ all correct — you can go straight to practice.':'Done, with some wrong — watch the lesson and videos first.'}</div>`;
     return; 
   }
-  el.innerHTML=`<div class="step">Quick check</div>
+  el.innerHTML=`<div class="step"><span class="en">Quick check</span><span class="zh">小测一下</span></div>
     <div class="lead">Three questions. All correct means you already have this — skip straight to practice. Any wrong means watch the lesson first. <span class="cn-tag">Check first, then learn.</span></div>
-    <div id="dq"></div><div class="row"><button id="ddone" disabled>Submit</button></div>`;
+    <div id="dq"></div><div class="row"><button id="ddone" disabled><span class="en">Submit</span><span class="zh">提交</span></button></div>`;
   const box=el.querySelector('#dq');
   let ok=0, done=0, qs=types.map(t=>genQ(t,1));
   qs.forEach(q=>{
@@ -467,13 +489,13 @@ function diag(el,id,types){
 /* ============ Practice ============ */
 function prac(el,id,types,need){
   const s=st(id);
-  el.innerHTML=`<div class="step">Practice</div>
+  el.innerHTML=`<div class="step"><span class="en">Practice</span><span class="zh">练习</span></div>
     <div class="lead">Questions are generated fresh every time. To clear the section: ${need} correct in a row. <span class="cn-tag">${need} in a row counts as proficient.</span></div>
-    <div class="stat"><span>Streak: <b id="streak">0</b>/${need}</span>
-      <span>Total: <b id="cum">${s.prac.ok}/${s.prac.tot}</b></span>
+    <div class="stat"><span><span class="en">Streak: </span><span class="zh">连对：</span><b id="streak">0</b>/${need}</span>
+      <span><span class="en">Total: </span><span class="zh">总数：</span><b id="cum">${s.prac.ok}/${s.prac.tot}</b></span>
       <span id="mast"></span></div>
     <div class="prog"><i id="pb" style="width:0%"></i></div>
-    <div id="pq"></div><div class="row"><button id="nq">Next question</button><button class="ghost" id="reset">Reset progress</button></div>`;
+    <div id="pq"></div><div class="row"><button id="nq"><span class="en">Next question</span><span class="zh">下一题</span></button><button class="ghost" id="reset"><span class="en">Reset progress</span><span class="zh">重置进度</span></button></div>`;
   let streak=0, diff=1;
   const upd=()=>{
     el.querySelector('#streak').textContent=streak;
@@ -481,8 +503,8 @@ function prac(el,id,types,need){
     el.querySelector('#pb').style.width=Math.min(100,streak/need*100)+'%';
     const m=el.querySelector('#mast');
     const p=s.prac||{};
-    const L=s.done?['m-mas','Mastered']:(p.tot>=5&&p.ok/p.tot>=0.8?['m-pro','Proficient']
-      :(p.tot>0?['m-fam','Familiar']:((Object.keys(s.vid||{}).length||s.diag!=null)?['m-att','Attempted']:['m-none','Not started'])));
+    const L=s.done?['m-mas','<span class="en">Mastered</span><span class="zh">已掌握</span>']:(p.tot>=5&&p.ok/p.tot>=0.8?['m-pro','<span class="en">Proficient</span><span class="zh">熟练</span>']
+      :(p.tot>0?['m-fam','<span class="en">Familiar</span><span class="zh">较熟</span>']:((Object.keys(s.vid||{}).length||s.diag!=null)?['m-att','<span class="en">Attempted</span><span class="zh">尝试过</span>']:['m-none','<span class="en">Not started</span><span class="zh">未开始</span>'])));
     m.innerHTML=`<span class="mastery ${L[0]}">${L[1]}</span>`;
   };
   const next=()=>{
@@ -504,9 +526,9 @@ function prac(el,id,types,need){
 
 /* ============ Chapter test ============ */
 function chTest(el){
-  el.innerHTML=`<div class="step">Chapter test</div>
+  el.innerHTML=`<div class="step"><span class="en">Chapter test</span><span class="zh">章末测</span></div>
     <div class="lead">8 questions covering the 4 topics in this chapter. Do them on your own, no hints.</div>
-    <div id="tq"></div><div class="row"><button id="sub">Submit</button></div><div id="res"></div>`;
+    <div id="tq"></div><div class="row"><button id="sub"><span class="en">Submit</span><span class="zh">提交</span></button></div><div id="res"></div>`;
   const box=el.querySelector('#tq');
   const types=['hyp','leg','conv','word','hyp','leg','conv','word'];
   const qs=types.map((t,i)=>genQ(t, i<4?1:2));
@@ -547,24 +569,32 @@ const INTRO={why:"A phone screen is sold as 6.1 inches — that is the diagonal,
 function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
 function introRender(main){
   const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
-  let h='<div class="intro-h">What this chapter covers</div>'
-    +'<div class="intro-sub">Skim the list to see where this chapter is going, then press the button at the bottom.</div><div class="kp">';
+  let h='<div class="intro-h"><span class="en">What this chapter covers</span><span class="zh">本章学什么</span></div>'
+    +'<div class="intro-sub"><span class="en">Skim the list to see where this chapter is going, then press the button at the bottom.</span><span class="zh">先扫一眼下面的清单，看本章去哪，然后按底部按钮开始。</span></div><div class="kp">';
   pts.forEach(l=>{
     const s=st(l.id);
     const badge=s.done?' <span class="st ok">✓ done</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
     h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.t+(GLOSS[l.id]?' <span class="cn-tag">'+GLOSS[l.id]+'</span>':'')+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
   });
   h+='</div>';
-  h+='<div class="why"><b>Where this shows up in real life</b><br>'+INTRO.why+'</div>';
-  h+='<div class="box"><b>How this chapter works</b><div class="how">'
-    +'① <b>Watch the lesson</b>: a few minutes to get what the section is about<br>'
-    +'② <b>Practice</b>: 5 correct in a row clears it; if you get stuck, hints walk you through<br>'
-    +'③ <b>Next section</b>: on the left, '+pts[0].n+'、'+pts[1].n+'… open whichever you want, in any order'
+  h+='<div class="why"><b><span class="en">Where this shows up in real life</span><span class="zh">在真实生活里哪里会用到</span></b><br>'+INTRO.why+'</div>';
+  h+='<div class="box"><b><span class="en">How this chapter works</span><span class="zh">本章怎么学</span></b><div class="how">'
+    +'① <b><span class="en">Watch the lesson</span><span class="zh">看微课</span></b>: <span class="en">a few minutes to get what the section is about</span><span class="zh">花几分钟了解本节内容</span><br>'
+    +'② <b><span class="en">Practice</span><span class="zh">练一练</span></b>: <span class="en">5 correct in a row clears it; if you get stuck, hints walk you through</span><span class="zh">连对 5 题就算过关；卡住了就看提示</span><br>'
+    +'③ <b><span class="en">Next section</span><span class="zh">下一节</span></b>: <span class="en">on the left, </span><span class="zh">在左侧，</span>'+pts[0].n+'、'+pts[1].n+'… open whichever you want, in any order'
     +'</div></div>';
-  h+='<div class="big-start"><button id="startBtn">Start '+pts[0].n+' '+pts[0].cn+' →</button></div>';
+  h+='<div class="big-start"><button id="startBtn">'+pts[0].n+' <span class="en">'+pts[0].t+'</span><span class="zh">开始 · '+NAVZH[pts[0].id]+'</span> →</button></div>';
   main.innerHTML=h;
   main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
 }
+const NAVZH={"intro":"概览","k1":"勾股定理","k2":"勾股定理的逆定理","k3":"应用","k4":"策略·反思","test":"章末测"};
+const LKEY='bnu8_lang';
+function getLang(){return localStorage.getItem(LKEY)||'en';}
+function setLang(l){localStorage.setItem(LKEY,l);applyLang();}
+function applyLang(){const l=getLang();document.body.className=(' '+document.body.className+' ').replace(/\s+lang-(en|mix|zh)\b/g,' ').trim();if(l==='mix'||l==='zh')document.body.classList.add('lang-'+l);document.querySelectorAll('.langseg button').forEach(b=>{b.classList.toggle('on',b.dataset.lang===l);});}
+applyLang();
+
+
 function renderNav(){
   const n=document.getElementById('nav'); n.innerHTML='';
   LESSONS.forEach(l=>{
@@ -575,7 +605,7 @@ function renderNav(){
     else if(s.prac.tot>0) badge=`<span class="st">${s.prac.ok}/${s.prac.tot}</span>`;
     const d=document.createElement('div');
     d.className='nav-i'+(l.id===cur?' on':'');
-    d.innerHTML=`<span><b>${l.n}</b> ${l.t}</span>${badge}`;
+    d.innerHTML=`<span><b>${l.n}</b> <span class="en">${l.t}</span><span class="zh">${NAVZH[l.id]||l.t}</span></span>${badge}`;
     d.onclick=()=>{ cur=l.id; render(); };
     n.appendChild(d);
   });
@@ -585,7 +615,7 @@ function render(){
   const m=document.getElementById('main'); m.innerHTML='';
   const L=LESSONS.find(x=>x.id===cur);
   if(cur==='intro'){introRender(m);return;}
-  const h=document.createElement('h2'); h.innerHTML=`<b>${L.n}</b> ${L.t}`;
+  const h=document.createElement('h2'); h.innerHTML=`<b>${L.n}</b> <span class="en">${L.t}</span><span class="zh">${NAVZH[L.id]||L.t}</span>`;
   m.appendChild(h);
 
   if(cur==='k1'){
