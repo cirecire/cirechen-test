@@ -6,8 +6,8 @@
 <title>Chapter 1 · The Pythagorean theorem</title>
 <style>
 :root{
-  --bg:#f7f8fa; --card:#fff; --ink:#1c2430; --mute:#6b7785; --line:#e3e8ef;
-  --accent:#2563eb; --accent2:#0ea5e9; --ok:#16a34a; --bad:#dc2626; --warn:#f59e0b;
+  --bg:#f7f8fa; --card:#fff; --ink:#1c2430; --mute:#5b6472; --line:#e3e8ef;
+  --accent:#2563eb; --accent2:#0ea5e9; --ok:#15803d; --bad:#b91c1c; --warn:#b45309;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif;
@@ -78,7 +78,7 @@ video{width:100%;max-width:520px;border-radius:8px;background:#000;display:block
 .mastery{font-size:12px;padding:3px 10px;border-radius:12px;font-weight:600}
 .m-none{background:#e5e7eb;color:#475569}.m-att{background:#fef08a;color:#854d0e}
 .m-fam{background:#bfdbfe;color:#1e40af}.m-pro{background:#a7f3d0;color:#065f46}
-.m-mas{background:#16a34a;color:#fff}
+.m-mas{background:#15803d;color:#fff}
 .note{font-size:12px;color:var(--mute);margin-top:6px}
 .credit{margin-top:22px;padding:12px;border-top:1px solid var(--line);font-size:12px;color:var(--mute)}
 
@@ -100,8 +100,8 @@ video{width:100%;max-width:520px;border-radius:8px;background:#000;display:block
 /* ===== Language tiers (en / mix / zh) ===== */
 .zh{display:none}
 body.lang-en .zh{display:none}
-body.lang-mix .zh{display:inline;font-size:.82em;color:#6b7280;margin-left:6px;font-weight:400}
-body.lang-zh .en{display:inline;font-size:.78em;color:#6b7280;margin-left:6px;font-weight:400}
+body.lang-mix .zh{display:inline;font-size:.82em;margin-left:6px;font-weight:400}
+body.lang-zh .en{display:inline;font-size:.78em;margin-left:6px;font-weight:400}
 body.lang-zh .zh{display:inline}
 .langbar{position:fixed;top:8px;right:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
 .langseg{display:inline-flex}
@@ -378,8 +378,8 @@ function microK1(el){
     [[[0,0],[b,0],[0,a]],[[s,0],[s,b],[b,0]],[[s,s],[a,s],[s,b]],[[0,s],[0,a],[a,s]]].forEach((t,i)=>{
       L+=`<polygon points="${t.map(p=>X(p[0])+','+Y(p[1])).join(' ')}" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="1.5"/>`;
     });
-    L+=`<polygon points="${P.map(p=>X(p[0])+','+Y(p[1])).join(' ')}" fill="#fecaca" stroke="#dc2626" stroke-width="2"/>`;
-    L+=`<text x="${X(a/2+1)}" y="${Y(s/2)}" font-size="13" fill="#dc2626" font-weight="bold">c²=${c2}</text>`;
+    L+=`<polygon points="${P.map(p=>X(p[0])+','+Y(p[1])).join(' ')}" fill="#fecaca" stroke="#b91c1c" stroke-width="2"/>`;
+    L+=`<text x="${X(a/2+1)}" y="${Y(s/2)}" font-size="13" fill="#b91c1c" font-weight="bold">c²=${c2}</text>`;
     el.querySelector('#svgL').innerHTML=L;
     // right figure
     let R=`<rect x="${X(0)}" y="${Y(s)}" width="${s*SC}" height="${s*SC}" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>`;
@@ -700,5 +700,12 @@ render();
 <script>
 (function(){try{if(new URLSearchParams(location.search).get('go')==='test'){cur='test';render();}}catch(e){}})();
 </script>
-</body>
+<p style="text-align:center;font-size:11px;color:var(--muted);margin:26px 0 8px">
+ <span id="busuanzi_container_site_uv" style="display:none">
+  <span class="en">Visitors so far:&nbsp;</span><span class="zh">已经有&nbsp;</span>
+  <b id="busuanzi_value_site_uv">·</b><span class="zh">&nbsp;位访客来过这里</span>
+ </span>
+</p>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body></body>
 </html>
