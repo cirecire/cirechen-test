@@ -129,8 +129,9 @@ function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 const LESSONS=[
  {id:'intro',t:'Intro',cn:'Start here · What this chapter covers',n:'🏠'},
  {id:'k1',t:'Mean / Median / Mode',cn:'Mean, median, and mode',n:'6.1'},
- {id:'k2',t:'Variance & standard deviation',cn:'Variance & standard deviation',n:'6.2'},
- {id:'k3',t:'Box Plots',cn:'Box plots',n:'6.3'},
+ {id:'k4',t:'Reading from charts',cn:'Reading from charts',n:'6.2'},
+ {id:'k2',t:'Variance & standard deviation',cn:'Variance & standard deviation',n:'6.3'},
+ {id:'k3',t:'Box Plots',cn:'Box plots',n:'6.4'},
  {id:'test',t:'Chapter check',cn:'Chapter check',n:''}
 ];
 let cur='intro';
@@ -178,6 +179,13 @@ k3:[
  {f:'27_Worked example: Creating a box plot (even number of data points).mp4',t:'Box plot: even count',c:'core'},
  {f:'28_Interpreting box plots.mp4',t:'Interpreting box plots',c:'core'},
  {f:'29_Judging outliers in a dataset.mp4',t:'Judging outliers',c:'core'},
+],
+k4:[
+ {f:'06_Frequency tables and dot plots.mp4',t:'Frequency tables & dot plots',c:'core'},
+ {f:'07_How to interpret a histogram.mp4',t:'Interpreting a histogram',c:'core'},
+ {f:'08_How to create a histogram.mp4',t:'Creating a histogram',c:'core'},
+ {f:'09_Ways to represent data.mp4',t:'Ways to represent data',c:'core'},
+ {f:'10_Thinking about shapes of distributions.mp4',t:'Shapes of distributions',c:'core'},
 ],
 };
 
@@ -326,6 +334,43 @@ function microK3(el){
  render();
 }
 
+/* ============ Lesson K4: reading from charts ============ */
+function microK4(el){
+ const labels=['1','2','3','4','5'];
+ let freq=[];
+ const mk=()=>{freq=labels.map(()=>ri(1,6));};
+ mk();
+ const render=()=>{
+  const expanded=[].concat(...labels.map((l,i)=>Array(freq[i]).fill(i+1)));
+  const total=expanded.length;
+  const m=mean(expanded);
+  const sorted=[...expanded].sort((a,b)=>a-b);
+  const median=sorted.length%2?sorted[(sorted.length-1)/2]:(sorted[sorted.length/2-1]+sorted[sorted.length/2])/2;
+  const fcount={};expanded.forEach(x=>fcount[x]=(fcount[x]||0)+1);
+  const mode=Object.entries(fcount).sort((a,b)=>b[1]-a[1])[0][0];
+  const maxN=Math.max(...freq);
+  el.innerHTML=`
+   <div class="step">Reading mean / median / mode from a chart</div>
+   <div class="box">
+    <h3>The chart already holds the data</h3>
+    <p>A bar or pie chart lists every value and how often it shows up. So you can find the mean, median, and mode <strong>straight from the chart</strong> — no separate list needed.</p>
+   </div>
+   <div class="box">
+    <h3>Example · customer ratings (1 to 5 stars)</h3>
+    <div class="bars">${labels.map((l,i)=>`<div class="bar" style="height:${freq[i]/maxN*100}%"><span class="v">${freq[i]}</span><span class="label">${l}★</span></div>`).join('')}</div>
+    <div style="font-size:14px;line-height:2">
+     <p>📊 <b>mean</b>: <span class="num">${m.toFixed(2)}</span> (total stars ${expanded.reduce((s,x)=>s+x,0)} ÷ ${total} ratings)</p>
+     <p>📏 <b>median</b>: <span class="num">${median}</span> (the middle rating once all ${total} are lined up)</p>
+     <p>🔁 <b>mode</b>: <span class="num">${mode}★</span> (the rating that occurs most often)</p>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-top:8px">Same three measures as before — only now you read the counts off the bars first.</p>
+    <button id="reroll4" class="secondary">🎲 New chart</button>
+   </div>`;
+  el.querySelector('#reroll4').onclick=()=>{mk();render();};
+ };
+ render();
+}
+
 /* ============ Quick check ============ */
 function diag(el,lessonId,generator){
  el.innerHTML=`<div class="step"><span class="en">Quick check</span><span class="zh">小测一下</span></div><div class="box"><p style="font-size:14px;color:var(--muted)">3 questions, just to see where you stand.</p><div id="diagQ"></div></div>`;
@@ -386,6 +431,39 @@ k3:()=>{
    check:a=>Math.abs(parseFloat(a)-sorted[3])<0.01,ans:String(sorted[3]),
    hint:`7 numbers → median is the 4th.`,
    zhh:`共 7 个数 → 中位数是第 4 个。`};
+},
+k4:()=>{
+ const labels=['1','2','3','4','5'];
+ let freq,expanded,total,m,sorted,median,fcount,mode;
+ do {
+  freq=labels.map(()=>ri(1,5));
+  expanded=[].concat(...labels.map((l,i)=>Array(freq[i]).fill(i+1)));
+  fcount={};expanded.forEach(x=>fcount[x]=(fcount[x]||0)+1);
+  const maxc=Math.max(...Object.values(fcount));
+  const modeEntries=Object.entries(fcount).filter(e=>e[1]===maxc);
+  mode = modeEntries.length===1 ? parseInt(modeEntries[0][0],10) : null; // need a unique mode
+ } while(mode===null);
+ total=expanded.length;
+ m=mean(expanded);
+ sorted=[...expanded].sort((a,b)=>a-b);
+ median=sorted.length%2?sorted[(sorted.length-1)/2]:(sorted[sorted.length/2-1]+sorted[sorted.length/2])/2;
+ const bars=labels.map((l,i)=>`${l}: ${freq[i]}`).join(', ');
+ const type=ri(1,3);
+ if(type===1) return {q:`A survey of ${total} people gives these ratings: ${bars} (rating : count). What is the mean rating? (round to 2 d.p.)`,
+  zhq:`对 ${total} 人的调查评分分布为：${bars}（评分:人数）。平均评分是多少？（保留两位小数）`,
+  check:a=>Math.abs(parseFloat(a)-m)<0.01,ans:m.toFixed(2),
+  hint:`Add up all rating values (each rating × its count), then divide by ${total}.`,
+  zhh:`把各评分值相加（每个评分×人数），再除以 ${total}。`};
+ else if(type===2) return {q:`A survey of ${total} people gives these ratings: ${bars} (rating : count). What is the median rating?`,
+  zhq:`对 ${total} 人的调查评分分布为：${bars}（评分:人数）。中位评分是多少？`,
+  check:a=>Math.abs(parseFloat(a)-median)<0.01,ans:String(median),
+  hint:`List all ${total} ratings in order and take the middle one.`,
+  zhh:`把 ${total} 个评分从小到大排列，取中间那个。`};
+ return {q:`A survey of ${total} people gives these ratings: ${bars} (rating : count). What is the mode rating?`,
+  zhq:`对 ${total} 人的调查评分分布为：${bars}（评分:人数）。众数评分是多少？`,
+  check:a=>parseInt(a)===mode,ans:String(mode),
+  hint:`The mode is the rating with the largest count.`,
+  zhh:`众数是出现次数最多的那个评分。`};
 },
 };
 
@@ -460,8 +538,9 @@ function chTest(el){
  const tq=el.querySelector('#tq');
  const qs=[];
  for(let i=0;i<2;i++)qs.push(generators.k1());
- for(let i=0;i<3;i++)qs.push(generators.k2());
+ for(let i=0;i<2;i++)qs.push(generators.k2());
  qs.push(generators.k3());
+ qs.push(generators.k4());
  let i=0,ok=0;
  const show=()=>{
   if(i>=qs.length){tq.innerHTML=`<div class="note" style="background:${ok>=4?'#dcfce7':'#fef3c7'}"><strong>${ok}/${qs.length}</strong> ${ok>=4?'Chapter passed!':'Review it again'}</div>`;S.test={ok,tot:qs.length};save();renderNav();return;}
@@ -482,9 +561,9 @@ function chTest(el){
 /* ============ Render ============ */
 
 /* ===== Chapter lobby: start here ===== */
-const GLOSS={k1:"平均数 / 中位数 / 众数",k2:"方差 / 标准差",k3:"箱线图"};
+const GLOSS={k1:"平均数 / 中位数 / 众数",k2:"方差 / 标准差",k3:"箱线图",k4:"从统计图分析数据"};
 const USE_MICRO=true;
-const INTRO={why:"You play basketball and finish the season averaging 12 points — that 12 is a mean. But a coach also wants to know whether you are steady: 12 every single game, versus 30 one night and 2 the next, is the same mean but a very different variance. Picking a team, reading a win rate, deciding whose grades are actually reliable, comparing which shop pours fastest — same tools.",desc:{k1:"Which single number should stand for a whole data set",k2:"One number for how spread out, and how steady, the data is",k3:"One picture showing the spread and the outliers"}};
+const INTRO={why:"You play basketball and finish the season averaging 12 points — that 12 is a mean. But a coach also wants to know whether you are steady: 12 every single game, versus 30 one night and 2 the next, is the same mean but a very different variance. Picking a team, reading a win rate, deciding whose grades are actually reliable, comparing which shop pours fastest — same tools.",desc:{k1:"Which single number should stand for a whole data set",k2:"One number for how spread out, and how steady, the data is",k3:"One picture showing the spread and the outliers",k4:"Read the mean, median, mode straight off a bar or pie chart"}};
 function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
 function introRender(main){
   const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
@@ -506,7 +585,7 @@ function introRender(main){
   main.innerHTML=h;
   main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
 }
-const NAVZH={"intro":"概览","k1":"平均数·中位数·众数","k2":"方差与标准差","k3":"箱线图","test":"章末自己测"};
+const NAVZH={"intro":"概览","k1":"平均数·中位数·众数","k2":"方差与标准差","k3":"箱线图","k4":"统计图分析","test":"章末自己测"};
 const LKEY='bnu8_lang';
 function getLang(){return localStorage.getItem(LKEY)||'en';}
 function setLang(l){localStorage.setItem(LKEY,l);applyLang();}
@@ -536,7 +615,7 @@ function render(){
   const phase=m[1],id=m[2];
   const lesson=LESSONS.find(l=>l.id===id);
   if(!lesson){main.innerHTML='<div class="note">Unknown</div>';return;}
-  const titles={k1:'Mean / median / mode',k2:'Variance & standard deviation',k3:'Box plots'};
+  const titles={k1:'Mean / median / mode',k2:'Variance & standard deviation',k3:'Box plots',k4:'Reading from charts'};
   main.innerHTML=`<div class="lesson-id">${lesson.n} · <span class="en">${titles[id]} · ${lesson.cn}</span><span class="zh">${NAVZH[id]||titles[id]}</span></div>`;
   const c=document.createElement('div');main.appendChild(c);
   if(phase==='diag'){
@@ -546,6 +625,7 @@ function render(){
    if(id==='k1')microK1(c);
    else if(id==='k2')microK2(c);
    else if(id==='k3')microK3(c);
+   else if(id==='k4')microK4(c);
    const after=document.createElement('div');main.appendChild(after);
    videos(after,id);
    const btn=document.createElement('div');btn.style.marginTop='14px';
