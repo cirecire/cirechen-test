@@ -133,6 +133,8 @@ const LESSONS=[
  {id:'k3',t:'Elimination method',cn:'Elimination',n:'5.3'},
  {id:'k4',t:'Word problems',cn:'Word problems',n:'5.4'},
  {id:'k5',t:'Systems & graphs',cn:'Systems and graphs',n:'5.5'},
+ {id:'k6',t:'Find the line from two points',cn:'Find the line from two points',n:'5.6'},
+ {id:'ext',t:'Three variables (optional)',cn:'Three variables (optional)',n:'5.7'},
  {id:'test',t:'Chapter check',cn:'Chapter check',n:''}
 ];
 let cur='intro';
@@ -187,6 +189,11 @@ k5:[
  {f:'22_Systems of equations with graphing - 5x+3y=7 & 3x-2y=8.mp4',t:'Graphing worked 1',c:'ext'},
  {f:'23_Systems of equations with graphing - exact & approximate solu.mp4',t:'Graphing: exact & approx',c:'ext'},
  {f:'31_Systems of equations number of solutions - fruit prices (2 of.mp4',t:'Solutions: fruit prices 2',c:'ext'},
+],
+k6:[
+ {f:'18_Constructing solutions to systems of equations.mp4',t:'Constructing solutions',c:'core'},
+ {f:'17_Graphical systems application problem.mp4',t:'Graphical application',c:'core'},
+ {f:'19_Graphing systems of equations.mp4',t:'Graphing systems',c:'core'},
 ],
 };
 
@@ -326,6 +333,62 @@ function microK5(el){
   <div class="note"><strong>Link to chapter 4:</strong> there you learned to graph linear functions; here the solution of a system turns out to be the intersection of two graphs. Algebra and geometry meeting.</div>`;
 }
 
+/* ============ Lesson K6: find the line from two points ============ */
+function microK6(el){
+ let k=ri(1,4),b=ri(-3,5),x1=ri(-3,3);
+ let x2=x1;while(x2===x1)x2=ri(-3,3);
+ const y1=k*x1+b,y2=k*x2+b;
+ const render=()=>{
+  el.innerHTML=`
+   <div class="step">Find the straight-line rule from two points</div>
+   <div class="box">
+    <h3>What we are after</h3>
+    <p>A line has the form <span class="num">y = kx + b</span>. If you know <strong>two points</strong> on it, you can find both <span class="num">k</span> (slope) and <span class="num">b</span> (intercept) — by turning the two points into a tiny system of equations.</p>
+   </div>
+   <div class="box">
+    <h3>Worked example · points (${x1}, ${y1}) and (${x2}, ${y2})</h3>
+    <p style="font-size:14px">Step 1 — plug each point into y = kx + b:</p>
+    <div class="eq">${y1} = k·${x1} + b<br>${y2} = k·${x2} + b</div>
+    <p style="font-size:14px;margin-top:8px">Step 2 — subtract to kill b:</p>
+    <div class="eq">(${y2}) − (${y1}) = k·${x2} − k·${x1}<br>${y2-y1} = k·${x2-x1}<br>k = ${y2-y1} ÷ ${x2-x1} = <span class="num">${k}</span></div>
+    <p style="font-size:14px;margin-top:8px">Step 3 — back-substitute to get b:</p>
+    <div class="eq">${y1} = ${k}·${x1} + b → b = ${y1} − ${k*x1} = <span class="num">${b}</span></div>
+    <p style="font-size:14px;margin-top:8px">So the rule is <span class="num">y = ${k}x + ${b}</span>.</p>
+   </div>
+   <div class="box" style="background:#dbeafe">
+    <h3>Why two points are enough</h3>
+    <p style="font-size:14px">One point leaves both k and b unknown — infinitely many lines pass through it. Two points fix the slope, and once the slope is fixed, the intercept is forced. This is the same "two conditions, two unknowns" idea as the rest of the chapter, just dressed as a line.</p>
+    <p style="font-size:14px;color:var(--muted);margin-top:6px">Hit 🎲 for a new pair of points and walk the three steps again.</p>
+    <button id="reroll6" class="secondary">🎲 New points</button>
+   </div>`;
+  el.querySelector('#reroll6').onclick=()=>{k=ri(1,4);b=ri(-3,5);x1=ri(-3,3);x2=x1;while(x2===x1)x2=ri(-3,3);y1=k*x1+b;y2=k*x2+b;render();};
+ };
+ render();
+}
+
+/* ============ Lesson EXT: three-variable systems (optional) ============ */
+function microExt(el){
+ const x0=ri(1,5),y0=ri(1,5),z0=ri(1,5);
+ const A=x0+y0+z0, B=x0+2*y0+3*z0, C=2*x0+y0+z0;
+ const render=()=>{
+  el.innerHTML=`
+   <div class="step">★ Three variables — optional extension</div>
+   <div class="box">
+    <h3>The idea</h3>
+    <p>Two unknowns needed two equations. With <strong>three</strong> unknowns you need <strong>three</strong> equations. You solve it by reducing it to the two-variable case you already know: use two equations to express one variable in terms of the others, then substitute into the third.</p>
+   </div>
+   <div class="box">
+    <h3>Worked example</h3>
+    <div class="eq">x + y + z = ${A}  ... (1)<br>x + 2y + 3z = ${B}  ... (2)<br>2x + y + z = ${C}  ... (3)</div>
+    <p style="font-size:14px;margin-top:8px">From (1): <span class="num">z = ${A} − x − y</span>. Drop it into (2) and (3):</p>
+    <div class="eq">x + 2y + 3(${A} − x − y) = ${B}<br>2x + y + (${A} − x − y) = ${C}</div>
+    <p style="font-size:14px;margin-top:8px">Clean up → a 2-variable system → solve it with substitution or elimination → then recover z. The solution is <span class="num">x = ${x0}, y = ${y0}, z = ${z0}</span>.</p>
+   </div>
+   <div class="note"><strong>In the syllabus this is optional (an extension).</strong> It is here because the same method scales to any number of unknowns — but the chapter test only asks one light question on it.</div>`;
+ };
+ render();
+}
+
 /* ============ Quick check ============ */
 function diag(el,lessonId,generator){
  el.innerHTML=`<div class="step"><span class="en">Quick check</span><span class="zh">小测一下</span></div><div class="box"><p style="font-size:14px;color:var(--muted)">3 questions, just to see where you stand.</p><div id="diagQ"></div></div>`;
@@ -389,14 +452,36 @@ k3:()=>{
    zhh:`相加得：4x = ${(x+2*y)+(3*x-2*y)}。`};
 },
 k4:()=>{
- // chickens and rabbits variant
- const chickens=ri(5,15),rabbits=ri(3,8);
- const total=chickens+rabbits,feet=2*chickens+4*rabbits;
- return {q:`Chickens and rabbits: ${total} heads, ${feet} feet. How many rabbits? (number only)`,
+ // randomly pick one of the three classic BNU word problems
+ const type=ri(1,3);
+ if(type===1){
+  // chickens and rabbits
+  const chickens=ri(5,15),rabbits=ri(3,8);
+  const total=chickens+rabbits,feet=2*chickens+4*rabbits;
+  return {q:`Chickens and rabbits: ${total} heads, ${feet} feet. How many rabbits? (number only)`,
    zhq:`鸡兔同笼：共 ${total} 个头，${feet} 只脚。兔子有多少只？（只填数字）`,
    check:a=>parseInt(a)===rabbits,ans:String(rabbits),
    hint:`Let x=chickens, y=rabbits. x+y=${total}, 2x+4y=${feet}. Solve for y.`,
    zhh:`设 x=鸡，y=兔。x+y=${total}，2x+4y=${feet}。解出 y。`};
+ } else if(type===2){
+  // sales & costs: two products, total count and total value
+  const x0=ri(3,9),y0=ri(3,9),a=ri(5,15),b=ri(5,15);
+  const n=x0+y0,C=a*x0+b*y0;
+  return {q:`A shop sells item A at ¥${a} each and item B at ¥${b} each. A customer buys ${n} items for ¥${C} in total. How many of item A? (number only)`,
+   zhq:`商店 A 商品每件 ¥${a}，B 商品每件 ¥${b}。一位顾客共买 ${n} 件，花了 ¥${C}。其中 A 商品买了多少件？（只填数字）`,
+   check:v=>parseInt(v)===x0,ans:String(x0),
+   hint:`Let x = count of A, y = count of B. x+y=${n}, ${a}x+${b}y=${C}. Solve for x.`,
+   zhh:`设 x 为 A 的件数，y 为 B 的件数。x+y=${n}，${a}x+${b}y=${C}。解出 x。`};
+ } else {
+  // milestone / catch-up: car B starts later and catches car A
+  const T=ri(2,3),h=ri(1,2),m=ri(8,12);
+  const a=T*m, b=m*(T+h); // a·(T+h)=b·T → both travel the same distance at catch-up
+  return {q:`Car A leaves at ${a} km/h. ${h} hour(s) later car B leaves at ${b} km/h and catches up with A. How many hours after B leaves does it catch A? (number only)`,
+   zhq:`A 车先以 ${a} km/h 出发。${h} 小时后 B 车以 ${b} km/h 出发并追上 A。B 出发后多少小时追上 A？（只填数字）`,
+   check:v=>parseInt(v)===T,ans:String(T),
+   hint:`At catch-up the distances are equal: ${a}·(t+${h}) = ${b}·t, where t is the time B has driven. Solve for t.`,
+   zhh:`追上时两车路程相等：${a}·(t+${h}) = ${b}·t，t 为 B 行驶的时间。解出 t。`};
+ }
 },
 k5:()=>{
  const x=ri(1,4),y=ri(1,4);
@@ -407,6 +492,25 @@ k5:()=>{
    zhq:`两条直线：y = ${m}x + ${y-m*x} 与 y = −${n}x + ${y+n*x}。它们在 x = ${x} 处相交。求 y。`,
    check:v=>parseInt(v)===y,ans:String(y),hint:`Plug x=${x} into either equation.`,
    zhh:`把 x=${x} 代入任意一个方程。`};
+},
+k6:()=>{
+ const k=ri(1,4),b=ri(-3,5),x1=ri(-3,3);
+ let x2=x1;while(x2===x1)x2=ri(-3,3);
+ const y1=k*x1+b,y2=k*x2+b;
+ return {q:`A line passes through (${x1}, ${y1}) and (${x2}, ${y2}). It has the form y = kx + b. Find k. (number only)`,
+  zhq:`一条直线经过 (${x1}, ${y1}) 和 (${x2}, ${y2})，形式為 y = kx + b。求 k。（只填数字）`,
+  check:v=>parseInt(v)===k,ans:String(k),
+  hint:`k = (y₂ − y₁) / (x₂ − x₁) = (${y2} − ${y1}) / (${x2} − ${x1}).`,
+  zhh:`k = (y₂ − y₁) / (x₂ − x₁) = (${y2} − ${y1}) / (${x2} − ${x1})。`};
+},
+ext:()=>{
+ const x0=ri(1,5),y0=ri(1,5),z0=ri(1,5);
+ const A=x0+y0+z0, B=x0+2*y0+3*z0, C=2*x0+y0+z0;
+ return {q:`Solve the system:<br>x + y + z = ${A}<br>x + 2y + 3z = ${B}<br>2x + y + z = ${C}<br>Find x. (number only)`,
+  zhq:`解方程组：<br>x + y + z = ${A}<br>x + 2y + 3z = ${B}<br>2x + y + z = ${C}<br>求 x。（只填数字）`,
+  check:v=>parseInt(v)===x0,ans:String(x0),
+  hint:`From the first equation z = ${A} − x − y. Substitute into the other two to get a 2-variable system, then solve.`,
+  zhh:`由第一式得 z = ${A} − x − y，代入另两式化为二元一次方程组，再解。`};
 },
 };
 
@@ -477,7 +581,7 @@ function practice(el,lessonId){
 
 /* ============ Chapter check ============ */
 function chTest(el){
- el.innerHTML=`<div class="step"><span class="en">Chapter check</span><span class="zh">章末自己测</span></div><div class="box"><p style="font-size:13px;color:var(--muted)">10 questions.</p><div id="tq"></div></div>`;
+ el.innerHTML=`<div class="step"><span class="en">Chapter check</span><span class="zh">章末自己测</span></div><div class="box"><p style="font-size:13px;color:var(--muted)">12 questions.</p><div id="tq"></div></div>`;
  const tq=el.querySelector('#tq');
  const qs=[];
  for(let i=0;i<2;i++)qs.push(generators.k1(i+1));
@@ -485,6 +589,8 @@ function chTest(el){
  for(let i=0;i<2;i++)qs.push(generators.k3());
  for(let i=0;i<2;i++)qs.push(generators.k4());
  for(let i=0;i<2;i++)qs.push(generators.k5());
+ qs.push(generators.k6());
+ qs.push(generators.ext());
  let i=0,ok=0;
  const show=()=>{
   if(i>=qs.length){tq.innerHTML=`<div class="note" style="background:${ok>=7?'#dcfce7':'#fef3c7'};border-color:${ok>=7?'var(--ok)':'var(--warn)'}"><strong>${ok}/${qs.length}</strong> ${ok>=7?'Chapter passed!':'Go back and review'}</div>`;S.test={ok,tot:qs.length};save();renderNav();return;}
@@ -505,9 +611,9 @@ function chTest(el){
 /* ============ Render ============ */
 
 /* ===== Chapter lobby: start here ===== */
-const GLOSS={k1:"二元一次方程组",k2:"代入消元法",k3:"加减消元法",k4:"应用题",k5:"交点"};
+const GLOSS={k1:"二元一次方程组",k2:"代入消元法",k3:"加减消元法",k4:"应用题",k5:"交点",k6:"待定系数法",ext:"三元一次方程组"};
 const USE_MICRO=true;
-const INTRO={why:"Chickens and rabbits in one cage: 35 heads, 94 feet. How many of each? Name two unknowns, write two equations, solve it in one go. Unit prices, meeting and catching-up problems, mixing and budgeting — all of them are \"two conditions, two unknowns\". This chapter gives you two algebraic methods, plus the picture: where the two lines cross is the answer.",desc:{k1:"Two unknowns, two conditions — how to set it up",k2:"Replace one unknown so that only one is left",k3:"Add or subtract the equations to cancel one unknown",k4:"Turning word problems into equations",k5:"Where the two lines cross is the solution"}};
+const INTRO={why:"Chickens and rabbits in one cage: 35 heads, 94 feet. How many of each? Name two unknowns, write two equations, solve it in one go. Unit prices, meeting and catching-up problems, mixing and budgeting — all of them are \"two conditions, two unknowns\". This chapter gives you two algebraic methods, plus the picture: where the two lines cross is the answer.",desc:{k1:"Two unknowns, two conditions — how to set it up",k2:"Replace one unknown so that only one is left",k3:"Add or subtract the equations to cancel one unknown",k4:"Turning word problems into equations",k5:"Where the two lines cross is the solution",k6:"Two points fix a straight line — find its rule",ext:"Three unknowns need three equations (optional)"}};
 function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
 function introRender(main){
   const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
@@ -529,7 +635,7 @@ function introRender(main){
   main.innerHTML=h;
   main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
 }
-const NAVZH={"intro":"概览","k1":"方程组","k2":"代入法","k3":"加减法","k4":"应用题","k5":"图像法","test":"章末自己测"};
+const NAVZH={"intro":"概览","k1":"方程组","k2":"代入法","k3":"加减法","k4":"应用题","k5":"图像法","k6":"待定系数","ext":"三元一次方程组","test":"章末自己测"};
 const LKEY='bnu8_lang';
 function getLang(){return localStorage.getItem(LKEY)||'en';}
 function setLang(l){localStorage.setItem(LKEY,l);applyLang();}
@@ -559,7 +665,7 @@ function render(){
   const phase=m[1],id=m[2];
   const lesson=LESSONS.find(l=>l.id===id);
   if(!lesson){main.innerHTML='<div class="note">Unknown</div>';return;}
-  const titles={k1:'What is a system?',k2:'Substitution',k3:'Elimination',k4:'Word problems',k5:'Systems and graphs'};
+  const titles={k1:'What is a system?',k2:'Substitution',k3:'Elimination',k4:'Word problems',k5:'Systems and graphs',k6:'Find the line from two points',ext:'Three variables (optional)'};
   main.innerHTML=`<div class="lesson-id">${lesson.n} · <span class="en">${titles[id]} · ${lesson.cn}</span><span class="zh">${NAVZH[id]||titles[id]}</span></div>`;
   const c=document.createElement('div');main.appendChild(c);
   if(phase==='diag'){
@@ -571,6 +677,8 @@ function render(){
    else if(id==='k3')microK3(c);
    else if(id==='k4')microK4(c);
    else if(id==='k5')microK5(c);
+   else if(id==='k6')microK6(c);
+   else if(id==='ext')microExt(c);
    const after=document.createElement('div');main.appendChild(after);
    videos(after,id);
    const btn=document.createElement('div');btn.style.marginTop='14px';
