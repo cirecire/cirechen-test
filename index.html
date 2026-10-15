@@ -40,12 +40,11 @@ body.lang-en .zh{display:none}
 body.lang-mix .zh{display:inline;font-size:.82em;color:var(--muted);margin-left:6px;font-weight:400}
 body.lang-zh .en{display:inline;font-size:.78em;color:var(--muted);margin-left:6px;font-weight:400}
 body.lang-zh .zh{display:inline}
-.langbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 16px;font-size:13px}
-.langbar .lab{color:var(--muted);font-weight:600}
-.langseg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.langseg button{background:#fff;color:var(--text);border:none;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit;border-right:1px solid var(--line)}
-.langseg button:last-child{border-right:none}
+.langbar{position:fixed;top:8px;right:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.langseg{display:inline-flex}
+.langseg button{background:transparent;color:#374151;border:none;padding:6px 11px;font-size:12px;cursor:pointer;font-family:inherit;border-radius:999px;white-space:nowrap}
 .langseg button.on{background:var(--accent);color:#fff}
+@media(max-width:680px){.langbar{top:6px;right:6px}.langseg button{padding:5px 8px;font-size:11px}}
 @media(max-width:680px){.steps{grid-template-columns:1fr}}
 h2{font-size:17px;margin:22px 0 12px;display:flex;align-items:center;gap:8px}
 h2 small{font-size:12px;color:var(--muted);font-weight:400}
@@ -123,14 +122,12 @@ th{font-size:11px;color:var(--muted);font-weight:600}
  </div>
 </div>
 
-<div class="langbar">
- <span class="lab">显示语言 · Language display</span>
+<div class="langbar" title="显示语言 · Language display — 随时可改 · change anytime">
  <span class="langseg">
-  <button data-lang="en" onclick="setLang('en')">English only · 全英文</button>
-  <button data-lang="mix" onclick="setLang('mix')">English + 中文 · 英文为主</button>
-  <button data-lang="zh" onclick="setLang('zh')">中文 + English · 中文为主</button>
+  <button data-lang="en" onclick="setLang('en')">English</button>
+  <button data-lang="mix" onclick="setLang('mix')">English + 中文</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文 + English</button>
  </span>
- <span class="lab" style="font-weight:400">随时可改 · change anytime</span>
 </div>
 
 <div class="summary">
