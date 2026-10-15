@@ -101,12 +101,11 @@ body.lang-en .zh{display:none}
 body.lang-mix .zh{display:inline;font-size:.82em;color:#6b7280;margin-left:6px;font-weight:400}
 body.lang-zh .en{display:inline;font-size:.78em;color:#6b7280;margin-left:6px;font-weight:400}
 body.lang-zh .zh{display:inline}
-.langbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px;font-size:13px}
-.langbar .lab{color:#6b7280;font-weight:600}
-.langseg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.langseg button{background:#fff;color:#1f2937;border:none;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit;border-right:1px solid var(--line)}
-.langseg button:last-child{border-right:none}
+.langbar{position:fixed;top:8px;right:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.langseg{display:inline-flex}
+.langseg button{background:transparent;color:#374151;border:none;padding:6px 11px;font-size:12px;cursor:pointer;font-family:inherit;border-radius:999px;white-space:nowrap}
 .langseg button.on{background:var(--accent);color:#fff}
+@media(max-width:680px){.langbar{top:6px;right:6px}.langseg button{padding:5px 8px;font-size:11px}}
 
 </style>
 </head>
@@ -114,17 +113,15 @@ body.lang-zh .zh{display:inline}
 <div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 16px;font-size:13px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:99">
  <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">← Overview</span><span class="zh">← 总览</span></a>
  <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">Unit tests</span><span class="zh">单元测试</span></a>
- <span style="margin-left:auto;font-size:11px;color:#6b7280"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
+ <span style="font-size:11px;color:#6b7280"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
 </div>
 
-<div class="langbar">
- <span class="lab">显示语言 · Language display</span>
+<div class="langbar" title="显示语言 · Language display — 随时可改 · change anytime">
  <span class="langseg">
-  <button data-lang="en" onclick="setLang('en')">English only · 全英文</button>
-  <button data-lang="mix" onclick="setLang('mix')">English + 中文 · 英文为主</button>
-  <button data-lang="zh" onclick="setLang('zh')">中文 + English · 中文为主</button>
+  <button data-lang="en" onclick="setLang('en')">English</button>
+  <button data-lang="mix" onclick="setLang('mix')">English + 中文</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文 + English</button>
  </span>
- <span class="lab" style="font-weight:400">随时可改 · change anytime</span>
 </div>
 
 <div class="wrap">
@@ -197,6 +194,41 @@ const V={
  ]
 };
 
+const VTZ={
+ 'Intro to rational & irrational numbers':'有理数与无理数入门',
+ 'Recognizing rational & irrational (examples)':'识别有理数与无理数（举例）',
+ 'Proof that √2 is irrational':'√2 是无理数的证明',
+ 'Classifying numbers: rational & irrational':'数的分类：有理数与无理数',
+ 'Introduction to square roots':'平方根入门',
+ 'Square root of a decimal':'小数的平方根',
+ 'Introduction to cube roots':'立方根入门',
+ 'Cube root of a negative number':'负数的立方根',
+ 'Dimensions of a cube from its volume':'由体积求立方体的棱长',
+ 'How to approximate square roots':'如何估算平方根',
+ 'Approximating square roots to hundredths':'把平方根估算到百分位',
+ 'Comparing values with calculator':'用计算器比较数值',
+ 'How to classify numbers':'如何对数字分类',
+ 'Comparing irrational numbers with radicals':'比较含根号的无理数',
+ 'Converting a fraction to a repeating decimal':'分数化为循环小数',
+ 'Converting repeating decimals to fractions 1':'循环小数化为分数（一）',
+ 'Converting repeating decimals to fractions 2':'循环小数化为分数（二）',
+ 'Simplifying square-root expressions':'化简二次根式',
+ 'Exponent properties: products':'指数性质：乘法',
+ 'Exponent properties: quotients':'指数性质：除法',
+ 'Negative exponents':'负指数',
+ 'Negative exponent intuition':'负指数的直观理解',
+ 'Products & exponents raised to an exponent':'乘积与指数的乘方',
+ 'Powers of zero':'零的次幂',
+ 'Scientific notation examples':'科学记数法举例',
+ 'Multiplying three numbers in scientific notation':'科学记数法中三个数的乘法',
+ 'Multiplying in scientific notation':'科学记数法乘法',
+ 'Subtracting in scientific notation':'科学记数法减法',
+ 'Express a small number in scientific notation':'用科学记数法表示很小的数',
+ 'Multiplying & dividing in scientific notation':'科学记数法的乘除',
+ 'Red blood cells (word problem)':'红细胞（应用题）',
+ 'Speed of light & distance from sun':'光速与日地距离',
+ 'U.S. national debt (word problem)':'美国国债（应用题）'
+};
 const KEY='bnu8_ch02_state';
 let S=load();
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return{};}}
@@ -217,6 +249,8 @@ let cur='intro';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
 function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 function pick(a){return a[ri(0,a.length-1)];}
+// Dual-language wrapper: en mode shows English; mix shows English+small Chinese; zh shows Chinese+small English.
+function L(a,b){ return '<span class="en">'+a+'</span><span class="zh">'+(b==null?a:b)+'</span>'; }
 const SQR=[1,4,9,16,25,36,49,64,81,100,121,144,169,196,225];
 const CUB=[1,8,27,64,125,216,343,512,729,1000];
 
@@ -466,49 +500,73 @@ function microK7(el){
 function genQ(type,diff){
   if(type==='sqrt'){
     const p=pick(SQR.filter(x=>diff===1?x<=100:true));
-    return {q:`Find <b>√${p}</b>.<br><span class="cn-tag">Find the principal square root of ${p}.</span>`,
-      kind:'sqrt', ans:Math.sqrt(p), sol:`Since ${Math.sqrt(p)}² = ${p}, and the principal root is non-negative, √${p} = ${Math.sqrt(p)}`};
+    const rt=Math.sqrt(p);
+    return {q:`Find <b>√${p}</b>.`, zhq:`求 <b>√${p}</b> 的值。`,
+      kind:'sqrt', ans:rt,
+      hint:'The principal (non-negative) square root: which number squared gives the value under the root?',
+      zhh:'算术平方根取非负值：哪个数的平方等于根号里的数？',
+      sol:`Since ${rt}² = ${p}, and the principal root is non-negative, √${p} = ${rt}`,
+      zhs:`因为 ${rt}² = ${p}，算术平方根取非负值，所以 √${p} = ${rt}`};
   }
   if(type==='cuberoot'){
     const sign=Math.random()<0.35?-1:1;
     const p=pick(CUB.filter(x=>diff===1?x<=125:true));
     const v=sign*p;
-    return {q:`Find <b>∛${v}</b>.<br><span class="cn-tag">Find the cube root of ${v}.</span>`,
-      kind:'cuberoot', ans:Math.cbrt(v), sol:`Since (${Math.cbrt(v)})³ = ${v}, ∛${v} = ${Math.cbrt(v)}${v<0?'(negative numbers have cube roots too)':''}`};
+    const cr=Math.cbrt(v);
+    return {q:`Find <b>∛${v}</b>.`, zhq:`求 <b>∛${v}</b> 的值。`,
+      kind:'cuberoot', ans:cr,
+      hint:'The cube root keeps the sign: negative numbers have cube roots too.',
+      zhh:'立方根保留符号：负数也有立方根。',
+      sol:`Since (${cr})³ = ${v}, ∛${v} = ${cr}${v<0?'(negative numbers have cube roots too)':''}`,
+      zhs:`因为 (${cr})³ = ${v}，所以 ∛${v} = ${cr}${v<0?'（负数也有立方根）':''}`};
   }
   if(type==='eq'){
     const p=pick(SQR.filter(x=>diff===1?x<=81:true));
-    return {q:`Solve <b>x² = ${p}</b>. Select ALL solutions — how many are there?<br><span class="cn-tag">Solve x² = ${p}. How many solutions?</span>`,
-      kind:'eq', ans:p===0?'1':'2', sol:`x² = ${p} → x = ±√${p} = ±${Math.sqrt(p)}, so ${p===0?'1':'2'} solutions (one positive, one negative)`};
+    const cnt=p===0?'1':'2';
+    return {q:`Solve <b>x² = ${p}</b>. Select ALL solutions — how many are there?`, zhq:`解方程 <b>x² = ${p}</b>。一共有几个解？`,
+      kind:'eq', ans:cnt,
+      hint:'x² = a usually has two solutions (one positive, one negative) — unless a is 0.',
+      zhh:'x² = a 通常有两个解（一正一负），除非 a 是 0。',
+      sol:`x² = ${p} → x = ±√${p} = ±${Math.sqrt(p)}, so ${cnt} solutions (one positive, one negative)`,
+      zhs:`x² = ${p} → x = ±√${p} = ±${Math.sqrt(p)}，所以有 ${cnt} 个解（一正一负）`};
   }
   if(type==='ratirr'){
     const irr=['√2','√3','√5','√7','π','√10','√8'];
     const rat=['1/2','0.75','-3','0.333...','22/7','0.6','5'];
     const isIrr=Math.random()<0.5;
     const v=isIrr?pick(irr):pick(rat);
-    return {q:`Is <b>${v}</b> rational or irrational?<br><span class="cn-tag">Is ${v} rational or irrational?</span>`,
+    return {q:`Is <b>${v}</b> rational or irrational?`, zhq:`<b>${v}</b> 是有理数还是无理数？`,
       kind:'ratirr', ans:isIrr?'Irrational':'Rational',
-      sol:isIrr?`${v} cannot be written as a ratio of two integers; its decimal never ends and never repeats → irrational`:`${v} can be written as a fraction (a ratio of two integers) → rational`};
+      hint:'Can it be written as a ratio of two integers (a fraction)? If not, it is irrational.',
+      zhh:'它能写成两个整数之比（分数）吗？不能，就是无理数。',
+      sol:isIrr?`${v} cannot be written as a ratio of two integers; its decimal never ends and never repeats → irrational`:`${v} can be written as a fraction (a ratio of two integers) → rational`,
+      zhs:`${v} ${isIrr?'不能写成两个整数之比，小数无限不循环 → 无理数':'可以写成分数（两个整数之比）→ 有理数'}`};
   }
   if(type==='estimate'){
     const n=ri(2,90);
     const lo=Math.floor(Math.sqrt(n));
-    return {q:`Between which two consecutive integers is <b>√${n}</b>?<br><span class="cn-tag">Between which two consecutive integers does √${n} lie?</span>`,
+    return {q:`Between which two consecutive integers is <b>√${n}</b>?`, zhq:`<b>√${n}</b> 介于哪两个相邻整数之间？`,
       kind:'estimate', ans:`${lo} and ${lo+1}`,
-      sol:`${lo}² = ${lo*lo} and ${lo+1}² = ${(lo+1)*(lo+1)}. Since ${lo*lo} < ${n} < ${(lo+1)*(lo+1)}, we get ${lo} < √${n} < ${lo+1}`};
+      hint:'Find the largest whole number whose square is still below the value; that is the lower bound.',
+      zhh:'找平方仍小于该数的最大整数，它就是下界。',
+      sol:`${lo}² = ${lo*lo} and ${lo+1}² = ${(lo+1)*(lo+1)}. Since ${lo*lo} < ${n} < ${(lo+1)*(lo+1)}, we get ${lo} < √${n} < ${lo+1}`,
+      zhs:`${lo}² = ${lo*lo}，${lo+1}² = ${(lo+1)*(lo+1)}。因为 ${lo*lo} < ${n} < ${(lo+1)*(lo+1)}，所以 ${lo} < √${n} < ${lo+1}`};
   }
   if(type==='simplify'){
     const k=ri(2,7), m=ri(2,11);
-    return {q:`Simplify <b>√${k*k*m}</b>.<br><span class="cn-tag">Simplify √${k*k*m}.</span>`,
+    return {q:`Simplify <b>√${k*k*m}</b>.`, zhq:`化简 <b>√${k*k*m}</b>。`,
       kind:'simplify', ans:`${k}√${m}`,
-      sol:`√${k*k*m} = √${k*k} × √${m} = ${k}√${m}`};
+      hint:'Pull out the square factor: √(k² × m) = k√m.',
+      zhh:'把平方因子提出根号：√(k² × m) = k√m。',
+      sol:`√${k*k*m} = √${k*k} × √${m} = ${k}√${m}`,
+      zhs:`√${k*k*m} = √${k*k} × √${m} = ${k}√${m}`};
   }
 }
 
 function renderQ(el,q,onAns){
-  el.innerHTML=`<div class="q"><div class="qt">${q.q}</div><div id="opts"></div>
-    <div class="row"><button class="ghost" id="hb">Hint</button></div>
-    <div class="hint" id="hint">${q.hint||'First decide whether you are being asked for the principal square root or for solutions to an equation — the first has one non-negative answer, the second two, one positive and one negative.'}</div>
+  el.innerHTML=`<div class="q"><div class="qt">${L(q.q,q.zhq)}</div><div id="opts"></div>
+    <div class="row"><button class="ghost" id="hb">${L('Hint','提示')}</button></div>
+    <div class="hint" id="hint">${L(q.hint||'First decide whether you are being asked for the principal square root or for solutions to an equation — the first has one non-negative answer, the second two, one positive and one negative.', q.zhh||'先判断题目问的是算术平方根还是方程的解——前者只有一个非负答案，后者有两个（一正一负）。')}</div>
     <div class="fb" id="fb"></div></div>`;
   const od=el.querySelector('#opts');
   let opts; let tries=0;
@@ -526,31 +584,33 @@ function renderQ(el,q,onAns){
     opts=[...new Set([n, n+1, Math.max(-10,n-1), n+ri(2,4), -n])].slice(0,4);
   }
   opts=[...new Set(opts)].sort(()=>Math.random()-0.5);
+  const optLabel=o=>(o==='Rational')?L('Rational','有理数'):(o==='Irrational')?L('Irrational','无理数'):(o==='Yes')?L('Yes','是'):(o==='No')?L('No','否'):String(o);
   opts.forEach(o=>{
-    const b=document.createElement('button'); b.className='opt'; b.innerHTML=String(o);
+    const b=document.createElement('button'); b.className='opt';
+    b.innerHTML=optLabel(o); b.dataset.val=String(o);
     b.onclick=()=>{
-      const ok=String(o)===String(q.ans);
+      const ok=b.dataset.val===String(q.ans);
       const fb=el.querySelector('#fb');
       if(ok){
         od.querySelectorAll('.opt').forEach(x=>x.disabled=true);
         b.classList.add('sel-ok');
         fb.className='fb ok';
-        fb.innerHTML='✓ Correct. '+q.sol;
+        fb.innerHTML=L('✓ Correct. '+q.sol, '✓ 对了。'+q.zhs);
         onAns(true);
       } else {
         tries++;
         b.classList.add('sel-bad'); b.disabled=true;
         if(tries===1){
           el.querySelector('#hint').classList.add('on');
-          fb.className='fb bad'; fb.textContent='✗ Try again. ';
+          fb.className='fb bad'; fb.innerHTML=L('✗ Try again. ','✗ 再试一次。');
         } else if(tries===2){
           fb.className='fb bad';
-          fb.textContent='✗ Not quite. '+(q.sol?('Method: '+q.sol):'Work through it once more.');
+          fb.innerHTML=L('✗ Not quite. '+(q.sol?('Method: '+q.sol):'Work through it once more.'), '✗ 不太对。'+(q.zhs?('方法：'+q.zhs):'再算一遍。'));
         } else {
           od.querySelectorAll('.opt').forEach(x=>x.disabled=true);
-          od.querySelectorAll('.opt').forEach(x=>{if(x.innerHTML===String(q.ans))x.classList.add('sel-ok');});
+          od.querySelectorAll('.opt').forEach(x=>{if(x.dataset.val===String(q.ans))x.classList.add('sel-ok');});
           fb.className='fb bad';
-          fb.innerHTML=`The answer is <b>${q.ans}</b>`+(q.sol?('. '+q.sol):'. ');
+          fb.innerHTML=L('The answer is <b>'+q.ans+'</b>'+(q.sol?('. '+q.sol):'. '), '答案是 <b>'+q.ans+'</b>'+(q.zhs?('。'+q.zhs):'。'));
           onAns(false);
         }
       }
@@ -575,7 +635,7 @@ function videos(el,list,id){
     const d=document.createElement('div'); d.className='vid-item';
     const cls=v.c==='core'?'b-core':(v.c==='link'?'b-link':'b-ext');
     const lbl=v.c==='core'?'<span class="en">Core</span><span class="zh">核心</span>':(v.c==='link'?'<span class="en">Foundation</span><span class="zh">基础</span>':'<span class="en">Extra</span><span class="zh">拓展</span>');
-    d.innerHTML=`<div class="t"><b>${v.t}</b><small>${v.d||''}</small> <span class="badge ${cls}">${lbl}</span></div>`;
+    d.innerHTML=`<div class="t"><b>${L(v.t,(typeof VTZ!=='undefined'&&VTZ[v.t])||v.t)}</b><small>${v.d||''}</small> <span class="badge ${cls}">${lbl}</span></div>`;
     const b=document.createElement('button'); b.className='ghost'; b.innerHTML='<span class="en">▶ Play</span><span class="zh">▶ 播放</span>';
     b.onclick=()=>{
       let p=d.querySelector('video');
