@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Choose your course</title>
+<style>
+:root{
+ --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#5b6472;
+ --accent:#7c3aed; --ok:#15803d; --err:#b91c1c; --warn:#b45309;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.wrap{max-width:880px;margin:0 auto;padding:18px 16px 40px}
+header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:30px 28px;border-radius:16px;margin-bottom:18px}
+header h1{font-size:24px;margin-bottom:8px}
+header p{opacity:.94;font-size:13.5px;max-width:640px}
+/* ===== Language tiers (en / mix / zh) ===== */
+.zh{display:none}
+body.lang-en .zh{display:none}
+body.lang-mix .zh{display:inline;font-size:.82em;margin-left:6px;font-weight:400}
+body.lang-zh .en{display:inline;font-size:.78em;margin-left:6px;font-weight:400}
+body.lang-zh .zh{display:inline}
+.langbar{position:fixed;top:8px;right:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.langseg{display:inline-flex}
+.langseg button{background:transparent;color:#374151;border:none;padding:6px 11px;font-size:12px;cursor:pointer;font-family:inherit;border-radius:999px;white-space:nowrap}
+.langseg button.on{background:var(--accent);color:#fff}
+@media(max-width:680px){.langbar{top:6px;right:6px}.langseg button{padding:5px 8px;font-size:11px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 22px;margin-bottom:16px}
+.sel{margin-bottom:22px}
+.sel:last-child{margin-bottom:0}
+.sel h3{font-size:15px;margin-bottom:4px}
+.sel .hint{font-size:12px;color:var(--muted);margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:#fff;border:1.5px solid var(--line);color:var(--text);border-radius:999px;padding:9px 16px;font-size:13.5px;cursor:pointer;font-family:inherit;transition:.15s}
+.chip:hover{border-color:var(--accent)}
+.chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.chip .e{font-size:11px;opacity:.75;display:block}
+.chip.on .e{opacity:.9}
+.go{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:8px}
+button.enter{font-family:inherit;border:none;cursor:pointer;border-radius:10px;padding:13px 26px;font-size:15px;font-weight:600;background:var(--accent);color:#fff}
+button.enter:hover{background:#6d28d9}
+button.enter:disabled{background:#cbbef0;cursor:not-allowed}
+.remind{font-size:12.5px;color:var(--muted)}
+.remind a{color:var(--accent);cursor:pointer;text-decoration:underline;background:transparent;border:none;font-family:inherit;font-size:12.5px;padding:0}
+.choose{font-size:12.5px;color:var(--muted);margin-top:10px}
+.choose b{color:var(--text)}
+.soon{display:none;background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:18px 20px;margin-top:18px;font-size:14px;color:#9a3412}
+.soon.show{display:block}
+.soon .t{font-weight:700;font-size:15px;margin-bottom:6px}
+.visit{text-align:center;font-size:11px;color:var(--muted);margin-top:26px}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<div class="langbar" title="显示语言 · Language display — 随时可改 · change anytime">
+ <span class="langseg">
+  <button data-lang="en" onclick="setLang('en')">English</button>
+  <button data-lang="mix" onclick="setLang('mix')">English + 中文</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文 + English</button>
+ </span>
+</div>
+
+<div class="wrap">
+<header>
+ <h1><span class="en">Pick your course</span><span class="zh">选择你的课程</span></h1>
+ <p><span class="en">This site re-organises Khan Academy videos to match Chinese public-school textbooks — by grade, subject and textbook edition. Choose below to open the matching study page.</span>
+    <span class="zh">这个网站把 Khan Academy 的视频，按中国公立校的「年级 / 学科 / 教材版本」重新整理。选一下，就进入对应的学习页。</span></p>
+</header>
+
+<div class="card">
+ <!-- grade -->
+ <div class="sel" data-dim="grade">
+  <h3><span class="en">1 · Grade</span><span class="zh">1 · 年级</span></h3>
+  <div class="hint"><span class="en">Which grade are you in?</span><span class="zh">你（或孩子）读几年级？</span></div>
+  <div class="chips" id="gradeChips"></div>
+ </div>
+ <!-- subject -->
+ <div class="sel" data-dim="subject">
+  <h3><span class="en">2 · Subject</span><span class="zh">2 · 学科</span></h3>
+  <div class="hint"><span class="en">Which subject?</span><span class="zh">哪一科？</span></div>
+  <div class="chips" id="subjectChips"></div>
+ </div>
+ <!-- edition -->
+ <div class="sel" data-dim="edition">
+  <h3><span class="en">3 · Textbook edition</span><span class="zh">3 · 教材版本</span></h3>
+  <div class="hint"><span class="en">Which textbook does the school use?</span><span class="zh">学校用的是哪个版本？</span></div>
+  <div class="chips" id="editionChips"></div>
+ </div>
+
+ <div class="go">
+  <button class="enter" id="enterBtn" disabled><span class="en">Enter →</span><span class="zh">进入 →</span></button>
+  <span class="choose" id="chooseLine"></span>
+ </div>
+ <div class="remind" id="remind" style="display:none"></div>
+ <div class="soon" id="soon"></div>
+</div>
+
+<p class="visit">
+ <span id="busuanzi_container_site_uv" style="display:none">
+  <span class="en">Visitors so far:&nbsp;</span><span class="zh">已经有&nbsp;</span>
+  <b id="busuanzi_value_site_uv">·</b><span class="zh">&nbsp;位访客来过这里</span>
+ </span>
+</p>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+<script>
+/* ============ Dual-language helper ============ */
+function L(a,b){return '<span class="en">'+a+'</span><span class="zh">'+(b==null?a:b)+'</span>';}
+
+/* ============ Options (data-driven; add more as pages get built) ============ */
+const GRADES=[
+ {id:'7',en:'Grade 7',cz:'七年级'},
+ {id:'8',en:'Grade 8',cz:'八年级'},
+ {id:'9',en:'Grade 9',cz:'九年级'}
+];
+const SUBJECTS=[
+ {id:'math',en:'Math',cz:'数学'},
+ {id:'phys',en:'Physics',cz:'物理'},
+ {id:'chem',en:'Chemistry',cz:'化学'}
+];
+const EDITIONS=[
+ {id:'bsd',en:'BNU (Bei-Shi-Da)',cz:'北师大版'},
+ {id:'rj', en:'People’s Education',cz:'人教版'},
+ {id:'sk', en:'Su-Ke',cz:'苏科版'},
+ {id:'hs', en:'Hua-Shi',cz:'华师版'},
+ {id:'zj', en:'Zhejiang',cz:'浙教版'},
+ {id:'hk', en:'Shanghai',cz:'沪科版'},
+ {id:'sl', en:'Shandong',cz:'鲁教版'}
+];
+
+/* ============ Where each combo leads ============
+   Only combos with a built page are listed. Anything missing shows "coming soon".
+   Example: Grade 8 + Math + BNU  -> the site we built (index.html).
+   Add new lines here as more pages are created. */
+const MAP={
+ '8':{ math:{ bsd:'index.html' } }
+};
+
+/* ============ Language tier (en / mix / zh) ============ */
+const LKEY='bnu8_lang';
+function getLang(){return localStorage.getItem(LKEY)||'en';}
+function setLang(l){localStorage.setItem(LKEY,l);applyLang();}
+function applyLang(){
+ const l=getLang();
+ document.body.className=(' '+document.body.className+' ').replace(/\s+lang-(en|mix|zh)\b/g,' ').trim();
+ if(l==='mix'||l==='zh')document.body.classList.add('lang-'+l);
+ document.querySelectorAll('.langseg button').forEach(b=>{b.classList.toggle('on',b.dataset.lang===l);});
+}
+applyLang();
+
+/* ============ State ============ */
+const SEL={grade:null,subject:null,edition:null};
+const SKEY='bnu8_start_sel';
+
+function renderChips(list,dim,box){
+ box.innerHTML='';
+ list.forEach(o=>{
+  const b=document.createElement('button');
+  b.className='chip';
+  b.dataset.id=o.id;
+  b.innerHTML=L(o.en,o.cz);
+  b.onclick=()=>{
+   SEL[dim]=o.id;
+   [...box.children].forEach(c=>c.classList.toggle('on',c.dataset.id===o.id));
+   update();
+  };
+  box.appendChild(b);
+ });
+}
+renderChips(GRADES,'grade',document.getElementById('gradeChips'));
+renderChips(SUBJECTS,'subject',document.getElementById('subjectChips'));
+renderChips(EDITIONS,'edition',document.getElementById('editionChips'));
+
+function label(dim,id){
+ const map={grade:GRADES,subject:SUBJECTS,edition:EDITIONS};
+ const o=map[dim].find(x=>x.id===id);
+ return o?L(o.en,o.cz):'';
+}
+function update(){
+ const done=SEL.grade&&SEL.subject&&SEL.edition;
+ document.getElementById('enterBtn').disabled=!done;
+ const line=document.getElementById('chooseLine');
+ if(done){
+  line.innerHTML=L('You chose: ','您选择了：')+label('grade',SEL.grade)+' · '+label('subject',SEL.subject)+' · '+label('edition',SEL.edition);
+ }else{
+  line.innerHTML='';
+ }
+ document.getElementById('soon').classList.remove('show');
+}
+
+function target(){
+ const g=MAP[SEL.grade];
+ if(!g)return null;
+ const s=g[SEL.subject];
+ if(!s)return null;
+ return s[SEL.edition]||null;
+}
+
+document.getElementById('enterBtn').onclick=function(){
+ if(!(SEL.grade&&SEL.subject&&SEL.edition))return;
+ localStorage.setItem(SKEY,JSON.stringify(SEL));
+ const t=target();
+ if(t){
+  location.href=t;
+ }else{
+  const box=document.getElementById('soon');
+  box.innerHTML='<div class="t">'+L('Not built yet','这个组合还没做好')+'</div>'
+   +'<div>'+L('You chose ','您选择了 ')+label('grade',SEL.grade)+' · '+label('subject',SEL.subject)+' · '+label('edition',SEL.edition)
+   +'. '+L('More grade / subject / edition pages are being added. For now, only Grade 8 · Math · BNU is ready.','。更多「年级 / 学科 / 版本」页面正在陆续补齐。目前只做好了：八年级 · 数学 · 北师大版。')+'</div>';
+  box.classList.add('show');
+ }
+};
+
+/* ============ Prefill last choice ============ */
+(function(){
+ try{
+  const saved=JSON.parse(localStorage.getItem(SKEY));
+  if(saved&&saved.grade&&saved.subject&&saved.edition){
+   for(const [dim,box] of [['grade',document.getElementById('gradeChips')],['subject',document.getElementById('subjectChips')],['edition',document.getElementById('editionChips')]]){
+    const chip=[...box.children].find(c=>c.dataset.id===saved[dim]);
+    if(chip){chip.click();}
+   }
+   const r=document.getElementById('remind');
+   r.style.display='block';
+   r.innerHTML=L('Last time you opened: ','上次您进来时选的是：')+label('grade',saved.grade)+' · '+label('subject',saved.subject)+' · '+label('edition',saved.edition)
+    +' <a id="enterSaved">'+L('open it again →','直接再进 →')+'</a>';
+   document.getElementById('enterSaved').onclick=()=>{location.href=target()||'index.html';};
+  }
+ }catch(e){}
+})();
+</script>
+</body>
+</html>
