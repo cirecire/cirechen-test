@@ -100,6 +100,28 @@ th{font-size:11px;color:var(--muted);font-weight:600}
 .parents summary{cursor:pointer;font-weight:600;color:var(--text);font-size:13px}
 .parents .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
 .parents input[type=file]{font-size:12px}
+/* ===== Parent-facing cards: moved to top, 2-column grid, larger fonts ===== */
+.parents-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;align-items:start}
+.parents-grid .parents{margin-top:0}
+.parents{border-radius:12px;padding:18px 22px;font-size:14px;color:var(--text);line-height:1.7;margin-top:0}
+/* Inside the parents block: each language on its own line, with bigger type */
+.parents .zh,.parents .en{display:block;margin-left:0}
+body.lang-en .parents .zh{display:none}
+.parents summary{cursor:pointer;font-weight:600;padding:4px 0 12px}
+.parents summary .zh{font-size:22px;font-weight:700;color:#92400e;line-height:1.35;margin:0 0 6px}
+.parents summary .en{font-size:16px;font-weight:500;color:#1f2937;line-height:1.4;margin:0}
+.parents p{font-size:14px;line-height:1.7;color:var(--text);margin:0 0 14px}
+.parents p .zh{font-size:17px;line-height:1.75;color:#1f2937;margin:0}
+.parents p .en{font-size:15px;line-height:1.65;color:#5b6472;margin-top:6px}
+/* Section labels (Who it's for, etc.) — bold, slightly bigger */
+.parents p b .zh{font-size:19px;font-weight:700;color:#92400e;margin:14px 0 4px;display:block}
+.parents p b .en{font-size:15px;font-weight:600;color:#5b6472;margin:0;display:block}
+/* Toolbar buttons + inputs — bigger for parents */
+.parents .toolbar{margin-top:14px}
+.parents .toolbar button{font-size:15px;padding:10px 16px}
+.parents input[type=file]{font-size:14px;padding:6px 0}
+.parents .note{font-size:14px;padding:12px 14px;margin-top:12px}
+@media(max-width:760px){.parents-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -111,6 +133,81 @@ th{font-size:11px;color:var(--muted);font-weight:600}
  <p style="margin-top:4px"><span class="en">Language: English, with each key term glossed in Chinese once</span><span class="zh">语言：全英文，每个关键词在门厅标注一次中文</span></p>
  <div class="src"><span class="en">Video content from Khan Academy · CC BY-NC-SA</span><span class="zh">视频内容来自 Khan Academy · CC BY-NC-SA</span></div>
 </header>
+
+<div class="parents-grid">
+ <details class="parents" style="background:#eff6ff;border-color:#93c5fd">
+  <summary>
+   <span class="zh">💛 关于这个网站 · 家长先看这里</span>
+   <span class="en">💛 About this site — parents, start here</span>
+  </summary>
+  <div>
+   <p>
+    <span class="zh">给孩子自学用的八年级上册（北师大版 2026）学习站。孩子自己往下走，家长不用懂数学也能看懂学到哪了。</span>
+    <span class="en">A self-study companion for Grade 8, semester 1 (BNU 2026 edition). Your child works through it alone; you can follow the progress without knowing the maths.</span>
+   </p>
+   <p><b>
+    <span class="zh">给谁用</span>
+    <span class="en">Who it's for</span>
+   </b></p>
+   <p>
+    <span class="zh">八年级上册的孩子。课后过一遍当天的内容，单元考前复习，或者期末前整体扫一遍；假期想补哪章也行，每一章都是独立打开的。</span>
+    <span class="en">A child in Grade 8, semester 1. Use it after class to go over the day's topic, before a unit test to revise, or as a sweep before the exam. Also fine as a holiday catch-up — every chapter opens independently.</span>
+   </p>
+   <p><b>
+    <span class="zh">设计思路</span>
+    <span class="en">Why it's built this way</span>
+   </b></p>
+   <p>
+    <span class="zh">1. 章节顺序和每个考点的落点都跟着北师大教材走，和学校正在讲的内容对得上。<br>2. 讲解、视频、练习、测试走的是可汗学院那套完整链条。教材有时会一句话直接给结论，可汗把中间的每一步都讲出来——补进去的正是这几步。<br>3. 看过不等于学会：每节要连对 5 题才算过关。做错的进错题本，过几天会再考一次。<br>4. 视频是本地播放，不用联网，也不会跳去别的网站。</span>
+    <span class="en">1. Chapter order and the point of each topic follow the BNU textbook, so it lines up with what school is covering right now.<br>2. Explanations, videos, practice and tests follow the Khan Academy chain. A textbook sometimes jumps straight to a result; Khan spells out the steps in between — those are exactly the steps added here.<br>3. Watching is not the same as learning: each section needs 5 correct in a row to clear. Mistakes go into a review list and come back a few days later.<br>4. Videos play locally. No internet needed, and nothing links out to other sites.</span>
+   </p>
+   <p><b>
+    <span class="zh">孩子能得到什么</span>
+    <span class="en">What your child gets out of it</span>
+   </b></p>
+   <p>
+    <span class="zh">• 按自己的节奏来：卡住的地方可以反复看，不用跟着全班的速度。<br>• 每节开头先测一下，已经会的直接跳过，不浪费时间。<br>• 掌握度看得见：哪一块只是看过、哪一块是真的会了，一眼能看出来。<br>• 顺带积累英文数学词汇。觉得吃力就把显示切成中英对照或中文为主，随时可以改。</span>
+    <span class="en">• Their own pace: anything they get stuck on can be replayed, with no need to keep up with the class.<br>• Each section opens with a quick check — material they already know is skipped, so no time is wasted.<br>• Mastery is visible: you can see which topics were only looked at and which are actually solid.<br>• English maths vocabulary builds up along the way. If that is a strain, switch the display to bilingual or Chinese-led — it can be changed at any time.</span>
+   </p>
+   <p><b>
+    <span class="zh">说明</span>
+    <span class="en">Good to know</span>
+   </b></p>
+   <p style="margin-bottom:0">
+    <span class="zh">视频内容来自 Khan Academy（CC BY-NC-SA），本站仅作个人学习使用。建议先收藏这个页面——孩子每天来一小节，进度会自动接上。</span>
+    <span class="en">Video content is from Khan Academy (CC BY-NC-SA); this site is for personal study only. Worth bookmarking this page — one short section a day, and progress picks up where it left off.</span>
+   </p>
+  </div>
+ </details>
+ <details class="parents">
+  <summary>
+   <span class="zh">🛠 家长工具（点这里）</span>
+   <span class="en">🛠 Parent tools (click here)</span>
+  </summary>
+  <div>
+   <p>
+    <span class="zh">进度保存在这台电脑的浏览器里。换电脑、清缓存或换浏览器都会丢失——记得时不时导出备份，以后再导入回来。</span>
+    <span class="en">Progress is saved in this browser on this computer. Switching computers, clearing the cache or changing browsers loses it — export a backup now and then, and import it back later.</span>
+   </p>
+   <div class="toolbar">
+    <button class="ghost" id="exp">
+     <span class="zh">⬇ 导出进度（JSON）</span>
+     <span class="en">⬇ Export progress (JSON)</span>
+    </button>
+    <input type="file" id="imp" accept="application/json">
+    <button class="ghost" id="impBtn">
+     <span class="zh">⬆ 导入</span>
+     <span class="en">⬆ Import</span>
+    </button>
+    <button class="ghost" id="clr" style="color:var(--err)">
+     <span class="zh">清除全部进度</span>
+     <span class="en">Clear all progress</span>
+    </button>
+   </div>
+   <div class="note" id="msg" style="display:none"></div>
+  </div>
+ </details>
+</div>
 
 <div class="welcome" id="welcome">
  <div class="welcome-head">
@@ -160,68 +257,8 @@ th{font-size:11px;color:var(--muted);font-weight:600}
   <thead><tr><th><span class="en">Challenge</span><span class="zh">挑战</span></th><th><span class="en">Questions</span><span class="zh">题数</span></th><th><span class="en">Status</span><span class="zh">状态</span></th><th><span class="en">Last</span><span class="zh">上次</span></th><th><span class="en">Best</span><span class="zh">最佳</span></th><th></th></tr></thead>
   <tbody></tbody>
  </table>
- <div style="margin-top:12px"><button onclick="location.href='unittests.html'"><span class="en">Go to the challenges →</span><span class="zh">去闯关挑战 →</span></button></div>
+<div style="margin-top:12px"><button onclick="location.href='unittests.html'"><span class="en">Go to the challenges →</span><span class="zh">去闯关挑战 →</span></button></div>
 </div>
-
-<details class="parents" style="background:#eff6ff;border-color:#93c5fd">
- <summary><span class="en">💛 About this site — parents, start here</span><span class="zh">💛 关于这个网站 · 家长先看这里</span></summary>
- <div style="margin-top:10px;line-height:1.8">
-  <p style="margin:0 0 12px">
-   <span class="en">A self-study companion for Grade 8, semester 1 (BNU 2026 edition). Your child works through it alone; you can follow the progress without knowing the maths.</span>
-   <span class="zh">给孩子自学用的八年级上册（北师大版 2026）学习站。孩子自己往下走，家长不用懂数学也能看懂学到哪了。</span>
-  </p>
-
-  <p style="margin:0 0 4px"><b><span class="en">Who it's for</span><span class="zh">给谁用</span></b></p>
-  <p style="margin:0 0 12px">
-   <span class="en">A child in Grade 8, semester 1. Use it after class to go over the day's topic, before a unit test to revise, or as a sweep before the exam. Also fine as a holiday catch-up — every chapter opens independently.</span>
-   <span class="zh">八年级上册的孩子。课后过一遍当天的内容，单元考前复习，或者期末前整体扫一遍；假期想补哪章也行，每一章都是独立打开的。</span>
-  </p>
-
-  <p style="margin:0 0 4px"><b><span class="en">Why it's built this way</span><span class="zh">设计思路</span></b></p>
-  <p style="margin:0 0 12px">
-   <span class="en">1. Chapter order and the point of each topic follow the BNU textbook, so it lines up with what school is covering right now.<br>
-   2. Explanations, videos, practice and tests follow the Khan Academy chain. A textbook sometimes jumps straight to a result; Khan spells out the steps in between — those are exactly the steps added here.<br>
-   3. Watching is not the same as learning: each section needs 5 correct in a row to clear. Mistakes go into a review list and come back a few days later.<br>
-   4. Videos play locally. No internet needed, and nothing links out to other sites.</span>
-   <span class="zh">1. 章节顺序和每个考点的落点都跟着北师大教材走，和学校正在讲的内容对得上。<br>
-   2. 讲解、视频、练习、测试走的是可汗学院那套完整链条。教材有时会一句话直接给结论，可汗把中间的每一步都讲出来——补进去的正是这几步。<br>
-   3. 看过不等于学会：每节要连对 5 题才算过关。做错的进错题本，过几天会再考一次。<br>
-   4. 视频是本地播放，不用联网，也不会跳去别的网站。</span>
-  </p>
-
-  <p style="margin:0 0 4px"><b><span class="en">What your child gets out of it</span><span class="zh">孩子能得到什么</span></b></p>
-  <p style="margin:0 0 12px">
-   <span class="en">• Their own pace: anything they get stuck on can be replayed, with no need to keep up with the class.<br>
-   • Each section opens with a quick check — material they already know is skipped, so no time is wasted.<br>
-   • Mastery is visible: you can see which topics were only looked at and which are actually solid.<br>
-   • English maths vocabulary builds up along the way. If that is a strain, switch the display to bilingual or Chinese-led — it can be changed at any time.</span>
-   <span class="zh">• 按自己的节奏来：卡住的地方可以反复看，不用跟着全班的速度。<br>
-   • 每节开头先测一下，已经会的直接跳过，不浪费时间。<br>
-   • 掌握度看得见：哪一块只是看过、哪一块是真的会了，一眼能看出来。<br>
-   • 顺带积累英文数学词汇。觉得吃力就把显示切成中英对照或中文为主，随时可以改。</span>
-  </p>
-
-  <p style="margin:0 0 4px"><b><span class="en">Good to know</span><span class="zh">说明</span></b></p>
-  <p style="margin:0 0 10px">
-   <span class="en">Video content is from Khan Academy (CC BY-NC-SA); this site is for personal study only. Worth bookmarking this page — one short section a day, and progress picks up where it left off.</span>
-   <span class="zh">视频内容来自 Khan Academy（CC BY-NC-SA），本站仅作个人学习使用。建议先收藏这个页面——孩子每天来一小节，进度会自动接上。</span>
-  </p>
- </div>
-</details>
-
-<details class="parents">
- <summary><span class="en">🛠 Parent tools (click here)</span><span class="zh">🛠 家长工具（点这里）</span></summary>
- <div style="margin-top:8px">
-  <span class="en">Progress is saved in this browser on this computer. Switching computers, clearing the cache or changing browsers loses it — export a backup now and then, and import it back later.</span><span class="zh">进度保存在这台电脑的浏览器里。换电脑、清缓存或换浏览器都会丢失——记得时不时导出备份，以后再导入回来。</span>
- </div>
- <div class="toolbar">
-  <button class="ghost" id="exp"><span class="en">⬇ Export progress (JSON)</span><span class="zh">⬇ 导出进度（JSON）</span></button>
-  <input type="file" id="imp" accept="application/json">
-  <button class="ghost" id="impBtn"><span class="en">⬆ Import</span><span class="zh">⬆ 导入</span></button>
-  <button class="ghost" id="clr" style="color:var(--err)"><span class="en">Clear all progress</span><span class="zh">清除全部进度</span></button>
- </div>
- <div class="note" id="msg" style="display:none"></div>
-</details>
 
 <p style="margin:22px 0 40px;font-size:11px;color:var(--muted);text-align:center">
  <span class="en">Video content from Khan Academy · CC BY-NC-SA · this site is for personal study only · test site cirechen-test</span><span class="zh">视频内容来自 Khan Academy · CC BY-NC-SA · 本站仅作个人学习用 · 测试站 cirechen-test</span><br>
