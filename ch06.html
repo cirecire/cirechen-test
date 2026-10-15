@@ -81,12 +81,11 @@ body.lang-en .zh{display:none}
 body.lang-mix .zh{display:inline;font-size:.82em;color:#6b7280;margin-left:6px;font-weight:400}
 body.lang-zh .en{display:inline;font-size:.78em;color:#6b7280;margin-left:6px;font-weight:400}
 body.lang-zh .zh{display:inline}
-.langbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px;font-size:13px}
-.langbar .lab{color:#6b7280;font-weight:600}
-.langseg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.langseg button{background:#fff;color:#1f2937;border:none;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit;border-right:1px solid var(--line)}
-.langseg button:last-child{border-right:none}
+.langbar{position:fixed;top:8px;right:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.langseg{display:inline-flex}
+.langseg button{background:transparent;color:#374151;border:none;padding:6px 11px;font-size:12px;cursor:pointer;font-family:inherit;border-radius:999px;white-space:nowrap}
 .langseg button.on{background:var(--accent);color:#fff}
+@media(max-width:680px){.langbar{top:6px;right:6px}.langseg button{padding:5px 8px;font-size:11px}}
 
 </style>
 </head>
@@ -94,17 +93,15 @@ body.lang-zh .zh{display:inline}
 <div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 16px;font-size:13px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:99">
  <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">← Overview</span><span class="zh">← 总览</span></a>
  <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">Unit tests</span><span class="zh">单元测试</span></a>
- <span style="margin-left:auto;font-size:11px;color:#6b7280"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
+ <span style="font-size:11px;color:#6b7280"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
 </div>
 
-<div class="langbar">
- <span class="lab">显示语言 · Language display</span>
+<div class="langbar" title="显示语言 · Language display — 随时可改 · change anytime">
  <span class="langseg">
-  <button data-lang="en" onclick="setLang('en')">English only · 全英文</button>
-  <button data-lang="mix" onclick="setLang('mix')">English + 中文 · 英文为主</button>
-  <button data-lang="zh" onclick="setLang('zh')">中文 + English · 中文为主</button>
+  <button data-lang="en" onclick="setLang('en')">English</button>
+  <button data-lang="mix" onclick="setLang('mix')">English + 中文</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文 + English</button>
  </span>
- <span class="lab" style="font-weight:400">随时可改 · change anytime</span>
 </div>
 
 <div class="wrap">
@@ -133,6 +130,7 @@ let cur='intro';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
 function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 function pick(a){return a[ri(0,a.length-1)];}
+function L(a,b){ return '<span class="en">'+a+'</span><span class="zh">'+(b==null?a:b)+'</span>'; }
 const mean=a=>a.reduce((s,x)=>s+x,0)/a.length;
 const variance=a=>{const m=mean(a);return a.reduce((s,x)=>s+(x-m)**2,0)/a.length;};
 const std=a=>Math.sqrt(variance(a));
@@ -341,14 +339,14 @@ function diag(el,lessonId,generator){
    save();renderNav();return;
   }
   const q=qs[i];
-  qEl.innerHTML=`<div class="q"><div class="q-text">${i+1}. ${q.q}</div><div style="display:flex;gap:8px"><input id="da"><button id="sub">Submit</button></div><div class="hint" id="ht"></div><div class="feedback" id="fb"></div></div>`;
+  qEl.innerHTML=`<div class="q"><div class="q-text">${i+1}. ${L(q.q,q.zhq)}</div><div style="display:flex;gap:8px"><input id="da"><button id="sub">Submit</button></div><div class="hint" id="ht"></div><div class="feedback" id="fb"></div></div>`;
   const input=qEl.querySelector('#da'),fb=qEl.querySelector('#fb'),ht=qEl.querySelector('#ht');
   input.focus();qEl.querySelector('#sub').onclick=check;input.onkeydown=e=>{if(e.key==='Enter')check();};
   function check(){
    const correct=q.check(input.value.trim());
    if(correct===true){ok++;fb.className='feedback show ok';fb.textContent='✓';input.disabled=true;setTimeout(()=>{i++;show();},700);}
-   else if(correct==='hint'){ht.className='hint show';ht.textContent=q.hint;}
-   else{fb.className='feedback show err';fb.textContent='✗ Try again.';}
+   else if(correct==='hint'){ht.className='hint show';ht.innerHTML=L(q.hint||'', q.zhh||'');}
+   else{fb.className='feedback show err';fb.innerHTML=L('✗ Try again.','✗ 再试一次。');}
   }
  };
  show();
@@ -362,19 +360,25 @@ k1:()=>{
  const sorted=[...data].sort((a,b)=>a-b);
  const median=sorted[2];
  return {q:`Find the mean of: ${data.join(', ')}`,
-   check:a=>Math.abs(parseFloat(a)-m)<0.01,ans:m.toFixed(2),hint:`Sum them, then divide by ${data.length}.`};
+   zhq:`求 ${data.join(', ')} 的平均数。`,
+   check:a=>Math.abs(parseFloat(a)-m)<0.01,ans:m.toFixed(2),hint:`Sum them, then divide by ${data.length}.`,
+   zhh:`先把它们相加，再除以 ${data.length}。`};
 },
 k2:()=>{
  const data=Array.from({length:4},()=>ri(1,15));
  const v=variance(data);
  return {q:`Find the variance s² of: ${data.join(', ')} (divide by n)`,
-   check:a=>Math.abs(parseFloat(a)-v)<0.01,ans:v.toFixed(2),hint:`Mean=${mean(data).toFixed(2)}, then sum (xᵢ−x̄)² and divide by 4.`};
+   zhq:`求 ${data.join(', ')} 的方差 s²（除以 n）。`,
+   check:a=>Math.abs(parseFloat(a)-v)<0.01,ans:v.toFixed(2),hint:`Mean=${mean(data).toFixed(2)}, then sum (xᵢ−x̄)² and divide by 4.`,
+   zhh:`平均数=${mean(data).toFixed(2)}，再把 (xᵢ−x̄)² 求和并除以 4。`};
 },
 k3:()=>{
  const sorted=[ri(40,60),ri(60,70),ri(70,80),ri(80,85),ri(85,95),ri(95,99),ri(99,100)].sort((a,b)=>a-b);
  return {q:`Sorted data: ${sorted.join(', ')}. The median (Q2) is:`,
+   zhq:`已排序数据：${sorted.join(', ')}。中位数（Q2）是：`,
    check:a=>Math.abs(parseFloat(a)-sorted[3])<0.01,ans:String(sorted[3]),
-   hint:`7 numbers → median is the 4th.`};
+   hint:`7 numbers → median is the 4th.`,
+   zhh:`共 7 个数 → 中位数是第 4 个。`};
 },
 };
 
@@ -385,7 +389,7 @@ function videos(el,lessonId){
  let html=`<div class="step"><span class="en">Videos</span><span class="zh">视频</span> · ${LESSONS.find(l=>l.id===lessonId).t}</div>`;
  list.forEach((v,i)=>{
   const watched=st(lessonId).vid[i];
-  html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="meta"><span class="tag ${v.c}"><span class="en">${v.c==='core'?'Core':'Extra'}</span><span class="zh">${v.c==='core'?'核心':'拓展'}</span></span><span class="st ${watched?'ok':''}">${watched?'✓':'Unwatched'}</span><button data-i="${i}">${watched?'<span class="en">▶ Replay</span><span class="zh">▶ 重播</span>':'<span class="en">▶ Play</span><span class="zh">▶ 播放</span>'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
+  html+=`<div class="vid"><div class="vid-h"><span class="title">${L(v.t,(typeof VTZ!=='undefined'&&VTZ[v.t])||v.t)}</span><span class="meta"><span class="tag ${v.c}"><span class="en">${v.c==='core'?'Core':'Extra'}</span><span class="zh">${v.c==='core'?'核心':'拓展'}</span></span><span class="st ${watched?'ok':''}">${watched?'✓':'Unwatched'}</span><button data-i="${i}">${watched?'<span class="en">▶ Replay</span><span class="zh">▶ 重播</span>':'<span class="en">▶ Play</span><span class="zh">▶ 播放</span>'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
  });
  el.innerHTML=html;
  el.querySelectorAll('[data-i]').forEach(b=>{
@@ -416,23 +420,24 @@ function practice(el,lessonId){
    if(r===true){
     streak++;s.prac.ok++;s.prac.tot++;
     fb.className='feedback show ok';fb.textContent='✓';
+    /* ✓ needs no translation */
     inp.disabled=true;
     syncTop();
-    if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>Section cleared ✓</strong>';save();renderNav();}
+    if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>'+L('Section cleared ✓','本节过关 ✓')+'</strong>';save();renderNav();}
     setTimeout(()=>{q=gen();tries=0;update();},900);
    } else {
     tries++;
     if(tries===1){
-     ht.className='hint show';ht.textContent=q.hint||'Have another go.';
-     fb.className='feedback show err';fb.textContent='✗ Try again. ';
+     ht.className='hint show';ht.innerHTML=L(q.hint||'Have another go.', q.zhh||'再试一次。');
+     fb.className='feedback show err';fb.innerHTML=L('✗ Try again. ','✗ 再试一次。');
     } else if(tries===2){
      fb.className='feedback show err';
-     fb.textContent='✗ Not quite. '+(q.sol?('Method: '+q.sol):(q.hint?('Hint: '+q.hint):'Work through it once more.'));
+     fb.innerHTML=L('✗ Not quite. '+(q.sol?('Method: '+q.sol):(q.hint?('Hint: '+q.hint):'Work through it once more.')), '✗ 不太对。'+(q.zhs?('方法：'+q.zhs):(q.zhh?('提示：'+q.zhh):'再算一遍。')));
     } else {
      streak=0;s.prac.tot++;syncTop();
      
      fb.className='feedback show err';
-     fb.innerHTML=`The answer is <b>${q.ans}</b>`+(q.sol?('. '+q.sol):'. ');
+     fb.innerHTML=L('The answer is <b>'+q.ans+'</b>'+(q.sol?('. '+q.sol):'. '), '答案是 <b>'+q.ans+'</b>'+(q.zhs?('。'+q.zhs):'。'));
      inp.disabled=true;save();renderNav();
      setTimeout(()=>{q=gen();tries=0;update();},2400);
     }
@@ -454,13 +459,13 @@ function chTest(el){
  const show=()=>{
   if(i>=qs.length){tq.innerHTML=`<div class="note" style="background:${ok>=4?'#dcfce7':'#fef3c7'}"><strong>${ok}/${qs.length}</strong> ${ok>=4?'Chapter passed!':'Review it again'}</div>`;S.test={ok,tot:qs.length};save();renderNav();return;}
   const q=qs[i];
-  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div style="display:flex;gap:8px"><input id="ti"><button id="ts"><span class="en">Submit</span><span class="zh">提交</span></button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
+  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${L(q.q,q.zhq)}</div><div style="display:flex;gap:8px"><input id="ti"><button id="ts"><span class="en">Submit</span><span class="zh">提交</span></button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
   const inp=tq.querySelector('#ti'),fb=tq.querySelector('#tf'),ht=tq.querySelector('#th');
   inp.focus();tq.querySelector('#ts').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
   function check(){
    const r=q.check(inp.value.trim());
    if(r===true){ok++;fb.className='feedback show ok';fb.textContent='✓';inp.disabled=true;setTimeout(()=>{i++;show();},600);}
-   else if(r==='hint'){ht.className='hint show';ht.textContent=q.hint;}
+   else if(r==='hint'){ht.className='hint show';ht.innerHTML=L(q.hint||'', q.zhh||'');}
    else{fb.className='feedback show err';fb.textContent='✗';setTimeout(()=>{i++;show();},900);}
   }
  };
