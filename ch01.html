@@ -103,12 +103,11 @@ body.lang-en .zh{display:none}
 body.lang-mix .zh{display:inline;font-size:.82em;color:#6b7280;margin-left:6px;font-weight:400}
 body.lang-zh .en{display:inline;font-size:.78em;color:#6b7280;margin-left:6px;font-weight:400}
 body.lang-zh .zh{display:inline}
-.langbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px;font-size:13px}
-.langbar .lab{color:#6b7280;font-weight:600}
-.langseg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.langseg button{background:#fff;color:#1f2937;border:none;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit;border-right:1px solid var(--line)}
-.langseg button:last-child{border-right:none}
+.langbar{position:fixed;top:8px;right:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.langseg{display:inline-flex}
+.langseg button{background:transparent;color:#374151;border:none;padding:6px 11px;font-size:12px;cursor:pointer;font-family:inherit;border-radius:999px;white-space:nowrap}
 .langseg button.on{background:var(--accent);color:#fff}
+@media(max-width:680px){.langbar{top:6px;right:6px}.langseg button{padding:5px 8px;font-size:11px}}
 
 </style>
 </head>
@@ -116,17 +115,14 @@ body.lang-zh .zh{display:inline}
 <div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 16px;font-size:13px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:99">
  <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">← Overview</span><span class="zh">← 总览</span></a>
  <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">Unit tests</span><span class="zh">单元测试</span></a>
- <span style="margin-left:auto;font-size:11px;color:#6b7280"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
 </div>
 
-<div class="langbar">
- <span class="lab">显示语言 · Language display</span>
+<div class="langbar" title="显示语言 · Language display — 随时可改 · change anytime">
  <span class="langseg">
-  <button data-lang="en" onclick="setLang('en')">English only · 全英文</button>
-  <button data-lang="mix" onclick="setLang('mix')">English + 中文 · 英文为主</button>
-  <button data-lang="zh" onclick="setLang('zh')">中文 + English · 中文为主</button>
+  <button data-lang="en" onclick="setLang('en')">English</button>
+  <button data-lang="mix" onclick="setLang('mix')">English + 中文</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文 + English</button>
  </span>
- <span class="lab" style="font-weight:400">随时可改 · change anytime</span>
 </div>
 
 <div class="wrap">
@@ -142,7 +138,8 @@ body.lang-zh .zh{display:inline}
 
 <div class="credit">
   <br>
-  A learning prototype (test site), for self-study practice.
+  A learning prototype (test site), for self-study practice.<br>
+  <span class="en">Video content from Khan Academy · CC BY-NC-SA</span><span class="zh">视频内容来自 Khan Academy · CC BY-NC-SA</span>
 </div>
 </div>
 
@@ -151,25 +148,25 @@ body.lang-zh .zh{display:inline}
 const VDIR = 'videos/Ch01_勾股定理/';
 const V = {
   k1: [
-    {f:'01_The Pythagorean theorem intro.mp4', t:'Intro to the Pythagorean theorem', c:'core'},
-    {f:'02_Pythagorean theorem.mp4', t:'Pythagorean theorem', c:'core'},
-    {f:'03_Pythagorean theorem 1.mp4', t:'Pythagorean theorem 1', c:'core'},
-    {f:'04_Pythagorean theorem 2.mp4', t:'Pythagorean theorem 2', c:'core'},
-    {f:'05_Pythagorean theorem 3.mp4', t:'Pythagorean theorem 3', c:'core'},
-    {f:'06_Bhaskara\'s proof of the Pythagorean theorem.mp4', t:"Bhaskara's proof", c:'ext'},
-    {f:'07_Another Pythagorean theorem proof.mp4', t:'Another proof', c:'ext'},
-    {f:'08_Garfield\'s proof of the Pythagorean theorem.mp4', t:"Garfield's proof", c:'ext'},
-    {f:'09_Pythagorean theorem proof using similarity.mp4', t:'Proof using similarity', c:'ext'}
+    {f:'01_The Pythagorean theorem intro.mp4', t:'Intro to the Pythagorean theorem', tz:'勾股定理入门', c:'core'},
+    {f:'02_Pythagorean theorem.mp4', t:'Pythagorean theorem', tz:'勾股定理', c:'core'},
+    {f:'03_Pythagorean theorem 1.mp4', t:'Pythagorean theorem 1', tz:'勾股定理（一）', c:'core'},
+    {f:'04_Pythagorean theorem 2.mp4', t:'Pythagorean theorem 2', tz:'勾股定理（二）', c:'core'},
+    {f:'05_Pythagorean theorem 3.mp4', t:'Pythagorean theorem 3', tz:'勾股定理（三）', c:'core'},
+    {f:'06_Bhaskara\'s proof of the Pythagorean theorem.mp4', t:"Bhaskara's proof", tz:'婆什迦罗的证明', c:'ext'},
+    {f:'07_Another Pythagorean theorem proof.mp4', t:'Another proof', tz:'另一种证明', c:'ext'},
+    {f:'08_Garfield\'s proof of the Pythagorean theorem.mp4', t:"Garfield's proof", tz:'加菲尔德的证明', c:'ext'},
+    {f:'09_Pythagorean theorem proof using similarity.mp4', t:'Proof using similarity', tz:'用相似三角形证明', c:'ext'}
   ],
   k2: [
-    {f:'10_Converse of Pythagoras Theorem.mp4', t:'Converse of Pythagoras Theorem', c:'core'}
+    {f:'10_Converse of Pythagoras Theorem.mp4', t:'Converse of Pythagoras Theorem', tz:'勾股定理的逆定理', c:'core'}
   ],
   k3: [
-    {f:'12_Pythagorean theorem in 3D.mp4', t:'Pythagorean theorem in 3D', c:'core'},
-    {f:'11_Distance formula.mp4', t:'Distance formula', c:'core'}
+    {f:'12_Pythagorean theorem in 3D.mp4', t:'Pythagorean theorem in 3D', tz:'三维空间中的勾股定理', c:'core'},
+    {f:'11_Distance formula.mp4', t:'Distance formula', tz:'两点间距离公式', c:'core'}
   ],
   k4: [
-    {f:'13_Algebraic midpoint of a segment exercise.mp4', t:'Midpoint of a segment', c:'ext'}
+    {f:'13_Algebraic midpoint of a segment exercise.mp4', t:'Midpoint of a segment', tz:'线段的中点', c:'ext'}
   ]
 };
 
@@ -193,6 +190,8 @@ function st(id){ return S[id] || (S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done
 function ri(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
 function pick(a){ return a[ri(0,a.length-1)]; }
 function gcd(a,b){ return b?gcd(b,a%b):a; }
+// Dual-language wrapper: in en mode shows English; mix shows English+small Chinese; zh shows Chinese+small English.
+function L(a,b){ return '<span class="en">'+a+'</span><span class="zh">'+(b==null?a:b)+'</span>'; }
 const PYTH=[[3,4,5],[5,12,13],[6,8,10],[7,24,25],[8,15,17],[9,12,15],[9,40,41],[10,24,26],[12,16,20],[15,20,25],[12,35,37],[11,60,61],[20,21,29],[18,24,30],[16,30,34],[21,28,35]];
 
 /* ============ Generative practice engine ============ */
@@ -209,16 +208,24 @@ function genQ(type,diff){
       do { m=ri(2,6); n=ri(1,m-1); a=m*m-n*n; b=2*m*n; c=m*m+n*n; guard++; } while(c>40 && guard<200);
       if(a>b){ const t=a; a=b; b=t; }
     }
-    return {q:`A right triangle has legs <b>a = ${a}</b> and <b>b = ${b}</b>. Find the hypotenuse <b>c</b>.<br><span class="cn-tag">The legs are ${a} and ${b}; find the hypotenuse.</span>`,
+    return {q:`A right triangle has legs <b>a = ${a}</b> and <b>b = ${b}</b>. Find the hypotenuse <b>c</b>.`,
+            zhq:`一个直角三角形的两条直角边分别是 <b>a = ${a}</b> 和 <b>b = ${b}</b>。求斜边 <b>c</b>。`,
             ans:c, unit:'',
-            sol:`c² = a² + b² = ${a}² + ${b}² = ${a*a} + ${b*b} = ${a*a+b*b}, so c = ${c}`};
+            hint:'Find the longest side (the hypotenuse) first, then use a² + b² = c².',
+            zhh:'先找最长的一边（斜边），再用 a² + b² = c² 计算。',
+            sol:`c² = a² + b² = ${a}² + ${b}² = ${a*a} + ${b*b} = ${a*a+b*b}, so c = ${c}`,
+            zhs:`c² = a² + b² = ${a}² + ${b}² = ${a*a} + ${b*b} = ${a*a+b*b}，所以 c = ${c}`};
   }
   if(type==='leg'){
     let p=pick(diff===1?PYTH.filter(x=>x[2]<=15):PYTH);
     let [a,b,c]=p; let give=(Math.random()<0.5)?a:b; let ask=(give===a)?b:a;
     return {q:`A right triangle has hypotenuse <b>c = ${c}</b> and one leg <b>${give}</b>. Find the other leg.`,
+            zhq:`一个直角三角形的斜边是 <b>c = ${c}</b>，一条直角边是 <b>${give}</b>。求另一条直角边。`,
             ans:ask,
-            sol:`Call the other leg x: x² + ${give}² = ${c}², so x² = ${c*c} − ${give*give} = ${c*c-give*give}, x = ${ask}`};
+            hint:'Use a² + b² = c², with the unknown leg as one of a or b.',
+            zhh:'用 a² + b² = c²，把未知直角边当作 a 或 b。',
+            sol:`Call the other leg x: x² + ${give}² = ${c}², so x² = ${c*c} − ${give*give} = ${c*c-give*give}, x = ${ask}`,
+            zhs:`设另一条直角边为 x：x² + ${give}² = ${c}²，则 x² = ${c*c} − ${give*give} = ${c*c-give*give}，x = ${ask}`};
   }
   if(type==='conv'){
     const p=pick(PYTH); let [a,b,c]=p;
@@ -228,44 +235,64 @@ function genQ(type,diff){
     else { let d=c+ri(1,3); arr=[a,b,d]; }
     // shuffle
     for(let i=arr.length-1;i>0;i--){ const j=ri(0,i); [arr[i],arr[j]]=[arr[j],arr[i]]; }
+    const mx=Math.max(...arr);
     return {q:`Do sides <b>${arr[0]}</b>, <b>${arr[1]}</b>, <b>${arr[2]}</b> form a right triangle?`,
+            zhq:`边长 <b>${arr[0]}</b>、<b>${arr[1]}</b>、<b>${arr[2]}</b> 能否组成直角三角形？`,
             ans:isRight?'Yes':'No', isRight:isRight, sides:arr,
+            hint:'Take the longest side as c. Check whether the other two squared add to c².',
+            zhh:'把最长边当作 c，看另外两边的平方和是否等于 c²。',
             sol:isRight? `${arr.slice().sort((x,y)=>x-y).join('² + ')}² : the other two squared add to ${Math.min(...arr)**2 + (arr.reduce((s,x)=>s+x,0)-Math.max(...arr)-Math.min(...arr))**2}; the largest side squared = ${Math.max(...arr)**2}; they are equal → it is a right triangle`
-                      : `The longest side ${Math.max(...arr)} squared = ${Math.max(...arr)**2}; the other two squared add to ${arr.filter(x=>x!==Math.max(...arr)).map(x=>x*x).join(' + ')} = ${arr.filter(x=>x!==Math.max(...arr)).reduce((s,x)=>s+x*x,0)}. They are not equal → not a right triangle`};
+                      : `The longest side ${mx} squared = ${mx**2}; the other two squared add to ${arr.filter(x=>x!==mx).map(x=>x*x).join(' + ')} = ${arr.filter(x=>x!==mx).reduce((s,x)=>s+x*x,0)}. They are not equal → not a right triangle`,
+            zhs:`最长边 ${mx} ${isRight?'作为斜边 c；另两边平方和等于 c²，所以是直角三角形。':'的平方 ≠ 另两边平方和，所以不是直角三角形。'}`};
   }
   if(type==='word'){
     const scenes=[
-      {cn:'Ladder against a wall', en:'A ladder of length L leans against a wall. Its foot is D from the wall. How high up the wall does it reach?', ask:'ladder'},
-      {cn:'Flagpole rope', en:'A flagpole is H tall. A rope is tied from the top to a stake D from the base. How long is the rope?', ask:'rope'},
-      {cn:'Broken bamboo', en:'A bamboo of total length L breaks so the top touches the ground D from the base. How high is the break?', ask:'bamboo'}
+      {cn:'Ladder against a wall', en:'A ladder of length L leans against a wall. Its foot is D from the wall. How high up the wall does it reach?', zh:'一架长为 L 的梯子靠在墙上，梯脚离墙 D。梯子顶端到达墙面多高？', ask:'ladder'},
+      {cn:'Flagpole rope', en:'A flagpole is H tall. A rope is tied from the top to a stake D from the base. How long is the rope?', zh:'一根 H 高的旗杆，从顶端拉一根绳子到离杆底 D 的木桩。绳子有多长？', ask:'rope'},
+      {cn:'Broken bamboo', en:'A bamboo of total length L breaks so the top touches the ground D from the base. How high is the break?', zh:'一根总长 L 的竹子折断，顶端落在离竹根 D 处。折断处离地多高？', ask:'bamboo'}
     ];
     const sc=pick(scenes);
     if(sc.ask==='ladder'){
       // the ladder is the hypotenuse: h² + d² = l²
       const p=pick(PYTH.filter(x=>x[2]<=25)); let [d,h,l]=p;
-      return {q:`${sc.en.replace('L',l).replace('D',d)}<br><span class="cn-tag">${sc.cn}: a ladder of length ${l}, foot ${d} from the wall. How high up the wall?</span>`,
-              ans:h, sol:`h² + ${d}² = ${l}², so h² = ${l*l} − ${d*d} = ${l*l-d*d}, h = ${h}`};
+      return {q:`${sc.en.replace('L',l).replace('D',d)}`,
+              zhq:`${sc.zh.replace('L',l).replace('D',d)}`,
+              ans:h,
+              hint:'The ladder is the hypotenuse: height² + distance² = ladder².',
+              zhh:'梯子是斜边：高² + 距离² = 梯长²。',
+              sol:`h² + ${d}² = ${l}², so h² = ${l*l} − ${d*d} = ${l*l-d*d}, h = ${h}`,
+              zhs:`h² + ${d}² = ${l}²，所以 h² = ${l*l} − ${d*d} = ${l*l-d*d}，h = ${h}`};
     } else if(sc.ask==='rope'){
       // the rope is the hypotenuse: r² = h² + d²
       const p=pick(PYTH.filter(x=>x[2]<=25)); let [d,h,r]=p;
-      return {q:`${sc.en.replace('H',h).replace('D',d)}<br><span class="cn-tag">${sc.cn}: pole ${h} tall, stake ${d} from the base. How long is the rope?</span>`,
-              ans:r, sol:`r² = ${h}² + ${d}² = ${h*h+d*d}, r = ${r}`};
+      return {q:`${sc.en.replace('H',h).replace('D',d)}`,
+              zhq:`${sc.zh.replace('H',h).replace('D',d)}`,
+              ans:r,
+              hint:'The rope is the hypotenuse: rope² = pole² + distance².',
+              zhh:'绳子是斜边：绳长² = 杆高² + 距离²。',
+              sol:`r² = ${h}² + ${d}² = ${h*h+d*d}, r = ${r}`,
+              zhs:`r² = ${h}² + ${d}² = ${h*h+d*d}，r = ${r}`};
     } else {
       // Bamboo: stands h tall, snaps, the top lands d from the base.
       // Broken part = L − h, and (L − h)² = h² + d². Using triple (d,h,c):
       // broken part = c, so the total length is L = h + c.
       const p=pick(PYTH.filter(x=>x[2]<=25)); let [d,h,c]=p;
       const l = h + c;
-      return {q:`${sc.en.replace('L',l).replace('D',d)}<br><span class="cn-tag">${sc.cn}: bamboo ${l} long, top touches the ground ${d} from the base. How high is the break?</span>`,
-              ans:h, sol:`Broken part = ${l} − h = ${c}. Then h² + ${d}² = ${c}², so h² = ${c*c} − ${d*d} = ${c*c-d*d}, h = ${h}`};
+      return {q:`${sc.en.replace('L',l).replace('D',d)}`,
+              zhq:`${sc.zh.replace('L',l).replace('D',d)}`,
+              ans:h,
+              hint:'Broken part = total − height; (total − height)² = height² + distance².',
+              zhh:'折断部分 = 总长 − 高度；(总长 − 高度)² = 高度² + 距离²。',
+              sol:`Broken part = ${l} − h = ${c}. Then h² + ${d}² = ${c}², so h² = ${c*c} − ${d*d} = ${c*c-d*d}, h = ${h}`,
+              zhs:`折断部分 = ${l} − h = ${c}。于是 h² + ${d}² = ${c}²，所以 h² = ${c*c} − ${d*d} = ${c*c-d*d}，h = ${h}`};
     }
   }
 }
 
 function renderQ(el,q,onAns,showHint){
-  el.innerHTML=`<div class="q"><div class="qt">${q.q}</div><div id="opts"></div>
-    <div class="row"><button class="ghost" id="hb">Hint</button></div>
-    <div class="hint" id="hint">${q.hint||'Find the longest side (the hypotenuse) first, then use a² + b² = c².'}</div>
+  el.innerHTML=`<div class="q"><div class="qt">${L(q.q,q.zhq)}</div><div id="opts"></div>
+    <div class="row"><button class="ghost" id="hb">${L('Hint','提示')}</button></div>
+    <div class="hint" id="hint">${L(q.hint||'Find the longest side (the hypotenuse) first, then use a² + b² = c².', q.zhh||'先找最长的一边（斜边），再用 a² + b² = c²。')}</div>
     <div class="fb" id="fb"></div></div>`;
   const od=el.querySelector('#opts');
   let opts; let tries=0;
@@ -279,30 +306,32 @@ function renderQ(el,q,onAns,showHint){
   opts.sort(()=>Math.random()-0.5);
   opts.forEach(o=>{
     const b=document.createElement('button');
-    b.className='opt'; b.innerHTML=String(o);
+    b.className='opt';
+    b.innerHTML=(o==='Yes')?L('Yes','是'):(o==='No')?L('No','否'):String(o);
+    b.dataset.val=String(o);
     b.onclick=()=>{
-      const ok = String(o)===String(q.ans);
+      const ok = b.dataset.val===String(q.ans);
       const fb=el.querySelector('#fb');
       if(ok){
         od.querySelectorAll('.opt').forEach(x=>x.disabled=true);
         b.classList.add('sel-ok');
         fb.className='fb ok';
-        fb.innerHTML='✓ Correct. '+q.sol;
+        fb.innerHTML=L('✓ Correct. '+q.sol, '✓ 对了。'+q.zhs);
         onAns(true);
       } else {
         tries++;
         b.classList.add('sel-bad'); b.disabled=true;
         if(tries===1){
           el.querySelector('#hint').classList.add('on');
-          fb.className='fb bad'; fb.textContent='✗ Try again. ';
+          fb.className='fb bad'; fb.innerHTML=L('✗ Try again. ','✗ 再试一次。');
         } else if(tries===2){
           fb.className='fb bad';
-          fb.textContent='✗ Not quite. '+(q.sol?('Method: '+q.sol):'Work through it once more.');
+          fb.innerHTML=L('✗ Not quite. '+(q.sol?('Method: '+q.sol):'Work through it once more.'), '✗ 不太对。'+(q.zhs?('方法：'+q.zhs):'再算一遍。'));
         } else {
           od.querySelectorAll('.opt').forEach(x=>x.disabled=true);
-          od.querySelectorAll('.opt').forEach(x=>{ if(x.innerHTML===String(q.ans)) x.classList.add('sel-ok'); });
+          od.querySelectorAll('.opt').forEach(x=>{ if(x.dataset.val===String(q.ans)) x.classList.add('sel-ok'); });
           fb.className='fb bad';
-          fb.innerHTML=`The answer is <b>${q.ans}</b>`+(q.sol?('. '+q.sol):'. ');
+          fb.innerHTML=L('The answer is <b>'+q.ans+'</b>'+(q.sol?('. '+q.sol):'. '), '答案是 <b>'+q.ans+'</b>'+(q.zhs?('。'+q.zhs):'。'));
           onAns(false);
         }
       }
@@ -455,7 +484,7 @@ function videos(el,list,id){
     <div class="lead"><span class="badge b-core"><span class="en">Core</span><span class="zh">核心</span></span> watch these first. <span class="badge b-ext"><span class="en">Extra</span><span class="zh">拓展</span></span> are different proofs of why it holds — only if you have time.</div>`;
   list.forEach((v,i)=>{
     const d=document.createElement('div'); d.className='vid-item';
-    d.innerHTML=`<div class="t"><b>${v.t}</b><small>${v.d||''}</small>
+    d.innerHTML=`<div class="t"><b>${L(v.t,v.tz)}</b><small>${v.d||''}</small>
       <span class="badge ${v.c==='core'?'b-core':'b-ext'}">${v.c==='core'?'Core':'Extra'}</span></div>`;
     const b=document.createElement('button'); b.className='ghost'; b.innerHTML='<span class="en">▶ Play</span><span class="zh">▶ 播放</span>';
     b.onclick=()=>{
