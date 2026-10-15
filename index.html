@@ -6,8 +6,8 @@
 <title>My learning map · Grade 8 math</title>
 <style>
 :root{
- --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
- --accent:#7c3aed; --ok:#16a34a; --err:#dc2626; --warn:#d97706;
+ --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#5b6472;
+ --accent:#7c3aed; --ok:#15803d; --err:#b91c1c; --warn:#b45309;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
@@ -27,7 +27,7 @@ header p{opacity:.93;font-size:13px}
 .step-card{background:rgba(255,255,255,.65);border-radius:10px;padding:10px 12px;border:1px solid rgba(252,211,77,.5)}
 .step-no{width:24px;height:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;margin-bottom:6px}
 .step-t{font-weight:600;font-size:13px;color:#1f2937;margin-bottom:3px}
-.step-d{font-size:12px;color:#6b7280;line-height:1.4}
+.step-d{font-size:12px;color:#5b6472;line-height:1.4}
 .welcome-cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .welcome-cta .big{font-size:15px;padding:11px 20px;background:#7c3aed;color:#fff;border-radius:9px;border:none;cursor:pointer;font-weight:600;font-family:inherit}
 .welcome-cta .big:hover{background:#6d28d9}
@@ -37,8 +37,8 @@ header p{opacity:.93;font-size:13px}
 /* ===== Language tiers (en / mix / zh) ===== */
 .zh{display:none}
 body.lang-en .zh{display:none}
-body.lang-mix .zh{display:inline;font-size:.82em;color:var(--muted);margin-left:6px;font-weight:400}
-body.lang-zh .en{display:inline;font-size:.78em;color:var(--muted);margin-left:6px;font-weight:400}
+body.lang-mix .zh{display:inline;font-size:.82em;margin-left:6px;font-weight:400}
+body.lang-zh .en{display:inline;font-size:.78em;margin-left:6px;font-weight:400}
 body.lang-zh .zh{display:inline}
 .langbar{position:fixed;top:8px;right:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
 .langseg{display:inline-flex}
@@ -73,7 +73,7 @@ h2 small{font-size:12px;color:var(--muted);font-weight:400}
 .kp.l1{background:#fef3c7;border-color:#fcd34d;color:#92400e}
 .kp.l2{background:#dbeafe;border-color:#93c5fd;color:#1e40af}
 .kp.l3{background:#dcfce7;border-color:#86efac;color:#166534}
-.kp.l4{background:#dcfce7;border-color:#16a34a;color:#14532d;font-weight:600}
+.kp.l4{background:#dcfce7;border-color:#15803d;color:#14532d;font-weight:600}
 .kp.l4::before{content:"✓ "}
 .mrow{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:auto;padding-top:10px;border-top:1px dashed var(--line)}
 .btns{display:flex;gap:8px;margin-top:10px}
@@ -226,15 +226,15 @@ th{font-size:11px;color:var(--muted);font-weight:600}
 const CH=[
  {k:'ch01',cn:'Pythagorean Theorem',cz:'勾股定理',en:'Pythagorean Theorem',p:4,c:'#7c3aed',
   L:[['k1','Exploring the theorem'],['k2','Is it a right triangle?'],['k3','Applications'],['k4','Strategy: reflect']],v:13},
- {k:'ch02',cn:'Real Numbers',cz:'实数',en:'Real Numbers',p:11,c:'#0891b2',
+ {k:'ch02',cn:'Real Numbers',cz:'实数',en:'Real Numbers',p:11,c:'#0e7490',
   L:[['k1','Irrational numbers'],['k2','Square roots'],['k3','Cube roots'],['k4','Estimating roots'],['k5','Using a calculator'],['k6','The real numbers'],['k7','Radicals'],['ext','Optional extra · Scientific notation']],v:34},
- {k:'ch03',cn:'Position & Coordinates',cz:'位置与坐标',en:'Position & Coordinates',p:5,c:'#059669',
+ {k:'ch03',cn:'Position & Coordinates',cz:'位置与坐标',en:'Position & Coordinates',p:5,c:'#047857',
   L:[['k1','Locating points'],['k2','The coordinate plane'],['k3','Reflections and coordinates'],['ext','Optional extra · Translations, rotations, dilations']],v:13},
- {k:'ch04',cn:'Linear Functions',cz:'一次函数',en:'Linear Functions',p:7,c:'#d97706',
+ {k:'ch04',cn:'Linear Functions',cz:'一次函数',en:'Linear Functions',p:7,c:'#b45309',
   L:[['k1','What is a function?'],['k2','Linear and proportional functions'],['k3','Graphs: slope and intercept'],['k4','Applications']],v:56},
- {k:'ch05',cn:'Systems of Equations',cz:'二元一次方程组',en:'Systems of Equations',p:9,c:'#dc2626',
+ {k:'ch05',cn:'Systems of Equations',cz:'二元一次方程组',en:'Systems of Equations',p:9,c:'#b91c1c',
   L:[['k1','What is a system?'],['k2','Substitution'],['k3','Elimination'],['k4','Word problems'],['k5','Systems and graphs']],v:36},
- {k:'ch06',cn:'Data Analysis',cz:'数据分析',en:'Data Analysis',p:6,c:'#db2777',
+ {k:'ch06',cn:'Data Analysis',cz:'数据分析',en:'Data Analysis',p:6,c:'#be185d',
   L:[['k1','Mean / median / mode'],['k2','Variance & standard deviation'],['k3','Box plots']],v:29},
  {k:'ch07',cn:'Proofs with Parallel Lines',cz:'平行线证明',en:'Proofs with Parallel Lines',p:7,c:'#4f46e5',
   L:[['k1','Why prove?'],['k2','Writing a proof'],['k3','Parallel lines: the tests'],['k4','Parallel lines: what follows'],['k5','Triangle angle sum']],v:15},
@@ -248,7 +248,7 @@ const UNITS=[
  {id:'fin',n:'Final challenge',cn:'All seven chapters mixed',ch:['ch01','ch02','ch03','ch04','ch05','ch06','ch07'],q:12},
 ];
 
-const LVC=['#e5e7eb','#fcd34d','#60a5fa','#34d399','#16a34a'];
+const LVC=['#e5e7eb','#fcd34d','#60a5fa','#34d399','#15803d'];
 const LVN=['Not started','Attempted','Familiar','Proficient','Mastered'];
 const LVN_ZH=['还没开始','接触过','比较熟','很熟练','已掌握'];
 
@@ -451,5 +451,12 @@ function applyLang(){
 }
 applyLang();
 </script>
-</body>
+<p style="text-align:center;font-size:11px;color:var(--muted);margin:26px 0 8px">
+ <span id="busuanzi_container_site_uv" style="display:none">
+  <span class="en">Visitors so far:&nbsp;</span><span class="zh">已经有&nbsp;</span>
+  <b id="busuanzi_value_site_uv">·</b><span class="zh">&nbsp;位访客来过这里</span>
+ </span>
+</p>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body></body>
 </html>
