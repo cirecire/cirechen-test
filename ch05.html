@@ -81,12 +81,11 @@ body.lang-en .zh{display:none}
 body.lang-mix .zh{display:inline;font-size:.82em;color:#6b7280;margin-left:6px;font-weight:400}
 body.lang-zh .en{display:inline;font-size:.78em;color:#6b7280;margin-left:6px;font-weight:400}
 body.lang-zh .zh{display:inline}
-.langbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px;font-size:13px}
-.langbar .lab{color:#6b7280;font-weight:600}
-.langseg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.langseg button{background:#fff;color:#1f2937;border:none;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit;border-right:1px solid var(--line)}
-.langseg button:last-child{border-right:none}
+.langbar{position:fixed;top:8px;right:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.langseg{display:inline-flex}
+.langseg button{background:transparent;color:#374151;border:none;padding:6px 11px;font-size:12px;cursor:pointer;font-family:inherit;border-radius:999px;white-space:nowrap}
 .langseg button.on{background:var(--accent);color:#fff}
+@media(max-width:680px){.langbar{top:6px;right:6px}.langseg button{padding:5px 8px;font-size:11px}}
 
 </style>
 </head>
@@ -94,17 +93,15 @@ body.lang-zh .zh{display:inline}
 <div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 16px;font-size:13px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:99">
  <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">← Overview</span><span class="zh">← 总览</span></a>
  <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">Unit tests</span><span class="zh">单元测试</span></a>
- <span style="margin-left:auto;font-size:11px;color:#6b7280"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
+ <span style="font-size:11px;color:#6b7280"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
 </div>
 
-<div class="langbar">
- <span class="lab">显示语言 · Language display</span>
+<div class="langbar" title="显示语言 · Language display — 随时可改 · change anytime">
  <span class="langseg">
-  <button data-lang="en" onclick="setLang('en')">English only · 全英文</button>
-  <button data-lang="mix" onclick="setLang('mix')">English + 中文 · 英文为主</button>
-  <button data-lang="zh" onclick="setLang('zh')">中文 + English · 中文为主</button>
+  <button data-lang="en" onclick="setLang('en')">English</button>
+  <button data-lang="mix" onclick="setLang('mix')">English + 中文</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文 + English</button>
  </span>
- <span class="lab" style="font-weight:400">随时可改 · change anytime</span>
 </div>
 
 <div class="wrap">
@@ -135,6 +132,7 @@ let cur='intro';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
 function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 function pick(a){return a[ri(0,a.length-1)];}
+function L(a,b){ return '<span class="en">'+a+'</span><span class="zh">'+(b==null?a:b)+'</span>'; }
 
 /* ===== Video list ===== */
 const VIDEOS={
@@ -341,15 +339,15 @@ function diag(el,lessonId,generator){
    save();renderNav();return;
   }
   const q=qs[i];
-  qEl.innerHTML=`<div class="q"><div class="q-text">${i+1}. ${q.q}</div><div style="display:flex;gap:8px"><input id="da" autocomplete="off"><button id="sub">Submit</button></div><div class="hint" id="ht"></div><div class="feedback" id="fb"></div></div>`;
+  qEl.innerHTML=`<div class="q"><div class="q-text">${i+1}. ${L(q.q,q.zhq)}</div><div style="display:flex;gap:8px"><input id="da" autocomplete="off"><button id="sub">Submit</button></div><div class="hint" id="ht"></div><div class="feedback" id="fb"></div></div>`;
   const input=qEl.querySelector('#da'),fb=qEl.querySelector('#fb'),ht=qEl.querySelector('#ht');
   input.focus();qEl.querySelector('#sub').onclick=check;input.onkeydown=e=>{if(e.key==='Enter')check();};
   function check(){
    const ans=input.value.trim();
    const correct=q.check(ans);
    if(correct===true){ok++;fb.className='feedback show ok';fb.textContent='✓';input.disabled=true;setTimeout(()=>{i++;show();},700);}
-   else if(correct==='hint'){ht.className='hint show';ht.textContent=q.hint;}
-   else{fb.className='feedback show err';fb.textContent='✗ Try again. ';}
+   else if(correct==='hint'){ht.className='hint show';ht.innerHTML=L(q.hint||'', q.zhh||'');}
+   else{fb.className='feedback show err';fb.innerHTML=L('✗ Try again. ','✗ 再试一次。');}
   }
  };
  show();
@@ -363,27 +361,35 @@ k1:()=>{
  const a2=ri(1,4),b2=ri(1,4),c2=a2*x+b2*y;
  const sol=[x,y];
  return {q:`Is (${x}, ${y}) a solution to the system:<br>${a1}x + ${b1}y = ${c1}<br>${a2}x + ${b2}y = ${c2}<br>Answer "yes" or "no".`,
+   zhq:`(${x}, ${y}) 是这个方程组的解吗？<br>${a1}x + ${b1}y = ${c1}<br>${a2}x + ${b2}y = ${c2}<br>回答 "yes" 或 "no"。`,
    check:a=>{const ans=a.toLowerCase().trim();return ans==='yes'||ans==='y'||ans==='yes';},
-   ans:'yes',hint:`Plug in: ${a1}·${x} + ${b1}·${y} = ${c1}? and ${a2}·${x} + ${b2}·${y} = ${c2}?`};
+   ans:'yes',hint:`Plug in: ${a1}·${x} + ${b1}·${y} = ${c1}? and ${a2}·${x} + ${b2}·${y} = ${c2}?`,
+   zhh:`代入检验：${a1}·${x} + ${b1}·${y} = ${c1}？以及 ${a2}·${x} + ${b2}·${y} = ${c2}？`};
 },
 k2:()=>{
  const y=ri(1,5);
  const x=ri(1,5);
   return {q:`Solve: y = x + ${y - x}, and 3x + y = ${3*x + y}. Find x.`,
-   check:v=>parseInt(v)===x,ans:String(x),hint:`Replace y with x + ${y-x} in 3x + y = ${3*x+y}, then solve 4x + ${y-x} = ${3*x+y}.`};
+   zhq:`解方程组：y = x + ${y-x}，且 3x + y = ${3*x+y}。求 x。`,
+   check:v=>parseInt(v)===x,ans:String(x),hint:`Replace y with x + ${y-x} in 3x + y = ${3*x+y}, then solve 4x + ${y-x} = ${3*x+y}.`,
+   zhh:`把 y 换成 x + ${y-x} 代入 3x + y = ${3*x+y}，再解 4x + ${y-x} = ${3*x+y}。`};
 },
 k3:()=>{
  const x=ri(2,5),y=ri(1,4);
   return {q:`Add the two equations:<br>x + 2y = ${x+2*y}<br>3x − 2y = ${3*x-2*y}<br>Find x.`,
-   check:a=>parseInt(a)===x,ans:String(x),hint:`Add: 4x = ${(x+2*y)+(3*x-2*y)}.`};
+   zhq:`把两个方程相加：<br>x + 2y = ${x+2*y}<br>3x − 2y = ${3*x-2*y}<br>求 x。`,
+   check:a=>parseInt(a)===x,ans:String(x),hint:`Add: 4x = ${(x+2*y)+(3*x-2*y)}.`,
+   zhh:`相加得：4x = ${(x+2*y)+(3*x-2*y)}。`};
 },
 k4:()=>{
  // chickens and rabbits variant
  const chickens=ri(5,15),rabbits=ri(3,8);
  const total=chickens+rabbits,feet=2*chickens+4*rabbits;
  return {q:`Chickens and rabbits: ${total} heads, ${feet} feet. How many rabbits? (number only)`,
+   zhq:`鸡兔同笼：共 ${total} 个头，${feet} 只脚。兔子有多少只？（只填数字）`,
    check:a=>parseInt(a)===rabbits,ans:String(rabbits),
-   hint:`Let x=chickens, y=rabbits. x+y=${total}, 2x+4y=${feet}. Solve for y.`};
+   hint:`Let x=chickens, y=rabbits. x+y=${total}, 2x+4y=${feet}. Solve for y.`,
+   zhh:`设 x=鸡，y=兔。x+y=${total}，2x+4y=${feet}。解出 y。`};
 },
 k5:()=>{
  const x=ri(1,4),y=ri(1,4);
@@ -391,7 +397,9 @@ k5:()=>{
  // lines different slopes, and then they no longer meet at (x, y)
  const m=ri(1,3), n=ri(1,3);
  return {q:`Two lines: y = ${m}x + ${y-m*x} and y = −${n}x + ${y+n*x}. They cross at x = ${x}. Find y.`,
-   check:v=>parseInt(v)===y,ans:String(y),hint:`Plug x=${x} into either equation.`};
+   zhq:`两条直线：y = ${m}x + ${y-m*x} 与 y = −${n}x + ${y+n*x}。它们在 x = ${x} 处相交。求 y。`,
+   check:v=>parseInt(v)===y,ans:String(y),hint:`Plug x=${x} into either equation.`,
+   zhh:`把 x=${x} 代入任意一个方程。`};
 },
 };
 
@@ -403,7 +411,7 @@ function videos(el,lessonId){
  html+=`<div class="box"><p style="font-size:13px;color:var(--muted)"><span class="tag core">Watch first</span> watch first; <span class="tag ext">Optional</span> if you have time.</p></div>`;
  list.forEach((v,i)=>{
   const watched=st(lessonId).vid[i];
-  html+=`<div class="vid"><div class="vid-h"><span class="title">${v.t}</span><span class="meta"><span class="tag ${v.c}"><span class="en">${v.c==='core'?'Core':'Extra'}</span><span class="zh">${v.c==='core'?'核心':'拓展'}</span></span><span class="st ${watched?'ok':''}">${watched?'✓':'Unwatched'}</span><button data-i="${i}">${watched?'<span class="en">▶ Replay</span><span class="zh">▶ 重播</span>':'<span class="en">▶ Play</span><span class="zh">▶ 播放</span>'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
+  html+=`<div class="vid"><div class="vid-h"><span class="title">${L(v.t,(typeof VTZ!=='undefined'&&VTZ[v.t])||v.t)}</span><span class="meta"><span class="tag ${v.c}"><span class="en">${v.c==='core'?'Core':'Extra'}</span><span class="zh">${v.c==='core'?'核心':'拓展'}</span></span><span class="st ${watched?'ok':''}">${watched?'✓':'Unwatched'}</span><button data-i="${i}">${watched?'<span class="en">▶ Replay</span><span class="zh">▶ 重播</span>':'<span class="en">▶ Play</span><span class="zh">▶ 播放</span>'}</button></span></div><div id="vc${i}" style="display:${watched?'block':'none'}"><video controls preload="none" style="width:100%;background:#000" src="${encodeURI(VDIR+v.f)}"></video></div></div>`;
  });
  el.innerHTML=html;
  el.querySelectorAll('[data-i]').forEach(b=>{
@@ -433,24 +441,24 @@ function practice(el,lessonId){
    const r=q.check(a);
    if(r===true){
     streak++;s.prac.ok++;s.prac.tot++;
-    fb.className='feedback show ok';fb.textContent='✓ correct!';
+    fb.className='feedback show ok';fb.innerHTML=L('✓ correct!','✓ 对了！');
     inp.disabled=true;
     syncTop();
-    if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>Section cleared ✓</strong>';save();renderNav();}
+    if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>'+L('Section cleared ✓','本节过关 ✓')+'</strong>';save();renderNav();}
     setTimeout(()=>{q=gen();tries=0;update();},900);
    } else {
     tries++;
     if(tries===1){
-     ht.className='hint show';ht.textContent=q.hint||'Have another go.';
-     fb.className='feedback show err';fb.textContent='✗ Try again. ';
+     ht.className='hint show';ht.innerHTML=L(q.hint||'Have another go.', q.zhh||'再试一次。');
+     fb.className='feedback show err';fb.innerHTML=L('✗ Try again. ','✗ 再试一次。');
     } else if(tries===2){
      fb.className='feedback show err';
-     fb.textContent='✗ Not quite. '+(q.sol?('Method: '+q.sol):(q.hint?('Hint: '+q.hint):'Work through it once more.'));
+     fb.innerHTML=L('✗ Not quite. '+(q.sol?('Method: '+q.sol):(q.hint?('Hint: '+q.hint):'Work through it once more.')), '✗ 不太对。'+(q.zhs?('方法：'+q.zhs):(q.zhh?('提示：'+q.zhh):'再算一遍。')));
     } else {
      streak=0;s.prac.tot++;syncTop();
      
      fb.className='feedback show err';
-     fb.innerHTML=`The answer is <b>${q.ans}</b>`+(q.sol?('. '+q.sol):'. ');
+     fb.innerHTML=L('The answer is <b>'+q.ans+'</b>'+(q.sol?('. '+q.sol):'. '), '答案是 <b>'+q.ans+'</b>'+(q.zhs?('。'+q.zhs):'。'));
      inp.disabled=true;save();renderNav();
      setTimeout(()=>{q=gen();tries=0;update();},2400);
     }
@@ -474,13 +482,13 @@ function chTest(el){
  const show=()=>{
   if(i>=qs.length){tq.innerHTML=`<div class="note" style="background:${ok>=7?'#dcfce7':'#fef3c7'};border-color:${ok>=7?'var(--ok)':'var(--warn)'}"><strong>${ok}/${qs.length}</strong> ${ok>=7?'Chapter passed!':'Go back and review'}</div>`;S.test={ok,tot:qs.length};save();renderNav();return;}
   const q=qs[i];
-  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div style="display:flex;gap:8px"><input id="ti"><button id="ts"><span class="en">Submit</span><span class="zh">提交</span></button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
+  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${L(q.q,q.zhq)}</div><div style="display:flex;gap:8px"><input id="ti"><button id="ts"><span class="en">Submit</span><span class="zh">提交</span></button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
   const inp=tq.querySelector('#ti'),fb=tq.querySelector('#tf'),ht=tq.querySelector('#th');
   inp.focus();tq.querySelector('#ts').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
   function check(){
    const r=q.check(inp.value.trim());
    if(r===true){ok++;fb.className='feedback show ok';fb.textContent='✓';inp.disabled=true;setTimeout(()=>{i++;show();},600);}
-   else if(r==='hint'){ht.className='hint show';ht.textContent=q.hint;}
+   else if(r==='hint'){ht.className='hint show';ht.innerHTML=L(q.hint||'', q.zhh||'');}
    else{fb.className='feedback show err';fb.textContent='✗';setTimeout(()=>{i++;show();},900);}
   }
  };
