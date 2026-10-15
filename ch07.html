@@ -6,8 +6,8 @@
 <title>Chapter 7 · Proof with parallel lines</title>
 <style>
 :root{
- --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
- --accent:#7c3aed; --ok:#16a34a; --err:#dc2626; --warn:#d97706;
+ --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#5b6472;
+ --accent:#7c3aed; --ok:#15803d; --err:#b91c1c; --warn:#b45309;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
@@ -55,8 +55,8 @@ input[type=text]{padding:10px 12px;font-size:15px;border:1px solid var(--line);b
 svg{max-width:100%;display:block;margin:0 auto}
 .num{color:var(--accent);font-weight:600}
 .proof{background:#fff;border:2px solid #7c3aed;border-radius:8px;padding:14px;margin:10px 0;font-family:"Courier New",monospace;font-size:14px;line-height:1.9}
-.proof .yin{color:#16a34a;font-weight:600;margin-right:6px}
-.proof .yj{color:#dc2626;font-weight:600;margin-right:6px}
+.proof .yin{color:#15803d;font-weight:600;margin-right:6px}
+.proof .yj{color:#b91c1c;font-weight:600;margin-right:6px}
 .proof .row{display:flex;gap:8px;padding:2px 0}
 .proof .step-row{flex:1}
 .proof .reason{color:var(--muted);font-style:italic;width:200px;text-align:right}
@@ -80,8 +80,8 @@ svg{max-width:100%;display:block;margin:0 auto}
 /* ===== Language tiers (en / mix / zh) ===== */
 .zh{display:none}
 body.lang-en .zh{display:none}
-body.lang-mix .zh{display:inline;font-size:.82em;color:#6b7280;margin-left:6px;font-weight:400}
-body.lang-zh .en{display:inline;font-size:.78em;color:#6b7280;margin-left:6px;font-weight:400}
+body.lang-mix .zh{display:inline;font-size:.82em;margin-left:6px;font-weight:400}
+body.lang-zh .en{display:inline;font-size:.78em;margin-left:6px;font-weight:400}
 body.lang-zh .zh{display:inline}
 .langbar{position:fixed;top:8px;right:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
 .langseg{display:inline-flex}
@@ -95,7 +95,7 @@ body.lang-zh .zh{display:inline}
 <div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 16px;font-size:13px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:99">
  <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">← Overview</span><span class="zh">← 总览</span></a>
  <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">Unit tests</span><span class="zh">单元测试</span></a>
- <span style="font-size:11px;color:#6b7280"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
+ <span style="font-size:11px;color:#5b6472"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
 </div>
 
 <div class="langbar" title="显示语言 · Language display — 随时可改 · change anytime">
@@ -242,16 +242,16 @@ function microK3(el){
    <svg viewBox="0 0 400 200" style="background:#fafafa;border-radius:6px">
     <line x1="50" y1="60" x2="350" y2="60" stroke="#374151" stroke-width="2"/>
     <line x1="50" y1="140" x2="350" y2="140" stroke="#374151" stroke-width="2"/>
-    <line x1="180" y1="20" x2="240" y2="180" stroke="#dc2626" stroke-width="2"/>
+    <line x1="180" y1="20" x2="240" y2="180" stroke="#b91c1c" stroke-width="2"/>
     <text x="320" y="55" font-size="12" fill="#374151">a</text>
     <text x="320" y="135" font-size="12" fill="#374151">b</text>
-    <text x="245" y="25" font-size="12" fill="#dc2626">c</text>
-    <circle cx="200" cy="60" r="14" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-    <circle cx="220" cy="140" r="14" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+    <text x="245" y="25" font-size="12" fill="#b91c1c">c</text>
+    <circle cx="200" cy="60" r="14" fill="#fef3c7" stroke="#b45309" stroke-width="1"/>
+    <circle cx="220" cy="140" r="14" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
     <text x="200" y="55" font-size="10" text-anchor="middle">①</text>
     <text x="220" y="135" font-size="10" text-anchor="middle">②</text>
-    <text x="170" y="100" font-size="11" fill="#6b7280">corresponding</text>
-    <text x="280" y="100" font-size="11" fill="#6b7280">alternate interior</text>
+    <text x="170" y="100" font-size="11" fill="#5b6472">corresponding</text>
+    <text x="280" y="100" font-size="11" fill="#5b6472">alternate interior</text>
    </svg>
   </div>
   <div class="box" style="background:#fffbeb">
@@ -533,5 +533,12 @@ render();
 <script>
 (function(){try{if(new URLSearchParams(location.search).get('go')==='test'){cur='test';render();}}catch(e){}})();
 </script>
-</body>
+<p style="text-align:center;font-size:11px;color:var(--muted);margin:26px 0 8px">
+ <span id="busuanzi_container_site_uv" style="display:none">
+  <span class="en">Visitors so far:&nbsp;</span><span class="zh">已经有&nbsp;</span>
+  <b id="busuanzi_value_site_uv">·</b><span class="zh">&nbsp;位访客来过这里</span>
+ </span>
+</p>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body></body>
 </html>
