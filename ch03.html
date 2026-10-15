@@ -6,8 +6,8 @@
 <title>Chapter 3 · Position and coordinates</title>
 <style>
 :root{
- --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280;
- --accent:#7c3aed; --ok:#16a34a; --err:#dc2626; --warn:#d97706;
+ --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#5b6472;
+ --accent:#7c3aed; --ok:#15803d; --err:#b91c1c; --warn:#b45309;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
@@ -88,8 +88,8 @@ svg line,svg path{transition:stroke .3s,opacity .3s}
 /* ===== Language tiers (en / mix / zh) ===== */
 .zh{display:none}
 body.lang-en .zh{display:none}
-body.lang-mix .zh{display:inline;font-size:.82em;color:#6b7280;margin-left:6px;font-weight:400}
-body.lang-zh .en{display:inline;font-size:.78em;color:#6b7280;margin-left:6px;font-weight:400}
+body.lang-mix .zh{display:inline;font-size:.82em;margin-left:6px;font-weight:400}
+body.lang-zh .en{display:inline;font-size:.78em;margin-left:6px;font-weight:400}
 body.lang-zh .zh{display:inline}
 .langbar{position:fixed;top:8px;right:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
 .langseg{display:inline-flex}
@@ -103,7 +103,7 @@ body.lang-zh .zh{display:inline}
 <div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 16px;font-size:13px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:99">
  <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">← Overview</span><span class="zh">← 总览</span></a>
  <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">Unit tests</span><span class="zh">单元测试</span></a>
- <span style="font-size:11px;color:#6b7280"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
+ <span style="font-size:11px;color:#5b6472"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
 </div>
 
 <div class="langbar" title="显示语言 · Language display — 随时可改 · change anytime">
@@ -231,17 +231,17 @@ function microK2(el){
      <line x1="${X(0)}" y1="460" x2="${X(0)}" y2="20" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
      <text x="455" y="${Y(0)-6}" font-size="14" fill="#374151">x</text>
      <text x="${X(0)+8}" y="20" font-size="14" fill="#374151">y</text>
-     <text x="${X(0)-5}" y="${Y(0)+14}" font-size="11" fill="#6b7280">O</text>
-     ${[-4,-3,-2,-1,1,2,3,4].map(i=>`<line x1="${X(i)}" y1="${Y(0)-3}" x2="${X(i)}" y2="${Y(0)+3}" stroke="#9ca3af"/><text x="${X(i)-3}" y="${Y(0)+15}" font-size="10" fill="#6b7280">${i}</text>`).join('')}
-     ${[-4,-3,-2,-1,1,2,3,4].map(i=>`<line x1="${X(0)-3}" y1="${Y(i)}" x2="${X(0)+3}" y2="${Y(i)}" stroke="#9ca3af"/><text x="${X(0)-15}" y="${Y(i)+4}" font-size="10" fill="#6b7280">${i}</text>`).join('')}
+     <text x="${X(0)-5}" y="${Y(0)+14}" font-size="11" fill="#5b6472">O</text>
+     ${[-4,-3,-2,-1,1,2,3,4].map(i=>`<line x1="${X(i)}" y1="${Y(0)-3}" x2="${X(i)}" y2="${Y(0)+3}" stroke="#9ca3af"/><text x="${X(i)-3}" y="${Y(0)+15}" font-size="10" fill="#5b6472">${i}</text>`).join('')}
+     ${[-4,-3,-2,-1,1,2,3,4].map(i=>`<line x1="${X(0)-3}" y1="${Y(i)}" x2="${X(0)+3}" y2="${Y(i)}" stroke="#9ca3af"/><text x="${X(0)-15}" y="${Y(i)+4}" font-size="10" fill="#5b6472">${i}</text>`).join('')}
      ${q}
      <line x1="${X(0)}" y1="${Y(0)}" x2="${X(px)}" y2="${Y(py)}" stroke="#7c3aed" stroke-width="2" stroke-dasharray="4 3"/>
-     <line x1="${X(px)}" y1="${Y(0)}" x2="${X(px)}" y2="${Y(py)}" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3"/>
-     <line x1="${X(0)}" y1="${Y(py)}" x2="${X(px)}" y2="${Y(py)}" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="3 3"/>
+     <line x1="${X(px)}" y1="${Y(0)}" x2="${X(px)}" y2="${Y(py)}" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="3 3"/>
+     <line x1="${X(0)}" y1="${Y(py)}" x2="${X(px)}" y2="${Y(py)}" stroke="#15803d" stroke-width="1.5" stroke-dasharray="3 3"/>
      <circle cx="${X(px)}" cy="${Y(py)}" r="8" fill="#7c3aed" stroke="#fff" stroke-width="2" id="dotP"/>
      <text x="${X(px)+12}" y="${Y(py)-8}" font-size="14" font-weight="bold" fill="#7c3aed">P(${px}, ${py})</text>
-     <text x="${X(px/2)-12}" y="${Y(0)-6}" font-size="11" fill="#dc2626">x=${px}</text>
-     <text x="${X(0)+8}" y="${Y(py/2)+4}" font-size="11" fill="#16a34a">y=${py}</text>
+     <text x="${X(px/2)-12}" y="${Y(0)-6}" font-size="11" fill="#b91c1c">x=${px}</text>
+     <text x="${X(0)+8}" y="${Y(py/2)+4}" font-size="11" fill="#15803d">y=${py}</text>
     </svg>
     <div class="box" style="margin-top:14px;background:#fef3c7">
      <h3 id="quadrantInfo">Quadrant analysis</h3>
@@ -294,15 +294,15 @@ function microK3(el){
      <line x1="${X(0)}" y1="460" x2="${X(0)}" y2="20" stroke="#374151" stroke-width="2" marker-end="url(#arr3)"/>
      <text x="455" y="${Y(0)-6}" font-size="14" fill="#374151">x</text>
      <text x="${X(0)+8}" y="20" font-size="14" fill="#374151">y</text>
-     ${[-4,-3,-2,-1,1,2,3,4].map(i=>`<line x1="${X(i)}" y1="${Y(0)-3}" x2="${X(i)}" y2="${Y(0)+3}" stroke="#9ca3af"/><text x="${X(i)-3}" y="${Y(0)+15}" font-size="10" fill="#6b7280">${i}</text>`).join('')}
-     ${[-4,-3,-2,-1,1,2,3,4].map(i=>`<line x1="${X(0)-3}" y1="${Y(i)}" x2="${X(0)+3}" y2="${Y(i)}" stroke="#9ca3af"/><text x="${X(0)-15}" y="${Y(i)+4}" font-size="10" fill="#6b7280">${i}</text>`).join('')}
-     ${axis==='x'?`<line x1="20" y1="${Y(0)}" x2="460" y2="${Y(0)}" stroke="#d97706" stroke-width="3" opacity=".6"/>`:''}
-     ${axis==='y'?`<line x1="${X(0)}" y1="20" x2="${X(0)}" y2="460" stroke="#d97706" stroke-width="3" opacity=".6"/>`:''}
+     ${[-4,-3,-2,-1,1,2,3,4].map(i=>`<line x1="${X(i)}" y1="${Y(0)-3}" x2="${X(i)}" y2="${Y(0)+3}" stroke="#9ca3af"/><text x="${X(i)-3}" y="${Y(0)+15}" font-size="10" fill="#5b6472">${i}</text>`).join('')}
+     ${[-4,-3,-2,-1,1,2,3,4].map(i=>`<line x1="${X(0)-3}" y1="${Y(i)}" x2="${X(0)+3}" y2="${Y(i)}" stroke="#9ca3af"/><text x="${X(0)-15}" y="${Y(i)+4}" font-size="10" fill="#5b6472">${i}</text>`).join('')}
+     ${axis==='x'?`<line x1="20" y1="${Y(0)}" x2="460" y2="${Y(0)}" stroke="#b45309" stroke-width="3" opacity=".6"/>`:''}
+     ${axis==='y'?`<line x1="${X(0)}" y1="20" x2="${X(0)}" y2="460" stroke="#b45309" stroke-width="3" opacity=".6"/>`:''}
      <line x1="${X(px)}" y1="${Y(py)}" x2="${X(rx)}" y2="${Y(ry)}" stroke="#7c3aed" stroke-width="2" stroke-dasharray="4 3"/>
      <circle cx="${X(px)}" cy="${Y(py)}" r="8" fill="#7c3aed" stroke="#fff" stroke-width="2"/>
-     <circle cx="${X(rx)}" cy="${Y(ry)}" r="8" fill="#dc2626" stroke="#fff" stroke-width="2"/>
+     <circle cx="${X(rx)}" cy="${Y(ry)}" r="8" fill="#b91c1c" stroke="#fff" stroke-width="2"/>
      <text x="${X(px)+12}" y="${Y(py)-8}" font-size="13" font-weight="bold" fill="#7c3aed">P(${px},${py})</text>
-     <text x="${X(rx)+12}" y="${Y(ry)-8}" font-size="13" font-weight="bold" fill="#dc2626">P'(${rx},${ry})</text>
+     <text x="${X(rx)+12}" y="${Y(ry)-8}" font-size="13" font-weight="bold" fill="#b91c1c">P'(${rx},${ry})</text>
     </svg>
     <div class="box" style="margin-top:14px;background:#dbeafe">
      <h3>The pattern</h3>
@@ -671,5 +671,12 @@ render();
 <script>
 (function(){try{if(new URLSearchParams(location.search).get('go')==='test'){cur='test';render();}}catch(e){}})();
 </script>
-</body>
+<p style="text-align:center;font-size:11px;color:var(--muted);margin:26px 0 8px">
+ <span id="busuanzi_container_site_uv" style="display:none">
+  <span class="en">Visitors so far:&nbsp;</span><span class="zh">已经有&nbsp;</span>
+  <b id="busuanzi_value_site_uv">·</b><span class="zh">&nbsp;位访客来过这里</span>
+ </span>
+</p>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body></body>
 </html>
