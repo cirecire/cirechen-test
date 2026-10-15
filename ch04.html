@@ -95,12 +95,11 @@ body.lang-en .zh{display:none}
 body.lang-mix .zh{display:inline;font-size:.82em;color:#6b7280;margin-left:6px;font-weight:400}
 body.lang-zh .en{display:inline;font-size:.78em;color:#6b7280;margin-left:6px;font-weight:400}
 body.lang-zh .zh{display:inline}
-.langbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px;font-size:13px}
-.langbar .lab{color:#6b7280;font-weight:600}
-.langseg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.langseg button{background:#fff;color:#1f2937;border:none;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit;border-right:1px solid var(--line)}
-.langseg button:last-child{border-right:none}
+.langbar{position:fixed;top:8px;right:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.langseg{display:inline-flex}
+.langseg button{background:transparent;color:#374151;border:none;padding:6px 11px;font-size:12px;cursor:pointer;font-family:inherit;border-radius:999px;white-space:nowrap}
 .langseg button.on{background:var(--accent);color:#fff}
+@media(max-width:680px){.langbar{top:6px;right:6px}.langseg button{padding:5px 8px;font-size:11px}}
 
 </style>
 </head>
@@ -108,17 +107,15 @@ body.lang-zh .zh{display:inline}
 <div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 16px;font-size:13px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:99">
  <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">← Overview</span><span class="zh">← 总览</span></a>
  <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">Unit tests</span><span class="zh">单元测试</span></a>
- <span style="margin-left:auto;font-size:11px;color:#6b7280"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
+ <span style="font-size:11px;color:#6b7280"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
 </div>
 
-<div class="langbar">
- <span class="lab">显示语言 · Language display</span>
+<div class="langbar" title="显示语言 · Language display — 随时可改 · change anytime">
  <span class="langseg">
-  <button data-lang="en" onclick="setLang('en')">English only · 全英文</button>
-  <button data-lang="mix" onclick="setLang('mix')">English + 中文 · 英文为主</button>
-  <button data-lang="zh" onclick="setLang('zh')">中文 + English · 中文为主</button>
+  <button data-lang="en" onclick="setLang('en')">English</button>
+  <button data-lang="mix" onclick="setLang('mix')">English + 中文</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文 + English</button>
  </span>
- <span class="lab" style="font-weight:400">随时可改 · change anytime</span>
 </div>
 
 <div class="wrap">
@@ -148,6 +145,7 @@ let cur='intro';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
 function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 function pick(a){return a[ri(0,a.length-1)];}
+function L(a,b){ return '<span class="en">'+a+'</span><span class="zh">'+(b==null?a:b)+'</span>'; }
 
 /* ===== Video list (4 topics) ===== */
 const VIDEOS={
@@ -419,7 +417,7 @@ function diag(el,lessonId,generator){
   const q=qs[i];
   qEl.innerHTML=`
    <div class="q">
-    <div class="q-text">${i+1}. ${q.q}</div>
+    <div class="q-text">${i+1}. ${L(q.q,q.zhq)}</div>
     
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
      <input type="text" id="da" autocomplete="off" placeholder="?"> <button id="sub"><span class="en">Submit</span><span class="zh">提交</span></button>
@@ -434,9 +432,9 @@ function diag(el,lessonId,generator){
   function check(){
    const ans=input.value.trim();
    const correct=q.check(ans);
-   if(correct===true){ok++;fb.className='feedback show ok';fb.textContent='✓ Correct · correct';input.disabled=true;setTimeout(()=>{i++;show();},700);}
-   else if(correct==='hint'){ht.className='hint show';ht.textContent=q.hint||'Have another go.';}
-   else{fb.className='feedback show err';fb.textContent='✗ Not right, try again.';}
+   if(correct===true){ok++;fb.className='feedback show ok';fb.innerHTML=L('✓ Correct · correct','✓ 正确 · 对了');input.disabled=true;setTimeout(()=>{i++;show();},700);}
+   else if(correct==='hint'){ht.className='hint show';ht.innerHTML=L(q.hint||'Have another go.', q.zhh||'再试一次。');}
+   else{fb.className='feedback show err';fb.innerHTML=L('✗ Not right, try again.','✗ 不对，再试一次。');}
   }
  };
  show();
@@ -452,20 +450,23 @@ k1:()=>{
   const ftype=['y='+a+'x+'+b,'y=x²','x='+ri(1,3)][eq%3];
   const isFunc=eq%3!==0; // x=const not function
   return {q:`Is ${ftype} a function? Answer "yes" or "no".`,
+   zhq:`${ftype} 是函数吗？回答 "yes" 或 "no"。`,
    check:a=>{const ans=a.toLowerCase().trim();return (isFunc&&(ans==='yes'||ans==='y'||ans==='yes'))||(!isFunc&&(ans==='no'||ans==='n'||ans==='no'));},
-   ans:isFunc?'yes':'no',hint:'A vertical line x=const has one x with many y — not a function.'};
+   ans:isFunc?'yes':'no',hint:'A vertical line x=const has one x with many y — not a function.',zhh:'竖直线 x=常数 时，一个 x 对应多个 y —— 不是函数。'};
  } else if(type===2){
   const a=ri(2,5),b=ri(-3,3);
   const x=ri(1,4);
   return {q:`If f(x) = ${a}x + ${b}, what is f(${x})?`,
+   zhq:`若 f(x) = ${a}x + ${b}，那么 f(${x}) 等于多少？`,
    // NB: do NOT name the parameter `a` — it would shadow the coefficient above
    // and the checker would compare against the child's own input.
-   check:v=>parseInt(v)===a*x+b,ans:String(a*x+b),hint:`f(${x}) = ${a}*${x} + ${b}`};
+   check:v=>parseInt(v)===a*x+b,ans:String(a*x+b),hint:`f(${x}) = ${a}*${x} + ${b}`,zhh:`f(${x}) = ${a}*${x} + ${b}`};
  } else {
   // vertical line test
   return {q:`Does the circle x²+y²=1 pass the vertical line test? Answer "yes" or "no".`,
+   zhq:`圆 x²+y²=1 是否通过竖直线检验？回答 "yes" 或 "no"。`,
    check:a=>{const ans=a.toLowerCase().trim();return ans==='no'||ans==='n'||ans==='no';},
-   ans:'no',hint:'At x=0, y can be +1 or −1 — two outputs, not a function.'};
+   ans:'no',hint:'At x=0, y can be +1 or −1 — two outputs, not a function.',zhh:'在 x=0 处，y 可以是 +1 或 −1 —— 有两个输出值，所以不是函数。'};
  }
 },
 k2:()=>{
@@ -474,7 +475,8 @@ k2:()=>{
   const k=ri(-3,3),b=ri(-3,3);
   const x=ri(-2,2);
   return {q:`If y = ${k}x + ${b}, what is y when x = ${x}?`,
-   check:a=>parseInt(a)===k*x+b,ans:String(k*x+b),hint:`y = ${k}*${x} + ${b}`};
+   zhq:`若 y = ${k}x + ${b}，当 x = ${x} 时，y 是多少？`,
+   check:a=>parseInt(a)===k*x+b,ans:String(k*x+b),hint:`y = ${k}*${x} + ${b}`,zhh:`y = ${k}*${x} + ${b}`};
  } else {
   // which is linear
   const isLinear=ri(0,1);
@@ -482,8 +484,9 @@ k2:()=>{
   const eqsNotLinear=['y=x²','y=1/x','y=√x'];
   const eq=isLinear?pick(eqsLinear):pick(eqsNotLinear);
   return {q:`Is "${eq}" a linear function? Answer "yes" or "no".`,
+   zhq:`"${eq}" 是一次函数吗？回答 "yes" 或 "no"。`,
    check:a=>{const ans=a.toLowerCase().trim();return (isLinear&&(ans==='yes'||ans==='y'||ans==='yes'))||(!isLinear&&(ans==='no'||ans==='n'||ans==='no'));},
-   ans:isLinear?'yes':'no',hint:'Linear = y = kx + b (k≠0). Anything with x², 1/x, √x is not.'};
+   ans:isLinear?'yes':'no',hint:'Linear = y = kx + b (k≠0). Anything with x², 1/x, √x is not.',zhh:'一次函数的形式是 y = kx + b（k≠0）。含 x²、1/x、√x 的都不是。'};
  }
 },
 k3:()=>{
@@ -493,13 +496,16 @@ k3:()=>{
   const x1=ri(-2,2),y1=ri(-2,2),x2=x1+ri(1,3),y2=y1+ri(-3,3);
   const m=(y2-y1)/(x2-x1);
   return {q:`Find the slope of the line through (${x1},${y1}) and (${x2},${y2}).`,
+   zhq:`求经过 (${x1},${y1}) 和 (${x2},${y2}) 两点的直线的斜率。`,
    check:a=>Math.abs(parseFloat(a)-m)<0.01,ans:String(m),
-   hint:`k = (y₂−y₁)/(x₂−x₁) = (${y2}-${y1})/(${x2}-${x1})`};
+   hint:`k = (y₂−y₁)/(x₂−x₁) = (${y2}-${y1})/(${x2}-${x1})`,
+   zhh:`k = (y₂−y₁)/(x₂−x₁) = (${y2}-${y1})/(${x2}-${x1})`};
  } else {
   // find y-intercept
   const k=ri(-3,3),b=ri(-3,3);
   return {q:`The line y = ${k}x + ${b} crosses the y-axis at what point?`,
-   check:a=>parseInt(a)===b,ans:String(b),hint:'y-axis is x=0. Plug in x=0 → y=b.'};
+   zhq:`直线 y = ${k}x + ${b} 与 y 轴交于哪一点？`,
+   check:a=>parseInt(a)===b,ans:String(b),hint:'y-axis is x=0. Plug in x=0 → y=b.',zhh:'y 轴上 x=0。代入 x=0 → y=b。'};
  }
 },
 k4:()=>{
@@ -507,7 +513,8 @@ k4:()=>{
  const k=ri(2,5),b=ri(1,5);
   const x=ri(5,10);
   return {q:`A taxi charges a ${b} yuan flagfall plus ${k} yuan per km. If you travel ${x} km, what is the fare?`,
-   check:a=>parseInt(a)===k*x+b,ans:String(k*x+b),hint:`y = ${k}x + ${b}, plug x=${x}`};
+   zhq:`出租车起步价 ${b} 元，之后每公里 ${k} 元。行驶 ${x} 公里，车费是多少？`,
+   check:a=>parseInt(a)===k*x+b,ans:String(k*x+b),hint:`y = ${k}x + ${b}, plug x=${x}`,zhh:`y = ${k}x + ${b}，代入 x=${x}`};
 },
 };
 
@@ -521,7 +528,7 @@ function videos(el,lessonId){
   const watched=st(lessonId).vid[i];
   html+=`<div class="vid">
    <div class="vid-h">
-    <span class="title">${v.t}</span>
+    <span class="title">${L(v.t,(typeof VTZ!=='undefined'&&VTZ[v.t])||v.t)}</span>
     
     <span class="meta">
      <span class="tag ${v.c}"><span class="en">${v.c==='core'?'Core':'Extra'}</span><span class="zh">${v.c==='core'?'核心':'拓展'}</span></span>
@@ -561,7 +568,7 @@ function practice(el,lessonId){
    <div class="info" style="font-size:13px;color:var(--muted);margin:8px 0">Correct: ${s.prac.ok}/${s.prac.tot} (streak ${streak})<button class="secondary" id="rs" style="margin-left:8px"><span class="en">Reset</span><span class="zh">重置</span></button></div>
    <div class="progress"><div style="width:${(streak/need)*100}%"></div></div>
    <div class="q">
-    <div class="q-text">${q.q}</div>
+    <div class="q-text">${L(q.q,q.zhq)}</div>
     
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
      <input type="text" id="pi" autocomplete="off" placeholder="?"> <button id="ps"><span class="en">Submit</span><span class="zh">提交</span></button>
@@ -585,24 +592,24 @@ function practice(el,lessonId){
    const r=q.check(a);
    if(r===true){
     streak++;s.prac.ok++;s.prac.tot++;
-    fb.className='feedback show ok';fb.textContent='✓ correct!';
+    fb.className='feedback show ok';fb.innerHTML=L('✓ correct!','✓ 对了！');
     inp.disabled=true;
     syncTop();
-    if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>Section cleared ✓</strong>';save();renderNav();}
+    if(streak>=need){s.done=true;fb.innerHTML+='<br><strong>'+L('Section cleared ✓','本节过关 ✓')+'</strong>';save();renderNav();}
     setTimeout(()=>{q=gen();tries=0;update();},900);
    } else {
     tries++;
     if(tries===1){
-     ht.className='hint show';ht.textContent=q.hint||'Have another go.';
-     fb.className='feedback show err';fb.textContent='✗ Try again. ';
+     ht.className='hint show';ht.innerHTML=L(q.hint||'Have another go.', q.zhh||'再试一次。');
+     fb.className='feedback show err';fb.innerHTML=L('✗ Try again. ','✗ 再试一次。');
     } else if(tries===2){
      fb.className='feedback show err';
-     fb.textContent='✗ Not quite. '+(q.sol?('Method: '+q.sol):(q.hint?('Hint: '+q.hint):'Work through it once more.'));
+     fb.innerHTML=L('✗ Not quite. '+(q.sol?('Method: '+q.sol):(q.hint?('Hint: '+q.hint):'Work through it once more.')), '✗ 不太对。'+(q.zhs?('方法：'+q.zhs):(q.zhh?('提示：'+q.zhh):'再算一遍。')));
     } else {
      streak=0;s.prac.tot++;syncTop();
      
      fb.className='feedback show err';
-     fb.innerHTML=`The answer is <b>${q.ans}</b>`+(q.sol?('. '+q.sol):'. ');
+     fb.innerHTML=L('The answer is <b>'+q.ans+'</b>'+(q.sol?('. '+q.sol):'. '), '答案是 <b>'+q.ans+'</b>'+(q.zhs?('。'+q.zhs):'。'));
      inp.disabled=true;save();renderNav();
      setTimeout(()=>{q=gen();tries=0;update();},2400);
     }
@@ -629,13 +636,13 @@ function chTest(el){
    S.test={ok,tot:qs.length};save();renderNav();return;
   }
   const q=qs[i];
-  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${q.q}</div><div style="display:flex;gap:8px"><input id="ti" autocomplete="off"><button id="ts"><span class="en">Submit</span><span class="zh">提交</span></button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
+  tq.innerHTML=`<div class="q"><div class="q-text">${i+1}/${qs.length}. ${L(q.q,q.zhq)}</div><div style="display:flex;gap:8px"><input id="ti" autocomplete="off"><button id="ts"><span class="en">Submit</span><span class="zh">提交</span></button></div><div class="hint" id="th"></div><div class="feedback" id="tf"></div></div>`;
   const inp=tq.querySelector('#ti'),fb=tq.querySelector('#tf'),ht=tq.querySelector('#th');
   inp.focus();tq.querySelector('#ts').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
   function check(){
    const r=q.check(inp.value.trim());
    if(r===true){ok++;fb.className='feedback show ok';fb.textContent='✓';inp.disabled=true;setTimeout(()=>{i++;show();},600);}
-   else if(r==='hint'){ht.className='hint show';ht.textContent=q.hint;}
+   else if(r==='hint'){ht.className='hint show';ht.innerHTML=L(q.hint||'', q.zhh||'');}
    else{fb.className='feedback show err';fb.textContent='✗';setTimeout(()=>{i++;show();},900);}
   }
  };
