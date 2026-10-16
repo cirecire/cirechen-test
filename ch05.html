@@ -200,25 +200,25 @@ k6:[
 /* ============ Lesson K1: what is a system? ============ */
 function microK1(el){
  el.innerHTML=`
-  <div class="step">Systems of two linear equations</div>
+  <div class="step">${L('Systems of two linear equations','二元一次方程组')}</div>
   <div class="box">
-   <h3>A single equation</h3>
-   <p>One equation in two unknowns (say <span class="num">x + y = 5</span>) has <strong>infinitely many</strong> solutions: (0, 5), (1, 4), (2, 3), (5, 0)…</p>
+   <h3>${L('A single equation','一个方程')}</h3>
+   <p>${L('One equation in two unknowns (say <span class="num">x + y = 5</span>) has <strong>infinitely many</strong> solutions: (0, 5), (1, 4), (2, 3), (5, 0)…','一个方程含两个未知数（比如 <span class="num">x + y = 5</span>）有<strong>无数组</strong>解：(0, 5)、(1, 4)、(2, 3)、(5, 0)……')}</p>
   </div>
   <div class="box">
-   <h3>Two equations, one solution</h3>
-   <p>Add a second equation (say <span class="num">x − y = 1</span>) and the two lines cross at one point — <strong>that point satisfies both equations at once</strong>.</p>
+   <h3>${L('Two equations, one solution','两个方程，一个解')}</h3>
+   <p>${L('Add a second equation (say <span class="num">x − y = 1</span>) and the two lines cross at one point — <strong>that point satisfies both equations at once</strong>.','再加一个方程（比如 <span class="num">x − y = 1</span>），两条直线交于一点 —— <strong>这个点同时满足两个方程</strong>。')}</p>
    <div class="eq">x + y = 5<br>x − y = 1<br>━━━━━<br>x = 3, y = 2  ✓</div>
   </div>
   <div class="box">
-   <h3>Three possibilities</h3>
+   <h3>${L('Three possibilities','三种情况')}</h3>
    <ul style="margin-left:20px;font-size:14px;line-height:1.8">
-    <li>The lines cross at one point → <strong>exactly one solution</strong> (most common)</li>
-    <li>The lines are parallel (same k, different b) → <strong>no solution</strong></li>
-    <li>The lines coincide (same k and b) → <strong>infinitely many solutions</strong></li>
+    <li>${L('The lines cross at one point → <strong>exactly one solution</strong> (most common)','两线交于一点 → <strong>唯一解</strong>（最常见）')}</li>
+    <li>${L('The lines are parallel (same k, different b) → <strong>no solution</strong>','两线平行（k 相同、b 不同）→ <strong>无解</strong>')}</li>
+    <li>${L('The lines coincide (same k and b) → <strong>infinitely many solutions</strong>','两线重合（k、b 都相同）→ <strong>无数组解</strong>')}</li>
    </ul>
   </div>
-  Substitute both answers back into <b>both</b> equations — only count it right if both hold.`;
+  ${L('Substitute both answers back into <b>both</b> equations — only count it right if both hold.','把求出的两个值代回<b>两个</b>方程检验 —— 两个都成立才算对。')}`;
 }
 
 /* ============ Lesson K2: substitution ============ */
@@ -233,25 +233,25 @@ function microK2(el){
  const X=x=>340+x*30, Y=y=>280-y*30;
  const render=()=>{
   el.innerHTML=`
-   <div class="step">Substitution</div>
+   <div class="step">${L('Substitution','代入消元法')}</div>
    <div class="box">
-    <h3>The steps</h3>
+    <h3>${L('The steps','步骤')}</h3>
     <ol style="margin-left:20px;font-size:15px;line-height:1.9">
-     <li><b>Rearrange</b> one equation into <span class="num">y = …</span> or <span class="num">x = …</span></li>
-     <li><b>Substitute</b> that expression into the other equation</li>
-     <li><b>Solve</b> the resulting one-unknown equation</li>
-     <li><b>Back-substitute</b> to get the other unknown</li>
+     <li>${L('<b>Rearrange</b> one equation into <span class="num">y = …</span> or <span class="num">x = …</span>','<b>变形</b>：把一个方程写成 <span class="num">y = …</span> 或 <span class="num">x = …</span>')}</li>
+     <li>${L('<b>Substitute</b> that expression into the other equation','<b>代入</b>：把这个式子代进另一个方程')}</li>
+     <li>${L('<b>Solve</b> the resulting one-unknown equation','<b>求解</b>：解这个只含一个未知数的方程')}</li>
+     <li>${L('<b>Back-substitute</b> to get the other unknown','<b>回代</b>：求出另一个未知数')}</li>
     </ol>
    </div>
    <div class="box">
-    <h3>Sample problem</h3>
+    <h3>${L('Sample problem','例题')}</h3>
     <div class="eq">${e.a}<br>${e.b}</div>
     <p style="font-size:14px;color:var(--muted)">${e.hint}</p>
    </div>
    <div class="box" style="background:#dbeafe">
-    <h3>Why it works</h3>
-    <p style="font-size:14px">The whole point of substitution: <b>turn two unknowns into one</b>. After substituting, only x is left and you can solve it, then back-substitute for y.</p>
-    <p style="font-size:14px;color:var(--muted);margin-top:6px">Videos 03–07 walk through substitution; watch 03 for the idea, then 04–06 for worked examples.</p>
+    <h3>${L('Why it works','为什么这样做')}</h3>
+    <p style="font-size:14px">${L('The whole point of substitution: <b>turn two unknowns into one</b>. After substituting, only x is left and you can solve it, then back-substitute for y.','代入法的核心就是<b>把两个未知数变成一个</b>。代进去之后只剩 x，可以先解出来，再回代求 y。')}</p>
+    <p style="font-size:14px;color:var(--muted);margin-top:6px">${L('Videos 03–07 walk through substitution; watch 03 for the idea, then 04–06 for worked examples.','视频 03–07 讲代入法；先看 03 懂思路，再看 04–06 学例题。')}</p>
    </div>`;
  };
  render();
@@ -260,55 +260,55 @@ function microK2(el){
 /* ============ Lesson K3: elimination ============ */
 function microK3(el){
  el.innerHTML=`
-  <div class="step">Elimination</div>
+  <div class="step">${L('Elimination','加减消元法')}</div>
   <div class="box">
-   <h3>When to use it</h3>
-   <p>When a coefficient is <strong>the same or opposite</strong> in the two equations, adding or subtracting cancels one unknown.</p>
+   <h3>${L('When to use it','什么时候用')}</h3>
+   <p>${L('When a coefficient is <strong>the same or opposite</strong> in the two equations, adding or subtracting cancels one unknown.','当两个方程里某个未知数的系数<strong>相同或互为相反数</strong>时，把两式相加或相减就能消掉这个未知数。')}</p>
   </div>
   <div class="box">
-   <h3>Worked example</h3>
+   <h3>${L('Worked example','例题')}</h3>
    <div class="eq">3x + 2y = 12  ... (1)<br>2x − 2y =  4  ... (2)</div>
-   <p style="font-size:14px;margin-top:8px">(1) + (2): the y coefficients +2 and −2 sum to 0, so y disappears:</p>
+   <p style="font-size:14px;margin-top:8px">${L('(1) + (2): the y coefficients +2 and −2 sum to 0, so y disappears:','(1) + (2)：y 的系数 +2 和 −2 相加得 0，y 就被消掉了：')}</p>
    <div class="eq">5x = 16  →  <span class="num">x = 16/5 = 3.2</span></p>
-   <p style="font-size:14px">Back into (2): 2(3.2) − 2y = 4 → 6.4 − 2y = 4 → 2y = 2.4 → <span class="num">y = 1.2</span></p>
-   <p style="font-size:14px;margin-top:6px">Check in (1): 3(3.2) + 2(1.2) = 9.6 + 2.4 = 12 ✓</p>
+   <p style="font-size:14px">${L('Back into (2): 2(3.2) − 2y = 4 → 6.4 − 2y = 4 → 2y = 2.4 → <span class="num">y = 1.2</span>','代回 (2)：2(3.2) − 2y = 4 → 6.4 − 2y = 4 → 2y = 2.4 → <span class="num">y = 1.2</span>')}</p>
+   <p style="font-size:14px;margin-top:6px">${L('Check in (1): 3(3.2) + 2(1.2) = 9.6 + 2.4 = 12 ✓','代入 (1) 检验：3(3.2) + 2(1.2) = 9.6 + 2.4 = 12 ✓')}</p>
   </div>
   <div class="box" style="background:#dbeafe">
-   <h3>What if the coefficients do not match?</h3>
-   <p style="font-size:14px"><strong>Multiply</strong> one (or both) equations by a number so the coefficients match or oppose.</p>
-   <p style="font-size:14px;color:var(--muted);margin-top:6px">For example, in x + y = 5 and 2x − y = 4 the coefficients already oppose, so just add. But in x + 2y = 5 and 3x + 5y = 14 the x coefficients are 1 and 3, so multiply the first equation by 3, then subtract to eliminate x.</p>
+   <h3>${L('What if the coefficients do not match?','系数对不上怎么办？')}</h3>
+   <p style="font-size:14px">${L('<strong>Multiply</strong> one (or both) equations by a number so the coefficients match or oppose.','把其中一个（或两个）方程<strong>同乘一个数</strong>，让系数变得相同或互为相反数。')}</p>
+   <p style="font-size:14px;color:var(--muted);margin-top:6px">${L('For example, in x + y = 5 and 2x − y = 4 the coefficients already oppose, so just add. But in x + 2y = 5 and 3x + 5y = 14 the x coefficients are 1 and 3, so multiply the first equation by 3, then subtract to eliminate x.','比如 x + y = 5 和 2x − y = 4，系数已经互为相反数，直接相加就行。而 x + 2y = 5 和 3x + 5y = 14，x 的系数是 1 和 3，就要把第一个方程乘 3，再相减消去 x。')}</p>
   </div>
-  <div class="note"><strong>Substitution vs elimination:</strong> if one equation is already y = … or x = …, substitution is fastest; otherwise elimination is usually more direct (no brackets to expand).</div>`;
+  <div class="note">${L('<strong>Substitution vs elimination:</strong> if one equation is already y = … or x = …, substitution is fastest; otherwise elimination is usually more direct (no brackets to expand).','<strong>代入法还是加减法：</strong>如果已经有一个方程是 y = … 或 x = … 的形式，用代入法最快；否则一般用加减法更直接（不用拆括号）。')}</div>`;
 }
 
 /* ============ Lesson K4: three classic word problems ============ */
 function microK4(el){
  let cur=0;
  const problems=[
-  {title:'Chickens and Rabbits',setup:`Chickens and rabbits in one cage: 35 heads, 94 feet. How many of each?<br><span class="cn">Classical problem: 35 heads, 94 feet. Find chickens and rabbits.</span>`,
+  {title:'Chickens and Rabbits',tz:'鸡兔同笼',setup:`Chickens and rabbits in one cage: 35 heads, 94 feet. How many of each?<br><span class="cn">Classical problem: 35 heads, 94 feet. Find chickens and rabbits.</span>`,
    table:[{name:'',t:['chickens','rabbits','total']},{name:'count',t:['x','y','35']},{name:'feet',t:['2x','4y','94']}],
    sol:`Step 1, write the equations:<br>  x + y = 35<br>  2x + 4y = 94<br><br>Step 2, eliminate (match the y coefficients, ×2):<br>  2x + 2y = 70<br>  2x + 4y = 94<br>  subtract: 2y = 24 → <span class="num">y = 12 rabbits</span><br>  substitute: x = 35 − 12 = <span class="num">23 chickens</span><br><br>Check: 23 + 12 = 35 ✓; 2·23 + 4·12 = 46 + 48 = 94 ✓`},
-  {title:'Sales & Expenses',setup:`A shop stocks 50 items of types A and B. A sells for ¥80 with ¥20 profit; B sells for ¥120 with ¥30 profit. Total profit is ¥1900. How many of each?<br><span class="cn">50 items total. A: sells at 80, 20 profit. B: sells at 120, 30 profit. Total profit 1900. Find quantities.</span>`,
+  {title:'Sales & Expenses',tz:'增收节支',setup:`A shop stocks 50 items of types A and B. A sells for ¥80 with ¥20 profit; B sells for ¥120 with ¥30 profit. Total profit is ¥1150. How many of each?<br><span class="cn">50 items total. A: sells at 80, 20 profit. B: sells at 120, 30 profit. Total profit 1150. Find quantities.</span>`,
    table:[{name:'',t:['count of A','count of B','total']},{name:'',t:['x','y','50']},{name:'profit each',t:['20','30','—']},{name:'total profit',t:['20x','30y','1900']}],
-   sol:`Write the equations:<br>  x + y = 50<br>  20x + 30y = 1900<br><br>Eliminate (both reduce to x + 1.5y = 95):<br>  x = 50 − y<br>  20(50−y) + 30y = 1900<br>  1000 + 10y = 1900<br>  10y = 900 → <span class="num">y = 90 of B</span><br>  x = 50 − 90 = −40 (impossible — the conditions contradict each other!)<br><br><span style="color:var(--err)">In reality this problem should read "50 items, total profit 1900" to have a positive solution. The numbers are inconsistent.</span>`},
-  {title:'Milestone Numbers',setup:`A car leaves town A at 60 km/h. Two hours later a second car leaves A at 80 km/h, and catches up 3 hours after that. How far has the first car gone?<br><span class="cn">Car A leaves first at 60 km/h. 2 hours later car B leaves at 80 km/h, catches A 3 hours after that. Distance of car A?</span>`,
+   sol:`Write the equations:<br>  x + y = 50<br>  20x + 30y = 1150<br><br>Substitute x = 50 − y into the second one:<br>  20(50−y) + 30y = 1150<br>  1000 + 10y = 1150<br>  10y = 150 → <span class="num">y = 15 of B</span><br>  x = 50 − 15 = <span class="num">35 of A</span><br><br>Check: 35 + 15 = 50 ✓; 20·35 + 30·15 = 700 + 450 = 1150 ✓`},
+  {title:'Milestone Numbers',tz:'里程碑上的数',setup:`A car leaves town A at 60 km/h. Two hours later a second car leaves A at 80 km/h. How long after the second car starts does it catch up, and how far has the first car gone by then?<br><span class="cn">Car A leaves first at 60 km/h. 2 hours later car B leaves at 80 km/h. When does B catch A, and how far has A gone?</span>`,
    table:[{name:'',t:['A speed','B speed','time A has driven']},{name:'',t:['60','80','2 + 3 = 5 h']},{name:'',t:['km/h','km/h','']}],
-   sol:`Equation: at the moment of catching up the distances are equal<br>  60t = 80(t − 2), where t is the time car A has been driving<br>  60·5 = 80·(5−2) [wrong guess t=5]<br>  300 = 80·3 = 240 → not equal<br><br>The catch-up happens 3 hours after B starts, <b>not 5 hours after A</b>.<br>  60·(3+2) = 60·5 = 300<br>  80·3 = 240 → still 60 km apart, so one more hour needed<br><br>Correct solution:<br>  60t = 80(t − 2)<br>  60t = 80t − 160<br>  160 = 20t → <span class="num">t = 8 h (car A drove 8 hours)</span><br>  distance = 60·8 = <span class="num">480 km</span>`},
+   sol:`Let t be the time car A has been driving. When B catches up, both have gone the same distance:<br>  60t = 80(t − 2)<br>  60t = 80t − 160<br>  160 = 20t → <span class="num">t = 8 h</span><br><br>So B catches up 8 − 2 = <span class="num">6 hours</span> after B starts.<br>  distance = 60·8 = <span class="num">480 km</span><br><br>Check: A drives 8 h × 60 = 480 km; B drives 6 h × 80 = 480 km ✓`},
  ];
  const render=()=>{
   const p=problems[cur];
   el.innerHTML=`
-   <div class="step">★ Chickens & rabbits / sales & costs / milestone numbers</div>
+   <div class="step">${L('★ Chickens & rabbits / sales & costs / milestone numbers','★ 鸡兔同笼 / 增收节支 / 里程碑上的数')}</div>
    <div class="box">
     <div style="display:flex;gap:8px;margin-bottom:10px">
      ${problems.map((q,i)=>`<button class="${i===cur?'':'secondary'}" data-p="${i}">${i+1}. ${q.title.split(' · ')[0]}</button>`).join('')}
     </div>
-    <h3>${p.title}</h3>
+    <h3>${L(p.title,p.tz)}</h3>
     <p style="font-size:14px;margin-top:8px">${p.setup}</p>
-    <h3 style="margin-top:14px">Solution</h3>
+    <h3 style="margin-top:14px">${L('Solution','解答')}</h3>
     <div class="eq">${p.sol}</div>
    </div>
-   <div class="note"><strong>General method:</strong> ① name the unknowns (usually two: x and y) ② find two equalities and write two equations ③ solve the system ④ check it makes sense (x, y > 0; units consistent; answer the actual question)</div>`;
+   <div class="note">${L('<strong>General method:</strong> ① name the unknowns (usually two: x and y) ② find two equalities and write two equations ③ solve the system ④ check it makes sense (x, y > 0; units consistent; answer the actual question)','<strong>通用方法：</strong>① 设未知数（通常是两个：x 和 y）② 找两个相等关系，列出两个方程 ③ 解方程组 ④ 检验是否合理（x, y > 0；单位一致；回答题目真正问的）')}</div>`;
   el.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{cur=parseInt(b.dataset.p);render();});
  };
  render();
@@ -317,20 +317,20 @@ function microK4(el){
 /* ============ Lesson K5: equations and functions ============ */
 function microK5(el){
  el.innerHTML=`
-  <div class="step">Equations and linear functions</div>
+  <div class="step">${L('Equations and linear functions','方程与一次函数')}</div>
   <div class="box">
-   <h3>The key insight</h3>
-   <p>Rewrite <span class="num">2x + y = 7</span> as <span class="num">y = −2x + 7</span> and it is a straight line.</p>
-   <p>Graph both equations of {2x + y = 7, x + y = 4} and the <strong>intersection</strong> of the two lines is the <strong>solution</strong> of the system.</p>
+   <h3>${L('The key insight','关键联系')}</h3>
+   <p>${L('Rewrite <span class="num">2x + y = 7</span> as <span class="num">y = −2x + 7</span> and it is a straight line.','把 <span class="num">2x + y = 7</span> 改写成 <span class="num">y = −2x + 7</span>，它就是一条直线。')}</p>
+   <p>${L('Graph both equations of {2x + y = 7, x + y = 4} and the <strong>intersection</strong> of the two lines is the <strong>solution</strong> of the system.','把 {2x + y = 7, x + y = 4} 两个方程都画成图象，两条直线的<strong>交点</strong>就是这个方程组的<strong>解</strong>。')}</p>
   </div>
   <div class="box" style="background:#dbeafe">
-   <h3>Solving a system with graphs</h3>
-   <p style="font-size:14px">① Put both equations into y = kx + b form</p>
-   <p style="font-size:14px">② Draw them (or solve algebraically)</p>
-   <p style="font-size:14px">③ The intersection (x₀, y₀) is the solution</p>
-   <p style="font-size:14px;margin-top:8px"><b>Special cases:</b> parallel lines → no solution (same k, different b); coincident lines → infinitely many (same k and b)</p>
+   <h3>${L('Solving a system with graphs','用图象解方程组')}</h3>
+   <p style="font-size:14px">${L('① Put both equations into y = kx + b form','① 把两个方程都化成 y = kx + b 的形式')}</p>
+   <p style="font-size:14px">${L('② Draw them (or solve algebraically)','② 画出图象（或直接用代数方法解）')}</p>
+   <p style="font-size:14px">${L('③ The intersection (x₀, y₀) is the solution','③ 交点 (x₀, y₀) 就是解')}</p>
+   <p style="font-size:14px;margin-top:8px">${L('<b>Special cases:</b> parallel lines → no solution (same k, different b); coincident lines → infinitely many (same k and b)','<b>特殊情况：</b>两线平行 → 无解（k 相同、b 不同）；两线重合 → 无数组解（k、b 都相同）')}</p>
   </div>
-  <div class="note"><strong>Link to chapter 4:</strong> there you learned to graph linear functions; here the solution of a system turns out to be the intersection of two graphs. Algebra and geometry meeting.</div>`;
+  <div class="note">${L('<strong>Link to chapter 4:</strong> there you learned to graph linear functions; here the solution of a system turns out to be the intersection of two graphs. Algebra and geometry meeting.','<strong>和第 4 章的联系：</strong>第 4 章学过画一次函数的图象；这里方程组的解正好是两条图象的交点 —— 代数和几何在这里碰到一起了。')}</div>`;
 }
 
 /* ============ Lesson K6: find the line from two points ============ */
@@ -340,26 +340,26 @@ function microK6(el){
  const y1=k*x1+b,y2=k*x2+b;
  const render=()=>{
   el.innerHTML=`
-   <div class="step">Find the straight-line rule from two points</div>
+   <div class="step">${L('Find the straight-line rule from two points','已知两点求直线表达式')}</div>
    <div class="box">
-    <h3>What we are after</h3>
-    <p>A line has the form <span class="num">y = kx + b</span>. If you know <strong>two points</strong> on it, you can find both <span class="num">k</span> (slope) and <span class="num">b</span> (intercept) — by turning the two points into a tiny system of equations.</p>
+    <h3>${L('What we are after','要找什么')}</h3>
+    <p>${L('A line has the form <span class="num">y = kx + b</span>. If you know <strong>two points</strong> on it, you can find both <span class="num">k</span> (slope) and <span class="num">b</span> (intercept) — by turning the two points into a tiny system of equations.','直线的形式是 <span class="num">y = kx + b</span>。知道直线上<strong>两个点</strong>，就能求出 <span class="num">k</span>（斜率）和 <span class="num">b</span>（截距）—— 办法是把这两个点变成一个小方程组。')}</p>
    </div>
    <div class="box">
-    <h3>Worked example · points (${x1}, ${y1}) and (${x2}, ${y2})</h3>
-    <p style="font-size:14px">Step 1 — plug each point into y = kx + b:</p>
+    <h3>${L('Worked example · points ','例题 · 已知两点 ')}(${x1}, ${y1}) ${L('and','和')} (${x2}, ${y2})</h3>
+    <p style="font-size:14px">${L('Step 1 — plug each point into y = kx + b:','第 1 步 —— 把两个点分别代入 y = kx + b：')}</p>
     <div class="eq">${y1} = k·${x1} + b<br>${y2} = k·${x2} + b</div>
-    <p style="font-size:14px;margin-top:8px">Step 2 — subtract to kill b:</p>
+    <p style="font-size:14px;margin-top:8px">${L('Step 2 — subtract to kill b:','第 2 步 —— 两式相减，消掉 b：')}</p>
     <div class="eq">(${y2}) − (${y1}) = k·${x2} − k·${x1}<br>${y2-y1} = k·${x2-x1}<br>k = ${y2-y1} ÷ ${x2-x1} = <span class="num">${k}</span></div>
-    <p style="font-size:14px;margin-top:8px">Step 3 — back-substitute to get b:</p>
+    <p style="font-size:14px;margin-top:8px">${L('Step 3 — back-substitute to get b:','第 3 步 —— 回代求出 b：')}</p>
     <div class="eq">${y1} = ${k}·${x1} + b → b = ${y1} − ${k*x1} = <span class="num">${b}</span></div>
-    <p style="font-size:14px;margin-top:8px">So the rule is <span class="num">y = ${k}x + ${b}</span>.</p>
+    <p style="font-size:14px;margin-top:8px">${L('So the rule is ','所以表达式是 ')}<span class="num">y = ${k}x + ${b}</span>。</p>
    </div>
    <div class="box" style="background:#dbeafe">
-    <h3>Why two points are enough</h3>
-    <p style="font-size:14px">One point leaves both k and b unknown — infinitely many lines pass through it. Two points fix the slope, and once the slope is fixed, the intercept is forced. This is the same "two conditions, two unknowns" idea as the rest of the chapter, just dressed as a line.</p>
-    <p style="font-size:14px;color:var(--muted);margin-top:6px">Hit 🎲 for a new pair of points and walk the three steps again.</p>
-    <button id="reroll6" class="secondary">🎲 New points</button>
+    <h3>${L('Why two points are enough','为什么两个点就够了')}</h3>
+    <p style="font-size:14px">${L('One point leaves both k and b unknown — infinitely many lines pass through it. Two points fix the slope, and once the slope is fixed, the intercept is forced. This is the same "two conditions, two unknowns" idea as the rest of the chapter, just dressed as a line.','只有一个点时，k 和 b 都还不知道 —— 经过一个点可以画无数条直线。两个点就能确定斜率，斜率一定，截距也就被定死了。这跟本章"两个条件、两个未知数"是同一个道理，只是换成了直线的说法。')}</p>
+    <p style="font-size:14px;color:var(--muted);margin-top:6px">${L('Hit 🎲 for a new pair of points and walk the three steps again.','按 🎲 换一对点，再把三步走一遍。')}</p>
+    <button id="reroll6" class="secondary">🎲 ${L('New points','换一组点')}</button>
    </div>`;
   el.querySelector('#reroll6').onclick=()=>{k=ri(1,4);b=ri(-3,5);x1=ri(-3,3);x2=x1;while(x2===x1)x2=ri(-3,3);y1=k*x1+b;y2=k*x2+b;render();};
  };
@@ -372,19 +372,19 @@ function microExt(el){
  const A=x0+y0+z0, B=x0+2*y0+3*z0, C=2*x0+y0+z0;
  const render=()=>{
   el.innerHTML=`
-   <div class="step">★ Three variables — optional extension</div>
+   <div class="step">${L('★ Three variables — optional extension','★ 三元一次方程组 —— 选学拓展')}</div>
    <div class="box">
-    <h3>The idea</h3>
-    <p>Two unknowns needed two equations. With <strong>three</strong> unknowns you need <strong>three</strong> equations. You solve it by reducing it to the two-variable case you already know: use two equations to express one variable in terms of the others, then substitute into the third.</p>
+    <h3>${L('The idea','思路')}</h3>
+    <p>${L('Two unknowns needed two equations. With <strong>three</strong> unknowns you need <strong>three</strong> equations. You solve it by reducing it to the two-variable case you already know: use two equations to express one variable in terms of the others, then substitute into the third.','两个未知数需要两个方程。<strong>三个</strong>未知数就需要<strong>三个</strong>方程。解法是把它降成你已经会的两元情形：先用方程把一个未知数用另外两个表示，再代入第三个方程。')}</p>
    </div>
    <div class="box">
-    <h3>Worked example</h3>
+    <h3>${L('Worked example','例题')}</h3>
     <div class="eq">x + y + z = ${A}  ... (1)<br>x + 2y + 3z = ${B}  ... (2)<br>2x + y + z = ${C}  ... (3)</div>
-    <p style="font-size:14px;margin-top:8px">From (1): <span class="num">z = ${A} − x − y</span>. Drop it into (2) and (3):</p>
+    <p style="font-size:14px;margin-top:8px">${L('From (1): ','由 (1) 得：')}<span class="num">z = ${A} − x − y</span>${L('. Drop it into (2) and (3):','。代入 (2) 和 (3)：')}</p>
     <div class="eq">x + 2y + 3(${A} − x − y) = ${B}<br>2x + y + (${A} − x − y) = ${C}</div>
-    <p style="font-size:14px;margin-top:8px">Clean up → a 2-variable system → solve it with substitution or elimination → then recover z. The solution is <span class="num">x = ${x0}, y = ${y0}, z = ${z0}</span>.</p>
+    <p style="font-size:14px;margin-top:8px">${L('Clean up → a 2-variable system → solve it with substitution or elimination → then recover z. The solution is ','整理 → 得到一个二元方程组 → 用代入法或加减法解出 → 再求出 z。答案是 ')}<span class="num">x = ${x0}, y = ${y0}, z = ${z0}</span>${L('.','。')}</p>
    </div>
-   <div class="note"><strong>In the syllabus this is optional (an extension).</strong> It is here because the same method scales to any number of unknowns — but the chapter test only asks one light question on it.</div>`;
+   <div class="note">${L('<strong>In the syllabus this is optional (an extension).</strong> It is here because the same method scales to any number of unknowns — but the chapter test only asks one light question on it.','<strong>教材里这一节是选学内容。</strong>放进来是因为同样的方法可以推广到任意多个未知数 —— 但章末检测只考一道很轻的题。')}</div>`;
  };
  render();
 }
