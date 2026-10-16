@@ -358,29 +358,29 @@ function renderQ(el,q,onAns,showHint){
 function microK1(el){
   let a=3,b=4;
   el.innerHTML=`
-    <div class="step">Have a go</div>
-    <h3>Why is a² + b² = c²? </h3>
-    <div class="lead">Drag the a and b sliders and watch whether the two square areas stay equal.</div>
+    <div class="step">${L('Have a go','动手试')}</div>
+    <h3>${L('Why is a² + b² = c²? ','为什么 a² + b² = c²？')}</h3>
+    <div class="lead">${L('Drag the a and b sliders and watch whether the two square areas stay equal.','拖动 a 和 b 的滑块，看两边正方形的面积是否始终相等。')}</div>
     <div class="slider-row">
       <label>a = <input type="range" id="ra" min="1" max="8" value="3"><span class="val" id="va">3</span></label>
       <label>b = <input type="range" id="rb" min="1" max="8" value="4"><span class="val" id="vb">4</span></label>
     </div>
     <div class="micro">
       <div class="fig"><div class="cap">Left square</div>
-        <div class="sub2">4 triangles + 1 square of side c</div>
+        <div class="sub2">${L('4 triangles + 1 square of side c','4 个三角形 + 1 个边长为 c 的正方形')}</div>
         <svg id="svgL" viewBox="0 0 240 240" width="230" height="230"></svg>
-        <div class="sub2">Area = 4×(½ab) + <b>c²</b></div>
+        <div class="sub2">${L('Area = 4×(½ab) + ','面积 = 4×(½ab) + ')}<b>c²</b></div>
       </div>
       <div class="fig"><div class="cap">Right square</div>
-        <div class="sub2">4 triangles + a² square + b² square</div>
+        <div class="sub2">${L('4 triangles + a² square + b² square','4 个三角形 + a² 正方形 + b² 正方形')}</div>
         <svg id="svgR" viewBox="0 0 240 240" width="230" height="230"></svg>
-        <div class="sub2">Area = 4×(½ab) + <b>a² + b²</b></div>
+        <div class="sub2">${L('Area = 4×(½ab) + ','面积 = 4×(½ab) + ')}<b>a² + b²</b></div>
       </div>
     </div>
     <div class="eqbox" id="eq"></div>
-    <div class="box">The two areas stay equal throughout. The four triangles are identical, so once you take them away, what is left must be equal too.<br>
+    <div class="box">${L('The two areas stay equal throughout. The four triangles are identical, so once you take them away, what is left must be equal too.','两边的面积始终相等。四个三角形完全相同，所以把它们都去掉之后，剩下的部分也必然相等。')}<br>
     </div>
-    <div class="row"><button id="next1">Next: watch the video →</button></div>`;
+    <div class="row"><button id="next1">${L('Next: watch the video →','下一步：看视频 →')}</button></div>`;
   const draw=()=>{
     const s=a+b, c2=a*a+b*b, c=Math.sqrt(c2);
     const SC=200/s, ox=20, oy=20;
@@ -417,9 +417,9 @@ function microK1(el){
 /* ============ Lesson K2: the converse test ============ */
 function microK2(el){
   el.innerHTML=`
-    <div class="step">Have a go</div>
-    <h3>Converse: is it a right triangle? </h3>
-    <div class="lead">Last section: right angle → a²+b² = c². Now backwards: does a²+b² = c² force a right angle? Drag and see.</div>
+    <div class="step">${L('Have a go','动手试')}</div>
+    <h3>${L('Converse: is it a right triangle? ','逆定理：它是直角三角形吗？')}</h3>
+    <div class="lead">${L('Last section: right angle → a²+b² = c². Now backwards: does a²+b² = c² force a right angle? Drag and see.','上一节：有直角 → a²+b² = c²。现在反过来：a²+b² = c² 能推出有直角吗？拖动看结果。')}</div>
     <div class="slider-row">
       <label>side 1 <input type="range" id="s1" min="1" max="20" value="3"><span class="val" id="v1">3</span></label>
       <label>side 2 <input type="range" id="s2" min="1" max="20" value="4"><span class="val" id="v2">4</span></label>
@@ -427,16 +427,16 @@ function microK2(el){
     </div>
     <div class="eqbox" id="verdict"></div>
     <div class="box" id="detail"></div>
-    <div class="box">Take the longest side as c. Square the two shorter sides and add — equal to c² means a right angle, more means acute, less means obtuse.</div>
+    <div class="box">${L('Take the longest side as c. Square the two shorter sides and add — equal to c² means a right angle, more means acute, less means obtuse.','取最长的一边为 c。把两条短边的平方相加 —— 等于 c² 就是直角，大于是锐角，小于是钝角。')}</div>
     <div class="box" style="background:#f8fafc">
-     <h3>★ Why does a² + b² = c² force a right angle?</h3>
-     <p style="font-size:14px">Build a second triangle that is certainly right-angled: take legs a and b with a right angle between them, and call its hypotenuse d.</p>
+     <h3>${L('★ Why does a² + b² = c² force a right angle?','★ 为什么 a² + b² = c² 能推出直角？')}</h3>
+     <p style="font-size:14px">${L('Build a second triangle that is certainly right-angled: take legs a and b with a right angle between them, and call its hypotenuse d.','另外构造一个一定是直角的三角形：取两条直角边 a 和 b，夹角为直角，斜边记为 d。')}</p>
      <div class="proof">
-      <div class="row"><span class="step-row">By the theorem, d² = a² + b²</span><span class="reason">(this new triangle is right-angled)</span></div>
-      <div class="row"><span class="step-row">But a² + b² = c² was given</span><span class="reason">(that was the test)</span></div>
-      <div class="row"><span class="step-row">So d² = c², hence d = c</span><span class="reason">(lengths are positive)</span></div>
-      <div class="row"><span class="step-row">The two triangles match on all three sides</span><span class="reason">(a, b, c — SSS)</span></div>
-      <div class="row"><span class="step-row">So the angle in the first triangle is 90°</span><span class="reason">(matching sides face matching angles)</span></div>
+      <div class="row"><span class="step-row">${L('By the theorem, d² = a² + b²','由勾股定理，d² = a² + b²')}</span><span class="reason">${L('(this new triangle is right-angled)','（这个新三角形是直角三角形）')}</span></div>
+      <div class="row"><span class="step-row">${L('But a² + b² = c² was given','而题目给了 a² + b² = c²')}</span><span class="reason">${L('(that was the test)','（这是判定条件）')}</span></div>
+      <div class="row"><span class="step-row">${L('So d² = c², hence d = c','所以 d² = c²，即 d = c')}</span><span class="reason">${L('(lengths are positive)','（边长都是正数）')}</span></div>
+      <div class="row"><span class="step-row">${L('The two triangles match on all three sides','两个三角形三边对应相等')}</span><span class="reason">${L('(a, b, c — SSS)','（a, b, c —— 边边边）')}</span></div>
+      <div class="row"><span class="step-row">${L('So the angle in the first triangle is 90°','所以第一个三角形里的那个角是 90°')}</span><span class="reason">${L('(matching sides face matching angles)','（相等的边对着相等的角）')}</span></div>
      </div>
     </div>`;
   const upd=()=>{
@@ -464,22 +464,22 @@ function microK2(el){
 /* ============ Lesson K3: applications ============ */
 function microK3(el){
   el.innerHTML=`
-    <div class="step">Have a go</div>
-    <h3>Real-world applications </h3>
-    <div class="lead">Three familiar setups: a flagpole, a ladder, a pond.</div>
+    <div class="step">${L('Have a go','动手试')}</div>
+    <h3>${L('Real-world applications ','实际应用')}</h3>
+    <div class="lead">${L('Three familiar setups: a flagpole, a ladder, a pond.','三个熟悉的场景：旗杆、梯子、池塘。')}</div>
     <div class="box">
-      <b>Four steps:</b><br>
-      1. Draw it and label the right triangle<br>
-      2. Identify the hypotenuse c<br>
-      3. Write a² + b² = c²<br>
-      4. Solve, then check the units make sense<br>
-      <span class="cn-tag">The "check" step is the one people skip: once you have an answer, ask whether it is actually possible.</span>
+      ${L('<b>Four steps:</b>','<b>四个步骤：</b>')}<br>
+      ${L('1. Draw it and label the right triangle','1. 画图，标出直角三角形')}<br>
+      ${L('2. Identify the hypotenuse c','2. 找出斜边 c')}<br>
+      ${L('3. Write a² + b² = c²','3. 写出 a² + b² = c²')}<br>
+      ${L('4. Solve, then check the units make sense','4. 求解，再检查单位是否合理')}<br>
+      <span class="cn-tag">${L('The "check" step is the one people skip: once you have an answer, ask whether it is actually possible.','最容易跳过的就是"检查"这一步：算出答案后，要问它是否真的可能。')}</span>
     </div>
     <div class="slider-row">
       <label>wall height h <input type="range" id="hh" min="3" max="15" value="8"><span class="val" id="vhh">8</span></label>
       <label>distance from wall d <input type="range" id="dd" min="1" max="15" value="6"><span class="val" id="vdd">6</span></label>
     </div>
-    <div class="fig"><div class="cap">Ladder problem</div>
+    <div class="fig"><div class="cap">${L('Ladder problem','梯子问题')}</div>
       <svg id="svgW" viewBox="0 0 320 220" width="300" height="206"></svg>
       <div class="sub2" id="wcalc"></div></div>`;
   const draw=()=>{
@@ -693,6 +693,7 @@ function render(){
   else if(cur==='k2'){
     const d=document.createElement('div'); microK2(d); m.appendChild(d);
     const v=document.createElement('div'); videos(v,V.k2,'k2'); m.appendChild(v);
+    const p2=document.createElement('div'); diag(p2,'k2',['conv']); m.appendChild(p2);
     const pr=document.createElement('div'); prac(pr,'k2',['conv'],5); m.appendChild(pr);
   }
   else if(cur==='k3'){
@@ -701,15 +702,15 @@ function render(){
     const pr=document.createElement('div'); prac(pr,'k3',['word','hyp','leg'],5); m.appendChild(pr);
   }
   else if(cur==='k4'){
-    m.innerHTML+=`<div class="lead">When you are done, go back and check your work.</div>`;
+    m.innerHTML+=`<div class="lead">${L('When you are done, go back and check your work.','做完之后，回头检查一下自己的过程。')}</div>`;
     const d=document.createElement('div');
     d.innerHTML=`<div class="box">
-      <h3>Four questions to ask yourself</h3>
-      <b>1. Is the answer sensible?</b> A 2 m ladder reaching 10 m up a wall? Impossible.<br>
-      <b>2. Did you pick the right hypotenuse?</b> It is always the <b>longest</b> side, opposite the right angle.<br>
-      <b>3. Are the units consistent?</b> Do not mix metres with centimetres.<br>
-      <b>4. Is there another route?</b> Try the area method, or algebra, and see whether you land on the same number.<br>
-      <div class="note"> —— </div></div>`;
+      <h3>${L('Four questions to ask yourself','问自己四个问题')}</h3>
+      ${L('<b>1. Is the answer sensible?</b> A 2 m ladder reaching 10 m up a wall? Impossible.','<b>1. 答案合理吗？</b>2 米长的梯子能爬到 10 米高的墙上？不可能。')}<br>
+      ${L('<b>2. Did you pick the right hypotenuse?</b> It is always the <b>longest</b> side, opposite the right angle.','<b>2. 斜边找对了吗？</b>斜边永远是最<b>长</b>的那条边，在直角对面。')}<br>
+      ${L('<b>3. Are the units consistent?</b> Do not mix metres with centimetres.','<b>3. 单位一致吗？</b>不要把米和厘米混着用。')}<br>
+      ${L('<b>4. Is there another route?</b> Try the area method, or algebra, and see whether you land on the same number.','<b>4. 还有别的做法吗？</b>试试面积法或代数法，看结果是否一致。')}<br>
+      </div>`;
     m.appendChild(d);
     const v=document.createElement('div'); videos(v,V.k4,'k4'); m.appendChild(v);
     const pr=document.createElement('div'); prac(pr,'k4',['word','conv'],4); m.appendChild(pr);
