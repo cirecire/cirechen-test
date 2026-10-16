@@ -199,23 +199,23 @@ function microK1(el){
   const freq={};data.forEach(x=>freq[x]=(freq[x]||0)+1);
   const mode=Object.entries(freq).sort((a,b)=>b[1]-a[1])[0][0];
   el.innerHTML=`
-   <div class="step">Mean / median / mode</div>
+   <div class="step">${L('Mean / median / mode','平均数 / 中位数 / 众数')}</div>
    <div class="box">
-    <p>Data: <span class="num">${data.join(', ')}</span></p>
-    <div class="trytip">👇 <b>You can edit these numbers</b> — watch the results below change (hit 🎲 for a new set)</div><div class="controls" style="display:flex;gap:8px;margin:10px 0;align-items:center;flex-wrap:wrap">
+    <p>${L('Data: ','数据：')}<span class="num">${data.join(', ')}</span></p>
+    <div class="trytip">${L('👇 <b>You can edit these numbers</b> — watch the results below change (hit 🎲 for a new set)','👇 <b>这些数字可以直接改</b> —— 看下面的结果跟着变（按 🎲 换一组新的）')}</div><div class="controls" style="display:flex;gap:8px;margin:10px 0;align-items:center;flex-wrap:wrap">
      ${data.map((d,i)=>`#${i+1}: <input type="number" data-i="${i}" value="${d}" min="10" max="99" style="width:60px">`).join('&nbsp; ')}
      <button id="reroll">🎲 New numbers</button>
     </div>
     <div class="box" style="background:#dbeafe">
-     <h3>The three, side by side</h3>
+     <h3>${L('The three, side by side','三个放一起比一比')}</h3>
      <div style="font-size:14px;line-height:2">
-      <p>📊 <b>mean</b>: <span class="num">${m.toFixed(2)}</span> (add them all up, divide by how many)</p>
-      <p>📏 <b>median</b>: <span class="num">${median}</span> (the middle one once sorted)</p>
-      <p>🔁 <b>mode</b>: <span class="num">${mode}</span> (whichever turns up most)</p>
+      <p>${L('📊 <b>mean</b>: <span class="num">'+m.toFixed(2)+'</span> (add them all up, divide by how many)','📊 <b>平均数</b>：<span class="num">'+m.toFixed(2)+'</span>（全部加起来，再除以个数）')}</p>
+      <p>${L('📏 <b>median</b>: <span class="num">'+median+'</span> (the middle one once sorted)','📏 <b>中位数</b>：<span class="num">'+median+'</span>（从小到大排好后，正中间那个）')}</p>
+      <p>${L('🔁 <b>mode</b>: <span class="num">'+mode+'</span> (whichever turns up most)','🔁 <b>众数</b>：<span class="num">'+mode+'</span>（出现次数最多的那个）')}</p>
      </div>
-     <p style="font-size:13px;color:var(--muted);margin-top:8px">Sorted: ${sorted.join(' &lt; ')}</p>
+     <p style="font-size:13px;color:var(--muted);margin-top:8px">${L('Sorted: ','从小到大排：')}${sorted.join(' &lt; ')}</p>
     </div>
-    <div class="note"><strong>Which one should you use?</strong> The mean is sensitive to outliers (for 1, 2, 3, 4, 100 the mean is 22 — badly skewed); the median is steadier (here it is 3). The mode only asks which value turns up most, and says nothing about the shape.</div>
+    <div class="note">${L('<strong>Which one should you use?</strong> The mean is sensitive to outliers (for 1, 2, 3, 4, 100 the mean is 22 — badly skewed); the median is steadier (here it is 3). The mode only asks which value turns up most, and says nothing about the shape.','<strong>用哪一个？</strong>平均数容易被极端值带跑（比如 1, 2, 3, 4, 100，平均数是 22，被拉得很偏）；中位数更稳（这里是 3）。众数只回答"哪个出现最多"，不反映整体分布。')}</div>
    </div>`;
   el.querySelectorAll('input[data-i]').forEach(inp=>inp.onchange=e=>{data[parseInt(e.target.dataset.i)]=parseInt(e.target.value)||0;render();});
   el.querySelector('#reroll').onclick=()=>{data=Array.from({length:ri(5,7)},()=>ri(10,99));render();};
@@ -233,34 +233,34 @@ function microK2(el){
   el.innerHTML=`
    <div class="step">Range, variance & standard deviation</div>
    <div class="box">
-    <h3>Range — the quickest look at spread</h3>
-    <p>The <span class="num">range</span> is simply largest − smallest. For <span class="num">${data.join(', ')}</span>:</p>
+    <h3>${L('Range — the quickest look at spread','极差 —— 最快看一眼波动的办法')}</h3>
+    <p>${L('The <span class="num">range</span> is simply largest − smallest. For <span class="num">'+data.join(', ')+'</span>:','<span class="num">极差</span>就是最大值减最小值。对于 <span class="num">'+data.join(', ')+'</span>：')}</p>
     <div class="eq">range = ${Math.max(...data)} − ${Math.min(...data)} = <span class="num">${Math.max(...data)-Math.min(...data)}</span></div>
-    <p style="font-size:13px">One subtraction, but it only reads the two ends — every value in between is ignored. Two very different sets can share the same range.</p>
+    <p style="font-size:13px">${L('One subtraction, but it only reads the two ends — every value in between is ignored. Two very different sets can share the same range.','一次减法就得到，但它只看两头 —— 中间的数全被忽略了。两组很不一样的数据，极差可能相同。')}</p>
    </div>
    <div class="box">
-    <h3>Why variance?</h3>
-    <p>Two classes both average 80. Are they at the same level? <b>Not necessarily</b> — one could be 75, 80, 85; the other 50, 80, 100. The mean alone cannot tell those two apart.</p>
-    <p>So we want <b>one number</b> for "how far the data sits from its mean". That number is the <span class="num">variance, s²</span>, and a closely related one is the <span class="num">standard deviation, s</span>.</p>
+    <h3>${L('Why variance?','为什么要方差？')}</h3>
+    <p>${L('Two classes both average 80. Are they at the same level? <b>Not necessarily</b> — one could be 75, 80, 85; the other 50, 80, 100. The mean alone cannot tell those two apart.','两个班平均分都是 80，水平就一样吗？<b>不一定</b> —— 一班可能是 75, 80, 85；另一班是 50, 80, 100。只看平均分，分不出这两班。')}</p>
+    <p>${L('So we want <b>one number</b> for "how far the data sits from its mean". That number is the <span class="num">variance, s²</span>, and a closely related one is the <span class="num">standard deviation, s</span>.','所以我们需要<b>一个数</b>来表示"数据离平均数有多远"。这个数就是<span class="num">方差 s²</span>，和它配套的还有<span class="num">标准差 s</span>。')}</p>
    </div>
    <div class="box">
-    <h3>The formula</h3>
+    <h3>${L('The formula','公式')}</h3>
     <div class="eq">s² = (1/n) × Σᵢ₌₁ⁿ (xᵢ − x̄)²</div>
     <div class="eq">s = √(s²)</div>
-    <p style="font-size:13px;color:var(--muted)">Note: in grade 8 you divide by n. Later you will meet dividing by n − 1, the stricter sample variance.</p>
+    <p style="font-size:13px;color:var(--muted)">${L('Note: in grade 8 you divide by n. Later you will meet dividing by n − 1, the stricter sample variance.','注：八年级阶段除以 n。以后会学到除以 n − 1，那是更严格的样本方差。')}</p>
    </div>
    <div class="box" style="background:#fffbeb">
-    <h3>Why square, and why divide by n?</h3>
-    <p style="font-size:14px">Try just adding the deviations: <span class="num">${data.map(x=>(x-m).toFixed(1)).join(' + ')}</span> = <span class="num">${data.reduce((a,x)=>a+(x-m),0).toFixed(1)}</span>. Always 0 — the plus and minus cancel, so the plain sum can never measure spread.</p>
-    <p style="font-size:14px">Squaring makes every term positive, so nothing cancels. Dividing by n then turns a total into an average, so sets of different sizes stay comparable.</p>
+    <h3>${L('Why square, and why divide by n?','为什么要平方？为什么要除以 n？')}</h3>
+    <p style="font-size:14px">${L('Try just adding the deviations: <span class="num">'+data.map(x=>(x-m).toFixed(1)).join(' + ')+'</span> = <span class="num">'+data.reduce((a,x)=>a+(x-m),0).toFixed(1)+'</span>. Always 0 — the plus and minus cancel, so the plain sum can never measure spread.','试试把偏差直接相加：<span class="num">'+data.map(x=>(x-m).toFixed(1)).join(' + ')+'</span> = <span class="num">'+data.reduce((a,x)=>a+(x-m),0).toFixed(1)+'</span>。永远是 0 —— 正负刚好抵消，所以直接求和根本无法衡量波动。')}</p>
+    <p style="font-size:14px">${L('Squaring makes every term positive, so nothing cancels. Dividing by n then turns a total into an average, so sets of different sizes stay comparable.','平方之后每一项都变成正的，就不会抵消了。再除以 n，把"总和"变成"平均"，这样个数不同的两组数据也能互相比较。')}</p>
    </div>
    <div class="box">
-    <h3>Try it · change the numbers and watch the variance</h3>
-    <p>Data: <span class="num">${data.join(', ')}</span></p>
-    <div class="trytip">👇 <b>You can edit these numbers</b> — watch the results below change (hit 🎲 for a new set)</div><div class="controls" style="display:flex;gap:8px;margin:10px 0;align-items:center;flex-wrap:wrap">
+    <h3>${L('Try it · change the numbers and watch the variance','动手试 · 改数字，看方差怎么变')}</h3>
+    <p>${L('Data: ','数据：')}<span class="num">${data.join(', ')}</span></p>
+    <div class="trytip">${L('👇 <b>You can edit these numbers</b> — watch the results below change (hit 🎲 for a new set)','👇 <b>这些数字可以直接改</b> —— 看下面的结果跟着变（按 🎲 换一组新的）')}</div><div class="controls" style="display:flex;gap:8px;margin:10px 0;align-items:center;flex-wrap:wrap">
      ${data.map((d,i)=>`#${i+1}: <input type="number" data-i="${i}" value="${d}" min="0" max="100" style="width:60px">`).join(' ')}
-     <button id="reroll2">🎲 New numbers</button>
-     <button id="flatten" class="secondary">Set them all to the mean</button>
+     <button id="reroll2">🎲 ${L('New numbers','换一组')}</button>
+     <button id="flatten" class="secondary">${L('Set them all to the mean','全部设成平均数')}</button>
     </div>
     <table style="width:100%;font-size:13px;border-collapse:collapse;margin:10px 0">
      <tr style="background:#f5f3ff"><th style="padding:4px">xᵢ</th>${data.map(x=>`<th style="padding:4px">${x}</th>`).join('')}</tr>
@@ -268,18 +268,18 @@ function microK2(el){
      <tr style="background:#dbeafe"><th style="padding:4px">(xᵢ − x̄)²</th>${data.map(x=>`<td style="padding:4px;text-align:center">${((x-m)**2).toFixed(2)}</td>`).join('')}</tr>
     </table>
     <div class="eq">x̄ = ${m.toFixed(2)} &nbsp;|&nbsp; s² = ${v.toFixed(2)} &nbsp;|&nbsp; s = ${s.toFixed(2)}</div>
-    <div style="font-size:13px;color:var(--muted)">Set every value to the mean and the variance drops to 0 — there is no spread left to measure.</div>
+    <div style="font-size:13px;color:var(--muted)">${L('Set every value to the mean and the variance drops to 0 — there is no spread left to measure.','把每个数都设成平均数，方差就降到 0 —— 没有波动可测了。')}</div>
    </div>
    <div class="box" style="background:#dbeafe">
-    <h3>How to use variance</h3>
-    <p style="font-size:14px">Comparing two sets (say two classes' marks) with the same mean, the smaller variance is the steadier group. The routine:</p>
+    <h3>${L('How to use variance','方差怎么用')}</h3>
+    <p style="font-size:14px">${L("Comparing two sets (say two classes' marks) with the same mean, the smaller variance is the steadier group. The routine:",'比较两组数据（比如两个班的分数）时，如果平均数相同，方差小的那一组更稳定。计算步骤：')}</p>
     <ol style="margin-left:20px;font-size:14px;line-height:1.8">
-     <li>Find the mean x̄</li>
-     <li>Find each (xᵢ − x̄)</li>
-     <li>Square them</li>
-     <li>Add them up</li>
-     <li>Divide by n to get s²</li>
-     <li>Take the square root to get s (optional)</li>
+     <li>${L('Find the mean x̄','先求平均数 x̄')}</li>
+     <li>${L('Find each (xᵢ − x̄)','求每个 (xᵢ − x̄)')}</li>
+     <li>${L('Square them','把它们平方')}</li>
+     <li>${L('Add them up','求和')}</li>
+     <li>${L('Divide by n to get s²','除以 n 得到 s²')}</li>
+     <li>${L('Take the square root to get s (optional)','开平方得到 s（可选）')}</li>
     </ol>
    </div>`;
   el.querySelectorAll('input[data-i]').forEach(inp=>inp.onchange=e=>{data[parseInt(e.target.dataset.i)]=parseInt(e.target.value)||0;render();});
@@ -302,19 +302,19 @@ function microK3(el){
   const q1=lo.length%2?lo[(lo.length-1)/2]:(lo[lo.length/2-1]+lo[lo.length/2])/2;
   const q3=hi.length%2?hi[(hi.length-1)/2]:(hi[hi.length/2-1]+hi[hi.length/2])/2;
   el.innerHTML=`
-   <div class="step">Box plots</div>
+   <div class="step">${L('Box plots','箱线图')}</div>
    <div class="box">
-    <h3>What is a box plot?</h3>
-    <p style="font-size:14px">A box plot shows five numbers as a box plus two whiskers:</p>
+    <h3>${L('What is a box plot?','箱线图是什么？')}</h3>
+    <p style="font-size:14px">${L('A box plot shows five numbers as a box plus two whiskers:','箱线图用一个"箱子"加两条"胡须"，把五个数画出来：')}</p>
     <ul style="margin-left:20px;font-size:14px;line-height:1.8">
-     <li>min, lower quartile (Q1), median, upper quartile (Q3), max</li>
-     <li>The box runs from Q1 to Q3 — the middle 50% of the data</li>
-     <li>The line inside the box is the median</li>
-     <li>The whiskers reach out to the min and the max</li>
+     <li>${L('min, lower quartile (Q1), median, upper quartile (Q3), max','最小值、下四分位数 (Q1)、中位数、上四分位数 (Q3)、最大值')}</li>
+     <li>${L('The box runs from Q1 to Q3 — the middle 50% of the data','箱子从 Q1 到 Q3 —— 代表中间 50% 的数据')}</li>
+     <li>${L('The line inside the box is the median','箱子里的那条线是中位数')}</li>
+     <li>${L('The whiskers reach out to the min and the max','两条胡须伸到最小值和最大值')}</li>
     </ul>
    </div>
    <div class="box">
-    <h3>Live demo · current data: ${data.join(', ')}</h3>
+    <h3>${L('Live demo · current data: '+data.join(', '),'实时演示 · 当前数据：'+data.join(', '))}</h3>
     <svg viewBox="0 0 600 200" style="background:#fafafa;border-radius:6px;margin:10px 0">
      <line x1="50" y1="100" x2="550" y2="100" stroke="#9ca3af" stroke-width="1"/>
      ${[min,q1,median,q3,max].map((v,i)=>{
@@ -328,17 +328,14 @@ function microK3(el){
     </svg>
     <div class="trytip">👇 <b>You can edit these numbers</b> — watch the results below change (hit 🎲 for a new set)</div><div class="controls" style="display:flex;gap:8px;margin:10px 0;align-items:center;flex-wrap:wrap">
      ${data.map((d,i)=>`#${i+1}: <input type="number" data-i="${i}" value="${d}" min="30" max="100" style="width:60px">`).join(' ')}
-     <button id="reroll3">🎲 New numbers</button>
+     <button id="reroll3">🎲 ${L('New numbers','换一组')}</button>
     </div>
    </div>
    <div class="box" style="background:#dbeafe">
-    <h3>How to read it</h3>
-    <p style="font-size:14px"><b>A longer box</b> = the middle 50% is more spread out<br>
-    <b>Longer whiskers</b> = a wider overall range<br>
-    <b>Median line off to one side</b> = the distribution is skewed<br>
-    <b>Points beyond the whiskers</b> = outliers</p>
+    <h3>${L('How to read it','怎么看')}</h3>
+    <p style="font-size:14px">${L('<b>A longer box</b> = the middle 50% is more spread out<br><b>Longer whiskers</b> = a wider overall range<br><b>Median line off to one side</b> = the distribution is skewed<br><b>Points beyond the whiskers</b> = outliers','<b>箱子越长</b> = 中间 50% 的数据越分散<br><b>胡须越长</b> = 整体范围越大<br><b>中位数偏向一侧</b> = 分布不对称<br><b>胡须之外的点</b> = 异常值')}</p>
    </div>
-   <div class="note"><strong>How this connects to variance:</strong> variance and standard deviation give the spread as a number; a box plot gives it as a picture. They confirm each other — a larger IQR usually goes with a larger s².</div>`;
+   <div class="note">${L('<strong>How this connects to variance:</strong> variance and standard deviation give the spread as a number; a box plot gives it as a picture. They confirm each other — a larger IQR usually goes with a larger s².','<strong>和方差的关系：</strong>方差、标准差是用一个数表示波动；箱线图是用一张图表示波动。两者互相印证 —— 四分位距 IQR 越大，方差 s² 通常也越大。')}</div>`;
   el.querySelectorAll('input[data-i]').forEach(inp=>inp.onchange=e=>{data[parseInt(e.target.dataset.i)]=parseInt(e.target.value)||30;render();});
   el.querySelector('#reroll3').onclick=()=>{data=Array.from({length:ri(7,9)},()=>ri(50,100));render();};
  };
@@ -361,21 +358,21 @@ function microK4(el){
   const mode=Object.entries(fcount).sort((a,b)=>b[1]-a[1])[0][0];
   const maxN=Math.max(...freq);
   el.innerHTML=`
-   <div class="step">Reading mean / median / mode from a chart</div>
+   <div class="step">${L('Reading mean / median / mode from a chart','从统计图里读平均数 / 中位数 / 众数')}</div>
    <div class="box">
-    <h3>The chart already holds the data</h3>
-    <p>A bar or pie chart lists every value and how often it shows up. So you can find the mean, median, and mode <strong>straight from the chart</strong> — no separate list needed.</p>
+    <h3>${L('The chart already holds the data','图里已经装着数据了')}</h3>
+    <p>${L('A bar or pie chart lists every value and how often it shows up. So you can find the mean, median, and mode <strong>straight from the chart</strong> — no separate list needed.','条形图、扇形图本身就列出了每个数和它出现的次数。所以平均数、中位数、众数可以<strong>直接从图里读出来</strong>，不用另外再列一份数据。')}</p>
    </div>
    <div class="box">
-    <h3>Example · customer ratings (1 to 5 stars)</h3>
+    <h3>${L('Example · customer ratings (1 to 5 stars)','例子 · 顾客评分（1 到 5 星）')}</h3>
     <div class="bars">${labels.map((l,i)=>`<div class="bar" style="height:${freq[i]/maxN*100}%"><span class="v">${freq[i]}</span><span class="label">${l}★</span></div>`).join('')}</div>
     <div style="font-size:14px;line-height:2">
-     <p>📊 <b>mean</b>: <span class="num">${m.toFixed(2)}</span> (total stars ${expanded.reduce((s,x)=>s+x,0)} ÷ ${total} ratings)</p>
-     <p>📏 <b>median</b>: <span class="num">${median}</span> (the middle rating once all ${total} are lined up)</p>
-     <p>🔁 <b>mode</b>: <span class="num">${mode}★</span> (the rating that occurs most often)</p>
+     <p>${L('📊 <b>mean</b>: <span class="num">'+m.toFixed(2)+'</span> (total stars '+expanded.reduce((s,x)=>s+x,0)+' ÷ '+total+' ratings)','📊 <b>平均数</b>：<span class="num">'+m.toFixed(2)+'</span>（总星数 '+expanded.reduce((s,x)=>s+x,0)+' ÷ '+total+' 个评分）')}</p>
+     <p>${L('📏 <b>median</b>: <span class="num">'+median+'</span> (the middle rating once all '+total+' are lined up)','📏 <b>中位数</b>：<span class="num">'+median+'</span>（把 '+total+' 个评分排好队，取中间那个）')}</p>
+     <p>${L('🔁 <b>mode</b>: <span class="num">'+mode+'★</span> (the rating that occurs most often)','🔁 <b>众数</b>：<span class="num">'+mode+'★</span>（出现次数最多的评分）')}</p>
     </div>
-    <p style="font-size:13px;color:var(--muted);margin-top:8px">Same three measures as before — only now you read the counts off the bars first.</p>
-    <button id="reroll4" class="secondary">🎲 New chart</button>
+    <p style="font-size:13px;color:var(--muted);margin-top:8px">${L('Same three measures as before — only now you read the counts off the bars first.','还是那三个量 —— 只是这回要先从柱子上读出次数。')}</p>
+    <button id="reroll4" class="secondary">🎲 ${L('New chart','换一张图')}</button>
    </div>`;
   el.querySelector('#reroll4').onclick=()=>{mk();render();};
  };
