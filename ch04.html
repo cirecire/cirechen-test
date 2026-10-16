@@ -145,7 +145,8 @@ const LESSONS=[
  {id:'k1',t:'What is a function?',cn:'Variables and the definition of a function',n:'4.1'},
  {id:'k2',t:'Linear Functions',cn:'Linear and proportional functions',n:'4.2'},
  {id:'k3',t:'Slope & Intercept',cn:'Graphs: slope and intercept',n:'4.3'},
- {id:'k4',t:'Applications',cn:'Applications',n:'4.4'},
+ {id:'k5',t:'Finding the Rule',cn:'Finding y = kx + b from given conditions',n:'4.4'},
+ {id:'k4',t:'Applications',cn:'Applications',n:'4.5'},
  {id:'test',t:'Chapter check',cn:'Chapter check',n:''}
 ];
 let cur='intro';
@@ -209,6 +210,13 @@ k3:[
  {f:'46_Slope from equation.mp4',t:'Slope from equation',c:'core'},
  {f:'47_Worked example - slope from two points.mp4',t:'Slope from two points',c:'core'},
  {f:'48_Worked examples - slope-intercept intro.mp4',t:'Slope-intercept intro',c:'core'},
+],
+k5:[
+ {f:'07_Slope-intercept form from table.mp4',t:'The rule from a table',c:'core'},
+ {f:'08_Slope-intercept equation from a graph examples.mp4',t:'The rule from a graph',c:'core'},
+ {f:'09_Slope-intercept equation from slope and point.mp4',t:'Given k and one point',c:'core'},
+ {f:'10_Slope-intercept equation from two solutions example.mp4',t:'Given two points',c:'core'},
+ {f:'11_Converting linear equations to slope-intercept form.mp4',t:'Rearranging into y = kx + b',c:'ext'},
 ],
 k4:[
  {f:'20_Linear function example- spending money.mp4',t:'Spending money model',c:'core'},
@@ -401,6 +409,59 @@ function microK4(el){
   </div>`;
 }
 
+/* ============ Lesson K5: finding y = kx + b ============ */
+function microK5(el){
+ let mode=1;
+ function build(){
+  // mode 1: proportional, one point fixes k   |  mode 2: b known, one point fixes k
+  // mode 3: two points -> k from slope, then b
+  let k,b,x1,y1,x2,y2;
+  if(mode===1){ k=2; x1=3; y1=k*x1; b=0; }
+  else if(mode===2){ b=4; k=3; x1=2; y1=k*x1+b; }
+  else { k=2; b=-1; x1=1; y1=k*x1+b; x2=4; y2=k*x2+b; }
+  const rows=mode===3
+   ? `<div class="eq">k = (y₂ − y₁)/(x₂ − x₁) = (${y2} − ${y1})/(${x2} − ${x1}) = ${y2-y1}/${x2-x1} = <span class="num">${k}</span></div>
+      <div class="eq">then ${y1} = ${k}·${x1} + b &nbsp;→&nbsp; b = <span class="num">${b}</span></div>
+      <div class="eq">y = <span class="num">${k}x ${b<0?'− ':'- '}${Math.abs(b)}</span></div>`
+   : (mode===1
+     ? `<div class="eq">y = kx &nbsp;(goes through the origin, so b = 0)</div>
+        <div class="eq">${y1} = k·${x1} &nbsp;→&nbsp; k = <span class="num">${k}</span></div>
+        <div class="eq">y = <span class="num">${k}x</span></div>`
+     : `<div class="eq">y = kx + ${b} &nbsp;(b is given)</div>
+        <div class="eq">${y1} = k·${x1} + ${b} &nbsp;→&nbsp; k = <span class="num">${k}</span></div>
+        <div class="eq">y = <span class="num">${k}x + ${b}</span></div>`);
+  el.innerHTML=`
+   <div class="step">Finding y = kx + b</div>
+   <div class="box">
+    <h3>The idea</h3>
+    <p style="font-size:14px">Write the form down first, <b>then</b> put the numbers in. The letters you do not know are the unknowns; each point you are given turns into one equation.</p>
+   </div>
+   <div class="box">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+     <button class="stepbtn${mode===1?'':' ghost'}" id="m1">A · proportional, one point</button>
+     <button class="stepbtn${mode===2?'':' ghost'}" id="m2">B · b known, one point</button>
+     <button class="stepbtn${mode===3?'':' ghost'}" id="m3">C · two points</button>
+    </div>
+    <div class="box" style="background:#f8fafc">
+     <p style="font-size:15px">${mode===1?`A proportional function passes through (${x1}, ${y1}). Find its rule.`
+       :mode===2?`A linear function has b = ${b} and passes through (${x1}, ${y1}). Find its rule.`
+       :`A linear function passes through (${x1}, ${y1}) and (${x2}, ${y2}). Find its rule.`}</p>
+     ${rows}
+    </div>
+    <div class="box" style="background:#fffbeb">
+     <h3>Why this works</h3>
+     <p style="font-size:14px">${mode===3
+      ? 'Two unknowns (k and b) need two equations — that is why two points are enough. One point alone leaves a whole family of lines through it.'
+      : 'One unknown (k) needs one equation — one point is enough, because the other letter is already fixed.'}</p>
+    </div>
+   </div>`;
+  el.querySelector('#m1').onclick=()=>{mode=1;build();};
+  el.querySelector('#m2').onclick=()=>{mode=2;build();};
+  el.querySelector('#m3').onclick=()=>{mode=3;build();};
+ }
+ build();
+}
+
 /* ============ Quick check ============ */
 function diag(el,lessonId,generator){
  el.innerHTML=`<div class="step"><span class="en">Quick check</span><span class="zh">小测一下</span></div><div class="box"><p style="font-size:14px;color:var(--muted)">3 questions, just to see where you stand. Pass 3/3 to skip the lesson; otherwise the lesson comes next.</p><div id="diagQ"></div></div>`;
@@ -513,6 +574,47 @@ k3:()=>{
   return {q:`The line y = ${k}x + ${b} crosses the y-axis at what point?`,
    zhq:`直线 y = ${k}x + ${b} 与 y 轴交于哪一点？`,
    check:a=>parseInt(a)===b,ans:String(b),hint:'y-axis is x=0. Plug in x=0 → y=b.',zhh:'y 轴上 x=0。代入 x=0 → y=b。'};
+ }
+},
+k5:()=>{
+ // finding y = kx + b from given conditions
+ const type=ri(1,4);
+ if(type===1){
+  // proportional: one point fixes k
+  const k=ri(2,6),x=ri(2,6);
+  return {q:`A proportional function passes through (${x}, ${k*x}). What is k?`,
+   zhq:`一个正比例函数经过点 (${x}, ${k*x})。k 是多少？`,
+   check:v=>parseInt(v)===k,ans:String(k),
+   hint:`Proportional means y = kx with b = 0, so ${k*x} = k·${x}.`,
+   zhh:`正比例函数形如 y = kx（b = 0），所以 ${k*x} = k·${x}。`};
+ } else if(type===2){
+  // b given, one point fixes k
+  const b=ri(1,9),k=ri(2,6),x=ri(2,6);
+  return {q:`A linear function y = kx + ${b} passes through (${x}, ${k*x+b}). What is k?`,
+   zhq:`一次函数 y = kx + ${b} 经过点 (${x}, ${k*x+b})。k 是多少？`,
+   check:v=>parseInt(v)===k,ans:String(k),
+   hint:`Put the point in: ${k*x+b} = k·${x} + ${b}, so k·${x} = ${k*x}.`,
+   zhh:`把点代入：${k*x+b} = k·${x} + ${b}，所以 k·${x} = ${k*x}。`};
+ } else if(type===3){
+  // two points -> find k (integer slope)
+  const k=ri(2,5),b=ri(-4,4);
+  const x1=ri(-2,2),x2=x1+ri(1,3);
+  const y1=k*x1+b,y2=k*x2+b;
+  return {q:`A line passes through (${x1}, ${y1}) and (${x2}, ${y2}). What is k?`,
+   zhq:`一条直线经过 (${x1}, ${y1}) 和 (${x2}, ${y2})。k 是多少？`,
+   check:v=>parseInt(v)===k,ans:String(k),
+   hint:`k = (y₂ − y₁)/(x₂ − x₁) = (${y2} − ${y1})/(${x2} − ${x1}).`,
+   zhh:`k = (y₂ − y₁)/(x₂ − x₁) = (${y2} − ${y1})/(${x2} − ${x1})。`};
+ } else {
+  // two points -> find b
+  const k=ri(2,5),b=ri(-4,6);
+  const x1=ri(-2,2),x2=x1+ri(1,3);
+  const y1=k*x1+b,y2=k*x2+b;
+  return {q:`A line passes through (${x1}, ${y1}) and (${x2}, ${y2}). What is b?`,
+   zhq:`一条直线经过 (${x1}, ${y1}) 和 (${x2}, ${y2})。b 是多少？`,
+   check:v=>parseInt(v)===b,ans:String(b),
+   hint:`k = (${y2} − ${y1})/(${x2} − ${x1}) = ${k}, then ${y1} = ${k}·${x1} + b.`,
+   zhh:`k = (${y2} − ${y1})/(${x2} − ${x1}) = ${k}，再由 ${y1} = ${k}·${x1} + b 求 b。`};
  }
 },
 k4:()=>{
@@ -629,17 +731,18 @@ function practice(el,lessonId){
 
 /* ============ Chapter check ============ */
 function chTest(el){
- el.innerHTML=`<div class="step"><span class="en">Chapter check</span><span class="zh">章末自己测</span></div><div class="box"><p style="font-size:13px;color:var(--muted)">10 questions covering the 4 topics in this chapter.</p><div id="tq"></div></div>`;
+ el.innerHTML=`<div class="step"><span class="en">Chapter check</span><span class="zh">章末自己测</span></div><div class="box"><p style="font-size:13px;color:var(--muted)">12 questions covering the 5 topics in this chapter.</p><div id="tq"></div></div>`;
  const tq=el.querySelector('#tq');
  const qs=[];
  for(let i=0;i<3;i++)qs.push(generators.k1());
  for(let i=0;i<2;i++)qs.push(generators.k2());
  for(let i=0;i<3;i++)qs.push(generators.k3());
+ for(let i=0;i<2;i++)qs.push(generators.k5());
  for(let i=0;i<2;i++)qs.push(generators.k4());
  let i=0,ok=0;
  const show=()=>{
   if(i>=qs.length){
-   tq.innerHTML=`<div class="note" style="background:${ok>=7?'#dcfce7':'#fef3c7'};border-color:${ok>=7?'var(--ok)':'var(--warn)'}"><strong>${ok}/${qs.length}</strong> ${ok>=7?'Chapter passed! Go to Ch05':'Go back and review what you missed'}</div>`;
+   tq.innerHTML=`<div class="note" style="background:${ok>=8?'#dcfce7':'#fef3c7'};border-color:${ok>=8?'var(--ok)':'var(--warn)'}"><strong>${ok}/${qs.length}</strong> ${ok>=8?'Chapter passed! Go to Ch05':'Go back and review what you missed'}</div>`;
    S.test={ok,tot:qs.length};save();renderNav();return;
   }
   const q=qs[i];
@@ -659,9 +762,9 @@ function chTest(el){
 /* ============ Render ============ */
 
 /* ===== Chapter lobby: start here ===== */
-const GLOSS={k1:"函数",k2:"一次函数",k3:"斜率 / 截距",k4:"建模"};
+const GLOSS={k1:"函数",k2:"一次函数",k3:"斜率 / 截距",k5:"待定系数法",k4:"建模"};
 const USE_MICRO=true;
-const INTRO={why:"A phone plan costs ¥20 a month plus ¥5 for each extra GB: use x GB and you pay y = 20 + 5x. That is a linear function. Taxi fares, utility bills, distance-time graphs, how XP builds up in a game — all of them change at a steady rate. Learn it and you can graph any steady-rate situation, and read the slope as \"how much more you pay per extra unit\".",desc:{k1:"One quantity changes and another follows: variables, and what a function is",k2:"y = kx + b — the constant-rate relationship",k3:"Slope k sets how steep, intercept b sets where it starts",k4:"Reading graphs and writing equations for real billing and travel problems"}};
+const INTRO={why:"A phone plan costs ¥20 a month plus ¥5 for each extra GB: use x GB and you pay y = 20 + 5x. That is a linear function. Taxi fares, utility bills, distance-time graphs, how XP builds up in a game — all of them change at a steady rate. Learn it and you can graph any steady-rate situation, and read the slope as \"how much more you pay per extra unit\".",desc:{k1:"One quantity changes and another follows: variables, and what a function is",k2:"y = kx + b — the constant-rate relationship",k3:"Slope k sets how steep, intercept b sets where it starts",k5:"Write the form first, then let the given points fix k and b",k4:"Reading graphs and writing equations for real billing and travel problems"}};
 function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
 function introRender(main){
   const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
@@ -683,7 +786,7 @@ function introRender(main){
   main.innerHTML=h;
   main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
 }
-const NAVZH={"intro":"概览","k1":"函数","k2":"一次函数","k3":"斜率与截距","k4":"应用","test":"章末自己测"};
+const NAVZH={"intro":"概览","k1":"函数","k2":"一次函数","k3":"斜率与截距","k5":"求表达式","k4":"应用","test":"章末自己测"};
 const LKEY='bnu8_lang';
 function getLang(){return localStorage.getItem(LKEY)||'en';}
 function setLang(l){localStorage.setItem(LKEY,l);applyLang();}
@@ -718,7 +821,7 @@ function render(){
   const phase=m[1],id=m[2];
   const lesson=LESSONS.find(l=>l.id===id);
   if(!lesson){main.innerHTML='<div class="note">Unknown lesson</div>';return;}
-  const titles={k1:'What is a function?',k2:'Linear and proportional functions',k3:'Slope and intercept',k4:'Applications'};
+  const titles={k1:'What is a function?',k2:'Linear and proportional functions',k3:'Slope and intercept',k5:'Finding the rule',k4:'Applications'};
   main.innerHTML=`<div class="lesson-id">${lesson.n} · <span class="en">${titles[id]} · ${lesson.cn}</span><span class="zh">${NAVZH[id]||titles[id]}</span></div>`;
   const c=document.createElement('div');main.appendChild(c);
   if(phase==='diag'){
@@ -728,6 +831,7 @@ function render(){
    if(id==='k1')microK1(c);
    else if(id==='k2')microK2(c);
    else if(id==='k3')microK3(c);
+   else if(id==='k5')microK5(c);
    else if(id==='k4')microK4(c);
    const after=document.createElement('div');main.appendChild(after);
    videos(after,id);
