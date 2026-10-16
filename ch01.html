@@ -702,14 +702,16 @@ function render(){
     const pr=document.createElement('div'); prac(pr,'k3',['word','hyp','leg'],5); m.appendChild(pr);
   }
   else if(cur==='k4'){
-    m.innerHTML+=`<div class="lead">${L('When you are done, go back and check your work.','做完之后，回头检查一下自己的过程。')}</div>`;
+    // NB: inside render() the name L is the lesson object, not the L() helper —
+    // so write the two language spans out by hand here.
+    m.innerHTML+=`<div class="lead"><span class="en">When you are done, go back and check your work.</span><span class="zh">做完之后，回头检查一下自己的过程。</span></div>`;
     const d=document.createElement('div');
     d.innerHTML=`<div class="box">
-      <h3>${L('Four questions to ask yourself','问自己四个问题')}</h3>
-      ${L('<b>1. Is the answer sensible?</b> A 2 m ladder reaching 10 m up a wall? Impossible.','<b>1. 答案合理吗？</b>2 米长的梯子能爬到 10 米高的墙上？不可能。')}<br>
-      ${L('<b>2. Did you pick the right hypotenuse?</b> It is always the <b>longest</b> side, opposite the right angle.','<b>2. 斜边找对了吗？</b>斜边永远是最<b>长</b>的那条边，在直角对面。')}<br>
-      ${L('<b>3. Are the units consistent?</b> Do not mix metres with centimetres.','<b>3. 单位一致吗？</b>不要把米和厘米混着用。')}<br>
-      ${L('<b>4. Is there another route?</b> Try the area method, or algebra, and see whether you land on the same number.','<b>4. 还有别的做法吗？</b>试试面积法或代数法，看结果是否一致。')}<br>
+      <h3><span class="en">Four questions to ask yourself</span><span class="zh">问自己四个问题</span></h3>
+      <span class="en"><b>1. Is the answer sensible?</b> A 2 m ladder reaching 10 m up a wall? Impossible.</span><span class="zh"><b>1. 答案合理吗？</b>2 米长的梯子能爬到 10 米高的墙上？不可能。</span><br>
+      <span class="en"><b>2. Did you pick the right hypotenuse?</b> It is always the <b>longest</b> side, opposite the right angle.</span><span class="zh"><b>2. 斜边找对了吗？</b>斜边永远是最<b>长</b>的那条边，在直角对面。</span><br>
+      <span class="en"><b>3. Are the units consistent?</b> Do not mix metres with centimetres.</span><span class="zh"><b>3. 单位一致吗？</b>不要把米和厘米混着用。</span><br>
+      <span class="en"><b>4. Is there another route?</b> Try the area method, or algebra, and see whether you land on the same number.</span><span class="zh"><b>4. 还有别的做法吗？</b>试试面积法或代数法，看结果是否一致。</span><br>
       </div>`;
     m.appendChild(d);
     const v=document.createElement('div'); videos(v,V.k4,'k4'); m.appendChild(v);
