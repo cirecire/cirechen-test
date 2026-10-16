@@ -56,6 +56,12 @@ input[type=range]{width:130px;accent-color:var(--accent)}
 .vid-item .t b{font-size:14px;display:block}
 .vid-item .t small{color:var(--mute);font-size:12px}
 .badge{font-size:11px;padding:2px 8px;border-radius:12px;font-weight:600;white-space:nowrap}
+.proof{background:#fff;border:2px solid #7c3aed;border-radius:8px;padding:14px;margin:10px 0;font-family:"Courier New",monospace;font-size:14px;line-height:1.9}
+.proof .yin{color:#15803d;font-weight:600;margin-right:6px}
+.proof .yj{color:#b91c1c;font-weight:600;margin-right:6px}
+.proof .row{display:flex;gap:8px;padding:2px 0}
+.proof .step-row{flex:1}
+.proof .reason{color:var(--mute);font-style:italic;width:200px;text-align:right}
 .b-core{background:#dcfce7;color:#15803d}
 .b-ext{background:#fef3c7;color:#a16207}
 video{width:100%;max-width:520px;border-radius:8px;background:#000;display:block;margin:8px 0}
@@ -421,7 +427,18 @@ function microK2(el){
     </div>
     <div class="eqbox" id="verdict"></div>
     <div class="box" id="detail"></div>
-    <div class="box">Take the longest side as c. Square the two shorter sides and add — equal to c² means a right angle, more means acute, less means obtuse.</div>`;
+    <div class="box">Take the longest side as c. Square the two shorter sides and add — equal to c² means a right angle, more means acute, less means obtuse.</div>
+    <div class="box" style="background:#f8fafc">
+     <h3>★ Why does a² + b² = c² force a right angle?</h3>
+     <p style="font-size:14px">Build a second triangle that is certainly right-angled: take legs a and b with a right angle between them, and call its hypotenuse d.</p>
+     <div class="proof">
+      <div class="row"><span class="step-row">By the theorem, d² = a² + b²</span><span class="reason">(this new triangle is right-angled)</span></div>
+      <div class="row"><span class="step-row">But a² + b² = c² was given</span><span class="reason">(that was the test)</span></div>
+      <div class="row"><span class="step-row">So d² = c², hence d = c</span><span class="reason">(lengths are positive)</span></div>
+      <div class="row"><span class="step-row">The two triangles match on all three sides</span><span class="reason">(a, b, c — SSS)</span></div>
+      <div class="row"><span class="step-row">So the angle in the first triangle is 90°</span><span class="reason">(matching sides face matching angles)</span></div>
+     </div>
+    </div>`;
   const upd=()=>{
     const v=[+el.querySelector('#s1').value,+el.querySelector('#s2').value,+el.querySelector('#s3').value];
     const mx=Math.max(...v), rest=v.filter((x,i)=>x!==mx||i!==v.indexOf(mx));
