@@ -44,6 +44,8 @@ header p, header .en, header .zh{ opacity:1; }
 .chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 .chip .e{font-size:11px;opacity:.75;display:block}
 .chip.on .e{opacity:.9}
+.chip .rec{font-size:10.5px;font-weight:700;background:#dcfce7;color:#15803d;border-radius:999px;padding:2px 7px;margin-left:4px;vertical-align:middle}
+.chip.on .rec{background:rgba(255,255,255,.28);color:#fff}
 .go{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:8px}
 button.enter{font-family:inherit;border:none;cursor:pointer;border-radius:10px;padding:13px 26px;font-size:15px;font-weight:600;background:var(--accent);color:#fff}
 button.enter:hover{background:#6d28d9}
@@ -129,7 +131,7 @@ const SUBJECTS=[
  {id:'chem',en:'Chemistry',cz:'化学'}
 ];
 const EDITIONS=[
- {id:'bsd',en:'BNU (Bei-Shi-Da)',cz:'北师大版'},
+ {id:'bsd',en:'BNU (Bei-Shi-Da)',cz:'北师大版',rec:true},
  {id:'rj', en:'People’s Education',cz:'人教版'},
  {id:'sk', en:'Su-Ke',cz:'苏科版'},
  {id:'hs', en:'Hua-Shi',cz:'华师版'},
@@ -168,7 +170,7 @@ function renderChips(list,dim,box){
   const b=document.createElement('button');
   b.className='chip';
   b.dataset.id=o.id;
-  b.innerHTML=L(o.en,o.cz);
+  b.innerHTML=L(o.en,o.cz)+(o.rec?' <span class="rec"><span class="en">ready now</span><span class="zh">已做好</span></span>':'');
   b.onclick=()=>{
    SEL[dim]=o.id;
    [...box.children].forEach(c=>c.classList.toggle('on',c.dataset.id===o.id));
@@ -180,6 +182,8 @@ function renderChips(list,dim,box){
 renderChips(GRADES,'grade',document.getElementById('gradeChips'));
 renderChips(SUBJECTS,'subject',document.getElementById('subjectChips'));
 renderChips(EDITIONS,'edition',document.getElementById('editionChips'));
+// BNU is the edition this site is built for — pre-select it so nobody has to guess.
+(function(){SEL.edition='bsd';[...document.getElementById('editionChips').children].forEach(c=>c.classList.toggle('on',c.dataset.id==='bsd'));update();})();
 
 function label(dim,id){
  const map={grade:GRADES,subject:SUBJECTS,edition:EDITIONS};
