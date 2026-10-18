@@ -80,6 +80,29 @@ body.lang-mix p .zh, body.lang-mix li .zh, body.lang-mix summary .zh,
 body.lang-mix .step .zh, body.lang-mix header .zh, body.lang-mix .hero .zh,
 body.lang-mix .ch .zh, body.lang-mix .ch .top .zh, body.lang-mix .welcome .zh,
 body.lang-mix .note .zh { font-size: inherit; }
+
+/* ===== Parent letter (lives on the main / site entry page) ===== */
+.parents{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:18px 22px;font-size:14px;color:var(--text);line-height:1.7;margin:0 0 16px}
+.parents .zh,.parents .en{display:block;margin-left:0}
+body.lang-en .parents .zh{display:none}
+.parents summary{cursor:pointer;font-weight:600;padding:4px 0 12px}
+.parents summary .zh{font-size:22px;font-weight:700;color:#92400e;line-height:1.35;margin:0 0 6px}
+.parents summary .en{font-size:16px;font-weight:500;color:#1f2937;line-height:1.4;margin:0}
+.parents p{font-size:14px;line-height:1.7;color:var(--text);margin:0 0 14px}
+.parents p .zh{font-size:17px;line-height:1.75;color:#1f2937;margin:0}
+.parents p .en{font-size:15px;line-height:1.65;color:#5b6472;margin-top:6px}
+.parents p b .zh{font-size:19px;font-weight:700;color:#92400e;margin:14px 0 4px;display:block}
+.parents p b .en{font-size:15px;font-weight:600;color:#5b6472;margin:0;display:block}
+/* parent letter: its own language switch, so the two versions never interleave */
+.letter .zh{display:inline!important;font-size:inherit!important}
+.letter[data-lang="zh"] .lten{display:none}
+.letter[data-lang="en"] .ltzh{display:none}
+.ltsw{display:flex;gap:6px;margin:2px 0 14px}
+.ltsw button{font-size:12px;font-weight:700;border:1px solid #bfdbfe;background:#fff;color:#1e40af;border-radius:999px;padding:5px 15px;cursor:pointer;font-family:inherit}
+.ltsw button:hover{border-color:#1e40af}
+.ltsw button.on{background:#1e40af;color:#fff;border-color:#1e40af}
+.letter p{margin:0 0 12px}
+.letter p:last-child{margin-bottom:0}
 </style>
 </head>
 <body>
@@ -98,6 +121,47 @@ body.lang-mix .note .zh { font-size: inherit; }
  <p><span class="en">This site re-organises Khan Academy videos to match Chinese public-school textbooks — by grade, subject and textbook edition. Choose below to open the matching study page.</span>
     <span class="zh">这个网站把 Khan Academy 的视频，按中国公立校的「年级 / 学科 / 教材版本」重新整理。选一下，就进入对应的学习页。</span></p>
 </header>
+
+<details class="parents" open style="background:#eff6ff;border-color:#93c5fd;margin-bottom:16px">
+ <summary>
+  <span class="zh">💛 给家长的一封信 · 我为什么做了这个网站</span>
+  <span class="en">💛 A letter to parents — why I built this site</span>
+ </summary>
+ <div class="letter" data-lang="zh">
+  <div class="ltsw">
+   <button type="button" data-ll="zh" class="on"><span class="zh">中文</span></button>
+   <button type="button" data-ll="en">English</button>
+  </div>
+  <div class="ltzh">
+   <p><span class="zh">现在很多孩子都在公立学校读书，之后计划转轨国际学校。这条路上有个绕不开的问题：将来，数学是要用英文学的。</span></p>
+   <p><span class="zh">这件事难在哪里？通常是三件事。</span></p>
+   <p><span class="zh">一是术语。不是单词不认识，而是「一次函数」「方差」「勾股定理」这些概念，在英文课堂里叫什么、怎么用，孩子还没建立直觉。</span></p>
+   <p><span class="zh">二是教法。同样是一次函数，英美课堂的切入角度和推导习惯，跟国内不一样。</span></p>
+   <p><span class="zh">三是用英语做数学推理的能力。单词懂，但要跟上用英文一步步铺开的论证，是另一回事。</span></p>
+   <p><span class="zh">想找个老师专门补这块，得同时满足三个条件：懂国内数学结构、懂国外数学结构、还能用英文上课。这样的人很少，收费也不低。对很多家庭来说，这个问题一直没太好的解法。</span></p>
+   <p><span class="zh">有人会说，那用可汗学院啊。可汗是好东西，但它恰恰解决不了这个转轨问题——它的体系和公立校对不上，孩子脑子里会同时装两套打架的逻辑；而且内容太多，让一个孩子自己从几千个视频里挑、再自己搭学习路径，大人都不一定做得到。</span></p>
+   <p><span class="zh">我做的事，思路其实很笨也很直接：用公立学校的数学课本做索引和框架，再给每个知识点，配上可汗学院里对应的那一节视频。这样，孩子白天在学校用中文学过的东西，回家能在可汗上找到对应的英文那一节——中文学一遍，英文再走一遍，两套体系就对上了。（极少数教材独有、可汗没有的知识点，就用图解代替。）</span></p>
+   <p><span class="zh">我在市面上找了很久，没找到这样的东西，就自己动手做了一个。它不是什么产品，就是我作为一个家长，给准备转轨的孩子搭的一个小工具，免费的，也欢迎你一起用。</span></p>
+   <p><span class="zh">关于版权要说明一句：里面的视频内容来自 Khan Academy，按 CC BY-NC-SA 许可使用；这个站点是我个人做的学习辅助，非商业用途，和可汗学院没有任何官方关联。该署名的都署了名。</span></p>
+   <p><span class="zh">它具体怎么帮到孩子？每个知识点都配了练习题——题目是随机生成的，连对 5 题算过关；做错的会自动进错题本，过几天再考一次；每一章末尾还有一次自测。孩子英语程度不同，所以我还做了一档中文支持：吃力的时候调高一点，跟上了就调回去。</span></p>
+   <p><span class="zh">最后说句实话：我不是计算机出身，不会写代码，也不是数学老师。这个工具一定有不少疏漏和错误。我会一直改，也希望它能实实在在帮到更多正在准备转轨的孩子和家庭。</span></p>
+  </div>
+  <div class="lten">
+   <p>More and more children are in Chinese public schools with plans to switch to the international track. One thing on that road is unavoidable: sooner or later, maths has to be learned in English.</p>
+   <p>Where does it get hard? Usually three places.</p>
+   <p>First, the terminology. Not that the words are unknown, but terms like "linear function", "variance" or "the Pythagorean theorem" — a child hasn't yet built the intuition for what they are called and how they are used in an English classroom.</p>
+   <p>Second, the teaching. Take linear functions again: an English-language classroom comes at them from a different angle and works them out differently from a Chinese one.</p>
+   <p>Third, the ability to reason mathematically in English. The words are understood, but following a proof or an argument laid out step by step in English is a different skill.</p>
+   <p>A tutor to cover all this would need three things at once: to know the Chinese maths structure, to know the overseas one, and to teach in English. Few people do, and the ones who do charge accordingly. For a lot of families, this has never had a good answer.</p>
+   <p>Someone will say, just use Khan Academy. Khan is wonderful — but it does not actually solve this particular problem. Its structure is not the public-school structure, so a child ends up holding two course logics that fight each other. And it is vast: asking a child to pick the right videos out of thousands and then build their own path is unrealistic — most adults couldn't.</p>
+   <p>What I built is, honestly, simple and a bit blunt: take the public-school textbook as the index and the framework, then put the matching Khan Academy lesson onto each topic. So the things a child learns in Chinese at school during the day have a corresponding English lesson on Khan at home — learned once in Chinese, walked through again in English, and the two systems line up. (For the few topics unique to the Chinese textbook with no Khan equivalent, I used diagrams instead.)</p>
+   <p>I looked for something like this for a long time and never found it, so I made it myself. It isn't a product. It's just a small tool I put together as a parent, for children preparing to make the switch — free, and you're welcome to use it.</p>
+   <p>One note on the licence: the video content comes from Khan Academy and is used under the CC BY-NC-SA licence. This site is a personal study aid, non-commercial, and not officially affiliated with Khan Academy. Credit is given where it is due.</p>
+   <p>How does it actually help the child? Every topic comes with practice — the questions are generated at random, and five correct in a row clears the topic. Anything wrong goes into a review list that comes back a few days later, and each chapter ends with a self-test. Children's English varies, so I also built a dial for Chinese support: turn it up when it's a struggle, turn it back down when they're ready.</p>
+   <p>One honest last note: I'm not from a computer background, I can't write code, and I'm not a maths teacher. This tool will have its share of gaps and mistakes. I'll keep working on it, and I hope it genuinely helps more children and families preparing for the same move.</p>
+  </div>
+ </div>
+</details>
 
 <div class="card">
  <!-- grade -->
@@ -255,6 +319,27 @@ document.getElementById('enterBtn').onclick=function(){
    document.getElementById('enterSaved').onclick=()=>{location.href=target()||'home.html';};
   }
  }catch(e){}
+})();
+</script>
+<script>
+(function(){
+ var saved=null; try{saved=localStorage.getItem('bnu8_letter_lang');}catch(e){}
+ document.querySelectorAll('.letter').forEach(function(l){
+  var sw=l.querySelector('.ltsw');
+  if(!sw) return;
+  function set(v){
+   l.dataset.lang=v;
+   try{localStorage.setItem('bnu8_letter_lang',v);}catch(e){}
+   sw.querySelectorAll('button').forEach(function(b){
+    b.classList.toggle('on', b.dataset.ll===v);
+   });
+  }
+  sw.querySelectorAll('button').forEach(function(b){
+   b.addEventListener('click',function(){ set(b.dataset.ll); });
+  });
+  var site=(document.body.className.match(/lang-(\w+)/)||[])[1];
+  set(saved||(site==='en'?'en':'zh'));
+ });
 })();
 </script>
 </body>
