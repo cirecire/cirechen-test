@@ -216,9 +216,8 @@ html[data-theme="dark"] svg{background:#fff;border-radius:8px;padding:4px}
 html[data-theme="dark"] .note,html[data-theme="dark"] .note *{color:#1f2937}
 html[data-theme="dark"] .note strong,html[data-theme="dark"] .note b{color:#b45309!important}
 html[data-theme="dark"] .hint,html[data-theme="dark"] .hint *{color:#1f2937}
-html[data-theme="dark"] .parents,html[data-theme="dark"] .parents p,
-html[data-theme="dark"] .parents summary,html[data-theme="dark"] .parents .zh,
-html[data-theme="dark"] .parents .en{color:#1f2937}
+html[data-theme="dark"] .parents{background:var(--card)!important;color:var(--text);border-color:var(--line)!important}
+html[data-theme="dark"] .parents .zh,html[data-theme="dark"] .parents .en,html[data-theme="dark"] .parents p,html[data-theme="dark"] .parents summary{color:var(--text)}
 /* form controls + table headings follow the theme */
 html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="dark"] textarea{
  background:var(--card2);color:var(--text);border-color:var(--line)}
@@ -250,8 +249,8 @@ html[data-theme="dark"] table th{color:var(--muted)}
   </summary>
   <div>
    <p>
-    <span class="zh">进度保存在这台电脑的浏览器里。换电脑、清缓存或换浏览器都会丢失——记得时不时导出备份，以后再导入回来。</span>
-    <span class="en">Progress is saved in this browser on this computer. Switching computers, clearing the cache or changing browsers loses it — export a backup now and then, and import it back later.</span>
+    <span class="zh">孩子的学习进度存在这台电脑的浏览器里。换台电脑或清一下浏览器缓存，进度就没了。建议隔一阵子点一次「导出进度」，把文件存到自己的电脑或网盘上；换设备或重装系统时，再用「导入」恢复就行。平常不用动它。</span>
+    <span class="en">Your child's progress is saved in this browser, on this computer. If you switch devices or clear your browser data, it's gone — so once in a while, click Export to save the file to your own computer or cloud drive, and use Import to bring it back on a new device. Otherwise you don't need to touch this.</span>
    </p>
    <div class="toolbar">
     <button class="ghost" id="exp">
