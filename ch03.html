@@ -200,9 +200,8 @@ html[data-theme="dark"] svg{background:#fff;border-radius:8px;padding:4px}
 html[data-theme="dark"] .note,html[data-theme="dark"] .note *{color:#1f2937}
 html[data-theme="dark"] .note strong,html[data-theme="dark"] .note b{color:#b45309!important}
 html[data-theme="dark"] .hint,html[data-theme="dark"] .hint *{color:#1f2937}
-html[data-theme="dark"] .parents,html[data-theme="dark"] .parents p,
-html[data-theme="dark"] .parents summary,html[data-theme="dark"] .parents .zh,
-html[data-theme="dark"] .parents .en{color:#1f2937}
+html[data-theme="dark"] .parents{background:var(--card)!important;color:var(--text);border-color:var(--line)!important}
+html[data-theme="dark"] .parents .zh,html[data-theme="dark"] .parents .en,html[data-theme="dark"] .parents p,html[data-theme="dark"] .parents summary{color:var(--text)}
 /* form controls + table headings follow the theme */
 html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="dark"] textarea{
  background:var(--card2);color:var(--text);border-color:var(--line)}
@@ -707,19 +706,19 @@ function chTest(el){
 /* ===== Chapter lobby: start here ===== */
 const GLOSS={k1:"有序数对",k2:"平面直角坐标系",k3:"轴对称",ext:"平移 / 旋转 / 缩放"};
 const USE_MICRO=true;
-const INTRO={why:"How does a delivery rider find you? \"Building 3, unit 502\" — two pieces of information pinning down one spot. That is a coordinate. Maps, where a character stands in a game, seating plans, spreadsheets: all of them are \"which column, which row\". Turn \"where\" into a pair of numbers and you can measure the distance between two points, or work out where a shape ends up after a flip.",desc:{k1:"Two pieces of information pin down a point: column and row, or a bearing",k2:"Writing \"where\" as a pair (x, y), and the four quadrants",k3:"What happens to coordinates when a shape is reflected",ext:"Translations, rotations and dilations (optional)"}};
+const INTRO={why:"How does a delivery rider find you? \"Building 3, unit 502\" — two pieces of information pinning down one spot. That is a coordinate. Maps, where a character stands in a game, seating plans, spreadsheets: all of them are \"which column, which row\". Turn \"where\" into a pair of numbers and you can measure the distance between two points, or work out where a shape ends up after a flip.",whyZh:"外卖骑手怎么找到你？XX 小区 3 栋 502 室——两条信息确定一个位置，这就是坐标。地图、游戏里角色的位置、座位表、表格里的单元格，全都是\"第几列第几行\"。把\"在哪里\"变成一对数，就能算两点之间的距离，或者算一个图形翻面之后跑到了哪里。",desc:{k1:"Two pieces of information pin down a point: column and row, or a bearing",k2:"Writing \"where\" as a pair (x, y), and the four quadrants",k3:"What happens to coordinates when a shape is reflected",ext:"Translations, rotations and dilations (optional)"}};
 function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
 function introRender(main){
   const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
   let h='<div class="intro-h"><span class="en">What this chapter covers</span><span class="zh">本章学什么</span></div>'
-    +'<div class="intro-sub"><span class="en">Skim the list to see where this chapter is going, then press the button at the bottom.</span><span class="zh">先扫一眼下面的清单，看本章去哪，然后按底部按钮开始。</span></div><div class="kp">';
+    +'<div class="intro-sub"><span class="en">Here is what this chapter walks you through, in order. Read it first, then start the first lesson below.</span><span class="zh">下面是这一章要走的全部内容，按顺序排好。先看一遍，再点下面开始第一小节。</span></div><div class="kp">';
   pts.forEach(l=>{
     const s=st(l.id);
     const badge=s.done?' <span class="st ok">✓ done</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
     h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.t+(GLOSS[l.id]?' <span class="cn-tag">'+GLOSS[l.id]+'</span>':'')+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
   });
   h+='</div>';
-  h+='<div class="why"><b><span class="en">Where this shows up in real life</span><span class="zh">在真实生活里哪里会用到</span></b><br>'+INTRO.why+'</div>';
+  h+='<div class="why"><b><span class="en">Where this shows up in real life</span><span class="zh">在真实生活里哪里会用到</span></b><br>'+L(INTRO.why,INTRO.whyZh)+'</div>';
   h+='<div class="box"><b><span class="en">How this chapter works</span><span class="zh">本章怎么学</span></b><div class="how">'
     +'① <b><span class="en">Watch the lesson</span><span class="zh">看微课</span></b>: <span class="en">a few minutes to get what the section is about</span><span class="zh">花几分钟了解本节内容</span><br>'
     +'② <b><span class="en">Practice</span><span class="zh">练一练</span></b>: <span class="en">5 correct in a row clears it; if you get stuck, hints walk you through</span><span class="zh">连对 5 题就算过关；卡住了就看提示</span><br>'
