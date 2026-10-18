@@ -190,9 +190,8 @@ html[data-theme="dark"] svg{background:#fff;border-radius:8px;padding:4px}
 html[data-theme="dark"] .note,html[data-theme="dark"] .note *{color:#1f2937}
 html[data-theme="dark"] .note strong,html[data-theme="dark"] .note b{color:#b45309!important}
 html[data-theme="dark"] .hint,html[data-theme="dark"] .hint *{color:#1f2937}
-html[data-theme="dark"] .parents,html[data-theme="dark"] .parents p,
-html[data-theme="dark"] .parents summary,html[data-theme="dark"] .parents .zh,
-html[data-theme="dark"] .parents .en{color:#1f2937}
+html[data-theme="dark"] .parents{background:var(--card)!important;color:var(--text);border-color:var(--line)!important}
+html[data-theme="dark"] .parents .zh,html[data-theme="dark"] .parents .en,html[data-theme="dark"] .parents p,html[data-theme="dark"] .parents summary{color:var(--text)}
 /* form controls + table headings follow the theme */
 html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="dark"] textarea{
  background:var(--card2);color:var(--text);border-color:var(--line)}
@@ -698,19 +697,19 @@ function chTest(el){
 /* ===== Chapter lobby: start here ===== */
 const GLOSS={k1:"平均数 / 中位数 / 众数",k2:"方差 / 标准差",k3:"箱线图",k4:"从统计图分析数据"};
 const USE_MICRO=true;
-const INTRO={why:"You play basketball and finish the season averaging 12 points — that 12 is a mean. But a coach also wants to know whether you are steady: 12 every single game, versus 30 one night and 2 the next, is the same mean but a very different variance. Picking a team, reading a win rate, deciding whose grades are actually reliable, comparing which shop pours fastest — same tools.",desc:{k1:"Which single number should stand for a whole data set",k2:"One number for how spread out, and how steady, the data is",k3:"One picture showing the spread and the outliers",k4:"Read the mean, median, mode straight off a bar or pie chart"}};
+const INTRO={why:"You play basketball and finish the season averaging 12 points — that 12 is a mean. But a coach also wants to know whether you are steady: 12 every single game, versus 30 one night and 2 the next, is the same mean but a very different variance. Picking a team, reading a win rate, deciding whose grades are actually reliable, comparing which shop pours fastest — same tools.",whyZh:"你打篮球，赛季平均 12 分——这 12 就是平均数。但教练还想知道你稳不稳：每场都 12 分，和一场 30 分下一场 2 分，平均数一样，方差却完全不同。选队员、看胜率、判断谁的成绩真可靠、哪家店出餐最快，工具都是这一套。",desc:{k1:"Which single number should stand for a whole data set",k2:"One number for how spread out, and how steady, the data is",k3:"One picture showing the spread and the outliers",k4:"Read the mean, median, mode straight off a bar or pie chart"}};
 function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
 function introRender(main){
   const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
   let h='<div class="intro-h"><span class="en">What this chapter covers</span><span class="zh">本章学什么</span></div>'
-    +'<div class="intro-sub"><span class="en">Skim the list to see where this chapter is going, then press the button at the bottom.</span><span class="zh">先扫一眼下面的清单，看本章去哪，然后按底部按钮开始。</span></div><div class="kp">';
+    +'<div class="intro-sub"><span class="en">Here is what this chapter walks you through, in order. Read it first, then start the first lesson below.</span><span class="zh">下面是这一章要走的全部内容，按顺序排好。先看一遍，再点下面开始第一小节。</span></div><div class="kp">';
   pts.forEach(l=>{
     const s=st(l.id);
     const badge=s.done?' <span class="st ok">✓ done</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
     h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.t+(GLOSS[l.id]?' <span class="cn-tag">'+GLOSS[l.id]+'</span>':'')+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
   });
   h+='</div>';
-  h+='<div class="why"><b><span class="en">Where this shows up in real life</span><span class="zh">在真实生活里哪里会用到</span></b><br>'+INTRO.why+'</div>';
+  h+='<div class="why"><b><span class="en">Where this shows up in real life</span><span class="zh">在真实生活里哪里会用到</span></b><br>'+L(INTRO.why,INTRO.whyZh)+'</div>';
   h+='<div class="box"><b><span class="en">How this chapter works</span><span class="zh">本章怎么学</span></b><div class="how">'
     +'① <b><span class="en">Watch the lesson</span><span class="zh">看微课</span></b>: <span class="en">a few minutes to get what the section is about</span><span class="zh">花几分钟了解本节内容</span><br>'
     +'② <b><span class="en">Practice</span><span class="zh">练一练</span></b>: <span class="en">5 correct in a row clears it; if you get stuck, hints walk you through</span><span class="zh">连对 5 题就算过关；卡住了就看提示</span><br>'
