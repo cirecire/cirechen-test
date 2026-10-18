@@ -236,7 +236,7 @@ html[data-theme="dark"] table th{color:var(--muted)}
 </head>
 <body>
 <div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 16px;font-size:13px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:99">
- <a href="home.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">← Overview</span><span class="zh">← 总览</span></a>
+ <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="zh">← 门户</span><span class="en">← Portal</span></a> <a href="home.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">← Overview</span><span class="zh">← 总览</span></a>
  <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">Unit tests</span><span class="zh">单元测试</span></a>
 </div>
 
@@ -478,18 +478,18 @@ function microK1(el){
   el.innerHTML=`
     <div class="step">${L('Have a go','动手试')}</div>
     <h3>${L('Why is a² + b² = c²? ','为什么 a² + b² = c²？')}</h3>
-    <div class="lead">${L('Drag the a and b sliders. Watch the two small squares on the two legs (sides a and b) and the big square on the slanted side c — does the sum of the two small squares always equal the big one?','拖动 a 和 b 的滑块。看两条直角边（a 和 b）上各有一个小正方形，斜边 c 上有一个大正方形——两个小正方形的面积加起来，是不是一直等于那个大正方形？')}</div>
+    <div class="lead">${L('Drag the a and b sliders. On the RIGHT figure, two small squares sit on the legs — a green a² square and a yellow b² square. On the LEFT figure, one big red square sits on the hypotenuse (the c² square in the middle). The two outer frames are the same size and each holds four identical triangles, so after you take the triangles away, what is left must match: a² + b² = c².','拖动 a 和 b 的滑块。看右边的图：两条直角边 a、b 上各有一个小正方形（绿色 a²、黄色 b²）。看左边的图：斜边 c 上有一个大正方形（中间红色 c²）。两个外框大正方形一样大，里面都包着四个完全相同的三角形；把三角形都去掉后，剩下的面积必然相等：a² + b² = c²。')}</div>
     <div class="slider-row">
       <label>a = <input type="range" id="ra" min="1" max="8" value="3"><span class="val" id="va">3</span></label>
       <label>b = <input type="range" id="rb" min="1" max="8" value="4"><span class="val" id="vb">4</span></label>
     </div>
     <div class="micro">
-      <div class="fig"><div class="cap">Left square</div>
+      <div class="fig"><div class="cap">${L('c² — the hypotenuse square','c² —— 斜边上的大正方形')}</div>
         <div class="sub2">${L('4 triangles + 1 square of side c','4 个三角形 + 1 个边长为 c 的正方形')}</div>
         <svg id="svgL" viewBox="0 0 240 240" width="230" height="230"></svg>
         <div class="sub2">${L('Area = 4×(½ab) + ','面积 = 4×(½ab) + ')}<b>c²</b></div>
       </div>
-      <div class="fig"><div class="cap">Right square</div>
+      <div class="fig"><div class="cap">${L('a² + b² — the leg squares','a² + b² —— 两条直角边上的小正方形')}</div>
         <div class="sub2">${L('4 triangles + a² square + b² square','4 个三角形 + a² 正方形 + b² 正方形')}</div>
         <svg id="svgR" viewBox="0 0 240 240" width="230" height="230"></svg>
         <div class="sub2">${L('Area = 4×(½ab) + ','面积 = 4×(½ab) + ')}<b>a² + b²</b></div>
