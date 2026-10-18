@@ -192,9 +192,8 @@ html[data-theme="dark"] svg{background:#fff;border-radius:8px;padding:4px}
 html[data-theme="dark"] .note,html[data-theme="dark"] .note *{color:#1f2937}
 html[data-theme="dark"] .note strong,html[data-theme="dark"] .note b{color:#b45309!important}
 html[data-theme="dark"] .hint,html[data-theme="dark"] .hint *{color:#1f2937}
-html[data-theme="dark"] .parents,html[data-theme="dark"] .parents p,
-html[data-theme="dark"] .parents summary,html[data-theme="dark"] .parents .zh,
-html[data-theme="dark"] .parents .en{color:#1f2937}
+html[data-theme="dark"] .parents{background:var(--card)!important;color:var(--text);border-color:var(--line)!important}
+html[data-theme="dark"] .parents .zh,html[data-theme="dark"] .parents .en,html[data-theme="dark"] .parents p,html[data-theme="dark"] .parents summary{color:var(--text)}
 /* form controls + table headings follow the theme */
 html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="dark"] textarea{
  background:var(--card2);color:var(--text);border-color:var(--line)}
@@ -579,19 +578,19 @@ function chTest(el){
 /* ===== Chapter lobby: start here ===== */
 const GLOSS={k1:"证明",k2:"两列式证明",k3:"平行线的判定",k4:"平行线的性质",k5:"三角形内角和"};
 const USE_MICRO=true;
-const INTRO={why:"\"If alternate interior angles are equal, the lines are parallel\" — but why must that be true? Measuring it is not an argument. This chapter turns \"looks right to me\" into \"here is my reason\": every step written as because…, therefore… (∵ ∴). That habit of backing up a claim carries into geometry, into essays, into any argument you ever make.",desc:{k1:"\"It looks right\" is not enough — you need a reason",k2:"The standard format: every step as because…, therefore… (∵ ∴)",k3:"What lets you conclude that two lines are parallel",k4:"Once you know lines are parallel, what follows from it",k5:"The three angles of a triangle add to 180° — and how to prove it"}};
+const INTRO={why:"\"If alternate interior angles are equal, the lines are parallel\" — but why must that be true? Measuring it is not an argument. This chapter turns \"looks right to me\" into \"here is my reason\": every step written as because…, therefore… (∵ ∴). That habit of backing up a claim carries into geometry, into essays, into any argument you ever make.",whyZh:"\"内错角相等，两条直线就平行\"——但凭什么必须是这样？量出来的不算证明。这一章把\"看着对\"变成\"我有理由\"：每一步都写成\"因为…，所以…\"。这个\"说话要有根据\"的习惯，几何里要用，写文章要用，你以后做的任何论证都要用。",desc:{k1:"\"It looks right\" is not enough — you need a reason",k2:"The standard format: every step as because…, therefore… (∵ ∴)",k3:"What lets you conclude that two lines are parallel",k4:"Once you know lines are parallel, what follows from it",k5:"The three angles of a triangle add to 180° — and how to prove it"}};
 function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
 function introRender(main){
   const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
   let h='<div class="intro-h"><span class="en">What this chapter covers</span><span class="zh">本章学什么</span></div>'
-    +'<div class="intro-sub"><span class="en">Skim the list to see where this chapter is going, then press the button at the bottom.</span><span class="zh">先扫一眼下面的清单，看本章去哪，然后按底部按钮开始。</span></div><div class="kp">';
+    +'<div class="intro-sub"><span class="en">Here is what this chapter walks you through, in order. Read it first, then start the first lesson below.</span><span class="zh">下面是这一章要走的全部内容，按顺序排好。先看一遍，再点下面开始第一小节。</span></div><div class="kp">';
   pts.forEach(l=>{
     const s=st(l.id);
     const badge=s.done?' <span class="st ok">✓ done</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
     h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.t+(GLOSS[l.id]?' <span class="cn-tag">'+GLOSS[l.id]+'</span>':'')+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
   });
   h+='</div>';
-  h+='<div class="why"><b><span class="en">Where this shows up in real life</span><span class="zh">在真实生活里哪里会用到</span></b><br>'+INTRO.why+'</div>';
+  h+='<div class="why"><b><span class="en">Where this shows up in real life</span><span class="zh">在真实生活里哪里会用到</span></b><br>'+L(INTRO.why,INTRO.whyZh)+'</div>';
   h+='<div class="box"><b><span class="en">How this chapter works</span><span class="zh">本章怎么学</span></b><div class="how">'
     +'① <b><span class="en">Watch the lesson</span><span class="zh">看微课</span></b>: <span class="en">a few minutes to get what the section is about</span><span class="zh">花几分钟了解本节内容</span><br>'
     +'② <b><span class="en">Practice</span><span class="zh">练一练</span></b>: <span class="en">5 correct in a row clears it; if you get stuck, hints walk you through</span><span class="zh">连对 5 题就算过关；卡住了就看提示</span><br>'
