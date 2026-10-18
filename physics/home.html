@@ -233,7 +233,7 @@ html[data-theme="dark"] table th{color:var(--muted)}
 <script>try{document.documentElement.setAttribute('data-theme',localStorage.getItem('phys8_theme')||'auto');}catch(e){}</script>
 </head>
 <body>
-<a class="portalbar" href="index.html" style="position:fixed;top:8px;left:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 14px;box-shadow:0 2px 12px rgba(0,0,0,.15);text-decoration:none;color:#374151;font-size:12px;font-weight:600" title="Back to portal"><span class="zh">← 门户</span><span class="en">← Portal</span></a>
+<a class="portalbar" href="../index.html" style="position:fixed;top:8px;left:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 14px;box-shadow:0 2px 12px rgba(0,0,0,.15);text-decoration:none;color:#374151;font-size:12px;font-weight:600" title="Back to portal"><span class="zh">← 门户</span><span class="en">← Portal</span></a>
 <div class="wrap">
 
 <header>
@@ -333,7 +333,7 @@ html[data-theme="dark"] table th{color:var(--muted)}
 
 <p style="margin:22px 0 40px;font-size:11px;color:var(--muted);text-align:center">
  <span class="en">Video content from Khan Academy · CC BY-NC-SA · this site is for personal study only · test site cirechen-test</span><span class="zh">视频内容来自 Khan Academy · CC BY-NC-SA · 本站仅作个人学习用 · 测试站 cirechen-test</span><br>
- <a href="index_qclaw.html" style="font-size:11px">Old site</a>
+ <a href="../index_qclaw.html" style="font-size:11px">Old site</a>
 </p>
 </div>
 
@@ -455,9 +455,9 @@ function chNo(c){return String(CH.indexOf(c)+1).padStart(2,'0');}
  const done=all.filter(l=>l===4).length;
  document.getElementById('stats').innerHTML=`
   <div class="stat"><div class="v">${done}/${all.length}</div><div class="l"><span class="en">topics fully mastered</span><span class="zh">已完全掌握的知识点</span></div></div>
-  <div class="stat"><div class="v">${vw}/196</div><div class="l"><span class="en">videos watched</span><span class="zh">已看视频</span></div></div>
+  <div class="stat"><div class="v">${vw}/48</div><div class="l"><span class="en">videos watched</span><span class="zh">已看视频</span></div></div>
   <div class="stat"><div class="v">${tot?Math.round(ok/tot*100)+'%':'—'}</div><div class="l"><span class="en">practice accuracy (${ok}/${tot})</span><span class="zh">练习正确率（${ok}/${tot}）</span></div></div>
-  <div class="stat"><div class="v">${tests}/</div><div class="l"><span class="en">chapter checks passed</span><span class="zh">已通过的章末自测</span></div></div>`;
+  <div class="stat"><div class="v">${tests}/12</div><div class="l"><span class="en">chapter checks passed</span><span class="zh">已通过的章末自测</span></div></div>`;
 
  const last=localStorage.getItem('phys8_last');
  const lc=CH.find(c=>c.k===last);
@@ -507,7 +507,7 @@ function go(k,isTest){
   return `<tr><td><b>${u.n}</b> ${u.cn}<br><span style="font-size:11px;color:var(--muted)">${u.ch.map(k=>'Chapter '+(CH.findIndex(x=>x.k===k)+1)).join(' · ')}</span></td>
    <td style="font-size:12px">${u.q} questions</td>
    <td>${readyTxt} ${lvlTxt}</td><td>${last}</td><td>${best}</td>
-   <td><button class="sm" onclick="location.href='unittests.html?u=${u.id}'">Start</button></td></tr>`;
+   <td><button class="sm" onclick="location.href='${u.ch[0]}.html'">Start</button></td></tr>`;
  }).join('');
 })();
 

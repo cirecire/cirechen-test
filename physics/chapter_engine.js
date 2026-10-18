@@ -61,7 +61,7 @@ const FORMULAS={
     vars:[{k:'m',lab:{en:'mass m',zh:'质量 m'},min:0.1,max:5,val:1.0,step:0.1,unit:'kg'},{k:'dt',lab:{en:'ΔT',zh:'温差 ΔT'},min:0,max:100,val:50,step:5,unit:'°C'}],
     calc:o=>({eq:'Q = c·m·ΔT = 4200 × '+o.m.toFixed(1)+' × '+o.dt+' = '+(4200*o.m*o.dt).toFixed(0)+' J'}),
     note:{en:'Boiling water stays at 100°C while it boils.',zh:'水沸腾时温度停在 100°C。'}},
-  ch04:{title:{en:'Refraction (Snell)',zh:'折射（斯涅尔）'},lead:{en:'n = sin(i) ÷ sin(r). Try different入射 angles.',zh:'n = sin i ÷ sin r。试试不同入射角。'},
+  ch04:{title:{en:'Refraction (Snell)',zh:'折射（斯涅尔）'},lead:{en:'n = sin(i) ÷ sin(r). Try different angles of incidence.',zh:'n = sin i ÷ sin r。试试不同入射角。'},
     vars:[{k:'i',lab:{en:'incident i',zh:'入射角 i'},min:10,max:80,val:30,step:5,unit:'°'},{k:'n',lab:{en:'index n',zh:'折射率 n'},min:1.0,max:2.0,val:1.5,step:0.05,unit:''}],
     calc:o=>{const r=Math.asin(Math.sin(o.i*Math.PI/180)/o.n)*180/Math.PI; return {eq:'n = sin '+o.i+'° / sin r → r = '+r.toFixed(1)+'°'};},
     note:{en:'Light bends when it crosses into a new material.',zh:'光进入不同介质时会弯折。'}},
