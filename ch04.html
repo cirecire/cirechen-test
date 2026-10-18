@@ -204,9 +204,8 @@ html[data-theme="dark"] svg{background:#fff;border-radius:8px;padding:4px}
 html[data-theme="dark"] .note,html[data-theme="dark"] .note *{color:#1f2937}
 html[data-theme="dark"] .note strong,html[data-theme="dark"] .note b{color:#b45309!important}
 html[data-theme="dark"] .hint,html[data-theme="dark"] .hint *{color:#1f2937}
-html[data-theme="dark"] .parents,html[data-theme="dark"] .parents p,
-html[data-theme="dark"] .parents summary,html[data-theme="dark"] .parents .zh,
-html[data-theme="dark"] .parents .en{color:#1f2937}
+html[data-theme="dark"] .parents{background:var(--card)!important;color:var(--text);border-color:var(--line)!important}
+html[data-theme="dark"] .parents .zh,html[data-theme="dark"] .parents .en,html[data-theme="dark"] .parents p,html[data-theme="dark"] .parents summary{color:var(--text)}
 /* form controls + table headings follow the theme */
 html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="dark"] textarea{
  background:var(--card2);color:var(--text);border-color:var(--line)}
@@ -883,19 +882,19 @@ function chTest(el){
 /* ===== Chapter lobby: start here ===== */
 const GLOSS={k1:"函数",k2:"一次函数",k3:"斜率 / 截距",k5:"待定系数法",k4:"建模"};
 const USE_MICRO=true;
-const INTRO={why:"A phone plan costs ¥20 a month plus ¥5 for each extra GB: use x GB and you pay y = 20 + 5x. That is a linear function. Taxi fares, utility bills, distance-time graphs, how XP builds up in a game — all of them change at a steady rate. Learn it and you can graph any steady-rate situation, and read the slope as \"how much more you pay per extra unit\".",desc:{k1:"One quantity changes and another follows: variables, and what a function is",k2:"y = kx + b — the constant-rate relationship",k3:"Slope k sets how steep, intercept b sets where it starts",k5:"Write the form first, then let the given points fix k and b",k4:"Reading graphs and writing equations for real billing and travel problems"}};
+const INTRO={why:"A phone plan costs ¥20 a month plus ¥5 for each extra GB: use x GB and you pay y = 20 + 5x. That is a linear function. Taxi fares, utility bills, distance-time graphs, how XP builds up in a game — all of them change at a steady rate. Learn it and you can graph any steady-rate situation, and read the slope as \"how much more you pay per extra unit\".",whyZh:"手机套餐每月 20 元，每多用 1 GB 加 5 元：用 x GB 就付 y = 20 + 5x。这就是一次函数。打车费、水电费、距离-时间图、游戏里的经验值，全都是按固定速度变化的。学会它，任何\"按固定速度涨\"的事都能画图，而那条线的斜率就是\"每多用一单位多付多少\"。",desc:{k1:"One quantity changes and another follows: variables, and what a function is",k2:"y = kx + b — the constant-rate relationship",k3:"Slope k sets how steep, intercept b sets where it starts",k5:"Write the form first, then let the given points fix k and b",k4:"Reading graphs and writing equations for real billing and travel problems"}};
 function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
 function introRender(main){
   const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
   let h='<div class="intro-h"><span class="en">What this chapter covers</span><span class="zh">本章学什么</span></div>'
-    +'<div class="intro-sub"><span class="en">Skim the list to see where this chapter is going, then press the button at the bottom.</span><span class="zh">先扫一眼下面的清单，看本章去哪，然后按底部按钮开始。</span></div><div class="kp">';
+    +'<div class="intro-sub"><span class="en">Here is what this chapter walks you through, in order. Read it first, then start the first lesson below.</span><span class="zh">下面是这一章要走的全部内容，按顺序排好。先看一遍，再点下面开始第一小节。</span></div><div class="kp">';
   pts.forEach(l=>{
     const s=st(l.id);
     const badge=s.done?' <span class="st ok">✓ done</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
     h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.t+(GLOSS[l.id]?' <span class="cn-tag">'+GLOSS[l.id]+'</span>':'')+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
   });
   h+='</div>';
-  h+='<div class="why"><b><span class="en">Where this shows up in real life</span><span class="zh">在真实生活里哪里会用到</span></b><br>'+INTRO.why+'</div>';
+  h+='<div class="why"><b><span class="en">Where this shows up in real life</span><span class="zh">在真实生活里哪里会用到</span></b><br>'+L(INTRO.why,INTRO.whyZh)+'</div>';
   h+='<div class="box"><b><span class="en">How this chapter works</span><span class="zh">本章怎么学</span></b><div class="how">'
     +'① <b><span class="en">Watch the lesson</span><span class="zh">看微课</span></b>: <span class="en">a few minutes to get what the section is about</span><span class="zh">花几分钟了解本节内容</span><br>'
     +'② <b><span class="en">Practice</span><span class="zh">练一练</span></b>: <span class="en">5 correct in a row clears it; if you get stuck, hints walk you through</span><span class="zh">连对 5 题就算过关；卡住了就看提示</span><br>'
