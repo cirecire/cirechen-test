@@ -383,6 +383,14 @@ var PHYSICS_DATA = [
                 "pq2": [
                     4
                 ]
+            },
+            {
+                "name": "§2.5 跨学科实践：制作隔音房间模型 · Interdisciplinary Practice",
+                "vids": [
+                    4
+                ],
+                "pq": [],
+                "pq2": []
             }
         ],
         "videos": [
@@ -680,6 +688,15 @@ var PHYSICS_DATA = [
                 "pq2": [
                     4
                 ]
+            },
+            {
+                "name": "§3.5 跨学科实践：探索厨房中的物态变化问题 · Interdisciplinary Practice",
+                "vids": [
+                    2,
+                    5
+                ],
+                "pq": [],
+                "pq2": []
             }
         ],
         "videos": [
@@ -1277,6 +1294,14 @@ var PHYSICS_DATA = [
                 "pq2": [
                     4
                 ]
+            },
+            {
+                "name": "§5.5 跨学科实践：制作望远镜 · Interdisciplinary Practice",
+                "vids": [
+                    2
+                ],
+                "pq": [],
+                "pq2": []
             }
         ],
         "videos": [
@@ -1821,6 +1846,737 @@ var PHYSICS_DATA = [
                 "hint": "注意气体永远充满容器——体积不变；先算原有质量，再算剩余质量。",
                 "source": "公立校真题·气体密度计算(Q7)"
             }
+        ]
+    },
+    {
+        "id": "ch07",
+        "g": "8",
+        "gx": 7,
+        "title": "力",
+        "subtitle": "Forces",
+        "term": 2,
+        "coverage": "p+ka",
+        "think": "为什么用手拍桌子，手也会疼？推同一扇门，用力的位置不同，门转动的效果为何不一样？",
+        "subtopics": [
+            {
+                "name": "§7.1 力 · Force",
+                "vids": [
+                    0
+                ],
+                "pq": [],
+                "pq2": []
+            },
+            {
+                "name": "§7.2 弹力 · Elastic Force",
+                "vids": [
+                    1
+                ],
+                "pq": [],
+                "pq2": []
+            },
+            {
+                "name": "§7.3 重力 · Gravity",
+                "vids": [
+                    2
+                ],
+                "pq": [],
+                "pq2": []
+            }
+        ],
+        "videos": [
+            {
+                "t": "Introduction to forces and Newton's laws",
+                "ka": "https://www.khanacademy.org/science/physics/forces-newtons-laws",
+                "m": "Khan Academy · Forces"
+            },
+            {
+                "t": "Elastic force & Hooke's law (spring scale)",
+                "ka": "https://www.khanacademy.org/science/physics/forces-newtons-laws/balanced-unbalanced-forces",
+                "m": "Khan Academy · Forces"
+            },
+            {
+                "t": "Gravity and the gravitational force",
+                "ka": "https://www.khanacademy.org/science/physics/forces-newtons-laws/newtons-laws-of-motion",
+                "m": "Khan Academy · Forces"
+            }
+        ],
+        "practice": [],
+        "practice2": [
+            {
+                "q": "关于力的概念，下列说法正确的是？",
+                "options": [
+                    "力可以脱离物体而存在",
+                    "两个物体不接触就一定没有力的作用",
+                    "物体间力的作用是相互的",
+                    "受力物体不可能是施力物体"
+                ],
+                "ansIdx": 2,
+                "sol": "力是物体对物体的作用，不能脱离物体存在；不接触也可能有力的作用（如磁铁、重力）；物体间力的作用是相互的，受力物体同时也是施力物体。答案：C。"
+            },
+            {
+                "q": "游泳时手向后划水，人反而向前运动，这说明了？",
+                "options": [
+                    "手对水的力小于水对手的力",
+                    "力的作用是相互的",
+                    "力只能改变运动状态不能改变形状",
+                    "只有人受力，水不受力"
+                ],
+                "ansIdx": 1,
+                "sol": "手向后划水，水对手施加向前的反作用力，正是力的相互作用的体现。答案：B。"
+            },
+            {
+                "q": "关于重力，下列说法正确的是？",
+                "options": [
+                    "重力方向总是垂直向下",
+                    "重力大小与质量成正比",
+                    "物体的质量与所受重力无关",
+                    "g=9.8 N/kg 表示 1 kg = 9.8 N"
+                ],
+                "ansIdx": 1,
+                "sol": "重力方向是竖直向下（不是垂直向下）；G=mg，重力与质量成正比；g=9.8 N/kg 表示质量 1 kg 的物体所受重力为 9.8 N。答案：B。"
+            }
+        ],
+        "quiz": [],
+        "quiz2": [
+            {
+                "q": "下列实例中，为了减小摩擦的是？",
+                "options": [
+                    "鞋底刻有花纹",
+                    "自行车刹车时用力捏闸",
+                    "在机器的转动部件加润滑油",
+                    "乒乓球拍贴胶粒"
+                ],
+                "ansIdx": 2,
+                "sol": "加润滑油使接触面分离，减小摩擦；其余都是增大摩擦。答案：C。"
+            },
+            {
+                "q": "关于弹力，下列说法正确的是？",
+                "options": [
+                    "任何物体都能发生形变产生弹力",
+                    "弹力是物体由于弹性形变而要恢复原状时对接触物体产生的力",
+                    "弹簧的弹力大小与伸长量无关",
+                    "只有弹簧才有弹力"
+                ],
+                "ansIdx": 1,
+                "sol": "弹力是发生弹性形变的物体由于要恢复原状而对接触物体产生的力；在弹性限度内弹簧弹力与形变量有关。答案：B。"
+            }
+        ],
+        "notes": [
+            "力是物体对物体的作用，不能脱离物体存在；物体间力的作用是相互的（作用力与反作用力分别作用在两物体上）。",
+            "力的作用效果：改变物体的运动状态 / 改变物体的形状。三要素：大小、方向、作用点。",
+            "重力 G = mg，方向竖直向下，作用点在重心；g ≈ 9.8 N/kg。",
+            "弹力产生于弹性形变；弹簧测力计在弹性限度内，弹力 F 与伸长量成正比（胡克定律）。"
+        ]
+    },
+    {
+        "id": "ch08",
+        "g": "8",
+        "gx": 8,
+        "title": "运动和力",
+        "subtitle": "Motion and Forces",
+        "term": 2,
+        "coverage": "p+ka",
+        "think": "为什么紧急刹车时人会向前冲？一辆匀速直线行驶的汽车，关闭发动机后为什么会慢慢停下，而不是永远匀速？",
+        "subtopics": [
+            {
+                "name": "§8.1 牛顿第一定律 · Newton's First Law",
+                "vids": [
+                    0
+                ],
+                "pq": [],
+                "pq2": []
+            },
+            {
+                "name": "§8.2 二力平衡 · Balanced Forces",
+                "vids": [
+                    1
+                ],
+                "pq": [],
+                "pq2": []
+            },
+            {
+                "name": "§8.3 摩擦力 · Friction",
+                "vids": [
+                    2
+                ],
+                "pq": [],
+                "pq2": []
+            }
+        ],
+        "videos": [
+            {
+                "t": "Newton's first law (inertia)",
+                "ka": "https://www.khanacademy.org/science/physics/forces-newtons-laws/newtons-laws-of-motion",
+                "m": "Khan Academy · Forces"
+            },
+            {
+                "t": "Balanced and unbalanced forces",
+                "ka": "https://www.khanacademy.org/science/physics/forces-newtons-laws/balanced-unbalanced-forces",
+                "m": "Khan Academy · Forces"
+            },
+            {
+                "t": "Friction and inclined planes",
+                "ka": "https://www.khanacademy.org/science/physics/forces-newtons-laws/inclined-planes-friction",
+                "m": "Khan Academy · Forces"
+            }
+        ],
+        "practice": [],
+        "practice2": [
+            {
+                "q": "关于牛顿第一定律，下列说法正确的是？",
+                "options": [
+                    "物体不受力时一定静止",
+                    "物体不受力时一定做匀速直线运动",
+                    "一切物体在没有受到力的作用时，总保持静止或匀速直线运动状态",
+                    "力是维持物体运动的原因"
+                ],
+                "ansIdx": 2,
+                "sol": "牛顿第一定律：一切物体在没有受到力的作用时，总保持静止或匀速直线运动状态；力是改变物体运动状态的原因，不是维持运动的原因。答案：C。"
+            },
+            {
+                "q": "关于惯性，下列说法正确的是？",
+                "options": [
+                    "静止的物体没有惯性",
+                    "速度大的物体惯性大",
+                    "惯性是物体的固有属性，只与质量有关，与速度无关",
+                    "只有运动的物体才有惯性"
+                ],
+                "ansIdx": 2,
+                "sol": "一切物体在任何情况下都有惯性，惯性大小只与质量有关，与速度无关。答案：C。"
+            },
+            {
+                "q": "一对平衡力与一对相互作用力的主要区别是？",
+                "options": [
+                    "平衡力作用在同一物体上，相互作用力作用在不同物体上",
+                    "平衡力大小一定不等",
+                    "相互作用力作用在同一物体上",
+                    "二者没有区别"
+                ],
+                "ansIdx": 0,
+                "sol": "平衡力作用在同一物体上；相互作用力（作用力与反作用力）分别作用在两个物体上。答案：A。"
+            }
+        ],
+        "quiz": [],
+        "quiz2": [
+            {
+                "q": "物体在水平桌面上匀速直线运动，竖直方向上的一对平衡力是？",
+                "options": [
+                    "重力和桌面对它的支持力",
+                    "重力和它对桌面的压力",
+                    "它对桌面的压力和桌面对它的支持力",
+                    "重力和水平方向的摩擦力"
+                ],
+                "ansIdx": 0,
+                "sol": "竖直方向：重力与支持力大小相等、方向相反、作用在同一物体上，是一对平衡力。答案：A。"
+            },
+            {
+                "q": "下列做法中，通过增大压力来增大摩擦的是？",
+                "options": [
+                    "行李箱装滚轮",
+                    "用力擦黑板",
+                    "磁悬浮列车",
+                    "给轴承加润滑油"
+                ],
+                "ansIdx": 1,
+                "sol": "用力擦黑板增大了压力从而增大摩擦；A、C、D 都是减小摩擦。答案：B。"
+            }
+        ],
+        "notes": [
+            "牛顿第一定律：不受力时总保持静止或匀速直线运动——揭示惯性是物体的固有属性，不是力。",
+            "惯性只与质量有关，与速度无关；不能说'受到惯性力'，应说'由于惯性'。",
+            "二力平衡条件：同体、等值、反向、共线。与相互作用力的根本区别在'是否作用在同一物体'。",
+            "摩擦力方向与相对运动（或相对运动趋势）方向相反；增大/减小摩擦各有系统方法。"
+        ]
+    },
+    {
+        "id": "ch09",
+        "g": "8",
+        "gx": 9,
+        "title": "压强",
+        "subtitle": "Pressure",
+        "term": 2,
+        "coverage": "p+ka",
+        "think": "为什么图钉要用尖的一头按进墙里？用吸管为什么能吸起饮料？高山上为什么要用高压锅？",
+        "subtopics": [
+            {
+                "name": "§9.1 压强 · Pressure",
+                "vids": [
+                    0
+                ],
+                "pq": [],
+                "pq2": []
+            },
+            {
+                "name": "§9.2 液体的压强 · Fluid Pressure",
+                "vids": [
+                    1
+                ],
+                "pq": [],
+                "pq2": []
+            },
+            {
+                "name": "§9.3 大气压强 · Atmospheric Pressure",
+                "vids": [
+                    2
+                ],
+                "pq": [],
+                "pq2": []
+            },
+            {
+                "name": "§9.4 流体压强与流速的关系 · Bernoulli & Fluid Flow",
+                "vids": [
+                    1
+                ],
+                "pq": [],
+                "pq2": []
+            }
+        ],
+        "videos": [
+            {
+                "t": "Pressure and Pascal's principle",
+                "ka": "https://www.khanacademy.org/science/physics/fluids/pressure-and-pascal",
+                "m": "Khan Academy · Fluids"
+            },
+            {
+                "t": "Pressure in a liquid (p = ρgh)",
+                "ka": "https://www.khanacademy.org/science/physics/fluids/pressure-and-pascal",
+                "m": "Khan Academy · Fluids"
+            },
+            {
+                "t": "Atmospheric pressure & barometers",
+                "ka": "https://www.khanacademy.org/science/physics/fluids",
+                "m": "Khan Academy · Fluids"
+            }
+        ],
+        "practice": [],
+        "practice2": [
+            {
+                "q": "关于压强，下列说法正确的是？",
+                "options": [
+                    "压力越大，压强一定越大",
+                    "受力面积越小，压强一定越大",
+                    "压强是表示压力作用效果的物理量",
+                    "压强的单位只有 Pa"
+                ],
+                "ansIdx": 2,
+                "sol": "压强 p = F/S，由压力和受力面积共同决定；压强表示压力的作用效果；单位是 Pa。答案：C。"
+            },
+            {
+                "q": "大山深处用普通锅难把饭煮熟，是因为？",
+                "options": [
+                    "海拔高，气压低，水的沸点低",
+                    "海拔高，气压高，水的沸点高",
+                    "炉火温度不够",
+                    "锅的材质不好"
+                ],
+                "ansIdx": 0,
+                "sol": "海拔越高，大气压强越低，水的沸点降低（低于 100℃），米饭难熟，需用高压锅。答案：A。"
+            },
+            {
+                "q": "关于液体压强，下列说法正确的是？",
+                "options": [
+                    "液体内部只有向下有压强",
+                    "液体压强随深度增加而增大",
+                    "液体压强与容器形状有关",
+                    "同一深度各方向压强不相等"
+                ],
+                "ansIdx": 1,
+                "sol": "液体内部向各个方向都有压强，同一深度各方向压强相等，随深度增加而增大，与容器形状无关。答案：B。"
+            }
+        ],
+        "quiz": [],
+        "quiz2": [
+            {
+                "q": "底面积不同的两容器装同种液体且液面等高，则两容器底部受到的液体压强？",
+                "options": [
+                    "甲大",
+                    "乙大",
+                    "一样大",
+                    "无法判断"
+                ],
+                "ansIdx": 2,
+                "sol": "液体压强 p = ρgh，只与液体密度和深度有关，与底面积、容器形状无关。液面等高即深度 h 相同，故压强相等。答案：C。"
+            },
+            {
+                "q": "流体压强与流速的关系是？",
+                "options": [
+                    "流速大处压强小",
+                    "流速大处压强大",
+                    "二者无关",
+                    "流速为零处压强最小"
+                ],
+                "ansIdx": 0,
+                "sol": "流体流速越大的位置，压强越小（伯努利原理）。答案：A。"
+            }
+        ],
+        "notes": [
+            "压强 p = F/S，表示压力的作用效果；增大压强可增大压力或减小受力面积。",
+            "液体压强 p = ρgh，随深度增大、同深度各方向相等，与容器形状无关。",
+            "大气压存在（马德堡半球、托里拆利实验）；海拔越高气压越低、沸点越低。",
+            "流体：流速大处压强小（伯努利原理）——解释机翼升力、火车站安全线。"
+        ]
+    },
+    {
+        "id": "ch10",
+        "g": "8",
+        "gx": 10,
+        "title": "浮力",
+        "subtitle": "Buoyancy",
+        "term": 2,
+        "coverage": "p+ka",
+        "think": "为什么一块铁会沉底，而钢铁造的轮船却能浮在海面？死海为什么能让人躺在水面不沉？",
+        "subtopics": [
+            {
+                "name": "§10.1 浮力 · Buoyant Force",
+                "vids": [
+                    0
+                ],
+                "pq": [],
+                "pq2": []
+            },
+            {
+                "name": "§10.2 阿基米德原理 · Archimedes' Principle",
+                "vids": [
+                    1
+                ],
+                "pq": [],
+                "pq2": []
+            },
+            {
+                "name": "§10.3 物体的浮沉条件",
+                "vids": [
+                    0
+                ],
+                "pq": [],
+                "pq2": []
+            }
+        ],
+        "videos": [
+            {
+                "t": "Buoyant force and Archimedes' principle",
+                "ka": "https://www.khanacademy.org/science/physics/fluids/buoyant-force-and-archimedes-principle",
+                "m": "Khan Academy · Fluids"
+            },
+            {
+                "t": "Archimedes' principle in depth",
+                "ka": "https://www.khanacademy.org/science/physics/fluids/buoyant-force-and-archimedes-principle",
+                "m": "Khan Academy · Fluids"
+            }
+        ],
+        "practice": [],
+        "practice2": [
+            {
+                "q": "关于浮力，下列说法正确的是？",
+                "options": [
+                    "只有浸在液体中的物体才受浮力",
+                    "浮力方向竖直向上",
+                    "浮力大小一定等于物体自身重力",
+                    "浮力就是液体对物体向上的压力"
+                ],
+                "ansIdx": 1,
+                "sol": "浸在液体或气体中的物体都受浮力；浮力方向竖直向上；浮力大小由阿基米德原理决定，源于上下表面压力差。答案：B。"
+            },
+            {
+                "q": "根据阿基米德原理，浮力大小等于？",
+                "options": [
+                    "物体排开液体的重力",
+                    "物体自身重力",
+                    "液体对物体向下的压力",
+                    "物体体积乘以液体密度"
+                ],
+                "ansIdx": 0,
+                "sol": "F浮 = G排 = ρ液 g V排。答案：A。"
+            },
+            {
+                "q": "鱼靠什么实现上浮和下沉？",
+                "options": [
+                    "改变自身重力",
+                    "改变自身体积从而改变所受浮力",
+                    "改变液体密度",
+                    "改变所在深度"
+                ],
+                "ansIdx": 1,
+                "sol": "鱼通过鱼鳔改变自身体积，从而改变排开水的体积 V排，改变浮力实现浮沉。答案：B。"
+            }
+        ],
+        "quiz": [],
+        "quiz2": [
+            {
+                "q": "同一木块分别漂浮在水和酒精中，比较它所受浮力？",
+                "options": [
+                    "水中大",
+                    "酒精中大",
+                    "一样大",
+                    "无法判断"
+                ],
+                "ansIdx": 2,
+                "sol": "木块漂浮时 F浮 = G木，重力不变，故在两种液体中所受浮力相等。答案：C。"
+            },
+            {
+                "q": "潜水艇要下潜时，应？",
+                "options": [
+                    "向水舱充水，增大自身重力",
+                    "排出水，减小自身重力",
+                    "增大所受浮力",
+                    "减小自身体积"
+                ],
+                "ansIdx": 0,
+                "sol": "潜水艇靠改变自身重力实现浮沉，下潜时向水舱充水使重力大于浮力。答案：A。"
+            }
+        ],
+        "notes": [
+            "浮力方向竖直向上，源于物体上下表面的压力差。",
+            "阿基米德原理：F浮 = G排 = ρ液 g V排。",
+            "浮沉条件：F浮 > G 上浮；F浮 < G 下沉；F浮 = G 悬浮或漂浮。",
+            "轮船靠'空心'增大 V排；潜水艇靠改变自身重力；密度计始终漂浮，F浮 = G。"
+        ]
+    },
+    {
+        "id": "ch11",
+        "g": "8",
+        "gx": 11,
+        "title": "功和机械能",
+        "subtitle": "Work and Mechanical Energy",
+        "term": 2,
+        "coverage": "p+ka",
+        "think": "举着哑铃不动明明很累，物理上却说'不做功'？两台起重机，怎么比较谁做功更快？",
+        "subtopics": [
+            {
+                "name": "§11.1 功 · Work",
+                "vids": [
+                    0
+                ],
+                "pq": [],
+                "pq2": []
+            },
+            {
+                "name": "§11.2 功率 · Power",
+                "vids": [
+                    1
+                ],
+                "pq": [],
+                "pq2": []
+            },
+            {
+                "name": "§11.3 动能和势能 · KE & PE",
+                "vids": [
+                    2
+                ],
+                "pq": [],
+                "pq2": []
+            },
+            {
+                "name": "§11.4 机械能及其转化",
+                "vids": [
+                    2
+                ],
+                "pq": [],
+                "pq2": []
+            }
+        ],
+        "videos": [
+            {
+                "t": "Introduction to work and energy",
+                "ka": "https://www.khanacademy.org/science/physics/work-and-energy",
+                "m": "Khan Academy · Work & Energy"
+            },
+            {
+                "t": "Power (P = W/t)",
+                "ka": "https://www.khanacademy.org/science/physics/work-and-energy/power",
+                "m": "Khan Academy · Work & Energy"
+            },
+            {
+                "t": "Kinetic & potential energy",
+                "ka": "https://www.khanacademy.org/science/physics/work-and-energy/kinetic-energy",
+                "m": "Khan Academy · Work & Energy"
+            }
+        ],
+        "practice": [],
+        "practice2": [
+            {
+                "q": "下列情况中，人对物体做了功的是？",
+                "options": [
+                    "举着杠铃不动",
+                    "提着水桶沿水平路面匀速行走",
+                    "将货物从地面搬到车上",
+                    "用力推墙但墙没动"
+                ],
+                "ansIdx": 2,
+                "sol": "做功两要素：有力的作用且在力的方向上有距离。举着不动、推墙不动都无距离；水平提桶行走，力竖直而位移水平，不做功；只有 C 满足。答案：C。"
+            },
+            {
+                "q": "关于功率，下列说法正确的是？",
+                "options": [
+                    "做功越多，功率越大",
+                    "用时越短，功率越大",
+                    "功率是表示做功快慢的物理量",
+                    "功率大的机械一定做功多"
+                ],
+                "ansIdx": 2,
+                "sol": "P = W/t，功率表示做功快慢；功率大只说明快，不一定做功多。答案：C。"
+            },
+            {
+                "q": "动能大小与什么有关？",
+                "options": [
+                    "只与质量有关",
+                    "只与速度有关",
+                    "与质量和速度都有关",
+                    "与高度有关"
+                ],
+                "ansIdx": 2,
+                "sol": "动能 Ek = ½mv²，与物体的质量和速度都有关。答案：C。"
+            }
+        ],
+        "quiz": [],
+        "quiz2": [
+            {
+                "q": "滚摆上升过程中，能量转化是？",
+                "options": [
+                    "动能 → 重力势能",
+                    "重力势能 → 动能",
+                    "动能 → 内能",
+                    "势能 → 内能"
+                ],
+                "ansIdx": 0,
+                "sol": "上升时速度减小、高度增加，动能转化为重力势能。答案：A。"
+            },
+            {
+                "q": "机械能守恒的条件是？",
+                "options": [
+                    "只有动能和势能相互转化，无其他能量损失",
+                    "物体必须做匀速运动",
+                    "物体不受任何力",
+                    "必须在地面上"
+                ],
+                "ansIdx": 0,
+                "sol": "若只有动能与势能相互转化（不计摩擦、空气阻力），机械能守恒。答案：A。"
+            }
+        ],
+        "notes": [
+            "做功两要素：力 + 在力的方向上的距离；W = Fs（力与距离垂直时不做功）。",
+            "功率 P = W/t 表示做功快慢，单位瓦特 (W)。",
+            "动能 Ek = ½mv²（质量、速度）；重力势能 Ep = mgh（质量、高度）；弹性势能。",
+            "机械能守恒：仅动能 ↔ 势能相互转化、无摩擦阻力损失时成立。"
+        ]
+    },
+    {
+        "id": "ch12",
+        "g": "8",
+        "gx": 12,
+        "title": "简单机械",
+        "subtitle": "Simple Machines",
+        "term": 2,
+        "coverage": "p+ka",
+        "think": "剪刀、跷跷板、天平为什么都叫'杠杆'？滑轮为什么能帮我们改变用力的大小或方向？",
+        "subtopics": [
+            {
+                "name": "§12.1 杠杆 · Lever",
+                "vids": [
+                    0
+                ],
+                "pq": [],
+                "pq2": []
+            },
+            {
+                "name": "§12.2 滑轮 · Pulley",
+                "vids": [
+                    1
+                ],
+                "pq": [],
+                "pq2": []
+            },
+            {
+                "name": "§12.3 机械效率 · Mechanical Efficiency",
+                "vids": [
+                    2
+                ],
+                "pq": [],
+                "pq2": []
+            }
+        ],
+        "videos": [
+            {
+                "t": "Introduction to mechanical advantage",
+                "ka": "https://www.khanacademy.org/science/physics/work-and-energy/mechanical-advantage",
+                "m": "Khan Academy · Mechanical Advantage"
+            },
+            {
+                "t": "Pulley systems and mechanical advantage",
+                "ka": "https://www.khanacademy.org/science/physics/work-and-energy/mechanical-advantage",
+                "m": "Khan Academy · Mechanical Advantage"
+            },
+            {
+                "t": "Mechanical advantage and efficiency",
+                "ka": "https://www.khanacademy.org/science/physics/work-and-energy/mechanical-advantage",
+                "m": "Khan Academy · Mechanical Advantage"
+            }
+        ],
+        "practice": [],
+        "practice2": [
+            {
+                "q": "关于杠杆平衡条件，正确的是？",
+                "options": [
+                    "F1 + F2 = F1' + F2'",
+                    "F1·L1 = F2·L2",
+                    "F1/L1 = F2/L2",
+                    "动力一定等于阻力"
+                ],
+                "ansIdx": 1,
+                "sol": "杠杆平衡条件：动力 × 动力臂 = 阻力 × 阻力臂（F1L1 = F2L2）。答案：B。"
+            },
+            {
+                "q": "定滑轮的特点是？",
+                "options": [
+                    "能省力",
+                    "能省距离",
+                    "能改变力的方向，但不省力",
+                    "既省力又省距离"
+                ],
+                "ansIdx": 2,
+                "sol": "定滑轮实质是等臂杠杆，不省力但能改变力的方向。答案：C。"
+            },
+            {
+                "q": "关于机械效率，下列说法正确的是？",
+                "options": [
+                    "机械效率可以大于 1",
+                    "机械效率总小于 1，因为额外功不可避免",
+                    "机械效率与功率是同一回事",
+                    "越省力的机械效率越高"
+                ],
+                "ansIdx": 1,
+                "sol": "有用功总小于总功（存在额外功），故 η = W有/W总 < 1；机械效率与是否省力、与功率无必然关系。答案：B。"
+            }
+        ],
+        "quiz": [],
+        "quiz2": [
+            {
+                "q": "用理想动滑轮（不计摩擦和滑轮重）提升重物，拉力是物重的？",
+                "options": [
+                    "1 倍",
+                    "1/2 倍",
+                    "2 倍",
+                    "1/4 倍"
+                ],
+                "ansIdx": 1,
+                "sol": "动滑轮由两段绳子共同承担物重，理想情况下 F = G/2。答案：B。"
+            },
+            {
+                "q": "下列工具中属于费力杠杆的是？",
+                "options": [
+                    "撬棍",
+                    "羊角锤",
+                    "钓鱼竿",
+                    "天平"
+                ],
+                "ansIdx": 2,
+                "sol": "钓鱼竿动力臂小于阻力臂，是费力杠杆（省距离）；撬棍、羊角锤省力；天平是等臂杠杆。答案：C。"
+            }
+        ],
+        "notes": [
+            "杠杆平衡：F1L1 = F2L2；分类：省力杠杆、费力杠杆、等臂杠杆。",
+            "定滑轮改变力的方向但不省力；动滑轮省一半力（理想）但费距离；滑轮组综合两者。",
+            "有用功 W有、额外功 W额、总功 W总；机械效率 η = W有/W总 < 1。",
+            "机械效率与是否省力、与功率无必然关系；减小摩擦和动滑轮自重可提高效率。"
         ]
     }
 ];
