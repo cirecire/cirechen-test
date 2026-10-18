@@ -1,885 +1,708 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Math · Khan Academy</title>
-<!-- KaTeX for LaTeX math rendering (used by KA itself, MIT licensed) -->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>八年级数学 · 北师大版 — Khan Academy 学习模式</title>
+<!-- KaTeX for LaTeX math rendering (MIT licensed) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 <style>
-:root{
-  --bg:#0a0f1e; --card:#141d33; --card2:#1a2540;
-  --text:#e8eef8; --text2:#9fb0c8; --text3:#64748b;
-  --blue:#3b82f6; --blue-banner:linear-gradient(135deg,#1e3a8a 0%,#1e40af 100%);
-  --green:#10b981; --purple:#a855f7; --teal:#14b8a6;
-  --border:#23304d; --shadow:0 4px 16px rgba(0,0,0,.35);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;padding:0 0 60px}
-.banner{background:var(--blue-banner);color:#fff;padding:16px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.banner .home{color:#fff;text-decoration:none;font-size:13px;background:rgba(255,255,255,.16);padding:6px 12px;border-radius:8px}
-.banner .home:hover{background:rgba(255,255,255,.28)}
-.banner h1{font-size:18px;font-weight:800;flex:1;min-width:200px}
-.banner .cov{display:inline-block;margin-top:4px;font-size:11px;font-weight:700;padding:2px 10px;border-radius:999px;background:rgba(255,255,255,.18)}
-.wrap{max-width:860px;margin:0 auto;padding:0 18px}
-.stepbar{display:flex;gap:6px;align-items:center;margin:18px 0;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);overflow-x:auto}
-.sb{display:flex;align-items:center;gap:8px;cursor:pointer;white-space:nowrap;padding:4px 6px;border-radius:8px}
-.sb-num{width:26px;height:26px;border-radius:50%;background:#e2e8f0;color:#475569;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;transition:.15s}
-.sb.active .sb-num{background:var(--blue);color:#fff}
-.sb.done .sb-num{background:var(--green);color:#fff}
-.sb-label{font-size:13px;font-weight:600;color:var(--text2)}
-.sb.active .sb-label{color:var(--text)}
-.arrow{color:var(--text3);font-size:13px}
-.panel{display:none;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;margin-top:14px;box-shadow:var(--shadow)}
-.panel.active{display:block}
-.panel h2{font-size:17px;margin-bottom:12px;color:var(--blue)}
-.elicit{background:#eff6ff;border-left:4px solid var(--blue);border-radius:8px;padding:14px 16px;font-weight:600;color:#1e3a8a}
-.video-wrap{margin-top:10px;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:#000}
-.bili{width:100%;height:480px;border:0;display:block}
-.video-meta{font-size:13px;color:var(--text2);padding:10px 14px;background:var(--card2)}
-.video-meta .vlink{color:var(--blue);font-weight:700;text-decoration:none;margin-left:6px}
-.notes-list{list-style:none}
-.notes-list li{background:#f0fdf4;border-left:4px solid var(--green);border-radius:8px;padding:11px 14px;margin-top:9px;color:#064e3b;font-size:14px}
+  :root{
+    --accent:#14bf96;          /* physics: sky-blue (math uses #14bf96 green) */
+    --accent-dark:#0d9668;
+    --accent-soft:#dcfce7;
+    --bg:#f7f8fa;
+    --surface:#ffffff;
+    --border:#e3e6ea;
+    --border-strong:#cfd5dc;
+    --text:#1f2937;
+    --text2:#5b6673;
+    --text3:#8b95a1;
+    --ok:#10b981;
+    --ok-soft:#d1fae5;
+    --err:#ef4444;
+    --err-soft:#fee2e2;
+    --shadow:0 1px 2px rgba(16,24,40,.05),0 1px 3px rgba(16,24,40,.08);
+    --sidebar-w:300px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Roboto,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased}
 
-/* ── KA-style math text (rendered by KaTeX) ── */
-.math-inline{display:inline}
+  /* ---------- top bar ---------- */
+  .topbar{background:var(--surface);border-bottom:1px solid var(--border);
+    padding:0 20px;height:58px;display:flex;align-items:center;gap:14px;
+    position:sticky;top:0;z-index:40}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:16px;letter-spacing:-.2px}
+  .brand .dot{width:26px;height:26px;border-radius:8px;background:var(--accent);
+    color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px}
+  .topbar .ver{font-size:12px;color:var(--text3);font-weight:600}
+  .topbar .spacer{flex:1}
+  .navlink{font-size:13px;font-weight:700;color:var(--text2);text-decoration:none;
+    padding:7px 13px;border-radius:9px;border:1px solid var(--border);background:var(--surface)}
+  .navlink:hover{background:var(--accent-soft);color:var(--accent-dark);border-color:var(--accent)}
+  .navlink.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .navlink.primary:hover{background:var(--accent-dark);color:#fff}
 
-/* ── Diagram wrappers ── */
-.dia-wrap{margin:10px 0;text-align:center;padding:12px;background:#fff;border-radius:8px;display:inline-block}
-.dia-wrap svg{display:inline-block;max-width:100%}
+  /* ---------- layout ---------- */
+  .layout{display:flex;align-items:flex-start;min-height:calc(100vh - 58px)}
+  .sidebar{width:var(--sidebar-w);flex:0 0 var(--sidebar-w);background:var(--surface);
+    border-right:1px solid var(--border);position:sticky;top:58px;
+    height:calc(100vh - 58px);overflow-y:auto;padding:16px 12px 40px}
+  .side-title{font-size:12px;font-weight:800;color:var(--text3);text-transform:uppercase;
+    letter-spacing:.6px;padding:6px 10px 10px}
+  .unit{margin-bottom:3px}
+  .unit-head{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:9px;
+    cursor:pointer;font-size:13.5px;font-weight:700;color:var(--text);user-select:none}
+  .unit-head:hover{background:var(--bg)}
+  .unit.active .unit-head{background:var(--accent-soft);color:var(--accent-dark)}
+  .unit-head .chev{font-size:10px;color:var(--text3);transition:transform .15s;flex:0 0 10px}
+  .unit.open .unit-head .chev{transform:rotate(90deg)}
+  .unit-head .unum{flex:0 0 auto;width:22px;height:22px;border-radius:50%;
+    background:var(--bg);border:1px solid var(--border-strong);color:var(--text2);
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
+  .unit.active .unit-head .unum{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .unit-head .uname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .unit-head .prog{font-size:10.5px;font-weight:800;color:var(--text3);
+    background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:1px 7px}
+  .unit.done .unit-head .prog{background:var(--ok-soft);color:#047857;border-color:#a7f3d0}
+  .lessons{display:none;padding:2px 0 6px 0}
+  .unit.open .lessons{display:block}
+  .lesson{display:flex;align-items:center;gap:8px;padding:7px 10px 7px 40px;
+    font-size:12.5px;color:var(--text2);cursor:pointer;border-radius:8px;line-height:1.5}
+  .lesson:hover{background:var(--bg);color:var(--text)}
+  .lesson.active{background:var(--accent-soft);color:var(--accent-dark);font-weight:700}
+  .lesson .tick{width:15px;height:15px;border-radius:50%;border:1.5px solid var(--border-strong);
+    flex:0 0 15px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff}
+  .lesson.seen .tick{background:var(--ok);border-color:var(--ok)}
+  .lesson.active .tick{border-color:var(--accent)}
 
-/* ── Question cards ── */
-.q{display:block;border:1px solid var(--border);border-radius:10px;padding:16px;margin-top:13px;background:var(--card2)}
-.qnum{font-size:12px;color:var(--text3);margin-bottom:6px}
-.qtext{font-weight:600;margin-bottom:10px;font-size:15px}
-.options{margin:10px 0;display:flex;flex-direction:column;gap:8px}
-.opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;cursor:default;background:var(--card)}
-.opt-l{width:24px;height:24px;border-radius:50%;background:#e2e8f0;color:#475569;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
-.opt-t{font-size:14px}
-.opt-correct{border-color:var(--green);background:#f0fdf4}
-.opt-correct .opt-l{background:var(--green);color:#fff}
+  /* ---------- main ---------- */
+  .main{flex:1;min-width:0;padding:26px 30px 70px;max-width:960px}
+  .crumb{font-size:12px;color:var(--text3);font-weight:600;margin-bottom:8px}
+  .ch-title{font-size:27px;font-weight:800;letter-spacing:-.5px;margin:0 0 4px;line-height:1.25}
+  .ch-sub{font-size:14px;color:var(--text2);margin:0 0 16px}
+  .mastery{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:13px 16px;margin-bottom:20px;box-shadow:var(--shadow);
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .mastery .lbl{font-size:12.5px;font-weight:800;color:var(--text2)}
+  .mbar{flex:1;min-width:160px;height:8px;background:var(--bg);border-radius:20px;overflow:hidden}
+  .mbar i{display:block;height:100%;background:var(--accent);border-radius:20px;
+    transition:width .3s;width:0}
+  .mastery .pct{font-size:12.5px;font-weight:800;color:var(--accent-dark);min-width:38px;text-align:right}
 
-/* ── Answer area ── */
-.ans-area{margin-top:10px}
-.show-ans-btn{background:var(--purple);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
-.show-ans-btn:hover{background:#9333ea}
-.ans-display{display:none;margin-top:8px;padding:10px 14px;background:#f0fdf4;border:1px solid #6ee7b7;border-radius:8px;font-size:14px;color:#065f46}
+  /* ---------- tabs (real Khan style: underline) ---------- */
+  .tabs{display:flex;gap:2px;border-bottom:2px solid var(--border);margin-bottom:22px;
+    overflow-x:auto}
+  .tab{appearance:none;background:none;border:0;cursor:pointer;font:inherit;
+    font-size:14px;font-weight:700;color:var(--text2);padding:11px 15px;
+    border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;
+    display:flex;align-items:center;gap:7px}
+  .tab:hover{color:var(--text);background:var(--bg)}
+  .tab.active{color:var(--accent-dark);border-bottom-color:var(--accent)}
+  .tab .tnum{width:19px;height:19px;border-radius:50%;background:var(--bg);
+    border:1px solid var(--border-strong);color:var(--text2);font-size:10.5px;font-weight:800;
+    display:flex;align-items:center;justify-content:center}
+  .tab.active .tnum{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .tab.done .tnum{background:var(--ok);color:#fff;border-color:var(--ok)}
 
-/* ── Feedback / hints ── */
-.fb{margin-top:10px;padding:9px 12px;border-radius:8px;font-size:13.5px;display:none}
-.fb.ok{background:#ecfdf5;border:1px solid #6ee7b7;color:#065f46;display:block}
-.fb.no{background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;display:block}
-.sol{margin-top:8px;padding:10px 14px;background:#f0fdfa;border-left:4px solid var(--teal);border-radius:8px;font-size:13.5px;display:none;color:#134e4a}
-.sol-header{font-weight:700;color:#0f766e;margin-bottom:6px}
+  /* ---------- cards ---------- */
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:20px 22px;margin-bottom:16px;box-shadow:var(--shadow)}
+  .card h3{margin:0 0 10px;font-size:15.5px;font-weight:800}
+  .card p{margin:0 0 10px}
+  .card p:last-child{margin-bottom:0}
+  .muted{color:var(--text2);font-size:13.5px}
+  .elicit{background:var(--accent-soft);border-left:4px solid var(--accent);
+    border-radius:10px;padding:15px 17px;font-size:14.5px;font-weight:600;color:#065f46}
+  .empty{background:var(--bg);border:1px dashed var(--border-strong);border-radius:10px;
+    padding:22px;text-align:center;color:var(--text3);font-size:13.5px}
 
-/* ── Buttons ── */
-.next-btn{background:var(--blue);color:#fff;border:none;padding:11px 22px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;margin-top:18px}
-.next-btn:hover{background:#2563eb}
-.next-btn.sm{padding:8px 16px;margin-top:8px}
-.next-btn.big{display:block;width:100%;font-size:15px;padding:14px}
-.next-btn:disabled{opacity:.45;cursor:not-allowed}
+  /* ---------- video ---------- */
+  .vid{border:1px solid var(--border);border-radius:11px;overflow:hidden;margin-bottom:14px;
+    background:var(--surface);box-shadow:var(--shadow)}
+  .vid .frame{position:relative;padding-bottom:56.25%;background:#0b1220}
+  .vid .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .vid .meta{padding:12px 15px;border-top:1px solid var(--border);background:var(--surface)}
+  .vid .meta b{font-size:14px;display:block;margin-bottom:3px}
+  .vid .meta a{color:var(--accent);font-weight:700;text-decoration:none;font-size:13px}
+  .vid .meta a:hover{text-decoration:underline}
+  .vid.linkonly .meta{padding:18px 16px;border-top:0}
+  .vid.linkonly .meta span{color:var(--text2);font-size:12.5px}
 
-/* ── Done screen ── */
-.done-screen{display:none;text-align:center;padding:50px 20px}
-.done-screen.show{display:block}
-.done-screen .big{font-size:54px}
-.done-screen h2{margin:12px 0;color:var(--green)}
-.go-next{display:inline-block;margin-top:16px;background:var(--green);color:#fff;text-decoration:none;padding:12px 26px;border-radius:9px;font-weight:700}
-.go-next:hover{background:#059669}
+  /* ---------- notes ---------- */
+  .note{border:1px solid var(--border);border-radius:11px;padding:16px 18px;margin-bottom:13px;
+    background:var(--surface);box-shadow:var(--shadow)}
+  .note .nlabel{font-size:11px;font-weight:800;color:var(--accent-dark);
+    background:var(--accent-soft);border-radius:20px;padding:2px 9px;display:inline-block;margin-bottom:8px}
+  .note .nbody{font-size:14px;color:var(--text);white-space:pre-wrap}
 
-/* ── Khan Academy subtopic header ── */
-.subtopic-header{
-  font-size:13px;font-weight:700;color:#fff;background:var(--blue,#2563eb);
-  padding:5px 14px;border-radius:6px;margin:18px 0 10px;letter-spacing:.5px
-}
+  /* ---------- questions ---------- */
+  .q{border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:15px;
+    background:var(--surface);box-shadow:var(--shadow)}
+  .qhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px}
+  .qnum{font-size:11.5px;font-weight:800;color:var(--text3)}
+  .qsrc{font-size:10.5px;font-weight:700;color:var(--text3);background:var(--bg);
+    border:1px solid var(--border);border-radius:20px;padding:2px 8px}
+  .qtext{font-size:14.5px;font-weight:600;margin-bottom:13px;line-height:1.7}
+  .qdia{margin-bottom:13px;text-align:center}
+  .qdia svg{max-width:100%;height:auto;border:1px solid var(--border);border-radius:9px;background:#fff}
+  .opts{display:flex;flex-direction:column;gap:8px}
+  .opt{display:flex;align-items:flex-start;gap:11px;padding:11px 13px;
+    border:1.5px solid var(--border);border-radius:10px;cursor:pointer;background:var(--surface);
+    font-size:14px;transition:border-color .12s,background .12s}
+  .opt:hover{border-color:var(--border-strong);background:var(--bg)}
+  .opt .ol{flex:0 0 24px;width:24px;height:24px;border-radius:50%;background:var(--bg);
+    border:1px solid var(--border-strong);color:var(--text2);font-size:11.5px;font-weight:800;
+    display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+  .opt.sel .ol{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .opt.good{border-color:var(--ok);background:var(--ok-soft)}
+  .opt.good .ol{background:var(--ok);color:#fff;border-color:var(--ok)}
+  .opt.bad{border-color:var(--err);background:var(--err-soft)}
+  .opt.bad .ol{background:var(--err);color:#fff;border-color:var(--err)}
+  .qact{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px;align-items:center}
+  .btn{appearance:none;font:inherit;font-size:13px;font-weight:700;cursor:pointer;
+    padding:8px 15px;border-radius:9px;border:1px solid var(--border-strong);
+    background:var(--surface);color:var(--text)}
+  .btn:hover{background:var(--bg)}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.primary:hover{background:var(--accent-dark)}
+  .btn.ghost{border-color:transparent;background:var(--bg);color:var(--text2)}
+  .feedback{margin:0;font-size:13.5px;font-weight:700}
+  .feedback.ok{color:#047857}
+  .feedback.no{color:#b91c1c}
+  .hintbox{margin-top:11px;background:#fffbeb;border:1px solid #fde68a;border-radius:9px;
+    padding:11px 13px;font-size:13.5px;color:#92400e}
+  .solbox{margin-top:11px;background:var(--bg);border:1px solid var(--border);
+    border-radius:9px;padding:13px 15px;font-size:13.5px;color:var(--text)}
+  .solbox b{color:var(--accent-dark)}
 
-/* ── Instruction strip ── */
-.paper-note{background:#fffbea;border:1px solid #f59e0b;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:13px;color:#92400e;text-align:center}
-.paper-note strong{color:#d97706}
+  /* ---------- bank switch ---------- */
+  .bankbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+  .bankbar .bl{font-size:12px;font-weight:800;color:var(--text3)}
+  .seg{display:inline-flex;background:var(--bg);border:1px solid var(--border);
+    border-radius:10px;padding:3px;gap:3px}
+  .seg button{appearance:none;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;
+    border:0;background:transparent;color:var(--text2);padding:6px 13px;border-radius:7px}
+  .seg button.on{background:var(--surface);color:var(--accent-dark);box-shadow:var(--shadow)}
 
-/* ── Bank toggle (KA vs 21cnjy) ── */
-.bank-bar{display:flex;gap:8px;margin-bottom:14px}
-.bank-btn{padding:6px 14px;border-radius:8px;border:2px solid #334155;background:#1e293b;color:#94a3b8;font-size:12px;font-weight:700;cursor:pointer;transition:.15s}
-.bank-btn:hover{border-color:#475569}
-.bank-btn.active{background:#2563eb;color:#fff;border-color:#2563eb}
+  /* ---------- footer nav ---------- */
+  .chapnav{display:flex;justify-content:space-between;gap:12px;margin-top:30px;
+    padding-top:20px;border-top:1px solid var(--border)}
+  .chapnav a{font-size:13.5px;font-weight:700;color:var(--accent-dark);text-decoration:none;
+    padding:10px 15px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+  .chapnav a:hover{background:var(--accent-soft);border-color:var(--accent)}
+  .chapnav a.off{opacity:.4;pointer-events:none}
+
+  @media (max-width:860px){
+    .sidebar{position:static;width:100%;flex:none;height:auto;border-right:0;
+      border-bottom:1px solid var(--border)}
+    .layout{flex-direction:column}
+    .main{padding:18px 16px 50px}
+    .ch-title{font-size:22px}
+  }
 </style>
 </head>
 <body>
-<div class="banner">
-  <a class="home" id="home" href="index.html">← 目录</a>
-  <h1 id="title">Loading…</h1>
-  <span class="cov" id="cov"></span>
-</div>
-<div class="wrap">
-  <div class="paper-note" id="paperNote" style="display:none">
-    ✏️ <strong>Solve on paper first</strong>, then check your answer below.
-  </div>
-  <div class="stepbar" id="stepbar"></div>
-  <div class="panel" id="p1"></div>
-  <div class="panel" id="p2"></div>
-  <div class="panel" id="p3"></div>
-  <div class="panel" id="p4"></div>
-  <div class="panel" id="p5"></div>
-  <div class="done-screen" id="done">
-    <div class="big">🎉</div>
-    <h2 id="doneTitle">Chapter complete!</h2>
-    <p id="doneText"></p>
-    <a class="go-next" id="goNext" href="#">Go to next chapter ▶</a>
-  </div>
+
+<header class="topbar">
+  <div class="brand"><span class="dot">📐</span> 八年级数学</div>
+  <span class="ver">北师大版 · 7 章</span>
+  <div class="spacer"></div>
+  <a class="navlink" href="index.html">← 目录</a>
+  <a class="navlink primary" href="../portal/index.html">🏠 门户</a>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="side-title">课程内容</div>
+    <div id="units"></div>
+  </aside>
+
+  <main class="main">
+    <div class="crumb" id="crumb">课程</div>
+    <h1 class="ch-title" id="chTitle">—</h1>
+    <p class="ch-sub" id="chSub"></p>
+
+    <div class="mastery">
+      <span class="lbl">本章掌握度</span>
+      <span class="mbar"><i id="mbarFill"></i></span>
+      <span class="pct" id="mbarPct">0%</span>
+    </div>
+
+    <div class="tabs" id="tabs"></div>
+    <div id="panel"></div>
+
+    <div class="chapnav">
+      <a id="prevCh" class="off">← 上一章</a>
+      <a id="nextCh" class="off">下一章 →</a>
+    </div>
+  </main>
 </div>
 
-<script src="math_data.js?v=20260906e"></script>
+<script src="math_data.js?v=20261018b"></script>
 <script>
-// ═══════════════════════════════════════════════════════════════
-// GRAPHIE → SVG ENGINE
-// Translates KA's graphie drawing calls into SVG.
-// Supports: init, line, path, arc, label, circle, Triangle,
-//           grid/axes, and all style options.
-// ═══════════════════════════════════════════════════════════════
+(function(){
+  "use strict";
 
-var _g = null; // current graphie context
+  var DATA = (typeof MATH_DATA !== "undefined") ? MATH_DATA : [];
+  var GRADE = new URLSearchParams(location.search).get("grade") || "8";
+  var LS_KEY = "math_prog_v1";
 
-function Graphie(svgEl) {
-  this.svg = svgEl;
-  this.scale = 40;
-  this.range = [[-10, 10], [-10, 10]];
-  this.styles = {};
-  this.init = function(range, opts) {
-    if (!range) return;
-    this.range = range;
-    this.scale = (opts && opts.scale) || 40;
+  var state = {
+    chId: new URLSearchParams(location.search).get("ch") || (DATA[0] && DATA[0].id),
+    tab: "think",
+    lesson: -1,
+    bank: "ka",
+    prog: loadProg()
   };
-  // Convert KA graphie coords (x,y) → SVG pixel coords
-  this.toSVG = function(x, y) {
-    var rx = this.range[0], ry = this.range[1];
-    var w = this.svg.width.baseVal.value;
-    var h = this.svg.height.baseVal.value;
-    var px = ((x - rx[0]) / (rx[1] - rx[0])) * w;
-    var py = h - ((y - ry[0]) / (ry[1] - ry[0])) * h; // flip Y
-    return [px, py];
-  };
-  this._el = function(tag, attrs) {
-    var el = document.createElementNS('http://www.w3.org/2000/svg', tag);
-    for (var k in attrs) el.setAttribute(k, attrs[k]);
-    // apply current styles
-    for (var s in this.styles) el.style[s] = this.styles[s];
-    this.svg.appendChild(el);
-    return el;
-  };
-  this.line = function(p1, p2, opts) {
-    var a = this.toSVG(p1[0], p1[1]);
-    var b = this.toSVG(p2[0], p2[1]);
-    var attrs = { x1: a[0], y1: a[1], x2: b[0], y2: b[1] };
-    if (opts && opts.end) {
-      attrs.markerEnd = 'url(#arrowhead)';
+
+  var TABS = [
+    {k:"think",    n:"1", zh:"预习", en:"Think"},
+    {k:"watch",    n:"2", zh:"学习", en:"Watch"},
+    {k:"notes",    n:"3", zh:"复习", en:"Notes"},
+    {k:"practice", n:"4", zh:"练习", en:"Practice"},
+    {k:"quiz",     n:"5", zh:"考试", en:"Quiz"}
+  ];
+
+  function loadProg(){ try{ return JSON.parse(localStorage.getItem(LS_KEY)) || {}; }catch(e){ return {}; } }
+  function saveProg(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(state.prog)); }catch(e){} }
+  function chapter(){ return DATA.find(function(c){ return c.id === state.chId; }) || DATA[0]; }
+  function chProg(id){ return state.prog[id] || {}; }
+  function markDone(tab){
+    var p = state.prog[state.chId] || (state.prog[state.chId] = {});
+    p[tab] = 1; saveProg();
+  }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g, function(c){
+    return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]; }); }
+
+  function tex(root){
+    if (window.renderMathInElement) {
+      try{ window.renderMathInElement(root, {
+        delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+        throwOnError:false }); }catch(e){}
     }
-    return this._el('line', attrs);
-  };
-  this.path = function(points, opts) {
-    var self = this;
-    var d = points.map(function(p) {
-      var pt = self.toSVG(p[0], p[1]);
-      return (p === points[0] ? 'M' : 'L') + pt[0] + ',' + pt[1];
-    }).join(' ');
-    if (opts && opts.close) d += ' Z';
-    return this._el('path', { d: d, fill: opts && opts.close ? 'none' : 'none' });
-  };
-  this.arc = function(center, radius, startDeg, endDeg, opts) {
-    var c = this.toSVG(center[0], center[1]);
-    // scale radius to SVG pixels
-    var rx0 = this.toSVG(center[0] - center[0], center[1] - center[1]);
-    var rx1 = this.toSVG(center[0] + radius, center[1] - center[1]);
-    var r = Math.abs(rx1[0] - rx0[0]);
-    var s = (startDeg * Math.PI / 180);
-    var e = (endDeg * Math.PI / 180);
-    var large = (endDeg - startDeg) > 180 ? 1 : 0;
-    var x = c[0] + r * Math.cos(s);
-    var y = c[1] + r * Math.sin(s);
-    var ex = c[0] + r * Math.cos(e);
-    var ey = c[1] + r * Math.sin(e);
-    var d = 'M ' + x + ',' + y + ' A ' + r + ',' + r + ' 0 ' + large + ' 1 ' + ex + ',' + ey;
-    return this._el('path', { d: d, fill: 'none' });
-  };
-  this.circle = function(center, r) {
-    var c = this.toSVG(center[0], center[1]);
-    var rx0 = this.toSVG(center[0] - center[0], center[1] - center[1]);
-    var rx1 = this.toSVG(center[0] + r, center[1] - center[1]);
-    var pr = Math.abs(rx1[0] - rx0[0]);
-    return this._el('circle', { cx: c[0], cy: c[1], r: pr });
-  };
-  this.label = function(pos, text, side, opts) {
-    var c = this.toSVG(pos[0], pos[1]);
-    var tx = c[0], ty = c[1];
-    var anchor = 'middle';
-    if (side === 'left') { tx -= 6; anchor = 'end'; }
-    if (side === 'right') { tx += 6; anchor = 'start'; }
-    if (side === 'above') ty -= 6;
-    if (side === 'below') ty += 16;
-    if (side === 'above left') { tx -= 8; ty -= 6; anchor = 'end'; }
-    if (side === 'above right') { tx += 8; ty -= 6; anchor = 'start'; }
-    if (side === 'below left') { tx -= 8; ty += 18; anchor = 'end'; }
-    if (side === 'below right') { tx += 8; ty += 18; anchor = 'start'; }
-    var el = this._el('text', {
-      x: tx, y: ty, 'text-anchor': anchor, 'dominant-baseline': 'middle'
+  }
+
+  /* ---------- graph rendering (s-t / v-t) ---------- */
+  function graphSVG(d){
+    if(!d || !d.lines) return "";
+    var W=420,H=250,pl=52,pr=16,pt=16,pb=42;
+    var xr=d.xRange||[0,10], yr=d.yRange||[0,10];
+    var xs=d.xStep||((xr[1]-xr[0])/5), ys=d.yStep||((yr[1]-yr[0])/5);
+    function X(v){ return pl + (v-xr[0])/((xr[1]-xr[0])||1)*(W-pl-pr); }
+    function Y(v){ return H-pb - (v-yr[0])/((yr[1]-yr[0])||1)*(H-pb-pt); }
+    var s='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">';
+    s+='<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="#ffffff"/>';
+    var gx,gy;
+    for(gx=xr[0]; gx<=xr[1]+1e-9; gx+=xs){
+      s+='<line x1="'+X(gx)+'" y1="'+pt+'" x2="'+X(gx)+'" y2="'+(H-pb)+'" stroke="#eef1f5" stroke-width="1"/>';
+      s+='<text x="'+X(gx)+'" y="'+(H-pb+17)+'" font-size="11" fill="#8b95a1" text-anchor="middle">'+gx+'</text>';
+    }
+    for(gy=yr[0]; gy<=yr[1]+1e-9; gy+=ys){
+      s+='<line x1="'+pl+'" y1="'+Y(gy)+'" x2="'+(W-pr)+'" y2="'+Y(gy)+'" stroke="#eef1f5" stroke-width="1"/>';
+      s+='<text x="'+(pl-8)+'" y="'+(Y(gy)+4)+'" font-size="11" fill="#8b95a1" text-anchor="end">'+gy+'</text>';
+    }
+    s+='<line x1="'+pl+'" y1="'+pt+'" x2="'+pl+'" y2="'+(H-pb)+'" stroke="#5b6673" stroke-width="1.6"/>';
+    s+='<line x1="'+pl+'" y1="'+(H-pb)+'" x2="'+(W-pr)+'" y2="'+(H-pb)+'" stroke="#5b6673" stroke-width="1.6"/>';
+    s+='<text x="'+((pl+W-pr)/2)+'" y="'+(H-8)+'" font-size="12" fill="#5b6673" text-anchor="middle">'+esc(d.xLabel||"")+'</text>';
+    s+='<text x="14" y="'+(pt+12)+'" font-size="12" fill="#5b6673">'+esc(d.yLabel||"")+'</text>';
+    var pal=["#14bf96","#f59e0b","#10b981","#a855f7"];
+    (d.lines||[]).forEach(function(ln,i){
+      var pts=(ln.pts||[]).map(function(p){ return X(p[0])+","+Y(p[1]); }).join(" ");
+      s+='<polyline points="'+pts+'" fill="none" stroke="'+(pal[i%pal.length])+'" stroke-width="2.4" stroke-linejoin="round"/>';
+      (ln.pts||[]).forEach(function(p){
+        s+='<circle cx="'+X(p[0])+'" cy="'+Y(p[1])+'" r="3.2" fill="#fff" stroke="'+(pal[i%pal.length])+'" stroke-width="2"/>';
+      });
     });
-    // render LaTeX via KaTeX
-    try {
-      if (text.startsWith('$') && text.endsWith('$')) {
-        katex.render(text.slice(1,-1), el, { throwOnError: false, displayMode: false });
+    s+='</svg>';
+    return s;
+  }
+
+  /* ---------- diagram dispatcher (math: triangle / coord_plane / angle; physics: s-t / v-t) ---------- */
+  function svgWrap(w,h,inner){
+    return '<svg viewBox="0 0 '+w+' '+h+'" xmlns="http://www.w3.org/2000/svg">'+
+           '<rect x="0" y="0" width="'+w+'" height="'+h+'" fill="#ffffff"/>'+inner+'</svg>';
+  }
+  function rnd(v){ return Math.round(v*100)/100; }
+
+  function renderDiagram(d){
+    if(!d) return "";
+    if(d.type==="triangle")    return triangleSVG(d);
+    if(d.type==="coord_plane") return coordSVG(d);
+    if(d.type==="angle")       return angleSVG(d);
+    if(d.lines)                return graphSVG(d);
+    return "";
+  }
+
+  /* right triangle: C = bottom-left (right angle), A = top-left, B = bottom-right
+     side a = BC (bottom), side b = AC (left), side c = AB (hypotenuse) */
+  function triangleSVG(d){
+    var W=340,H=230,pad=60;
+    var w=Number(d.w)||5, h=Number(d.h)||3.3;
+    var s=Math.min((W-pad*2)/(w||1),(H-pad*2)/(h||1));
+    var bw=w*s, bh=h*s;
+    var ox=(W-bw)/2, oy=(H-bh)/2+6;
+    var Cx=ox, Cy=oy+bh, Ax=ox, Ay=oy, Bx=ox+bw, By=oy+bh;
+    var o='<polygon points="'+Ax+','+Ay+' '+Bx+','+By+' '+Cx+','+Cy+'" fill="#ecfdf5" '+
+          'stroke="#14bf96" stroke-width="2.2" stroke-linejoin="round"/>';
+    var m=Math.min(15,bw*0.17,bh*0.17);
+    o+='<path d="M '+(Cx+m)+' '+Cy+' L '+(Cx+m)+' '+(Cy-m)+' L '+Cx+' '+(Cy-m)+'" '+
+       'fill="none" stroke="#14bf96" stroke-width="1.8"/>';
+    function lbl(x,y,t,anchor){
+      if(t==null||t===""||t==="?") return "";
+      return '<text x="'+x+'" y="'+y+'" font-size="14" font-weight="700" fill="#1f2937" text-anchor="'+
+             (anchor||"middle")+'">'+esc(t)+'</text>';
+    }
+    function vtx(x,y,t,anchor){
+      return '<text x="'+x+'" y="'+y+'" font-size="15" font-weight="800" fill="#0d9668" text-anchor="'+
+             (anchor||"middle")+'">'+esc(t)+'</text>';
+    }
+    o+=lbl((Cx+Bx)/2, Cy+22, d.a);              // bottom side = a
+    o+=lbl(Cx-20, (Ay+Cy)/2+4, d.b, "end");     // left side   = b
+    o+=lbl((Ax+Bx)/2+18, (Ay+By)/2-2, d.c, "start"); // hypotenuse = c
+    o+=vtx(Ax-6, Ay-8, "A");
+    o+=vtx(Bx+10, By+20, "B", "start");
+    o+=vtx(Cx-8, Cy+20, "C");
+    return svgWrap(W,H,o);
+  }
+
+  function coordSVG(d){
+    var W=420,H=250,pl=44,pr=22,pt=22,pb=44;
+    var r=d.range||[[-5,5],[-5,5]], st=Number(d.step)||1;
+    var xr=r[0]||[-5,5], yr=r[1]||[-5,5];
+    function X(v){ return pl+(v-xr[0])/((xr[1]-xr[0])||1)*(W-pl-pr); }
+    function Y(v){ return H-pb-(v-yr[0])/((yr[1]-yr[0])||1)*(H-pb-pt); }
+    var o='',gx,gy;
+    for(gx=Math.ceil(xr[0]/st)*st; gx<=xr[1]+1e-9; gx+=st){
+      o+='<line x1="'+X(gx)+'" y1="'+pt+'" x2="'+X(gx)+'" y2="'+(H-pb)+'" stroke="#eef1f5" stroke-width="1"/>';
+      o+='<text x="'+X(gx)+'" y="'+(H-pb+18)+'" font-size="11" fill="#8b95a1" text-anchor="middle">'+rnd(gx)+'</text>';
+    }
+    for(gy=Math.ceil(yr[0]/st)*st; gy<=yr[1]+1e-9; gy+=st){
+      o+='<line x1="'+pl+'" y1="'+Y(gy)+'" x2="'+(W-pr)+'" y2="'+Y(gy)+'" stroke="#eef1f5" stroke-width="1"/>';
+      o+='<text x="'+(pl-8)+'" y="'+(Y(gy)+4)+'" font-size="11" fill="#8b95a1" text-anchor="end">'+rnd(gy)+'</text>';
+    }
+    if(yr[0]<=0 && 0<=yr[1]){
+      o+='<line x1="'+pl+'" y1="'+Y(0)+'" x2="'+(W-pr)+'" y2="'+Y(0)+'" stroke="#5b6673" stroke-width="1.8"/>';
+    }
+    (d.points||[]).forEach(function(p){
+      var px=(p["0"]!==undefined)?p["0"]:p.x, py=(p["1"]!==undefined)?p["1"]:p.y;
+      var cx=X(px), cy=Y(py);
+      o+='<circle cx="'+cx+'" cy="'+cy+'" r="4.5" fill="#14bf96" stroke="#fff" stroke-width="2"/>';
+      if(p.label) o+='<text x="'+cx+'" y="'+(cy-12)+'" font-size="12" font-weight="700" '+
+                     'fill="#0d9668" text-anchor="middle">'+esc(p.label)+'</text>';
+    });
+    return svgWrap(W,H,o);
+  }
+
+  function angleSVG(d){
+    var W=300,H=190, ox=54, oy=H-48, L=W-ox-50;
+    var deg=Number(d.degree)||60, rad=deg*Math.PI/180;
+    var ex=ox+L, ey=oy;
+    var fx=ox+L*Math.cos(rad), fy=oy-L*Math.sin(rad);
+    var o='<line x1="'+ox+'" y1="'+oy+'" x2="'+ex+'" y2="'+ey+'" stroke="#14bf96" stroke-width="2.4"/>';
+    o+='<line x1="'+ox+'" y1="'+oy+'" x2="'+fx+'" y2="'+fy+'" stroke="#14bf96" stroke-width="2.4"/>';
+    var ar=Math.min(38,L*0.42);
+    var a0x=ox+ar, a0y=oy, a1x=ox+ar*Math.cos(rad), a1y=oy-ar*Math.sin(rad);
+    o+='<path d="M '+a0x+' '+a0y+' A '+ar+' '+ar+' 0 0 0 '+a1x+' '+a1y+'" fill="none" '+
+       'stroke="#f59e0b" stroke-width="2.2"/>';
+    o+='<text x="'+(ox+ar+18)+'" y="'+(oy-ar*0.6)+'" font-size="15" font-weight="800" fill="#b45309">'+deg+'°</text>';
+    o+='<circle cx="'+ox+'" cy="'+oy+'" r="3.5" fill="#14bf96"/>';
+    return svgWrap(W,H,o);
+  }
+
+  /* ---------- sidebar ---------- */
+  function renderSidebar(){
+    var host=document.getElementById("units"); var h="";
+    DATA.forEach(function(ch,i){
+      var p=chProg(ch.id);
+      var doneN=TABS.filter(function(t){ return p[t.k]; }).length;
+      var open=(ch.id===state.chId);
+      var isDone=doneN>=TABS.length;
+      h+='<div class="unit'+(open?" open active":"")+(isDone?" done":"")+'" data-ch="'+esc(ch.id)+'">';
+      h+=  '<div class="unit-head" data-toggle="'+esc(ch.id)+'">';
+      h+=    '<span class="chev">&#9654;</span>';
+      h+=    '<span class="unum">'+(i+1)+'</span>';
+      h+=    '<span class="uname">'+esc(ch.title)+'</span>';
+      h+=    '<span class="prog">'+doneN+"/"+TABS.length+'</span>';
+      h+=  '</div>';
+      h+=  '<div class="lessons">';
+      (ch.subtopics||[]).forEach(function(st,si){
+        var seen = p["L"+si];
+        h+= '<div class="lesson'+(open&&state.lesson===si?" active":"")+(seen?" seen":"")+'" '+
+            'data-ch="'+esc(ch.id)+'" data-lesson="'+si+'">'+
+            '<span class="tick">'+(seen?"&#10003;":"")+'</span><span>'+esc(st.name)+'</span></div>';
+      });
+      h+=  '</div>';
+      h+='</div>';
+    });
+    host.innerHTML=h;
+
+    host.querySelectorAll("[data-toggle]").forEach(function(el){
+      el.addEventListener("click", function(e){
+        e.stopPropagation();
+        var id=el.getAttribute("data-toggle");
+        if(id!==state.chId){ state.chId=id; state.lesson=-1; state.tab="think"; }
+        else { el.parentNode.classList.toggle("open"); }
+        render();
+      });
+    });
+    host.querySelectorAll("[data-lesson]").forEach(function(el){
+      el.addEventListener("click", function(e){
+        e.stopPropagation();
+        state.chId=el.getAttribute("data-ch");
+        state.lesson=parseInt(el.getAttribute("data-lesson"),10);
+        state.tab="watch";
+        var p=state.prog[state.chId]||(state.prog[state.chId]={});
+        p["L"+state.lesson]=1; saveProg();
+        render();
+      });
+    });
+  }
+
+  /* ---------- tabs ---------- */
+  function renderTabs(){
+    var p=chProg(state.chId); var h="";
+    TABS.forEach(function(t){
+      h+='<button class="tab'+(state.tab===t.k?" active":"")+(p[t.k]?" done":"")+'" data-tab="'+t.k+'">'+
+         '<span class="tnum">'+(p[t.k]?"&#10003;":t.n)+'</span>'+t.en+' · '+t.zh+'</button>';
+    });
+    var host=document.getElementById("tabs");
+    host.innerHTML=h;
+    host.querySelectorAll("[data-tab]").forEach(function(b){
+      b.addEventListener("click", function(){ state.tab=b.getAttribute("data-tab"); render(); });
+    });
+  }
+
+  function renderMastery(){
+    var p=chProg(state.chId);
+    var n=TABS.filter(function(t){ return p[t.k]; }).length;
+    var pct=Math.round(n/TABS.length*100);
+    document.getElementById("mbarFill").style.width=pct+"%";
+    document.getElementById("mbarPct").textContent=pct+"%";
+  }
+
+  /* ---------- video ---------- */
+  function videoHTML(v){
+    if(v.yt){
+      return '<div class="vid">'+
+        '<div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/'+esc(v.yt)+'" '+
+        'title="'+esc(v.t||"")+'" allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture" '+
+        'allowfullscreen></iframe></div>'+
+        '<div class="meta"><b>'+esc(v.t||"Khan Academy")+'</b>'+
+        (v.ka?'<a href="'+esc(v.ka)+'" target="_blank" rel="noopener">在 Khan Academy 打开 &#8599;</a>':'')+
+        '</div></div>';
+    }
+    return '<div class="vid linkonly"><div class="meta">'+
+      '<b>'+esc(v.t||"Khan Academy 资源")+'</b>'+
+      '<span>'+esc(v.m||"Khan Academy")+'</span><br><br>'+
+      (v.ka?'<a href="'+esc(v.ka)+'" target="_blank" rel="noopener">&#9654; 在 Khan Academy 观看 &#8599;</a>':'')+
+      '</div></div>';
+  }
+
+  /* ---------- question ---------- */
+  function questionHTML(q, idx, ns){
+    var ansStr=String(q.ansIdx);
+    var multi=ansStr.indexOf(",")>=0;
+    var h='<div class="q" data-q="'+idx+'" data-ns="'+ns+'">';
+    h+='<div class="qhead"><span class="qnum">第 '+(idx+1)+' 题'+(multi?" · 多选":"")+'</span>'+
+       (q.source?'<span class="qsrc">'+esc(q.source)+'</span>':'')+'</div>';
+    h+='<div class="qtext">'+esc(q.q)+'</div>';
+    if(q.dia) h+='<div class="qdia">'+renderDiagram(q.dia)+'</div>';
+    h+='<div class="opts">';
+    (q.options||[]).forEach(function(o,oi){
+      h+='<div class="opt" data-o="'+oi+'"><span class="ol">'+String.fromCharCode(65+oi)+'</span><span>'+esc(o)+'</span></div>';
+    });
+    h+='</div>';
+    h+='<div class="qact">'+
+       '<button class="btn primary" data-act="check">检查</button>'+
+       (q.hint?'<button class="btn" data-act="hint">&#128161; 提示</button>':'')+
+       '<button class="btn ghost" data-act="sol">看解析</button>'+
+       '<span class="fb"></span>'+
+       '</div>';
+    h+='<div class="extras"></div>';
+    h+='</div>';
+    return h;
+  }
+
+  function wireQuestions(root){
+    root.querySelectorAll(".q").forEach(function(qEl){
+      var idx=parseInt(qEl.getAttribute("data-q"),10);
+      var ns=qEl.getAttribute("data-ns");
+      var bank=(ns==="practice")?(state.bank==="ka"?"practice":"practice2")
+                                :(state.bank==="ka"?"quiz":"quiz2");
+      var q=chapter()[bank][idx];
+      if(!q) return;
+      var ansStr=String(q.ansIdx);
+      var multi=ansStr.indexOf(",")>=0;
+      var correct=ansStr.split(",").map(Number);
+      var sel=[];
+      var locked=false;
+
+      qEl.querySelectorAll(".opt").forEach(function(oEl){
+        oEl.addEventListener("click", function(){
+          if(locked) return;
+          var oi=parseInt(oEl.getAttribute("data-o"),10);
+          if(multi){
+            var at=sel.indexOf(oi);
+            if(at>=0) sel.splice(at,1); else sel.push(oi);
+          } else { sel=[oi]; }
+          qEl.querySelectorAll(".opt").forEach(function(e,i){
+            e.classList.toggle("sel", sel.indexOf(i)>=0);
+          });
+        });
+      });
+
+      var fb=qEl.querySelector(".fb");
+      var extras=qEl.querySelector(".extras");
+
+      qEl.querySelector('[data-act="check"]').addEventListener("click", function(){
+        if(locked) return;
+        if(!sel.length){ fb.className="fb feedback no"; fb.textContent="请先选择一个答案"; return; }
+        locked=true;
+        var ok = sel.length===correct.length && sel.every(function(v){ return correct.indexOf(v)>=0; });
+        qEl.querySelectorAll(".opt").forEach(function(e,i){
+          if(correct.indexOf(i)>=0) e.classList.add("good");
+          else if(sel.indexOf(i)>=0) e.classList.add("bad");
+        });
+        fb.className="fb feedback "+(ok?"ok":"no");
+        fb.textContent = ok ? "✓ 正确！" : "✗ 不正确，正确答案已标出";
+        if(ok) markDone(state.tab);
+        renderTabs(); renderMastery(); renderSidebar();
+      });
+
+      var hb=qEl.querySelector('[data-act="hint"]');
+      if(hb) hb.addEventListener("click", function(){
+        extras.innerHTML='<div class="hintbox"><b>提示：</b>'+esc(q.hint)+'</div>'+extras.innerHTML;
+        hb.disabled=true; hb.style.opacity=.5;
+      });
+
+      qEl.querySelector('[data-act="sol"]').addEventListener("click", function(){
+        extras.innerHTML+='<div class="solbox"><b>解析：</b>'+esc(q.sol)+'</div>';
+      });
+    });
+  }
+
+  function bankBar(kind){
+    var kaN=(chapter()[kind]||[]).length, cnN=(chapter()[kind+"2"]||[]).length;
+    return '<div class="bankbar"><span class="bl">题库</span><span class="seg">'+
+      '<button data-bank="ka" class="'+(state.bank==="ka"?"on":"")+'">可汗 KA ('+kaN+')</button>'+
+      '<button data-bank="cn" class="'+(state.bank==="cn"?"on":"")+'">公立校 21cnjy ('+cnN+')</button>'+
+      '</span></div>';
+  }
+
+  /* ---------- panels ---------- */
+  function renderPanel(){
+    var ch=chapter(); var el=document.getElementById("panel"); var h="";
+
+    if(state.tab==="think"){
+      h+='<div class="card"><h3>&#129300; 先想一想</h3>'+
+         '<div class="elicit">'+esc(ch.think||"").replace(/\n/g,"<br>")+'</div>'+
+         '<p class="muted" style="margin-top:14px">带着这些问题去看视频，会更容易抓住重点。</p></div>';
+      h+='<div class="qact"><button class="btn primary" id="doneThink">我思考过了 → 去学习</button></div>';
+    }
+
+    else if(state.tab==="watch"){
+      var vids=ch.videos||[];
+      var order=[],i,j;
+      if(state.lesson>=0 && ch.subtopics[state.lesson]){
+        (ch.subtopics[state.lesson].vids||[]).forEach(function(v){ order.push(v); });
+        for(i=0;i<vids.length;i++) if(order.indexOf(i)<0) order.push(i);
+      } else { for(j=0;j<vids.length;j++) order.push(j); }
+      if(!vids.length){
+        h+='<div class="empty">本章暂无视频资源。</div>';
       } else {
-        el.textContent = text;
-      }
-    } catch(e) { el.textContent = text; }
-    return el;
-  };
-  this.style = function(attrs, fn) {
-    var old = this.styles;
-    for (var k in attrs) this.styles[k] = attrs[k];
-    if (fn) {
-      fn.call(this);
-      this.styles = old;
-    }
-  };
-  // Draw a coordinate plane with axes
-  this.drawAxes = function(opts) {
-    opts = opts || {};
-    var rx = this.range[0], ry = this.range[1];
-    var pad = 5;
-    // x-axis
-    this.line([rx[0], 0], [rx[1], 0]);
-    // y-axis
-    this.line([0, ry[0]], [0, ry[1]]);
-    // grid lines
-    var step = opts.step || 1;
-    for (var x = Math.ceil(rx[0]/step)*step; x <= rx[1]; x += step) {
-      if (Math.abs(x) < 0.001) continue;
-      this.line([x, ry[0]], [x, ry[1]]);
-    }
-    for (var y = Math.ceil(ry[0]/step)*step; y <= ry[1]; y += step) {
-      if (Math.abs(y) < 0.001) continue;
-      this.line([rx[0], y], [rx[1], y]);
-    }
-  };
-  // Draw a right triangle (same as betterTriangle in KA)
-  this.triangle = function(w, h, A, B, C, alabel, blabel, clabel) {
-    // KA coords: C=(0,0), B=(w,0), A=(0,h)
-    var Ax=0, Ay=h, Bx=w, By=0, Cx=0, Cy=0;
-    this.path([[Cx,Cy],[Bx,By],[Ax,Ay],[Cx,Cy]], {close:true});
-    // right angle marker at C
-    var sq = 0.3;
-    this.path([[Cx,Cy+sq],[Cx+sq,Cy+sq],[Cx+sq,Cy]]);
-    // vertex labels
-    this.label([Cx-0.3, Cy+0.3], C, 'below left');
-    this.label([Bx+0.3, By+0.3], B, 'below right');
-    this.label([Ax-0.3, Ay-0.3], A, 'above left');
-    // side labels
-    this.label([Cx, Cy+h/2], blabel, 'left');
-    this.label([Cx+w/2, Cy+0.3], alabel, 'below');
-    // hypotenuse midpoint, perpendicular offset
-    var hyp = Math.sqrt(w*w+h*h);
-    var nx = -h/hyp, ny = w/hyp;
-    this.label([(Cx+Bx)/2+nx*0.5, (Cy+By)/2+ny*0.5], clabel, 'above right');
-  };
-  // Draw an angle arc between three points
-  this.angleArc = function(p1, vertex, p2, r, labelText) {
-    // angle at vertex between p1 and p2
-    var vx = vertex[0], vy = vertex[1];
-    var a1 = Math.atan2(p1[1]-vy, p1[0]-vx);
-    var a2 = Math.atan2(p2[1]-vy, p2[0]-vx);
-    var arcR = r || 0.5;
-    // make sure we draw the smaller arc
-    var da = a2 - a1;
-    if (da > Math.PI) da -= 2*Math.PI;
-    if (da < -Math.PI) da += 2*Math.PI;
-    var s = a1 * 180 / Math.PI;
-    var e = (a1 + da) * 180 / Math.PI;
-    this.arc([vx, vy], arcR, s, e);
-    if (labelText) {
-      var mx = vx + (arcR + 0.4) * Math.cos(a1 + da/2);
-      var my = vy + (arcR + 0.4) * Math.sin(a1 + da/2);
-      this.label([mx, my], labelText);
-    }
-  };
-}
-
-// Render a graphie from a config object
-function renderGraphie(cfg) {
-  // cfg = { range, code } where code is array of draw commands
-  // OR simplified format: { type:'triangle', w,h,A,B,C,a,b,c }
-  var range = cfg.range || [[-2, 12], [-2, 10]];
-  var padL = 20, padB = 20, padT = 20, padR = 20;
-  var W = 500, H = 320;
-  // Calculate scale to fit range into available space
-  var scaleX = (W - padL - padR) / (range[0][1] - range[0][0]);
-  var scaleY = (H - padT - padB) / (range[1][1] - range[1][0]);
-  var scale = Math.min(scaleX, scaleY);
-
-  var g = new Graphie({
-    width: { baseVal: { value: W } },
-    height: { baseVal: { value: H } },
-    appendChild: function(el) {
-      svg.innerHTML += el.outerHTML || '';
-    }
-  });
-  g.range = range;
-  g.scale = scale;
-
-  var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-  svg.setAttribute('width', W);
-  svg.setAttribute('height', H);
-  svg.style.background = '#f8fafc';
-  svg.style.borderRadius = '6px';
-
-  // Arrowhead marker
-  svg.innerHTML += '<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/></marker></defs>';
-
-  g.svg = svg;
-
-  if (cfg.type === 'triangle') {
-    // simplified right-triangle drawing
-    var w = cfg.w, h = cfg.h;
-    var hyp = Math.sqrt(w*w+h*h);
-    var SCALE = 260 / hyp;
-    var Wpx = Math.round(w * SCALE), Hpx = Math.round(h * SCALE);
-    var PL = 65, PT = 55, PR = 55, PB = 45;
-    var vW = PL + Wpx + PR, vH = PT + Hpx + PB;
-    svg.setAttribute('viewBox', '0 0 ' + vW + ' ' + vH);
-    svg.setAttribute('width', vW);
-    svg.setAttribute('height', vH);
-    var Ax=PL, Ay=PT+Hpx, Bx=PL+Wpx, By=PT+Hpx, Cx=PL, Cy=PT;
-    var lines = '';
-    lines += '<polygon points="'+Ax+','+Ay+' '+Bx+','+By+' '+Cx+','+Cy+'" fill="none" stroke="#334155" stroke-width="2"/>';
-    // right angle marker
-    var sq=10;
-    lines += '<path d="M '+(Cx)+','+(Cy+sq)+' L '+(Cx)+','+(Cy)+' L '+(Cx+sq)+','+(Cy)+'" fill="none" stroke="#94a3b8" stroke-width="1.5"/>';
-    // vertex labels
-    lines += '<text x="'+(Ax-10)+'" y="'+(Ay-8)+'" text-anchor="end" font-family="sans-serif" font-size="14" fill="#60a5fa" font-weight="700">'+esc(cfg.A||'')+'</text>';
-    lines += '<text x="'+(Bx+10)+'" y="'+(By-8)+'" text-anchor="start" font-family="sans-serif" font-size="14" fill="#60a5fa" font-weight="700">'+esc(cfg.B||'')+'</text>';
-    lines += '<text x="'+(Cx-10)+'" y="'+(Cy+18)+'" text-anchor="end" font-family="sans-serif" font-size="14" fill="#60a5fa" font-weight="700">'+esc(cfg.C||'')+'</text>';
-    // side labels (yellow)
-    var fs=13, lbf='#d97706', bold='font-weight="700"';
-    lines += '<text x="'+(Ax-8)+'" y="'+((Ay+Cy)/2)+'" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="'+fs+'" fill="'+lbf+'" '+bold+'>'+esc(cfg.b||'')+'</text>';
-    lines += '<text x="'+((Bx+Cx)/2)+'" y="'+((By+Cy)/2+18)+'" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="'+fs+'" fill="'+lbf+'" '+bold+'>'+esc(cfg.a||'')+'</text>';
-    // hypotenuse label (perpendicular offset)
-    var nx=-h/hyp, ny=w/hyp, coff=18;
-    lines += '<text x="'+Math.round((Ax+Bx)/2+nx*coff)+'" y="'+Math.round((Ay+By)/2+ny*coff)+'" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="'+fs+'" fill="'+lbf+'" '+bold+'>'+esc(cfg.c||'')+'</text>';
-    svg.innerHTML += lines;
-    return '<div class="dia-wrap"><div style="display:inline-block;background:#f8fafc;border-radius:6px;padding:8px">'+svg.outerHTML+'</div></div>';
-  }
-
-  if (cfg.type === 'coord_plane') {
-    // Coordinate grid: range [[xmin,xmax],[ymin,ymax]], step
-    var rx = cfg.range[0], ry = cfg.range[1];
-    var step = cfg.step || 1;
-    var PL = 45, PR = 15, PT = 15, PB = 35;
-    var usableW = W - PL - PR, usableH = H - PT - PB;
-    var sx = usableW / (rx[1]-rx[0]), sy = usableH / (ry[1]-ry[0]);
-    // origin position
-    var ox = PL - rx[0]*sx, oy = PT + ry[1]*sy;
-    var lines = '';
-    // grid
-    for (var gx = Math.ceil(rx[0]/step)*step; gx <= rx[1]; gx += step) {
-      var px = ox + gx*sx;
-      lines += '<line x1="'+px+'" y1="'+PT+'" x2="'+px+'" y2="'+(H-PB)+'" stroke="#e2e8f0" stroke-width="0.5"/>';
-      if (Math.abs(gx) > 0.001) {
-        lines += '<text x="'+px+'" y="'+(H-PB+14)+'" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">'+gx+'</text>';
-      }
-    }
-    for (var gy = Math.ceil(ry[0]/step)*step; gy <= ry[1]; gy += step) {
-      var py = oy - gy*sy;
-      lines += '<line x1="'+PL+'" y1="'+py+'" x2="'+(W-PR)+'" y2="'+py+'" stroke="#e2e8f0" stroke-width="0.5"/>';
-      if (Math.abs(gy) > 0.001) {
-        lines += '<text x="'+(PL-5)+'" y="'+(py+4)+'" text-anchor="end" font-family="sans-serif" font-size="11" fill="#64748b">'+gy+'</text>';
-      }
-    }
-    // axes
-    lines += '<line x1="'+PL+'" y1="'+oy+'" x2="'+(W-PR)+'" y2="'+oy+'" stroke="#94a3b8" stroke-width="1.5"/>';
-    lines += '<line x1="'+ox+'" y1="'+PT+'" x2="'+ox+'" y2="'+(H-PB)+'" stroke="#94a3b8" stroke-width="1.5"/>';
-    // plot points if provided
-    if (cfg.points) {
-      cfg.points.forEach(function(pt){
-        var px = ox + pt[0]*sx, py = oy - pt[1]*sy;
-        lines += '<circle cx="'+px+'" cy="'+py+'" r="4" fill="'+("fill" in pt ? pt.fill : "#3b82f6")+'"/>';
-        if (pt.label) {
-          lines += '<text x="'+(px + (pt.lx||6))+'" y="'+(py + (pt.ly||-6))+'" font-family="sans-serif" font-size="12" fill="#1e40af" font-weight="700">'+esc(pt.label)+'</text>';
+        if(state.lesson>=0 && ch.subtopics[state.lesson]){
+          h+='<div class="card" style="padding:13px 17px"><span class="muted">当前小节：</span><b>'+
+             esc(ch.subtopics[state.lesson].name)+'</b></div>';
         }
-      });
-    }
-    // arrows
-    lines += '<polygon points="'+(W-PR)+','+oy+','+(W-PR-8)+','+(oy-4)+','+(W-PR-8)+','+(oy+4)+'" fill="#94a3b8"/>';
-    lines += '<polygon points="'+ox+','+PT+','+(ox-4)+','+(PT+8)+','+(ox+4)+','+(PT+8)+'" fill="#94a3b8"/>';
-    // axis labels
-    lines += '<text x="'+(W-PR/2)+'" y="'+(oy+16)+'" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#64748b">x</text>';
-    lines += '<text x="'+(ox+10)+'" y="'+(PT+14)+'" text-anchor="start" font-family="sans-serif" font-size="12" fill="#64748b">y</text>';
-    // plot lines if provided
-    if (cfg.line) {
-      var ln = cfg.line;
-      var pts = [];
-      for (var px2 = rx[0]; px2 <= rx[1]; px2 += 0.05) {
-        var py2 = ln.m * px2 + ln.b;
-        if (py2 >= ry[0] && py2 <= ry[1]) {
-          pts.push([ox+px2*sx, oy-py2*sy]);
-        }
-      }
-      if (pts.length > 1) {
-        var d = 'M'+pts[0][0].toFixed(1)+','+pts[0][1].toFixed(1);
-        for (var pi=1;pi<pts.length;pi++) d+=' L'+pts[pi][0].toFixed(1)+','+pts[pi][1].toFixed(1);
-        lines += '<path d="'+d+'" fill="none" stroke="#3b82f6" stroke-width="2.5"/>';
+        order.forEach(function(vi){ if(vids[vi]) h+=videoHTML(vids[vi]); });
+        h+='<div class="qact"><button class="btn primary" id="doneWatch">视频看完了 → 去复习笔记</button></div>';
       }
     }
-    svg.innerHTML += lines;
-    return '<div class="dia-wrap">'+svg.outerHTML+'</div>';
-  }
 
-  if (cfg.type === 'triangle30_60_90') {
-    // 30-60-90 right triangle
-    // KA coords: C=right-angle=(0,0), B=(short,0), A=(0,long)
-    // SVG: y-flipped, so A=top-left, B=bottom-right, C=bottom-left
-    var short = cfg.short || 3;
-    var long = cfg.long || +(short * Math.sqrt(3)).toFixed(3);
-    var hyp = cfg.hyp || +(short * 2).toFixed(3);
-    var SCALE = 220 / (short * 2.5);
-    var Wpx = Math.round(short * SCALE);
-    var Hpx = Math.round(long * SCALE);
-    var PL=75, PT=60, PR=60, PB=50;
-    var vW=PL+Wpx+PR, vH=PT+Hpx+PB;
-    var Cx=PL, Cy=PT+Hpx;   // right angle at C (bottom-left)
-    var Bx=PL+Wpx, By=PT+Hpx; // short leg BC (horizontal, along bottom)
-    var Ax=PL, Ay=PT;         // long leg AC (vertical, along left side)
-    var hypLen = Math.sqrt(short*short + long*long);
-    // perpendicular offset for hypotenuse label
-    var nx = -long/hypLen, ny = short/hypLen;
-    var hypMX=(Ax+Bx)/2 + nx*20, hypMY=(Ay+By)/2 + ny*20;
-    var svg3 = '<svg viewBox="0 0 '+vW+' '+vH+'" width="'+vW+'" height="'+vH+'" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc;border-radius:6px">';
-    svg3 += '<polygon points="'+Ax+','+Ay+' '+Bx+','+By+' '+Cx+','+Cy+' '+Ax+','+Ay+'" fill="none" stroke="#334155" stroke-width="2"/>';
-    // right angle marker
-    var sq=10;
-    svg3 += '<path d="M'+(Cx)+','+(Cy-sq)+' L'+(Cx)+','+(Cy)+' L'+(Cx+sq)+','+(Cy)+'" fill="none" stroke="#94a3b8" stroke-width="1.5"/>';
-    // vertex labels (blue)
-    svg3 += '<text x="'+(Ax-10)+'" y="'+(Ay-6)+'" text-anchor="end" font-family="sans-serif" font-size="14" fill="#60a5fa" font-weight="700">A</text>';
-    svg3 += '<text x="'+(Bx+10)+'" y="'+(By+4)+'" text-anchor="start" font-family="sans-serif" font-size="14" fill="#60a5fa" font-weight="700">B</text>';
-    svg3 += '<text x="'+(Cx-10)+'" y="'+(Cy+18)+'" text-anchor="end" font-family="sans-serif" font-size="14" fill="#60a5fa" font-weight="700">C</text>';
-    // side labels (amber)
-    svg3 += '<text x="'+(Ax-12)+'" y="'+((Ay+Cy)/2)+'" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#d97706" font-weight="700">'+esc(''+long)+'</text>'; // long leg AC label
-    svg3 += '<text x="'+(Cx+Wpx/2)+'" y="'+(Cy+18)+'" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#d97706" font-weight="700">'+esc(''+short)+'</text>'; // short leg BC label
-    svg3 += '<text x="'+Math.round(hypMX)+'" y="'+Math.round(hypMY)+'" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#d97706" font-weight="700">'+esc(''+hyp)+'</text>'; // hyp AB label
-    // 30° arc at C
-    svg3 += '<path d="M'+(Cx+sq*1.2)+','+Cy+' Q'+(Cx+sq*0.5)+','+(Cy-sq*2.5)+' '+(Cx)+','+(Cy-sq*1.2)+'" fill="none" stroke="#3b82f6" stroke-width="1.5"/>';
-    svg3 += '<text x="'+(Cx-12)+'" y="'+(Cy-14)+'" font-family="sans-serif" font-size="12" fill="#3b82f6" font-weight="700">30°</text>';
-    // 60° arc at A
-    svg3 += '<path d="M'+(Ax)+','+(Ay+sq*1.2)+' Q'+(Ax+sq*2.5)+','+(Ay+sq*0.5)+' '+(Ax+sq*1.2)+','+(Ay)+'" fill="none" stroke="#3b82f6" stroke-width="1.5"/>';
-    svg3 += '<text x="'+(Ax-14)+'" y="'+(Ay-6)+'" font-family="sans-serif" font-size="12" fill="#3b82f6" font-weight="700">60°</text>';
-    svg3 += '</svg>';
-    return '<div class="dia-wrap"><div style="display:inline-block;background:#f8fafc;border-radius:6px;padding:8px">'+svg3+'</div></div>';
-  }
-
-  if (cfg.type === 'angle') {
-    // Acute/right/obtuse angle drawing
-    var deg = cfg.degree;
-    var cx = 150, cy = 120;
-    var r = cfg.radius || 80;
-    // endpoints
-    var a1 = -90 * Math.PI/180;
-    var a2 = (-90 + deg) * Math.PI/180;
-    var x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
-    var x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
-    var arcR = 20;
-    var ax1 = cx + arcR * Math.cos(a1), ay1 = cy + arcR * Math.sin(a1);
-    var ax2 = cx + arcR * Math.cos(a2), ay2 = cy + arcR * Math.sin(a2);
-    var da = deg * Math.PI/180;
-    var axm = cx + (arcR+12) * Math.cos(a1+da/2), aym = cy + (arcR+12) * Math.sin(a1+da/2);
-    var svg2 = '<svg viewBox="0 0 300 200" width="300" height="200" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc;border-radius:6px">';
-    svg2 += '<line x1="'+cx+'" y1="'+cy+'" x2="'+x1+'" y2="'+y1+'" stroke="#334155" stroke-width="2"/>';
-    svg2 += '<line x1="'+cx+'" y1="'+cy+'" x2="'+x2+'" y2="'+y2+'" stroke="#334155" stroke-width="2"/>';
-    var large = deg > 180 ? 1 : 0;
-    svg2 += '<path d="M '+ax1+','+ay1+' A '+arcR+','+arcR+' 0 '+large+' 1 '+ax2+','+ay2+'" fill="none" stroke="#3b82f6" stroke-width="1.5"/>';
-    svg2 += '<text x="'+axm+'" y="'+(aym-6)+'" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#3b82f6" font-weight="700">'+deg+'°</text>';
-    svg2 += '<text x="'+(cx+10)+'" y="'+(cy+18)+'" font-family="sans-serif" font-size="12" fill="#64748b">vertex</text>';
-    svg2 += '</svg>';
-    return '<div class="dia-wrap">'+svg2+'</div>';
-  }
-
-  if (cfg.type === 'tri_angles') {
-    // Triangle with angle values (triangle_angles_1 style)
-    var tri = cfg.data; // {angles:[a,b,c], sides:[sa,sb,sc]}
-    var vW=400, vH=280, PL=50, PT=30, PR=20, PB=30;
-    var usableW=vW-PL-PR, usableH=vH-PT-PB;
-    var s = Math.min(usableW/12, usableH/10);
-    var cx=PL+usableW/2, cy=PT+usableH/2+20;
-    var A=tri.angles[0], B=tri.angles[1], C=tri.angles[2];
-    var a=tri.sides[0], b=tri.sides[1], c=tri.sides[2];
-    // Place triangle with C at left, B at right-bottom, A at top
-    var pA=[cx, cy-3*s], pB=[cx+3.5*s, cy+2*s], pC=[cx-3.5*s, cy+2*s];
-    var triStr = pA[0]+','+pA[1]+' '+pB[0]+','+pB[1]+' '+pC[0]+','+pC[1]+' '+pA[0]+','+pA[1];
-    var svg3 = '<svg viewBox="0 0 '+vW+' '+vH+'" width="'+vW+'" height="'+vH+'" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc;border-radius:6px">';
-    svg3 += '<polygon points="'+triStr+'" fill="none" stroke="#334155" stroke-width="2"/>';
-    // Angle arcs
-    function drawAngleArc(svg, cx2, cy2, p1, p2, r, label) {
-      var a1=Math.atan2(p1[1]-cy2,p1[0]-cx2), a2=Math.atan2(p2[1]-cy2,p2[0]-cx2);
-      var da=a2-a1; if(da>Math.PI)da-=2*Math.PI; if(da<-Math.PI)da+=2*Math.PI;
-      var sx=cx2+r*Math.cos(a1),sy=cy2+r*Math.sin(a1);
-      var ex=cx2+r*Math.cos(a2),ey=cy2+r*Math.sin(a2);
-      var mx2=cx2+(r+15)*Math.cos(a1+da/2), my2=cy2+(r+15)*Math.sin(a1+da/2);
-      var large=Math.abs(da)>Math.PI?1:0;
-      svg+='<path d="M '+sx.toFixed(1)+','+sy.toFixed(1)+' A '+r+','+r+' 0 '+large+' 1 '+ex.toFixed(1)+','+ey.toFixed(1)+'" fill="none" stroke="#3b82f6" stroke-width="1.2"/>';
-      svg+='<text x="'+mx2.toFixed(1)+'" y="'+(my2.toFixed(1)-4)+'" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#3b82f6" font-weight="700">'+label+'</text>';
-      return svg;
-    }
-    var svgStr = '';
-    svgStr = drawAngleArc(svgStr, pA[0], pA[1], pB, pC, 18, (A?A+'°':'X'));
-    svgStr = drawAngleArc(svgStr, pB[0], pB[1], pA, pC, 18, (B?B+'°':'X'));
-    svgStr = drawAngleArc(svgStr, pC[0], pC[1], pA, pB, 18, (C?C+'°':'X'));
-    // Side labels
-    svgStr += '<text x="'+((pA[0]+pC[0])/2-12)+'" y="'+((pA[1]+pC[1])/2)+'" font-family="sans-serif" font-size="12" fill="#d97706" font-weight="700">'+esc(a)+'</text>';
-    svgStr += '<text x="'+((pA[0]+pB[0])/2+8)+'" y="'+((pA[1]+pB[1])/2-6)+'" font-family="sans-serif" font-size="12" fill="#d97706" font-weight="700">'+esc(b)+'</text>';
-    svgStr += '<text x="'+((pB[0]+pC[0])/2)+'" y="'+((pB[1]+pC[1])/2+16)+'" font-family="sans-serif" font-size="12" fill="#d97706" font-weight="700">'+esc(c)+'</text>';
-    svg3 += svgStr;
-    svg3 += '</svg>';
-    return '<div class="dia-wrap">'+svg3+'</div>';
-  }
-
-  // Generic: execute cfg.code array of draw commands
-  if (cfg.code && Array.isArray(cfg.code)) {
-    try {
-      eval(cfg.code.join('\n'));
-    } catch(e) {
-      svg.innerHTML += '<text x="10" y="20" font-family="sans-serif" font-size="12" fill="#ef4444">Graph error</text>';
-    }
-  }
-
-  return '<div class="dia-wrap">'+svg.outerHTML+'</div>';
-}
-
-// KaTeX rendering helper for math text in questions/notes
-function renderMath(el) {
-  if (!window.katex) return;
-  // find $...$ spans and render them
-  var nodes = el.childNodes;
-  for (var i = 0; i < nodes.length; i++) {
-    var node = nodes[i];
-    if (node.nodeType === 3) { // text node
-      var text = node.textContent;
-      var m = text.match(/\$[^\$]+\$/g);
-      if (m) {
-        var frag = document.createDocumentFragment();
-        var last = 0;
-        m.forEach(function(match) {
-          var idx = text.indexOf(match, last);
-          if (idx > last) frag.appendChild(document.createTextNode(text.slice(last, idx)));
-          var mathEl = document.createElement('span');
-          mathEl.className = 'math-inline';
-          try {
-            katex.render(match.slice(1,-1), mathEl, { throwOnError: false, displayMode: false });
-          } catch(e) { mathEl.textContent = match; }
-          frag.appendChild(mathEl);
-          last = idx + match.length;
+    else if(state.tab==="notes"){
+      var notes=ch.notes||[];
+      if(!notes.length){ h+='<div class="empty">本章暂无复习笔记。</div>'; }
+      else {
+        notes.forEach(function(n){
+          var m=String(n).match(/^([^:：]*[（(][^）)]*[）)][^:：]*)\s*[:：]/);
+          h+='<div class="note">'+
+             (m?'<span class="nlabel">'+esc(m[1])+'</span>':'')+
+             '<div class="nbody">'+esc(n)+'</div></div>';
         });
-        if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
-        el.replaceChild(frag, node);
-        i--;
+        h+='<div class="qact"><button class="btn primary" id="doneNotes">复习完成 → 去练习</button></div>';
       }
     }
+
+    else if(state.tab==="practice" || state.tab==="quiz"){
+      var kind = state.tab;
+      var arr  = state.bank==="ka" ? (ch[kind]||[]) : (ch[kind+"2"]||[]);
+      h+=bankBar(kind);
+      if(!arr.length){
+        h+='<div class="empty">该题库本章暂无题目，请切换到另一个题库。</div>';
+      } else {
+        arr.forEach(function(q,i){ h+=questionHTML(q,i,kind); });
+      }
+    }
+
+    el.innerHTML=h;
+    tex(el);
+
+    el.querySelectorAll("[data-bank]").forEach(function(b){
+      b.addEventListener("click", function(){
+        state.bank=b.getAttribute("data-bank"); render();
+      });
+    });
+    if(state.tab==="practice"||state.tab==="quiz") wireQuestions(el);
+
+    var map={doneThink:"think",doneWatch:"watch",doneNotes:"notes"};
+    Object.keys(map).forEach(function(id){
+      var b=document.getElementById(id);
+      if(b) b.addEventListener("click", function(){
+        markDone(map[id]);
+        var order=["think","watch","notes","practice","quiz"];
+        var nx=order[order.indexOf(map[id])+1];
+        if(nx) state.tab=nx;
+        render();
+      });
+    });
+
+    if(state.tab==="think" || state.tab==="watch" || state.tab==="notes") markDone(state.tab);
   }
-}
 
-function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  /* ---------- chapter nav ---------- */
+  function renderChapNav(){
+    var i=DATA.findIndex(function(c){ return c.id===state.chId; });
+    var pv=DATA[i-1], nx=DATA[i+1];
+    var a=document.getElementById("prevCh"), b=document.getElementById("nextCh");
+    if(pv){ a.className=""; a.href="math_chapter.html?ch="+pv.id+"&grade="+GRADE; a.textContent="← "+(i)+". "+pv.title; }
+    else { a.className="off"; a.removeAttribute("href"); a.textContent="← 上一章"; }
+    if(nx){ b.className=""; b.href="math_chapter.html?ch="+nx.id+"&grade="+GRADE; b.textContent=(i+2)+". "+nx.title+" →"; }
+    else { b.className="off"; b.removeAttribute("href"); b.textContent="下一章 →"; }
+  }
 
-// ─── Khan Academy subtopic-driven pattern helpers ─────────────
-// Renders a subtopic section header
-function subtopicHdr(name) {
-  return '<div class="subtopic-header">' + esc(name) + '</div>';
-}
-// Build HTML for a single video entry (mirrors physics_chapter.html)
-function buildVideoHTML(vid) {
-  var ytId = esc(vid.yt || '');
-  var ytPageUrl = 'https://www.youtube.com/watch?v=' + ytId;
-  var khanPageUrl = vid.ka || 'https://www.khanacademy.org';
-  var localSrc = vid.local ? encodeURI(vid.local) : '';
-  if (localSrc) {
-    return '<div class="video-wrap" style="background:#000;">' +
-           '<video controls preload="metadata" playsinline style="width:100%;max-width:640px;display:block;margin:0 auto;background:#000;" src="' + localSrc + '"></video>' +
-           '<div class="video-meta">' +
-           '<strong>' + esc(vid.t || 'Khan Academy video') + '</strong><br>' +
-           '<span style="color:#666;">' + esc(vid.m || 'English') + ' · ' + esc(vid.duration || '~10 min') + '</span><br>' +
-           '<a href="' + khanPageUrl + '" target="_blank" class="vlink">Open on Khan Academy ↗</a>' +
-           (ytId ? ' &nbsp;|&nbsp; <a href="' + ytPageUrl + '" target="_blank" class="vlink">Watch on YouTube ↗</a>' : '') +
-           '</div></div>';
+  function render(){
+    var ch=chapter();
+    if(!ch){ document.getElementById("panel").innerHTML='<div class="empty">未找到章节数据。</div>'; return; }
+    var i=DATA.findIndex(function(c){ return c.id===state.chId; });
+    document.getElementById("crumb").textContent="八年级数学 · 北师大版 › 第 "+(i+1)+" 章";
+    document.getElementById("chTitle").textContent="第 "+(i+1)+" 章 · "+ch.title;
+    document.getElementById("chSub").textContent=ch.subtitle||"";
+    renderSidebar(); renderTabs(); renderMastery(); renderPanel(); renderChapNav();
+  }
+
+  if(!DATA.length){
+    document.getElementById("panel").innerHTML='<div class="empty">math_data.js 未加载成功。</div>';
   } else {
-    var ytThumb = 'https://img.youtube.com/vi/' + ytId + '/maxresdefault.jpg';
-    return '<div class="video-wrap">' +
-           '<a href="' + ytPageUrl + '" target="_blank" class="video-thumb-link" style="display:block;position:relative;">' +
-           '<img src="' + ytThumb + '" alt="Video thumbnail" style="width:100%;max-width:640px;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.15);" onerror="this.src=\'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg\';">' +
-           '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.75);border-radius:50%;width:64px;height:64px;display:flex;align-items:center;justify-content:center;pointer-events:none;">' +
-           '<svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></a>' +
-           '<div class="video-meta">' +
-           '<strong>' + esc(vid.t || 'Khan Academy video') + '</strong><br>' +
-           '<span style="color:#666;">' + esc(vid.m || 'English') + ' · ' + esc(vid.duration || '~10 min') + '</span><br>' +
-           '<a href="' + ytPageUrl + '" target="_blank" class="vlink">▶ Watch on YouTube ↗</a> &nbsp;|&nbsp; ' +
-           '<a href="' + khanPageUrl + '" target="_blank" class="vlink">Open on Khan Academy ↗</a>' +
-           '</div></div>';
+    render();
   }
-}
-// Render a single question; returns HTML string.
-// qi = question index in the practice/quiz array (used for element ids)
-function renderOneQ(item, kind, qi) {
-  var multiTag = (item.multi || (item.ansIdx && String(item.ansIdx).indexOf(',') !== -1))
-    ? ' <span style="color:var(--blue);font-size:0.85em">(choose all that apply)</span>' : '';
-  var html = '<div class="q" id="' + kind + 'q' + qi + '"' +
-              (item.ansIdx !== undefined ? ' data-ansidx="' + item.ansIdx + '"' : (item.ans ? ' data-ans="' + esc(item.ans) + '"' : '')) + '>';
-  html += '<div class="qnum">Question ' + (qi+1) + multiTag + '</div>';
-  html += '<div class="qtext">' + esc(item.q) + '</div>';
-  if (item.dia) html += (typeof item.dia === 'string') ? item.dia : renderGraphie(item.dia);
-  if (item.options && item.options.length) {
-    html += '<div class="options" id="' + kind + 'opt' + qi + '">';
-    var letters = ['A','B','C','D','E','F'];
-    item.options.forEach(function(opt, oi){
-      html += '<div class="opt" data-opt="' + oi + '"><span class="opt-l">' + letters[oi] + '</span><span class="opt-t">' + esc(opt) + '</span></div>';
-    });
-    html += '</div>';
-  }
-  html += '<div class="ans-area">';
-  html += '<button class="show-ans-btn" id="' + kind + 'sh' + qi + '" onclick="showAns(\'' + kind + '\',' + qi + ')">Show answer &amp; solution</button>';
-  html += '<div class="ans-display" id="' + kind + 'ad' + qi + '">';
-  html += '<strong>Answer:</strong> ' + esc(item.ans || '') + '';
-  html += '</div></div>';
-  if (item.sol) {
-    html += '<div class="sol" id="' + kind + 'sol' + qi + '">';
-    html += '<div class="sol-header">📝 Solution</div><div class="sol-body">' + esc(item.sol) + '</div></div>';
-  }
-  html += '</div>';
-  return html;
-}
-// ─── End subtopic helpers ──────────────────────────────────────
-
-// ═══════════════════════════════════════════════════════════════
-// PAGE LOGIC
-// ═══════════════════════════════════════════════════════════════
-var params = new URLSearchParams(location.search);
-var CH_ID = params.get("ch") || "ch01";
-var GRADE = params.get("grade") || "8";
-var TOTAL = 5, cur = 1;
-var CH = null, CH_LIST = [], idx = -1;
-for (var i = 0; i < MATH_DATA.length; i++) {
-  if (MATH_DATA[i].id === CH_ID) { CH = MATH_DATA[i]; if (!GRADE) GRADE = CH.g || "8"; break; }
-}
-if (CH) {
-  CH_LIST = MATH_DATA.filter(function(c){ return (c.g || "8") === GRADE; });
-  for (var j = 0; j < CH_LIST.length; j++) { if (CH_LIST[j].id === CH_ID) { idx = j; break; } }
-}
-if (!CH) { document.getElementById("title").textContent = "Chapter not found"; }
-else { render(); }
-
-function pad(n){ return (n<10?"0":"") + n; }
-
-function render() {
-  document.getElementById("home").href = "index.html";
-  document.getElementById("title").textContent = "G" + GRADE + "·" + pad(CH.gx || (idx+1)) + "  " + CH.title;
-  var covTxt = {g:"🟢 KA video + practice + quiz", b:"🔵 KA video only", p:"🟣 custom only"}[CH.coverage] || "";
-  document.getElementById("cov").textContent = covTxt;
-  var labels = ["Think","Watch","Notes","Practice","Quiz"];
-  var sb = "";
-  for (var i = 1; i <= TOTAL; i++) {
-    sb += '<div class="sb' + (i===cur?" active":"") + (i<cur?" done":"") + '" onclick="showStep(' + i + ')"><span class="sb-num">' + i + '</span><span class="sb-label">' + labels[i-1] + '</span></div>';
-    if (i < TOTAL) sb += '<span class="arrow">›</span>';
-  }
-  document.getElementById("stepbar").innerHTML = sb;
-  for (var s = 1; s <= TOTAL; s++) renderPanel(s);
-  showStep(1);
-}
-function showStep(step) {
-  if (cur === 2 && step !== 2) {
-    var f = document.querySelector("#p2 iframe.bili");
-    if (f) f.src = "about:blank";
-  }
-  cur = step;
-  for (var i = 1; i <= TOTAL; i++) {
-    var p = document.getElementById("p" + i);
-    if (p) p.classList.toggle("active", i === step);
-  }
-  var sbs = document.querySelectorAll(".sb");
-  for (var k = 0; k < sbs.length; k++) {
-    sbs[k].classList.toggle("active", k === (step-1));
-    sbs[k].classList.toggle("done", k < (step-1));
-  }
-  if (step === 2) renderPanel(2);
-  window.scrollTo({top:0, behavior:"smooth"});
-}
-function nextBtn(label) {
-  var txt = label || "Next ›";
-  return '<button class="next-btn big" onclick="nextStep()">' + txt + '</button>';
-}
-var BANK = 'ka'; // 'ka' = Khan Academy bank (practice/quiz), 'cn' = 21cnjy bank (practice2/quiz2)
-
-function bankToggleHTML() {
-  return '<div class="bank-bar">' +
-    '<button class="bank-btn' + (BANK==='ka'?' active':'') + '" onclick="switchBank(' + String.fromCharCode(39) + 'ka' + String.fromCharCode(39) + ')">可汗 KA</button>' +
-    '<button class="bank-btn' + (BANK==='cn'?' active':'') + '" onclick="switchBank(' + String.fromCharCode(39) + 'cn' + String.fromCharCode(39) + ')">公立校 21cnjy</button>' +
-  '</div>';
-}
-
-function switchBank(b) {
-  BANK = b;
-  renderPanel(cur);
-}
-
-function bankPractice() {
-  return (BANK === 'ka') ? (CH.practice || []) : (CH.practice2 || []);
-}
-function bankQuiz() {
-  return (BANK === 'ka') ? (CH.quiz || []) : (CH.quiz2 || []);
-}
-function bankPQ(st) {
-  return (BANK === 'ka') ? (st.pq || []) : (st.pq2 || []);
-}
-
-function renderPanel(step) {
-  var p = document.getElementById("p" + step);
-  if (!p || !CH) return;
-  if (step === 1) {
-    p.innerHTML = '<h2>Step 1 · Think</h2><div class="elicit" id="thinkBox"></div>' + nextBtn();
-    var tb = document.getElementById("thinkBox"); tb.textContent = CH.think || ""; renderMath(tb);
-  } else if (step === 2) {
-    var v = '<h2>Step 2 · Watch</h2>' + bankToggleHTML();
-    if (CH.subtopics && CH.subtopics.length) {
-      CH.subtopics.forEach(function(st) {
-        v += subtopicHdr(st.name);
-        (st.vids || []).forEach(function(vi) {
-          if (CH.videos && CH.videos[vi] !== undefined) v += buildVideoHTML(CH.videos[vi]);
-        });
-        var qids = bankPQ(st);
-        var prac = bankPractice();
-        qids.forEach(function(qi) {
-          if (prac[qi] !== undefined) v += renderOneQ(prac[qi], 'p', qi);
-        });
-      });
-    } else {
-      (CH.videos || []).forEach(function(vid){ v += buildVideoHTML(vid); });
-    }
-    v += nextBtn();
-    p.innerHTML = v;
-    setTimeout(function(){
-      document.querySelectorAll('#p2 .qtext, #p2 .ans-display, #p2 .opt-t').forEach(renderMath);
-    }, 100);
-  } else if (step === 3) {
-    var n = '<h2>Step 3 · Notes</h2><ul class="notes-list" id="notesList"></ul>';
-    p.innerHTML = n + nextBtn();
-    var nl = document.getElementById("notesList");
-    (CH.notes || []).forEach(function(nt){
-      var li = document.createElement("li"); li.textContent = nt; renderMath(li); nl.appendChild(li);
-    });
-  } else if (step === 4) {
-    document.getElementById("paperNote").style.display = 'block';
-    var ph = '<h2>Step 4 · Practice</h2>' + bankToggleHTML() + '<div id="practiceBox"></div>' + nextBtn("Finish practice, next ›");
-    p.innerHTML = ph;
-    var pb = document.getElementById("practiceBox");
-    var prac = bankPractice();
-    if (CH.subtopics && CH.subtopics.length) {
-      var html = '';
-      CH.subtopics.forEach(function(st) {
-        html += subtopicHdr(st.name);
-        var qids = bankPQ(st);
-        qids.forEach(function(qi) {
-          if (prac[qi] !== undefined) html += renderOneQ(prac[qi], 'p', qi);
-        });
-      });
-      pb.innerHTML = html || '<p style="color:var(--text2)">No practice questions yet.</p>';
-      setTimeout(function(){
-        document.querySelectorAll('#practiceBox .qtext, #practiceBox .ans-display, #practiceBox .opt-t').forEach(renderMath);
-      }, 100);
-    } else {
-      renderQs("practiceBox", prac, "p");
-    }
-  } else if (step === 5) {
-    var quiz = bankQuiz();
-    p.innerHTML = '<h2>Step 5 · Quiz</h2>' + bankToggleHTML() + '<div id="quizBox"></div>' + nextBtn("Submit & see result ›");
-    renderQs("quizBox", quiz, "q");
-  }
-}
-
-function renderQs(boxId, questions, kind) {
-  var c = document.getElementById(boxId);
-  if (!c) return;
-  if (!questions.length) { c.innerHTML = '<p style="color:var(--text2)">No questions for this step yet.</p>'; return; }
-  var html = "";
-  questions.forEach(function(item, i){
-    html += '<div class="q" id="' + kind + 'q' + i + '"' + (item.ansIdx !== undefined ? ' data-ansidx="' + item.ansIdx + '"' : (item.ans ? ' data-ans="' + esc(item.ans) + '"' : '')) + '>';
-    html += '<div class="qnum">Question ' + (i+1) + '</div>';
-    html += '<div class="qtext">' + esc(item.q) + '</div>';
-    // Render diagram if present
-    if (item.dia) html += (typeof item.dia === 'string') ? item.dia : renderGraphie(item.dia);
-    // Render options if multiple choice
-    if (item.options && item.options.length) {
-      html += '<div class="options" id="' + kind + 'opt' + i + '">';
-      var letters = ['A','B','C','D','E','F'];
-      item.options.forEach(function(opt, oi){
-        html += '<div class="opt" data-opt="' + oi + '"><span class="opt-l">' + letters[oi] + '</span><span class="opt-t">' + esc(opt) + '</span></div>';
-      });
-      html += '</div>';
-    }
-    // Answer area (show answer button → answer reveal)
-    html += '<div class="ans-area">';
-    html += '<button class="show-ans-btn" id="' + kind + 'sh' + i + '" onclick="showAns(\'' + kind + '\',' + i + ')">Show answer &amp; solution</button>';
-    html += '<div class="ans-display" id="' + kind + 'ad' + i + '">';
-    html += '<strong>Answer:</strong> ' + esc(item.ans) + '';
-    html += '</div>';
-    html += '</div>';
-    // Solution / explanation
-    if (item.sol) {
-      html += '<div class="sol" id="' + kind + 'sol' + i + '">';
-      html += '<div class="sol-header">📝 Solution</div><div class="sol-body">' + esc(item.sol) + '</div></div>';
-    }
-    html += '</div>';
-  });
-  c.innerHTML = html;
-  // Render KaTeX math after DOM insertion
-  setTimeout(function(){
-    document.querySelectorAll('#' + boxId + ' .qtext, #' + boxId + ' .ans-display, #' + boxId + ' .opt-t').forEach(renderMath);
-  }, 100);
-}
-
-function showAns(kind, i) {
-  var btn = document.getElementById(kind + 'sh' + i);
-  var ansEl = document.getElementById(kind + 'ad' + i);
-  var solEl = document.getElementById(kind + 'sol' + i);
-  ansEl.style.display = 'block';
-  solEl.style.display = 'block';
-  btn.style.display = 'none';
-  // highlight correct option if multiple choice
-  var qEl = document.getElementById(kind + 'q' + i);
-  var ansIdx = qEl ? qEl.getAttribute('data-ansidx') : null;
-  var optWrap = document.getElementById(kind + 'opt' + i);
-  if (optWrap && ansIdxStr !== null) {
-    // Support both single ('3') and multi ('0,3') formats
-    ansIdxStr.split(',').forEach(function(idx) {
-      idx = idx.trim();
-      var correctOpt = optWrap.querySelector('.opt[data-opt="' + idx + '"]');
-      if (correctOpt) correctOpt.classList.add('opt-correct');
-    });
-  }
-  // render math in answer and solution
-  renderMath(ansEl);
-  var solBody = solEl.querySelector('.sol-body');
-  if (solBody) renderMath(solBody);
-}
-function nextStep() {
-  if (cur < TOTAL) { showStep(cur + 1); }
-  else { finish(); }
-}
-
-function finish() {
-  var f = document.querySelector("#p2 iframe.bili");
-  if (f) f.src = "about:blank";
-  for (var i = 1; i <= TOTAL; i++) document.getElementById("p" + i).style.display = 'none';
-  document.getElementById("stepbar").style.display = 'none';
-  document.getElementById("done").classList.add("show");
-  document.getElementById("doneText").textContent = "You finished G" + GRADE + "·" + pad(CH.gx || (idx+1)) + " " + CH.title;
-  var nx = CH_LIST[idx + 1];
-  var goNext = document.getElementById("goNext");
-  if (nx) { goNext.href = "math_chapter.html?ch=" + nx.id + "&grade=" + GRADE; goNext.textContent = "Go to next chapter ▶"; }
-  else { goNext.href = "index.html"; goNext.textContent = "← Back to chapter list"; }
-}
+})();
 </script>
 </body>
 </html>

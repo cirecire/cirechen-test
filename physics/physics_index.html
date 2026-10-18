@@ -1,207 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>8th Grade Physics — Khan Academy Style</title>
-  <style>
-    :root {
-      --phys: #0ea5e9;
-      --phys-dark: #0369a1;
-      --phys-bg: #f0f7ff;
-      --phys-card: #ffffff;
-      --phys-border: #d7e8f7;
-      --phys-text: #1a2a3a;
-      --phys-muted: #5f7a8c;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: var(--phys-bg);
-      color: var(--phys-text);
-    }
-    header {
-      background: var(--phys);
-      color: white;
-      padding: 28px 20px 20px;
-      text-align: center;
-    }
-    header h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: 0.3px; }
-    header p { margin: 0; opacity: 0.95; font-size: 16px; }
-    .subtitle { font-size: 13px; opacity: 0.9; margin-top: 8px; }
-    .portal-link {
-      display: inline-block; margin-bottom: 10px; color: #fff; text-decoration: none;
-      font-size: 13px; background: rgba(255,255,255,.18); padding: 6px 12px; border-radius: 8px;
-    }
-    .portal-link:hover { background: rgba(255,255,255,.30); }
-    .container { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
-    }
-    .card {
-      background: var(--phys-card);
-      border: 1px solid var(--phys-border);
-      border-radius: 12px;
-      padding: 16px;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      text-decoration: none;
-      color: inherit;
-      transition: transform .08s ease, box-shadow .15s ease;
-    }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(14,165,233,0.14); }
-    .ch-num {
-      width: 44px; height: 44px; border-radius: 10px;
-      background: var(--phys); color: white;
-      display: grid; place-items: center; font-weight: 800; font-size: 16px;
-      flex-shrink: 0;
-    }
-    .ch-meta { flex: 1; }
-    .ch-title { font-weight: 700; font-size: 16px; margin: 0 0 4px; }
-    .ch-cn { font-size: 13px; color: var(--phys-muted); margin: 0 0 6px; }
-    .ch-videos { font-size: 12px; color: var(--phys-muted); margin: 0; }
-    .badge {
-      display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px;
-      background: #e6f5fe; color: var(--phys-dark); margin-top: 8px;
-    }
-    footer { text-align: center; padding: 40px 16px; color: var(--phys-muted); font-size: 13px; }
-    .footer-note { max-width: 760px; margin: 0 auto; line-height: 1.6; }
-    @media (max-width: 640px) {
-      .grid { grid-template-columns: 1fr; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>八年级物理 · 人教版 2026（深圳公立校 · 八年级全册） — Khan Academy 学习模式</title>
+<style>
+  :root{
+    --accent:#0ea5e9;
+    --accent-dark:#0369a1;
+    --accent-soft:#e0f2fe;
+    --bg:#f7f8fa;
+    --surface:#ffffff;
+    --border:#e3e6ea;
+    --border-strong:#cfd5dc;
+    --text:#1f2937;
+    --text2:#5b6673;
+    --muted:#8b95a1;
+    --shadow:0 1px 2px rgba(16,24,40,.05),0 1px 3px rgba(16,24,40,.08);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Roboto,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased}
+
+  header{background:var(--surface);border-bottom:1px solid var(--border);
+    padding:34px 20px 30px;text-align:center}
+  .portal-link{display:inline-block;font-size:13px;font-weight:700;color:var(--accent-dark);
+    text-decoration:none;background:var(--accent-soft);border-radius:9px;padding:7px 14px;margin-bottom:14px}
+  .portal-link:hover{background:var(--accent);color:#fff}
+  header h1{margin:0 0 6px;font-size:30px;font-weight:800;letter-spacing:-.5px}
+  header p{margin:0;color:var(--text2);font-size:14px}
+  header .subtitle{font-size:12.5px;color:var(--muted);margin-top:6px;font-weight:600}
+
+  .container{max-width:1080px;margin:0 auto;padding:30px 20px 20px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+  .card{display:flex;gap:14px;align-items:flex-start;background:var(--surface);
+    border:1px solid var(--border);border-radius:12px;padding:17px 18px;
+    text-decoration:none;color:inherit;box-shadow:var(--shadow);
+    transition:border-color .12s,transform .12s,box-shadow .12s}
+  .card:hover{border-color:var(--accent);transform:translateY(-2px);
+    box-shadow:0 4px 14px rgba(16,24,40,.10)}
+  .ch-num{width:38px;height:38px;border-radius:10px;background:var(--accent-soft);
+    color:var(--accent-dark);display:grid;place-items:center;font-weight:800;font-size:15px;flex-shrink:0}
+  .ch-meta{flex:1;min-width:0}
+  .ch-title{font-weight:700;font-size:15.5px;margin:0 0 3px}
+  .ch-cn{font-size:12.5px;color:var(--muted);margin:0 0 6px}
+  .ch-videos{font-size:12px;color:var(--muted);margin:0}
+  .badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;
+    background:var(--accent-soft);color:var(--accent-dark);margin-top:8px}
+
+  footer{text-align:center;padding:36px 20px 46px;color:var(--muted);font-size:13px}
+  .footer-note{max-width:720px;margin:0 auto;line-height:1.7}
+  @media (max-width:640px){ .grid{grid-template-columns:1fr} header h1{font-size:24px} }
+</style>
 </head>
 <body>
   <header>
     <a href="../portal/index.html" class="portal-link">🏠 门户</a>
-    <h1>8th Grade Physics</h1>
-    <p>Khan Academy style · 人教版 2026（深圳公立校 · 八年级全册）</p>
+    <h1>🔬 8th Grade Physics</h1>
+    <p>Khan Academy 学习模式 · 人教版 2026（深圳公立校 · 八年级全册）</p>
     <p class="subtitle">12 chapters · Think / Watch / Notes / Practice / Quiz</p>
   </header>
 
   <div class="container">
     <div class="grid">
-      <a class="card" href="physics_chapter.html?ch=ch01&grade=8&term=1">
+      <a class="card" href="physics_chapter.html?ch=ch01&grade=8">
         <div class="ch-num">01</div>
         <div class="ch-meta">
           <p class="ch-title">机械运动</p>
-          <p class="ch-cn">Mechanical Motion</p>
+<p class="ch-cn">Mechanical Motion</p>
           <p class="ch-videos">6 videos · 5 practice · 3 quiz</p>
-          <span class="badge">上册 · KA</span>
+          <span class="badge">上册</span>
         </div>
       </a>
-      <a class="card" href="physics_chapter.html?ch=ch02&grade=8&term=1">
+      <a class="card" href="physics_chapter.html?ch=ch02&grade=8">
         <div class="ch-num">02</div>
         <div class="ch-meta">
           <p class="ch-title">声现象</p>
-          <p class="ch-cn">Sound Phenomena</p>
+<p class="ch-cn">Sound Phenomena</p>
           <p class="ch-videos">7 videos · 8 practice · 6 quiz</p>
-          <span class="badge">上册 · KA</span>
+          <span class="badge">上册</span>
         </div>
       </a>
-      <a class="card" href="physics_chapter.html?ch=ch03&grade=8&term=1">
+      <a class="card" href="physics_chapter.html?ch=ch03&grade=8">
         <div class="ch-num">03</div>
         <div class="ch-meta">
           <p class="ch-title">物态变化</p>
-          <p class="ch-cn">Changes of State</p>
+<p class="ch-cn">Changes of State</p>
           <p class="ch-videos">6 videos · 10 practice · 6 quiz</p>
-          <span class="badge">上册 · KA</span>
+          <span class="badge">上册</span>
         </div>
       </a>
-      <a class="card" href="physics_chapter.html?ch=ch04&grade=8&term=1">
+      <a class="card" href="physics_chapter.html?ch=ch04&grade=8">
         <div class="ch-num">04</div>
         <div class="ch-meta">
           <p class="ch-title">光现象</p>
-          <p class="ch-cn">Light Phenomena</p>
+<p class="ch-cn">Light Phenomena</p>
           <p class="ch-videos">5 videos · 10 practice · 3 quiz</p>
-          <span class="badge">上册 · KA</span>
+          <span class="badge">上册</span>
         </div>
       </a>
-      <a class="card" href="physics_chapter.html?ch=ch05&grade=8&term=1">
+      <a class="card" href="physics_chapter.html?ch=ch05&grade=8">
         <div class="ch-num">05</div>
         <div class="ch-meta">
           <p class="ch-title">透镜及其应用</p>
-          <p class="ch-cn">Lenses and Their Uses</p>
+<p class="ch-cn">Lenses and Their Uses</p>
           <p class="ch-videos">4 videos · 10 practice · 6 quiz</p>
-          <span class="badge">上册 · KA</span>
+          <span class="badge">上册</span>
         </div>
       </a>
-      <a class="card" href="physics_chapter.html?ch=ch06&grade=8&term=1">
+      <a class="card" href="physics_chapter.html?ch=ch06&grade=8">
         <div class="ch-num">06</div>
         <div class="ch-meta">
           <p class="ch-title">质量与密度</p>
-          <p class="ch-cn">Mass and Density</p>
+<p class="ch-cn">Mass and Density</p>
           <p class="ch-videos">3 videos · 10 practice · 6 quiz</p>
-          <span class="badge">上册 · KA</span>
+          <span class="badge">上册</span>
         </div>
       </a>
-      <a class="card" href="physics_chapter.html?ch=ch07&grade=8&term=2">
+      <a class="card" href="physics_chapter.html?ch=ch07&grade=8">
         <div class="ch-num">07</div>
         <div class="ch-meta">
           <p class="ch-title">力</p>
-          <p class="ch-cn">Forces</p>
+<p class="ch-cn">Forces</p>
           <p class="ch-videos">3 videos · 3 practice · 2 quiz</p>
-          <span class="badge">下册 · 21cnjy</span>
+          <span class="badge">下册</span>
         </div>
       </a>
-      <a class="card" href="physics_chapter.html?ch=ch08&grade=8&term=2">
+      <a class="card" href="physics_chapter.html?ch=ch08&grade=8">
         <div class="ch-num">08</div>
         <div class="ch-meta">
           <p class="ch-title">运动和力</p>
-          <p class="ch-cn">Motion and Forces</p>
+<p class="ch-cn">Motion and Forces</p>
           <p class="ch-videos">3 videos · 3 practice · 2 quiz</p>
-          <span class="badge">下册 · 21cnjy</span>
+          <span class="badge">下册</span>
         </div>
       </a>
-      <a class="card" href="physics_chapter.html?ch=ch09&grade=8&term=2">
+      <a class="card" href="physics_chapter.html?ch=ch09&grade=8">
         <div class="ch-num">09</div>
         <div class="ch-meta">
           <p class="ch-title">压强</p>
-          <p class="ch-cn">Pressure</p>
+<p class="ch-cn">Pressure</p>
           <p class="ch-videos">3 videos · 3 practice · 2 quiz</p>
-          <span class="badge">下册 · 21cnjy</span>
+          <span class="badge">下册</span>
         </div>
       </a>
-      <a class="card" href="physics_chapter.html?ch=ch10&grade=8&term=2">
+      <a class="card" href="physics_chapter.html?ch=ch10&grade=8">
         <div class="ch-num">10</div>
         <div class="ch-meta">
           <p class="ch-title">浮力</p>
-          <p class="ch-cn">Buoyancy</p>
+<p class="ch-cn">Buoyancy</p>
           <p class="ch-videos">2 videos · 3 practice · 2 quiz</p>
-          <span class="badge">下册 · 21cnjy</span>
+          <span class="badge">下册</span>
         </div>
       </a>
-      <a class="card" href="physics_chapter.html?ch=ch11&grade=8&term=2">
+      <a class="card" href="physics_chapter.html?ch=ch11&grade=8">
         <div class="ch-num">11</div>
         <div class="ch-meta">
           <p class="ch-title">功和机械能</p>
-          <p class="ch-cn">Work and Mechanical Energy</p>
+<p class="ch-cn">Work and Mechanical Energy</p>
           <p class="ch-videos">3 videos · 3 practice · 2 quiz</p>
-          <span class="badge">下册 · 21cnjy</span>
+          <span class="badge">下册</span>
         </div>
       </a>
-      <a class="card" href="physics_chapter.html?ch=ch12&grade=8&term=2">
+      <a class="card" href="physics_chapter.html?ch=ch12&grade=8">
         <div class="ch-num">12</div>
         <div class="ch-meta">
           <p class="ch-title">简单机械</p>
-          <p class="ch-cn">Simple Machines</p>
+<p class="ch-cn">Simple Machines</p>
           <p class="ch-videos">3 videos · 3 practice · 2 quiz</p>
-          <span class="badge">下册 · 21cnjy</span>
+          <span class="badge">下册</span>
         </div>
       </a>
     </div>
-
-    <footer>
-      <p class="footer-note">
-        <strong>课程说明：</strong>以人教版 2026 八年级物理教材为索引，上册 6 章（机械运动 → 质量与密度）、下册 6 章（力 → 简单机械）。
-        沿用数学站的「Think / Watch / Notes / Practice / Quiz」五段式学习模型；Watch 阶段接入 Khan Academy 视频，Practice / Quiz 采用 Khan Academy 与 21cnjy 双题库切换。<br>
-        All content in English with key terms annotated in Chinese. 可随时点击右上角「🏠 门户」返回学科门户，自由切换学科 / 年级 / 教材版本。
-      </p>
-    </footer>
   </div>
+
+  <footer>
+    <div class="footer-note">
+      每个章节都包含完整的五阶段学习流程：<b>预习 Think → 学习 Watch → 复习 Notes → 练习 Practice → 考试 Quiz</b>。<br>
+      练习与考试均提供「可汗 KA」与「公立校 21cnjy」双题库。
+    </div>
+  </footer>
 </body>
 </html>
