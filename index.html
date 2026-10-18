@@ -247,7 +247,7 @@ html[data-theme="dark"] table th{color:var(--muted)}
   </div>
   <p class="tag"><span class="en">For public-school kids heading to the international track — maths, walked through in English first.</span><span class="zh">公立校孩子转轨国际轨道，数学先用英语走一遍。</span></p>
   <p class="tag sub"><span class="en">We re-organise Khan Academy videos to match Chinese textbooks — by grade, subject and textbook edition.</span><span class="zh">我们把 Khan Academy 的视频，按中国公立校课本（年级 · 学科 · 教材版本）重新整理好。</span></p>
-  <div class="ready">✅ <span class="en">Ready now: Grade 8 · Math · BNU</span><span class="zh">已就绪：八年级 · 数学 · 北师大版</span></div>
+  <div class="ready">✅ <span class="en">Ready now: Grade 8 · Math · BNU · Grade 8 · Physics · 人教版</span><span class="zh">已就绪：八年级 · 数学 · 北师大版 · 八年级 · 物理 · 人教版</span></div>
  </div>
 </header>
 
@@ -319,7 +319,7 @@ html[data-theme="dark"] table th{color:var(--muted)}
     <div class="soon" id="soon"></div>
    </div>
    <div class="extras">
-    <div class="readybox"><span class="en">👉 Only </span><span class="zh">👉 目前只做好了 </span><b><span class="en">Grade 8 · Math · BNU</span><span class="zh">八年级 · 数学 · 北师大版</span></b><span class="en"> is ready for now — more grades / subjects / editions are being added.</span><span class="zh">（其他年级 / 学科 / 版本正在陆续补齐）。</span></div>
+    <div class="readybox"><span class="en">👉 Now ready: </span><span class="zh">👉 目前已做好：</span><b><span class="en">Grade 8 · Math · BNU</span><span class="zh">八年级 · 数学 · 北师大版</span></b><span class="en"> and </span><b><span class="en">Grade 8 · Physics · 人教版</span><span class="zh">八年级 · 物理 · 人教版（12 章）</span></b><span class="en"> — more grades — more grades / subjects / editions are being added.</span><span class="zh">（其他年级 / 学科 / 版本正在陆续补齐）。</span></div>
     <div class="stats">
      <div class="stat"><div class="v">7</div><div class="l"><span class="en">chapters</span><span class="zh">章</span></div></div>
      <div class="stat"><div class="v">33</div><div class="l"><span class="en">topics</span><span class="zh">知识点</span></div></div>
@@ -364,7 +364,10 @@ const EDITIONS=[
    Example: Grade 8 + Math + BNU  -> the site we built (home.html).
    Add new lines here as more pages are created. */
 const MAP={
- '8':{ math:{ bsd:'home.html' } }
+ '8':{
+   math:{ bsd:'home.html' },
+   phys:{ rj:'physics/physics_index.html' }
+ }
 };
 
 /* ============ Language tier (en / mix / zh) ============ */
