@@ -3,40 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Choose your course</title>
+<title>公立宝转轨 · 公立校孩子转轨国际轨道</title>
 <style>
 :root{
- --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#5b6472;
- --accent:#7c3aed; --ok:#15803d; --err:#b91c1c; --warn:#b45309;
+ --bg:#f4f5fb; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#5b6472;
+ --accent:#6d3bdf; --accent2:#4f46e5; --ok:#15803d; --err:#b91c1c; --warn:#b45309;
+ --blue:#eff6ff; --bluebd:#93c5fd;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-.wrap{max-width:880px;margin:0 auto;padding:18px 16px 40px}
-header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:30px 28px;border-radius:16px;margin-bottom:18px}
-header h1{font-size:24px;margin-bottom:8px}
-header p{opacity:.94;font-size:13.5px;max-width:640px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+
 /* ===== Language tiers (en / mix / zh) ===== */
 .zh{display:none}
 body.lang-en .zh{display:none}
 body.lang-mix .zh{display:inline;font-size:.82em;margin-left:6px;font-weight:400}
 body.lang-zh .en{display:inline;font-size:.78em;margin-left:6px;font-weight:400}
 body.lang-zh .zh{display:inline}
-/* Colored backgrounds always show white text, regardless of the language tier.
-   Without this, inherit + lang rules can leave Chinese/English subtitles invisible on the
-   purple gradient header and the colored chapter cards. */
-header, header h1, header p, header .en, header .zh, header .src, header .sub, header .t, header .no{ color:#fff; }
-header p, header .en, header .zh{ opacity:1; }
-.ch .top, .ch .top .en, .ch .top .zh, .ch .top .no, .ch .top .t{ color:#fff; opacity:1; }
 
-.langbar{position:fixed;top:8px;right:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+/* ===== Hero (full-bleed brand band) ===== */
+header.hero{background:linear-gradient(135deg,#4f46e5,#7c3aed 55%,#6d3bdf);padding:44px 0 40px;box-shadow:0 6px 24px rgba(79,70,229,.25)}
+.hero-in{max-width:1140px;margin:0 auto;padding:0 24px}
+.brand{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.brand .mk{width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
+.brand h1{font-size:34px;letter-spacing:.5px;font-weight:800}
+.brand .pill{margin-left:auto;font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);padding:5px 12px;border-radius:999px;font-weight:600;white-space:nowrap}
+.hero p.tag{font-size:16px;opacity:.96;max-width:780px;margin-bottom:6px}
+.hero p.tag.sub{opacity:.86;font-size:14px;margin-bottom:0}
+.hero .ready{display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:8px 14px;border-radius:999px;font-size:13.5px}
+header.hero, header.hero h1, header.hero p, header.hero .en, header.hero .zh, header.hero .mk, header.hero .pill, header.hero .ready{color:#fff}
+header.hero .en, header.hero .zh{opacity:1}
+/* brand wordmark always visible (it is the site name, shown in every language tier) */
+header.hero h1 .zh{display:inline!important;color:#fff!important}
+
+/* ===== Layout ===== */
+.wrap{max-width:1140px;margin:0 auto;padding:26px 24px 40px}
+.home-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:24px;align-items:start}
+@media(max-width:880px){.home-grid{grid-template-columns:1fr;gap:18px}}
+
+/* ===== Language switch (fixed, top-right) ===== */
+.langbar{position:fixed;top:10px;right:12px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
 .langseg{display:inline-flex}
 .langseg button{background:transparent;color:#374151;border:none;padding:6px 11px;font-size:12px;cursor:pointer;font-family:inherit;border-radius:999px;white-space:nowrap}
 .langseg button.on{background:var(--accent);color:#fff}
 @media(max-width:680px){.langbar{top:6px;right:6px}.langseg button{padding:5px 8px;font-size:11px}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 22px;margin-bottom:16px}
+
+/* ===== Cards ===== */
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 22px;box-shadow:0 1px 3px rgba(16,24,40,.06)}
+
+/* ===== Parent letter ===== */
+.parents{background:var(--blue);border:1px solid var(--bluebd);border-radius:16px;padding:20px 22px;font-size:14px;color:var(--text);line-height:1.7;box-shadow:0 1px 3px rgba(16,24,40,.06)}
+.parents .zh,.parents .en{display:block;margin-left:0}
+body.lang-en .parents .zh{display:none}
+.parents summary{cursor:pointer;font-weight:600;padding:4px 0 12px}
+.parents summary .zh{font-size:22px;font-weight:700;color:#92400e;line-height:1.35;margin:0 0 6px}
+.parents summary .en{font-size:16px;font-weight:500;color:#1f2937;line-height:1.4;margin:0}
+.parents p{font-size:14px;line-height:1.7;color:var(--text);margin:0 0 14px}
+.parents p .zh{font-size:17px;line-height:1.75;color:#1f2937;margin:0}
+.parents p .en{font-size:15px;line-height:1.65;color:#5b6472;margin-top:6px}
+/* parent letter: its own language switch, so the two versions never interleave */
+.letter .zh{display:inline!important;font-size:inherit!important}
+.letter[data-lang="zh"] .lten{display:none}
+.letter[data-lang="en"] .ltzh{display:none}
+.ltsw{display:flex;gap:6px;margin:2px 0 14px}
+.ltsw button{font-size:12px;font-weight:700;border:1px solid #bfdbfe;background:#fff;color:#1e40af;border-radius:999px;padding:5px 15px;cursor:pointer;font-family:inherit}
+.ltsw button:hover{border-color:#1e40af}
+.ltsw button.on{background:#1e40af;color:#fff;border-color:#1e40af}
+.letter p{margin:0 0 12px}
+.letter p:last-child{margin-bottom:0}
+
+/* ===== Picker ===== */
 .sel{margin-bottom:22px}
 .sel:last-child{margin-bottom:0}
-.sel h3{font-size:15px;margin-bottom:4px}
+.sel h3{font-size:15px;margin-bottom:4px;display:flex;align-items:center;gap:9px}
+.sel .num{display:inline-flex;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex:none}
 .sel .hint{font-size:12px;color:var(--muted);margin-bottom:12px}
 .chips{display:flex;flex-wrap:wrap;gap:10px}
 .chip{background:#fff;border:1.5px solid var(--line);color:var(--text);border-radius:999px;padding:9px 16px;font-size:13.5px;cursor:pointer;font-family:inherit;transition:.15s}
@@ -47,9 +86,9 @@ header p, header .en, header .zh{ opacity:1; }
 .chip .rec{font-size:10.5px;font-weight:700;background:#dcfce7;color:#15803d;border-radius:999px;padding:2px 7px;margin-left:4px;vertical-align:middle}
 .chip.on .rec{background:rgba(255,255,255,.28);color:#fff}
 .go{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:8px}
-button.enter{font-family:inherit;border:none;cursor:pointer;border-radius:10px;padding:13px 26px;font-size:15px;font-weight:600;background:var(--accent);color:#fff}
-button.enter:hover{background:#6d28d9}
-button.enter:disabled{background:#cbbef0;cursor:not-allowed}
+button.enter{font-family:inherit;border:none;cursor:pointer;border-radius:10px;padding:13px 26px;font-size:15px;font-weight:600;background:var(--accent);color:#fff;box-shadow:0 2px 8px rgba(109,59,223,.35)}
+button.enter:hover{background:#5b2dc4}
+button.enter:disabled{background:#cbbef0;cursor:not-allowed;box-shadow:none}
 .remind{font-size:12.5px;color:var(--muted)}
 .remind a{color:var(--accent);cursor:pointer;text-decoration:underline;background:transparent;border:none;font-family:inherit;font-size:12.5px;padding:0}
 .choose{font-size:12.5px;color:var(--muted);margin-top:10px}
@@ -57,10 +96,20 @@ button.enter:disabled{background:#cbbef0;cursor:not-allowed}
 .soon{display:none;background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:18px 20px;margin-top:18px;font-size:14px;color:#9a3412}
 .soon.show{display:block}
 .soon .t{font-weight:700;font-size:15px;margin-bottom:6px}
-.visit{text-align:center;font-size:11px;color:var(--muted);margin-top:26px}
-a{color:var(--accent)}
 
-/* mix mode: stack bilingual content vertically so en/zh never run inline as one long line */
+/* ===== Readiness + stats (fills the picker column) ===== */
+.extras{margin-top:18px;display:grid;gap:12px}
+.readybox{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:1px solid #a7f3d0;border-radius:14px;padding:14px 16px;font-size:13.5px;color:#065f46;line-height:1.6}
+.readybox b{color:#065f46}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:#f9fafb;border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center}
+.stat .v{font-size:20px;font-weight:800;color:var(--accent)}
+.stat .l{font-size:11px;color:var(--muted);margin-top:2px}
+
+.foot{text-align:center;font-size:11px;color:var(--muted);margin-top:28px;padding-top:18px;border-top:1px solid var(--line)}
+.foot a{color:var(--accent)}
+
+/* ===== Mix mode: stack bilingual content vertically ===== */
 body.lang-mix h1 .en, body.lang-mix h1 .zh,
 body.lang-mix h2 .en, body.lang-mix h2 .zh,
 body.lang-mix h3 .en, body.lang-mix h3 .zh,
@@ -81,29 +130,96 @@ body.lang-mix .step .zh, body.lang-mix header .zh, body.lang-mix .hero .zh,
 body.lang-mix .ch .zh, body.lang-mix .ch .top .zh, body.lang-mix .welcome .zh,
 body.lang-mix .note .zh { font-size: inherit; }
 
-/* ===== Parent letter (lives on the main / site entry page) ===== */
-.parents{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:18px 22px;font-size:14px;color:var(--text);line-height:1.7;margin:0 0 16px}
-.parents .zh,.parents .en{display:block;margin-left:0}
-body.lang-en .parents .zh{display:none}
-.parents summary{cursor:pointer;font-weight:600;padding:4px 0 12px}
-.parents summary .zh{font-size:22px;font-weight:700;color:#92400e;line-height:1.35;margin:0 0 6px}
-.parents summary .en{font-size:16px;font-weight:500;color:#1f2937;line-height:1.4;margin:0}
-.parents p{font-size:14px;line-height:1.7;color:var(--text);margin:0 0 14px}
-.parents p .zh{font-size:17px;line-height:1.75;color:#1f2937;margin:0}
-.parents p .en{font-size:15px;line-height:1.65;color:#5b6472;margin-top:6px}
-.parents p b .zh{font-size:19px;font-weight:700;color:#92400e;margin:14px 0 4px;display:block}
-.parents p b .en{font-size:15px;font-weight:600;color:#5b6472;margin:0;display:block}
-/* parent letter: its own language switch, so the two versions never interleave */
-.letter .zh{display:inline!important;font-size:inherit!important}
-.letter[data-lang="zh"] .lten{display:none}
-.letter[data-lang="en"] .ltzh{display:none}
-.ltsw{display:flex;gap:6px;margin:2px 0 14px}
-.ltsw button{font-size:12px;font-weight:700;border:1px solid #bfdbfe;background:#fff;color:#1e40af;border-radius:999px;padding:5px 15px;cursor:pointer;font-family:inherit}
-.ltsw button:hover{border-color:#1e40af}
-.ltsw button.on{background:#1e40af;color:#fff;border-color:#1e40af}
-.letter p{margin:0 0 12px}
-.letter p:last-child{margin-bottom:0}
+/* ===== Day / Night / Auto (follows the system by default) ===== */
+:root{color-scheme:light}
+@media (prefers-color-scheme: dark){
+ :root:not([data-theme="light"]){
+  color-scheme:dark;
+  --bg:#0f172a;--card:#1e293b;--card2:#172033;--line:#334155;
+  --text:#e5e7eb;--muted:#94a3b8;--ink:#e5e7eb;--mute:#94a3b8;
+  --accent:#a78bfa;--ok:#4ade80;--err:#f87171;--warn:#fbbf24;--bad:#f87171;
+ }
+}
+html[data-theme="dark"]{
+ color-scheme:dark;
+ --bg:#0f172a;--card:#1e293b;--card2:#172033;--line:#334155;
+ --text:#e5e7eb;--muted:#94a3b8;--ink:#e5e7eb;--mute:#94a3b8;
+ --accent:#a78bfa;--ok:#4ade80;--err:#f87171;--warn:#fbbf24;--bad:#f87171;
+}
+html[data-theme="light"]{color-scheme:light}
+html[data-theme="dark"] body{background:var(--bg);color:var(--text)}
+html[data-theme="dark"] main{background:var(--card);color:var(--text)}
+html[data-theme="dark"] nav{background:var(--card)}
+/* neutral panels that were light -> dark */
+html[data-theme="dark"] .langbar,
+html[data-theme="dark"] .chip:not(.on),
+html[data-theme="dark"] .kp,
+html[data-theme="dark"] .topbar,
+html[data-theme="dark"] button.choice,
+html[data-theme="dark"] .vid-item,
+html[data-theme="dark"] .proof,
+html[data-theme="dark"] .q{background:var(--card)}
+html[data-theme="dark"] .stat,
+html[data-theme="dark"] .box,
+html[data-theme="dark"] .kp-c,
+html[data-theme="dark"] .badge:not(.ok):not(.warn):not(.lock),
+html[data-theme="dark"] .pbar,
+html[data-theme="dark"] .nav-i:hover,
+html[data-theme="dark"] input:disabled,
+html[data-theme="dark"] .bars,
+html[data-theme="dark"] .tag,
+html[data-theme="dark"] .ltsw button{background:var(--card2)}
+html[data-theme="dark"] .opt{background:var(--card);color:var(--text)}
+html[data-theme="dark"] .opt:hover:not(:disabled),
+html[data-theme="dark"] button.choice:hover{background:var(--card2);border-color:var(--accent)}
+html[data-theme="dark"] .opt.sel-ok{background:#14532d;color:#bbf7d0;border-color:var(--ok)}
+html[data-theme="dark"] .opt.sel-bad{background:#7f1d1d;color:#fecaca;border-color:var(--err)}
+/* accent-coloured surfaces: the accent is light in dark mode, so its ink must be dark */
+html[data-theme="dark"] button{color:#0f172a!important}
+html[data-theme="dark"] .opt,
+html[data-theme="dark"] button.choice,
+html[data-theme="dark"] button.ghost,
+html[data-theme="dark"] button.secondary,
+html[data-theme="dark"] .langseg button,
+html[data-theme="dark"] .themseg button{color:var(--text)!important}
+html[data-theme="dark"] button.ghost,
+html[data-theme="dark"] button.secondary{background:var(--card2)!important}
+html[data-theme="dark"] .nav-i.on,
+html[data-theme="dark"] .chip.on,
+html[data-theme="dark"] .sel .num{color:#0f172a!important}
+html[data-theme="dark"] .langseg button.on,
+html[data-theme="dark"] .themseg button.on{color:#0f172a!important}
+html[data-theme="dark"] .nav-i.on .st.ok,
+html[data-theme="dark"] .nav-i.on .st.err{color:#0f172a!important}
+html[data-theme="dark"] .chip.on .rec{color:#0f172a!important}
+html[data-theme="dark"] .step{color:#1e1b4b!important}
+html[data-theme="dark"] .ltsw button{color:#93c5fd!important}
+html[data-theme="dark"] .welcome-cta .big{color:#fff!important}
+/* "paper" panels: stay light so dark diagram / equation strokes remain visible */
+html[data-theme="dark"] .fig,html[data-theme="dark"] .eqbox{color:#1f2937}
+html[data-theme="dark"] .fig *{color:#1f2937!important}
+html[data-theme="dark"] .eqbox .num{color:#6d3bdf!important}
+html[data-theme="dark"] svg{background:#fff;border-radius:8px;padding:4px}
+/* cream / yellow panels: stay light, so their ink must stay dark */
+html[data-theme="dark"] .note,html[data-theme="dark"] .note *{color:#1f2937}
+html[data-theme="dark"] .note strong,html[data-theme="dark"] .note b{color:#b45309!important}
+html[data-theme="dark"] .hint,html[data-theme="dark"] .hint *{color:#1f2937}
+html[data-theme="dark"] .parents,html[data-theme="dark"] .parents p,
+html[data-theme="dark"] .parents summary,html[data-theme="dark"] .parents .zh,
+html[data-theme="dark"] .parents .en{color:#1f2937}
+/* form controls + table headings follow the theme */
+html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="dark"] textarea{
+ background:var(--card2);color:var(--text);border-color:var(--line)}
+html[data-theme="dark"] input::placeholder{color:var(--muted)}
+html[data-theme="dark"] table th{color:var(--muted)}
+/* ===== Theme switch (fixed, under the language switch) ===== */
+.themebar{position:fixed;top:44px;right:12px;z-index:300;display:inline-flex;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.themseg{display:inline-flex}
+.themseg button{background:transparent;color:var(--text);border:none;padding:5px 9px;font-size:13px;cursor:pointer;font-family:inherit;border-radius:999px;line-height:1}
+.themseg button.on{background:var(--accent);color:#fff}
+@media(max-width:680px){.themebar{top:36px;right:6px}.themseg button{padding:4px 7px;font-size:12px}}
 </style>
+<script>try{document.documentElement.setAttribute('data-theme',localStorage.getItem('bnu8_theme')||'auto');}catch(e){}</script>
 </head>
 <body>
 
@@ -114,83 +230,109 @@ body.lang-en .parents .zh{display:none}
   <button data-lang="zh" onclick="setLang('zh')">中文 + English</button>
  </span>
 </div>
-
-<div class="wrap">
-<header>
- <h1><span class="en">Pick your course</span><span class="zh">选择你的课程</span></h1>
- <p><span class="en">This site re-organises Khan Academy videos to match Chinese public-school textbooks — by grade, subject and textbook edition. Choose below to open the matching study page.</span>
-    <span class="zh">这个网站把 Khan Academy 的视频，按中国公立校的「年级 / 学科 / 教材版本」重新整理。选一下，就进入对应的学习页。</span></p>
-</header>
-
-<details class="parents" open style="background:#eff6ff;border-color:#93c5fd;margin-bottom:16px">
- <summary>
-  <span class="zh">💛 给家长的一封信 · 我为什么做了这个网站</span>
-  <span class="en">💛 A letter to parents — why I built this site</span>
- </summary>
- <div class="letter" data-lang="zh">
-  <div class="ltsw">
-   <button type="button" data-ll="zh" class="on"><span class="zh">中文</span></button>
-   <button type="button" data-ll="en">English</button>
-  </div>
-  <div class="ltzh">
-   <p><span class="zh">现在很多孩子都在公立学校读书，之后计划转轨国际学校。这条路上有个绕不开的问题：将来，数学是要用英文学的。</span></p>
-   <p><span class="zh">这件事难在哪里？通常是三件事。</span></p>
-   <p><span class="zh">一是术语。不是单词不认识，而是「一次函数」「方差」「勾股定理」这些概念，在英文课堂里叫什么、怎么用，孩子还没建立直觉。</span></p>
-   <p><span class="zh">二是教法。同样是一次函数，英美课堂的切入角度和推导习惯，跟国内不一样。</span></p>
-   <p><span class="zh">三是用英语做数学推理的能力。单词懂，但要跟上用英文一步步铺开的论证，是另一回事。</span></p>
-   <p><span class="zh">想找个老师专门补这块，得同时满足三个条件：懂国内数学结构、懂国外数学结构、还能用英文上课。这样的人很少，收费也不低。对很多家庭来说，这个问题一直没太好的解法。</span></p>
-   <p><span class="zh">有人会说，那用可汗学院啊。可汗是好东西，但它恰恰解决不了这个转轨问题——它的体系和公立校对不上，孩子脑子里会同时装两套打架的逻辑；而且内容太多，让一个孩子自己从几千个视频里挑、再自己搭学习路径，大人都不一定做得到。</span></p>
-   <p><span class="zh">我做的事，思路其实很笨也很直接：用公立学校的数学课本做索引和框架，再给每个知识点，配上可汗学院里对应的那一节视频。这样，孩子白天在学校用中文学过的东西，回家能在可汗上找到对应的英文那一节——中文学一遍，英文再走一遍，两套体系就对上了。（极少数教材独有、可汗没有的知识点，就用图解代替。）</span></p>
-   <p><span class="zh">我在市面上找了很久，没找到这样的东西，就自己动手做了一个。它不是什么产品，就是我作为一个家长，给准备转轨的孩子搭的一个小工具，免费的，也欢迎你一起用。</span></p>
-   <p><span class="zh">关于版权要说明一句：里面的视频内容来自 Khan Academy，按 CC BY-NC-SA 许可使用；这个站点是我个人做的学习辅助，非商业用途，和可汗学院没有任何官方关联。该署名的都署了名。</span></p>
-   <p><span class="zh">它具体怎么帮到孩子？每个知识点都配了练习题——题目是随机生成的，连对 5 题算过关；做错的会自动进错题本，过几天再考一次；每一章末尾还有一次自测。孩子英语程度不同，所以我还做了一档中文支持：吃力的时候调高一点，跟上了就调回去。</span></p>
-   <p><span class="zh">最后说句实话：我不是计算机出身，不会写代码，也不是数学老师。这个工具一定有不少疏漏和错误。我会一直改，也希望它能实实在在帮到更多正在准备转轨的孩子和家庭。</span></p>
-  </div>
-  <div class="lten">
-   <p>More and more children are in Chinese public schools with plans to switch to the international track. One thing on that road is unavoidable: sooner or later, maths has to be learned in English.</p>
-   <p>Where does it get hard? Usually three places.</p>
-   <p>First, the terminology. Not that the words are unknown, but terms like "linear function", "variance" or "the Pythagorean theorem" — a child hasn't yet built the intuition for what they are called and how they are used in an English classroom.</p>
-   <p>Second, the teaching. Take linear functions again: an English-language classroom comes at them from a different angle and works them out differently from a Chinese one.</p>
-   <p>Third, the ability to reason mathematically in English. The words are understood, but following a proof or an argument laid out step by step in English is a different skill.</p>
-   <p>A tutor to cover all this would need three things at once: to know the Chinese maths structure, to know the overseas one, and to teach in English. Few people do, and the ones who do charge accordingly. For a lot of families, this has never had a good answer.</p>
-   <p>Someone will say, just use Khan Academy. Khan is wonderful — but it does not actually solve this particular problem. Its structure is not the public-school structure, so a child ends up holding two course logics that fight each other. And it is vast: asking a child to pick the right videos out of thousands and then build their own path is unrealistic — most adults couldn't.</p>
-   <p>What I built is, honestly, simple and a bit blunt: take the public-school textbook as the index and the framework, then put the matching Khan Academy lesson onto each topic. So the things a child learns in Chinese at school during the day have a corresponding English lesson on Khan at home — learned once in Chinese, walked through again in English, and the two systems line up. (For the few topics unique to the Chinese textbook with no Khan equivalent, I used diagrams instead.)</p>
-   <p>I looked for something like this for a long time and never found it, so I made it myself. It isn't a product. It's just a small tool I put together as a parent, for children preparing to make the switch — free, and you're welcome to use it.</p>
-   <p>One note on the licence: the video content comes from Khan Academy and is used under the CC BY-NC-SA licence. This site is a personal study aid, non-commercial, and not officially affiliated with Khan Academy. Credit is given where it is due.</p>
-   <p>How does it actually help the child? Every topic comes with practice — the questions are generated at random, and five correct in a row clears the topic. Anything wrong goes into a review list that comes back a few days later, and each chapter ends with a self-test. Children's English varies, so I also built a dial for Chinese support: turn it up when it's a struggle, turn it back down when they're ready.</p>
-   <p>One honest last note: I'm not from a computer background, I can't write code, and I'm not a maths teacher. This tool will have its share of gaps and mistakes. I'll keep working on it, and I hope it genuinely helps more children and families preparing for the same move.</p>
-  </div>
- </div>
-</details>
-
-<div class="card">
- <!-- grade -->
- <div class="sel" data-dim="grade">
-  <h3><span class="en">1 · Grade</span><span class="zh">1 · 年级</span></h3>
-  <div class="hint"><span class="en">Which grade are you in?</span><span class="zh">你（或孩子）读几年级？</span></div>
-  <div class="chips" id="gradeChips"></div>
- </div>
- <!-- subject -->
- <div class="sel" data-dim="subject">
-  <h3><span class="en">2 · Subject</span><span class="zh">2 · 学科</span></h3>
-  <div class="hint"><span class="en">Which subject?</span><span class="zh">哪一科？</span></div>
-  <div class="chips" id="subjectChips"></div>
- </div>
- <!-- edition -->
- <div class="sel" data-dim="edition">
-  <h3><span class="en">3 · Textbook edition</span><span class="zh">3 · 教材版本</span></h3>
-  <div class="hint"><span class="en">Which textbook does the school use?</span><span class="zh">学校用的是哪个版本？</span></div>
-  <div class="chips" id="editionChips"></div>
- </div>
-
- <div class="go">
-  <button class="enter" id="enterBtn" disabled><span class="en">Enter →</span><span class="zh">进入 →</span></button>
-  <span class="choose" id="chooseLine"></span>
- </div>
- <div class="remind" id="remind" style="display:none"></div>
- <div class="soon" id="soon"></div>
+<div class="themebar" title="日间 / 夜间 / 自动 · Day / Night / Auto">
+ <span class="themseg">
+  <button data-theme="light" onclick="setTheme('light')" title="日间 · Day">☀️</button>
+  <button data-theme="dark" onclick="setTheme('dark')" title="夜间 · Night">🌙</button>
+  <button data-theme="auto" onclick="setTheme('auto')" title="自动跟随系统 · Auto">⚙️</button>
+ </span>
 </div>
 
+
+<header class="hero">
+ <div class="hero-in">
+  <div class="brand">
+   <div class="mk">🛤️</div>
+   <h1><span class="zh">公立宝转轨</span></h1>
+   <span class="pill"><span class="en">Free · parent-made</span><span class="zh">公益 · 家长自制</span></span>
+  </div>
+  <p class="tag"><span class="en">For public-school kids heading to the international track — maths, walked through in English first.</span><span class="zh">公立校孩子转轨国际轨道，数学先用英语走一遍。</span></p>
+  <p class="tag sub"><span class="en">We re-organise Khan Academy videos to match Chinese textbooks — by grade, subject and textbook edition.</span><span class="zh">我们把 Khan Academy 的视频，按中国公立校课本（年级 · 学科 · 教材版本）重新整理好。</span></p>
+  <div class="ready">✅ <span class="en">Ready now: Grade 8 · Math · BNU</span><span class="zh">已就绪：八年级 · 数学 · 北师大版</span></div>
+ </div>
+</header>
+
+<div class="wrap">
+ <div class="home-grid">
+  <details class="parents" open style="margin-bottom:16px">
+   <summary>
+    <span class="zh">💛 给家长的一封信 · 我为什么做了这个网站</span>
+    <span class="en">💛 A letter to parents — why I built this site</span>
+   </summary>
+   <div class="letter" data-lang="zh">
+    <div class="ltsw">
+     <button type="button" data-ll="zh" class="on"><span class="zh">中文</span></button>
+     <button type="button" data-ll="en">English</button>
+    </div>
+    <div class="ltzh">
+     <p><span class="zh">现在很多孩子都在公立学校读书，之后计划转轨国际学校。这条路上有个绕不开的问题：将来，数学是要用英文学的。</span></p>
+     <p><span class="zh">这件事难在哪里？通常是三件事。</span></p>
+     <p><span class="zh">一是术语。不是单词不认识，而是「一次函数」「方差」「勾股定理」这些概念，在英文课堂里叫什么、怎么用，孩子还没建立直觉。</span></p>
+     <p><span class="zh">二是教法。同样是一次函数，英美课堂的切入角度和推导习惯，跟国内不一样。</span></p>
+     <p><span class="zh">三是用英语做数学推理的能力。单词懂，但要跟上用英文一步步铺开的论证，是另一回事。</span></p>
+     <p><span class="zh">想找个老师专门补这块，得同时满足三个条件：懂国内数学结构、懂国外数学结构、还能用英文上课。这样的人很少，收费也不低。对很多家庭来说，这个问题一直没太好的解法。</span></p>
+     <p><span class="zh">有人会说，那用可汗学院啊。可汗是好东西，但它恰恰解决不了这个转轨问题——它的体系和公立校对不上，孩子脑子里会同时装两套打架的逻辑；而且内容太多，让一个孩子自己从几千个视频里挑、再自己搭学习路径，大人都不一定做得到。</span></p>
+     <p><span class="zh">我做的事，思路其实很笨也很直接：用公立学校的数学课本做索引和框架，再给每个知识点，配上可汗学院里对应的那一节视频。这样，孩子白天在学校用中文学过的东西，回家能在可汗上找到对应的英文那一节——中文学一遍，英文再走一遍，两套体系就对上了。（极少数教材独有、可汗没有的知识点，就用图解代替。）</span></p>
+     <p><span class="zh">我在市面上找了很久，没找到这样的东西，就自己动手做了一个。它不是什么产品，就是我作为一个家长，给准备转轨的孩子搭的一个小工具，免费的，也欢迎你一起用。</span></p>
+     <p><span class="zh">关于版权要说明一句：里面的视频内容来自 Khan Academy，按 CC BY-NC-SA 许可使用；这个站点是我个人做的学习辅助，非商业用途，和可汗学院没有任何官方关联。该署名的都署了名。</span></p>
+     <p><span class="zh">它具体怎么帮到孩子？每个知识点都配了练习题——题目是随机生成的，连对 5 题算过关；做错的会自动进错题本，过几天再考一次；每一章末尾还有一次自测。孩子英语程度不同，所以我还做了一档中文支持：吃力的时候调高一点，跟上了就调回去。</span></p>
+     <p><span class="zh">最后说句实话：我不是计算机出身，不会写代码，也不是数学老师。这个工具一定有不少疏漏和错误。我会一直改，也希望它能实实在在帮到更多正在准备转轨的孩子和家庭。</span></p>
+    </div>
+    <div class="lten">
+     <p>More and more children are in Chinese public schools with plans to switch to the international track. One thing on that road is unavoidable: sooner or later, maths has to be learned in English.</p>
+     <p>Where does it get hard? Usually three places.</p>
+     <p>First, the terminology. Not that the words are unknown, but terms like "linear function", "variance" or "the Pythagorean theorem" — a child hasn't yet built the intuition for what they are called and how they are used in an English classroom.</p>
+     <p>Second, the teaching. Take linear functions again: an English-language classroom comes at them from a different angle and works them out differently from a Chinese one.</p>
+     <p>Third, the ability to reason mathematically in English. The words are understood, but following a proof or an argument laid out step by step in English is a different skill.</p>
+     <p>A tutor to cover all this would need three things at once: to know the Chinese maths structure, to know the overseas one, and to teach in English. Few people do, and the ones who do charge accordingly. For a lot of families, this has never had a good answer.</p>
+     <p>Someone will say, just use Khan Academy. Khan is wonderful — but it does not actually solve this particular problem. Its structure is not the public-school structure, so a child ends up holding two course logics that fight each other. And it is vast: asking a child to pick the right videos out of thousands and then build their own path is unrealistic — most adults couldn't.</p>
+     <p>What I built is, honestly, simple and a bit blunt: take the public-school textbook as the index and the framework, then put the matching Khan Academy lesson onto each topic. So the things a child learns in Chinese at school during the day have a corresponding English lesson on Khan at home — learned once in Chinese, walked through again in English, and the two systems line up. (For the few topics unique to the Chinese textbook with no Khan equivalent, I used diagrams instead.)</p>
+     <p>I looked for something like this for a long time and never found it, so I made it myself. It isn't a product. It's just a small tool I put together as a parent, for children preparing to make the switch — free, and you're welcome to use it.</p>
+     <p>One note on the licence: the video content comes from Khan Academy and is used under the CC BY-NC-SA licence. This site is a personal study aid, non-commercial, and not officially affiliated with Khan Academy. Credit is given where it is due.</p>
+     <p>How does it actually help the child? Every topic comes with practice — the questions are generated at random, and five correct in a row clears the topic. Anything wrong goes into a review list that comes back a few days later, and each chapter ends with a self-test. Children's English varies, so I also built a dial for Chinese support: turn it up when it's a struggle, turn it back down when they're ready.</p>
+     <p>One honest last note: I'm not from a computer background, I can't write code, and I'm not a maths teacher. This tool will have its share of gaps and mistakes. I'll keep working on it, and I hope it genuinely helps more children and families preparing for the same move.</p>
+    </div>
+   </div>
+  </details>
+
+  <div class="col-pick">
+   <div class="card">
+    <div class="sel" data-dim="grade">
+     <h3><span class="num">1</span><span class="en">Grade</span><span class="zh">年级</span></h3>
+     <div class="hint"><span class="en">Which grade are you in?</span><span class="zh">你（或孩子）读几年级？</span></div>
+     <div class="chips" id="gradeChips"></div>
+    </div>
+    <div class="sel" data-dim="subject">
+     <h3><span class="num">2</span><span class="en">Subject</span><span class="zh">学科</span></h3>
+     <div class="hint"><span class="en">Which subject?</span><span class="zh">哪一科？</span></div>
+     <div class="chips" id="subjectChips"></div>
+    </div>
+    <div class="sel" data-dim="edition">
+     <h3><span class="num">3</span><span class="en">Textbook edition</span><span class="zh">教材版本</span></h3>
+     <div class="hint"><span class="en">Which textbook does the school use?</span><span class="zh">学校用的是哪个版本？</span></div>
+     <div class="chips" id="editionChips"></div>
+    </div>
+    <div class="go">
+     <button class="enter" id="enterBtn" disabled><span class="en">Enter →</span><span class="zh">进入 →</span></button>
+     <span class="choose" id="chooseLine"></span>
+    </div>
+    <div class="remind" id="remind" style="display:none"></div>
+    <div class="soon" id="soon"></div>
+   </div>
+   <div class="extras">
+    <div class="readybox"><span class="en">👉 Only </span><span class="zh">👉 目前只做好了 </span><b><span class="en">Grade 8 · Math · BNU</span><span class="zh">八年级 · 数学 · 北师大版</span></b><span class="en"> is ready for now — more grades / subjects / editions are being added.</span><span class="zh">（其他年级 / 学科 / 版本正在陆续补齐）。</span></div>
+    <div class="stats">
+     <div class="stat"><div class="v">7</div><div class="l"><span class="en">chapters</span><span class="zh">章</span></div></div>
+     <div class="stat"><div class="v">33</div><div class="l"><span class="en">topics</span><span class="zh">知识点</span></div></div>
+     <div class="stat"><div class="v">196</div><div class="l"><span class="en">videos</span><span class="zh">段视频</span></div></div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="foot">
+  <span class="en">Video content from Khan Academy · CC BY-NC-SA · this site is for personal study only</span><span class="zh">视频内容来自 Khan Academy · CC BY-NC-SA · 本站仅作个人学习用</span>
+ </div>
 </div>
 
 <script>
@@ -320,8 +462,8 @@ document.getElementById('enterBtn').onclick=function(){
   }
  }catch(e){}
 })();
-</script>
-<script>
+
+/* ============ Parent letter: its own language switch ============ */
 (function(){
  var saved=null; try{saved=localStorage.getItem('bnu8_letter_lang');}catch(e){}
  document.querySelectorAll('.letter').forEach(function(l){
@@ -341,6 +483,34 @@ document.getElementById('enterBtn').onclick=function(){
   set(saved||(site==='en'?'en':'zh'));
  });
 })();
+
+/* ============ On small screens, collapse the long letter so it doesn't push the picker down ============ */
+(function(){
+ function fit(){
+  document.querySelectorAll('.parents').forEach(function(d){
+   if(window.innerWidth<760){ d.removeAttribute('open'); }
+   else if(!d.hasAttribute('open')){ d.setAttribute('open',''); }
+  });
+ }
+ fit();
+ window.addEventListener('resize',fit);
+})();
+</script>
+<script>
+var TKEY='bnu8_theme';
+function getTheme(){try{return localStorage.getItem(TKEY)||'auto';}catch(e){return 'auto';}}
+function setTheme(t){try{localStorage.setItem(TKEY,t);}catch(e){}applyTheme();}
+function applyTheme(){
+ var t=getTheme();
+ document.documentElement.setAttribute('data-theme',t);
+ var bs=document.querySelectorAll('.themseg button');
+ for(var i=0;i<bs.length;i++){
+  var on=(bs[i].getAttribute('data-theme')===t);
+  if(on){bs[i].classList.add('on');}else{bs[i].classList.remove('on');}
+ }
+}
+applyTheme();
+try{var mq=window.matchMedia('(prefers-color-scheme: dark)');if(mq&&mq.addEventListener){mq.addEventListener('change',function(){if(getTheme()==='auto'){applyTheme();}});}}catch(e){}
 </script>
 </body>
 </html>
