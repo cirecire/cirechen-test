@@ -210,9 +210,8 @@ html[data-theme="dark"] svg{background:#fff;border-radius:8px;padding:4px}
 html[data-theme="dark"] .note,html[data-theme="dark"] .note *{color:#1f2937}
 html[data-theme="dark"] .note strong,html[data-theme="dark"] .note b{color:#b45309!important}
 html[data-theme="dark"] .hint,html[data-theme="dark"] .hint *{color:#1f2937}
-html[data-theme="dark"] .parents,html[data-theme="dark"] .parents p,
-html[data-theme="dark"] .parents summary,html[data-theme="dark"] .parents .zh,
-html[data-theme="dark"] .parents .en{color:#1f2937}
+html[data-theme="dark"] .parents{background:var(--card)!important;color:var(--text);border-color:var(--line)!important}
+html[data-theme="dark"] .parents .zh,html[data-theme="dark"] .parents .en,html[data-theme="dark"] .parents p,html[data-theme="dark"] .parents summary{color:var(--text)}
 /* form controls + table headings follow the theme */
 html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="dark"] textarea{
  background:var(--card2);color:var(--text);border-color:var(--line)}
@@ -848,19 +847,19 @@ function chTest(el){
 /* ===== Chapter lobby: start here ===== */
 const GLOSS={k1:"无理数",k2:"平方根",k3:"立方根",k4:"估算",k5:"算术平方根",k6:"实数",k7:"二次根式",ext:"科学计数法"};
 const USE_MICRO=false;
-const INTRO={why:"Draw a square with side length 1. How long is its diagonal? It is √2 — a decimal that never ends and never repeats. The 1.414 your calculator shows is only an approximation. This chapter introduces those awkward numbers, shows you how to trap one between two decimals without a calculator, and how to simplify a square root by hand.",desc:{k1:"A square of side 1 has a diagonal of √2 — a number you can never finish writing",k2:"Which number, times itself, gives this one?",k3:"Which number, cubed, gives this one?",k4:"Pin √2 between two decimals, with no calculator",k5:"How to do it on a calculator — and why the answer is only approximate",k6:"Rationals plus irrationals; every real number is a point on the number line",k7:"Simplifying and combining square roots",ext:"Writing very large and very small numbers compactly (optional)"}};
+const INTRO={why:"Draw a square with side length 1. How long is its diagonal? It is √2 — a decimal that never ends and never repeats. The 1.414 your calculator shows is only an approximation. This chapter introduces those awkward numbers, shows you how to trap one between two decimals without a calculator, and how to simplify a square root by hand.",whyZh:"画一个边长为 1 的正方形，对角线有多长？是 √2——一个永远除不尽、也不会循环的小数。计算器显示的 1.414 只是近似值。这一章讲这些藏在根号里的数：怎么不用计算器把它夹在两个小数之间，怎么动手把根号化简。",desc:{k1:"A square of side 1 has a diagonal of √2 — a number you can never finish writing",k2:"Which number, times itself, gives this one?",k3:"Which number, cubed, gives this one?",k4:"Pin √2 between two decimals, with no calculator",k5:"How to do it on a calculator — and why the answer is only approximate",k6:"Rationals plus irrationals; every real number is a point on the number line",k7:"Simplifying and combining square roots",ext:"Writing very large and very small numbers compactly (optional)"}};
 function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
 function introRender(main){
   const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
   let h='<div class="intro-h"><span class="en">What this chapter covers</span><span class="zh">本章学什么</span></div>'
-    +'<div class="intro-sub"><span class="en">Skim the list to see where this chapter is going, then press the button at the bottom.</span><span class="zh">先扫一眼下面的清单，看本章去哪，然后按底部按钮开始。</span></div><div class="kp">';
+    +'<div class="intro-sub"><span class="en">Here is what this chapter walks you through, in order. Read it first, then start the first lesson below.</span><span class="zh">下面是这一章要走的全部内容，按顺序排好。先看一遍，再点下面开始第一小节。</span></div><div class="kp">';
   pts.forEach(l=>{
     const s=st(l.id);
     const badge=s.done?' <span class="st ok">✓ done</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
     h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.t+(GLOSS[l.id]?' <span class="cn-tag">'+GLOSS[l.id]+'</span>':'')+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
   });
   h+='</div>';
-  h+='<div class="why"><b><span class="en">Where this shows up in real life</span><span class="zh">在真实生活里哪里会用到</span></b><br>'+INTRO.why+'</div>';
+  h+='<div class="why"><b><span class="en">Where this shows up in real life</span><span class="zh">在真实生活里哪里会用到</span></b><br>'+L(INTRO.why,INTRO.whyZh)+'</div>';
   h+='<div class="box"><b><span class="en">How this chapter works</span><span class="zh">本章怎么学</span></b><div class="how">'
     +'① <b><span class="en">Watch the lesson</span><span class="zh">看微课</span></b>: <span class="en">a few minutes to get what the section is about</span><span class="zh">花几分钟了解本节内容</span><br>'
     +'② <b><span class="en">Practice</span><span class="zh">练一练</span></b>: <span class="en">5 correct in a row clears it; if you get stuck, hints walk you through</span><span class="zh">连对 5 题就算过关；卡住了就看提示</span><br>'
