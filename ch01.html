@@ -478,7 +478,7 @@ function microK1(el){
   el.innerHTML=`
     <div class="step">${L('Have a go','动手试')}</div>
     <h3>${L('Why is a² + b² = c²? ','为什么 a² + b² = c²？')}</h3>
-    <div class="lead">${L('Drag the a and b sliders. The two figures are the SAME big square (side a+b) holding the SAME four triangles — only arranged differently. LEFT arrangement: the middle gap is the red c² square on the hypotenuse. RIGHT arrangement: the middle gaps are the green a² and yellow b² squares on the legs. Same outer square, same four triangles, so the middle spaces must be equal: a² + b² = c².','拖动 a 和 b 的滑块。这两张图是同一个大正方形（边长 a+b）、包着同样的四个三角形，只是排法不同。左边：中间空出来的是斜边上的红正方形 c²。右边：中间空出来的是两条直角边上的两个正方形，绿色 a²、黄色 b²。外框一样大、四个三角形也一样，所以中间空出的面积必然相等：a² + b² = c²。')}</div>
+    <div class="lead">${L('Drag the a and b sliders. The two figures are the SAME big square (side a+b) holding the SAME four right triangles — each with legs a, b and hypotenuse c, just arranged differently. LEFT: the middle gap is the red c² square. RIGHT: the middle gaps are the green a² and yellow b² squares. Same outer square, same four triangles, so the middle spaces must be equal: a² + b² = c².','拖动 a 和 b 的滑块。这两张图是同一个大正方形（边长 a+b）、包着同样的四个直角三角形——每个的两条直角边是 a、b，斜边是 c，只是排法不同。左边：中间空出来的是红正方形 c²。右边：中间空出来的是绿正方形 a²、黄正方形 b²。外框一样大、四个三角形也一样，所以中间空出的面积必然相等：a² + b² = c²。')}</div>
     <div class="slider-row">
       <label>a = <input type="range" id="ra" min="1" max="8" value="3"><span class="val" id="va">3</span></label>
       <label>b = <input type="range" id="rb" min="1" max="8" value="4"><span class="val" id="vb">4</span></label>
@@ -511,6 +511,10 @@ function microK1(el){
     });
     L+=`<polygon points="${P.map(p=>X(p[0])+','+Y(p[1])).join(' ')}" fill="#fecaca" stroke="#b91c1c" stroke-width="2"/>`;
     L+=`<text x="${X(a/2+1)}" y="${Y(s/2)}" font-size="13" fill="#b91c1c" font-weight="bold">c²=${c2}</text>`;
+    L+=`<text x="120" y="232" font-size="13" fill="#2563eb" font-weight="bold" text-anchor="middle">a+b</text>`;
+    L+=`<text x="${X(b/2)}" y="211" font-size="13" fill="#1f2937" font-weight="bold" text-anchor="middle">b</text>`;
+    L+=`<text x="30" y="${Y(a/2)+4}" font-size="13" fill="#1f2937" font-weight="bold">a</text>`;
+    L+=`<text x="${X((b+s)/2)}" y="${Y(b/2)}" font-size="13" fill="#b91c1c" font-weight="bold" text-anchor="middle">c</text>`;
     el.querySelector('#svgL').innerHTML=L;
     // right figure
     let R=`<rect x="${X(0)}" y="${Y(s)}" width="${s*SC}" height="${s*SC}" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>`;
@@ -518,6 +522,10 @@ function microK1(el){
     R+=`<text x="${X(a/2)}" y="${Y(s-a/2)}" font-size="13" fill="#15803d" font-weight="bold">a²=${a*a}</text>`;
     R+=`<rect x="${X(a)}" y="${Y(b)}" width="${b*SC}" height="${b*SC}" fill="#fde68a" stroke="#a16207" stroke-width="2"/>`;
     R+=`<text x="${X(a+b/2)}" y="${Y(b/2)}" font-size="13" fill="#a16207" font-weight="bold">b²=${b*b}</text>`;
+    R+=`<text x="120" y="232" font-size="13" fill="#2563eb" font-weight="bold" text-anchor="middle">a+b</text>`;
+    R+=`<text x="${X(a/2)}" y="211" font-size="13" fill="#1f2937" font-weight="bold" text-anchor="middle">a</text>`;
+    R+=`<text x="${X(a)+6}" y="${Y(b/2)+4}" font-size="13" fill="#1f2937" font-weight="bold">b</text>`;
+    R+=`<text x="${X(a/2)}" y="${Y(b/2)}" font-size="13" fill="#b91c1c" font-weight="bold" text-anchor="middle">c</text>`;
     [[[0,0],[a,0],[a,b]],[[0,0],[a,b],[0,b]],[[a,b],[s,b],[a,s]],[[a,b],[s,s],[a,s]]].forEach(t=>{
       R+=`<polygon points="${t.map(p=>X(p[0])+','+Y(p[1])).join(' ')}" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="1.5"/>`;
     });
