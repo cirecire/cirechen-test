@@ -240,6 +240,38 @@ html[data-theme="dark"] table th{color:var(--muted)}
 
 <script>
 const VDIR='videos/Ch06_数据的分析/';
+
+const VTZ={
+  'Finding mean, median, and mode':'求平均数、中位数与众数',
+  'Averages':'平均数',
+  'Means & medians of distributions':'分布的平均数与中位数',
+  'Median & range puzzlers':'中位数与极差疑题',
+  'Missing value given the mean':'已知平均数求缺值',
+  'When highest value increases':'最大值增大时会怎样',
+  'When lowest value removed':'去掉最小值时会怎样',
+  'Range and mid-range':'极差与中间距',
+  'Ways to represent data':'数据的表示方式',
+  'Frequency tables & dot plots':'频数表与打点图',
+  'Interpreting a histogram':'解读直方图',
+  'Creating a histogram':'绘制直方图',
+  'Median in a histogram':'直方图中的中位数',
+  'Shapes of distributions':'分布的形状',
+  'Range, variance & standard deviation':'极差、方差与标准差',
+  'Variance of a population':'总体方差',
+  'Population standard deviation':'总体标准差',
+  'Standard deviation':'标准差',
+  'Dispersion measures':'离散程度度量',
+  'Sample variance':'样本方差',
+  'Sample std dev & bias':'样本标准差与偏差',
+  'Interquartile range (IQR)':'四分位距 (IQR)',
+  'Mean absolute deviation':'平均绝对偏差',
+  'Reading box plots':'读箱线图',
+  'Constructing a box plot':'绘制箱线图',
+  'Box plot: odd count':'箱线图：奇数个数据',
+  'Box plot: even count':'箱线图：偶数个数据',
+  'Interpreting box plots':'解读箱线图',
+  'Judging outliers':'判断离群值'
+};
 const KEY='bnu8_ch06_state';
 let S=load();
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return{};}}
