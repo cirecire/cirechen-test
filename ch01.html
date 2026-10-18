@@ -218,9 +218,8 @@ html[data-theme="dark"] svg{background:#fff;border-radius:8px;padding:4px}
 html[data-theme="dark"] .note,html[data-theme="dark"] .note *{color:#1f2937}
 html[data-theme="dark"] .note strong,html[data-theme="dark"] .note b{color:#b45309!important}
 html[data-theme="dark"] .hint,html[data-theme="dark"] .hint *{color:#1f2937}
-html[data-theme="dark"] .parents,html[data-theme="dark"] .parents p,
-html[data-theme="dark"] .parents summary,html[data-theme="dark"] .parents .zh,
-html[data-theme="dark"] .parents .en{color:#1f2937}
+html[data-theme="dark"] .parents{background:var(--card)!important;color:var(--text);border-color:var(--line)!important}
+html[data-theme="dark"] .parents .zh,html[data-theme="dark"] .parents .en,html[data-theme="dark"] .parents p,html[data-theme="dark"] .parents summary{color:var(--text)}
 /* form controls + table headings follow the theme */
 html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="dark"] textarea{
  background:var(--card2);color:var(--text);border-color:var(--line)}
@@ -479,7 +478,7 @@ function microK1(el){
   el.innerHTML=`
     <div class="step">${L('Have a go','动手试')}</div>
     <h3>${L('Why is a² + b² = c²? ','为什么 a² + b² = c²？')}</h3>
-    <div class="lead">${L('Drag the a and b sliders and watch whether the two square areas stay equal.','拖动 a 和 b 的滑块，看两边正方形的面积是否始终相等。')}</div>
+    <div class="lead">${L('Drag the a and b sliders. Watch the two small squares on the two legs (sides a and b) and the big square on the slanted side c — does the sum of the two small squares always equal the big one?','拖动 a 和 b 的滑块。看两条直角边（a 和 b）上各有一个小正方形，斜边 c 上有一个大正方形——两个小正方形的面积加起来，是不是一直等于那个大正方形？')}</div>
     <div class="slider-row">
       <label>a = <input type="range" id="ra" min="1" max="8" value="3"><span class="val" id="va">3</span></label>
       <label>b = <input type="range" id="rb" min="1" max="8" value="4"><span class="val" id="vb">4</span></label>
@@ -748,19 +747,19 @@ function chTest(el){
 /* ===== Chapter lobby: start here ===== */
 const GLOSS={k1:"勾股定理",k2:"逆定理",k3:"斜边",k4:"反思"};
 const USE_MICRO=false;
-const INTRO={why:"A phone screen is sold as 6.1 inches — that is the diagonal, not the width or height, because the diagonal is what tells you how big it really is. Hand it the two sides and you can work out that diagonal. Same move for measuring a pitch, finding how long a ramp is, or checking whether a corner is genuinely square.",desc:{k1:"In a right triangle, the squares of the two shorter sides add up to the square of the longest side",k2:"The reverse test: if a² + b² = c², the triangle must be right-angled",k3:"Using it to find lengths and distances — ladders, folding, a bug crossing a box",k4:"Finish, then look back and check the answer actually makes sense"}};
+const INTRO={why:"A phone screen is sold as 6.1 inches — that is the diagonal, not the width or height, because the diagonal is what tells you how big it really is. Hand it the two sides and you can work out that diagonal. Same move for measuring a pitch, finding how long a ramp is, or checking whether a corner is genuinely square.",whyZh:"手机屏幕标的 6.1 寸，说的就是对角线，不是长也不是宽——因为对角线才能真正告诉你屏幕有多大。知道长和宽，就能算出对角线。量球场、量坡道、检查墙角是不是真的直角，道理都是这一个。",desc:{k1:"In a right triangle, the squares of the two shorter sides add up to the square of the longest side",k2:"The reverse test: if a² + b² = c², the triangle must be right-angled",k3:"Using it to find lengths and distances — ladders, folding, a bug crossing a box",k4:"Finish, then look back and check the answer actually makes sense"}};
 function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
 function introRender(main){
   const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
   let h='<div class="intro-h"><span class="en">What this chapter covers</span><span class="zh">本章学什么</span></div>'
-    +'<div class="intro-sub"><span class="en">Skim the list to see where this chapter is going, then press the button at the bottom.</span><span class="zh">先扫一眼下面的清单，看本章去哪，然后按底部按钮开始。</span></div><div class="kp">';
+    +'<div class="intro-sub"><span class="en">Here is what this chapter walks you through, in order. Read it first, then start the first lesson below.</span><span class="zh">下面是这一章要走的全部内容，按顺序排好。先看一遍，再点下面开始第一小节。</span></div><div class="kp">';
   pts.forEach(l=>{
     const s=st(l.id);
     const badge=s.done?' <span class="st ok">✓ done</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
     h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.t+(GLOSS[l.id]?' <span class="cn-tag">'+GLOSS[l.id]+'</span>':'')+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
   });
   h+='</div>';
-  h+='<div class="why"><b><span class="en">Where this shows up in real life</span><span class="zh">在真实生活里哪里会用到</span></b><br>'+INTRO.why+'</div>';
+  h+='<div class="why"><b><span class="en">Where this shows up in real life</span><span class="zh">在真实生活里哪里会用到</span></b><br>'+L(INTRO.why,INTRO.whyZh)+'</div>';
   h+='<div class="box"><b><span class="en">How this chapter works</span><span class="zh">本章怎么学</span></b><div class="how">'
     +'① <b><span class="en">Watch the lesson</span><span class="zh">看微课</span></b>: <span class="en">a few minutes to get what the section is about</span><span class="zh">花几分钟了解本节内容</span><br>'
     +'② <b><span class="en">Practice</span><span class="zh">练一练</span></b>: <span class="en">5 correct in a row clears it; if you get stuck, hints walk you through</span><span class="zh">连对 5 题就算过关；卡住了就看提示</span><br>'
