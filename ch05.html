@@ -190,9 +190,8 @@ html[data-theme="dark"] svg{background:#fff;border-radius:8px;padding:4px}
 html[data-theme="dark"] .note,html[data-theme="dark"] .note *{color:#1f2937}
 html[data-theme="dark"] .note strong,html[data-theme="dark"] .note b{color:#b45309!important}
 html[data-theme="dark"] .hint,html[data-theme="dark"] .hint *{color:#1f2937}
-html[data-theme="dark"] .parents,html[data-theme="dark"] .parents p,
-html[data-theme="dark"] .parents summary,html[data-theme="dark"] .parents .zh,
-html[data-theme="dark"] .parents .en{color:#1f2937}
+html[data-theme="dark"] .parents{background:var(--card)!important;color:var(--text);border-color:var(--line)!important}
+html[data-theme="dark"] .parents .zh,html[data-theme="dark"] .parents .en,html[data-theme="dark"] .parents p,html[data-theme="dark"] .parents summary{color:var(--text)}
 /* form controls + table headings follow the theme */
 html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="dark"] textarea{
  background:var(--card2);color:var(--text);border-color:var(--line)}
@@ -732,19 +731,19 @@ function chTest(el){
 /* ===== Chapter lobby: start here ===== */
 const GLOSS={k1:"二元一次方程组",k2:"代入消元法",k3:"加减消元法",k4:"应用题",k5:"交点",k6:"待定系数法",ext:"三元一次方程组"};
 const USE_MICRO=true;
-const INTRO={why:"Chickens and rabbits in one cage: 35 heads, 94 feet. How many of each? Name two unknowns, write two equations, solve it in one go. Unit prices, meeting and catching-up problems, mixing and budgeting — all of them are \"two conditions, two unknowns\". This chapter gives you two algebraic methods, plus the picture: where the two lines cross is the answer.",desc:{k1:"Two unknowns, two conditions — how to set it up",k2:"Replace one unknown so that only one is left",k3:"Add or subtract the equations to cancel one unknown",k4:"Turning word problems into equations",k5:"Where the two lines cross is the solution",k6:"Two points fix a straight line — find its rule",ext:"Three unknowns need three equations (optional)"}};
+const INTRO={why:"Chickens and rabbits in one cage: 35 heads, 94 feet. How many of each? Name two unknowns, write two equations, solve it in one go. Unit prices, meeting and catching-up problems, mixing and budgeting — all of them are \"two conditions, two unknowns\". This chapter gives you two algebraic methods, plus the picture: where the two lines cross is the answer.",whyZh:"鸡兔同笼：35 个头，94 只脚，各有多少？设两个未知数，列两个方程，一次解出来。单价问题、追及相遇、混合配比、增收节支，全都是\"两个条件、两个未知数\"。这一章给你两种代数解法，再加一个直观办法：两条直线的交点，就是答案。",desc:{k1:"Two unknowns, two conditions — how to set it up",k2:"Replace one unknown so that only one is left",k3:"Add or subtract the equations to cancel one unknown",k4:"Turning word problems into equations",k5:"Where the two lines cross is the solution",k6:"Two points fix a straight line — find its rule",ext:"Three unknowns need three equations (optional)"}};
 function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
 function introRender(main){
   const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
   let h='<div class="intro-h"><span class="en">What this chapter covers</span><span class="zh">本章学什么</span></div>'
-    +'<div class="intro-sub"><span class="en">Skim the list to see where this chapter is going, then press the button at the bottom.</span><span class="zh">先扫一眼下面的清单，看本章去哪，然后按底部按钮开始。</span></div><div class="kp">';
+    +'<div class="intro-sub"><span class="en">Here is what this chapter walks you through, in order. Read it first, then start the first lesson below.</span><span class="zh">下面是这一章要走的全部内容，按顺序排好。先看一遍，再点下面开始第一小节。</span></div><div class="kp">';
   pts.forEach(l=>{
     const s=st(l.id);
     const badge=s.done?' <span class="st ok">✓ done</span>':(s.prac.tot>0?' <span class="st">'+s.prac.ok+'/'+s.prac.tot+'</span>':'');
     h+='<div class="kp-c"><div class="n">'+l.n+'</div><div class="t">'+l.t+(GLOSS[l.id]?' <span class="cn-tag">'+GLOSS[l.id]+'</span>':'')+'</div><div class="d">'+((INTRO.desc&&INTRO.desc[l.id])||'')+'</div>'+badge+'</div>';
   });
   h+='</div>';
-  h+='<div class="why"><b><span class="en">Where this shows up in real life</span><span class="zh">在真实生活里哪里会用到</span></b><br>'+INTRO.why+'</div>';
+  h+='<div class="why"><b><span class="en">Where this shows up in real life</span><span class="zh">在真实生活里哪里会用到</span></b><br>'+L(INTRO.why,INTRO.whyZh)+'</div>';
   h+='<div class="box"><b><span class="en">How this chapter works</span><span class="zh">本章怎么学</span></b><div class="how">'
     +'① <b><span class="en">Watch the lesson</span><span class="zh">看微课</span></b>: <span class="en">a few minutes to get what the section is about</span><span class="zh">花几分钟了解本节内容</span><br>'
     +'② <b><span class="en">Practice</span><span class="zh">练一练</span></b>: <span class="en">5 correct in a row clears it; if you get stuck, hints walk you through</span><span class="zh">连对 5 题就算过关；卡住了就看提示</span><br>'
