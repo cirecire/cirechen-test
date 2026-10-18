@@ -32,7 +32,9 @@ h3{font-size:16px;margin:18px 0 8px;color:var(--accent)}
 .box{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:14px;margin:12px 0}
 button{font-family:inherit;cursor:pointer;border:none;border-radius:8px;padding:9px 16px;font-size:14px;font-weight:600;background:var(--accent);color:#fff;transition:.15s}
 button:hover{filter:brightness(1.08)}
-button:disabled{opacity:.45;cursor:not-allowed}
+button:disabled{opacity:.6;cursor:not-allowed}
+/* Practice option buttons: white bg needs dark text (the global button rule sets color:#fff) */
+.opt{color:var(--ink)}
 button.ghost{background:#fff;color:var(--accent);border:1px solid var(--accent)}
 button.ok{background:var(--ok)}button.bad{background:var(--bad)}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
@@ -109,6 +111,12 @@ body.lang-en .zh{display:none}
 body.lang-mix .zh{display:inline;font-size:.82em;margin-left:6px;font-weight:400}
 body.lang-zh .en{display:inline;font-size:.78em;margin-left:6px;font-weight:400}
 body.lang-zh .zh{display:inline}
+/* micro-lesson lead: show English and Chinese as two SEPARATE paragraphs (not run-on) in mix/zh tiers */
+body.lang-mix .twol .en, body.lang-mix .twol .zh{display:block;margin-left:0;font-size:1em;font-weight:400}
+body.lang-mix .twol .zh{margin-top:8px}
+body.lang-zh .twol{display:flex;flex-direction:column}
+body.lang-zh .twol .zh{display:block;order:-1;margin-left:0;font-size:1em;font-weight:400}
+body.lang-zh .twol .en{display:block;order:0;margin-left:0;margin-top:8px;font-size:.95em;font-weight:400;opacity:.8}
 /* Colored backgrounds always show white text, regardless of the language tier.
    Without this, inherit + lang rules can leave Chinese/English subtitles invisible on the
    purple gradient header and the colored chapter cards. */
@@ -478,7 +486,7 @@ function microK1(el){
   el.innerHTML=`
     <div class="step">${L('Have a go','动手试')}</div>
     <h3>${L('Why is a² + b² = c²? ','为什么 a² + b² = c²？')}</h3>
-    <div class="lead">${L('Drag the a and b sliders. The two figures are the SAME big square (side a+b) holding the SAME four right triangles — each with legs a, b and hypotenuse c, just arranged differently. LEFT: the middle gap is the red c² square. RIGHT: the middle gaps are the green a² and yellow b² squares. Same outer square, same four triangles, so the middle spaces must be equal: a² + b² = c².','拖动 a 和 b 的滑块。这两张图是同一个大正方形（边长 a+b）、包着同样的四个直角三角形——每个的两条直角边是 a、b，斜边是 c，只是排法不同。左边：中间空出来的是红正方形 c²。右边：中间空出来的是绿正方形 a²、黄正方形 b²。外框一样大、四个三角形也一样，所以中间空出的面积必然相等：a² + b² = c²。')}</div>
+    <div class="lead twol">${L('Drag the a and b sliders. The two figures are the SAME big square (side a+b) holding the SAME four right triangles — each with legs a, b and hypotenuse c, just arranged differently. LEFT: the middle gap is the red c² square. RIGHT: the middle gaps are the green a² and yellow b² squares. Same outer square, same four triangles, so the middle spaces must be equal: a² + b² = c².','拖动 a 和 b 的滑块。这两张图是同一个大正方形（边长 a+b）、包着同样的四个直角三角形——每个的两条直角边是 a、b，斜边是 c，只是排法不同。左边：中间空出来的是红正方形 c²。右边：中间空出来的是绿正方形 a²、黄正方形 b²。外框一样大、四个三角形也一样，所以中间空出的面积必然相等：a² + b² = c²。')}</div>
     <div class="slider-row">
       <label>a = <input type="range" id="ra" min="1" max="8" value="3"><span class="val" id="va">3</span></label>
       <label>b = <input type="range" id="rb" min="1" max="8" value="4"><span class="val" id="vb">4</span></label>
@@ -545,7 +553,7 @@ function microK2(el){
   el.innerHTML=`
     <div class="step">${L('Have a go','动手试')}</div>
     <h3>${L('Converse: is it a right triangle? ','逆定理：它是直角三角形吗？')}</h3>
-    <div class="lead">${L('Last section: right angle → a²+b² = c². Now backwards: does a²+b² = c² force a right angle? Drag and see.','上一节：有直角 → a²+b² = c²。现在反过来：a²+b² = c² 能推出有直角吗？拖动看结果。')}</div>
+    <div class="lead twol">${L('Last section: right angle → a²+b² = c². Now backwards: does a²+b² = c² force a right angle? Drag and see.','上一节：有直角 → a²+b² = c²。现在反过来：a²+b² = c² 能推出有直角吗？拖动看结果。')}</div>
     <div class="slider-row">
       <label>side 1 <input type="range" id="s1" min="1" max="20" value="3"><span class="val" id="v1">3</span></label>
       <label>side 2 <input type="range" id="s2" min="1" max="20" value="4"><span class="val" id="v2">4</span></label>
