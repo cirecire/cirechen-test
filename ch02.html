@@ -383,25 +383,23 @@ const CUB=[1,8,27,64,125,216,343,512,729,1000];
 function microK1(el){
   let step=0;
   const steps=[
-    {t:'Mark 0 and 1 on the number line'},
-    {t:'At 1, draw a perpendicular of length 1'},
-    {t:'Join 0 to that point — the hypotenuse is √2'},
-    {t:'Swing an arc centred at 0 to meet the line at √2'}
+    {t:'Mark 0 and 1 on the number line', tz:'在数轴上标出 0 和 1'},
+    {t:'At 1, draw a perpendicular of length 1', tz:'在 1 的位置向上作一条长为 1 的垂线'},
+    {t:'Join 0 to that point — the hypotenuse is √2', tz:'连接 0 与那个点 —— 斜边就是 √2'},
+    {t:'Swing an arc centred at 0 to meet the line at √2', tz:'以 0 为圆心画弧，与数轴交于 √2 处'}
   ];
   el.innerHTML=`
-    <div class="step">Have a go</div>
-    <h3>Where exactly is √2 on the number line?</h3>
-    <div class="lead">
-      √2 ≈ 1.414 is only an approximation; you cannot just measure it with a ruler. So build it with the theorem from chapter 1 — press through the steps.
-    </div>
+    <div class="step"><span class="en">Have a go</span><span class="zh">动手试一试</span></div>
+    <h3><span class="en">Where exactly is √2 on the number line?</span><span class="zh">√2 在数轴上的准确位置？</span></h3>
+    <div class="lead">${L('√2 ≈ 1.414 is only an approximation; you cannot just measure it with a ruler. So build it with the theorem from chapter 1 — press through the steps.','√2 ≈ 1.414 只是近似值；不能只靠尺子量。所以用第 1 章的定理把它作出来 —— 一步步点下去。')}</div>
     <div class="row"><button class="stepbtn" id="prev">← Back</button>
       <button class="stepbtn" id="next">Next →</button>
       <button class="stepbtn ghost" id="auto">Autoplay</button>
       <span class="val" id="snum">1 / 4</span></div>
-    <div class="fig"><div class="cap" id="stitle">${steps[0].t}</div>
+    <div class="fig"><div class="cap" id="stitle">${L(steps[0].t, steps[0].tz)}</div>
       <svg id="svgA" viewBox="0 0 560 260" width="540" height="250"></svg>
-      <div class="sub2" id="sdesc">${steps[0].d}</div></div>
-    <div class="box">There it is — √2 is a genuine point on the line, just like 1, 2 and 3.</div>`;
+      <div class="sub2" id="sdesc">${''}</div></div>
+    <div class="box">${L('There it is — √2 is a genuine point on the line, just like 1, 2 and 3.','看，√2 就是数轴上的一个真实的点，和 1、2、3 一样。')}</div>`;
 
   const SC=110, OX=70, OY=190;
   const X=v=>OX+v*SC, Y=v=>OY-v*SC;
@@ -435,8 +433,8 @@ function microK1(el){
       g+=`<text x="${X(Math.sqrt(2))}" y="${OY-14}" font-size="13" fill="#15803d" font-weight="bold" text-anchor="middle">√2 ≈ 1.414</text>`;
     }
     el.querySelector('#svgA').innerHTML=g;
-    el.querySelector('#stitle').textContent=steps[step].t;
-    el.querySelector('#sdesc').textContent=steps[step].d;
+    el.querySelector('#stitle').innerHTML=L(steps[step].t, steps[step].tz);
+    el.querySelector('#sdesc').innerHTML='';
     el.querySelector('#snum').textContent=(step+1)+' / 4';
   }
   el.querySelector('#next').onclick=()=>{step=Math.min(3,step+1);draw();};
@@ -452,9 +450,9 @@ function microK1(el){
 function microK2(el){
   let n=9;
   el.innerHTML=`
-    <div class="step">Have a go</div>
-    <h3>√n  vs  x² = n </h3>
-    <div class="lead">Two questions that look alike but answer differently. Drag the slider and see.</div>
+    <div class="step"><span class="en">Have a go</span><span class="zh">动手试一试</span></div>
+    <h3><span class="en">√n  vs  x² = n </span><span class="zh">√n 与 x² = n</span></h3>
+    <div class="lead">${L('Two questions that look alike but answer differently. Drag the slider and see.','两道题看起来很像，答案却不同。拖动滑块看看。')}</div>
     <div class="slider-row"><label>n = <input type="range" id="rn" min="1" max="25" value="9"><span class="val" id="vn">9</span></label></div>
     <div class="micro">
       <div class="fig"><div class="cap">What is √n?</div>
@@ -464,8 +462,7 @@ function microK2(el){
         <svg id="sR" viewBox="0 0 240 150" width="230" height="144"></svg>
         <div class="sub2" id="dR"></div></div>
     </div>
-    <div class="box">√9 asks only for 3 — one answer. x² = 9 asks for x = ±3 — two answers.
-      </div>`;
+    <div class="box">${L('√9 asks only for 3 — one answer. x² = 9 asks for x = ±3 — two answers.','√9 只取 3 —— 一个答案。x² = 9 求的是 x = ±3 —— 两个答案。')}</div>`;
   const draw=()=>{
     const r=Math.sqrt(n);
     const isSq=Math.abs(r-Math.round(r))<1e-9;
@@ -502,9 +499,9 @@ function microK2(el){
 function microK3(el){
   let v=8;
   el.innerHTML=`
-    <div class="step">Have a go</div>
-    <h3>Cube roots can be negative </h3>
-    <div class="lead">Drag the slider past 0 and watch what happens.</div>
+    <div class="step"><span class="en">Have a go</span><span class="zh">动手试一试</span></div>
+    <h3><span class="en">Cube roots can be negative </span><span class="zh">立方根可以是负数</span></h3>
+    <div class="lead">${L('Drag the slider past 0 and watch what happens.','把滑块拖过 0，看看会发生什么。')}</div>
     <div class="slider-row"><label>the number <input type="range" id="rv" min="-27" max="27" value="8"><span class="val" id="vv">8</span></label></div>
     <div class="eqbox" id="res"></div>
     <div class="micro">
@@ -513,7 +510,7 @@ function microK3(el){
       <div class="fig"><div class="cap">Cube root ∛v</div><svg id="cc" viewBox="0 0 240 120" width="230" height="115"></svg>
         <div class="sub2" id="ccd"></div></div>
     </div>
-    <div class="box">(−3)² = 9. What number squares to −9? None. So √(−4) does not exist. But (−2)³ = −8, so ∛(−8) = −2.</div>`;
+    <div class="box">${L('(−3)² = 9. What number squares to −9? None. So √(−4) does not exist. But (−2)³ = −8, so ∛(−8) = −2.','(−3)² = 9。哪个数的平方是 −9？没有。所以 √(−4) 不存在。但 (−2)³ = −8，因此 ∛(−8) = −2。')}</div>`;
   const draw=()=>{
     const ok = v>=0;
     const sr = ok?Math.sqrt(v):null;
@@ -538,15 +535,15 @@ function microK3(el){
 function microK4(el){
   let n=20;
   el.innerHTML=`
-    <div class="step">Have a go</div>
-    <h3>Squeeze method </h3>
-    <div class="lead">How big is √20? Trap it between two integers, then tighten.</div>
+    <div class="step"><span class="en">Have a go</span><span class="zh">动手试一试</span></div>
+    <h3><span class="en">Squeeze method </span><span class="zh">夹逼法</span></h3>
+    <div class="lead">${L('How big is √20? Trap it between two integers, then tighten.','√20 有多大？先把它夹在两个整数之间，再逐步收紧。')}</div>
     <div class="slider-row"><label>n = <input type="range" id="rn2" min="2" max="90" value="20"><span class="val" id="vn2">20</span></label></div>
     <div class="row"><button class="stepbtn" id="refine">Tighten by one decimal →</button><button class="stepbtn ghost" id="reset2">Reset</button>
       <span class="val" id="prec">between integers</span></div>
     <svg id="sq" viewBox="0 0 520 150" width="500" height="145"></svg>
     <div class="eqbox" id="eq4"></div>
-    <div class="box">4² = 16, 5² = 25, so √20 lies between 4 and 5. Then 4.4², 4.5², 4.47²… each step pins it closer.</div>`;
+    <div class="box">${L('4² = 16, 5² = 25, so √20 lies between 4 and 5. Then 4.4², 4.5², 4.47²… each step pins it closer.','4² = 16，5² = 25，所以 √20 在 4 和 5 之间。接着 4.4²、4.5²、4.47²…… 每一步都把它逼得更近。')}</div>`;
   let lo=0,hi=0,d=0;
   function init(){ lo=Math.floor(Math.sqrt(n)); hi=lo+1; d=0; }
   function draw(){
@@ -578,9 +575,9 @@ function microK4(el){
 function microK7(el){
   let n=8;
   el.innerHTML=`
-    <div class="step">Have a go</div>
-    <h3>Simplifying radicals </h3>
-    <div class="lead">Drag the sliders to see why √(a·b) = √a · √b.</div>
+    <div class="step"><span class="en">Have a go</span><span class="zh">动手试一试</span></div>
+    <h3><span class="en">Simplifying radicals </span><span class="zh">化简根式</span></h3>
+    <div class="lead">${L('Drag the sliders to see why √(a·b) = √a · √b.','拖动滑块，看看为什么 √(a·b) = √a · √b。')}</div>
     <div class="slider-row">
       <label>square factor k² <input type="range" id="rk" min="1" max="9" value="2"><span class="val" id="vk">2</span></label>
       <label>remaining factor m <input type="range" id="rm" min="2" max="20" value="2"><span class="val" id="vm">2</span></label>
@@ -589,9 +586,7 @@ function microK7(el){
     <div class="fig"><div class="cap">Area model: why √(k²·m) = k·√m</div>
       <svg id="s7" viewBox="0 0 420 200" width="400" height="190"></svg>
       <div class="sub2" id="d7"></div></div>
-    <div class="box">Watch √20 = √(4·5) = 2√5 — pull the square factor outside.
-      <b>The rules:</b> √a · √b = √(ab) for a, b ≥ 0; √a ÷ √b = √(a/b) for b &gt; 0.<br>
-      <span class="cn-tag">These rules come from the laws of exponents: √a = a^(1/2), so √a·√b = a^(1/2)·b^(1/2) = (ab)^(1/2). The exponent videos marked "Foundation" above are where it comes from.</span></div>`;
+    <div class="box">${L('Watch √20 = √(4·5) = 2√5 — pull the square factor outside. <b>The rules:</b> √a · √b = √(ab) for a, b ≥ 0; √a ÷ √b = √(a/b) for b > 0.', '看 √20 = √(4·5) = 2√5 —— 把平方因子提到根号外。<b>法则：</b> 当 a, b ≥ 0 时，√a·√b = √(ab)；当 b > 0 时，√a÷√b = √(a/b)。')}</div>`;
   const draw=()=>{
     const k=+el.querySelector('#rk').value, m=+el.querySelector('#rm').value;
     const prod=k*k*m;
