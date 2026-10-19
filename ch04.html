@@ -415,26 +415,26 @@ k4:[
 /* ============ Lesson K1: what is a function? ============ */
 function microK1(el){
  el.innerHTML=`
-  <div class="step">What is a function?</div>
+  <div class="step"><span class="en">What is a function?</span><span class="zh">什么是函数？</span></div>
   <div class="box">
-   <h3>Step 1 — A function is a one-to-one rule</h3>
-   <div class="cn">A function: each x gives exactly one y</div>
-   <p>Rule: every <b>input</b> x gives <b>exactly one</b> <b>output</b> y. If the same x could give two different y's, it's <b>not</b> a function.</p>
-   <p style="margin-top:6px">Example: <span class="num">y = 2x + 1</span> — for every x, there's exactly one y. ✓</p>
-   <p>Example: <span class="num">x² + y² = 1</span> — at x=0, y can be +1 or −1. ✗ Not a function.</p>
+   <h3><span class="en">Step 1 — A function is a one-to-one rule</span><span class="zh">第 1 步 —— 函数是一条「一一对应」的规则</span></h3>
+   
+   <p><span class="en">Rule: every <b>input</b> x gives <b>exactly one</b> <b>output</b> y. If the same x could give two different y's, it's <b>not</b> a function.</span><span class="zh">规则：每个输入 x 都给出恰好一个输出 y。如果同一个 x 能对应两个不同的 y，就不是函数。</span></p>
+   <p style="margin-top:6px"><span class="en">Example: <span class="num">y = 2x + 1</span> — for every x, there's exactly one y. ✓</span><span class="zh">例：y = 2x + 1 —— 对每个 x，恰好只有一个 y。✓</span></p>
+   <p><span class="en">Example: <span class="num">x² + y² = 1</span> — at x=0, y can be +1 or −1. ✗ Not a function.</span><span class="zh">例：x² + y² = 1 —— 当 x=0 时，y 可以是 +1 或 −1。✗ 不是函数。</span></p>
   </div>
   <div class="box">
-   <h3>Step 2 — The vertical line test</h3>
-   <div class="cn">The vertical line test</div>
-   <p>On a graph: if any <b>vertical line</b> crosses the curve at more than one point, it's not a function. (Why? Because that x-value would give multiple y-values.)</p>
+   <h3><span class="en">Step 2 — The vertical line test</span><span class="zh">第 2 步 —— 垂线检验法</span></h3>
+   
+   <p><span class="en">On a graph: if any <b>vertical line</b> crosses the curve at more than one point, it's not a function. (Why? Because that x-value would give multiple y-values.)</span><span class="zh">图像上：如果任意一条竖直线和曲线交于多于一点，就不是函数。（为什么？因为那个 x 值会对应多个 y 值。）</span></p>
   </div>
   <div class="box">
-   <h3>Step 3 — Function notation</h3>
-   <div class="cn">Function notation f(x)</div>
-   <p>Write <span class="num">f(x) = 2x + 1</span> instead of y. f(3) means "plug x=3 in": f(3) = 2·3+1 = 7.</p>
-   <p>The variable is just a placeholder — <span class="num">f(t) = 2t + 1</span> is the same function.</p>
+   <h3><span class="en">Step 3 — Function notation</span><span class="zh">第 3 步 —— 函数记号</span></h3>
+   
+   <p><span class="en">Write <span class="num">f(x) = 2x + 1</span> instead of y. f(3) means "plug x=3 in": f(3) = 2·3+1 = 7.</span><span class="zh">把 f(x) = 2x + 1 写成，代替 y。f(3) 的意思是「把 x=3 代进去」：f(3) = 2·3+1 = 7。</span></p>
+   <p><span class="en">The variable is just a placeholder — <span class="num">f(t) = 2t + 1</span> is the same function.</span><span class="zh">变量只是一个占位符 —— f(t) = 2t + 1 是同一个函数。</span></p>
   </div>
-  <div class="note">y = kx + b with k ≠ 0 is called a linear function. But functions are broader than that — y = x² is one too.</div>`;
+  <div class="note"><span class="en">y = kx + b with k ≠ 0 is called a linear function. But functions are broader than that — y = x² is one too.</span><span class="zh">y = kx + b（k ≠ 0）叫一次函数。但函数的范围更广 —— y = x² 也是函数。</span></div>`;
 }
 
 /* ============ Lesson K2: the interactive linear function ============ */
@@ -445,9 +445,9 @@ function microK2(el){
   const xmin=-7,xmax=7;
   const px1=xmin,py1=k*xmin+b,px2=xmax,py2=k*xmax+b;
   el.innerHTML=`
-   <div class="step">Linear functions — drag and see</div>
+   <div class="step"><span class="en">Linear functions — drag and see</span><span class="zh">一次函数 —— 拖一拖，看一看</span></div>
    <div class="box">
-    <p>Drag the two sliders and watch the graph move. <span class="num">k</span> is the slope (how steep), <span class="num">b</span> is the y-intercept (where it starts).</p>
+    <p><span class="en">Drag the two sliders and watch the graph move. <span class="num">k</span> is the slope (how steep), <span class="num">b</span> is the y-intercept (where it starts).</span><span class="zh">拖动两个滑块，看图像怎么动。k 是斜率（陡不陡），b 是 y 轴截距（起点在哪）。</span></p>
     <div class="controls">
      <span>k = <span id="kv" class="num">${k.toFixed(1)}</span></span>
      <input type="range" id="kSlider" min="-3" max="3" step="0.1" value="${k}" style="flex:1;min-width:160px">
@@ -468,12 +468,12 @@ function microK2(el){
     </svg>
     <div class="eq">y = ${k.toFixed(1)}x + ${b.toFixed(1)}</div>
     <div class="box" style="background:#dbeafe">
-     <h3>What you see</h3>
+     <h3><span class="en">What you see</span><span class="zh">你看到的</span></h3>
      <div style="font-size:14px">
       <p>• When <b>k > 0</b>: line goes up-right. When <b>k < 0</b>: goes down-right.</p>
-      <p>• When <b>|k|</b> is larger: steeper. When <b>|k|</b> is smaller: flatter.</p>
-      <p>• <b>b</b> shifts the line up (b > 0) or down (b < 0) without changing slope.</p>
-      <p>• <b>k = 0</b>: horizontal line at y = b. Not a linear function in this textbook (but it IS a constant function).</p>
+      <p><span class="en">• When <b>|k|</b> is larger: steeper. When <b>|k|</b> is smaller: flatter.</span><span class="zh">• |k| 越大：越陡。|k| 越小：越平。</span></p>
+      <p><span class="en">• <b>b</b> shifts the line up (b > 0) or down (b < 0) without changing slope.</span><span class="zh">• b 把直线上下平移（b > 0 往上，b < 0 往下），斜率不变。</span></p>
+      <p><span class="en">• <b>k = 0</b>: horizontal line at y = b. Not a linear function in this textbook (but it IS a constant function).</span><span class="zh">• k = 0：停在 y = b 的水平线。本教材里不算一次函数（但它确实是一个常数函数）。</span></p>
      </div>
     </div>
    </div>`;
@@ -493,11 +493,11 @@ function microK3(el){
   const mStr=Math.abs(m)===Infinity?'undefined (vertical line)':m.toFixed(2);
   const riseColor=m>=0?'#15803d':'#b91c1c';
   el.innerHTML=`
-   <div class="step">★ The slope formula</div>
+   <div class="step"><span class="en">★ The slope formula</span><span class="zh">★ 斜率公式</span></div>
    <div class="box">
-    <p>Slope describes how steep a line is, written <span class="num">k</span> (or m). It is defined as:</p>
+    <p><span class="en">Slope describes how steep a line is, written <span class="num">k</span> (or m). It is defined as:</span><span class="zh">斜率描述一条直线有多陡，记作 k（或 m）。定义是：</span></p>
     <div class="eq">k = (y₂ − y₁) / (x₂ − x₁) = <span class="frac"><span class="num">rise, the change in y, Δy</span><span class="den">run, the change in x, Δx</span></span></div>
-    <p style="margin-top:6px">Drag P₁ and P₂ and watch how k changes.</p>
+    <p style="margin-top:6px"><span class="en">Drag P₁ and P₂ and watch how k changes.</span><span class="zh">拖动 P₁ 和 P₂，观察 k 怎么变。</span></p>
     <svg viewBox="0 0 800 480" style="background:#fafafa;border-radius:8px;cursor:crosshair" id="svgK3">
      <defs><marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#374151"/></marker></defs>
      <line x1="40" y1="${Y(0)}" x2="760" y2="${Y(0)}" stroke="#374151" stroke-width="2" marker-end="url(#arr3)"/>
@@ -519,12 +519,12 @@ function microK3(el){
      k = (y₂ − y₁) / (x₂ − x₁) = (${p2y} − ${p1y}) / (${p2x} − ${p1x}) = ${dy} / ${dx} = <span class="num" style="color:${riseColor}">${mStr}</span>
     </div>
     <div class="box" style="background:#dbeafe">
-     <h3>Understanding the slope</h3>
+     <h3><span class="en">Understanding the slope</span><span class="zh">理解斜率</span></h3>
      <div style="font-size:14px">
       <p>• <b>Positive k</b> (green): line goes up-right. Negative k (red): down-right.</p>
-      <p>• <b>|k|</b> = how steep: |k|=1 is 45°; |k|=2 is twice as steep.</p>
-      <p>• <b>Δx = 0</b> (vertical line): k is undefined — not a function!</p>
-      <p>• <b>Same line, different points, same k</b>: try dragging P₁ and P₂ to opposite ends of the same line, k doesn't change. (Similar triangles prove this — there's a video on it.)</p>
+      <p><span class="en">• <b>|k|</b> = how steep: |k|=1 is 45°; |k|=2 is twice as steep.</span><span class="zh">• |k| 表示陡度：|k|=1 是 45°；|k|=2 陡一倍。</span></p>
+      <p><span class="en">• <b>Δx = 0</b> (vertical line): k is undefined — not a function!</span><span class="zh">• Δx = 0（竖直线）：k 无定义 —— 不是函数！</span></p>
+      <p><span class="en">• <b>Same line, different points, same k</b>: try dragging P₁ and P₂ to opposite ends of the same line, k doesn't change. (Similar triangles prove this — there's a video on it.)</span><span class="zh">• 同一直线、不同点、k 相同：把 P₁ 和 P₂ 拖到同一直线的两端试试，k 不变。（相似三角形能证明这一点 —— 有相关视频。）</span></p>
      </div>
     </div>
    </div>`;
@@ -561,32 +561,32 @@ function microK3(el){
 /* ============ Lesson K4: modelling example ============ */
 function microK4(el){
  el.innerHTML=`
-  <div class="step">Modelling with a linear function</div>
+  <div class="step"><span class="en">Modelling with a linear function</span><span class="zh">用一次函数建模</span></div>
   <div class="box">
-   <h3>The four steps</h3>
+   <h3><span class="en">The four steps</span><span class="zh">四步走</span></h3>
    <ol style="margin-left:20px;font-size:15px;line-height:1.8">
-    <li>Read it: pick out the <b>constants</b> (fixed) and the <b>variables</b> (changing).</li>
-    <li>Set up the relation in the form y = … (linear or proportional).</li>
-    <li>Find the parameters: substitute the given point to get k and b.</li>
-    <li>Answer: read off what was asked.</li>
+    <li><span class="en">Read it: pick out the <b>constants</b> (fixed) and the <b>variables</b> (changing).</span><span class="zh">读题：找出<b>常量</b>（固定不变）和<b>变量</b>（会变化）。</span></li>
+    <li><span class="en">Set up the relation in the form y = … (linear or proportional).</span><span class="zh">把关系列成 y = … 的形式（一次函数或正比例函数）。</span></li>
+    <li><span class="en">Find the parameters: substitute the given point to get k and b.</span><span class="zh">求参数：把已知点代入，求出 k 和 b。</span></li>
+    <li><span class="en">Answer: read off what was asked.</span><span class="zh">作答：读出题目所问的结果。</span></li>
    </ol>
   </div>
   <div class="box">
-   <h3>Worked example</h3>
-   <p>A taxi charges a ¥8 flagfall (covering the first 3 km), then ¥2 per km. Write the fare y (¥) as a function of distance x (km, x ≥ 3).</p>
-   <p style="margin-top:8px"><b>Step 1</b>: constants are the ¥8 flagfall and ¥2 per extra km<br>
+   <h3><span class="en">Worked example</span><span class="zh">例题</span></h3>
+   <p><span class="en">A taxi charges a ¥8 flagfall (covering the first 3 km), then ¥2 per km. Write the fare y (¥) as a function of distance x (km, x ≥ 3).</span><span class="zh">出租车收 ¥8 起步价（含前 3 公里），之后每公里 ¥2。把车费 y（¥）写成距离 x（公里，x ≥ 3）的函数。</span></p>
+   <p style="margin-top:8px"><span class="en"><b>Step 1</b>: constants are the ¥8 flagfall and ¥2 per extra km<br>
    <b>Step 2</b>: something of the form y = kx + b<br>
    <b>Step 3</b>: at x = 3 the fare is 8, so 8 = 2·3 + b → b = 2<br>
-   <b>Step 4</b>: <span class="num">y = 2x + 2</span> (x ≥ 3)</p>
+   <b>Step 4</b>: <span class="num">y = 2x + 2</span> (x ≥ 3)</span><span class="zh">第 1 步：常量有 ¥8 起步价和每额外公里 ¥2<br>第 2 步：写成 y = kx + b 这样的形式<br>第 3 步：x = 3 时车费是 8，所以 8 = 2·3 + b → b = 2<br>第 4 步：y = 2x + 2（x ≥ 3）</span></p>
   </div>
   Careful: the ¥8 flagfall is its own term (b) — do not fold it into the ¥2 per km.
   <div class="box">
-   <h3>Look for these patterns in word problems</h3>
+   <h3><span class="en">Look for these patterns in word problems</span><span class="zh">应用题里留意这些规律</span></h3>
    <ul style="margin-left:20px;font-size:14px;line-height:1.8">
-    <li>"per X yuan" or "per X km" → that is k</li>
-    <li>"flagfall", "base", "already" → that is b</li>
-    <li>"proportional", "¥5 each" → directly proportional, y = kx with b = 0</li>
-    <li>Asked for "how much was used"? Solve x = (y − b) / k</li>
+    <li><span class="en">"per X yuan" or "per X km" → that is k</span><span class="zh">「每 X 元」或「每 X 公里」 → 那是 k</span></li>
+    <li><span class="en">"flagfall", "base", "already" → that is b</span><span class="zh">「起步价」、「固定值」、「已有」 → 那是 b</span></li>
+    <li><span class="en">"proportional", "¥5 each" → directly proportional, y = kx with b = 0</span><span class="zh">「成正比」、「每个 ¥5」 → 成正比例，y = kx 且 b = 0</span></li>
+    <li><span class="en">Asked for "how much was used"? Solve x = (y − b) / k</span><span class="zh">问「用了多少」？解 x = (y − b) / k</span></li>
    </ul>
   </div>`;
 }
@@ -613,10 +613,10 @@ function microK5(el){
         <div class="eq">${y1} = k·${x1} + ${b} &nbsp;→&nbsp; k = <span class="num">${k}</span></div>
         <div class="eq">y = <span class="num">${k}x + ${b}</span></div>`);
   el.innerHTML=`
-   <div class="step">Finding y = kx + b</div>
+   <div class="step"><span class="en">Finding y = kx + b</span><span class="zh">求 y = kx + b</span></div>
    <div class="box">
-    <h3>The idea</h3>
-    <p style="font-size:14px">Write the form down first, <b>then</b> put the numbers in. The letters you do not know are the unknowns; each point you are given turns into one equation.</p>
+    <h3><span class="en">The idea</span><span class="zh">思路</span></h3>
+    <p style="font-size:14px"><span class="en">Write the form down first, <b>then</b> put the numbers in. The letters you do not know are the unknowns; each point you are given turns into one equation.</span><span class="zh">先把形式写下来，再把数字代进去。你不知道的字母就是未知数；已知的每个点都会变成一个方程。</span></p>
    </div>
    <div class="box">
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
@@ -631,7 +631,7 @@ function microK5(el){
      ${rows}
     </div>
     <div class="box" style="background:#fffbeb">
-     <h3>Why this works</h3>
+     <h3><span class="en">Why this works</span><span class="zh">为什么成立</span></h3>
      <p style="font-size:14px">${mode===3
       ? 'Two unknowns (k and b) need two equations — that is why two points are enough. One point alone leaves a whole family of lines through it.'
       : 'One unknown (k) needs one equation — one point is enough, because the other letter is already fixed.'}</p>
