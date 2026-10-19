@@ -311,20 +311,20 @@ k5:[
 /* ============ Lesson K1: why prove? ============ */
 function microK1(el){
  el.innerHTML=`
-  <div class="step">What is a proof?</div>
+  <div class="step"><span class="en">What is a proof?</span><span class="zh">什么是证明？</span></div>
   <div class="box">
-   <h3>From experiment to proof</h3>
-   <p>Up to now geometry has rested on <strong>measuring, drawing and looking</strong>. But that cannot do one thing:</p>
-   <p style="margin:10px 0;font-size:15px"><b>"The angles of every triangle add to 180°"</b> — it holds for the 100 triangles you drew, but does that let you say it <i>must</i> hold?</p>
+   <h3><span class="en">From experiment to proof</span><span class="zh">从实验到证明</span></h3>
+   <p><span class="en">Up to now geometry has rested on <strong>measuring, drawing and looking</strong>. But that cannot do one thing:</span><span class="zh">到目前为止，几何靠的是测量、画图和上眼观察。但有一件事它做不到：</span></p>
+   <p style="margin:10px 0;font-size:15px"><span class="en"><b>"The angles of every triangle add to 180°"</b> — it holds for the 100 triangles you drew, but does that let you say it <i>must</i> hold?</span><span class="zh">「每个三角形的内角和都是 180°」—— 你画过的 100 个三角形都成立，但这能说明它一定成立吗？</span></p>
   </div>
   <div class="box" style="background:#fee2e2">
-   <h3>Why looking is not enough</h3>
-   <p style="font-size:14px">Your drawn triangle might come out at 178° or 182° — that is measurement error, not a broken theorem. To <i>guarantee</i> it you need <b>strict logical deduction</b>, which is what a <b>proof</b> is.</p>
+   <h3><span class="en">Why looking is not enough</span><span class="zh">为什么只看不够</span></h3>
+   <p style="font-size:14px"><span class="en">Your drawn triangle might come out at 178° or 182° — that is measurement error, not a broken theorem. To <i>guarantee</i> it you need <b>strict logical deduction</b>, which is what a <b>proof</b> is.</span><span class="zh">你画的三角形可能量出 178° 或 182° —— 那是测量误差，不是定理出了错。要保证它恒成立，需要严格的逻辑推理，而这正是证明。</span></p>
   </div>
   <div class="box" style="background:#dbeafe">
-   <h3>What a proof is: known to unknown</h3>
-   <p style="font-size:14px">Start from statements already known to be true, follow the rules of logic, and arrive at a new true statement.</p>
-   <p style="font-size:14px">known (axioms, proved results) → rules of inference → conclusion</p>
+   <h3><span class="en">What a proof is: known to unknown</span><span class="zh">什么是证明：由已知到未知</span></h3>
+   <p style="font-size:14px"><span class="en">Start from statements already known to be true, follow the rules of logic, and arrive at a new true statement.</span><span class="zh">从已知为真的命题出发，依照逻辑规则，推出一个新的真命题。</span></p>
+   <p style="font-size:14px"><span class="en">known (axioms, proved results) → rules of inference → conclusion</span><span class="zh">已知（公理、已证结论）→ 推理规则 → 结论</span></p>
   </div>
   `;
 }
@@ -332,20 +332,20 @@ function microK1(el){
 /* ============ Lesson K2: how to write a proof ============ */
 function microK2(el){
  el.innerHTML=`
-  <div class="step">★ How to write a proof</div>
+  <div class="step"><span class="en">★ How to write a proof</span><span class="zh">★ 怎么写证明</span></div>
   <div class="box">
-   <h3>The standard layout</h3>
-   <p style="font-size:14px">The standard layout is <b>two columns</b>: the step on the left, the reason for it on the right, marked with ∵ (since) and ∴ (therefore).</p>
+   <h3><span class="en">The standard layout</span><span class="zh">标准格式</span></h3>
+   <p style="font-size:14px"><span class="en">The standard layout is <b>two columns</b>: the step on the left, the reason for it on the right, marked with ∵ (since) and ∴ (therefore).</span><span class="zh">标准格式是两列：左边写步骤，右边写依据，用 ∵（因为）和 ∴（所以）标注。</span></p>
   </div>
   <div class="box">
-   <h3>Symbol key</h3>
-   <p style="font-size:16px;font-family:monospace">
+   <h3><span class="en">Symbol key</span><span class="zh">符号说明</span></h3>
+   <p style="font-size:16px;font-family:monospace"><span class="en">
     <span class="num">∵</span> = "since" &nbsp;&nbsp;&nbsp; <span class="num">∴</span> = "therefore"
-   </p>
+   </span><span class="zh">∵ 表示「因为」　　∴ 表示「所以」</span></p>
   </div>
   <div class="box" style="background:#dbeafe">
-   <h3>Worked example</h3>
-   <p><b>Problem:</b> given AB ∥ CD and ∠B = ∠D, prove AD ∥ BC.</p>
+   <h3><span class="en">Worked example</span><span class="zh">例题</span></h3>
+   <p><span class="en"><b>Problem:</b> given AB ∥ CD and ∠B = ∠D, prove AD ∥ BC.</span><span class="zh">例题：已知 AB ∥ CD 且 ∠B = ∠D，求证 AD ∥ BC。</span></p>
    <div class="proof">
     <div class="row"><span class="step-row"><span class="yin">∵</span> AB ∥ CD</span><span class="reason">(given)</span></div>
     <div class="row"><span class="step-row"><span class="yj">∴</span> ∠B = ∠ACD (alternate interior angles)</span><span class="reason">(parallel lines → alternate interior angles equal)</span></div>
@@ -355,35 +355,35 @@ function microK2(el){
    </div>
   </div>
   <div class="box" style="background:#fffbeb">
-   <h3>Common reasons</h3>
+   <h3><span class="en">Common reasons</span><span class="zh">常用依据</span></h3>
    <ul style="margin-left:20px;font-size:14px;line-height:1.9">
-    <li><b>Given</b> — stated in the problem</li>
-    <li><b>Parallel lines → alternate interior angles equal</b></li>
-    <li><b>Parallel lines → corresponding angles equal</b></li>
-    <li><b>Parallel lines → co-interior angles sum to 180°</b></li>
-    <li><b>Substitution of equals</b> — replace one side of an equality</li>
-    <li><b>Definition</b> — e.g. vertical angles are equal, by definition</li>
-    <li><b>A proved theorem</b> — e.g. the angles of a triangle sum to 180°</li>
+    <li><span class="en"><b>Given</b> — stated in the problem</span><span class="zh">已知 —— 题目给定的条件</span></li>
+    <li><span class="en"><b>Parallel lines → alternate interior angles equal</b></span><span class="zh">平行线 → 内错角相等</span></li>
+    <li><span class="en"><b>Parallel lines → corresponding angles equal</b></span><span class="zh">平行线 → 同位角相等</span></li>
+    <li><span class="en"><b>Parallel lines → co-interior angles sum to 180°</b></span><span class="zh">平行线 → 同旁内角互补（和为 180°）</span></li>
+    <li><span class="en"><b>Substitution of equals</b> — replace one side of an equality</span><span class="zh">等量代换 —— 用一个相等的量替换等式的一边</span></li>
+    <li><span class="en"><b>Definition</b> — e.g. vertical angles are equal, by definition</span><span class="zh">定义 —— 例如对顶角相等，按定义成立</span></li>
+    <li><span class="en"><b>A proved theorem</b> — e.g. the angles of a triangle sum to 180°</span><span class="zh">已证定理 —— 例如三角形内角和为 180°</span></li>
    </ul>
   </div>
-  <div class="note">After this section you should be able to write a two-column proof like the one above.</div>`;
+  <div class="note"><span class="en">After this section you should be able to write a two-column proof like the one above.</span><span class="zh">学完本节，你应当能写出像上面那样的两栏证明。</span></div>`;
 }
 
 /* ============ Lesson K3: the tests for parallel lines ============ */
 function microK3(el){
  el.innerHTML=`
-  <div class="step">The tests for parallel lines</div>
+  <div class="step"><span class="en">The tests for parallel lines</span><span class="zh">平行线的判定</span></div>
   <div class="box">
-   <h3>Three equivalent conditions</h3>
-   <p style="font-size:14px">Any one of these being true makes the two lines parallel (cut by a third line, a transversal):</p>
+   <h3><span class="en">Three equivalent conditions</span><span class="zh">三个等价条件</span></h3>
+   <p style="font-size:14px"><span class="en">Any one of these being true makes the two lines parallel (cut by a third line, a transversal):</span><span class="zh">只要下面任意一条成立，两直线就平行（被第三条直线，即截线，所截）：</span></p>
    <div class="box" style="background:#dbeafe;margin:10px 0">
-    <p><b>① Corresponding angles equal → lines parallel</b></p>
-    <p><b>② Alternate interior angles equal → lines parallel</b></p>
-    <p><b>③ Co-interior angles summing to 180° → lines parallel</b></p>
+    <p><span class="en"><b>① Corresponding angles equal → lines parallel</b></span><span class="zh">① 同位角相等 → 两直线平行</span></p>
+    <p><span class="en"><b>② Alternate interior angles equal → lines parallel</b></span><span class="zh">② 内错角相等 → 两直线平行</span></p>
+    <p><span class="en"><b>③ Co-interior angles summing to 180° → lines parallel</b></span><span class="zh">③ 同旁内角互补（和为 180°）→ 两直线平行</span></p>
    </div>
   </div>
   <div class="box">
-   <h3>Diagram</h3>
+   <h3><span class="en">Diagram</span><span class="zh">图形</span></h3>
    <svg viewBox="0 0 400 200" style="background:#fafafa;border-radius:6px">
     <line x1="50" y1="60" x2="350" y2="60" stroke="#374151" stroke-width="2"/>
     <line x1="50" y1="140" x2="350" y2="140" stroke="#374151" stroke-width="2"/>
@@ -400,47 +400,47 @@ function microK3(el){
    </svg>
   </div>
   <div class="box" style="background:#fffbeb">
-   <h3>Why are the three equivalent?</h3>
-   <p style="font-size:14px">Once a ∥ b, all eight angles are pinned down: corresponding angles equal, alternate interior equal (vertical plus corresponding), co-interior summing to 180°. Running it backwards gives the tests.</p>
+   <h3><span class="en">Why are the three equivalent?</span><span class="zh">为什么这三个等价？</span></h3>
+   <p style="font-size:14px"><span class="en">Once a ∥ b, all eight angles are pinned down: corresponding angles equal, alternate interior equal (vertical plus corresponding), co-interior summing to 180°. Running it backwards gives the tests.</span><span class="zh">一旦 a ∥ b，八个角全部确定：同位角相等、内错角相等（对顶角加同位角）、同旁内角互补。把过程倒过来，就得到判定定理。</span></p>
   </div>`;
 }
 
 /* ============ Lesson K4: what follows from parallel lines ============ */
 function microK4(el){
  el.innerHTML=`
-  <div class="step">What follows from parallel lines</div>
+  <div class="step"><span class="en">What follows from parallel lines</span><span class="zh">平行线能推出什么</span></div>
   <div class="box" style="background:#dbeafe">
-   <h3>Two directions</h3>
-   <p style="font-size:14px"><b>Test:</b> from equal angles → conclude the lines are parallel</p>
-   <p style="font-size:14px"><b>Property:</b> from parallel lines → conclude angles are equal (find the angle)</p>
-   <p style="font-size:14px">They are <b>converses</b> of each other — the test and the property run in opposite directions.</p>
+   <h3><span class="en">Two directions</span><span class="zh">两个方向</span></h3>
+   <p style="font-size:14px"><span class="en"><b>Test:</b> from equal angles → conclude the lines are parallel</span><span class="zh">判定：由角相等 → 推出两直线平行</span></p>
+   <p style="font-size:14px"><span class="en"><b>Property:</b> from parallel lines → conclude angles are equal (find the angle)</span><span class="zh">性质：由平行线 → 推出角相等（求角度）</span></p>
+   <p style="font-size:14px"><span class="en">They are <b>converses</b> of each other — the test and the property run in opposite directions.</span><span class="zh">它们互为逆定理 —— 判定和性质恰好方向相反。</span></p>
   </div>
   <div class="box">
-   <h3>Application</h3>
+   <h3><span class="en">Application</span><span class="zh">应用</span></h3>
    <div class="proof" style="font-size:13px">
-    <p><b>Problem:</b> AB ∥ CD and ∠B = 50°. Find ∠D.</p>
+    <p><span class="en"><b>Problem:</b> AB ∥ CD and ∠B = 50°. Find ∠D.</span><span class="zh">例题：AB ∥ CD，∠B = 50°，求 ∠D。</span></p>
     <div class="row"><span class="step-row"><span class="yin">∵</span> AB ∥ CD</span><span class="reason">(given)</span></div>
     <div class="row"><span class="step-row"><span class="yj">∴</span> ∠B + ∠D = 180°</span><span class="reason">(parallel lines → co-interior angles sum to 180°)</span></div>
     <div class="row"><span class="step-row"><span class="yj">∴</span> ∠D = 180° − 50° = <span class="num">130°</span></span><span class="reason">(properties of equality)</span></div>
    </div>
   </div>
-  <div class="note"><strong>Telling the two apart:</strong><br>
+  <div class="note"><span class="en"><strong>Telling the two apart:</strong><br>
    Given "a ∥ b, find the angle" → use the <strong>property</strong> (lines to angles)<br>
    Given "angles are equal, prove a ∥ b" → use the <strong>test</strong> (angles to lines)<br>
-   One word apart: the test goes angles → lines, the property lines → angles.</div>`;
+   One word apart: the test goes angles → lines, the property lines → angles.</span><span class="zh">怎么区分两者：已知「a ∥ b，求角度」→ 用性质（由线到角）；已知「角相等，证 a ∥ b」→ 用判定（由角到线）。只差一个字：判定是角 → 线，性质是线 → 角。</span></div>`;
 }
 
 /* ============ Lesson K5: the triangle angle sum ============ */
 function microK5(el){
  el.innerHTML=`
-  <div class="step">The triangle angle sum</div>
+  <div class="step"><span class="en">The triangle angle sum</span><span class="zh">三角形内角和</span></div>
   <div class="box" style="background:#dbeafe">
-   <h3>Theorem</h3>
-   <p style="font-size:18px;text-align:center">The three interior angles of a triangle sum to <span class="num">180°</span></p>
+   <h3><span class="en">Theorem</span><span class="zh">定理</span></h3>
+   <p style="font-size:18px;text-align:center"><span class="en">The three interior angles of a triangle sum to <span class="num">180°</span></span><span class="zh">三角形的三个内角之和等于 180°</span></p>
   </div>
   <div class="box">
-   <h3>★ Proof (using parallel lines)</h3>
-   <p style="font-size:14px">Draw a helper line: through A, draw DE ∥ BC.</p>
+   <h3><span class="en">★ Proof (using parallel lines)</span><span class="zh">★ 证明（用平行线）</span></h3>
+   <p style="font-size:14px"><span class="en">Draw a helper line: through A, draw DE ∥ BC.</span><span class="zh">作一条辅助线：过点 A 作 DE ∥ BC。</span></p>
    <div class="proof">
     <div class="row"><span class="step-row"><span class="yin">∵</span> DE ∥ BC</span><span class="reason">(by construction)</span></div>
     <div class="row"><span class="step-row"><span class="yj">∴</span> ∠DAB = ∠B(alternate interior)</span><span class="reason">(parallel lines → alternate interior angles equal)</span></div>
@@ -451,11 +451,11 @@ function microK5(el){
    </div>
   </div>
   <div class="box" style="background:#fffbeb">
-   <h3>Exterior angle</h3>
-   <p style="font-size:14px">An exterior angle of a triangle equals the sum of the two <b>opposite interior</b> angles.</p>
-   <p style="font-size:14px">So an exterior angle is larger than either opposite interior angle.</p>
+   <h3><span class="en">Exterior angle</span><span class="zh">外角</span></h3>
+   <p style="font-size:14px"><span class="en">An exterior angle of a triangle equals the sum of the two <b>opposite interior</b> angles.</span><span class="zh">三角形的一个外角等于和它不相邻的两个内角之和。</span></p>
+   <p style="font-size:14px"><span class="en">So an exterior angle is larger than either opposite interior angle.</span><span class="zh">所以，任意一个外角都大于和它不相邻的任何一个内角。</span></p>
   </div>
-  <div class="note"><strong>Looking ahead:</strong> in an isosceles triangle the base angles are equal, and conversely. This section sets that up.</div>`;
+  <div class="note"><span class="en"><strong>Looking ahead:</strong> in an isosceles triangle the base angles are equal, and conversely. This section sets that up.</span><span class="zh">先预习一下：等腰三角形两底角相等，反过来也成立。本节正是为它打基础。</span></div>`;
 }
 
 /* ============ Quick check ============ */
