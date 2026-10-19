@@ -309,23 +309,23 @@ const VTZ={
 /* ============ Lesson K1: latitude, longitude and ordered pairs ============ */
 function microK1(el){
  el.innerHTML=`
-  <div class="step">How does one pair of numbers pin down a spot?</div>
+  <div class="step"><span class="en">How does one pair of numbers pin down a spot?</span><span class="zh">一对数字怎么锁定一个位置？</span></div>
   <div class="box">
-   <h3>One number is not enough</h3>
-   <div class="cn"></div>
-   <p>Say you're in Shenzhen — but Shenzhen is 2000 km². You need two numbers: <span class="num">22.5°N, 114.0°E</span> (latitude, longitude).</p>
-   <p>So a position in a plane is always given as an <b>ordered pair (x, y)</b> — order matters: (3, 5) ≠ (5, 3).</p>
+   <h3><span class="en">One number is not enough</span><span class="zh">一个数不够用</span></h3>
+   
+   <p><span class="en">Say you're in Shenzhen — but Shenzhen is 2000 km². You need two numbers: <span class="num">22.5°N, 114.0°E</span> (latitude, longitude).</span><span class="zh">假设你身在深圳 —— 但深圳有 2000 平方公里。你需要两个数：22.5°N、114.0°E（纬度、经度）。</span></p>
+   <p><span class="en">So a position in a plane is always given as an <b>ordered pair (x, y)</b> — order matters: (3, 5) ≠ (5, 3).</span><span class="zh">所以平面上的位置总写成有序数对 (x, y) —— 顺序很重要：(3, 5) ≠ (5, 3)。</span></p>
   </div>
   <div class="box">
-   <h3>A direction first, then a distance</h3>
-   <div class="cn"></div>
-   <p>Before the coordinate plane, Chinese maps used <b>bearing</b>: from a known point, go "north 30° east, 50 meters". One direction + one distance = one position.</p>
-   <p>Same logic as (r, θ) in polar coordinates.</p>
+   <h3><span class="en">A direction first, then a distance</span><span class="zh">先定方向，再定距离</span></h3>
+   
+   <p><span class="en">Before the coordinate plane, Chinese maps used <b>bearing</b>: from a known point, go "north 30° east, 50 meters". One direction + one distance = one position.</span><span class="zh">在出现坐标系之前，中国古地图用方位法：从已知点出发，「北偏东 30°、50 米」。一个方向 + 一段距离 = 一个位置。</span></p>
+   <p><span class="en">Same logic as (r, θ) in polar coordinates.</span><span class="zh">这和极坐标系里的 (r, θ) 是同一个道理。</span></p>
   </div>
   <div class="box">
-   <h3>From bearings to ordered pairs</h3>
-   <div class="cn"></div>
-   <p>The coordinate plane is just <b>two perpendicular axes</b> — once you set them, every point has exactly one ordered pair. So "ordered pair" is the bridge from any positioning system (latitude/longitude, bearing, or grid).</p>
+   <h3><span class="en">From bearings to ordered pairs</span><span class="zh">从方位法到有序数对</span></h3>
+   
+   <p><span class="en">The coordinate plane is just <b>two perpendicular axes</b> — once you set them, every point has exactly one ordered pair. So "ordered pair" is the bridge from any positioning system (latitude/longitude, bearing, or grid).</span><span class="zh">坐标系就是两条互相垂直的数轴 —— 一旦定下来，每个点就恰好对应一个有序数对。所以「有序数对」是各种定位系统（经纬度、方位、方格）之间的桥梁。</span></p>
   </div>
   One (x, y) matches one point — one to one. K2 and K3 both build on this.`;
 }
@@ -344,10 +344,10 @@ function microK2(el){
    return `<text x="${X(cx/150*3-0)+15}" y="${Y(cy/100*4+1.5)-10}" font-size="13" fill="#9ca3af" font-weight="600">${qt.label}</text>`;
   }).join('');
   el.innerHTML=`
-   <div class="step">Drag P and watch the coordinates</div>
+   <div class="step"><span class="en">Drag P and watch the coordinates</span><span class="zh">拖动 P，观察坐标变化</span></div>
    <div class="box">
-    <h3>The four quadrants</h3>
-    <div class="cn">The x-axis splits the plane top from bottom, the y-axis left from right; together they make four quadrants, numbered anticlockwise: I, II, III, IV.</div>
+    <h3><span class="en">The four quadrants</span><span class="zh">四个象限</span></h3>
+    
     <svg viewBox="0 0 480 480" style="background:#fafafa;border-radius:8px;cursor:crosshair" id="svgK2">
      <defs>
       <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#374151"/></marker>
@@ -406,7 +406,7 @@ function microK3(el){
   else{rx=-px;ry=-py;rule=`(${px}, ${py}) → (${px<0?'−'+(-px):px}, ${py<0?'−'+(-py):py})`;ruleCN='Through the origin: <b>both x and y flip sign</b>';}
   const X=x=>240+x*30, Y=y=>240-y*30;
   el.innerHTML=`
-   <div class="step">Reflections — drag and see</div>
+   <div class="step"><span class="en">Reflections — drag and see</span><span class="zh">轴对称 —— 拖一拖，看一看</span></div>
    <div class="controls">
     <button class="${axis==='x'?'on':''}" data-a="x">Reflect across the x-axis</button>
     <button class="${axis==='y'?'on':''}" data-a="y">Reflect across the y-axis</button>
@@ -430,11 +430,11 @@ function microK3(el){
      <text x="${X(rx)+12}" y="${Y(ry)-8}" font-size="13" font-weight="bold" fill="#b91c1c">P'(${rx},${ry})</text>
     </svg>
     <div class="box" style="margin-top:14px;background:#dbeafe">
-     <h3>The pattern</h3>
+     <h3><span class="en">The pattern</span><span class="zh">规律</span></h3>
      <p style="font-size:16px">${rule}</p>
      <p style="margin-top:6px;font-size:14px">${ruleCN}</p>
     </div>
-    <p style="font-size:13px;color:var(--muted);margin-top:8px">Hint: drag P (or click an axis to switch it) and compare the coordinates of P and P'.</p>
+    <p style="font-size:13px;color:var(--muted);margin-top:8px"><span class="en">Hint: drag P (or click an axis to switch it) and compare the coordinates of P and P'.</span><span class="zh">提示：拖动 P（或点一下坐标轴来切换），比较 P 和 P′ 的坐标。</span></p>
    </div>`;
   el.querySelectorAll('[data-a]').forEach(b=>{b.onclick=()=>{axis=b.dataset.a;render();};});
   const svg=el.querySelector('#svgK3');
