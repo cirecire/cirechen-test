@@ -1885,17 +1885,17 @@ var PHYSICS_DATA = [
         ],
         "videos": [
             {
-                "t": "Introduction to forces and Newton's laws",
+                "yt": "92Adbb6geHE",                "t": "Introduction to forces and Newton's laws",
                 "ka": "https://www.khanacademy.org/science/physics/forces-newtons-laws",
                 "m": "Khan Academy · Forces"
             },
             {
-                "t": "Elastic force & Hooke's law (spring scale)",
+                "yt": "ZzwuHS9ldbY",                "t": "Elastic force & Hooke's law (spring scale)",
                 "ka": "https://www.khanacademy.org/science/physics/forces-newtons-laws/balanced-unbalanced-forces",
                 "m": "Khan Academy · Forces"
             },
             {
-                "t": "Gravity and the gravitational force",
+                "yt": "R0XFqHBZfHc",                "t": "Gravity and the gravitational force",
                 "ka": "https://www.khanacademy.org/science/physics/forces-newtons-laws/newtons-laws-of-motion",
                 "m": "Khan Academy · Forces"
             }
@@ -2005,17 +2005,17 @@ var PHYSICS_DATA = [
         ],
         "videos": [
             {
-                "t": "Newton's first law (inertia)",
+                "yt": "rjkQcfw5fkM",                "t": "Newton's first law (inertia)",
                 "ka": "https://www.khanacademy.org/science/physics/forces-newtons-laws/newtons-laws-of-motion",
                 "m": "Khan Academy · Forces"
             },
             {
-                "t": "Balanced and unbalanced forces",
+                "yt": "oNgo9bbDi7Q",                "t": "Balanced and unbalanced forces",
                 "ka": "https://www.khanacademy.org/science/physics/forces-newtons-laws/balanced-unbalanced-forces",
                 "m": "Khan Academy · Forces"
             },
             {
-                "t": "Friction and inclined planes",
+                "yt": "pSV9DdD0jgI",                "t": "Friction and its types",
                 "ka": "https://www.khanacademy.org/science/physics/forces-newtons-laws/inclined-planes-friction",
                 "m": "Khan Academy · Forces"
             }
@@ -2133,17 +2133,17 @@ var PHYSICS_DATA = [
         ],
         "videos": [
             {
-                "t": "Pressure and Pascal's principle",
+                "yt": "TNjehZUKJWc",                "t": "Pressure and Pascal's principle",
                 "ka": "https://www.khanacademy.org/science/physics/fluids/pressure-and-pascal",
                 "m": "Khan Academy · Fluids"
             },
             {
-                "t": "Pressure in a liquid (p = ρgh)",
+                "yt": "qq4WW8snlKc",                "t": "Pressure in a liquid (p = ρgh)",
                 "ka": "https://www.khanacademy.org/science/physics/fluids/pressure-and-pascal",
                 "m": "Khan Academy · Fluids"
             },
             {
-                "t": "Atmospheric pressure & barometers",
+                "yt": "4DJmAdpHsxU",                "t": "Atmospheric pressure & barometers",
                 "ka": "https://www.khanacademy.org/science/physics/fluids",
                 "m": "Khan Academy · Fluids"
             }
@@ -2253,12 +2253,12 @@ var PHYSICS_DATA = [
         ],
         "videos": [
             {
-                "t": "Buoyant force and Archimedes' principle",
+                "yt": "VRXLvJPTV0k",                "t": "Buoyant force and Archimedes' principle",
                 "ka": "https://www.khanacademy.org/science/physics/fluids/buoyant-force-and-archimedes-principle",
                 "m": "Khan Academy · Fluids"
             },
             {
-                "t": "Archimedes' principle in depth",
+                "yt": "K6XMWLjk6O8",                "t": "Archimedes' principle in depth",
                 "ka": "https://www.khanacademy.org/science/physics/fluids/buoyant-force-and-archimedes-principle",
                 "m": "Khan Academy · Fluids"
             }
@@ -2376,17 +2376,17 @@ var PHYSICS_DATA = [
         ],
         "videos": [
             {
-                "t": "Introduction to work and energy",
+                "yt": "2WS1sG9fhOk",                "t": "Introduction to work and energy",
                 "ka": "https://www.khanacademy.org/science/physics/work-and-energy",
                 "m": "Khan Academy · Work & Energy"
             },
             {
-                "t": "Power (P = W/t)",
+                "yt": "v2_qI9S6oIQ",                "t": "Power (P = W/t)",
                 "ka": "https://www.khanacademy.org/science/physics/work-and-energy/power",
                 "m": "Khan Academy · Work & Energy"
             },
             {
-                "t": "Kinetic & potential energy",
+                "yt": "e-CAW3fN68M",                "t": "Kinetic & potential energy",
                 "ka": "https://www.khanacademy.org/science/physics/work-and-energy/kinetic-energy",
                 "m": "Khan Academy · Work & Energy"
             }
@@ -2496,17 +2496,17 @@ var PHYSICS_DATA = [
         ],
         "videos": [
             {
-                "t": "Introduction to mechanical advantage",
+                "yt": "obSJFsodXVk",                "t": "What are simple machines?",
                 "ka": "https://www.khanacademy.org/science/physics/work-and-energy/mechanical-advantage",
                 "m": "Khan Academy · Mechanical Advantage"
             },
             {
-                "t": "Pulley systems and mechanical advantage",
+                "yt": "lRixcLBC3kQ",                "t": "Pulley systems and mechanical advantage",
                 "ka": "https://www.khanacademy.org/science/physics/work-and-energy/mechanical-advantage",
                 "m": "Khan Academy · Mechanical Advantage"
             },
             {
-                "t": "Mechanical advantage and efficiency",
+                "yt": "KZmccAy9wNQ",                "t": "Introduction to mechanical advantage",
                 "ka": "https://www.khanacademy.org/science/physics/work-and-energy/mechanical-advantage",
                 "m": "Khan Academy · Mechanical Advantage"
             }
