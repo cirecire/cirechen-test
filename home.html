@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>My learning map · Grade 8 math</title>
+<title>My learning map · Grade 8 Mathematics</title>
 <style>
 :root{
  --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#5b6472;
@@ -13,7 +13,8 @@
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 .wrap{max-width:1180px;margin:0 auto;padding:18px}
 header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:24px 28px;border-radius:14px;margin-bottom:16px}
-header h1{font-size:24px;margin-bottom:6px}
+header h1{font-size:20px;margin-bottom:4px}
+header .h1sub{font-size:22px;font-weight:700;letter-spacing:.06em;margin-bottom:10px;line-height:1.25}
 header p{opacity:.93;font-size:13px}
 .src{margin-top:10px;font-size:11px;opacity:.75}
 /* ===== Welcome guide (dismissable) ===== */
@@ -43,8 +44,8 @@ body.lang-zh .zh{display:inline}
 /* Colored backgrounds always show white text, regardless of the language tier.
    Without this, inherit + lang rules can leave Chinese/English subtitles invisible on the
    purple gradient header and the colored chapter cards. */
-header, header h1, header p, header .en, header .zh, header .src, header .sub, header .t, header .no{ color:#fff; }
-header p, header .en, header .zh{ opacity:1; }
+header, header h1, header p, header .en, header .zh, header .src, header .sub, header .t, header .no, header .h1sub{ color:#fff; }
+header p, header .en, header .zh, header .h1sub{ opacity:1; }
 .ch .top, .ch .top .en, .ch .top .zh, .ch .top .no, .ch .top .t{ color:#fff; opacity:1; }
 
 .langbar{position:fixed;top:8px;right:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
@@ -237,7 +238,8 @@ html[data-theme="dark"] table th{color:var(--muted)}
 <div class="wrap">
 
 <header>
- <h1><span class="en">📚 My learning map · Grade 8 math</span><span class="zh">📚 我的学习地图 · 八年级数学</span></h1>
+ <h1><span class="en">📚 My learning map</span><span class="zh">📚 我的学习地图</span></h1>
+ <div class="h1sub"><span class="en">MATHEMATICS · GRADE 8 · BNU</span><span class="zh">数学 · 八年级 · 北师大版</span></div>
  <p><span class="en">7 chapters · 33 topics · 196 videos (videos stored on this site, no external streaming)</span><span class="zh">7 章 · 33 个知识点 · 196 段视频（视频存于本站，无需外部串流）</span></p>
  <p style="margin-top:4px"><span class="en">Language: English, with each key term glossed in Chinese once</span><span class="zh">语言：全英文，每个关键词在门厅标注一次中文</span></p>
  <div class="src"><span class="en">Video content from Khan Academy · CC BY-NC-SA</span><span class="zh">视频内容来自 Khan Academy · CC BY-NC-SA</span></div>
