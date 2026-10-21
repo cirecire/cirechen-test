@@ -254,7 +254,7 @@ html[data-theme="dark"] table th{color:var(--muted)}
   </div>
   <p class="tag"><span class="en">For public-school kids heading to the international track — maths &amp; physics, walked through in English first.</span><span class="zh">公立校孩子转轨国际轨道，数学和物理都用英语走一遍。</span></p>
   <p class="tag sub"><span class="en">We re-organise Khan Academy videos to match Chinese textbooks — by grade, subject and textbook edition.</span><span class="zh">我们把 Khan Academy 的视频，按中国公立校课本（年级 · 学科 · 教材版本）重新整理好。</span></p>
-  <div class="ready">✅ <span class="en">Ready now: Grade 8 · Math (BNU) &amp; Physics (人教版)</span><span class="zh">已就绪：八年级 · 数学（北师大版）&amp; 物理（人教版）</span></div>
+  <div class="ready">✅ <span class="en">Ready now: Grade 8 · Math (BNU) &amp; Physics (PEP)</span><span class="zh">已就绪：八年级 · 数学（北师大版）&amp; 物理（人教版）</span></div>
  </div>
 </header>
 
@@ -326,10 +326,10 @@ html[data-theme="dark"] table th{color:var(--muted)}
     <div class="soon" id="soon"></div>
    </div>
   <div class="extras">
-    <div class="readybox"><span class="en">👉 Grade 8 is ready in two subjects: </span><span class="zh">👉 八年级已做好两科：</span><b><span class="en">Math (BNU) &amp; Physics (人教版)</span><span class="zh">数学（北师大版）&amp; 物理（人教版）</span></b><span class="en">. More grades / subjects / editions are being added.</span><span class="zh">。其他年级 / 学科 / 版本正在陆续补齐。</span></div>
+    <div class="readybox"><span class="en">👉 Grade 8 is ready in two subjects: </span><span class="zh">👉 八年级已做好两科：</span><b><span class="en">Math (BNU) &amp; Physics (PEP)</span><span class="zh">数学（北师大版）&amp; 物理（人教版）</span></b><span class="en">. More grades / subjects / editions are being added.</span><span class="zh">。其他年级 / 学科 / 版本正在陆续补齐。</span></div>
     <div class="subjcards">
-     <div class="subjcard math"><div class="sc-t"><b>数学</b> · 八年级 · 北师大版</div><div class="sc-d"><span class="en">7 chapters · 33 topics · 196 videos · ready</span><span class="zh">7 章 · 33 知识点 · 196 段视频 · 已就绪</span></div></div>
-     <div class="subjcard phys"><div class="sc-t"><b>物理</b> · 八年级 · 人教版</div><div class="sc-d"><span class="en">6 chapters · 28 topics · ready</span><span class="zh">6 章 · 28 个知识点 · 已就绪</span></div></div>
+     <div class="subjcard math"><div class="sc-t"><span class="en">Math · Grade 8 · BNU</span><span class="zh"><b>数学</b> · 八年级 · 北师大版</span></div><div class="sc-d"><span class="en">7 chapters · 33 topics · 196 videos · ready</span><span class="zh">7 章 · 33 知识点 · 196 段视频 · 已就绪</span></div></div>
+     <div class="subjcard phys"><div class="sc-t"><span class="en">Physics · Grade 8 · PEP</span><span class="zh"><b>物理</b> · 八年级 · 人教版</span></div><div class="sc-d"><span class="en">6 chapters · 28 topics · ready</span><span class="zh">6 章 · 28 个知识点 · 已就绪</span></div></div>
     </div>
   </div>
   </div>
@@ -411,7 +411,7 @@ renderChips(EDITIONS,'edition',document.getElementById('editionChips'));
 (function(){SEL.edition='bsd';[...document.getElementById('editionChips').children].forEach(c=>c.classList.toggle('on',c.dataset.id==='bsd'));update();})();
 
 /* when the subject changes, auto-pick the edition that subject is built for,
-   so a parent picking 物理 lands on 人教版 without having to switch chips */
+   so a parent choosing Physics lands on PEP without extra chip switching */
 function autoEdition(){
  const want = SEL.subject==='phys' ? 'rj' : (SEL.subject==='math' ? 'bsd' : SEL.edition);
  if(!want || SEL.edition===want) return;
@@ -465,7 +465,7 @@ document.getElementById('enterBtn').onclick=function(){
   const box=document.getElementById('soon');
   box.innerHTML='<div class="t">'+L('Not built yet','这个组合还没做好')+'</div>'
    +'<div>'+L('You chose ','您选择了 ')+label('grade',SEL.grade)+' · '+label('subject',SEL.subject)+' · '+label('edition',SEL.edition)
-   +'. '+L('More grade / subject / edition pages are being added. For now, Grade 8 · Math (BNU) and Grade 8 · Physics (人教版) are ready.','。更多「年级 / 学科 / 版本」页面正在陆续补齐。目前已做好：八年级 · 数学（北师大版）和八年级 · 物理（人教版）。')+'</div>';
+   +'. '+L('More grade / subject / edition pages are being added. For now, Grade 8 · Math (BNU) and Grade 8 · Physics (PEP) are ready.','。更多「年级 / 学科 / 版本」页面正在陆续补齐。目前已做好：八年级 · 数学（北师大版）和八年级 · 物理（人教版）。')+'</div>';
   box.classList.add('show');
  }
 };
