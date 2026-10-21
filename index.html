@@ -105,6 +105,13 @@ button.enter:disabled{background:#cbbef0;cursor:not-allowed;box-shadow:none}
 .stat{background:#f9fafb;border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center}
 .stat .v{font-size:20px;font-weight:800;color:var(--accent)}
 .stat .l{font-size:11px;color:var(--muted);margin-top:2px}
+.subjcards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:2px}
+@media(max-width:560px){.subjcards{grid-template-columns:1fr}}
+.subjcard{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff}
+.subjcard.math{border-left:4px solid #6d3bdf}
+.subjcard.phys{border-left:4px solid #7c3aed}
+.subjcard .sc-t{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.subjcard .sc-d{font-size:12px;color:var(--muted)}
 
 .foot{text-align:center;font-size:11px;color:var(--muted);margin-top:28px;padding-top:18px;border-top:1px solid var(--line)}
 .foot a{color:var(--accent)}
@@ -159,7 +166,7 @@ html[data-theme="dark"] button.choice,
 html[data-theme="dark"] .vid-item,
 html[data-theme="dark"] .proof,
 html[data-theme="dark"] .q{background:var(--card)}
-html[data-theme="dark"] .stat,
+html[data-theme="dark"] .stat,html[data-theme="dark"] .subjcard,
 html[data-theme="dark"] .box,
 html[data-theme="dark"] .kp-c,
 html[data-theme="dark"] .badge:not(.ok):not(.warn):not(.lock),
@@ -245,9 +252,9 @@ html[data-theme="dark"] table th{color:var(--muted)}
    <h1><span class="zh">公立宝转轨</span></h1>
    <span class="pill"><span class="en">Free · parent-made</span><span class="zh">公益 · 家长自制</span></span>
   </div>
-  <p class="tag"><span class="en">For public-school kids heading to the international track — maths, walked through in English first.</span><span class="zh">公立校孩子转轨国际轨道，数学先用英语走一遍。</span></p>
+  <p class="tag"><span class="en">For public-school kids heading to the international track — maths &amp; physics, walked through in English first.</span><span class="zh">公立校孩子转轨国际轨道，数学和物理都用英语走一遍。</span></p>
   <p class="tag sub"><span class="en">We re-organise Khan Academy videos to match Chinese textbooks — by grade, subject and textbook edition.</span><span class="zh">我们把 Khan Academy 的视频，按中国公立校课本（年级 · 学科 · 教材版本）重新整理好。</span></p>
-  <div class="ready">✅ <span class="en">Ready now: Grade 8 · Math · BNU</span><span class="zh">已就绪：八年级 · 数学 · 北师大版</span></div>
+  <div class="ready">✅ <span class="en">Ready now: Grade 8 · Math (BNU) &amp; Physics (人教版)</span><span class="zh">已就绪：八年级 · 数学（北师大版）&amp; 物理（人教版）</span></div>
  </div>
 </header>
 
@@ -318,14 +325,13 @@ html[data-theme="dark"] table th{color:var(--muted)}
     <div class="remind" id="remind" style="display:none"></div>
     <div class="soon" id="soon"></div>
    </div>
-   <div class="extras">
-    <div class="readybox"><span class="en">👉 Only </span><span class="zh">👉 目前只做好了 </span><b><span class="en">Grade 8 · Math · BNU</span><span class="zh">八年级 · 数学 · 北师大版</span></b><span class="en"> is ready for now — more grades / subjects / editions are being added.</span><span class="zh">（其他年级 / 学科 / 版本正在陆续补齐）。</span></div>
-    <div class="stats">
-     <div class="stat"><div class="v">7</div><div class="l"><span class="en">chapters</span><span class="zh">章</span></div></div>
-     <div class="stat"><div class="v">33</div><div class="l"><span class="en">topics</span><span class="zh">知识点</span></div></div>
-     <div class="stat"><div class="v">196</div><div class="l"><span class="en">videos</span><span class="zh">段视频</span></div></div>
+  <div class="extras">
+    <div class="readybox"><span class="en">👉 Grade 8 is ready in two subjects: </span><span class="zh">👉 八年级已做好两科：</span><b><span class="en">Math (BNU) &amp; Physics (人教版)</span><span class="zh">数学（北师大版）&amp; 物理（人教版）</span></b><span class="en">. More grades / subjects / editions are being added.</span><span class="zh">。其他年级 / 学科 / 版本正在陆续补齐。</span></div>
+    <div class="subjcards">
+     <div class="subjcard math"><div class="sc-t"><b>数学</b> · 八年级 · 北师大版</div><div class="sc-d"><span class="en">7 chapters · 33 topics · 196 videos · ready</span><span class="zh">7 章 · 33 知识点 · 196 段视频 · 已就绪</span></div></div>
+     <div class="subjcard phys"><div class="sc-t"><b>物理</b> · 八年级 · 人教版</div><div class="sc-d"><span class="en">6 chapters · 28 topics · ready</span><span class="zh">6 章 · 28 个知识点 · 已就绪</span></div></div>
     </div>
-   </div>
+  </div>
   </div>
  </div>
 
@@ -364,7 +370,7 @@ const EDITIONS=[
    Example: Grade 8 + Math + BNU  -> the site we built (home.html).
    Add new lines here as more pages are created. */
 const MAP={
- '8':{ math:{ bsd:'home.html' } }
+ '8':{ math:{ bsd:'home.html' }, phys:{ rj:'__PHYSICS__' } }
 };
 
 /* ============ Language tier (en / mix / zh) ============ */
@@ -404,6 +410,17 @@ renderChips(EDITIONS,'edition',document.getElementById('editionChips'));
 // BNU is the edition this site is built for — pre-select it so nobody has to guess.
 (function(){SEL.edition='bsd';[...document.getElementById('editionChips').children].forEach(c=>c.classList.toggle('on',c.dataset.id==='bsd'));update();})();
 
+/* when the subject changes, auto-pick the edition that subject is built for,
+   so a parent picking 物理 lands on 人教版 without having to switch chips */
+function autoEdition(){
+ const want = SEL.subject==='phys' ? 'rj' : (SEL.subject==='math' ? 'bsd' : SEL.edition);
+ if(!want || SEL.edition===want) return;
+ SEL.edition=want;
+ [...document.getElementById('editionChips').children].forEach(c=>c.classList.toggle('on',c.dataset.id===want));
+ update();
+}
+[...document.getElementById('subjectChips').children].forEach(c=>c.addEventListener('click',autoEdition));
+
 function label(dim,id){
  const map={grade:GRADES,subject:SUBJECTS,edition:EDITIONS};
  const o=map[dim].find(x=>x.id===id);
@@ -421,12 +438,21 @@ function update(){
  document.getElementById('soon').classList.remove('show');
 }
 
+function physicsHomeUrl(){
+ if(location.protocol==='file:') return '../site-physics/home.html';
+ const seg=(location.pathname.split('/')[1]||'');
+ const mapped=seg.replace(/^cirechen(-test)?$/,function(m,p){return 'cirechen-physics'+(p||'');});
+ return location.origin+'/'+mapped+'/home.html';
+}
 function target(){
  const g=MAP[SEL.grade];
  if(!g)return null;
  const s=g[SEL.subject];
  if(!s)return null;
- return s[SEL.edition]||null;
+ const t=s[SEL.edition];
+ if(!t)return null;
+ if(t==='__PHYSICS__') return physicsHomeUrl();
+ return t;
 }
 
 document.getElementById('enterBtn').onclick=function(){
@@ -439,7 +465,7 @@ document.getElementById('enterBtn').onclick=function(){
   const box=document.getElementById('soon');
   box.innerHTML='<div class="t">'+L('Not built yet','这个组合还没做好')+'</div>'
    +'<div>'+L('You chose ','您选择了 ')+label('grade',SEL.grade)+' · '+label('subject',SEL.subject)+' · '+label('edition',SEL.edition)
-   +'. '+L('More grade / subject / edition pages are being added. For now, only Grade 8 · Math · BNU is ready.','。更多「年级 / 学科 / 版本」页面正在陆续补齐。目前只做好了：八年级 · 数学 · 北师大版。')+'</div>';
+   +'. '+L('More grade / subject / edition pages are being added. For now, Grade 8 · Math (BNU) and Grade 8 · Physics (人教版) are ready.','。更多「年级 / 学科 / 版本」页面正在陆续补齐。目前已做好：八年级 · 数学（北师大版）和八年级 · 物理（人教版）。')+'</div>';
   box.classList.add('show');
  }
 };
