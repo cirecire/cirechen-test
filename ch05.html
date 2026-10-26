@@ -116,6 +116,9 @@ body.lang-mix .step .zh, body.lang-mix header .zh, body.lang-mix .hero .zh,
 body.lang-mix .ch .zh, body.lang-mix .ch .top .zh, body.lang-mix .welcome .zh,
 body.lang-mix .note .zh { font-size: inherit; }
 
+.bridge{background:#eef2ff;border-left:3px solid var(--accent);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
+.bridge strong{color:var(--accent)}
+.bridge .bl{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
 /* ===== Day / Night / Auto (follows the system by default) ===== */
 :root{color-scheme:light}
 @media (prefers-color-scheme: dark){
@@ -197,6 +200,10 @@ html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="da
  background:var(--card2);color:var(--text);border-color:var(--line)}
 html[data-theme="dark"] input::placeholder{color:var(--muted)}
 html[data-theme="dark"] table th{color:var(--muted)}
+html[data-theme="dark"] .bridge,html[data-theme="dark"] .bridge *{color:#1f2937}
+html[data-theme="dark"] .bridge strong,html[data-theme="dark"] .bridge b{color:#3730a3!important}
+html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
+
 /* ===== Theme switch (fixed, under the language switch) ===== */
 .themebar{position:fixed;top:44px;right:12px;z-index:300;display:inline-flex;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
 .themseg{display:inline-flex}
@@ -445,7 +452,13 @@ function microK3(el){
    <p style="font-size:14px">${L('<strong>Multiply</strong> one (or both) equations by a number so the coefficients match or oppose.','把其中一个（或两个）方程<strong>同乘一个数</strong>，让系数变得相同或互为相反数。')}</p>
    <p style="font-size:14px;color:var(--muted);margin-top:6px">${L('For example, in x + y = 5 and 2x − y = 4 the coefficients already oppose, so just add. But in x + 2y = 5 and 3x + 5y = 14 the x coefficients are 1 and 3, so multiply the first equation by 3, then subtract to eliminate x.','比如 x + y = 5 和 2x − y = 4，系数已经互为相反数，直接相加就行。而 x + 2y = 5 和 3x + 5y = 14，x 的系数是 1 和 3，就要把第一个方程乘 3，再相减消去 x。')}</p>
   </div>
-  <div class="note">${L('<strong>Substitution vs elimination:</strong> if one equation is already y = … or x = …, substitution is fastest; otherwise elimination is usually more direct (no brackets to expand).','<strong>代入法还是加减法：</strong>如果已经有一个方程是 y = … 或 x = … 的形式，用代入法最快；否则一般用加减法更直接（不用拆括号）。')}</div>`;
+  <div class="note">${L('<strong>Substitution vs elimination:</strong> if one equation is already y = … or x = …, substitution is fastest; otherwise elimination is usually more direct (no brackets to expand).','<strong>代入法还是加减法：</strong>如果已经有一个方程是 y = … 或 x = … 的形式，用代入法最快；否则一般用加减法更直接（不用拆括号）。')}</div>
+   <div class="bridge">
+    <div class="bl"><span class="en">Bridge</span><span class="zh">衔接补全</span></div>
+    <h3><span class="en">Why is it legal to add two equations?</span><span class="zh">为什么把两个方程相加是合法的？</span></h3>
+    <p><span class="en">An equation is a balance: if A = B and C = D, then A + C = B + D. Adding the left sides and adding the right sides keeps the balance — you are not inventing anything, just combining two true statements. That is the whole justification for elimination, and textbooks usually skip it.</span><span class="zh">方程是天平：若 A = B 且 C = D，则 A + C = B + D。把左边加左边、右边加右边，天平仍然平衡 —— 你并没有凭空造什么，只是把两个真命题合并了。这正是加减消元法的全部理由，而教材通常略过这一步。</span></p>
+   </div>
+`;
 }
 
 /* ============ Lesson K4: three classic word problems ============ */
