@@ -116,6 +116,9 @@ body.lang-mix .step .zh, body.lang-mix header .zh, body.lang-mix .hero .zh,
 body.lang-mix .ch .zh, body.lang-mix .ch .top .zh, body.lang-mix .welcome .zh,
 body.lang-mix .note .zh { font-size: inherit; }
 
+.bridge{background:#eef2ff;border-left:3px solid var(--accent);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
+.bridge strong{color:var(--accent)}
+.bridge .bl{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
 /* ===== Day / Night / Auto (follows the system by default) ===== */
 :root{color-scheme:light}
 @media (prefers-color-scheme: dark){
@@ -197,6 +200,10 @@ html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="da
  background:var(--card2);color:var(--text);border-color:var(--line)}
 html[data-theme="dark"] input::placeholder{color:var(--muted)}
 html[data-theme="dark"] table th{color:var(--muted)}
+html[data-theme="dark"] .bridge,html[data-theme="dark"] .bridge *{color:#1f2937}
+html[data-theme="dark"] .bridge strong,html[data-theme="dark"] .bridge b{color:#3730a3!important}
+html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
+
 /* ===== Theme switch (fixed, under the language switch) ===== */
 .themebar{position:fixed;top:44px;right:12px;z-index:300;display:inline-flex;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
 .themseg{display:inline-flex}
@@ -496,7 +503,13 @@ function microK3(el){
     <h3>${L('How to read it','怎么看')}</h3>
     <p style="font-size:14px">${L('<b>A longer box</b> = the middle 50% is more spread out<br><b>Longer whiskers</b> = a wider overall range<br><b>Median line off to one side</b> = the distribution is skewed<br><b>Points beyond the whiskers</b> = outliers','<b>箱子越长</b> = 中间 50% 的数据越分散<br><b>胡须越长</b> = 整体范围越大<br><b>中位数偏向一侧</b> = 分布不对称<br><b>胡须之外的点</b> = 异常值')}</p>
    </div>
-   <div class="note">${L('<strong>How this connects to variance:</strong> variance and standard deviation give the spread as a number; a box plot gives it as a picture. They confirm each other — a larger IQR usually goes with a larger s².','<strong>和方差的关系：</strong>方差、标准差是用一个数表示波动；箱线图是用一张图表示波动。两者互相印证 —— 四分位距 IQR 越大，方差 s² 通常也越大。')}</div>`;
+   <div class="note">${L('<strong>How this connects to variance:</strong> variance and standard deviation give the spread as a number; a box plot gives it as a picture. They confirm each other — a larger IQR usually goes with a larger s².','<strong>和方差的关系：</strong>方差、标准差是用一个数表示波动；箱线图是用一张图表示波动。两者互相印证 —— 四分位距 IQR 越大，方差 s² 通常也越大。')}</div>
+   <div class="bridge">
+    <div class="bl"><span class="en">Bridge</span><span class="zh">衔接补全</span></div>
+    <h3><span class="en">When the average lies to you</span><span class="zh">当平均数骗你的时候</span></h3>
+    <p><span class="en">The mean chases every value, so one extreme score drags it far from the rest. In 1, 2, 3, 4, 100 the mean is 22, but the median is 3 — the single 100 tells you almost nothing about the group. Rule of thumb: if a value sits far from the rest, report the median or trim the outlier and say so. Khan's "Effects of outliers" shows why the choice changes the story.</span><span class="zh">平均数跟着每一个数走，所以一个极端值会把平均数远远带离其他数。在 1、2、3、4、100 里，平均数是 22，中位数却是 3 —— 那个 100 几乎说明不了整组的情况。经验法则：如果某个值明显远离其余，就报中位数，或者把异常值剔掉并说明原因。可汗的「异常值的影响」讲了为什么这个选择会改变结论。</span></p>
+   </div>
+`;
   el.querySelectorAll('input[data-i]').forEach(inp=>inp.onchange=e=>{data[parseInt(e.target.dataset.i)]=parseInt(e.target.value)||30;render();});
   el.querySelector('#reroll3').onclick=()=>{data=Array.from({length:ri(7,9)},()=>ri(50,100));render();};
  };
