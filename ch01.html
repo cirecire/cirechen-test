@@ -152,6 +152,9 @@ body.lang-mix .step .zh, body.lang-mix header .zh, body.lang-mix .hero .zh,
 body.lang-mix .ch .zh, body.lang-mix .ch .top .zh, body.lang-mix .welcome .zh,
 body.lang-mix .note .zh { font-size: inherit; }
 
+.bridge{background:#eef2ff;border-left:3px solid var(--accent);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
+.bridge strong{color:var(--accent)}
+.bridge .bl{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
 /* ===== Day / Night / Auto (follows the system by default) ===== */
 :root{color-scheme:light}
 @media (prefers-color-scheme: dark){
@@ -233,6 +236,10 @@ html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="da
  background:var(--card2);color:var(--text);border-color:var(--line)}
 html[data-theme="dark"] input::placeholder{color:var(--muted)}
 html[data-theme="dark"] table th{color:var(--muted)}
+html[data-theme="dark"] .bridge,html[data-theme="dark"] .bridge *{color:#1f2937}
+html[data-theme="dark"] .bridge strong,html[data-theme="dark"] .bridge b{color:#3730a3!important}
+html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
+
 /* ===== Theme switch (fixed, under the language switch) ===== */
 .themebar{position:fixed;top:44px;right:12px;z-index:300;display:inline-flex;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
 .themseg{display:inline-flex}
@@ -517,6 +524,11 @@ function microK1(el){
     <div class="eqbox" id="eq"></div>
     <div class="box">${L('The two areas stay equal throughout. The four triangles are identical, so once you take them away, what is left must be equal too.','两边的面积始终相等。四个三角形完全相同，所以把它们都去掉之后，剩下的部分也必然相等。')}<br>
     </div>
+   <div class="bridge">
+    <div class="bl"><span class="en">Bridge</span><span class="zh">衔接补全</span></div>
+    <h3><span class="en">This is also the distance formula</span><span class="zh">它也正是两点间距离公式</span></h3>
+    <p><span class="en">Put the right angle on a grid: the legs a and b become the horizontal and vertical steps between two points, and c is the straight-line distance between them. So distance = ((x2 - x1) squared + (y2 - y1) squared), all square-rooted. Same fact, turned sideways — you will use it again in the coordinate and graph chapters.</span><span class="zh">把直角放在方格上：两条直角边 a、b 变成两个点之间横向与纵向的步数，c 就是两点之间的直线距离。所以 距离 = √((x₂ − x₁)² + (y₂ − y₁)²)。同一个事实，只是转了个方向 —— 在坐标系和一次函数那两章还会用到它。</span></p>
+   </div>
     <div class="row"><button id="next1">${L('Next: watch the video →','下一步：看视频 →')}</button></div>`;
   const draw=()=>{
     const s=a+b, c2=a*a+b*b, c=Math.sqrt(c2);
