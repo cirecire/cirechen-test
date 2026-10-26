@@ -130,6 +130,9 @@ body.lang-mix .step .zh, body.lang-mix header .zh, body.lang-mix .hero .zh,
 body.lang-mix .ch .zh, body.lang-mix .ch .top .zh, body.lang-mix .welcome .zh,
 body.lang-mix .note .zh { font-size: inherit; }
 
+.bridge{background:#eef2ff;border-left:3px solid var(--accent);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
+.bridge strong{color:var(--accent)}
+.bridge .bl{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
 /* ===== Day / Night / Auto (follows the system by default) ===== */
 :root{color-scheme:light}
 @media (prefers-color-scheme: dark){
@@ -211,6 +214,10 @@ html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="da
  background:var(--card2);color:var(--text);border-color:var(--line)}
 html[data-theme="dark"] input::placeholder{color:var(--muted)}
 html[data-theme="dark"] table th{color:var(--muted)}
+html[data-theme="dark"] .bridge,html[data-theme="dark"] .bridge *{color:#1f2937}
+html[data-theme="dark"] .bridge strong,html[data-theme="dark"] .bridge b{color:#3730a3!important}
+html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
+
 /* ===== Theme switch (fixed, under the language switch) ===== */
 .themebar{position:fixed;top:44px;right:12px;z-index:300;display:inline-flex;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
 .themseg{display:inline-flex}
@@ -538,7 +545,13 @@ function microK3(el){
       <p><span class="en">• <b>Same line, different points, same k</b>: try dragging P₁ and P₂ to opposite ends of the same line, k doesn't change. (Similar triangles prove this — there's a video on it.)</span><span class="zh">• 同一直线、不同点、k 相同：把 P₁ 和 P₂ 拖到同一直线的两端试试，k 不变。（相似三角形能证明这一点 —— 有相关视频。）</span></p>
      </div>
     </div>
-   </div>`;
+   </div>
+   <div class="bridge">
+    <div class="bl"><span class="en">Bridge</span><span class="zh">衔接补全</span></div>
+    <h3><span class="en">Why is the slope the same everywhere on a line?</span><span class="zh">为什么同一条直线上斜率处处相同？</span></h3>
+    <p><span class="en">Pick any two points: slope = rise / run. Slide both points along the line by the same amount and the new rise and new run grow in the same proportion, so their ratio stays put. That is similar-triangle reasoning — the textbook often states "slope is constant" without showing why. Khan's "Slope and similar triangles" walks through the proof.</span><span class="zh">任取两点，斜率 = 上升 / 平移。把两个点沿直线一起平移相同距离，新的上升和新的平移按同样比例变化，比值不变。这正是相似三角形的道理 —— 教材常常只说"斜率恒定"，却不说为什么。可汗的「斜率与相似三角形」把证明讲清楚。</span></p>
+   </div>
+`;
   const svg=el.querySelector('#svgK3');
   function getPos(e){
    const r=svg.getBoundingClientRect();
