@@ -118,6 +118,9 @@ body.lang-mix .step .zh, body.lang-mix header .zh, body.lang-mix .hero .zh,
 body.lang-mix .ch .zh, body.lang-mix .ch .top .zh, body.lang-mix .welcome .zh,
 body.lang-mix .note .zh { font-size: inherit; }
 
+.bridge{background:#eef2ff;border-left:3px solid var(--accent);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
+.bridge strong{color:var(--accent)}
+.bridge .bl{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
 /* ===== Day / Night / Auto (follows the system by default) ===== */
 :root{color-scheme:light}
 @media (prefers-color-scheme: dark){
@@ -199,6 +202,10 @@ html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="da
  background:var(--card2);color:var(--text);border-color:var(--line)}
 html[data-theme="dark"] input::placeholder{color:var(--muted)}
 html[data-theme="dark"] table th{color:var(--muted)}
+html[data-theme="dark"] .bridge,html[data-theme="dark"] .bridge *{color:#1f2937}
+html[data-theme="dark"] .bridge strong,html[data-theme="dark"] .bridge b{color:#3730a3!important}
+html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
+
 /* ===== Theme switch (fixed, under the language switch) ===== */
 .themebar{position:fixed;top:44px;right:12px;z-index:300;display:inline-flex;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
 .themseg{display:inline-flex}
@@ -466,7 +473,13 @@ function microK5(el){
    <p style="font-size:14px"><span class="en">An exterior angle of a triangle equals the sum of the two <b>opposite interior</b> angles.</span><span class="zh">三角形的一个外角等于和它不相邻的两个内角之和。</span></p>
    <p style="font-size:14px"><span class="en">So an exterior angle is larger than either opposite interior angle.</span><span class="zh">所以，任意一个外角都大于和它不相邻的任何一个内角。</span></p>
   </div>
-  <div class="note"><span class="en"><strong>Looking ahead:</strong> in an isosceles triangle the base angles are equal, and conversely. This section sets that up.</span><span class="zh">先预习一下：等腰三角形两底角相等，反过来也成立。本节正是为它打基础。</span></div>`;
+  <div class="note"><span class="en"><strong>Looking ahead:</strong> in an isosceles triangle the base angles are equal, and conversely. This section sets that up.</span><span class="zh">先预习一下：等腰三角形两底角相等，反过来也成立。本节正是为它打基础。</span></div>
+   <div class="bridge">
+    <div class="bl"><span class="en">Bridge</span><span class="zh">衔接补全</span></div>
+    <h3><span class="en">The same idea reaches every polygon</span><span class="zh">同样的道理适用于所有多边形</span></h3>
+    <p><span class="en">An n-sided polygon's interior angles sum to (n - 2) times 180 degrees. Slice it into triangles from one vertex and you always get n - 2 of them, each 180. So this chapter's triangle result is the seed of a rule for any shape — that is the bridge from "one triangle" to "every polygon". Khan's "Sum of interior angles of a polygon" builds it out.</span><span class="zh">n 边形的内角和等于 (n − 2) × 180°。从同一个顶点把多边形切成三角形，永远得到 n − 2 个，每个 180°。所以本章的三角形结论，是所有形状通用规律的一颗种子 —— 这就是从"一个三角形"到"任意多边形"的桥梁。可汗的「多边形内角和」把它展开讲。</span></p>
+   </div>
+`;
 }
 
 /* ============ Quick check ============ */
