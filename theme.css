@@ -1,0 +1,76 @@
+/* ============================================================
+   Cambridge-inspired elevation layer (ADDITIVE — safe to remove)
+   Loaded AFTER each page's inline <style>, so these rules win
+   ties without !important. Uses only existing CSS variables,
+   so it adapts automatically to day/night theme and the
+   en / mix / zh language tiers. No colour/background is set on
+   elements the dark-mode rules own (except the header, which is
+   intentionally unified across every page).
+   ============================================================ */
+
+:root{
+  /* unified, refined brand identity (overrides per-page rainbows:
+     blue / teal / cyan / purple all collapse to one violet) */
+  --accent:#6d28d9;
+  --accent-2:#4f46e5;
+  /* slightly cooler, softer canvas + hair-soft borders */
+  --bg:#f5f7fc;
+  --line:#e6e8f0;
+  /* new tokens used only by this layer */
+  --radius:16px;
+  --radius-sm:11px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --shadow-sm:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.05);
+  --shadow:0 4px 14px rgba(16,24,40,.07),0 2px 6px rgba(16,24,40,.04);
+  --shadow-lg:0 14px 34px rgba(16,24,40,.12);
+}
+
+/* ---------- base typography (Cambridge: calm, readable, hierarchical) ---------- */
+body{font-family:var(--font);font-size:15.5px;line-height:1.66;letter-spacing:.002em;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{letter-spacing:-.012em;line-height:1.25}
+h1{font-weight:800}
+h2{font-weight:700}
+h3{font-weight:700}
+h4{font-weight:700}
+::selection{background:rgba(109,40,217,.16)}
+
+/* ---------- generous spacing rhythm (Cambridge: lots of air) ---------- */
+.wrap{padding:30px 24px}
+@media(max-width:680px){.wrap{padding:20px 16px}}
+
+/* ---------- header: unified violet, lifted, more breathing room ---------- */
+header{
+  background:linear-gradient(135deg,var(--accent-2),var(--accent));
+  border-radius:var(--radius);
+  padding:32px 32px;
+  box-shadow:var(--shadow-lg);
+}
+header h1{font-size:24px;font-weight:800;letter-spacing:-.01em}
+
+/* ---------- depth on every surface (flat 1px borders -> soft shadow) ---------- */
+.card,.box,main,nav,.ch,.vid-item,.q,.kp-c,.stat,.badge,.note,.parents,
+.bridge,.fig,.eqbox,.proof{
+  border-radius:var(--radius-sm);
+  box-shadow:var(--shadow);
+}
+.card,main,nav{border-radius:var(--radius)}
+
+/* subtle lift on interactive/important cards */
+.card:hover,.ch:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);
+  transition:transform .18s ease,box-shadow .18s ease}
+.card,.ch{transition:transform .18s ease,box-shadow .18s ease}
+
+/* ---------- buttons: rounded, soft shadow, gentle lift ---------- */
+button,.big-start button{
+  border-radius:var(--radius-sm);
+  box-shadow:var(--shadow-sm);
+  transition:transform .15s ease,box-shadow .15s ease,filter .15s ease;
+}
+button:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+button:active{transform:translateY(0)}
+
+/* ---------- form controls share the radius ---------- */
+input,select,textarea{border-radius:var(--radius-sm)}
+
+/* ---------- chapter cards: keep top corners flush with the card ---------- */
+.ch{overflow:hidden}
