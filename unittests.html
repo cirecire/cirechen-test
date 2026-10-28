@@ -7,19 +7,19 @@
 <style>
 :root{
  --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#5b6472;
- --accent:#7c3aed; --ok:#15803d; --err:#b91c1c; --warn:#b45309;
+ --accent:#b45309; --ok:#15803d; --err:#b91c1c; --warn:#b45309;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 .topbar{background:#fff;border-bottom:1px solid var(--line);padding:8px 16px;font-size:13px;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99}
 .topbar a{color:var(--accent);text-decoration:none;font-weight:600}
 .wrap{display:grid;grid-template-columns:220px 1fr;gap:18px;max-width:1160px;margin:0 auto;padding:18px}
-header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:22px 26px;border-radius:14px;margin-bottom:14px;grid-column:1/-1}
+header{background:linear-gradient(135deg,#92400e,#b45309);color:#fff;padding:22px 26px;border-radius:14px;margin-bottom:14px;grid-column:1/-1}
 header h1{font-size:22px;margin-bottom:4px}
 header p{opacity:.92;font-size:13px}
 nav{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;height:fit-content;position:sticky;top:60px}
 .nav-i{padding:10px 12px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.nav-i:hover{background:#f5f3ff}
+.nav-i:hover{background:#fef3e2}
 .nav-i.on{background:var(--accent);color:#fff}
 .nav-i .st{font-size:11px;opacity:.85}
 main{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 26px;min-height:70vh}
@@ -41,7 +41,7 @@ input[type=text]{padding:10px 12px;font-size:15px;border:1px solid var(--line);b
 button{font-family:inherit;border:none;cursor:pointer;border-radius:8px;padding:8px 14px;font-size:14px;background:var(--accent);color:#fff}
 button.secondary{background:#e5e7eb;color:var(--text)}
 button.choice{display:block;width:100%;text-align:left;background:#fff;color:var(--text);border:1px solid var(--line);margin:6px 0}
-button.choice:hover{background:#f5f3ff;border-color:var(--accent)}
+button.choice:hover{background:#fef3e2;border-color:var(--accent)}
 .progress{height:8px;background:#e5e7eb;border-radius:4px;overflow:hidden;margin:10px 0}
 .progress div{height:100%;background:var(--accent);transition:width .3s}
 .badge{font-size:11px;padding:2px 9px;border-radius:10px;background:#f3f4f6;color:var(--muted)}
@@ -104,14 +104,14 @@ body.lang-mix .note .zh { font-size: inherit; }
   color-scheme:dark;
   --bg:#0f172a;--card:#1e293b;--card2:#172033;--line:#334155;
   --text:#e5e7eb;--muted:#94a3b8;--ink:#e5e7eb;--mute:#94a3b8;
-  --accent:#a78bfa;--ok:#4ade80;--err:#f87171;--warn:#fbbf24;--bad:#f87171;
+  --accent:#fbbf24;--ok:#4ade80;--err:#f87171;--warn:#fbbf24;--bad:#f87171;
  }
 }
 html[data-theme="dark"]{
  color-scheme:dark;
  --bg:#0f172a;--card:#1e293b;--card2:#172033;--line:#334155;
  --text:#e5e7eb;--muted:#94a3b8;--ink:#e5e7eb;--mute:#94a3b8;
- --accent:#a78bfa;--ok:#4ade80;--err:#f87171;--warn:#fbbf24;--bad:#f87171;
+ --accent:#fbbf24;--ok:#4ade80;--err:#f87171;--warn:#fbbf24;--bad:#f87171;
 }
 html[data-theme="light"]{color-scheme:light}
 html[data-theme="dark"] body{background:var(--bg);color:var(--text)}
@@ -159,13 +159,13 @@ html[data-theme="dark"] .themseg button.on{color:#0f172a!important}
 html[data-theme="dark"] .nav-i.on .st.ok,
 html[data-theme="dark"] .nav-i.on .st.err{color:#0f172a!important}
 html[data-theme="dark"] .chip.on .rec{color:#0f172a!important}
-html[data-theme="dark"] .step{color:#1e1b4b!important}
+html[data-theme="dark"] .step{color:#451a03!important}
 html[data-theme="dark"] .ltsw button{color:#93c5fd!important}
 html[data-theme="dark"] .welcome-cta .big{color:#fff!important}
 /* "paper" panels: stay light so dark diagram / equation strokes remain visible */
 html[data-theme="dark"] .fig,html[data-theme="dark"] .eqbox{color:#1f2937}
 html[data-theme="dark"] .fig *{color:#1f2937!important}
-html[data-theme="dark"] .eqbox .num{color:#6d3bdf!important}
+html[data-theme="dark"] .eqbox .num{color:#b45309!important}
 html[data-theme="dark"] svg{background:#fff;border-radius:8px;padding:4px}
 /* cream / yellow panels: stay light, so their ink must stay dark */
 html[data-theme="dark"] .note,html[data-theme="dark"] .note *{color:#1f2937}
@@ -191,7 +191,7 @@ html[data-theme="dark"] table th{color:var(--muted)}
 <body>
 
 <div class="topbar">
- <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="zh">← 主页</span><span class="en">← Home</span></a> <a href="home.html"><span class="en">← My learning map</span><span class="zh">← 我的学习地图</span></a>
+ <a href="index.html" style="color:#b45309;text-decoration:none;font-weight:600"><span class="zh">← 主页</span><span class="en">← Home</span></a> <a href="home.html"><span class="en">← My learning map</span><span class="zh">← 我的学习地图</span></a>
  <a href="unittests.html"><span class="en">Level-up challenges</span><span class="zh">闯关挑战</span></a>
  <span style="margin-left:auto;font-size:11px;color:var(--muted)"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
 </div>
@@ -474,11 +474,11 @@ const UNITS=[
   why:'Square roots, cube roots, irrationals and radicals, plus radical side lengths'},
  {id:'u2',n:'Level 2',cn:'Linear Functions & Systems',en:'Linear Functions & Systems',ch:'Ch04 + Ch05',G:G2,q:10,color:'#b45309',
   why:'Slope, intercept and evaluating functions; systems by substitution and elimination; chickens and rabbits; income problems; intersections'},
- {id:'u3',n:'Level 3',cn:'Geometry & Coordinates',en:'Geometry & Coordinates',ch:'Ch03 + Ch07',G:G3,q:10,color:'#4f46e5',
+ {id:'u3',n:'Level 3',cn:'Geometry & Coordinates',en:'Geometry & Coordinates',ch:'Ch03 + Ch07',G:G3,q:10,color:'#92400e',
   why:'Quadrants, reflections and translations; parallel-line tests and properties; triangle angle sum and exterior angles'},
  {id:'u4',n:'Level 4',cn:'Data Analysis',en:'Data Analysis',ch:'Ch06',G:G4,q:10,color:'#db2777',
   why:'Mean, median, mode, variance, standard deviation, range, weighted mean and box plots'},
- {id:'fin',n:'Final challenge',cn:'All seven chapters mixed',en:'Course Challenge',ch:'all 7 chapters',G:null,q:12,color:'#7c3aed',
+ {id:'fin',n:'Final challenge',cn:'All seven chapters mixed',en:'Course Challenge',ch:'all 7 chapters',G:null,q:12,color:'#b45309',
   why:'Questions drawn from all seven chapters — a run-through of the final exam'},
 ];
 
