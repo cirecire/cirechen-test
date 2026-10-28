@@ -482,7 +482,7 @@ function microK4(el){
    <div class="step">${L('★ Chickens & rabbits / sales & costs / milestone numbers','★ 鸡兔同笼 / 增收节支 / 里程碑上的数')}</div>
    <div class="box">
     <div style="display:flex;gap:8px;margin-bottom:10px">
-     ${problems.map((q,i)=>`<button class="${i===cur?'':'secondary'}" data-p="${i}">${i+1}. ${q.title.split(' · ')[0]}</button>`).join('')}
+     ${problems.map((q,i)=>`<button class="${i===cur?'':'secondary'}" data-p="${i}">${i+1}. ${L(q.title,q.tz)}</button>`).join('')}
     </div>
     <h3>${L(p.title,p.tz)}</h3>
     <p style="font-size:14px;margin-top:8px">${p.setup}</p>
