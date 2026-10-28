@@ -1,76 +1,124 @@
 /* ============================================================
-   Cambridge-inspired elevation layer (ADDITIVE — safe to remove)
-   Loaded AFTER each page's inline <style>, so these rules win
-   ties without !important. Uses only existing CSS variables,
-   so it adapts automatically to day/night theme and the
-   en / mix / zh language tiers. No colour/background is set on
-   elements the dark-mode rules own (except the header, which is
-   intentionally unified across every page).
+   Cambridge-inspired elevation layer — MATH (violet/indigo identity)
+   ADDITIVE & reversible: loaded AFTER each page's inline <style>,
+   so these rules win ties without !important. Uses only existing
+   CSS variables + a few new ones, adapts to day/night + the
+   en / mix / zh language tiers. No logic is touched.
+   Per-subject colour is the headline fix: MATH = violet, so it
+   never gets confused with PHYSICS (cyan).
    ============================================================ */
 
 :root{
-  /* unified, refined brand identity (overrides per-page rainbows:
-     blue / teal / cyan / purple all collapse to one violet) */
-  --accent:#6d28d9;
-  --accent-2:#4f46e5;
-  /* slightly cooler, softer canvas + hair-soft borders */
-  --bg:#f5f7fc;
-  --line:#e6e8f0;
-  /* new tokens used only by this layer */
-  --radius:16px;
-  --radius-sm:11px;
+  /* ---- MATH brand identity (violet / indigo) ---- */
+  --accent:#6d28d9;          /* violet-700 — primary actions, links, rules */
+  --accent-2:#8b5cf6;        /* violet-500 — header gradient companion */
+  --accent-press:#5b21b6;    /* violet-800 — pressed/hover */
+  --accent-soft:rgba(109,40,217,.10);   /* tinted fills / badges */
+  --accent-soft2:rgba(109,40,217,.16);
+  /* ---- canvas + surfaces ---- */
+  --bg:#f6f7fb;              /* soft cool canvas */
+  --card:#ffffff;
+  --card2:#fbfbfe;
+  --line:#e7e8f2;            /* hairline borders */
+  /* ---- shape + depth (Cambridge: calm, lots of air, soft shadow) ---- */
+  --radius:18px;
+  --radius-sm:12px;
   --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-  --shadow-sm:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.05);
-  --shadow:0 4px 14px rgba(16,24,40,.07),0 2px 6px rgba(16,24,40,.04);
-  --shadow-lg:0 14px 34px rgba(16,24,40,.12);
+  --shadow-sm:0 1px 2px rgba(17,24,39,.06),0 1px 3px rgba(17,24,39,.05);
+  --shadow:0 6px 18px rgba(17,24,39,.07),0 2px 6px rgba(17,24,39,.04);
+  --shadow-lg:0 18px 40px rgba(76,29,149,.18);
 }
 
-/* ---------- base typography (Cambridge: calm, readable, hierarchical) ---------- */
-body{font-family:var(--font);font-size:15.5px;line-height:1.66;letter-spacing:.002em;-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4{letter-spacing:-.012em;line-height:1.25}
-h1{font-weight:800}
-h2{font-weight:700}
-h3{font-weight:700}
-h4{font-weight:700}
-::selection{background:rgba(109,40,217,.16)}
+/* ---------- keep MATH identity in dark mode too ---------- */
+html[data-theme="dark"]{
+  --accent:#a78bfa; --accent-2:#c4b5fd; --accent-press:#8b5cf6;
+  --accent-soft:rgba(167,139,250,.16); --accent-soft2:rgba(167,139,250,.24);
+  --card:#1e293b; --card2:#172033; --line:#334155;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --accent:#a78bfa; --accent-2:#c4b5fd; --accent-press:#8b5cf6;
+    --accent-soft:rgba(167,139,250,.16); --accent-soft2:rgba(167,139,250,.24);
+    --card:#1e293b; --card2:#172033; --line:#334155;
+  }
+}
 
-/* ---------- generous spacing rhythm (Cambridge: lots of air) ---------- */
-.wrap{padding:30px 24px}
-@media(max-width:680px){.wrap{padding:20px 16px}}
+/* ---------- base typography (Cambridge: confident hierarchy, calm body) ---------- */
+body{font-family:var(--font);font-size:16px;line-height:1.68;letter-spacing:.002em;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+h1,h2,h3,h4{letter-spacing:-.018em;line-height:1.22}
+h1{font-size:27px;font-weight:800}
+h2{font-size:21px;font-weight:700}
+h3{font-size:17px;font-weight:700}
+h4{font-size:15.5px;font-weight:700}
+/* section rhythm: a short accent underline under each H2, Cambridge-style */
+h2{position:relative;margin:34px 0 16px}
+h2::after{content:"";display:block;width:46px;height:3px;background:var(--accent);border-radius:2px;margin-top:9px}
+h2 small{font-weight:500;font-size:13px;color:var(--muted,#6b7280);letter-spacing:0}
+::selection{background:var(--accent-soft2)}
 
-/* ---------- header: unified violet, lifted, more breathing room ---------- */
+/* ---------- centred, generous container (Cambridge: ~1140px column) ---------- */
+.wrap{max-width:1140px;margin:0 auto;padding:36px 28px}
+@media (max-width:680px){.wrap{padding:22px 16px}}
+
+/* ---------- header: unified violet hero, lifted, airy ---------- */
 header{
-  background:linear-gradient(135deg,var(--accent-2),var(--accent));
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
   border-radius:var(--radius);
-  padding:32px 32px;
+  padding:34px 36px;
   box-shadow:var(--shadow-lg);
 }
-header h1{font-size:24px;font-weight:800;letter-spacing:-.01em}
+header h1{font-size:26px;font-weight:800;letter-spacing:-.02em}
+header p,header .h1sub{opacity:.94}
+header .src{opacity:.85;font-size:12.5px}
 
-/* ---------- depth on every surface (flat 1px borders -> soft shadow) ---------- */
-.card,.box,main,nav,.ch,.vid-item,.q,.kp-c,.stat,.badge,.note,.parents,
-.bridge,.fig,.eqbox,.proof{
+/* ---------- links use the brand accent (Cambridge: accent links) ---------- */
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ---------- buttons: solid primary + outline secondary (lighter, elegant) ---------- */
+button{border-radius:var(--radius-sm);font-family:var(--font);cursor:pointer;
+  transition:transform .15s ease,box-shadow .15s ease,background .15s ease,filter .15s ease}
+button:not(.ghost){
+  background:var(--accent);color:#fff;border:1px solid transparent;
+  box-shadow:var(--shadow-sm);font-weight:600;padding:11px 18px;font-size:15px;
+}
+button:not(.ghost):hover{background:var(--accent-press);transform:translateY(-1px);box-shadow:var(--shadow)}
+button:not(.ghost):active{transform:translateY(0)}
+button.ghost{
+  background:transparent;color:var(--accent);border:1.5px solid var(--accent);
+  font-weight:600;padding:10px 16px;font-size:14.5px;
+}
+button.ghost:hover{background:var(--accent-soft)}
+.big{padding:14px 24px;font-size:16px;border-radius:14px}
+
+/* ---------- surfaces: white cards on the soft canvas, soft shadow, real radius ---------- */
+.card,.summary,.step-card,.ch,.box,.note,.parents,.bridge,.q,.vid-item,.kp-c,.stat,.badge,.chip{
+  background:var(--card);
+  border:1px solid var(--line);
   border-radius:var(--radius-sm);
   box-shadow:var(--shadow);
 }
-.card,main,nav{border-radius:var(--radius)}
-
-/* subtle lift on interactive/important cards */
-.card:hover,.ch:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);
+.card,.summary{padding:22px}
+.ch{overflow:hidden;border:none}
+.card:hover,.ch:hover,.step-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);
   transition:transform .18s ease,box-shadow .18s ease}
-.card,.ch{transition:transform .18s ease,box-shadow .18s ease}
+.card,.ch,.step-card{transition:transform .18s ease,box-shadow .18s ease}
 
-/* ---------- buttons: rounded, soft shadow, gentle lift ---------- */
-button,.big-start button{
-  border-radius:var(--radius-sm);
-  box-shadow:var(--shadow-sm);
-  transition:transform .15s ease,box-shadow .15s ease,filter .15s ease;
-}
-button:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
-button:active{transform:translateY(0)}
+/* ---------- step cards (welcome): accent number badges ---------- */
+.step-card{padding:20px 22px}
+.step-no{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;margin-bottom:10px}
+
+/* ---------- progress bars follow the brand accent ---------- */
+.big-prog>div,.lvbar>div,.prog>div,.bar>div,.track>div{background:var(--accent)}
+.big-prog,.lvbar,.prog,.bar,.track{background:var(--line)}
+
+/* ---------- active / selected chips ---------- */
+.chip.on,.nav-i.on,.sel .num,.langseg.on,.themseg.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 
 /* ---------- form controls share the radius ---------- */
-input,select,textarea{border-radius:var(--radius-sm)}
+input,select,textarea{border-radius:var(--radius-sm);border:1px solid var(--line);font-family:var(--font)}
 
-/* ---------- chapter cards: keep top corners flush with the card ---------- */
-.ch{overflow:hidden}
+/* ---------- stats / mini cards ---------- */
+.stat{border-radius:var(--radius-sm)}
+.badge{background:var(--accent-soft);color:var(--accent);border:none;font-weight:700}
