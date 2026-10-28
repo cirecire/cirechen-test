@@ -112,6 +112,11 @@ button.enter:disabled{background:#e7d3b5;cursor:not-allowed;box-shadow:none}
 .subjcard.phys{border-left:4px solid #0e7490}
 .subjcard .sc-t{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
 .subjcard .sc-d{font-size:12px;color:var(--muted)}
+.entry{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
+@media(max-width:560px){.entry{grid-template-columns:1fr}}
+.subjcard{cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}
+.subjcard:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(146,64,14,.16)}
+.subjcard .go{display:inline-block;margin-top:8px;font-size:13px;font-weight:700;color:var(--accent)}
 
 .foot{text-align:center;font-size:11px;color:var(--muted);margin-top:28px;padding-top:18px;border-top:1px solid var(--line)}
 .foot a{color:var(--accent)}
@@ -261,7 +266,7 @@ html[data-theme="dark"] table th{color:var(--muted)}
 
 <div class="wrap">
  <div class="home-grid">
-  <details class="parents" open style="margin-bottom:16px">
+  <details class="parents" style="margin-bottom:16px">
    <summary>
     <span class="zh">关于这个网站</span>
     <span class="en">About this site</span>
@@ -288,37 +293,17 @@ html[data-theme="dark"] table th{color:var(--muted)}
    </div>
   </details>
 
-  <div class="col-pick">
-   <div class="card">
-    <div class="sel" data-dim="grade">
-     <h3><span class="num">1</span><span class="en">Grade</span><span class="zh">年级</span></h3>
-     <div class="hint"><span class="en">Which grade are you in?</span><span class="zh">你（或孩子）读几年级？</span></div>
-     <div class="chips" id="gradeChips"></div>
-    </div>
-    <div class="sel" data-dim="subject">
-     <h3><span class="num">2</span><span class="en">Subject</span><span class="zh">学科</span></h3>
-     <div class="hint"><span class="en">Which subject?</span><span class="zh">哪一科？</span></div>
-     <div class="chips" id="subjectChips"></div>
-    </div>
-    <div class="sel" data-dim="edition">
-     <h3><span class="num">3</span><span class="en">Textbook edition</span><span class="zh">教材版本</span></h3>
-     <div class="hint"><span class="en">Which textbook does the school use?</span><span class="zh">学校用的是哪个版本？</span></div>
-     <div class="chips" id="editionChips"></div>
-    </div>
-    <div class="go">
-     <button class="enter" id="enterBtn" disabled><span class="en">Enter →</span><span class="zh">进入 →</span></button>
-     <span class="choose" id="chooseLine"></span>
-    </div>
-    <div class="remind" id="remind" style="display:none"></div>
-    <div class="soon" id="soon"></div>
+  <div class="entry">
+   <div class="subjcard math" role="link" tabindex="0" onclick="location.href='home.html'">
+    <div class="sc-t"><span class="en">Math · Grade 8 · BNU</span><span class="zh"><b>数学</b> · 八年级 · 北师大版</span></div>
+    <div class="sc-d"><span class="en">7 chapters · 33 topics · 196 videos · ready</span><span class="zh">7 章 · 33 知识点 · 196 段视频 · 已就绪</span></div>
+    <span class="go"><span class="en">Enter →</span><span class="zh">进入 →</span></span>
    </div>
-  <div class="extras">
-    <div class="readybox"><span class="en">👉 Grade 8 is ready in two subjects: </span><span class="zh">👉 八年级已做好两科：</span><b><span class="en">Math (BNU) &amp; Physics (PEP)</span><span class="zh">数学（北师大版）&amp; 物理（人教版）</span></b><span class="en">. More grades / subjects / editions are being added.</span><span class="zh">。其他年级 / 学科 / 版本正在陆续补齐。</span></div>
-    <div class="subjcards">
-     <div class="subjcard math"><div class="sc-t"><span class="en">Math · Grade 8 · BNU</span><span class="zh"><b>数学</b> · 八年级 · 北师大版</span></div><div class="sc-d"><span class="en">7 chapters · 33 topics · 196 videos · ready</span><span class="zh">7 章 · 33 知识点 · 196 段视频 · 已就绪</span></div></div>
-     <div class="subjcard phys"><div class="sc-t"><span class="en">Physics · Grade 8 · PEP</span><span class="zh"><b>物理</b> · 八年级 · 人教版</span></div><div class="sc-d"><span class="en">6 chapters · 28 topics · ready</span><span class="zh">6 章 · 28 个知识点 · 已就绪</span></div></div>
-    </div>
-  </div>
+   <div class="subjcard phys" role="link" tabindex="0" onclick="location.href=physicsHomeUrl()">
+    <div class="sc-t"><span class="en">Physics · Grade 8 · PEP</span><span class="zh"><b>物理</b> · 八年级 · 人教版</span></div>
+    <div class="sc-d"><span class="en">6 chapters · 28 topics · ready</span><span class="zh">6 章 · 28 个知识点 · 已就绪</span></div>
+    <span class="go"><span class="en">Enter →</span><span class="zh">进入 →</span></span>
+   </div>
   </div>
  </div>
 
@@ -331,34 +316,6 @@ html[data-theme="dark"] table th{color:var(--muted)}
 /* ============ Dual-language helper ============ */
 function L(a,b){return '<span class="en">'+a+'</span><span class="zh">'+(b==null?a:b)+'</span>';}
 
-/* ============ Options (data-driven; add more as pages get built) ============ */
-const GRADES=[
- {id:'7',en:'Grade 7',cz:'七年级'},
- {id:'8',en:'Grade 8',cz:'八年级'},
- {id:'9',en:'Grade 9',cz:'九年级'}
-];
-const SUBJECTS=[
- {id:'math',en:'Math',cz:'数学'},
- {id:'phys',en:'Physics',cz:'物理'},
- {id:'chem',en:'Chemistry',cz:'化学'}
-];
-const EDITIONS=[
- {id:'bsd',en:'BNU (Bei-Shi-Da)',cz:'北师大版',rec:true},
- {id:'rj', en:'People’s Education',cz:'人教版'},
- {id:'sk', en:'Su-Ke',cz:'苏科版'},
- {id:'hs', en:'Hua-Shi',cz:'华师版'},
- {id:'zj', en:'Zhejiang',cz:'浙教版'},
- {id:'hk', en:'Shanghai',cz:'沪科版'},
- {id:'sl', en:'Shandong',cz:'鲁教版'}
-];
-
-/* ============ Where each combo leads ============
-   Only combos with a built page are listed. Anything missing shows "coming soon".
-   Example: Grade 8 + Math + BNU  -> the site we built (home.html).
-   Add new lines here as more pages are created. */
-const MAP={
- '8':{ math:{ bsd:'home.html' }, phys:{ rj:'__PHYSICS__' } }
-};
 
 /* ============ Language tier (en / mix / zh) ============ */
 const LKEY='bnu8_lang';
@@ -372,58 +329,6 @@ function applyLang(){
 }
 applyLang();
 
-/* ============ State ============ */
-const SEL={grade:null,subject:null,edition:null};
-const SKEY='bnu8_start_sel';
-
-function renderChips(list,dim,box){
- box.innerHTML='';
- list.forEach(o=>{
-  const b=document.createElement('button');
-  b.className='chip';
-  b.dataset.id=o.id;
-  b.innerHTML=L(o.en,o.cz)+(o.rec?' <span class="rec"><span class="en">ready now</span><span class="zh">已做好</span></span>':'');
-  b.onclick=()=>{
-   SEL[dim]=o.id;
-   [...box.children].forEach(c=>c.classList.toggle('on',c.dataset.id===o.id));
-   update();
-  };
-  box.appendChild(b);
- });
-}
-renderChips(GRADES,'grade',document.getElementById('gradeChips'));
-renderChips(SUBJECTS,'subject',document.getElementById('subjectChips'));
-renderChips(EDITIONS,'edition',document.getElementById('editionChips'));
-// BNU is the edition this site is built for — pre-select it so nobody has to guess.
-(function(){SEL.edition='bsd';[...document.getElementById('editionChips').children].forEach(c=>c.classList.toggle('on',c.dataset.id==='bsd'));update();})();
-
-/* when the subject changes, auto-pick the edition that subject is built for,
-   so a parent choosing Physics lands on PEP without extra chip switching */
-function autoEdition(){
- const want = SEL.subject==='phys' ? 'rj' : (SEL.subject==='math' ? 'bsd' : SEL.edition);
- if(!want || SEL.edition===want) return;
- SEL.edition=want;
- [...document.getElementById('editionChips').children].forEach(c=>c.classList.toggle('on',c.dataset.id===want));
- update();
-}
-[...document.getElementById('subjectChips').children].forEach(c=>c.addEventListener('click',autoEdition));
-
-function label(dim,id){
- const map={grade:GRADES,subject:SUBJECTS,edition:EDITIONS};
- const o=map[dim].find(x=>x.id===id);
- return o?L(o.en,o.cz):'';
-}
-function update(){
- const done=SEL.grade&&SEL.subject&&SEL.edition;
- document.getElementById('enterBtn').disabled=!done;
- const line=document.getElementById('chooseLine');
- if(done){
-  line.innerHTML=L('You chose: ','您选择了：')+label('grade',SEL.grade)+' · '+label('subject',SEL.subject)+' · '+label('edition',SEL.edition);
- }else{
-  line.innerHTML='';
- }
- document.getElementById('soon').classList.remove('show');
-}
 
 function physicsHomeUrl(){
  if(location.protocol==='file:') return '../site-physics/home.html';
@@ -431,49 +336,6 @@ function physicsHomeUrl(){
  const mapped=seg.replace(/^cirechen(-test)?$/,function(m,p){return 'cirechen-physics'+(p||'');});
  return location.origin+'/'+mapped+'/home.html';
 }
-function target(){
- const g=MAP[SEL.grade];
- if(!g)return null;
- const s=g[SEL.subject];
- if(!s)return null;
- const t=s[SEL.edition];
- if(!t)return null;
- if(t==='__PHYSICS__') return physicsHomeUrl();
- return t;
-}
-
-document.getElementById('enterBtn').onclick=function(){
- if(!(SEL.grade&&SEL.subject&&SEL.edition))return;
- localStorage.setItem(SKEY,JSON.stringify(SEL));
- const t=target();
- if(t){
-  location.href=t;
- }else{
-  const box=document.getElementById('soon');
-  box.innerHTML='<div class="t">'+L('Not built yet','这个组合还没做好')+'</div>'
-   +'<div>'+L('You chose ','您选择了 ')+label('grade',SEL.grade)+' · '+label('subject',SEL.subject)+' · '+label('edition',SEL.edition)
-   +'. '+L('More grade / subject / edition pages are being added. For now, Grade 8 · Math (BNU) and Grade 8 · Physics (PEP) are ready.','。更多「年级 / 学科 / 版本」页面正在陆续补齐。目前已做好：八年级 · 数学（北师大版）和八年级 · 物理（人教版）。')+'</div>';
-  box.classList.add('show');
- }
-};
-
-/* ============ Prefill last choice ============ */
-(function(){
- try{
-  const saved=JSON.parse(localStorage.getItem(SKEY));
-  if(saved&&saved.grade&&saved.subject&&saved.edition){
-   for(const [dim,box] of [['grade',document.getElementById('gradeChips')],['subject',document.getElementById('subjectChips')],['edition',document.getElementById('editionChips')]]){
-    const chip=[...box.children].find(c=>c.dataset.id===saved[dim]);
-    if(chip){chip.click();}
-   }
-   const r=document.getElementById('remind');
-   r.style.display='block';
-   r.innerHTML=L('Last time you opened: ','上次您进来时选的是：')+label('grade',saved.grade)+' · '+label('subject',saved.subject)+' · '+label('edition',saved.edition)
-    +' <a id="enterSaved">'+L('open it again →','直接再进 →')+'</a>';
-   document.getElementById('enterSaved').onclick=()=>{location.href=target()||'home.html';};
-  }
- }catch(e){}
-})();
 
 /* ============ Parent letter: its own language switch ============ */
 (function(){
@@ -496,13 +358,12 @@ document.getElementById('enterBtn').onclick=function(){
  });
 })();
 
-/* ============ On small screens, collapse the long letter so it doesn't push the picker down ============ */
+/* ============ Keep the parent letter collapsed by default (collapses further on small screens) ============ */
 (function(){
  function fit(){
-  document.querySelectorAll('.parents').forEach(function(d){
-   if(window.innerWidth<760){ d.removeAttribute('open'); }
-   else if(!d.hasAttribute('open')){ d.setAttribute('open',''); }
-  });
+  if(window.innerWidth<760){
+   document.querySelectorAll('.parents').forEach(function(d){ d.removeAttribute('open'); });
+  }
  }
  fit();
  window.addEventListener('resize',fit);
