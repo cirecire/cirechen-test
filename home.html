@@ -7,12 +7,12 @@
 <style>
 :root{
  --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#5b6472;
- --accent:#7c3aed; --ok:#15803d; --err:#b91c1c; --warn:#b45309;
+ --accent:#b45309; --ok:#15803d; --err:#b91c1c; --warn:#b45309;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 .wrap{max-width:1180px;margin:0 auto;padding:18px}
-header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:24px 28px;border-radius:14px;margin-bottom:16px}
+header{background:linear-gradient(135deg,#92400e,#b45309);color:#fff;padding:24px 28px;border-radius:14px;margin-bottom:16px}
 header h1{font-size:20px;margin-bottom:4px}
 header .h1sub{font-size:22px;font-weight:700;letter-spacing:.06em;margin-bottom:10px;line-height:1.25}
 header p{opacity:.93;font-size:13px}
@@ -26,12 +26,12 @@ header p{opacity:.93;font-size:13px}
 .welcome-lead{font-size:14px;color:#78350f;margin-bottom:14px;line-height:1.5}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
 .step-card{background:rgba(255,255,255,.65);border-radius:10px;padding:10px 12px;border:1px solid rgba(252,211,77,.5)}
-.step-no{width:24px;height:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;margin-bottom:6px}
+.step-no{width:24px;height:24px;background:#b45309;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;margin-bottom:6px}
 .step-t{font-weight:600;font-size:13px;color:#1f2937;margin-bottom:3px}
 .step-d{font-size:12px;color:#5b6472;line-height:1.4}
 .welcome-cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.welcome-cta .big{font-size:15px;padding:11px 20px;background:#7c3aed;color:#fff;border-radius:9px;border:none;cursor:pointer;font-weight:600;font-family:inherit}
-.welcome-cta .big:hover{background:#6d28d9}
+.welcome-cta .big{font-size:15px;padding:11px 20px;background:#b45309;color:#fff;border-radius:9px;border:none;cursor:pointer;font-weight:600;font-family:inherit}
+.welcome-cta .big:hover{background:#92400e}
 .welcome-cta .skip{font-size:12px;color:#78350f;text-decoration:underline;cursor:pointer;background:transparent;border:none;padding:4px 6px;font-family:inherit}
 .show-guide{font-size:12px;color:#fff;opacity:.85;text-decoration:underline;margin-left:12px;cursor:pointer;background:transparent;border:none;padding:0;font-family:inherit;font-weight:400}
 .show-guide:hover{opacity:1}
@@ -59,8 +59,8 @@ h2 small{font-size:12px;color:var(--muted);font-weight:400}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
 .summary{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-bottom:8px}
 @media(max-width:680px){.summary{grid-template-columns:1fr}}
-.big-prog{height:14px;background:#ede9fe;border-radius:7px;overflow:hidden;margin:10px 0}
-.big-prog div{height:100%;background:linear-gradient(90deg,#7c3aed,#a855f7);transition:width .4s}
+.big-prog{height:14px;background:#fef3e2;border-radius:7px;overflow:hidden;margin:10px 0}
+.big-prog div{height:100%;background:linear-gradient(90deg,#b45309,#d97706);transition:width .4s}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .stat{background:#f9fafb;border:1px solid var(--line);border-radius:9px;padding:10px 12px}
 .stat .v{font-size:19px;font-weight:700;color:var(--accent)}
@@ -150,14 +150,14 @@ body.lang-mix .note .zh { font-size: inherit; }
   color-scheme:dark;
   --bg:#0f172a;--card:#1e293b;--card2:#172033;--line:#334155;
   --text:#e5e7eb;--muted:#94a3b8;--ink:#e5e7eb;--mute:#94a3b8;
-  --accent:#a78bfa;--ok:#4ade80;--err:#f87171;--warn:#fbbf24;--bad:#f87171;
+  --accent:#fbbf24;--ok:#4ade80;--err:#f87171;--warn:#fbbf24;--bad:#f87171;
  }
 }
 html[data-theme="dark"]{
  color-scheme:dark;
  --bg:#0f172a;--card:#1e293b;--card2:#172033;--line:#334155;
  --text:#e5e7eb;--muted:#94a3b8;--ink:#e5e7eb;--mute:#94a3b8;
- --accent:#a78bfa;--ok:#4ade80;--err:#f87171;--warn:#fbbf24;--bad:#f87171;
+ --accent:#fbbf24;--ok:#4ade80;--err:#f87171;--warn:#fbbf24;--bad:#f87171;
 }
 html[data-theme="light"]{color-scheme:light}
 html[data-theme="dark"] body{background:var(--bg);color:var(--text)}
@@ -205,13 +205,13 @@ html[data-theme="dark"] .themseg button.on{color:#0f172a!important}
 html[data-theme="dark"] .nav-i.on .st.ok,
 html[data-theme="dark"] .nav-i.on .st.err{color:#0f172a!important}
 html[data-theme="dark"] .chip.on .rec{color:#0f172a!important}
-html[data-theme="dark"] .step{color:#1e1b4b!important}
+html[data-theme="dark"] .step{color:#451a03!important}
 html[data-theme="dark"] .ltsw button{color:#93c5fd!important}
 html[data-theme="dark"] .welcome-cta .big{color:#fff!important}
 /* "paper" panels: stay light so dark diagram / equation strokes remain visible */
 html[data-theme="dark"] .fig,html[data-theme="dark"] .eqbox{color:#1f2937}
 html[data-theme="dark"] .fig *{color:#1f2937!important}
-html[data-theme="dark"] .eqbox .num{color:#6d3bdf!important}
+html[data-theme="dark"] .eqbox .num{color:#b45309!important}
 html[data-theme="dark"] svg{background:#fff;border-radius:8px;padding:4px}
 /* cream / yellow panels: stay light, so their ink must stay dark */
 html[data-theme="dark"] .note,html[data-theme="dark"] .note *{color:#1f2937}
@@ -342,7 +342,7 @@ html[data-theme="dark"] table th{color:var(--muted)}
 
 <script>
 const CH=[
- {k:'ch01',cn:'Pythagorean Theorem',cz:'勾股定理',en:'Pythagorean Theorem',p:4,c:'#7c3aed',
+ {k:'ch01',cn:'Pythagorean Theorem',cz:'勾股定理',en:'Pythagorean Theorem',p:4,c:'#b45309',
   L:[['k1','Exploring the theorem'],['k2','Is it a right triangle?'],['k3','Applications'],['k4','Strategy: reflect']],v:13},
  {k:'ch02',cn:'Real Numbers',cz:'实数',en:'Real Numbers',p:11,c:'#0e7490',
   L:[['k1','Irrational numbers'],['k2','Square roots'],['k3','Cube roots'],['k4','Estimating roots'],['k5','Using a calculator'],['k6','The real numbers'],['k7','Radicals'],['ext','Optional extra · Scientific notation']],v:34},
@@ -354,7 +354,7 @@ const CH=[
   L:[['k1','What is a system?'],['k2','Substitution'],['k3','Elimination'],['k4','Word problems'],['k5','Systems and graphs'],['k6','Find the line from two points'],['ext','Three variables (optional)']],v:36},
  {k:'ch06',cn:'Data Analysis',cz:'数据分析',en:'Data Analysis',p:6,c:'#be185d',
   L:[['k1','Mean / median / mode'],['k4','Reading from charts'],['k2','Variance & standard deviation'],['k3','Box plots']],v:29},
- {k:'ch07',cn:'Proofs with Parallel Lines',cz:'平行线证明',en:'Proofs with Parallel Lines',p:7,c:'#4f46e5',
+ {k:'ch07',cn:'Proofs with Parallel Lines',cz:'平行线证明',en:'Proofs with Parallel Lines',p:7,c:'#92400e',
   L:[['k1','Why prove?'],['k2','Writing a proof'],['k3','Parallel lines: the tests'],['k4','Parallel lines: what follows'],['k5','Triangle angle sum']],v:15},
 ];
 
