@@ -7,17 +7,17 @@
 <style>
 :root{
  --bg:#fafafa; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#5b6472;
- --accent:#7c3aed; --ok:#15803d; --err:#b91c1c; --warn:#b45309;
+ --accent:#b45309; --ok:#15803d; --err:#b91c1c; --warn:#b45309;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 .wrap{display:grid;grid-template-columns:240px 1fr;gap:18px;max-width:1200px;margin:0 auto;padding:18px}
-header{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;padding:22px 26px;border-radius:14px;margin-bottom:14px;grid-column:1/-1}
+header{background:linear-gradient(135deg,#b45309,#d97706);color:#fff;padding:22px 26px;border-radius:14px;margin-bottom:14px;grid-column:1/-1}
 header h1{font-size:22px;margin-bottom:4px}
 header p{opacity:.92;font-size:13px}
 nav{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;height:fit-content;position:sticky;top:14px}
 .nav-i{padding:10px 12px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.nav-i:hover{background:#f5f3ff}
+.nav-i:hover{background:#fef3e2}
 .nav-i.on{background:var(--accent);color:#fff}
 .nav-i .st{font-size:11px;opacity:.85}
 .nav-i .st.ok{color:var(--ok)}
@@ -33,7 +33,7 @@ h2{font-size:18px;margin-bottom:6px}
 .note{background:#fffbeb;border-left:3px solid var(--warn);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
 .note strong{color:var(--warn)}
 .vid{margin:14px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.vid-h{padding:10px 14px;background:#f5f3ff;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.vid-h{padding:10px 14px;background:#fef3e2;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:10px}
 .vid-h .meta{display:flex;gap:8px;align-items:center;font-size:11px}
 .tag{background:#e5e7eb;padding:2px 8px;border-radius:10px;font-size:11px}
 .tag.core{background:#dcfce7;color:#166534}
@@ -67,7 +67,7 @@ svg{max-width:100%;display:block;margin:0 auto}
 .kp-c .n{font-size:12px;color:var(--accent);font-weight:700}
 .kp-c .t{font-size:15px;font-weight:600;margin:2px 0 5px;line-height:1.4}
 .kp-c .d{font-size:12px;color:var(--muted);line-height:1.55}
-.why{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:14px 16px;margin:14px 0;font-size:14px;line-height:1.85}
+.why{background:#fef3e2;border:1px solid #fcd34d;border-radius:10px;padding:14px 16px;margin:14px 0;font-size:14px;line-height:1.85}
 .why b{color:var(--accent)}
 .how{font-size:14px;line-height:2.1;margin:8px 0 2px}
 .how b{color:var(--accent)}
@@ -126,14 +126,14 @@ body.lang-mix .note .zh { font-size: inherit; }
   color-scheme:dark;
   --bg:#0f172a;--card:#1e293b;--card2:#172033;--line:#334155;
   --text:#e5e7eb;--muted:#94a3b8;--ink:#e5e7eb;--mute:#94a3b8;
-  --accent:#a78bfa;--ok:#4ade80;--err:#f87171;--warn:#fbbf24;--bad:#f87171;
+  --accent:#fbbf24;--ok:#4ade80;--err:#f87171;--warn:#fbbf24;--bad:#f87171;
  }
 }
 html[data-theme="dark"]{
  color-scheme:dark;
  --bg:#0f172a;--card:#1e293b;--card2:#172033;--line:#334155;
  --text:#e5e7eb;--muted:#94a3b8;--ink:#e5e7eb;--mute:#94a3b8;
- --accent:#a78bfa;--ok:#4ade80;--err:#f87171;--warn:#fbbf24;--bad:#f87171;
+ --accent:#fbbf24;--ok:#4ade80;--err:#f87171;--warn:#fbbf24;--bad:#f87171;
 }
 html[data-theme="light"]{color-scheme:light}
 html[data-theme="dark"] body{background:var(--bg);color:var(--text)}
@@ -181,13 +181,13 @@ html[data-theme="dark"] .themseg button.on{color:#0f172a!important}
 html[data-theme="dark"] .nav-i.on .st.ok,
 html[data-theme="dark"] .nav-i.on .st.err{color:#0f172a!important}
 html[data-theme="dark"] .chip.on .rec{color:#0f172a!important}
-html[data-theme="dark"] .step{color:#1e1b4b!important}
+html[data-theme="dark"] .step{color:#451a03!important}
 html[data-theme="dark"] .ltsw button{color:#93c5fd!important}
 html[data-theme="dark"] .welcome-cta .big{color:#fff!important}
 /* "paper" panels: stay light so dark diagram / equation strokes remain visible */
 html[data-theme="dark"] .fig,html[data-theme="dark"] .eqbox{color:#1f2937}
 html[data-theme="dark"] .fig *{color:#1f2937!important}
-html[data-theme="dark"] .eqbox .num{color:#6d3bdf!important}
+html[data-theme="dark"] .eqbox .num{color:#b45309!important}
 html[data-theme="dark"] svg{background:#fff;border-radius:8px;padding:4px}
 /* cream / yellow panels: stay light, so their ink must stay dark */
 html[data-theme="dark"] .note,html[data-theme="dark"] .note *{color:#1f2937}
@@ -216,8 +216,8 @@ html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
 </head>
 <body>
 <div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 16px;font-size:13px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:99">
- <a href="index.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="zh">← 主页</span><span class="en">← Home</span></a> <a href="home.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">← Overview</span><span class="zh">← 总览</span></a>
- <a href="unittests.html" style="color:#7c3aed;text-decoration:none;font-weight:600"><span class="en">Unit tests</span><span class="zh">单元测试</span></a>
+ <a href="index.html" style="color:#b45309;text-decoration:none;font-weight:600"><span class="zh">← 主页</span><span class="en">← Home</span></a> <a href="home.html" style="color:#b45309;text-decoration:none;font-weight:600"><span class="en">← Overview</span><span class="zh">← 总览</span></a>
+ <a href="unittests.html" style="color:#b45309;text-decoration:none;font-weight:600"><span class="en">Unit tests</span><span class="zh">单元测试</span></a>
  <span style="font-size:11px;color:#5b6472"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
 </div>
 
