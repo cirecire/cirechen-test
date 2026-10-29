@@ -43,6 +43,26 @@ html[data-theme="dark"]{
   }
 }
 
+/* ---------- dark mode: force dark ink on amber-background elements (contrast) ---------- */
+/* In dark mode --accent becomes light amber (#fbbf24); white text on it is unreadable. */
+html[data-theme="dark"] button:not(.ghost),
+html[data-theme="dark"] .chip.on,
+html[data-theme="dark"] .nav-i.on,
+html[data-theme="dark"] .sel .num,
+html[data-theme="dark"] .langseg.on,
+html[data-theme="dark"] .themseg.on,
+html[data-theme="dark"] .step-no{ color:#0f172a; }
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) button:not(.ghost),
+  :root:not([data-theme="light"]) .chip.on,
+  :root:not([data-theme="light"]) .nav-i.on,
+  :root:not([data-theme="light"]) .sel .num,
+  :root:not([data-theme="light"]) .langseg.on,
+  :root:not([data-theme="light"]) .themseg.on,
+  :root:not([data-theme="light"]) .step-no{ color:#0f172a; }
+}
+
 /* ---------- base typography (Cambridge: confident hierarchy, calm body) ---------- */
 body{font-family:var(--font);font-size:16px;line-height:1.68;letter-spacing:.002em;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 h1,h2,h3,h4{letter-spacing:-.018em;line-height:1.22}
