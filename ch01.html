@@ -445,6 +445,26 @@ function genQ(type,diff){
               zhs:`折断部分 = ${l} − h = ${c}。于是 h² + ${d}² = ${c}²，所以 h² = ${c*c} − ${d*d} = ${c*c-d*d}，h = ${h}`};
     }
   }
+  if(type==='dist'){
+    // distance between two grid points = sqrt(dx² + dy²); a Pythagorean triple keeps the answer an integer
+    let a,b,c;
+    if(diff===1){ const p=pick(PYTH.filter(x=>x[0]<=9&&x[1]<=12)); a=p[0];b=p[1];c=p[2]; }
+    else if(diff===2){ const p=pick(PYTH.filter(x=>x[2]<=26)); a=p[0];b=p[1];c=p[2]; }
+    else {
+      let m,n,guard=0;
+      do { m=ri(2,6); n=ri(1,m-1); a=m*m-n*n; b=2*m*n; c=m*m+n*n; guard++; } while(c>40 && guard<200);
+      if(a>b){ const t=a; a=b; b=t; }
+    }
+    const horiz=Math.random()<0.5?a:b, vert=horiz===a?b:a;
+    const x1=ri(0,6), y1=ri(0,6), x2=x1+horiz, y2=y1+vert;
+    return {q:`What is the distance between <b>(${x1}, ${y1})</b> and <b>(${x2}, ${y2})</b>?`,
+            zhq:`点 <b>(${x1}, ${y1})</b> 与点 <b>(${x2}, ${y2})</b> 之间的距离是多少？`,
+            ans:c,
+            hint:'Square the horizontal gap and the vertical gap, add them, then take the square root. (This is the Pythagorean theorem turned sideways.)',
+            zhh:'把横向差和纵向差分别平方，相加后再开平方。（这就是勾股定理转了个方向。）',
+            sol:`Horizontal gap = ${horiz}, vertical gap = ${vert}; distance = √(${horiz}² + ${vert}²) = √(${a*a} + ${b*b}) = √${a*a+b*b} = ${c}`,
+            zhs:`横向差 = ${horiz}，纵向差 = ${vert}；距离 = √(${horiz}² + ${vert}²) = √(${a*a} + ${b*b}) = √${a*a+b*b} = ${c}`};
+  }
 }
 
 function renderQ(el,q,onAns,showHint){
@@ -751,7 +771,7 @@ function chTest(el){
     <div class="lead">8 questions covering the 4 topics in this chapter. Do them on your own, no hints.</div>
     <div id="tq"></div><div class="row"><button id="sub"><span class="en">Submit</span><span class="zh">提交</span></button></div><div id="res"></div>`;
   const box=el.querySelector('#tq');
-  const types=['hyp','leg','conv','word','hyp','leg','conv','word'];
+  const types=['hyp','leg','conv','word','hyp','leg','conv','word','dist'];
   const qs=types.map((t,i)=>genQ(t, i<4?1:2));
   let ans=[];
   qs.forEach((q,i)=>{
@@ -845,7 +865,7 @@ function render(){
     const d=document.createElement('div'); microK1(d); m.appendChild(d);
     const v=document.createElement('div'); v.id='vidk1'; videos(v,V.k1,'k1'); m.appendChild(v);
     const p=document.createElement('div'); diag(p,'k1',['hyp','leg','conv']); m.appendChild(p);
-    const pr=document.createElement('div'); prac(pr,'k1',['hyp','leg','conv'],5); m.appendChild(pr);
+    const pr=document.createElement('div'); prac(pr,'k1',['hyp','leg','conv','dist'],5); m.appendChild(pr);
   }
   else if(cur==='k2'){
     const d=document.createElement('div'); microK2(d); m.appendChild(d);
