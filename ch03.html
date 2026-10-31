@@ -257,17 +257,15 @@ html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
 </div>
 
 <script>
-const VDIR='videos/Ch03_位置与坐标/';
-
 /* ===== YouTube embed (Khan Academy official) with local mp4 fallback ===== */
 const YT={"01_Introduction to the coordinate plane.mp4":"pAlq9fFwtus","02_Coordinate plane examples.mp4":"VhNkWdLGpmA","08_Interpreting plotted points.mp4":"9EEJU4Ox-TE","09_Finding the point not graphed.mp4":"V68yeN9-mH4","10_Plotting a point (ordered pair).mp4":"5ctsUsvIp8w","11_Reflecting points.mp4":"INqaHHZGt8w","05_Using reflection tool.mp4":"RLyXTj2j_c4","03_Introduction to transformations.mp4":"XiAoUDfrar0","04_Translation example.mp4":"oxSzkIftog8","06_Using rotation widget.mp4":"UKM8BnpZr94","07_Scaling down a triangle by half.mp4":"qlWZJ21O63s"};
 function ytSrc(f){return (typeof YT!=='undefined'&&YT[f])?('https://www.youtube-nocookie.com/embed/'+YT[f]+'?rel=0'):null;}
 function vidHTML(v){var s=ytSrc(v.f);
  if(s){return '<iframe src="'+s+'" title="'+String(v.t||'').replace(/"/g,'&quot;')+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%;aspect-ratio:16/9;border:0;display:block;background:#000"></iframe>';}
- return '<video controls preload="none" style="width:100%;background:#000" src="'+encodeURI(VDIR+v.f)+'"></video>';}
+ return '<div style="padding:14px;background:#f3f4f6;color:#0f172a;border-radius:10px">&#9654; <a href="https://www.youtube.com/watch?v='+(YT[v.f]||'')+'" target="_blank" rel="noopener">Watch on YouTube</a></div>';}
 function vidEl(v){var s=ytSrc(v.f);
  if(s){var f=document.createElement('iframe');f.className='ytv';f.src=s;f.setAttribute('frameborder','0');f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');f.setAttribute('allowfullscreen','');f.style.cssText='width:100%;aspect-ratio:16/9;border:0;display:block;background:#000';return f;}
- var p=document.createElement('video');p.controls=true;p.preload='metadata';p.src=encodeURI(VDIR+v.f);return p;}
+ var a=document.createElement('a');a.href='https://www.youtube.com/watch?v='+(YT[v.f]||'');a.target='_blank';a.rel='noopener';a.textContent='Watch on YouTube';a.style.cssText='display:inline-block;padding:14px;background:#f3f4f6;color:#0f172a;border-radius:10px';return a;}
 
 const KEY='bnu8_ch03_state';
 let S=load();
