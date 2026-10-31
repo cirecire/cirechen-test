@@ -156,13 +156,80 @@ input,select,textarea{border-radius:var(--radius-sm);border:1px solid var(--line
 hr{border:none;height:1px;background:var(--line);margin:30px 0}
 blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:10px;color:inherit}
 
-/* ===== Mobile (<=680px): the fixed language/theme cluster must not overlap page content ===== */
-/* These rules only fire on phones/small tablets and override the inline `position:fixed`
-   so the controls drop into normal flow instead of floating over the hero / title. */
+/* ============================================================
+   ===== Small-screen / mobile optimization =====
+   Targets WeChat in-app browser, iOS Safari, Android Chrome on
+   phones (<= ~430px) and small tablets. These rules load AFTER
+   each page's inline <style> and use !important to override the
+   inline `position:fixed` and fixed-width rules. No JS/logic is
+   touched — presentation only.
+   ============================================================ */
+
+/* ---- base safeguards (all screens) ---- */
+html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+img,video,svg,canvas{ max-width:100%; height:auto; }
+iframe{ max-width:100%; }
+body{ overflow-x:hidden; }
+
+/* ---- phones + small tablets: collapse every 2-col sidebar / layout ---- */
+@media (max-width:820px){
+  .layout, .home-grid, .wrap{ grid-template-columns:1fr !important; }
+  nav{ position:static !important; width:auto !important; max-height:none !important; overflow:visible !important; }
+}
+
+/* ---- phones: the real tuning ---- */
 @media (max-width:680px){
-  .langbar, .themebar{ position:static !important; top:auto !important; right:auto !important; box-shadow:none !important; margin:6px 8px 0; }
-  /* portal hero: let the badge wrap below the wordmark so nothing collides */
-  .brand{ flex-wrap:wrap; }
-  .brand h1{ font-size:26px; }
-  .brand .pill{ margin-left:0; margin-top:8px; }
+  /* 1) the top control cluster (language / theme / back-home) drops into normal flow,
+        so it can never float over the hero or the title on a small screen */
+  .langbar, .themebar, .portalbar{
+    position:static !important; top:auto !important; right:auto !important; left:auto !important;
+    box-shadow:none !important; margin:6px 8px 0 !important; z-index:auto !important;
+  }
+  .portalbar{ display:inline-flex !important; }
+
+  /* 2) single-column, airy flow */
+  .wrap{ padding:16px 14px !important; }
+
+  /* 3) brand / hero shrink so nothing collides or overflows */
+  .brand{ flex-wrap:wrap; gap:10px; }
+  .brand h1{ font-size:23px !important; }
+  .brand .pill{ margin-left:0 !important; margin-top:6px; }
+  header{ padding:22px 18px !important; }
+  header h1{ font-size:21px !important; }
+  header.hero{ padding:28px 0 24px !important; }
+  .hero-in{ padding:0 16px !important; }
+
+  /* 4) type scale: keep headings on one line */
+  h1{ font-size:23px; }
+  h2{ font-size:19px; margin:22px 0 12px; }
+  h3{ font-size:16px; }
+
+  /* 5) cards: tighter padding, no overflow */
+  .card, .summary, .step-card{ padding:16px !important; }
+  .note, .hint, .parents, .bridge{ padding:12px 14px; }
+  .ch .top{ flex-wrap:wrap; gap:6px; }
+
+  /* 6) grids of cards -> one column on phones */
+  .micro, .steps, .summary, .entry, .subjcards{ grid-template-columns:1fr !important; }
+  .stats{ grid-template-columns:repeat(2,1fr) !important; }
+  .kp{ grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr)) !important; }
+
+  /* 7) forms: 16px stops iOS Safari auto-zoom on focus; let flex inputs shrink */
+  input, select, textarea{ font-size:16px !important; max-width:100%; }
+  .row input:not([type=number]), .controls input:not([type=number]),
+  .q input:not([type=number]), .col input:not([type=number]){ flex:1 1 120px; min-width:0; }
+
+  /* 8) inline diagnostic number inputs (#1: [ ] #2: [ ]) stay small + must wrap */
+  input[type=number]{ width:56px !important; }
+
+  /* 9) YouTube / video embeds: guarantee responsive 16:9, no overflow */
+  iframe{ width:100% !important; max-width:100%; }
+  .vid, [id^="vc"]{ max-width:100%; }
+
+  /* 10) data viz: let a wide bar chart scroll instead of breaking the layout */
+  .bars{ overflow-x:auto; }
+
+  /* 11) tables: keep inside the viewport */
+  table{ max-width:100%; }
+  td, th{ padding:6px 8px; }
 }
