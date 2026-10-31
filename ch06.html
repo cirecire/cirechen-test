@@ -247,17 +247,15 @@ html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
 </div>
 
 <script>
-const VDIR='videos/Ch06_数据的分析/';
-
 /* ===== YouTube embed (Khan Academy official) with local mp4 fallback ===== */
 const YT={"01_Finding mean, median, and mode.mp4":"k3aKKasOmIw","02_Averages.mp4":"9VZsMY15xeU","20_Means and medians of different distributions.mp4":"eLyLbaXfJXo","21_Median & range puzzlers.mp4":"0cHCpgQD_8k","22_Missing value given the mean.mp4":"glBPW6LQI2Q","03_Impact on median and mean when increasing highest value.mp4":"K1y6Tz_E7oA","04_Impact on median and mean when removing lowest value.mp4":"-2OOBEBq9-4","11_Finding the range and mid-range.mp4":"7DtWXEPB_AI","09_Ways to represent data.mp4":"0ZKtsUkrgFQ","06_Frequency tables and dot plots.mp4":"gdE46YSedvE","07_How to interpret a histogram.mp4":"c02vjunQsJM","08_How to create a histogram.mp4":"gSEYtAjuZ-Y","05_Median in a histogram.mp4":"xTwDmnEEb9E","10_Thinking about shapes of distributions.mp4":"2oJldeE4JcU","23_Measures of spread - range, variance & standard deviation.mp4":"8YA1dKpACAM","12_Statistics- Variance of a population.mp4":"6JFzI1DDyyk","14_Population standard deviation.mp4":"PWiWkqHmum0","15_Statistics- Standard deviation.mp4":"HvDqbzu0i0E","17_Range, variance and standard deviation as measures of dispersion.mp4":"E4HAYd0QnRc","13_Sample variance.mp4":"iHXdzfF7UEs","16_Sample standard deviation and bias.mp4":"DNAnQBhGpRw","18_How to calculate interquartile range (IQR).mp4":"qLYYHWYr8xI","19_Mean absolute deviation.mp4":"GdIkEngwGNU","24_Reading box plots.mp4":"oBREri10ZHk","25_Constructing a box plot.mp4":"09Cx7xuIXig","28_Interpreting box plots.mp4":"oBREri10ZHk","29_Judging outliers in a dataset.mp4":"FRlTh5HQORA"};
 function ytSrc(f){return (typeof YT!=='undefined'&&YT[f])?('https://www.youtube-nocookie.com/embed/'+YT[f]+'?rel=0'):null;}
 function vidHTML(v){var s=ytSrc(v.f);
  if(s){return '<iframe src="'+s+'" title="'+String(v.t||'').replace(/"/g,'&quot;')+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%;aspect-ratio:16/9;border:0;display:block;background:#000"></iframe>';}
- return '<video controls preload="none" style="width:100%;background:#000" src="'+encodeURI(VDIR+v.f)+'"></video>';}
+ return '<div style="padding:14px;background:#f3f4f6;color:#0f172a;border-radius:10px">&#9654; <a href="https://www.youtube.com/watch?v='+(YT[v.f]||'')+'" target="_blank" rel="noopener">Watch on YouTube</a></div>';}
 function vidEl(v){var s=ytSrc(v.f);
  if(s){var f=document.createElement('iframe');f.className='ytv';f.src=s;f.setAttribute('frameborder','0');f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');f.setAttribute('allowfullscreen','');f.style.cssText='width:100%;aspect-ratio:16/9;border:0;display:block;background:#000';return f;}
- var p=document.createElement('video');p.controls=true;p.preload='metadata';p.src=encodeURI(VDIR+v.f);return p;}
+ var a=document.createElement('a');a.href='https://www.youtube.com/watch?v='+(YT[v.f]||'');a.target='_blank';a.rel='noopener';a.textContent='Watch on YouTube';a.style.cssText='display:inline-block;padding:14px;background:#f3f4f6;color:#0f172a;border-radius:10px';return a;}
 
 
 const VTZ={
