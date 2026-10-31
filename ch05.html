@@ -247,17 +247,15 @@ html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
 </div>
 
 <script>
-const VDIR='videos/Ch05_二元一次方程组/';
-
 /* ===== YouTube embed (Khan Academy official) with local mp4 fallback ===== */
 const YT={"01_Solving linear systems by graphing (intro).mp4":"5a6zpfl50go","02_Checking solutions to systems of equations example.mp4":"SkMNREAMNvc","18_Constructing solutions to systems of equations.mp4":"Z96vkuybvjE","03_The substitution method.mp4":"uzyd_mIJaoc","04_Substitution method 2.mp4":"2VeqrZ_PMiY","05_Solving systems by substitution — Example 3.mp4":"0BgUKHTW37E","06_Solving systems by substitution — Example 2.mp4":"wB3QCk0MGuw","07_Linear systems word problem with substitution.mp4":"cNlwi6lUCEM","24_Systems of equations with substitution - 2y=x+7 & x=y-4.mp4":"WslHr8LeuxU","26_Systems of equations with substitution - 9x+3y=15 & y-x=5.mp4":"E4FDDkOz3RA","27_Systems of equations with substitution - y=-5x+8 & 10x+2y=-2.mp4":"VjlWrVQtSB0","08_Addition elimination method 1.mp4":"0P0SCQf-hWQ","09_Addition elimination method 2.mp4":"hJOqGkWElNs","10_Addition elimination method 3.mp4":"mKu0L46Qed4","11_Addition elimination method 4.mp4":"DxSmZ0MDSxM","12_Solving systems by elimination — Example 2.mp4":"Y6JsEja15Vk","13_Solving systems by elimination — Example 3.mp4":"Dqp6xOeR3Ls","14_Systems of equations word problems — Example 1.mp4":"z1hz8-Kri1E","15_Systems of equations word problems — Example 2.mp4":"gRntusF_tVI","16_Systems of equations word problems — Example 4.mp4":"grmmM_KhQ4U","33_Age word problem - Imran.mp4":"o_pMx5gSCkg","34_Age word problem - Ben & William.mp4":"MWjtahYlDeQ","35_Age word problem - Arman & Diya.mp4":"JNds0goNFr0","17_Graphical systems application problem.mp4":"3mimxluSVBo","19_Graphing systems of equations.mp4":"MRAIgJmRmag","20_Graphically solving systems — Example 3.mp4":"F5Nb6cIRZLU","30_Systems of equations number of solutions - fruit prices (1 of.mp4":"8yxl4kh8Rqs","32_How many solutions does a system of linear equations have if.mp4":"ogEddosP1G8","23_Systems of equations with graphing - exact & approximate solu.mp4":"o4pbAQgJYjI","31_Systems of equations number of solutions - fruit prices (2 of.mp4":"CC8sFfl3qiE"};
 function ytSrc(f){return (typeof YT!=='undefined'&&YT[f])?('https://www.youtube-nocookie.com/embed/'+YT[f]+'?rel=0'):null;}
 function vidHTML(v){var s=ytSrc(v.f);
  if(s){return '<iframe src="'+s+'" title="'+String(v.t||'').replace(/"/g,'&quot;')+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%;aspect-ratio:16/9;border:0;display:block;background:#000"></iframe>';}
- return '<video controls preload="none" style="width:100%;background:#000" src="'+encodeURI(VDIR+v.f)+'"></video>';}
+ return '<div style="padding:14px;background:#f3f4f6;color:#0f172a;border-radius:10px">&#9654; <a href="https://www.youtube.com/watch?v='+(YT[v.f]||'')+'" target="_blank" rel="noopener">Watch on YouTube</a></div>';}
 function vidEl(v){var s=ytSrc(v.f);
  if(s){var f=document.createElement('iframe');f.className='ytv';f.src=s;f.setAttribute('frameborder','0');f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');f.setAttribute('allowfullscreen','');f.style.cssText='width:100%;aspect-ratio:16/9;border:0;display:block;background:#000';return f;}
- var p=document.createElement('video');p.controls=true;p.preload='metadata';p.src=encodeURI(VDIR+v.f);return p;}
+ var a=document.createElement('a');a.href='https://www.youtube.com/watch?v='+(YT[v.f]||'');a.target='_blank';a.rel='noopener';a.textContent='Watch on YouTube';a.style.cssText='display:inline-block;padding:14px;background:#f3f4f6;color:#0f172a;border-radius:10px';return a;}
 
 
 const VTZ={
