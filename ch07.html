@@ -249,17 +249,15 @@ html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
 </div>
 
 <script>
-const VDIR='videos/Ch07_平行线的证明/';
-
 /* ===== YouTube embed (Khan Academy official) with local mp4 fallback ===== */
 const YT={"04_Identifying parallel and perpendicular lines.mp4":"aq_XL6FrmGs","03_Using algebra to find measures of angles from transversal.mp4":"Ld7Vxb5XV6A","07_Finding more angles.mp4":"0gzSreH8nUI","05_Find measure of supplementary angles.mp4":"zNtbi4OJs9I","01_Angles formed by parallel lines and transversals.mp4":"H-E5rlpCVu4","02_Figuring out angles between transversal and parallel lines.mp4":"2WjGD3LZEWo","12_Missing angles with a transversal.mp4":"z8BoVhTkaBw","06_Find measure of complementary angles.mp4":"XDOH9Ul2OOM","08_Proof- Sum of measures of angles in a triangle are 180.mp4":"6s1CI3uuhko","15_Angles in a triangle sum to 180° proof.mp4":"6s1CI3uuhko","14_Isosceles & equilateral triangles problems.mp4":"7FTNWE7RTfQ","09_Triangle angle example 1.mp4":"hmj3_zbz2eg","10_Triangle angle example 2.mp4":"eTwnt4G5xE4","11_Challenging triangle angle problem.mp4":"95logvV8nXY","13_Worked example - Triangle angles (diagram).mp4":"6YSMrTD2sFE"};
 function ytSrc(f){return (typeof YT!=='undefined'&&YT[f])?('https://www.youtube-nocookie.com/embed/'+YT[f]+'?rel=0'):null;}
 function vidHTML(v){var s=ytSrc(v.f);
  if(s){return '<iframe src="'+s+'" title="'+String(v.t||'').replace(/"/g,'&quot;')+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%;aspect-ratio:16/9;border:0;display:block;background:#000"></iframe>';}
- return '<video controls preload="none" style="width:100%;background:#000" src="'+encodeURI(VDIR+v.f)+'"></video>';}
+ return '<div style="padding:14px;background:#f3f4f6;color:#0f172a;border-radius:10px">&#9654; <a href="https://www.youtube.com/watch?v='+(YT[v.f]||'')+'" target="_blank" rel="noopener">Watch on YouTube</a></div>';}
 function vidEl(v){var s=ytSrc(v.f);
  if(s){var f=document.createElement('iframe');f.className='ytv';f.src=s;f.setAttribute('frameborder','0');f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');f.setAttribute('allowfullscreen','');f.style.cssText='width:100%;aspect-ratio:16/9;border:0;display:block;background:#000';return f;}
- var p=document.createElement('video');p.controls=true;p.preload='metadata';p.src=encodeURI(VDIR+v.f);return p;}
+ var a=document.createElement('a');a.href='https://www.youtube.com/watch?v='+(YT[v.f]||'');a.target='_blank';a.rel='noopener';a.textContent='Watch on YouTube';a.style.cssText='display:inline-block;padding:14px;background:#f3f4f6;color:#0f172a;border-radius:10px';return a;}
 
 
 const VTZ={
