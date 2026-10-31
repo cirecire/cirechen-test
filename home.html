@@ -121,7 +121,6 @@ body.lang-en .parents .zh{display:none}
 .parents input[type=file]{font-size:14px;padding:6px 0}
 .parents .note{font-size:14px;padding:12px 14px;margin-top:12px}
 
-
 /* mix mode: stack bilingual content vertically so en/zh never run inline as one long line */
 body.lang-mix h1 .en, body.lang-mix h1 .zh,
 body.lang-mix h2 .en, body.lang-mix h2 .zh,
@@ -238,6 +237,22 @@ html[data-theme="dark"] table th{color:var(--muted)}
 <a class="portalbar" href="index.html" style="position:fixed;top:8px;left:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 14px;box-shadow:0 2px 12px rgba(0,0,0,.15);text-decoration:none;color:#374151;font-size:12px;font-weight:600" title="Back to home"><span class="zh">← 主页</span><span class="en">← Home</span></a>
 <div class="wrap">
 
+<div class="langbar" title="显示语言 · Language display — 随时可改 · change anytime">
+ <span class="langseg">
+  <button data-lang="en" onclick="setLang('en')">English</button>
+  <button data-lang="mix" onclick="setLang('mix')">English + 中文</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文 + English</button>
+ </span>
+</div>
+<div class="themebar" title="日间 / 夜间 / 自动 · Day / Night / Auto">
+ <span class="themseg">
+  <button data-theme="light" onclick="setTheme('light')" title="日间 · Day">☀️</button>
+  <button data-theme="dark" onclick="setTheme('dark')" title="夜间 · Night">🌙</button>
+  <button data-theme="auto" onclick="setTheme('auto')" title="自动跟随系统 · Auto">⚙️</button>
+ </span>
+</div>
+
+
 <header>
  <h1><span class="en">📚 My learning map</span><span class="zh">📚 我的学习地图</span></h1>
  <div class="h1sub"><span class="en">MATHEMATICS · GRADE 8 · BNU</span><span class="zh">数学 · 八年级 · 北师大版</span></div>
@@ -291,22 +306,6 @@ html[data-theme="dark"] table th{color:var(--muted)}
   <button class="skip" id="welcomeSkip">Hide this guide</button>
  </div>
 </div>
-
-<div class="langbar" title="显示语言 · Language display — 随时可改 · change anytime">
- <span class="langseg">
-  <button data-lang="en" onclick="setLang('en')">English</button>
-  <button data-lang="mix" onclick="setLang('mix')">English + 中文</button>
-  <button data-lang="zh" onclick="setLang('zh')">中文 + English</button>
- </span>
-</div>
-<div class="themebar" title="日间 / 夜间 / 自动 · Day / Night / Auto">
- <span class="themseg">
-  <button data-theme="light" onclick="setTheme('light')" title="日间 · Day">☀️</button>
-  <button data-theme="dark" onclick="setTheme('dark')" title="夜间 · Night">🌙</button>
-  <button data-theme="auto" onclick="setTheme('auto')" title="自动跟随系统 · Auto">⚙️</button>
- </span>
-</div>
-
 
 <div class="summary">
  <div class="card">
