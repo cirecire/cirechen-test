@@ -274,17 +274,15 @@ html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
 </div>
 
 <script>
-const VDIR='videos/Ch02_实数/';
-
 /* ===== YouTube embed (Khan Academy official) with local mp4 fallback ===== */
 const YT={"01_Introduction to rational and irrational numbers.mp4":"cLP7INqs3JM","02_Recognizing rational and irrational numbers (examples).mp4":"d9pO2z2qvXU","03_Proof that square root of 2 is irrational.mp4":"mX91_3GQqLY","33_Classifying numbers - rational & irrational.mp4":"cLP7INqs3JM","07_Introduction to square roots.mp4":"mbc3_e5lWw0","08_Square root of decimal (example).mp4":"tRHLEWSUjrQ","11_Introduction to cube roots.mp4":"87_qIofPwhg","12_Cube root of a negative number (example).mp4":"DKh16Th8x6o","16_Dimensions of a cube from its volume.mp4":"GpOxsRF1Cjc","10_How to approximate square roots.mp4":"Lh7NMBPFVZw","09_Approximating square roots to hundredths.mp4":"EFVrAk61xjE","15_Comparing values with calculator.mp4":"PuRsXST9EZU","13_How to classify numbers.mp4":"-QHff5pRdM8","14_Comparing irrational numbers involving radicals.mp4":"KibTbfkoPTs","04_Converting a fraction to a repeating decimal.mp4":"Y2-tz27nKoQ","05_Converting repeating decimals to fractions 1.mp4":"FPNhCVZlbJs","06_Converting repeating decimals to fractions 2.mp4":"Ihws0d-WLzU","17_Simplifying square-root expressions.mp4":"3MijXB91DVo","27_Exponent properties involving products.mp4":"zM_p7tfWvLU","28_Exponent properties involving quotients.mp4":"AR1uqNbjM5s","29_Negative exponents.mp4":"JnpqlXN9Whw","30_Negative exponent intuition.mp4":"Tqpcku0hrPU","31_Products and exponents raised to an exponent.mp4":"SwqOrUWzDY8","32_Powers of zero.mp4":"S2PjhiAQMK8","18_Scientific notation examples.mp4":"i6lfVUp5RW8","19_Multiplying three numbers in scientific notation.mp4":"67jn5Zv-myg","20_Multiplying in scientific notation.mp4":"xxAFh-qHPPA","21_Subtracting in scientific notation.mp4":"ios3QL9t9LQ","22_Express a small number in scientific notation.mp4":"6phoVfGKKec","23_Multiplying and dividing in scientific notation.mp4":"497oIjqRPco","24_Red blood cells (scientific notation word problem).mp4":"0lOpqmTdtzk","25_Speed of light and distance from sun (scientific notation).mp4":"dD71fFNwVJw","26_U.S. national debt (scientific notation word problem).mp4":"XJBwJjP2_hM"};
 function ytSrc(f){return (typeof YT!=='undefined'&&YT[f])?('https://www.youtube-nocookie.com/embed/'+YT[f]+'?rel=0'):null;}
 function vidHTML(v){var s=ytSrc(v.f);
  if(s){return '<iframe src="'+s+'" title="'+String(v.t||'').replace(/"/g,'&quot;')+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%;aspect-ratio:16/9;border:0;display:block;background:#000"></iframe>';}
- return '<video controls preload="none" style="width:100%;background:#000" src="'+encodeURI(VDIR+v.f)+'"></video>';}
+ return '<div style="padding:14px;background:#f3f4f6;color:#0f172a;border-radius:10px">&#9654; <a href="https://www.youtube.com/watch?v='+(YT[v.f]||'')+'" target="_blank" rel="noopener">Watch on YouTube</a></div>';}
 function vidEl(v){var s=ytSrc(v.f);
  if(s){var f=document.createElement('iframe');f.className='ytv';f.src=s;f.setAttribute('frameborder','0');f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');f.setAttribute('allowfullscreen','');f.style.cssText='width:100%;aspect-ratio:16/9;border:0;display:block;background:#000';return f;}
- var p=document.createElement('video');p.controls=true;p.preload='metadata';p.src=encodeURI(VDIR+v.f);return p;}
+ var a=document.createElement('a');a.href='https://www.youtube.com/watch?v='+(YT[v.f]||'');a.target='_blank';a.rel='noopener';a.textContent='Watch on YouTube';a.style.cssText='display:inline-block;padding:14px;background:#f3f4f6;color:#0f172a;border-radius:10px';return a;}
 
 const V={
  k1:[
