@@ -217,7 +217,7 @@ html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
   <link rel="stylesheet" href="theme.css">
 </head>
 <body>
-<div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 16px;font-size:13px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:99">
+<div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 12px;font-size:13px;display:flex;gap:6px 10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:99">
  <a href="index.html" style="color:#b45309;text-decoration:none;font-weight:600"><span class="zh">← 主页</span><span class="en">← Home</span></a> <a href="home.html" style="color:#b45309;text-decoration:none;font-weight:600"><span class="en">← Overview</span><span class="zh">← 总览</span></a>
  <a href="unittests.html" style="color:#b45309;text-decoration:none;font-weight:600"><span class="en">Unit tests</span><span class="zh">单元测试</span></a>
  <span style="font-size:11px;color:#5b6472"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
@@ -253,10 +253,10 @@ html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
 const YT={"04_Identifying parallel and perpendicular lines.mp4":"aq_XL6FrmGs","03_Using algebra to find measures of angles from transversal.mp4":"Ld7Vxb5XV6A","07_Finding more angles.mp4":"0gzSreH8nUI","05_Find measure of supplementary angles.mp4":"zNtbi4OJs9I","01_Angles formed by parallel lines and transversals.mp4":"H-E5rlpCVu4","02_Figuring out angles between transversal and parallel lines.mp4":"2WjGD3LZEWo","12_Missing angles with a transversal.mp4":"z8BoVhTkaBw","06_Find measure of complementary angles.mp4":"XDOH9Ul2OOM","08_Proof- Sum of measures of angles in a triangle are 180.mp4":"6s1CI3uuhko","15_Angles in a triangle sum to 180° proof.mp4":"6s1CI3uuhko","14_Isosceles & equilateral triangles problems.mp4":"7FTNWE7RTfQ","09_Triangle angle example 1.mp4":"hmj3_zbz2eg","10_Triangle angle example 2.mp4":"eTwnt4G5xE4","11_Challenging triangle angle problem.mp4":"95logvV8nXY","13_Worked example - Triangle angles (diagram).mp4":"6YSMrTD2sFE"};
 function ytSrc(f){return (typeof YT!=='undefined'&&YT[f])?('https://www.youtube-nocookie.com/embed/'+YT[f]+'?rel=0'):null;}
 function vidHTML(v){var s=ytSrc(v.f);
- if(s){return '<iframe src="'+s+'" title="'+String(v.t||'').replace(/"/g,'&quot;')+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%;aspect-ratio:16/9;border:0;display:block;background:#000"></iframe>';}
+ if(s){return '<div class="ytwrap"><iframe src="'+s+'&playsinline=1" title="'+String(v.t||'').replace(/"/g,'&quot;')+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';}
  return '<div style="padding:14px;background:#f3f4f6;color:#0f172a;border-radius:10px">&#9654; <a href="https://www.youtube.com/watch?v='+(YT[v.f]||'')+'" target="_blank" rel="noopener">Watch on YouTube</a></div>';}
 function vidEl(v){var s=ytSrc(v.f);
- if(s){var f=document.createElement('iframe');f.className='ytv';f.src=s;f.setAttribute('frameborder','0');f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');f.setAttribute('allowfullscreen','');f.style.cssText='width:100%;aspect-ratio:16/9;border:0;display:block;background:#000';return f;}
+ if(s){var f=document.createElement('iframe');f.className='ytv';f.src=s+'&playsinline=1';f.setAttribute('frameborder','0');f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');f.setAttribute('allowfullscreen','');var w=document.createElement('div');w.className='ytwrap';w.appendChild(f);return w;}
  var a=document.createElement('a');a.href='https://www.youtube.com/watch?v='+(YT[v.f]||'');a.target='_blank';a.rel='noopener';a.textContent='Watch on YouTube';a.style.cssText='display:inline-block;padding:14px;background:#f3f4f6;color:#0f172a;border-radius:10px';return a;}
 
 
@@ -290,7 +290,7 @@ const LESSONS=[
  {id:'k3',t:'Parallel lines: the tests',cn:'Parallel lines: the tests',n:'7.3'},
  {id:'k4',t:'Parallel lines: what follows',cn:'Parallel lines: what follows',n:'7.4'},
  {id:'k5',t:'Triangle Angle Sum',cn:'Triangle angle sum',n:'7.5'},
- {id:'test',t:'Chapter check',cn:'Chapter check',n:''}
+ {id:'test',t:'Chapter self-test',cn:'Chapter self-test',n:''}
 ];
 let cur='intro';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
@@ -545,7 +545,7 @@ function videos(el,lessonId){
  });
  el.innerHTML=html;
  el.querySelectorAll('[data-i]').forEach(b=>{
-  b.onclick=()=>{const i=parseInt(b.dataset.i);const slot=el.querySelector('#vc'+i);const v=slot.querySelector('video');if(slot.style.display==='none'){slot.style.display='block';v.play();}else{v.pause();v.currentTime=0;slot.style.display='none';}st(lessonId).vid[i]=true;save();renderNav();b.textContent='▶ Replay';};
+  b.onclick=()=>{const i=parseInt(b.dataset.i);const slot=el.querySelector('#vc'+i);slot.style.display=slot.style.display==='none'?'block':'none';st(lessonId).vid[i]=true;save();renderNav();b.textContent='▶ Replay';};
  });
 }
 
@@ -591,9 +591,9 @@ function practice(el,lessonId){
  q=gen();tries=0;update();
 }
 
-/* ============ Chapter check ============ */
+/* ============ Chapter self-test ============ */
 function chTest(el){
- el.innerHTML=`<div class="step"><span class="en">Chapter check</span><span class="zh">章末自己测</span></div><div class="box"><p style="font-size:13px;color:var(--muted)">6 questions.</p><div id="tq"></div></div>`;
+ el.innerHTML=`<div class="step"><span class="en">Chapter self-test</span><span class="zh">章末自测</span></div><div class="box"><p style="font-size:13px;color:var(--muted)">6 questions.</p><div id="tq"></div></div>`;
  const tq=el.querySelector('#tq');
  const qs=[];
  for(let i=0;i<2;i++)qs.push(generators.k3());
@@ -643,7 +643,7 @@ function introRender(main){
   main.innerHTML=h;
   main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
 }
-const NAVZH={"intro":"概览","k1":"为什么证明","k2":"书写证明","k3":"平行线的判定","k4":"平行线的性质","k5":"三角形内角和","test":"章末自己测"};
+const NAVZH={"intro":"概览","k1":"为什么证明","k2":"书写证明","k3":"平行线的判定","k4":"平行线的性质","k5":"三角形内角和","test":"章末自测"};
 const LKEY='bnu8_lang';
 function getLang(){return localStorage.getItem(LKEY)||'en';}
 function setLang(l){localStorage.setItem(LKEY,l);applyLang();}
