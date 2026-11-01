@@ -215,7 +215,7 @@ html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
   <link rel="stylesheet" href="theme.css">
 </head>
 <body>
-<div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 16px;font-size:13px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:99">
+<div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 12px;font-size:13px;display:flex;gap:6px 10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:99">
  <a href="index.html" style="color:#b45309;text-decoration:none;font-weight:600"><span class="zh">← 主页</span><span class="en">← Home</span></a> <a href="home.html" style="color:#b45309;text-decoration:none;font-weight:600"><span class="en">← Overview</span><span class="zh">← 总览</span></a>
  <a href="unittests.html" style="color:#b45309;text-decoration:none;font-weight:600"><span class="en">Unit tests</span><span class="zh">单元测试</span></a>
  <span style="font-size:11px;color:#5b6472"><span class="en">Content from Khan Academy · CC BY-NC-SA</span><span class="zh">内容来自 Khan Academy · CC BY-NC-SA</span></span>
@@ -251,10 +251,10 @@ html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
 const YT={"01_Finding mean, median, and mode.mp4":"k3aKKasOmIw","02_Averages.mp4":"9VZsMY15xeU","20_Means and medians of different distributions.mp4":"eLyLbaXfJXo","21_Median & range puzzlers.mp4":"0cHCpgQD_8k","22_Missing value given the mean.mp4":"glBPW6LQI2Q","03_Impact on median and mean when increasing highest value.mp4":"K1y6Tz_E7oA","04_Impact on median and mean when removing lowest value.mp4":"-2OOBEBq9-4","11_Finding the range and mid-range.mp4":"7DtWXEPB_AI","09_Ways to represent data.mp4":"0ZKtsUkrgFQ","06_Frequency tables and dot plots.mp4":"gdE46YSedvE","07_How to interpret a histogram.mp4":"c02vjunQsJM","08_How to create a histogram.mp4":"gSEYtAjuZ-Y","05_Median in a histogram.mp4":"xTwDmnEEb9E","10_Thinking about shapes of distributions.mp4":"2oJldeE4JcU","23_Measures of spread - range, variance & standard deviation.mp4":"8YA1dKpACAM","12_Statistics- Variance of a population.mp4":"6JFzI1DDyyk","14_Population standard deviation.mp4":"PWiWkqHmum0","15_Statistics- Standard deviation.mp4":"HvDqbzu0i0E","17_Range, variance and standard deviation as measures of dispersion.mp4":"E4HAYd0QnRc","13_Sample variance.mp4":"iHXdzfF7UEs","16_Sample standard deviation and bias.mp4":"DNAnQBhGpRw","18_How to calculate interquartile range (IQR).mp4":"qLYYHWYr8xI","19_Mean absolute deviation.mp4":"GdIkEngwGNU","24_Reading box plots.mp4":"oBREri10ZHk","25_Constructing a box plot.mp4":"09Cx7xuIXig","28_Interpreting box plots.mp4":"oBREri10ZHk","29_Judging outliers in a dataset.mp4":"FRlTh5HQORA"};
 function ytSrc(f){return (typeof YT!=='undefined'&&YT[f])?('https://www.youtube-nocookie.com/embed/'+YT[f]+'?rel=0'):null;}
 function vidHTML(v){var s=ytSrc(v.f);
- if(s){return '<iframe src="'+s+'" title="'+String(v.t||'').replace(/"/g,'&quot;')+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%;aspect-ratio:16/9;border:0;display:block;background:#000"></iframe>';}
+ if(s){return '<div class="ytwrap"><iframe src="'+s+'&playsinline=1" title="'+String(v.t||'').replace(/"/g,'&quot;')+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';}
  return '<div style="padding:14px;background:#f3f4f6;color:#0f172a;border-radius:10px">&#9654; <a href="https://www.youtube.com/watch?v='+(YT[v.f]||'')+'" target="_blank" rel="noopener">Watch on YouTube</a></div>';}
 function vidEl(v){var s=ytSrc(v.f);
- if(s){var f=document.createElement('iframe');f.className='ytv';f.src=s;f.setAttribute('frameborder','0');f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');f.setAttribute('allowfullscreen','');f.style.cssText='width:100%;aspect-ratio:16/9;border:0;display:block;background:#000';return f;}
+ if(s){var f=document.createElement('iframe');f.className='ytv';f.src=s+'&playsinline=1';f.setAttribute('frameborder','0');f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');f.setAttribute('allowfullscreen','');var w=document.createElement('div');w.className='ytwrap';w.appendChild(f);return w;}
  var a=document.createElement('a');a.href='https://www.youtube.com/watch?v='+(YT[v.f]||'');a.target='_blank';a.rel='noopener';a.textContent='Watch on YouTube';a.style.cssText='display:inline-block;padding:14px;background:#f3f4f6;color:#0f172a;border-radius:10px';return a;}
 
 
@@ -299,7 +299,7 @@ const LESSONS=[
  {id:'k4',t:'Reading from charts',cn:'Reading from charts',n:'6.2'},
  {id:'k2',t:'Variance & standard deviation',cn:'Variance & standard deviation',n:'6.3'},
  {id:'k3',t:'Box Plots',cn:'Box plots',n:'6.4'},
- {id:'test',t:'Chapter check',cn:'Chapter check',n:''}
+ {id:'test',t:'Chapter self-test',cn:'Chapter self-test',n:''}
 ];
 let cur='intro';
 function st(id){return S[id]||(S[id]={diag:null,prac:{ok:0,tot:0},vid:{},done:false});}
@@ -667,7 +667,7 @@ function videos(el,lessonId){
  });
  el.innerHTML=html;
  el.querySelectorAll('[data-i]').forEach(b=>{
-  b.onclick=()=>{const i=parseInt(b.dataset.i);const slot=el.querySelector('#vc'+i);const v=slot.querySelector('video');if(slot.style.display==='none'){slot.style.display='block';v.play();}else{v.pause();v.currentTime=0;slot.style.display='none';}st(lessonId).vid[i]=true;save();renderNav();b.textContent='▶ Replay';};
+  b.onclick=()=>{const i=parseInt(b.dataset.i);const slot=el.querySelector('#vc'+i);slot.style.display=slot.style.display==='none'?'block':'none';st(lessonId).vid[i]=true;save();renderNav();b.textContent='▶ Replay';};
  });
 }
 
@@ -721,9 +721,9 @@ function practice(el,lessonId){
  q=gen();tries=0;update();
 }
 
-/* ============ Chapter check ============ */
+/* ============ Chapter self-test ============ */
 function chTest(el){
- el.innerHTML=`<div class="step"><span class="en">Chapter check</span><span class="zh">章末自己测</span></div><div class="box"><p style="font-size:13px;color:var(--muted)">6 questions.</p><div id="tq"></div></div>`;
+ el.innerHTML=`<div class="step"><span class="en">Chapter self-test</span><span class="zh">章末自测</span></div><div class="box"><p style="font-size:13px;color:var(--muted)">6 questions.</p><div id="tq"></div></div>`;
  const tq=el.querySelector('#tq');
  const qs=[];
  for(let i=0;i<2;i++)qs.push(generators.k1());
@@ -774,7 +774,7 @@ function introRender(main){
   main.innerHTML=h;
   main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
 }
-const NAVZH={"intro":"概览","k1":"平均数·中位数·众数","k2":"方差与标准差","k3":"箱线图","k4":"统计图分析","test":"章末自己测"};
+const NAVZH={"intro":"概览","k1":"平均数·中位数·众数","k2":"方差与标准差","k3":"箱线图","k4":"统计图分析","test":"章末自测"};
 const LKEY='bnu8_lang';
 function getLang(){return localStorage.getItem(LKEY)||'en';}
 function setLang(l){localStorage.setItem(LKEY,l);applyLang();}
