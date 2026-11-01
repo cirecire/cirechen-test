@@ -358,15 +358,28 @@ function physicsHomeUrl(){
  });
 })();
 
-/* ============ Keep the parent letter collapsed by default (collapses further on small screens) ============ */
+/* ============ Parent letter: collapsed by default on small screens ============
+   IMPORTANT: we do NOT listen for `resize`. iOS Safari / WeChat WebView emit a
+   `resize` event every time the page scrolls (the URL bar shows/hides), and
+   collapsing on that event would snap the open letter shut the instant the
+   user tries to scroll down to read it. So we only set the initial state once
+   on load, then let the user's own tap open/close it freely. */
 (function(){
  function fit(){
   if(window.innerWidth<760){
-   document.querySelectorAll('.parents').forEach(function(d){ d.removeAttribute('open'); });
+   document.querySelectorAll('.parents').forEach(function(d){
+    if(!d.dataset.userOpen) d.removeAttribute('open');
+   });
   }
  }
  fit();
- window.addEventListener('resize',fit);
+ // remember that the user explicitly opened it, so nothing can force it shut
+ document.querySelectorAll('.parents > summary').forEach(function(sum){
+  sum.addEventListener('click',function(){
+   var d=sum.parentElement;
+   if(d.hasAttribute('open')) d.dataset.userOpen='1';
+  });
+ });
 })();
 </script>
 <script>
