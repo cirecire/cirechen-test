@@ -75,6 +75,12 @@ svg{max-width:100%;display:block;margin:0 auto}
 .big-start button{font-size:16px;padding:13px 30px;border-radius:10px}
 .trytip{font-size:12px;color:var(--muted);margin:10px 0 2px}
 
+/* ===== Tutorial ↔ Formal-course boundary ===== */
+.nav-sep{display:flex;align-items:center;gap:8px;margin:10px 2px 8px;padding:0;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+.nav-sep::before,.nav-sep::after{content:"";flex:1;height:1px;background:var(--line)}
+.boundary{margin:18px 0 6px;padding-top:14px;border-top:2px dashed var(--line)}
+.boundary-rule{display:inline-block;font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.boundary-note{margin:4px 0 0;font-size:13px;color:var(--muted);line-height:1.7}
 /* ===== Language tiers (en / mix / zh) ===== */
 .zh{display:none}
 body.lang-en .zh{display:none}
@@ -810,6 +816,7 @@ function introRender(main){
     +'② <b><span class="en">Practice</span><span class="zh">练一练</span></b>: <span class="en">5 correct in a row clears it; if you get stuck, hints walk you through</span><span class="zh">连对 5 题就算过关；卡住了就看提示</span><br>'
     +'③ <b><span class="en">Next section</span><span class="zh">下一节</span></b>: <span class="en">on the left, </span><span class="zh">在左侧，</span>'+pts[0].n+', '+pts[1].n+'… open whichever you want, in any order'
     +'</div></div>';
+  h+='<div class="boundary"><span class="boundary-rule"><span class="en">Above: tutorial · Below: the real course</span><span class="zh">上面：导学（Tutorial）· 下面：正式课（Real course）</span></span><p class="boundary-note"><span class="en">The map above ("What this chapter covers") only shows what is coming and helps you pick where to start. The lessons below are where you actually learn, step by step, and practise.</span><span class="zh">上面「本章学什么」只是地图——告诉你接下来有什么、帮你决定从哪开始。点下面任意一节，才是真正一步步学、做练习的地方。</span></p></div>';
   h+='<div class="big-start"><button id="startBtn">'+pts[0].n+' <span class="en">'+pts[0].t+'</span><span class="zh">开始 · '+NAVZH[pts[0].id]+'</span> →</button></div>';
   main.innerHTML=h;
   main.querySelector('#startBtn').onclick=()=>{goLesson(pts[0].id);};
@@ -824,12 +831,14 @@ applyLang();
 
 function renderNav(){
  const nav=document.getElementById('nav');
+ const NAV_SEP='<div class="nav-sep"><span class="en">▼ Formal lessons</span><span class="zh">▼ 正式课</span></div>';
  nav.innerHTML=LESSONS.map(l=>{
   const s=st(l.id);
   let stxt='';
   if(s.done)stxt='<span class="st ok">✓</span>';
   else if(s.prac.tot>0)stxt=`<span class="st ${s.prac.ok/s.prac.tot>0.6?'ok':'err'}">${s.prac.ok}/${s.prac.tot}</span>`;
-  return `<div class="nav-i ${l.id===cur||cur===`micro-${l.id}`||cur===`diag-${l.id}`||cur===`prac-${l.id}`?'on':''}" data-go="${l.id}"><span><b>${l.n}</b> <span class="en">${l.t}</span><span class="zh">${NAVZH[l.id]||l.t}</span></span>${stxt}</div>`;
+  const itm=`<div class="nav-i ${l.id===cur||cur===`micro-${l.id}`||cur===`diag-${l.id}`||cur===`prac-${l.id}`?'on':''}" data-go="${l.id}"><span><b>${l.n}</b> <span class="en">${l.t}</span><span class="zh">${NAVZH[l.id]||l.t}</span></span>${stxt}</div>`;
+  return l.id==='intro' ? itm+NAV_SEP : itm;
  }).join('');
  nav.querySelectorAll('[data-go]').forEach(n=>n.onclick=()=>{const id=n.dataset.go;cur=id==='test'?'test':`micro-${id}`;render();});
 }
