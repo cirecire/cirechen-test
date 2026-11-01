@@ -54,7 +54,7 @@ header.hero h1 .zh{display:inline!important;color:#fff!important}
 .parents{background:var(--blue);border:1px solid var(--bluebd);border-radius:16px;padding:20px 22px;font-size:14px;color:var(--text);line-height:1.7;box-shadow:0 1px 3px rgba(16,24,40,.06)}
 .parents .zh,.parents .en{display:block;margin-left:0}
 body.lang-en .parents .zh{display:none}
-.parents summary{cursor:pointer;font-weight:600;padding:4px 0 12px}
+.parents summary{cursor:pointer;font-weight:600;padding:4px 0 12px;touch-action:manipulation;-webkit-user-select:none;user-select:none}
 .parents summary .zh{font-size:22px;font-weight:700;color:#92400e;line-height:1.35;margin:0 0 6px}
 .parents summary .en{font-size:16px;font-weight:500;color:#1f2937;line-height:1.4;margin:0}
 .parents p{font-size:14px;line-height:1.7;color:var(--text);margin:0 0 14px}
@@ -358,26 +358,37 @@ function physicsHomeUrl(){
  });
 })();
 
-/* ============ Parent letter: collapsed by default on small screens ============
-   IMPORTANT: we do NOT listen for `resize`. iOS Safari / WeChat WebView emit a
-   `resize` event every time the page scrolls (the URL bar shows/hides), and
-   collapsing on that event would snap the open letter shut the instant the
-   user tries to scroll down to read it. So we only set the initial state once
-   on load, then let the user's own tap open/close it freely. */
+/* ============ Parent letter open/close — fully JS-controlled ============
+   Why: on iOS Safari / WeChat WebView, a drag that STARTS on the <summary>
+   (the title row) gets synthesised into a `click` on the summary when the
+   finger lifts, and the native <details> toggles SHUT. So the letter closes
+   the instant you try to scroll. We kill the native toggle (preventDefault)
+   and drive `open` ourselves, treating any touch that moved >10px as a scroll
+   (not a tap) so it can never close the panel. A clean tap toggles it. */
 (function(){
- function fit(){
+ // set the initial collapsed state on small screens, once, on load only
+ (function fit(){
   if(window.innerWidth<760){
-   document.querySelectorAll('.parents').forEach(function(d){
-    if(!d.dataset.userOpen) d.removeAttribute('open');
-   });
+   document.querySelectorAll('.parents').forEach(function(d){ d.removeAttribute('open'); });
   }
- }
- fit();
- // remember that the user explicitly opened it, so nothing can force it shut
- document.querySelectorAll('.parents > summary').forEach(function(sum){
-  sum.addEventListener('click',function(){
-   var d=sum.parentElement;
-   if(d.hasAttribute('open')) d.dataset.userOpen='1';
+ })();
+
+ document.querySelectorAll('.parents').forEach(function(d){
+  var sum=d.querySelector('summary');
+  if(!sum) return;
+  var sx=0, sy=0, moved=false;
+  sum.addEventListener('touchstart',function(e){
+   sx=e.touches[0].clientX; sy=e.touches[0].clientY; moved=false;
+  },{passive:true});
+  sum.addEventListener('touchmove',function(e){
+   var t=e.touches[0];
+   if(Math.abs(t.clientX-sx)>10 || Math.abs(t.clientY-sy)>10) moved=true;
+  },{passive:true});
+  sum.addEventListener('click',function(e){
+   e.preventDefault();                 // suppress the native <details> toggle
+   if(moved) return;                   // it was a scroll/drag, not a tap — leave it open
+   if(d.hasAttribute('open')) d.removeAttribute('open');
+   else d.setAttribute('open','');
   });
  });
 })();
