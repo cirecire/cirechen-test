@@ -24,9 +24,10 @@ header p{opacity:.93;font-size:13px}
 .welcome-close{background:transparent;color:#92400e;font-size:18px;padding:2px 8px;cursor:pointer;border:none;line-height:1;border-radius:6px}
 .welcome-close:hover{background:rgba(146,64,14,.12)}
 .welcome-lead{font-size:14px;color:#78350f;margin-bottom:14px;line-height:1.5}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.step-card{background:rgba(255,255,255,.65);border-radius:10px;padding:10px 12px;border:1px solid rgba(252,211,77,.5)}
-.step-no{width:24px;height:24px;background:#b45309;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;margin-bottom:6px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:6px}
+.steps-h{font-size:12px;font-weight:700;color:var(--accent);margin:4px 0 8px;letter-spacing:.2px}
+.step-card{background:rgba(255,255,255,.65);border-radius:10px;padding:10px 12px;border:1px solid var(--line);cursor:default}
+.step-no{width:24px;height:24px;color:var(--accent);border:2px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;margin-bottom:6px;flex:none}
 .step-t{font-weight:600;font-size:13px;color:#1f2937;margin-bottom:3px}
 .step-d{font-size:12px;color:#5b6472;line-height:1.4}
 .welcome-cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
@@ -292,14 +293,15 @@ html[data-theme="dark"] table th{color:var(--muted)}
 
 <div class="welcome" id="welcome">
  <div class="welcome-head">
-  <div class="hi" id="welcomeHi">👋 Hi! Ready to start?</div>
+  <div class="hi" id="welcomeHi"><span class="en">How this site works</span><span class="zh">这个网站怎么用</span></div>
   <button class="welcome-close" id="welcomeClose" title="Hide this guide" aria-label="Hide this guide">✕</button>
  </div>
- <p class="welcome-lead" id="welcomeLead">Math gets easier when you do a little every day. This site walks you through all of Grade 8, one chapter at a time.</p>
+ <p class="welcome-lead" id="welcomeLead"><span class="en">It follows your school textbook — BNU Grade 8 — chapter by chapter. Each topic pairs a short Khan Academy video (in English) with bilingual practice, so you learn in English without losing the Chinese logic you already know. Any shaky or skipped step in the textbook is filled in with extra lessons. A few minutes a day is enough.</span><span class="zh">它按你学校课本（北师大版八年级）的章节顺序走。每个知识点配一段可汗学院英文短视频，外加中英双语练习——用英文学，但不丢掉你已经熟悉的中文逻辑。课本里讲不清、跳步的地方，都用额外课程补上。每天十几分钟就够。</span></p>
+ <div class="steps-h"><span class="en">Three steps — the numbers are just labels, not buttons</span><span class="zh">三步流程（数字只是序号，不可点击）</span></div>
  <div class="steps">
   <div class="step-card"><div class="step-no">1</div><div class="step-t"><span class="en">Pick a chapter</span><span class="zh">选一章</span></div><div class="step-d"><span class="en">7 chapters in total. Start with Chapter 1 if you're new.</span><span class="zh">一共 7 章，新手从第 1 章开始。</span></div></div>
   <div class="step-card"><div class="step-no">2</div><div class="step-t"><span class="en">Watch &amp; practise</span><span class="zh">看视频练一练</span></div><div class="step-d"><span class="en">A short video, then a few questions. Get 5 in a row right and you've got it.</span><span class="zh">先看一小段视频，再做几道题。连对 5 题就算学会。</span></div></div>
-  <div class="step-card"><div class="step-no">3</div><div class="step-t"><span class="en">Pass the test</span><span class="zh">通过章末测</span></div><div class="step-d"><span class="en">Pass the chapter test to unlock the next one.</span><span class="zh">章末测通过，就能解锁下一章。</span></div></div>
+  <div class="step-card"><div class="step-no">3</div><div class="step-t"><span class="en">Self-test</span><span class="zh">章末自测</span></div><div class="step-d"><span class="en">Each chapter ends with a self-test — see what stuck, no pressure.</span><span class="zh">每章末尾都有自测，看看掌握得怎样，不记分。</span></div></div>
  </div>
  <div class="welcome-cta">
   <button class="big" id="welcomeStart">▶ Start with Chapter 1</button>
@@ -518,8 +520,8 @@ document.getElementById('clr').onclick=()=>{
  const nm=n?n.c.cn:'';
  if(n){
   if(n.mastered===0){
-   hi.innerHTML='<span class="en">👋 Hi! Ready to start?</span><span class="zh">👋 准备好开始了吗？</span>';
-   lead.innerHTML='<span class="en">Math gets easier when you do a little every day. This site walks you through all of Grade 8, one chapter at a time.</span><span class="zh">每天做一点，数学就会变简单。这个网站带着你一章一章学完八年级。</span>';
+   hi.innerHTML='<span class="en">How this site works</span><span class="zh">这个网站怎么用</span>';
+   lead.innerHTML='<span class="en">It follows your school textbook — BNU Grade 8 — chapter by chapter. Each topic pairs a short Khan Academy video (in English) with bilingual practice, so you learn in English without losing the Chinese logic you already know. Any shaky or skipped step in the textbook is filled in with extra lessons. A few minutes a day is enough.</span><span class="zh">它按你学校课本（北师大版八年级）的章节顺序走。每个知识点配一段可汗学院英文短视频，外加中英双语练习——用英文学，但不丢掉你已经熟悉的中文逻辑。课本里讲不清、跳步的地方，都用额外课程补上。每天十几分钟就够。</span>';
    btn.innerHTML='<span class="en">▶ Start with Chapter 1 · '+nm+'</span><span class="zh">▶ 从第 1 章开始 · '+nm+'</span>';
   }else{
    hi.innerHTML='<span class="en">👋 Welcome back!</span><span class="zh">👋 欢迎回来！</span>';
