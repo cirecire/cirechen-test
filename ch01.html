@@ -7,13 +7,13 @@
 <style>
 :root{
   --bg:#f7f8fa; --card:#fff; --ink:#1c2430; --mute:#5b6472; --line:#e3e8ef;
-  --accent:#2563eb; --accent2:#d97706; --ok:#15803d; --bad:#b91c1c; --warn:#b45309;
+  --accent:#b45309; --accent2:#d97706; --ok:#15803d; --bad:#b91c1c; --warn:#b45309;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif;
   background:var(--bg);color:var(--ink);line-height:1.6}
 .wrap{max-width:1180px;margin:0 auto;padding:20px}
-header{background:linear-gradient(135deg,#2563eb,#d97706);color:#fff;padding:26px 20px;border-radius:14px;margin-bottom:18px}
+header{background:linear-gradient(135deg,#b45309,#d97706);color:#fff;padding:26px 20px;border-radius:14px;margin-bottom:18px}
 header h1{font-size:24px;font-weight:700}
 header .sub{opacity:.92;font-size:14px;margin-top:4px}
 header .cn{font-size:13px;opacity:.85;margin-top:2px}
@@ -38,7 +38,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
 button.ghost{background:#fff;color:var(--accent);border:1px solid var(--accent)}
 button.ok{background:var(--ok)}button.bad{background:var(--bad)}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
-.step{display:inline-block;background:#eef2ff;color:var(--accent);padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:10px}
+.step{display:inline-block;background:#fef3c7;color:var(--accent);padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:10px}
 /* Lesson */
 .micro{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
 @media(max-width:680px){.micro{grid-template-columns:1fr}}
@@ -85,7 +85,7 @@ video{width:100%;max-width:520px;border-radius:8px;background:#000;display:block
 .stat b{color:var(--ink)}
 .mastery{font-size:12px;padding:3px 10px;border-radius:12px;font-weight:600}
 .m-none{background:#e5e7eb;color:#475569}.m-att{background:#fef08a;color:#854d0e}
-.m-fam{background:#bfdbfe;color:#1e40af}.m-pro{background:#a7f3d0;color:#065f46}
+.m-fam{background:#fef3c7;color:#92400e}.m-pro{background:#a7f3d0;color:#065f46}
 .m-mas{background:#15803d;color:#fff}
 .note{font-size:12px;color:var(--mute);margin-top:6px}
 .credit{margin-top:22px;padding:12px;border-top:1px solid var(--line);font-size:12px;color:var(--mute)}
@@ -158,7 +158,7 @@ body.lang-mix .step .zh, body.lang-mix header .zh, body.lang-mix .hero .zh,
 body.lang-mix .ch .zh, body.lang-mix .ch .top .zh, body.lang-mix .welcome .zh,
 body.lang-mix .note .zh { font-size: inherit; }
 
-.bridge{background:#eef2ff;border-left:3px solid var(--accent);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
+.bridge{background:#fef3c7;border-left:3px solid var(--accent);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
 .bridge strong{color:var(--accent)}
 .bridge .bl{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
 /* ===== Day / Night / Auto (follows the system by default) ===== */
@@ -224,7 +224,7 @@ html[data-theme="dark"] .nav-i.on .st.ok,
 html[data-theme="dark"] .nav-i.on .st.err{color:#0f172a!important}
 html[data-theme="dark"] .chip.on .rec{color:#0f172a!important}
 html[data-theme="dark"] .step{color:#451a03!important}
-html[data-theme="dark"] .ltsw button{color:#93c5fd!important}
+html[data-theme="dark"] .ltsw button{color:#fbbf24!important}
 html[data-theme="dark"] .welcome-cta .big{color:#fff!important}
 /* "paper" panels: stay light so dark diagram / equation strokes remain visible */
 html[data-theme="dark"] .fig,html[data-theme="dark"] .eqbox{color:#1f2937}
@@ -243,8 +243,8 @@ html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="da
 html[data-theme="dark"] input::placeholder{color:var(--muted)}
 html[data-theme="dark"] table th{color:var(--muted)}
 html[data-theme="dark"] .bridge,html[data-theme="dark"] .bridge *{color:#1f2937}
-html[data-theme="dark"] .bridge strong,html[data-theme="dark"] .bridge b{color:#3730a3!important}
-html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
+html[data-theme="dark"] .bridge strong,html[data-theme="dark"] .bridge b{color:#92400e!important}
+html[data-theme="dark"] .bridge .bl{color:#92400e!important}
 
 /* ===== Theme switch (fixed, under the language switch) ===== */
 .themebar{position:fixed;top:44px;right:12px;z-index:300;display:inline-flex;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
@@ -291,7 +291,7 @@ html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
 
 <div class="credit">
   <br>
-  A learning prototype (test site), for self-study practice.<br>
+  A self-study companion for the public-school syllabus.<br>
   <span class="en">Video content from Khan Academy · CC BY-NC-SA</span><span class="zh">视频内容来自 Khan Academy · CC BY-NC-SA</span>
 </div>
 </div>
@@ -560,30 +560,30 @@ function microK1(el){
     const SC=200/s, ox=20, oy=20;
     const X=v=>ox+v*SC, Y=v=>oy+(s-v)*SC; // Y flips (SVG y grows downward)
     // left figure
-    let L=`<rect x="${X(0)}" y="${Y(s)}" width="${s*SC}" height="${s*SC}" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>`;
+    let L=`<rect x="${X(0)}" y="${Y(s)}" width="${s*SC}" height="${s*SC}" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>`;
     const P=[[b,0],[s,b],[a,s],[0,a]];
     [[[0,0],[b,0],[0,a]],[[s,0],[s,b],[b,0]],[[s,s],[a,s],[s,b]],[[0,s],[0,a],[a,s]]].forEach((t,i)=>{
-      L+=`<polygon points="${t.map(p=>X(p[0])+','+Y(p[1])).join(' ')}" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="1.5"/>`;
+      L+=`<polygon points="${t.map(p=>X(p[0])+','+Y(p[1])).join(' ')}" fill="#fef3c7" stroke="#92400e" stroke-width="1.5"/>`;
     });
     L+=`<polygon points="${P.map(p=>X(p[0])+','+Y(p[1])).join(' ')}" fill="#fecaca" stroke="#b91c1c" stroke-width="2"/>`;
     L+=`<text x="${X(a/2+1)}" y="${Y(s/2)}" font-size="13" fill="#b91c1c" font-weight="bold">c²=${c2}</text>`;
-    L+=`<text x="120" y="232" font-size="13" fill="#2563eb" font-weight="bold" text-anchor="middle">a+b</text>`;
+    L+=`<text x="120" y="232" font-size="13" fill="#b45309" font-weight="bold" text-anchor="middle">a+b</text>`;
     L+=`<text x="${X(b/2)}" y="211" font-size="13" fill="#1f2937" font-weight="bold" text-anchor="middle">b</text>`;
     L+=`<text x="30" y="${Y(a/2)+4}" font-size="13" fill="#1f2937" font-weight="bold">a</text>`;
     L+=`<text x="${X((b+s)/2)}" y="${Y(b/2)}" font-size="13" fill="#b91c1c" font-weight="bold" text-anchor="middle">c</text>`;
     el.querySelector('#svgL').innerHTML=L;
     // right figure
-    let R=`<rect x="${X(0)}" y="${Y(s)}" width="${s*SC}" height="${s*SC}" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>`;
+    let R=`<rect x="${X(0)}" y="${Y(s)}" width="${s*SC}" height="${s*SC}" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>`;
     R+=`<rect x="${X(0)}" y="${Y(s)}" width="${a*SC}" height="${a*SC}" fill="#bbf7d0" stroke="#15803d" stroke-width="2"/>`;
     R+=`<text x="${X(a/2)}" y="${Y(s-a/2)}" font-size="13" fill="#15803d" font-weight="bold">a²=${a*a}</text>`;
     R+=`<rect x="${X(a)}" y="${Y(b)}" width="${b*SC}" height="${b*SC}" fill="#fde68a" stroke="#a16207" stroke-width="2"/>`;
     R+=`<text x="${X(a+b/2)}" y="${Y(b/2)}" font-size="13" fill="#a16207" font-weight="bold">b²=${b*b}</text>`;
-    R+=`<text x="120" y="232" font-size="13" fill="#2563eb" font-weight="bold" text-anchor="middle">a+b</text>`;
+    R+=`<text x="120" y="232" font-size="13" fill="#b45309" font-weight="bold" text-anchor="middle">a+b</text>`;
     R+=`<text x="${X(a/2)}" y="211" font-size="13" fill="#1f2937" font-weight="bold" text-anchor="middle">a</text>`;
     R+=`<text x="${X(a)+6}" y="${Y(b/2)+4}" font-size="13" fill="#1f2937" font-weight="bold">b</text>`;
     R+=`<text x="${X(a/2)}" y="${Y(b/2)}" font-size="13" fill="#b91c1c" font-weight="bold" text-anchor="middle">c</text>`;
     [[[0,0],[a,0],[a,b]],[[0,0],[a,b],[0,b]],[[a,b],[s,b],[a,s]],[[a,b],[s,s],[a,s]]].forEach(t=>{
-      R+=`<polygon points="${t.map(p=>X(p[0])+','+Y(p[1])).join(' ')}" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="1.5"/>`;
+      R+=`<polygon points="${t.map(p=>X(p[0])+','+Y(p[1])).join(' ')}" fill="#fef3c7" stroke="#92400e" stroke-width="1.5"/>`;
     });
     el.querySelector('#svgR').innerHTML=R;
     el.querySelector('#eq').innerHTML=
@@ -671,10 +671,10 @@ function microK3(el){
     const bx=40, by=190;
     let g=`<line x1="${bx}" y1="${by}" x2="${bx+d*SC}" y2="${by}" stroke="#1c2430" stroke-width="2"/>
            <line x1="${bx}" y1="${by}" x2="${bx}" y2="${by-h*SC}" stroke="#1c2430" stroke-width="2"/>
-           <line x1="${bx}" y1="${by-h*SC}" x2="${bx+d*SC}" y2="${by}" stroke="#2563eb" stroke-width="3"/>
+           <line x1="${bx}" y1="${by-h*SC}" x2="${bx+d*SC}" y2="${by}" stroke="#b45309" stroke-width="3"/>
            <text x="${bx+d*SC/2-16}" y="${by+16}" font-size="12" fill="#1c2430">d = ${d}</text>
            <text x="${bx-28}" y="${by-h*SC/2}" font-size="12" fill="#1c2430">h = ${h}</text>
-           <text x="${bx+d*SC/2+10}" y="${by-h*SC/2-6}" font-size="13" fill="#2563eb" font-weight="bold">L = ${L.toFixed(2)}</text>`;
+           <text x="${bx+d*SC/2+10}" y="${by-h*SC/2-6}" font-size="13" fill="#b45309" font-weight="bold">L = ${L.toFixed(2)}</text>`;
     el.querySelector('#svgW').innerHTML=g;
     el.querySelector('#wcalc').innerHTML=
       `L² = h² + d² = ${h}² + ${d}² = ${h*h} + ${d*d} = ${h*h+d*d} &nbsp;→&nbsp; L = √${h*h+d*d} ≈ <b>${L.toFixed(2)}</b>`;
