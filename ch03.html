@@ -132,7 +132,7 @@ body.lang-mix .step .zh, body.lang-mix header .zh, body.lang-mix .hero .zh,
 body.lang-mix .ch .zh, body.lang-mix .ch .top .zh, body.lang-mix .welcome .zh,
 body.lang-mix .note .zh { font-size: inherit; }
 
-.bridge{background:#eef2ff;border-left:3px solid var(--accent);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
+.bridge{background:#fef3c7;border-left:3px solid var(--accent);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
 .bridge strong{color:var(--accent)}
 .bridge .bl{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
 /* ===== Day / Night / Auto (follows the system by default) ===== */
@@ -198,7 +198,7 @@ html[data-theme="dark"] .nav-i.on .st.ok,
 html[data-theme="dark"] .nav-i.on .st.err{color:#0f172a!important}
 html[data-theme="dark"] .chip.on .rec{color:#0f172a!important}
 html[data-theme="dark"] .step{color:#451a03!important}
-html[data-theme="dark"] .ltsw button{color:#93c5fd!important}
+html[data-theme="dark"] .ltsw button{color:#fbbf24!important}
 html[data-theme="dark"] .welcome-cta .big{color:#fff!important}
 /* "paper" panels: stay light so dark diagram / equation strokes remain visible */
 html[data-theme="dark"] .fig,html[data-theme="dark"] .eqbox{color:#1f2937}
@@ -217,8 +217,8 @@ html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="da
 html[data-theme="dark"] input::placeholder{color:var(--muted)}
 html[data-theme="dark"] table th{color:var(--muted)}
 html[data-theme="dark"] .bridge,html[data-theme="dark"] .bridge *{color:#1f2937}
-html[data-theme="dark"] .bridge strong,html[data-theme="dark"] .bridge b{color:#3730a3!important}
-html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
+html[data-theme="dark"] .bridge strong,html[data-theme="dark"] .bridge b{color:#92400e!important}
+html[data-theme="dark"] .bridge .bl{color:#92400e!important}
 
 /* ===== Theme switch (fixed, under the language switch) ===== */
 .themebar{position:fixed;top:44px;right:12px;z-index:300;display:inline-flex;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
@@ -452,7 +452,7 @@ function microK3(el){
      <text x="${X(px)+12}" y="${Y(py)-8}" font-size="13" font-weight="bold" fill="#b45309">P(${px},${py})</text>
      <text x="${X(rx)+12}" y="${Y(ry)-8}" font-size="13" font-weight="bold" fill="#b91c1c">P'(${rx},${ry})</text>
     </svg>
-    <div class="box" style="margin-top:14px;background:#dbeafe">
+    <div class="box" style="margin-top:14px;background:#fef3c7">
      <h3><span class="en">The pattern</span><span class="zh">规律</span></h3>
      <p style="font-size:16px">${rule}</p>
      <p style="margin-top:6px;font-size:14px">${ruleCN}</p>
@@ -463,6 +463,7 @@ function microK3(el){
     <div class="bl"><span class="en">Bridge</span><span class="zh">衔接补全</span></div>
     <h3><span class="en">Why does a reflection flip exactly one coordinate?</span><span class="zh">为什么轴对称恰好只翻一个坐标？</span></h3>
     <p><span class="en">Reflecting across the x-axis means the x-axis is the mirror. The point and its image sit on opposite sides of that mirror at equal distance, so the across-mirror direction (vertical, the y-direction) reverses while the along-mirror direction (horizontal, the x-direction) stays. That is the whole reason x stays and y flips — and why reflecting across y swaps the roles. The textbook usually states the rule without this picture; Khan’s "Reflecting points" builds the intuition.</span><span class="zh">对 x 轴做轴对称，意味着 x 轴就是镜子。点和它的像分处镜子两侧、距离相等，所以「跨过镜子」的方向（竖直方向，即 y 方向）反转，而「沿着镜子」的方向（水平方向，即 x 方向）不变。这正是 x 不变、y 变号的完整原因 —— 也对 y 轴反射时角色互换。教材通常只给规则不给这幅图；可汗的「点的对称」把直觉建立起来。</span></p>
+    <p class="kwatch" style="margin-top:9px;font-size:14px"><span class="en">Watch it on Khan Academy:</span><span class="zh">看 Khan Academy 讲解：</span> <a href="https://www.youtube.com/watch?v=INqaHHZGt8w" target="_blank" rel="noopener" style="font-weight:600">Reflecting points</a></p>
    </div>
 `;
   el.querySelectorAll('[data-a]').forEach(b=>{b.onclick=()=>{axis=b.dataset.a;render();};});
