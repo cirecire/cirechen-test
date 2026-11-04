@@ -136,7 +136,7 @@ body.lang-mix .step .zh, body.lang-mix header .zh, body.lang-mix .hero .zh,
 body.lang-mix .ch .zh, body.lang-mix .ch .top .zh, body.lang-mix .welcome .zh,
 body.lang-mix .note .zh { font-size: inherit; }
 
-.bridge{background:#eef2ff;border-left:3px solid var(--accent);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
+.bridge{background:#fef3c7;border-left:3px solid var(--accent);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
 .bridge strong{color:var(--accent)}
 .bridge .bl{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
 /* ===== Day / Night / Auto (follows the system by default) ===== */
@@ -202,7 +202,7 @@ html[data-theme="dark"] .nav-i.on .st.ok,
 html[data-theme="dark"] .nav-i.on .st.err{color:#0f172a!important}
 html[data-theme="dark"] .chip.on .rec{color:#0f172a!important}
 html[data-theme="dark"] .step{color:#451a03!important}
-html[data-theme="dark"] .ltsw button{color:#93c5fd!important}
+html[data-theme="dark"] .ltsw button{color:#fbbf24!important}
 html[data-theme="dark"] .welcome-cta .big{color:#fff!important}
 /* "paper" panels: stay light so dark diagram / equation strokes remain visible */
 html[data-theme="dark"] .fig,html[data-theme="dark"] .eqbox{color:#1f2937}
@@ -221,8 +221,8 @@ html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="da
 html[data-theme="dark"] input::placeholder{color:var(--muted)}
 html[data-theme="dark"] table th{color:var(--muted)}
 html[data-theme="dark"] .bridge,html[data-theme="dark"] .bridge *{color:#1f2937}
-html[data-theme="dark"] .bridge strong,html[data-theme="dark"] .bridge b{color:#3730a3!important}
-html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
+html[data-theme="dark"] .bridge strong,html[data-theme="dark"] .bridge b{color:#92400e!important}
+html[data-theme="dark"] .bridge .bl{color:#92400e!important}
 
 /* ===== Theme switch (fixed, under the language switch) ===== */
 .themebar{position:fixed;top:44px;right:12px;z-index:300;display:inline-flex;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
@@ -490,7 +490,7 @@ function microK2(el){
      <line x1="${X(px1)}" y1="${Y(py1)}" x2="${X(px2)}" y2="${Y(py2)}" stroke="#b45309" stroke-width="3" id="lineK"/>
     </svg>
     <div class="eq">y = ${k.toFixed(1)}x + ${b.toFixed(1)}</div>
-    <div class="box" style="background:#dbeafe">
+    <div class="box" style="background:#fef3c7">
      <h3><span class="en">What you see</span><span class="zh">你看到的</span></h3>
      <div style="font-size:14px">
       <p>• When <b>k > 0</b>: line goes up-right. When <b>k < 0</b>: goes down-right.</p>
@@ -536,12 +536,12 @@ function microK3(el){
      <text x="${X(p1x)-12}" y="${Y(p1y)-15}" font-size="14" font-weight="bold" fill="#b91c1c">P₁(${p1x},${p1y})</text>
      <text x="${X(p2x)+12}" y="${Y(p2y)-15}" font-size="14" font-weight="bold" fill="#b45309">P₂(${p2x},${p2y})</text>
      ${dx!==0?`<text x="60" y="50" font-size="14" fill="${riseColor}" font-weight="bold">Δy = ${dy}  (rise)</text>`:''}
-     ${dx!==0?`<text x="60" y="70" font-size="14" fill="#2563eb" font-weight="bold">Δx = ${dx}  (run)</text>`:''}
+     ${dx!==0?`<text x="60" y="70" font-size="14" fill="#b45309" font-weight="bold">Δx = ${dx}  (run)</text>`:''}
     </svg>
     <div class="eq">
      k = (y₂ − y₁) / (x₂ − x₁) = (${p2y} − ${p1y}) / (${p2x} − ${p1x}) = ${dy} / ${dx} = <span class="num" style="color:${riseColor}">${mStr}</span>
     </div>
-    <div class="box" style="background:#dbeafe">
+    <div class="box" style="background:#fef3c7">
      <h3><span class="en">Understanding the slope</span><span class="zh">理解斜率</span></h3>
      <div style="font-size:14px">
       <p>• <b>Positive k</b> (green): line goes up-right. Negative k (red): down-right.</p>
@@ -555,6 +555,7 @@ function microK3(el){
     <div class="bl"><span class="en">Bridge</span><span class="zh">衔接补全</span></div>
     <h3><span class="en">Why is the slope the same everywhere on a line?</span><span class="zh">为什么同一条直线上斜率处处相同？</span></h3>
     <p><span class="en">Pick any two points: slope = rise / run. Slide both points along the line by the same amount and the new rise and new run grow in the same proportion, so their ratio stays put. That is similar-triangle reasoning — the textbook often states "slope is constant" without showing why. Khan's "Slope and similar triangles" walks through the proof.</span><span class="zh">任取两点，斜率 = 上升 / 平移。把两个点沿直线一起平移相同距离，新的上升和新的平移按同样比例变化，比值不变。这正是相似三角形的道理 —— 教材常常只说"斜率恒定"，却不说为什么。可汗的「斜率与相似三角形」把证明讲清楚。</span></p>
+    <p class="kwatch" style="margin-top:9px;font-size:14px"><span class="en">Watch it on Khan Academy:</span><span class="zh">看 Khan Academy 讲解：</span> <a href="https://www.youtube.com/watch?v=24WMbh1BBKc" target="_blank" rel="noopener" style="font-weight:600">Slope and similar triangles</a></p>
    </div>
 `;
   const svg=el.querySelector('#svgK3');
