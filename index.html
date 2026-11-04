@@ -8,7 +8,7 @@
 :root{
  --bg:#f4f5fb; --card:#fff; --line:#e5e7eb; --text:#1f2937; --muted:#5b6472;
  --accent:#b45309; --accent2:#92400e; --ok:#15803d; --err:#b91c1c; --warn:#b45309;
- --blue:#eff6ff; --bluebd:#93c5fd;
+ --blue:#fffbeb; --bluebd:#fbbf24;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -65,13 +65,13 @@ body.lang-en .parents .zh{display:none}
 .letter[data-lang="zh"] .lten{display:none}
 .letter[data-lang="en"] .ltzh{display:none}
 .ltsw{display:flex;gap:6px;margin:2px 0 14px}
-.ltsw button{font-size:12px;font-weight:700;border:1px solid #bfdbfe;background:#fff;color:#1e40af;border-radius:999px;padding:5px 15px;cursor:pointer;font-family:inherit}
-.ltsw button:hover{border-color:#1e40af}
-.ltsw button.on{background:#1e40af;color:#fff;border-color:#1e40af}
+.ltsw button{font-size:12px;font-weight:700;border:1px solid #fef3c7;background:#fff;color:#92400e;border-radius:999px;padding:5px 15px;cursor:pointer;font-family:inherit}
+.ltsw button:hover{border-color:#92400e}
+.ltsw button.on{background:#92400e;color:#fff;border-color:#92400e}
 .letter p{margin:0 0 12px}
 .letter p:last-child{margin-bottom:0}
-.close-letter{display:block;width:100%;margin-top:16px;padding:11px 12px;border:1px solid #bfdbfe;background:#fff;color:#1e40af;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-user-select:none;user-select:none;touch-action:manipulation}
-.close-letter:active{background:#eff6ff}
+.close-letter{display:block;width:100%;margin-top:16px;padding:11px 12px;border:1px solid #fef3c7;background:#fff;color:#92400e;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-user-select:none;user-select:none;touch-action:manipulation}
+.close-letter:active{background:#fffbeb}
 .close-letter .tri{margin-right:6px;vertical-align:middle;position:relative;top:-1px}
 
 /* ===== Picker ===== */
@@ -208,7 +208,7 @@ html[data-theme="dark"] .nav-i.on .st.ok,
 html[data-theme="dark"] .nav-i.on .st.err{color:#0f172a!important}
 html[data-theme="dark"] .chip.on .rec{color:#0f172a!important}
 html[data-theme="dark"] .step{color:#451a03!important}
-html[data-theme="dark"] .ltsw button{color:#93c5fd!important}
+html[data-theme="dark"] .ltsw button{color:#fbbf24!important}
 html[data-theme="dark"] .welcome-cta .big{color:#fff!important}
 /* "paper" panels: stay light so dark diagram / equation strokes remain visible */
 html[data-theme="dark"] .fig,html[data-theme="dark"] .eqbox{color:#1f2937}
