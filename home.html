@@ -81,7 +81,7 @@ h2 small{font-size:12px;color:var(--muted);font-weight:400}
 .klist{margin:10px 0;display:flex;flex-wrap:wrap;gap:5px}
 .kp{font-size:11px;padding:2px 8px;border-radius:10px;border:1px solid var(--line);color:var(--muted);background:#fff}
 .kp.l1{background:#fef3c7;border-color:#fcd34d;color:#92400e}
-.kp.l2{background:#dbeafe;border-color:#93c5fd;color:#1e40af}
+.kp.l2{background:#fef3c7;border-color:#fbbf24;color:#92400e}
 .kp.l3{background:#dcfce7;border-color:#86efac;color:#166534}
 .kp.l4{background:#dcfce7;border-color:#15803d;color:#14532d;font-weight:600}
 .kp.l4::before{content:"✓ "}
@@ -206,7 +206,7 @@ html[data-theme="dark"] .nav-i.on .st.ok,
 html[data-theme="dark"] .nav-i.on .st.err{color:#0f172a!important}
 html[data-theme="dark"] .chip.on .rec{color:#0f172a!important}
 html[data-theme="dark"] .step{color:#451a03!important}
-html[data-theme="dark"] .ltsw button{color:#93c5fd!important}
+html[data-theme="dark"] .ltsw button{color:#fbbf24!important}
 html[data-theme="dark"] .welcome-cta .big{color:#fff!important}
 /* "paper" panels: stay light so dark diagram / equation strokes remain visible */
 html[data-theme="dark"] .fig,html[data-theme="dark"] .eqbox{color:#1f2937}
@@ -257,7 +257,7 @@ html[data-theme="dark"] table th{color:var(--muted)}
 <header>
  <h1><span class="en">📚 My learning map</span><span class="zh">📚 我的学习地图</span></h1>
  <div class="h1sub"><span class="en">MATHEMATICS · GRADE 8 · BNU</span><span class="zh">数学 · 八年级 · 北师大版</span></div>
- <p><span class="en">7 chapters · 33 topics · 196 videos (videos stored on this site, no external streaming)</span><span class="zh">7 章 · 33 个知识点 · 196 段视频（视频存于本站，无需外部串流）</span></p>
+ <p><span class="en">7 chapters · 33 topics · 196 videos (from Khan Academy, embedded via YouTube)</span><span class="zh">7 章 · 33 个知识点 · 196 段视频（来自 Khan Academy，通过 YouTube 嵌入）</span></p>
  <p style="margin-top:4px"><span class="en">Language: English, with each key term glossed in Chinese once</span><span class="zh">语言：全英文，每个关键词在门厅标注一次中文</span></p>
  <div class="src"><span class="en">Video content from Khan Academy · CC BY-NC-SA</span><span class="zh">视频内容来自 Khan Academy · CC BY-NC-SA</span></div>
 </header>
@@ -336,7 +336,7 @@ html[data-theme="dark"] table th{color:var(--muted)}
 </div>
 
 <p style="margin:22px 0 40px;font-size:11px;color:var(--muted);text-align:center">
- <span class="en">Video content from Khan Academy · CC BY-NC-SA · this site is for personal study only · test site cirechen-test</span><span class="zh">视频内容来自 Khan Academy · CC BY-NC-SA · 本站仅作个人学习用 · 测试站 cirechen-test</span><br>
+ <span class="en">Video content from Khan Academy · CC BY-NC-SA · this site is for personal study only</span><span class="zh">视频内容来自 Khan Academy · CC BY-NC-SA · 本站仅作个人学习用</span><br>
 </p>
 </div>
 
@@ -344,15 +344,15 @@ html[data-theme="dark"] table th{color:var(--muted)}
 const CH=[
  {k:'ch01',cn:'Pythagorean Theorem',cz:'勾股定理',en:'Pythagorean Theorem',p:4,c:'#b45309',
   L:[['k1','Exploring the theorem'],['k2','Is it a right triangle?'],['k3','Applications'],['k4','Strategy: reflect']],v:13},
- {k:'ch02',cn:'Real Numbers',cz:'实数',en:'Real Numbers',p:11,c:'#0e7490',
+ {k:'ch02',cn:'Real Numbers',cz:'实数',en:'Real Numbers',p:11,c:'#a16207',
   L:[['k1','Irrational numbers'],['k2','Square roots'],['k3','Cube roots'],['k4','Estimating roots'],['k5','Using a calculator'],['k6','The real numbers'],['k7','Radicals'],['ext','Optional extra · Scientific notation']],v:34},
- {k:'ch03',cn:'Position & Coordinates',cz:'位置与坐标',en:'Position & Coordinates',p:5,c:'#047857',
+ {k:'ch03',cn:'Position & Coordinates',cz:'位置与坐标',en:'Position & Coordinates',p:5,c:'#c2410c',
   L:[['k1','Locating points'],['k2','The coordinate plane'],['k3','Reflections and coordinates'],['ext','Optional extra · Translations, rotations, dilations']],v:13},
  {k:'ch04',cn:'Linear Functions',cz:'一次函数',en:'Linear Functions',p:7,c:'#b45309',
   L:[['k1','What is a function?'],['k2','Linear and proportional functions'],['k3','Graphs: slope and intercept'],['k5','Finding the rule y = kx + b'],['k4','Applications']],v:56},
- {k:'ch05',cn:'Systems of Equations',cz:'二元一次方程组',en:'Systems of Equations',p:9,c:'#b91c1c',
+ {k:'ch05',cn:'Systems of Equations',cz:'二元一次方程组',en:'Systems of Equations',p:9,c:'#d97706',
   L:[['k1','What is a system?'],['k2','Substitution'],['k3','Elimination'],['k4','Word problems'],['k5','Systems and graphs'],['k6','Find the line from two points'],['ext','Three variables (optional)']],v:36},
- {k:'ch06',cn:'Data Analysis',cz:'数据分析',en:'Data Analysis',p:6,c:'#be185d',
+ {k:'ch06',cn:'Data Analysis',cz:'数据分析',en:'Data Analysis',p:6,c:'#9a3412',
   L:[['k1','Mean / median / mode'],['k4','Reading from charts'],['k2','Variance & standard deviation'],['k3','Box plots']],v:29},
  {k:'ch07',cn:'Proofs with Parallel Lines',cz:'平行线证明',en:'Proofs with Parallel Lines',p:7,c:'#92400e',
   L:[['k1','Why prove?'],['k2','Writing a proof'],['k3','Parallel lines: the tests'],['k4','Parallel lines: what follows'],['k5','Triangle angle sum']],v:15},
@@ -366,7 +366,7 @@ const UNITS=[
  {id:'fin',n:'Final challenge',cn:'All seven chapters mixed',ch:['ch01','ch02','ch03','ch04','ch05','ch06','ch07'],q:12},
 ];
 
-const LVC=['#e5e7eb','#fcd34d','#60a5fa','#34d399','#15803d'];
+const LVC=['#e5e7eb','#fcd34d','#f59e0b','#34d399','#15803d'];
 const LVN=['Not started','Attempted','Familiar','Proficient','Mastered'];
 const LVN_ZH=['还没开始','接触过','比较熟','很熟练','已掌握'];
 
