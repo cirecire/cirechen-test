@@ -55,7 +55,7 @@ input[type=range]{width:130px;accent-color:var(--accent)}
 .badge{font-size:11px;padding:2px 8px;border-radius:12px;font-weight:600;white-space:nowrap}
 .b-core{background:#dcfce7;color:#15803d}
 .b-ext{background:#fef3c7;color:#a16207}
-.b-link{background:#e0e7ff;color:#4338ca}
+.b-link{background:#fef3c7;color:#92400e}
 video{width:100%;max-width:520px;border-radius:8px;background:#000;display:block;margin:8px 0}
 .q{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0}
 .q .qt{font-size:15px;margin-bottom:10px}
@@ -74,7 +74,7 @@ video{width:100%;max-width:520px;border-radius:8px;background:#000;display:block
 .stat b{color:var(--ink)}
 .mastery{font-size:12px;padding:3px 10px;border-radius:12px;font-weight:600}
 .m-none{background:#e5e7eb;color:#475569}.m-att{background:#fef08a;color:#854d0e}
-.m-fam{background:#bfdbfe;color:#1e40af}.m-pro{background:#a7f3d0;color:#065f46}
+.m-fam{background:#fef3c7;color:#92400e}.m-pro{background:#a7f3d0;color:#065f46}
 .m-mas{background:#15803d;color:#fff}
 .note{font-size:12px;color:var(--mute);margin-top:6px}
 .credit{margin-top:22px;padding:12px;border-top:1px solid var(--line);font-size:12px;color:var(--mute)}
@@ -142,7 +142,7 @@ body.lang-mix .step .zh, body.lang-mix header .zh, body.lang-mix .hero .zh,
 body.lang-mix .ch .zh, body.lang-mix .ch .top .zh, body.lang-mix .welcome .zh,
 body.lang-mix .note .zh { font-size: inherit; }
 
-.bridge{background:#eef2ff;border-left:3px solid var(--accent);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
+.bridge{background:#fef3c7;border-left:3px solid var(--accent);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
 .bridge strong{color:var(--accent)}
 .bridge .bl{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
 /* ===== Day / Night / Auto (follows the system by default) ===== */
@@ -208,7 +208,7 @@ html[data-theme="dark"] .nav-i.on .st.ok,
 html[data-theme="dark"] .nav-i.on .st.err{color:#0f172a!important}
 html[data-theme="dark"] .chip.on .rec{color:#0f172a!important}
 html[data-theme="dark"] .step{color:#451a03!important}
-html[data-theme="dark"] .ltsw button{color:#93c5fd!important}
+html[data-theme="dark"] .ltsw button{color:#fbbf24!important}
 html[data-theme="dark"] .welcome-cta .big{color:#fff!important}
 /* "paper" panels: stay light so dark diagram / equation strokes remain visible */
 html[data-theme="dark"] .fig,html[data-theme="dark"] .eqbox{color:#1f2937}
@@ -227,8 +227,8 @@ html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="da
 html[data-theme="dark"] input::placeholder{color:var(--muted)}
 html[data-theme="dark"] table th{color:var(--muted)}
 html[data-theme="dark"] .bridge,html[data-theme="dark"] .bridge *{color:#1f2937}
-html[data-theme="dark"] .bridge strong,html[data-theme="dark"] .bridge b{color:#3730a3!important}
-html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
+html[data-theme="dark"] .bridge strong,html[data-theme="dark"] .bridge b{color:#92400e!important}
+html[data-theme="dark"] .bridge .bl{color:#92400e!important}
 
 /* ===== Theme switch (fixed, under the language switch) ===== */
 .themebar{position:fixed;top:44px;right:12px;z-index:300;display:inline-flex;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
@@ -275,7 +275,7 @@ html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
 </div>
 
 <div class="credit">
-  A learning prototype (test site), for self-study practice.
+  A self-study companion for the public-school syllabus.
 </div>
 </div>
 
@@ -427,6 +427,7 @@ function microK1(el){
     <div class="bl"><span class="en">Bridge</span><span class="zh">衔接补全</span></div>
     <h3><span class="en">Why √2 proves fractions aren’t enough</span><span class="zh">为什么 √2 证明分数不够用</span></h3>
     <p><span class="en">Every fraction a/b, squared, is still a fraction — so fractions can only land on rational squares. But a right isosceles triangle with legs 1 has hypotenuse √2, a real length no fraction equals. The classic proof: if √2 = a/b in lowest terms, then a² = 2b², so a is even, which forces b even too — contradicting "lowest terms". That contradiction is the bridge: it shows we must invent a new kind of number (irrational), and only with rationals do they fill every point on the line. That is why this chapter is called Real Numbers. Khan’s "Proof that square root of 2 is irrational" walks through it.</span><span class="zh">任意分数 a/b 平方后仍是分数，所以分数只能落在有理数平方上。但直角边都为 1 的等腰直角三角形，斜边是 √2 —— 一个没有分数等于它的真实长度。经典证法：若 √2 = a/b（最简分数），则 a² = 2b²，于是 a 是偶数，进而 b 也是偶数 —— 这与「最简」矛盾。这个矛盾就是桥梁：它说明我们必须发明一种新数（无理数），再和有理数合在一起，才能填满数轴上的每一点。这就是为什么本章叫「实数」。可汗的「√2 是无理数的证明」把全过程讲清楚。</span></p>
+    <p class="kwatch" style="margin-top:9px;font-size:14px"><span class="en">Watch it on Khan Academy:</span><span class="zh">看 Khan Academy 讲解：</span> <a href="https://www.youtube.com/watch?v=mX91_3GQqLY" target="_blank" rel="noopener" style="font-weight:600">Proof that square root of 2 is irrational</a></p>
    </div>
 `;
 
