@@ -124,7 +124,7 @@ body.lang-mix .step .zh, body.lang-mix header .zh, body.lang-mix .hero .zh,
 body.lang-mix .ch .zh, body.lang-mix .ch .top .zh, body.lang-mix .welcome .zh,
 body.lang-mix .note .zh { font-size: inherit; }
 
-.bridge{background:#eef2ff;border-left:3px solid var(--accent);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
+.bridge{background:#fef3c7;border-left:3px solid var(--accent);padding:10px 14px;border-radius:6px;margin:10px 0;font-size:14px}
 .bridge strong{color:var(--accent)}
 .bridge .bl{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
 /* ===== Day / Night / Auto (follows the system by default) ===== */
@@ -190,7 +190,7 @@ html[data-theme="dark"] .nav-i.on .st.ok,
 html[data-theme="dark"] .nav-i.on .st.err{color:#0f172a!important}
 html[data-theme="dark"] .chip.on .rec{color:#0f172a!important}
 html[data-theme="dark"] .step{color:#451a03!important}
-html[data-theme="dark"] .ltsw button{color:#93c5fd!important}
+html[data-theme="dark"] .ltsw button{color:#fbbf24!important}
 html[data-theme="dark"] .welcome-cta .big{color:#fff!important}
 /* "paper" panels: stay light so dark diagram / equation strokes remain visible */
 html[data-theme="dark"] .fig,html[data-theme="dark"] .eqbox{color:#1f2937}
@@ -209,8 +209,8 @@ html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="da
 html[data-theme="dark"] input::placeholder{color:var(--muted)}
 html[data-theme="dark"] table th{color:var(--muted)}
 html[data-theme="dark"] .bridge,html[data-theme="dark"] .bridge *{color:#1f2937}
-html[data-theme="dark"] .bridge strong,html[data-theme="dark"] .bridge b{color:#3730a3!important}
-html[data-theme="dark"] .bridge .bl{color:#3730a3!important}
+html[data-theme="dark"] .bridge strong,html[data-theme="dark"] .bridge b{color:#92400e!important}
+html[data-theme="dark"] .bridge .bl{color:#92400e!important}
 
 /* ===== Theme switch (fixed, under the language switch) ===== */
 .themebar{position:fixed;top:44px;right:12px;z-index:300;display:inline-flex;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
@@ -344,7 +344,7 @@ function microK1(el){
    <h3><span class="en">Why looking is not enough</span><span class="zh">为什么只看不够</span></h3>
    <p style="font-size:14px"><span class="en">Your drawn triangle might come out at 178° or 182° — that is measurement error, not a broken theorem. To <i>guarantee</i> it you need <b>strict logical deduction</b>, which is what a <b>proof</b> is.</span><span class="zh">你画的三角形可能量出 178° 或 182° —— 那是测量误差，不是定理出了错。要保证它恒成立，需要严格的逻辑推理，而这正是证明。</span></p>
   </div>
-  <div class="box" style="background:#dbeafe">
+  <div class="box" style="background:#fef3c7">
    <h3><span class="en">What a proof is: known to unknown</span><span class="zh">什么是证明：由已知到未知</span></h3>
    <p style="font-size:14px"><span class="en">Start from statements already known to be true, follow the rules of logic, and arrive at a new true statement.</span><span class="zh">从已知为真的命题出发，依照逻辑规则，推出一个新的真命题。</span></p>
    <p style="font-size:14px"><span class="en">known (axioms, proved results) → rules of inference → conclusion</span><span class="zh">已知（公理、已证结论）→ 推理规则 → 结论</span></p>
@@ -366,7 +366,7 @@ function microK2(el){
     <span class="num">∵</span> = "since" &nbsp;&nbsp;&nbsp; <span class="num">∴</span> = "therefore"
    </span><span class="zh">∵ 表示「因为」　　∴ 表示「所以」</span></p>
   </div>
-  <div class="box" style="background:#dbeafe">
+  <div class="box" style="background:#fef3c7">
    <h3><span class="en">Worked example</span><span class="zh">例题</span></h3>
    <p><span class="en"><b>Problem:</b> given AB ∥ CD and ∠B = ∠D, prove AD ∥ BC.</span><span class="zh">例题：已知 AB ∥ CD 且 ∠B = ∠D，求证 AD ∥ BC。</span></p>
    <div class="proof">
@@ -399,7 +399,7 @@ function microK3(el){
   <div class="box">
    <h3><span class="en">Three equivalent conditions</span><span class="zh">三个等价条件</span></h3>
    <p style="font-size:14px"><span class="en">Any one of these being true makes the two lines parallel (cut by a third line, a transversal):</span><span class="zh">只要下面任意一条成立，两直线就平行（被第三条直线，即截线，所截）：</span></p>
-   <div class="box" style="background:#dbeafe;margin:10px 0">
+   <div class="box" style="background:#fef3c7;margin:10px 0">
     <p><span class="en"><b>① Corresponding angles equal → lines parallel</b></span><span class="zh">① 同位角相等 → 两直线平行</span></p>
     <p><span class="en"><b>② Alternate interior angles equal → lines parallel</b></span><span class="zh">② 内错角相等 → 两直线平行</span></p>
     <p><span class="en"><b>③ Co-interior angles summing to 180° → lines parallel</b></span><span class="zh">③ 同旁内角互补（和为 180°）→ 两直线平行</span></p>
@@ -432,7 +432,7 @@ function microK3(el){
 function microK4(el){
  el.innerHTML=`
   <div class="step"><span class="en">What follows from parallel lines</span><span class="zh">平行线能推出什么</span></div>
-  <div class="box" style="background:#dbeafe">
+  <div class="box" style="background:#fef3c7">
    <h3><span class="en">Two directions</span><span class="zh">两个方向</span></h3>
    <p style="font-size:14px"><span class="en"><b>Test:</b> from equal angles → conclude the lines are parallel</span><span class="zh">判定：由角相等 → 推出两直线平行</span></p>
    <p style="font-size:14px"><span class="en"><b>Property:</b> from parallel lines → conclude angles are equal (find the angle)</span><span class="zh">性质：由平行线 → 推出角相等（求角度）</span></p>
@@ -457,7 +457,7 @@ function microK4(el){
 function microK5(el){
  el.innerHTML=`
   <div class="step"><span class="en">The triangle angle sum</span><span class="zh">三角形内角和</span></div>
-  <div class="box" style="background:#dbeafe">
+  <div class="box" style="background:#fef3c7">
    <h3><span class="en">Theorem</span><span class="zh">定理</span></h3>
    <p style="font-size:18px;text-align:center"><span class="en">The three interior angles of a triangle sum to <span class="num">180°</span></span><span class="zh">三角形的三个内角之和等于 180°</span></p>
   </div>
@@ -483,6 +483,7 @@ function microK5(el){
     <div class="bl"><span class="en">Bridge</span><span class="zh">衔接补全</span></div>
     <h3><span class="en">The same idea reaches every polygon</span><span class="zh">同样的道理适用于所有多边形</span></h3>
     <p><span class="en">An n-sided polygon's interior angles sum to (n - 2) times 180 degrees. Slice it into triangles from one vertex and you always get n - 2 of them, each 180. So this chapter's triangle result is the seed of a rule for any shape — that is the bridge from "one triangle" to "every polygon". Khan's "Sum of interior angles of a polygon" builds it out.</span><span class="zh">n 边形的内角和等于 (n − 2) × 180°。从同一个顶点把多边形切成三角形，永远得到 n − 2 个，每个 180°。所以本章的三角形结论，是所有形状通用规律的一颗种子 —— 这就是从"一个三角形"到"任意多边形"的桥梁。可汗的「多边形内角和」把它展开讲。</span></p>
+    <p class="kwatch" style="margin-top:9px;font-size:14px"><span class="en">Watch it on Khan Academy:</span><span class="zh">看 Khan Academy 讲解：</span> <a href="https://www.youtube.com/watch?v=qG3HnRccrQU" target="_blank" rel="noopener" style="font-weight:600">Sum of interior angles of a polygon</a></p>
    </div>
 `;
 }
