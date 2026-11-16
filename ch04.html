@@ -43,7 +43,7 @@ h2{font-size:18px;margin-bottom:6px}
 button{font-family:inherit;border:none;cursor:pointer;border-radius:8px;padding:8px 14px;font-size:14px;background:var(--accent);color:#fff}
 button.secondary{background:#e5e7eb;color:var(--text)}
 button:hover{opacity:.92}
-input[type=text],input[type=number]{padding:10px 12px;font-size:15px;border:1px solid var(--line);border-radius:8px;width:120px;font-family:inherit}
+input[type=text],input[type=number]{padding:10px 12px;font-size:16px;border:1px solid var(--line);border-radius:8px;width:120px;font-family:inherit}
 input:focus{outline:none;border-color:var(--accent)}
 input.ok{border-color:var(--ok);background:#f0fdf4}
 input.err{border-color:var(--err);background:#fef2f2}
@@ -661,7 +661,7 @@ function microK5(el){
      ${rows}
     </div>
     <div class="box" style="background:#fffbeb">
-     <h3><span class="en">Why this works</span><span class="zh">为什么成立</span></h3>
+     <h3><span class="en">The key idea</span><span class="zh">核心思路</span></h3>
      <p style="font-size:14px">${mode===3
       ? 'Two unknowns (k and b) need two equations — that is why two points are enough. One point alone leaves a whole family of lines through it.'
       : 'One unknown (k) needs one equation — one point is enough, because the other letter is already fixed.'}</p>
@@ -974,7 +974,7 @@ function chTest(el){
 /* ===== Chapter lobby: start here ===== */
 const GLOSS={k1:"函数",k2:"一次函数",k3:"斜率 / 截距",k5:"待定系数法",k4:"建模"};
 const USE_MICRO=true;
-const INTRO={why:"A phone plan costs ¥20 a month plus ¥5 for each extra GB: use x GB and you pay y = 20 + 5x. That is a linear function. Taxi fares, utility bills, distance-time graphs, how XP builds up in a game — all of them change at a steady rate. Learn it and you can graph any steady-rate situation, and read the slope as \"how much more you pay per extra unit\".",whyZh:"手机套餐每月 20 元，每多用 1 GB 加 5 元：用 x GB 就付 y = 20 + 5x。这就是一次函数。打车费、水电费、距离-时间图、游戏里的经验值，全都是按固定速度变化的。学会它，任何\"按固定速度涨\"的事都能画图，而那条线的斜率就是\"每多用一单位多付多少\"。",desc:{k1:"One quantity changes and another follows: variables, and what a function is",k2:"y = kx + b — the constant-rate relationship",k3:"Slope k sets how steep, intercept b sets where it starts",k5:"Write the form first, then let the given points fix k and b",k4:"Reading graphs and writing equations for real billing and travel problems"}};
+const INTRO={why:"A phone plan costs ¥20 a month plus ¥5 for each extra GB: use x GB and you pay y = 20 + 5x. That is a linear function. Taxi fares, utility bills, distance-time graphs, how XP builds up in a game — all of them change at a steady rate. Learn it and you can graph any steady-rate situation, and read the slope as \"how much more you pay per extra unit\".",whyZh:"手机套餐每月 20 元，每多用 1 GB 加 5 元：用 x GB 就付 y = 20 + 5x。一次函数就长这样。打车费、水电费、距离-时间图、游戏里的经验值，全都是按固定速度变化的。学会它，任何\"按固定速度涨\"的事都能画图，而那条线的斜率就是\"每多用一单位多付多少\"。",desc:{k1:"One quantity changes and another follows: variables, and what a function is",k2:"y = kx + b — the constant-rate relationship",k3:"Slope k sets how steep, intercept b sets where it starts",k5:"Write the form first, then let the given points fix k and b",k4:"Reading graphs and writing equations for real billing and travel problems"}};
 function goLesson(id){cur=USE_MICRO?('micro-'+id):id;render();}
 function introRender(main){
   const pts=LESSONS.filter(l=>l.id!=='test'&&l.id!=='intro');
