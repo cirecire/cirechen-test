@@ -242,4 +242,5 @@ html{ overflow-x:hidden; max-width:100%; }
   /* 11) tables: keep inside the viewport */
   table{ max-width:100%; }
   td, th{ padding:6px 8px; }
+  .ut-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
 }
