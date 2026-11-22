@@ -154,12 +154,17 @@ input,select,textarea{border-radius:var(--radius-sm);border:1px solid var(--line
   padding:14px 16px;
 }
 /* dark mode: .why and .welcome have hardcoded light backgrounds in inline styles;
-   override them here so they don't glow in night mode. */
+   override them here so they don't glow in night mode.
+   .proof panels keep a light paper background (like .fig/.eqbox) with dark ink. */
 html[data-theme="dark"] .why,
 html[data-theme="dark"] .welcome{
   background:var(--card) !important;
   border:1px solid var(--line) !important;
   border-left:4px solid var(--accent) !important;
+}
+html[data-theme="dark"] .proof{
+  background:#f8fafc !important;
+  color:#1f2937 !important;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]) .why,
@@ -167,6 +172,10 @@ html[data-theme="dark"] .welcome{
     background:var(--card) !important;
     border:1px solid var(--line) !important;
     border-left:4px solid var(--accent) !important;
+  }
+  :root:not([data-theme="light"]) .proof{
+    background:#f8fafc !important;
+    color:#1f2937 !important;
   }
 }
 hr{border:none;height:1px;background:var(--line);margin:30px 0}
