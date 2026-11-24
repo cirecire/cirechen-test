@@ -15,31 +15,37 @@
   --accent-press:#92400e;    /* amber-800 — pressed/hover */
   --accent-soft:rgba(180,83,9,.10);   /* tinted fills / badges */
   --accent-soft2:rgba(180,83,9,.16);
-  /* ---- canvas + surfaces ---- */
-  --bg:#f6f7fb;              /* soft cool canvas */
+  --accent-bg:rgba(180,83,9,.10);   /* 青芒 KPI tile fill — tinted brand panel */
+  /* ---- canvas + surfaces (QingMang-style warm mint canvas) ---- */
+  --bg:#f3f7f6;              /* soft mint canvas — 青芒 #F2F8F6 的数学版暖调 */
   --card:#ffffff;
-  --card2:#fbfbfe;
-  --line:#e7e8f2;            /* hairline borders */
+  --card2:#fbfdfc;
+  --line:#e2ebe8;            /* hairline borders, tinted toward the brand */
+  --text:#243b35;            /* deep ink green — 青芒 #243b35 */
+  --muted:#6b8a82;           /* 青芒 #6b8a82 */
   /* ---- shape + depth (Cambridge: calm, lots of air, soft shadow) ---- */
   --radius:18px;
   --radius-sm:12px;
-  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-  --shadow-sm:0 1px 2px rgba(17,24,39,.06),0 1px 3px rgba(17,24,39,.05);
-  --shadow:0 6px 18px rgba(17,24,39,.07),0 2px 6px rgba(17,24,39,.04);
-  --shadow-lg:0 18px 40px rgba(146,64,14,.18);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Noto Sans SC","Noto Sans CJK SC","Source Han Sans SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  /* QingMang signature: shadows are TINTED with the brand hue, not neutral grey */
+  --shadow-sm:0 1px 2px rgba(31,140,124,.06),0 1px 3px rgba(31,140,124,.05);
+  --shadow:0 2px 10px rgba(31,140,124,.10);
+  --shadow-lg:0 16px 40px rgba(146,64,14,.18);
 }
 
 /* ---------- keep MATH identity in dark mode too ---------- */
 html[data-theme="dark"]{
   --accent:#fbbf24; --accent-2:#fcd34d; --accent-press:#f59e0b;
-  --accent-soft:rgba(251,191,36,.16); --accent-soft2:rgba(251,191,36,.24);
+  --accent-soft:rgba(251,191,36,.16); --accent-soft2:rgba(251,191,36,.24); --accent-bg:rgba(251,191,36,.14);
   --card:#1e293b; --card2:#172033; --line:#334155;
+  --text:#e2e8f0; --muted:#94a3b8;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --accent:#fbbf24; --accent-2:#fcd34d; --accent-press:#f59e0b;
-    --accent-soft:rgba(251,191,36,.16); --accent-soft2:rgba(251,191,36,.24);
+    --accent-soft:rgba(251,191,36,.16); --accent-soft2:rgba(251,191,36,.24); --accent-bg:rgba(251,191,36,.14);
     --card:#1e293b; --card2:#172033; --line:#334155;
+    --text:#e2e8f0; --muted:#94a3b8;
   }
 }
 
@@ -210,6 +216,110 @@ hr{border:none;height:1px;background:var(--line);margin:30px 0}
 blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:10px;color:inherit}
 
 /* ============================================================
+   ===== QingMang visual language (2026-11-24) =====
+   Borrowed from the 青芒 vocabulary-report / honor-roll sites:
+     · brand-tinted shadows (not neutral grey)  -> --shadow*
+     · warm mint canvas + tinted hairlines
+     · pill-shaped filter chips (椭圆胶囊)
+     · cards that lift on hover with a tinted glow
+     · tabular figures for stats so numbers line up
+   Kept intact: MATH stays amber so it never reads as PHYSICS.
+   ============================================================ */
+
+/* ---- filter / jump chips become true pills (青芒 filters) ---- */
+.chip,.langseg,.themseg,.nav-i{
+  border-radius:999px;
+  transition:transform .15s ease,box-shadow .15s ease,background .15s ease;
+}
+.chip:not(.on):hover,.langseg:not(.on):hover,.themseg:not(.on):hover{
+  background:var(--accent-soft);transform:translateY(-1px);
+}
+
+/* ---- cards lift with a brand-tinted glow, not a grey shadow ---- */
+.card:hover,.ch:hover,.step-card:hover,.vid-item:hover,.kp-c:hover{
+  box-shadow:0 6px 18px rgba(180,83,9,.13);
+  transform:translateY(-2px);
+}
+html[data-theme="dark"] .card:hover,
+html[data-theme="dark"] .ch:hover,
+html[data-theme="dark"] .step-card:hover,
+html[data-theme="dark"] .vid-item:hover,
+html[data-theme="dark"] .kp-c:hover{
+  box-shadow:0 6px 20px rgba(0,0,0,.42);
+}
+
+
+
+/* ---- QingMang-style opaque callout panels (青芒 .tip #FFF8EE) ----
+   Semi-transparent accent tints go muddy when blended over the mint canvas,
+   so the guide / parent panels use opaque warm-cream instead.
+   NOTE: dark overrides come FIRST here because the light rule below uses
+   !important — the later light rule would otherwise win the cascade and
+   leave bright panels glowing in night mode. */
+html[data-theme="dark"] .welcome,
+html[data-theme="dark"] .parents{
+  background:var(--card) !important;
+  border-color:var(--line) !important;
+  color:var(--text) !important;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .welcome,
+  :root:not([data-theme="light"]) .parents{
+    background:var(--card) !important;
+    border-color:var(--line) !important;
+    color:var(--text) !important;
+  }
+}
+.welcome,.parents{
+  background:#fff8ee;
+  border-color:#f3e2c0;
+}
+
+/* ---- KPI tiles: 青芒 .kpi — tinted brand fill, big number, tight caption ---- */
+.stat{
+  background:var(--accent-bg);
+  border:none;
+  border-radius:14px;
+  padding:11px 12px;
+  box-shadow:none;
+}
+.stat .v{
+  font-size:30px;font-weight:800;line-height:1.15;
+  color:var(--accent);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.015em;
+}
+.stat .l{
+  font-size:13.5px;line-height:1.35;color:var(--muted);margin-top:2px;
+}
+
+/* ---- numbers line up in stat tiles (青芒 .stat .v) ---- */
+.stat b,.stat .v,.stat strong,.kp-c .n,.summary b{
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.01em;
+}
+
+/* ---- callouts get a soft tinted fill, matching 青芒 tip/alert blocks ---- */
+.tip,.note,.hint,.parents{
+  border-radius:12px;
+  border-left-width:5px;
+}
+
+/* ---- focus rings are visible but calm (青芒 input:focus) ---- */
+input:focus,select:focus,textarea:focus{
+  outline:2px solid var(--accent);outline-offset:1px;
+  border-color:var(--accent);
+}
+
+/* ---- primary button: slight lift + tinted glow (青芒 .btn) ---- */
+button:not(.ghost):hover{
+  box-shadow:0 6px 16px rgba(180,83,9,.22);
+}
+html[data-theme="dark"] button:not(.ghost):hover{
+  box-shadow:0 6px 18px rgba(0,0,0,.40);
+}
+
+/* ============================================================
    ===== Small-screen / mobile optimization =====
    Targets WeChat in-app browser, iOS Safari, Android Chrome on
    phones (<= ~430px) and small tablets. These rules load AFTER
@@ -295,4 +405,81 @@ html{ overflow-x:hidden; max-width:100%; }
   table{ max-width:100%; }
   td, th{ padding:6px 8px; }
   .ut-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+}
+
+/* ---- dark-mode ink remap (central) ---- */
+/* Page inline styles hardcode day-mode ink. In night mode the same ink on a
+   dark card is unreadable, so remap it here — theme.css loads after every
+   page's inline <style>, so these rules win.
+   Paper elements (.fig / .eqbox / .proof / .vid-h) are deliberately EXCLUDED:
+   they keep a light paper background with dark ink, like a printed figure. */
+
+html[data-theme="dark"] .step-t,
+html[data-theme="dark"] .step-t *{ color:#e2e8f0 !important; }
+html[data-theme="dark"] .step-d,
+html[data-theme="dark"] .step-d *{ color:#94a3b8 !important; }
+
+html[data-theme="dark"] .welcome-lead,
+html[data-theme="dark"] .welcome-lead *{ color:#cbd5e1 !important; }
+html[data-theme="dark"] .welcome-cta .skip,
+html[data-theme="dark"] .welcome-cta .skip *{ color:var(--accent) !important; }
+html[data-theme="dark"] .show-guide{ color:var(--muted) !important; }
+
+html[data-theme="dark"] .parents p,
+html[data-theme="dark"] .parents p *{ color:#94a3b8 !important; }
+html[data-theme="dark"] .parents summary .en,
+html[data-theme="dark"] .parents summary .en *{ color:#e2e8f0 !important; }
+html[data-theme="dark"] .parents summary .zh,
+html[data-theme="dark"] .parents summary .zh *{ color:var(--accent) !important; }
+html[data-theme="dark"] .parents p b .en,
+html[data-theme="dark"] .parents p b .en *{ color:#e2e8f0 !important; }
+html[data-theme="dark"] .parents p b .zh,
+html[data-theme="dark"] .parents p b .zh *{ color:var(--accent) !important; }
+
+html[data-theme="dark"] .langseg button{ color:#e2e8f0 !important; }
+
+html[data-theme="dark"] .hint,
+html[data-theme="dark"] .hint *{ color:#e2e8f0 !important; }
+html[data-theme="dark"] .note,
+html[data-theme="dark"] .note *{ color:var(--text) !important; }
+
+html[data-theme="dark"] .m-none{
+  background:rgba(148,163,184,.16) !important;
+  color:#cbd5e1 !important;
+}
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .step-t,
+  :root:not([data-theme="light"]) .step-t *{ color:#e2e8f0 !important; }
+  :root:not([data-theme="light"]) .step-d,
+  :root:not([data-theme="light"]) .step-d *{ color:#94a3b8 !important; }
+
+  :root:not([data-theme="light"]) .welcome-lead,
+  :root:not([data-theme="light"]) .welcome-lead *{ color:#cbd5e1 !important; }
+  :root:not([data-theme="light"]) .welcome-cta .skip,
+  :root:not([data-theme="light"]) .welcome-cta .skip *{ color:var(--accent) !important; }
+  :root:not([data-theme="light"]) .show-guide{ color:var(--muted) !important; }
+
+  :root:not([data-theme="light"]) .parents p,
+  :root:not([data-theme="light"]) .parents p *{ color:#94a3b8 !important; }
+  :root:not([data-theme="light"]) .parents summary .en,
+  :root:not([data-theme="light"]) .parents summary .en *{ color:#e2e8f0 !important; }
+  :root:not([data-theme="light"]) .parents summary .zh,
+  :root:not([data-theme="light"]) .parents summary .zh *{ color:var(--accent) !important; }
+  :root:not([data-theme="light"]) .parents p b .en,
+  :root:not([data-theme="light"]) .parents p b .en *{ color:#e2e8f0 !important; }
+  :root:not([data-theme="light"]) .parents p b .zh,
+  :root:not([data-theme="light"]) .parents p b .zh *{ color:var(--accent) !important; }
+
+  :root:not([data-theme="light"]) .langseg button{ color:#e2e8f0 !important; }
+
+  :root:not([data-theme="light"]) .hint,
+  :root:not([data-theme="light"]) .hint *{ color:#e2e8f0 !important; }
+  :root:not([data-theme="light"]) .note,
+  :root:not([data-theme="light"]) .note *{ color:var(--text) !important; }
+
+  :root:not([data-theme="light"]) .m-none{
+    background:rgba(148,163,184,.16) !important;
+    color:#cbd5e1 !important;
+  }
 }
