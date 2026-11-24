@@ -162,10 +162,24 @@ html[data-theme="dark"] .welcome{
   border:1px solid var(--line) !important;
   border-left:4px solid var(--accent) !important;
 }
-html[data-theme="dark"] .proof{
+html[data-theme="dark"] .proof,
+html[data-theme="dark"] .vid-h{
   background:#f8fafc !important;
   color:#1f2937 !important;
 }
+html[data-theme="dark"] .vid-h *{ color:#1f2937 !important; }
+/* bridge callouts have a light tint background in day mode; in dark mode they must
+   become a dark tinted card so the text stays readable. */
+html[data-theme="dark"] .bridge{
+  background:var(--card2) !important;
+  color:var(--text) !important;
+  border:1px solid var(--line) !important;
+  border-left:4px solid var(--accent) !important;
+}
+html[data-theme="dark"] .bridge *{ color:var(--text) !important; }
+html[data-theme="dark"] .bridge strong,
+html[data-theme="dark"] .bridge b,
+html[data-theme="dark"] .bridge .bl{ color:var(--accent) !important; }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]) .why,
   :root:not([data-theme="light"]) .welcome{
@@ -173,10 +187,24 @@ html[data-theme="dark"] .proof{
     border:1px solid var(--line) !important;
     border-left:4px solid var(--accent) !important;
   }
-  :root:not([data-theme="light"]) .proof{
+  :root:not([data-theme="light"]) .proof,
+  :root:not([data-theme="light"]) .vid-h{
     background:#f8fafc !important;
     color:#1f2937 !important;
   }
+  :root:not([data-theme="light"]) .vid-h *{ color:#1f2937 !important; }
+  /* bridge callouts have a light tint background in day mode; in dark mode they must
+     become a dark tinted card so the text stays readable. */
+  :root:not([data-theme="light"]) .bridge{
+    background:var(--card2) !important;
+    color:var(--text) !important;
+    border:1px solid var(--line) !important;
+    border-left:4px solid var(--accent) !important;
+  }
+  :root:not([data-theme="light"]) .bridge *{ color:var(--text) !important; }
+  :root:not([data-theme="light"]) .bridge strong,
+  :root:not([data-theme="light"]) .bridge b,
+  :root:not([data-theme="light"]) .bridge .bl{ color:var(--accent) !important; }
 }
 hr{border:none;height:1px;background:var(--line);margin:30px 0}
 blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:10px;color:inherit}
@@ -204,7 +232,6 @@ html{ overflow-x:hidden; max-width:100%; }
 /* keep the sticky top bars + vid headers from forcing horizontal scroll on phones */
 .topbar{ flex-wrap:wrap !important; gap:6px 10px !important; }
 .vid-h{ flex-wrap:wrap !important; gap:6px 8px !important; }
-
 
 /* ---- phones + small tablets: collapse every 2-col sidebar / layout ---- */
 @media (max-width:820px){
