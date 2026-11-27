@@ -132,7 +132,7 @@ header p, header .en, header .zh{ opacity:1; }
 
 .langbar{position:fixed;top:8px;right:10px;z-index:300;display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
 .langseg{display:inline-flex}
-.langseg button{background:transparent;color:#374151;border:none;padding:6px 11px;font-size:12px;cursor:pointer;font-family:inherit;border-radius:999px;white-space:nowrap}
+.langseg button:not(.on){background:transparent;color:#374151;border:none;padding:6px 11px;font-size:12px;cursor:pointer;font-family:inherit;border-radius:999px;white-space:nowrap}
 .langseg button.on{background:var(--accent);color:#fff}
 @media(max-width:680px){.langbar{top:6px;right:6px}.langseg button{padding:5px 8px;font-size:11px}}
 
@@ -211,8 +211,8 @@ html[data-theme="dark"] .opt,
 html[data-theme="dark"] button.choice,
 html[data-theme="dark"] button.ghost,
 html[data-theme="dark"] button.secondary,
-html[data-theme="dark"] .langseg button,
-html[data-theme="dark"] .themseg button{color:var(--text)!important}
+html[data-theme="dark"] .langseg button:not(.on),
+html[data-theme="dark"] .themseg button:not(.on){color:var(--text)!important}
 html[data-theme="dark"] button.ghost,
 html[data-theme="dark"] button.secondary{background:var(--card2)!important}
 html[data-theme="dark"] .nav-i.on,
@@ -249,7 +249,7 @@ html[data-theme="dark"] .bridge .bl{color:#92400e!important}
 /* ===== Theme switch (fixed, under the language switch) ===== */
 .themebar{position:fixed;top:44px;right:12px;z-index:300;display:inline-flex;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 12px rgba(0,0,0,.15)}
 .themseg{display:inline-flex}
-.themseg button{background:transparent;color:var(--text);border:none;padding:5px 9px;font-size:13px;cursor:pointer;font-family:inherit;border-radius:999px;line-height:1}
+.themseg button:not(.on){background:transparent;color:var(--text);border:none;padding:5px 9px;font-size:13px;cursor:pointer;font-family:inherit;border-radius:999px;line-height:1}
 .themseg button.on{background:var(--accent);color:#fff}
 @media(max-width:680px){.themebar{top:36px;right:6px}.themseg button{padding:4px 7px;font-size:12px}}
 </style>
