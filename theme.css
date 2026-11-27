@@ -55,8 +55,6 @@ html[data-theme="dark"] button:not(.ghost),
 html[data-theme="dark"] .chip.on,
 html[data-theme="dark"] .nav-i.on,
 html[data-theme="dark"] .sel .num,
-html[data-theme="dark"] .langseg.on,
-html[data-theme="dark"] .themseg.on,
 html[data-theme="dark"] .step-no{ color:#0f172a; }
 
 @media (prefers-color-scheme:dark){
@@ -64,8 +62,6 @@ html[data-theme="dark"] .step-no{ color:#0f172a; }
   :root:not([data-theme="light"]) .chip.on,
   :root:not([data-theme="light"]) .nav-i.on,
   :root:not([data-theme="light"]) .sel .num,
-  :root:not([data-theme="light"]) .langseg.on,
-  :root:not([data-theme="light"]) .themseg.on,
   :root:not([data-theme="light"]) .step-no{ color:#0f172a; }
 }
 
@@ -356,7 +352,12 @@ html{ overflow-x:hidden; max-width:100%; }
   .langbar, .themebar, .portalbar{
     position:static !important; top:auto !important; right:auto !important; left:auto !important;
     box-shadow:none !important; margin:6px 8px 0 !important; z-index:auto !important;
+    /* they are static after <=680px: the app-shell card look only reads as a
+       floating island, so keep it flush and quiet on a phone */
+    background:transparent !important; border-color:transparent !important; padding:0 !important;
   }
+  .langseg button, .themseg button{ padding:6px 10px !important; font-size:12px !important; }
+  .themseg button{ padding:6px 9px !important; }
   .portalbar{ display:inline-flex !important; }
 
   /* 2) single-column, airy flow */
@@ -436,7 +437,12 @@ html[data-theme="dark"] .parents p b .en *{ color:#e2e8f0 !important; }
 html[data-theme="dark"] .parents p b .zh,
 html[data-theme="dark"] .parents p b .zh *{ color:var(--accent) !important; }
 
-html[data-theme="dark"] .langseg button{ color:#e2e8f0 !important; }
+html[data-theme="dark"] .langseg button:not(.on),
+html[data-theme="dark"] .themseg button:not(.on){ color:#e2e8f0 !important; }
+/* the SELECTED language pill sits on light amber (#fbbf24) in night mode —
+   light ink there is unreadable (measured 1.35:1). Force dark ink on it. */
+html[data-theme="dark"] .langseg button.on,
+html[data-theme="dark"] .langseg button.on *{ color:#0f172a !important; }
 
 html[data-theme="dark"] .hint,
 html[data-theme="dark"] .hint *{ color:#e2e8f0 !important; }
@@ -471,7 +477,10 @@ html[data-theme="dark"] .m-none{
   :root:not([data-theme="light"]) .parents p b .zh,
   :root:not([data-theme="light"]) .parents p b .zh *{ color:var(--accent) !important; }
 
-  :root:not([data-theme="light"]) .langseg button{ color:#e2e8f0 !important; }
+  :root:not([data-theme="light"]) .langseg button:not(.on),
+  :root:not([data-theme="light"]) .themseg button:not(.on){ color:#e2e8f0 !important; }
+  :root:not([data-theme="light"]) .langseg button.on,
+  :root:not([data-theme="light"]) .langseg button.on *{ color:#0f172a !important; }
 
   :root:not([data-theme="light"]) .hint,
   :root:not([data-theme="light"]) .hint *{ color:#e2e8f0 !important; }
